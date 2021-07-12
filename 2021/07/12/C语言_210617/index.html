@@ -1,11 +1,23 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="前言及语录        C语言的最根本的一个特点：一定要会上机编程。这是课程的一个宗旨。不管学的怎么样，程序要会编。程序不会编的话，记那么多规则也是没有用的。即C语言的编程是第一位的要求。 C语言官网 ；C++参考手册：不会了就可以在这里面查！ 注册博客，要求是：把每次课程的内容按照我们的理解写出来，总结自己学到的内容。博客的好处就是避免遗忘。可以翻出来清">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言_210617">
+<meta property="og:title" content="C语言_概述">
 <meta property="og:url" content="https://mr-can.github.io/2021/07/12/C%E8%AF%AD%E8%A8%80_210617/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
 <meta property="og:description" content="前言及语录        C语言的最根本的一个特点：一定要会上机编程。这是课程的一个宗旨。不管学的怎么样，程序要会编。程序不会编的话，记那么多规则也是没有用的。即C语言的编程是第一位的要求。 C语言官网 ；C++参考手册：不会了就可以在这里面查！ 注册博客，要求是：把每次课程的内容按照我们的理解写出来，总结自己学到的内容。博客的好处就是避免遗忘。可以翻出来清">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712155031576.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712180942700.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712190620491.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712233203207.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712233841613.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003504549.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003530909.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003601640.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004400231.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004708901.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004753195.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713005317130.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712231142222.png">
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150544136.png">
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150616048.png">
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150647588.png">
@@ -14,10 +26,10 @@
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150817409.png">
 <meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150827045.png">
 <meta property="article:published_time" content="2021-07-12T08:04:09.796Z">
-<meta property="article:modified_time" content="2021-07-12T09:52:21.088Z">
+<meta property="article:modified_time" content="2021-07-12T16:59:02.659Z">
 <meta property="article:author" content="Mr.Can">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712155031576.png"><title>C语言_210617 | 罐头先生的博客</title><link ref="canonical" href="https://mr-can.github.io/2021/07/12/C%E8%AF%AD%E8%A8%80_210617/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712155031576.png"><title>C语言_概述 | 罐头先生的博客</title><link ref="canonical" href="https://mr-can.github.io/2021/07/12/C%E8%AF%AD%E8%A8%80_210617/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -41,7 +53,7 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_210617</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-07-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-07-12</span></span></div></header><div class="post-body">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_概述</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-07-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-07-13</span></span></div></header><div class="post-body">
         <h1 id="前言及语录"   >
           <a href="#前言及语录" class="heading-link"><i class="fas fa-link"></i></a><a href="#前言及语录" class="headerlink" title="前言及语录"></a>前言及语录</h1>
       <ol>
@@ -56,33 +68,241 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
           <a href="#C语言概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#C语言概述" class="headerlink" title="C语言概述"></a>C语言概述</h1>
       <p>此部分内容要花9~12小时讲解，简单地把基础知识、基本的语法、指针、结构体介绍。有的详尽，有的不太详尽。因为后期会分专题讲重要的内容。</p>
 
-        <h2 id="软件的概念"   >
-          <a href="#软件的概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#软件的概念" class="headerlink" title="软件的概念"></a>软件的概念</h2>
+        <h2 id="计算机基础知识"   >
+          <a href="#计算机基础知识" class="heading-link"><i class="fas fa-link"></i></a><a href="#计算机基础知识" class="headerlink" title="计算机基础知识"></a>计算机基础知识</h2>
+      
+        <h3 id="软件的概念"   >
+          <a href="#软件的概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#软件的概念" class="headerlink" title="软件的概念"></a>软件的概念</h3>
       <p>一系列按照特的那个顺序组织的计算机<strong>数据</strong>和<strong>指令</strong>的集合。简单地说，软件就是程序加文档的集合。</p>
 <p>软件一般被划分为系统软件（如安卓操作系统）、应用软件（如Word、编译器）和介于这两者之间的中间件（如Redis）。</p>
 
-        <h2 id="文件"   >
-          <a href="#文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件" class="headerlink" title="文件"></a>文件</h2>
+        <h3 id="文件"   >
+          <a href="#文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件" class="headerlink" title="文件"></a>文件</h3>
       <p>文件由两部分构成：文件名和文件主体。</p>
 <p>文件的一种分类是：可执行文件和不可执行文件。</p>
 
-        <h3 id="可执行文件"   >
-          <a href="#可执行文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#可执行文件" class="headerlink" title="可执行文件"></a>可执行文件</h3>
+        <h4 id="可执行文件"   >
+          <a href="#可执行文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#可执行文件" class="headerlink" title="可执行文件"></a>可执行文件</h4>
       <p>在Windows操作系统中，扩展名为：*exe, *.bat, *.com等的文件是可执行文件；</p>
 <p>可执行文件由指令和数据构成。</p>
 <p>Linux是靠文件属性来判断是否可执行。</p>
 
-        <h3 id="不可执行文件"   >
-          <a href="#不可执行文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#不可执行文件" class="headerlink" title="不可执行文件"></a>不可执行文件</h3>
+        <h4 id="不可执行文件"   >
+          <a href="#不可执行文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#不可执行文件" class="headerlink" title="不可执行文件"></a>不可执行文件</h4>
       <p>其内容是由数据构成。</p>
 
-        <h3 id="举例"   >
-          <a href="#举例" class="heading-link"><i class="fas fa-link"></i></a><a href="#举例" class="headerlink" title="举例"></a>举例</h3>
+        <h4 id="举例"   >
+          <a href="#举例" class="heading-link"><i class="fas fa-link"></i></a><a href="#举例" class="headerlink" title="举例"></a>举例</h4>
       <p>在C/C++语言中，* .c/ * .cpp 源文件（文本–ASCII码字符构成的），* .h 头文件（文本），* .i 预编译文件（文本），* .s 汇编文件，* .o/ * .obj 二进制目标文件，* .exe 可执行文件。</p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712155031576.png" alt="image-20210712155031576"></p>
+<p>在IDE中编译链接后，工程目录下的Debug中形成了obj文件和exe文件。</p>
+<p>达到可执行的底层步骤：预编译、编译、链接。</p>
 
-        <h1 id="VS2019的使用"   >
-          <a href="#VS2019的使用" class="heading-link"><i class="fas fa-link"></i></a><a href="#VS2019的使用" class="headerlink" title="VS2019的使用"></a>VS2019的使用</h1>
+        <h3 id="进制及其转换"   >
+          <a href="#进制及其转换" class="heading-link"><i class="fas fa-link"></i></a><a href="#进制及其转换" class="headerlink" title="进制及其转换"></a>进制及其转换</h3>
+      <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712180942700.png" alt="image-20210712180942700"></p>
+<p>我们学习计算机时，如在调试的时候我们看到的底层是以16进制表达的。我们要理解进制。</p>
+<p>​        进制也就是进位计数制，是人为定义的带进位的计数方法。 对于任何一种进制–X进制，就表示每一位置上的数运算时都是逢X进一位。 如：十进制是逢十进一，十六进制是逢十六进一，二进制就是逢二进一，以此类推，x进制就是逢x进位。我们日常生活中的进制都哪些？</p>
+<p>​        计算机中的进制分为二进制，八进制，十进制，十六进制。</p>
+<p>​        二进制数、八进制数、十六进制数转换为十进制数的规律是相同的。把二进制数（八进制或十六进制数）按位权形式展开多项式和的形式，求其最后的和，就是其对应的十进制数——简称“按权求和”。如：</p>
+<p>​            (10100)2 ➔(1 * 2^4 + 0*2^3 + 1 * 2^2 + 0*2^1 + 0*2^0)10 ➔ (20)10</p>
+<p>​            (245)8 ➔ (2 * 8^2 + 4 * 8^1 + 5 * 8^0)10 ➔ (165)10</p>
+<p>​            (1F2)16 ➔ (1 * 16^2 + 15 * 16^1 + 2 * 16^0)10 ➔(498)10</p>
+<p>​        课堂练习： (103)10 ➔(    )2➔(    )8 ➔ (    )16</p>
+
+        <h2 id="C语言简介"   >
+          <a href="#C语言简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#C语言简介" class="headerlink" title="C语言简介"></a>C语言简介</h2>
+      <p>​        C语言是一种结构化语言，它有着清晰的层次，可按照模块的方式对程序进行编写，十分有利于程序的调试，且C语言的处理和表现能力都非常的强大，依靠非常全面的运算符和多样的数据类型，可以轻易完成各种数据结构的构建，通过指针类型更可对内存直接寻址以及对硬件进行直接操作，因此既能够用于开发系统程序，也可用于开发应用软件。</p>
+<p>​        1982 年成立C 标准委员会，建立C 语言的标准。</p>
+<p>​        1989 年，ANSI 发布了第一个完整的C 语言标准——ANSIX3.159—1989，简称“C89”。</p>
+<p>​        1999 年，在做了一些必要的修正和完善后，ISO （International Standards Organization），发布了新的C 语言标准，命名为ISO/IEC 9899：1999，简称“C99”。</p>
+<p>​         在2011 年12 月8 日，ISO 又正式发布了新的标准，称为ISO/IEC9899: 2011，简称为“C11”。 </p>
+<p>​        目前，最新的C 语言标准为2017 年发布的 “C17”。</p>
+
+        <h3 id="第一个C-语言程序"   >
+          <a href="#第一个C-语言程序" class="heading-link"><i class="fas fa-link"></i></a><a href="#第一个C-语言程序" class="headerlink" title="第一个C 语言程序"></a>第一个C 语言程序</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hello.c  		 //注释	// /* 不容许嵌套 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span> 	 <span class="comment">//预编译处理</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> 			 <span class="comment">//主函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;hello word !\n&quot;</span>); <span class="comment">//语句</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="C源程序的结构特点"   >
+          <a href="#C源程序的结构特点" class="heading-link"><i class="fas fa-link"></i></a><a href="#C源程序的结构特点" class="headerlink" title="Ｃ源程序的结构特点"></a>Ｃ源程序的结构特点</h3>
+      <ol>
+<li>一个Ｃ语言源程序可以由一个或多个源文件组成。</li>
+<li>每个源文件可由一个或多个函数组成。</li>
+<li>一个源程序不论由多少个文件组成，都有一个且<strong>只能有一个main函数</strong>，即主函数。</li>
+<li>源程序中可以有预处理命令(include 命令仅为其中的一种)，预处理命令通常应放在源文件或源程序的最前面。</li>
+<li>每一个说明，每一个语句都必须以分号结尾。</li>
+<li>标识符，关键字之间必须至少加一个空格以示间隔。若已有明显的间隔符，也可不再加空格来间隔。</li>
+</ol>
+
+        <h3 id="C语言的特点"   >
+          <a href="#C语言的特点" class="heading-link"><i class="fas fa-link"></i></a><a href="#C语言的特点" class="headerlink" title="C语言的特点"></a>C语言的特点</h3>
+      <ol>
+<li>与Java和C++一样，C语言是一种<strong>强类型</strong>语言。即<strong>类型不可变</strong>性。在C语言中，变量、函数一旦定义了类型，它的类型就不变。</li>
+<li>C语言是函数式编译的。</li>
+</ol>
+
+        <h4 id="一段有启发的代码"   >
+          <a href="#一段有启发的代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#一段有启发的代码" class="headerlink" title="一段有启发的代码"></a>一段有启发的代码</h4>
+      <img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712190620491.png" alt="image-20210712190620491" style="zoom: 50%;" />
+
+<p>​        此段代码的运行结果是：“-10 &gt; 10”</p>
+
+        <h2 id="数据类型"   >
+          <a href="#数据类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2>
+      
+        <h3 id="基本数据类型"   >
+          <a href="#基本数据类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3>
+      <p>–会影响后续章节，必须记住（包括占用字节数），融于血液中。</p>
+
+        <h4 id="整型"   >
+          <a href="#整型" class="heading-link"><i class="fas fa-link"></i></a><a href="#整型" class="headerlink" title="整型"></a>整型</h4>
+      <p>char;存放字符的ASCII码值。占用1字节</p>
+<p>short;短整型，占用2字节</p>
+<p>int;占用4字节</p>
+<p>long int;占用4字节</p>
+<p>long long;占用8字节</p>
+
+        <h4 id="浮点"   >
+          <a href="#浮点" class="heading-link"><i class="fas fa-link"></i></a><a href="#浮点" class="headerlink" title="浮点"></a>浮点</h4>
+      <p>float;单精度，占用4字节</p>
+<p>double;双精度，占用8字节</p>
+<p>long double;双双精度，当前VS编译器占用8字节，dev编译器占用12字节，将来可能占用16字节</p>
+
+        <h4 id="新类型"   >
+          <a href="#新类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#新类型" class="headerlink" title="新类型"></a>新类型</h4>
+      <p>bool;占用1字节</p>
+
+        <h4 id="无类型（也属于基本数据类型）"   >
+          <a href="#无类型（也属于基本数据类型）" class="heading-link"><i class="fas fa-link"></i></a><a href="#无类型（也属于基本数据类型）" class="headerlink" title="无类型（也属于基本数据类型）"></a>无类型（也属于基本数据类型）</h4>
+      <p>void;不能定义变量，所以不占用字节</p>
+
+        <h3 id="各数据类型的区别"   >
+          <a href="#各数据类型的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#各数据类型的区别" class="headerlink" title="各数据类型的区别"></a>各数据类型的区别</h3>
+      <p>最大的区别在于在定义变量时，它们开辟的空间的字节个数不一样。</p>
+
+        <h3 id="关键字sizeof"   >
+          <a href="#关键字sizeof" class="heading-link"><i class="fas fa-link"></i></a><a href="#关键字sizeof" class="headerlink" title="关键字sizeof"></a>关键字sizeof</h3>
+      <p>计算变量或一种类型在定义变量时所占的存储空间。</p>
+<p>示例：int n = sizeof(char);</p>
+<p>在编译时进行计算，而不是运行时进行计算。</p>
+
+        <h2 id="变量、常量、标识符"   >
+          <a href="#变量、常量、标识符" class="heading-link"><i class="fas fa-link"></i></a><a href="#变量、常量、标识符" class="headerlink" title="变量、常量、标识符"></a>变量、常量、标识符</h2>
+      
+        <h3 id="变量"   >
+          <a href="#变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#变量" class="headerlink" title="变量"></a>变量</h3>
+      <p>以某标识符为名字，其数值可以改变，可读可写。共有三个层次。</p>
+
+        <h4 id="全局变量"   >
+          <a href="#全局变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h4>
+      <p>定义在函数（包括主函数）之外的变量。</p>
+
+        <h5 id="作用域解析符——“-”"   >
+          <a href="#作用域解析符——“-”" class="heading-link"><i class="fas fa-link"></i></a><a href="#作用域解析符——“-”" class="headerlink" title="作用域解析符——“::”"></a>作用域解析符——“::”</h5>
+      <p>两个冒号，代表我要用全局变量。常用于全局、局部变量名冲突时区别出全局变量。</p>
+
+        <h4 id="局部变量"   >
+          <a href="#局部变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h4>
+      <p>定义在函数内部的变量。</p>
+
+        <h4 id="块内变量"   >
+          <a href="#块内变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#块内变量" class="headerlink" title="块内变量"></a>块内变量</h4>
+      <p>块内可见。块外不可见。</p>
+
+        <h4 id="代码示例、全局与局部冲突时的向上就近原则"   >
+          <a href="#代码示例、全局与局部冲突时的向上就近原则" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码示例、全局与局部冲突时的向上就近原则" class="headerlink" title="代码示例、全局与局部冲突时的向上就近原则"></a>代码示例、全局与局部冲突时的向上就近原则</h4>
+      <img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712233203207.png" alt="image-20210712233203207" style="zoom: 67%;" />
+
+<p>这段代码的输出结果为：“b = 0 ”。</p>
+<p>说明一个规律、道理：当遇到的变量名字出现全局、局部的冲突时，按<strong>向上就近原则</strong>为主。</p>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712233841613.png" alt="image-20210712233841613" style="zoom:67%;" />
+
+<p>这段代码的输出结果为：“b = 10 ”。说明了::符的作用。</p>
+
+        <h3 id="常量"   >
+          <a href="#常量" class="heading-link"><i class="fas fa-link"></i></a><a href="#常量" class="headerlink" title="常量"></a>常量</h3>
+      <p>其值不可改变，只读不写。</p>
+
+        <h4 id="字面常量"   >
+          <a href="#字面常量" class="heading-link"><i class="fas fa-link"></i></a><a href="#字面常量" class="headerlink" title="字面常量"></a>字面常量</h4>
+      <p>要注意的是常量不只是有数值，常量也带有类型的意义。比如7/2=3。</p>
+<p>编程与数学的区别：一个有穷一个无穷；一个有类型一个无类型。</p>
+
+        <h4 id="用-define定义的宏常量"   >
+          <a href="#用-define定义的宏常量" class="heading-link"><i class="fas fa-link"></i></a><a href="#用-define定义的宏常量" class="headerlink" title="用#define定义的宏常量"></a>用#define定义的宏常量</h4>
+      <p>#define PI 3.14</p>
+<p>宏的根本概念是一种替换原则。</p>
+<ol>
+<li><p>无类型，只是暂时用字符串来表示</p>
+</li>
+<li><p>不开辟存储空间</p>
+</li>
+<li><p>结尾一般不加分号，如果加上分号则把分号也一起看作是替换的值。</p>
+</li>
+<li><p>在预编译时遇到宏常量字符串时起作用，替换。可以在预编译后Debug文件夹下生成的*.i文件中看到。</p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003504549.png" alt="image-20210713003504549"></p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003530909.png" alt="image-20210713003530909"></p>
+</li>
+</ol>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713003601640.png" alt="image-20210713003601640" style="zoom: 50%;" />
+
+
+        <h4 id="用const关键字修饰的变量，称为常变量"   >
+          <a href="#用const关键字修饰的变量，称为常变量" class="heading-link"><i class="fas fa-link"></i></a><a href="#用const关键字修饰的变量，称为常变量" class="headerlink" title="用const关键字修饰的变量，称为常变量"></a>用const关键字修饰的变量，称为常变量</h4>
+      <p>只可读取，不可改变。要开辟空间。</p>
+
+        <h4 id="枚举常量（enum）"   >
+          <a href="#枚举常量（enum）" class="heading-link"><i class="fas fa-link"></i></a><a href="#枚举常量（enum）" class="headerlink" title="枚举常量（enum）"></a>枚举常量（enum）</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">week</span>&#123;</span></span><br><span class="line">    Mon=<span class="number">1</span>,</span><br><span class="line">    Tues=<span class="number">2</span>,</span><br><span class="line">    Wed=<span class="number">3</span>,</span><br><span class="line">    Thurs=<span class="number">4</span>,</span><br><span class="line">    Fri=<span class="number">5</span>,</span><br><span class="line">    Sat=<span class="number">6</span>,</span><br><span class="line">    Sun=<span class="number">7</span>&#125;;</span><br></pre></td></tr></table></div></figure>
+
+<p>枚举常量实际上是一种受到限制的<strong>整型量</strong>。不可以是小数。</p>
+<ol>
+<li><p>第一种受限的表现：x不能随便取值，只能从1、2、3、4、5、6、7中赋值。</p>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004400231.png" alt="image-20210713004400231" style="zoom: 67%;" /></li>
+<li><p>第二种受限的表现：即使从1、2、3、4、5、6、7中赋值也要用定义枚举类的变量名赋值，不可直接用数字。</p>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004708901.png" alt="image-20210713004708901" style="zoom:67%;" /></li>
+<li><p>正确写法：</p>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713004753195.png" alt="image-20210713004753195" style="zoom: 67%;" /></li>
+<li><p>其他约束：运算的约束，比如不可以自增自减。</p>
+</li>
+<li><p>如果没给第一个变量赋值，则默认第一个变量为0，往后的变量值为依次加1；若没给中间某个变量赋值，则默认为上一个变量值加1。</p>
+<img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210713005317130.png" alt="image-20210713005317130" style="zoom:67%;" />
+
+<p>​    如上图，值依次为：-1、0、1、-2、-1、0、1</p>
+</li>
+</ol>
+
+        <h4 id="字符常量和字符串常量"   >
+          <a href="#字符常量和字符串常量" class="heading-link"><i class="fas fa-link"></i></a><a href="#字符常量和字符串常量" class="headerlink" title="字符常量和字符串常量"></a>字符常量和字符串常量</h4>
+      
+        <h3 id="标识符"   >
+          <a href="#标识符" class="heading-link"><i class="fas fa-link"></i></a><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3>
+      <p>必须是<strong>以下划线或字母开头</strong>的<strong>下划线、字母、数字的组合体</strong>。</p>
+<p>_a;a4;_3;均可</p>
+<p>变量、函数起名时要见名知义，不要用汉语拼音，因为有同音异词，容易引起歧义。</p>
+
+        <h2 id="定义和声明"   >
+          <a href="#定义和声明" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义和声明" class="headerlink" title="定义和声明"></a>定义和声明</h2>
+      
+        <h3 id="定义"   >
+          <a href="#定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#定义" class="headerlink" title="定义"></a>定义</h3>
+      <p>​        所谓的定义就是为这个变量分配一块内存并给它取上一个名字，这个名字就是我们经常所说的变量名。但注意，这个名字一旦和这块内存匹配起来，它们就同生共死，终生不离不弃，并且这块内存的位置也不能被改变。<strong>一个变量在一定的区域内（比如函数内，全局等）只能被定义一次</strong>，如果定义多次，编译器会提示你重复定义同一个变量或对象。</p>
+
+        <h3 id="声明"   >
+          <a href="#声明" class="heading-link"><i class="fas fa-link"></i></a><a href="#声明" class="headerlink" title="声明"></a>声明</h3>
+      <p>​        什么是声明：有两重含义，如下：<br>​        第一重含义：告诉编译器，这个名字已经匹配到一块内存上了。<br>​        第二重含义：告诉编译器，我这个名字我先预定了，别的地方再也不能用它来作为变量名。</p>
+
+        <h3 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a href="#示例" class="headerlink" title="示例"></a>示例</h3>
+      <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712231142222.png" alt="image-20210712231142222"></p>
+<p>示例中float pi = 3.14f; f表示此数据为单精度类型，若不带f默认为双精度。</p>
+
+        <h2 id="VS2019的使用"   >
+          <a href="#VS2019的使用" class="heading-link"><i class="fas fa-link"></i></a><a href="#VS2019的使用" class="headerlink" title="VS2019的使用"></a>VS2019的使用</h2>
+      
+        <h3 id="创建项目"   >
+          <a href="#创建项目" class="heading-link"><i class="fas fa-link"></i></a><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3>
       <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150544136.png" alt="image-20210712150544136"></p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150616048.png" alt="image-20210712150616048"></p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150647588.png" alt="image-20210712150647588"></p>
@@ -90,12 +310,60 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150755672.png" alt="image-20210712150755672"></p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150817409.png" alt="image-20210712150817409"></p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_210617/image-20210712150827045.png" alt="image-20210712150827045"></p>
+
+        <h3 id="scanf的注意事项"   >
+          <a href="#scanf的注意事项" class="heading-link"><i class="fas fa-link"></i></a><a href="#scanf的注意事项" class="headerlink" title="scanf的注意事项"></a>scanf的注意事项</h3>
+      <p>VS2019中不再使用scanf，而是换为了scanf_s。</p>
+<p>输入数据时，要严格按照双引号内的格式来输入。</p>
+
+        <h4 id="为何要用scanf-s替换scanf？"   >
+          <a href="#为何要用scanf-s替换scanf？" class="heading-link"><i class="fas fa-link"></i></a><a href="#为何要用scanf-s替换scanf？" class="headerlink" title="为何要用scanf_s替换scanf？"></a>为何要用scanf_s替换scanf？</h4>
+      <p>scanf不安全。比如我们定义了一个int a = 10; char buff[8];</p>
+<p>如果用scanf(“%s”,buff);输入字符串超过8位，会把a中的信息“冲掉”。</p>
+<p>最后用printf(“a=%x”,a);查看a时，发现a=61616161。61是十六进制，转为十进制为97，表示字符’a’的ASCII码值。所以此处就体现出了scanf对内存的不安全性。</p>
+<p>而scanf_s则避免了这个问题，我们可以在输入时加一个参数：scanf_s(“%s”,buff,8);限制输入字符串的长度。</p>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mr-can.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mr-can.github.io/2021/07/12/C%E8%AF%AD%E8%A8%80_210617/">https://mr-can.github.io/2021/07/12/C%E8%AF%AD%E8%A8%80_210617/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/07/11/hello-world/"><span class="paginator-prev__text">Hello World</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%E5%8F%8A%E8%AF%AD%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">
           前言及语录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">
-          C语言概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">
-          软件的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">
-          文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.1.</span> <span class="toc-text">
-          可执行文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.2.</span> <span class="toc-text">
-          不可执行文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">
-          举例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VS2019%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">
-          VS2019的使用</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+          C语言概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">2.1.</span> <span class="toc-text">
+          计算机基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.1.</span> <span class="toc-text">
+          软件的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">
+          文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">
+          可执行文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">
+          不可执行文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">
+          举例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E5%8F%8A%E5%85%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.1.3.</span> <span class="toc-text">
+          进制及其转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B"><span class="toc-number">2.2.</span> <span class="toc-text">
+          C语言简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAC-%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.2.1.</span> <span class="toc-text">
+          第一个C 语言程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%93%E6%9E%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.2.2.</span> <span class="toc-text">
+          Ｃ源程序的结构特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.2.3.</span> <span class="toc-text">
+          C语言的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E6%AE%B5%E6%9C%89%E5%90%AF%E5%8F%91%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">
+          一段有启发的代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.</span> <span class="toc-text">
+          数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.1.</span> <span class="toc-text">
+          基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">
+          整型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9"><span class="toc-number">2.3.1.2.</span> <span class="toc-text">
+          浮点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.1.3.</span> <span class="toc-text">
+          新类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B9%9F%E5%B1%9E%E4%BA%8E%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-number">2.3.1.4.</span> <span class="toc-text">
+          无类型（也属于基本数据类型）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">
+          各数据类型的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97sizeof"><span class="toc-number">2.3.3.</span> <span class="toc-text">
+          关键字sizeof</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E3%80%81%E5%B8%B8%E9%87%8F%E3%80%81%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text">
+          变量、常量、标识符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.1.</span> <span class="toc-text">
+          变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">
+          全局变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%A3%E6%9E%90%E7%AC%A6%E2%80%94%E2%80%94%E2%80%9C-%E2%80%9D"><span class="toc-number">2.4.1.1.1.</span> <span class="toc-text">
+          作用域解析符——“::”</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.1.2.</span> <span class="toc-text">
+          局部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%97%E5%86%85%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.1.3.</span> <span class="toc-text">
+          块内变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B%E3%80%81%E5%85%A8%E5%B1%80%E4%B8%8E%E5%B1%80%E9%83%A8%E5%86%B2%E7%AA%81%E6%97%B6%E7%9A%84%E5%90%91%E4%B8%8A%E5%B0%B1%E8%BF%91%E5%8E%9F%E5%88%99"><span class="toc-number">2.4.1.4.</span> <span class="toc-text">
+          代码示例、全局与局部冲突时的向上就近原则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.4.2.</span> <span class="toc-text">
+          常量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E9%9D%A2%E5%B8%B8%E9%87%8F"><span class="toc-number">2.4.2.1.</span> <span class="toc-text">
+          字面常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8-define%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8F%E5%B8%B8%E9%87%8F"><span class="toc-number">2.4.2.2.</span> <span class="toc-text">
+          用#define定义的宏常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8const%E5%85%B3%E9%94%AE%E5%AD%97%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E7%A7%B0%E4%B8%BA%E5%B8%B8%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.2.3.</span> <span class="toc-text">
+          用const关键字修饰的变量，称为常变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%B8%B8%E9%87%8F%EF%BC%88enum%EF%BC%89"><span class="toc-number">2.4.2.4.</span> <span class="toc-text">
+          枚举常量（enum）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%B8%B8%E9%87%8F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="toc-number">2.4.2.5.</span> <span class="toc-text">
+          字符常量和字符串常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">2.4.3.</span> <span class="toc-text">
+          标识符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%A3%B0%E6%98%8E"><span class="toc-number">2.5.</span> <span class="toc-text">
+          定义和声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">
+          定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E"><span class="toc-number">2.5.2.</span> <span class="toc-text">
+          声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.5.3.</span> <span class="toc-text">
+          示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VS2019%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.6.</span> <span class="toc-text">
+          VS2019的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.6.1.</span> <span class="toc-text">
+          创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scanf%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.6.2.</span> <span class="toc-text">
+          scanf的注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E7%94%A8scanf-s%E6%9B%BF%E6%8D%A2scanf%EF%BC%9F"><span class="toc-number">2.6.2.1.</span> <span class="toc-text">
+          为何要用scanf_s替换scanf？</span></a></li></ol></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
