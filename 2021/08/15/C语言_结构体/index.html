@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="本章内容        结构体类型的设计 结构体变量初始化 结构体成员访问 结构体与数组                      结构体类型的设计       　　C 语言提供了基本数据类型，如 char , short , int , float …等类型，我们称之为内置类型。程序开发人员可以使用结构体来封装一些属性，设计出新的类型，在C 语言中称为结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言_结构体">
+<meta property="og:url" content="https://mr-can.github.io/2021/08/15/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="本章内容        结构体类型的设计 结构体变量初始化 结构体成员访问 结构体与数组                      结构体类型的设计       　　C 语言提供了基本数据类型，如 char , short , int , float …等类型，我们称之为内置类型。程序开发人员可以使用结构体来封装一些属性，设计出新的类型，在C 语言中称为结构">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815101308997.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815102046756.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815102137170.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815104639636.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815104658804.png">
+<meta property="og:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815114633078.png">
+<meta property="article:published_time" content="2021-08-15T02:08:35.145Z">
+<meta property="article:modified_time" content="2021-08-15T04:30:50.668Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mr-can.github.io/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815101308997.png"><title>C语言_结构体 | 罐头先生的博客</title><link ref="canonical" href="https://mr-can.github.io/2021/08/15/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_结构体</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-08-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-08-15</span></span></div></header><div class="post-body">
+        <h1 id="本章内容"   >
+          <a href="#本章内容" class="heading-link"><i class="fas fa-link"></i></a><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h1>
+      <ol>
+<li>结构体类型的设计</li>
+<li>结构体变量初始化</li>
+<li>结构体成员访问</li>
+<li>结构体与数组</li>
+</ol>
+
+        <h1 id="结构体类型的设计"   >
+          <a href="#结构体类型的设计" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构体类型的设计" class="headerlink" title="结构体类型的设计"></a>结构体类型的设计</h1>
+      <p>　　C 语言提供了基本数据类型，如 char , short , int , float …等类型，我们称之为内置类型。程序开发人员可以使用结<br>构体来封装一些属性，设计出新的类型，在C 语言中称为结构体类型。</p>
+<p>　　在C 语言中，结构体是一种数据类型。（由程序开发者自己设计的类型）</p>
+<p>　　可以使用结构体（struct）来存放一组不同类型的数据。结构体的定义形式为：<br>　　　　struct 结构体名<br>　　　　{<br>　　　　　　成员列表（可以是基本数据类型，指针，数组或其它结构类型）<br>　　　　};</p>
+
+        <h2 id="我们自己设计一个学生类型"   >
+          <a href="#我们自己设计一个学生类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#我们自己设计一个学生类型" class="headerlink" title="我们自己设计一个学生类型"></a>我们自己设计一个学生类型</h2>
+      <p>　　客观事物（实体）是复杂的，要描述它必须从多方面进行，也就是用不同的数据类型来描述不同的方面。如学生实<br>体可以这样来描述：<br>　　学生学号（用字符串描述），学生姓名（用字符串描述），性别（用字符串描述），年龄（用整型数描述）。<br>　　这里用了属于2 种不同数据类型,以及四个<strong>数据成员</strong>（data member）来描述学生实体。（数据成员，也可称之为属性，不能称之为函数中的变量概念）</p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815101308997.png" alt="image-20210815101308997"></p>
+
+        <h1 id="结构体变量的定义和初始化"   >
+          <a href="#结构体变量的定义和初始化" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构体变量的定义和初始化" class="headerlink" title="结构体变量的定义和初始化"></a>结构体变量的定义和初始化</h1>
+      <p>　　既然结构体是一种数据类型，那么就可以用它来定义变量。结构体就像一个“模板”，定义出来的变量都具有相同的性质。也可以将<strong>结构体比作“图纸”，将结构体变量比作“零件”</strong>，根据同一张图纸生产出来的零件的特性都是一样的。<br>　　<strong>结构体是一种数据类型，是创建变量的模板，不占用内存空间；结构体变量才包含了实实在在的数据，需要存储空间</strong>。</p>
+
+        <h2 id="结构体变量在内存中表示"   >
+          <a href="#结构体变量在内存中表示" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构体变量在内存中表示" class="headerlink" title="结构体变量在内存中表示"></a>结构体变量在内存中表示</h2>
+      <p>示例</p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815102046756.png" alt="image-20210815102046756"></p>
+
+        <h2 id="结构变量初始化"   >
+          <a href="#结构变量初始化" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构变量初始化" class="headerlink" title="结构变量初始化"></a>结构变量初始化</h2>
+      <p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815102137170.png" alt="image-20210815102137170"></p>
+<p>如果把char数组改为指针：</p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815104639636.png" alt="image-20210815104639636"></p>
+
+        <h2 id="结构体嵌套结构体"   >
+          <a href="#结构体嵌套结构体" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构体嵌套结构体" class="headerlink" title="结构体嵌套结构体"></a>结构体嵌套结构体</h2>
+      <p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815104658804.png" alt="image-20210815104658804"></p>
+
+        <h1 id="赋值"   >
+          <a href="#赋值" class="heading-link"><i class="fas fa-link"></i></a><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1>
+      <p>对结构变量整体赋值有三种情况 （？）</p>
+<ol>
+<li>定义结构体变量（用{ } 初始化），</li>
+<li>用已定义的结构变量初始化，</li>
+<li>结构体类型相同的变量可以作为整体相互赋值。<br>在其他情况的使用过程中只能对成员逐一赋值。<br>在c 语言中不存在对结构体类型的强制转换（和内置类型的区别）。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> s_id[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">char</span> s_name[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">char</span> s_sex[<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">int</span> s_age;</span><br><span class="line">&#125;Student;</span><br><span class="line"><span class="keyword">int</span> main</span><br><span class="line">&#123;</span><br><span class="line">    Student stda=&#123;<span class="string">&quot;09001&quot;</span>,<span class="string">&quot;xcg&quot;</span>,<span class="string">&quot;M&quot;</span>,<span class="number">23</span>&#125;;</span><br><span class="line">    Student stdb=stda;<span class="comment">//调用了memcpy()</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="结构体的大小"   >
+          <a href="#结构体的大小" class="heading-link"><i class="fas fa-link"></i></a><a href="#结构体的大小" class="headerlink" title="结构体的大小"></a>结构体的大小</h1>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node_a</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> ca;</span><br><span class="line">    <span class="keyword">int</span> sum;</span><br><span class="line">    <span class="keyword">char</span> cb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node_a</span> <span class="title">ax</span>;</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d \n&quot;</span>,<span class="keyword">sizeof</span>(struct Node_a),<span class="keyword">sizeof</span>(ax));<span class="comment">//12 12</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="为什么要理解字节对齐问题"   >
+          <a href="#为什么要理解字节对齐问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#为什么要理解字节对齐问题" class="headerlink" title="为什么要理解字节对齐问题"></a>为什么要理解字节对齐问题</h2>
+      <p>1）内存大小的基本单位是字节（byte），理论上来讲，可以从任意地址访问变量，但是实际上，cup 并非逐字节<br>读写内存，而是以2,4,或8 的倍数的字节块来读写内存，因此就会对基本数据类型的地址作出一些限制，即它的地址必<br>须是2，4 或8 的倍数。那么就要求各种数据类型按照一定的规则在空间上排列，这就是对齐。<br>2）有些平台每次读都是从偶地址开始，如果一个int 型（假设为32 位系统）如果存放在偶地址开始的地方，那<br>么一个读周期就可以读出这32bit，而如果存放在奇地址开始的地方，就需要2 个读周期，并对两次读出的结果的高低<br>字节进行拼凑才能得到该32bit 数据。显然在读取效率上下降很多。<br>3）<strong>由于不同平台对齐方式可能不同，如此一来，同样的结构在不同的平台其大小可能不同，在无意识的情况下，</strong><br><strong>互相发送的数据可能出现错乱，甚至引发严重的问题</strong>。</p>
+
+        <h2 id="计算规则"   >
+          <a href="#计算规则" class="heading-link"><i class="fas fa-link"></i></a><a href="#计算规则" class="headerlink" title="计算规则"></a>计算规则</h2>
+      <p>由于存储变量地址对齐的问题，计算结构体大小的3 条规则：</p>
+<ol>
+<li>结构体变量的首地址，必须是结构体变量中的“最大基本数据类型成员所占字节数”的整数倍。</li>
+<li>结构体变量中的<strong>每个成员</strong>相对于<strong>结构体首地址</strong>的<strong>偏移量</strong>，都是该成员基本数据类型所占字节数的整数倍。</li>
+<li>结构体变量的总大小，为结构体变量中 “最大<strong>基本数据类型</strong>成员所占字节数”的整数倍。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> cha;</span><br><span class="line">    <span class="keyword">double</span> da;</span><br><span class="line">    <span class="keyword">char</span> chb;</span><br><span class="line">&#125;;<span class="comment">//24,因为da是从0x9开始的。cha和chb都占了8个</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> year;</span><br><span class="line">    <span class="keyword">int</span> ia;</span><br><span class="line">    <span class="keyword">int</span> day;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> s_id[<span class="number">10</span>];<span class="comment">//1-10</span></span><br><span class="line">    <span class="keyword">char</span> s_name[<span class="number">8</span>];<span class="comment">//11-18</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdate</span> <span class="title">birthday</span>;</span><span class="comment">//21-32</span></span><br><span class="line">    <span class="keyword">double</span> grade;<span class="comment">//33-40</span></span><br><span class="line">&#125;;<span class="comment">//40</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Inventory</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">27</span>];<span class="comment">//1-27</span></span><br><span class="line">    <span class="keyword">char</span> address[<span class="number">30</span>];<span class="comment">//28-57</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">int</span> zip;<span class="comment">//61-64</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">int</span> telenum;<span class="comment">//65-68</span></span><br><span class="line">    <span class="keyword">double</span> salary;<span class="comment">//72-80</span></span><br><span class="line">&#125;;<span class="comment">//80</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="如何计算偏移量"   >
+          <a href="#如何计算偏移量" class="heading-link"><i class="fas fa-link"></i></a><a href="#如何计算偏移量" class="headerlink" title="如何计算偏移量"></a>如何计算偏移量</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> my_offer(type,exp) ( (int) &amp; (( (type*)0 )-&gt;exp ))</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> offer = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Employee</span> <span class="title">x</span>;</span></span><br><span class="line">    <span class="comment">//offer = (char*)&amp;x.salary - (char*)&amp;x;</span></span><br><span class="line">    offer = (<span class="keyword">int</span>) &amp; ( (struct Employee*)<span class="number">0</span> )-&gt;salary;<span class="comment">//无中生有</span></span><br><span class="line">    offer = my_offer(struct Employee,zip);<span class="comment">//利用宏定义</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,offer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h1 id="作业"   >
+          <a href="#作业" class="heading-link"><i class="fas fa-link"></i></a><a href="#作业" class="headerlink" title="作业"></a>作业</h1>
+      <ol>
+<li><p>给结构体变量赋值和输出结构体变量的值。想尽办法做初始化。</p>
+<p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815114633078.png" alt="image-20210815114633078"></p>
+</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mr-can.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mr-can.github.io/2021/08/15/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/">https://mr-can.github.io/2021/08/15/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/08/13/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/"><span class="paginator-prev__text">C语言_递归</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+          本章内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">
+          结构体类型的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%AD%A6%E7%94%9F%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">
+          我们自己设计一个学生类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">
+          结构体变量的定义和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E8%A1%A8%E7%A4%BA"><span class="toc-number">3.1.</span> <span class="toc-text">
+          结构体变量在内存中表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">
+          结构变量初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">3.3.</span> <span class="toc-text">
+          结构体嵌套结构体</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC"><span class="toc-number">4.</span> <span class="toc-text">
+          赋值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">5.</span> <span class="toc-text">
+          结构体的大小</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%90%86%E8%A7%A3%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90%E9%97%AE%E9%A2%98"><span class="toc-number">5.1.</span> <span class="toc-text">
+          为什么要理解字节对齐问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99"><span class="toc-number">5.2.</span> <span class="toc-text">
+          计算规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="toc-number">5.2.1.</span> <span class="toc-text">
+          如何计算偏移量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A"><span class="toc-number">6.</span> <span class="toc-text">
+          作业</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">19</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
