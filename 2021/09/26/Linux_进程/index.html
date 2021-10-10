@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容       从main.c —&gt; main.exe&#x2F;main                     进程       进程：一个正在执行（运行）的程序。 程序：由一条条的指令构成。                     操作系统管理       pcb: 进程控制块——struct task_struct; int pid: 唯一标识一个进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_进程">
+<meta property="og:url" content="https://mrcan.gitee.io/2021/09/26/Linux_%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容       从main.c —&gt; main.exe&#x2F;main                     进程       进程：一个正在执行（运行）的程序。 程序：由一条条的指令构成。                     操作系统管理       pcb: 进程控制块——struct task_struct; int pid: 唯一标识一个进程">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-26T07:30:24.079Z">
+<meta property="article:modified_time" content="2021-10-10T07:53:09.107Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Linux_进程 | 罐头先生的博客</title><link ref="canonical" href="https://mrcan.gitee.io/2021/09/26/Linux_%E8%BF%9B%E7%A8%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_进程</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-10-10</span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a href="#内容" class="headerlink" title="内容"></a>内容</h1>
+      <p>从main.c —&gt; main.exe/main</p>
+
+        <h1 id="进程"   >
+          <a href="#进程" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程" class="headerlink" title="进程"></a>进程</h1>
+      <p>进程：一个正在执行（运行）的程序。</p>
+<p>程序：由一条条的指令构成。</p>
+
+        <h2 id="操作系统管理"   >
+          <a href="#操作系统管理" class="heading-link"><i class="fas fa-link"></i></a><a href="#操作系统管理" class="headerlink" title="操作系统管理"></a>操作系统管理</h2>
+      <p>pcb: 进程控制块——struct task_struct;</p>
+<p>int pid: 唯一标识一个进程</p>
+<p>进程状态：就绪、运行、阻塞</p>
+<p>ps可以查看终端中当前运行的进程</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -f <span class="comment">#查看更详细的信息</span></span><br><span class="line">ps -e <span class="comment">#显示系统所有的进程（不加e的话默认只是该用户的进程）</span></span><br><span class="line">ps -ef <span class="comment">#是e和f的复合命令</span></span><br></pre></td></tr></table></div></figure>
+
+<p>kill结束进程</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + C只可以结束在前台的进程。</span><br><span class="line">Ctrl + Z停止一个前台的进程</span><br><span class="line"><span class="built_in">kill</span> pid <span class="comment">#</span></span><br><span class="line"><span class="built_in">kill</span> -9 pid <span class="comment">#强制</span></span><br><span class="line">pkill 进程名 <span class="comment">#把所有叫某名的进程都结束</span></span><br><span class="line">ps -ef | grep sleep</span><br></pre></td></tr></table></div></figure>
+
+<p>&amp;后台运行符</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sleep 100 &amp;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+<p>jobs显示当前终端的任务</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#把前台运行的程序转到后台运行</span></span><br><span class="line">sleep 200</span><br><span class="line">^Z</span><br><span class="line"><span class="built_in">jobs</span> <span class="comment">#显示当前终端（后台）的任务</span></span><br><span class="line">[1] 已停止		sleep 200</span><br><span class="line"><span class="built_in">bg</span> %1 	</span><br><span class="line">		<span class="comment">#bg %任务号 将后台运行或挂起的进程挪到前台执行</span></span><br><span class="line">		<span class="comment">#fg %任务号 将挂起的进程唤醒到后台执行</span></span><br></pre></td></tr></table></div></figure>
+
+<p>bg %任务号 将后台运行或挂起的进程挪到前台执行<br>fg %任务号 将挂起的进程唤醒到后台执行</p>
+<p>top查看系统资源使用情况以及进程信息（按q退出）</p>
+
+        <h1 id="gcc"   >
+          <a href="#gcc" class="heading-link"><i class="fas fa-link"></i></a><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h1>
+      <p>win可执行标识PE</p>
+<p>linux可执行标识ELF</p>
+
+        <h2 id="编译链接"   >
+          <a href="#编译链接" class="heading-link"><i class="fas fa-link"></i></a><a href="#编译链接" class="headerlink" title="编译链接"></a>编译链接</h2>
+      <p>gcc分步编译链接</p>
+<p>1)预编译:gcc -E main.c -o main.i</p>
+<p>头文件在Linux中存放在usr/include中</p>
+<p>2)编译:gcc -S main.i -o main.s</p>
+<p>发现语法错误，生成汇编代码。</p>
+<p>3)汇编:gcc -c main.s -o main.o</p>
+<p>转换为二进制代码（ELF文件格式）。还不可执行。只是把自己写的代码翻译成了二进制代码，还有其他的main函数之前的引入的库函数，除了自己的代码，还要链接别人的代码。</p>
+<p>4)链接:</p>
+<p>#gcc main.o -o main</p>
+<p>gcc -o main main.o #最好用这个</p>
+
+        <h3 id="多文件编译"   >
+          <a href="#多文件编译" class="heading-link"><i class="fas fa-link"></i></a><a href="#多文件编译" class="headerlink" title="多文件编译"></a>多文件编译</h3>
+      <figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#两步编译链接</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#先全部编译为机器指令--.o文件</span></span><br><span class="line">gcc -c main.c add.c max.c</span><br><span class="line"><span class="comment">#再链接成一个文件</span></span><br><span class="line">gcc -o main add.o max.o main.o	<span class="comment">#文件顺序可以不一样</span></span><br></pre></td></tr></table></div></figure>
+
+
+
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一步编译链接</span></span><br><span class="line">gcc -o main main.c add.c max.c	</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="面试"   >
+          <a href="#面试" class="heading-link"><i class="fas fa-link"></i></a><a href="#面试" class="headerlink" title="面试"></a>面试</h1>
+      <p>不考命令，而是这几步每一步都在做什么</p>
+
+        <h1 id="makefile"   >
+          <a href="#makefile" class="heading-link"><i class="fas fa-link"></i></a><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h1>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a+b = %d\n&quot;</span>,add(a,b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Max = %d\n&quot;</span>,max(a,b));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//add.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//max.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+<p>makefile</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make makefile	<span class="comment">#make命令--读取makefile文件</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//Makefile</span><br><span class="line">all : main</span><br><span class="line"></span><br><span class="line">main : main.o add.o max.o</span><br><span class="line">	gcc -o main main.o add.o max.o</span><br><span class="line">	</span><br><span class="line">main.o : main.c</span><br><span class="line">	gcc -c main.c</span><br><span class="line"></span><br><span class="line">add.o : add.c</span><br><span class="line">	gcc -c add.c</span><br><span class="line">	</span><br><span class="line">max.o : max.c</span><br><span class="line">	gcc -c max.c</span><br><span class="line">	</span><br><span class="line">clean:</span><br><span class="line">	rm -f *.o main</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="调试程序gdb"   >
+          <a href="#调试程序gdb" class="heading-link"><i class="fas fa-link"></i></a><a href="#调试程序gdb" class="headerlink" title="调试程序gdb"></a>调试程序gdb</h1>
+      <p>调试对象：可执行程序</p>
+<p>编译时需要增加调试信息 -g</p>
+<p>gdb中常用命令：</p>
+<p>l：显示代码</p>
+<p>b+行号：断点</p>
+<p>info break：查看断点信息</p>
+<p>r：启动程序</p>
+<p>n：单步执行</p>
+<p>p：打印</p>
+<p>q：退出调试</p>
+<p>s：进入函数</p>
+<p>finish：跳出函数</p>
+
+        <h1 id="库文件"   >
+          <a href="#库文件" class="heading-link"><i class="fas fa-link"></i></a><a href="#库文件" class="headerlink" title="库文件"></a>库文件</h1>
+      <p>库文件：预先编译好的方法的集合</p>
+<p>如printf() –&gt; 库文件   /lib/libc.so，本质上就是.o文件</p>
+<p>库函数的声明（就是头文件）：/usr/include/stdio.h</p>
+<p>静态库：libxxx.a</p>
+<p>共享库（windows是动态链接库）：libxxx.so</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">gcc -c max.c</span><br><span class="line">gcc -c add.c</span><br><span class="line">ar crv libfoo.a add.o max.o</span><br><span class="line"><span class="comment">#a - add.o</span></span><br><span class="line"><span class="comment">#a - max.o</span></span><br><span class="line">sudo su</span><br><span class="line">mv foo.h /usr/include</span><br><span class="line">mv libfoo.a /usr/lib</span><br></pre></td></tr></table></div></figure>
+
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2021/09/26/Linux_%E8%BF%9B%E7%A8%8B/">https://mrcan.gitee.io/2021/09/26/Linux_%E8%BF%9B%E7%A8%8B/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/09/27/Cpp%E7%AC%AC%E4%B8%80%E8%AF%BE_C%E5%92%8CC++%E5%8C%BA%E5%88%AB/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp第一课_C和C++区别</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2021/09/26/C%E8%AF%AD%E8%A8%80_volatile&amp;const/"><span class="paginator-prev__text">C语言_volatile&amp;const</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+          内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">
+          进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">
+          操作系统管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcc"><span class="toc-number">3.</span> <span class="toc-text">
+          gcc</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5"><span class="toc-number">3.1.</span> <span class="toc-text">
+          编译链接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-number">3.1.1.</span> <span class="toc-text">
+          多文件编译</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">
+          面试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#makefile"><span class="toc-number">5.</span> <span class="toc-text">
+          makefile</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8Fgdb"><span class="toc-number">6.</span> <span class="toc-text">
+          调试程序gdb</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">
+          库文件</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">38</div><div class="sidebar-ov-state-item__name">Archives</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
