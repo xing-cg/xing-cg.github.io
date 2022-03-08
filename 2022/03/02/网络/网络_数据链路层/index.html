@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="数据链路层       传输单位：帧 三个基本问题：  封装成帧 透明传输 差错检测                      成帧       什么是成帧？                     帧定界       帧定界是：用于判断帧的边界，从哪开始到哪结束。要用特殊的字符串表示它的开始和特殊的字符串表示结束。 帧定界的几种方法：  字符填充的首尾界符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络_数据链路层">
+<meta property="og:url" content="https://mrcan.gitee.io/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="数据链路层       传输单位：帧 三个基本问题：  封装成帧 透明传输 差错检测                      成帧       什么是成帧？                     帧定界       帧定界是：用于判断帧的边界，从哪开始到哪结束。要用特殊的字符串表示它的开始和特殊的字符串表示结束。 帧定界的几种方法：  字符填充的首尾界符">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-02T11:17:58.160Z">
+<meta property="article:modified_time" content="2022-03-04T04:09:26.955Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>网络_数据链路层 | 罐头先生的博客</title><link ref="canonical" href="https://mrcan.gitee.io/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">网络_数据链路层</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-03-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-03-04</span></span></div></header><div class="post-body">
+        <h1 id="数据链路层"   >
+          <a href="#数据链路层" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1>
+      <p>传输单位：帧</p>
+<p>三个基本问题：</p>
+<ol>
+<li>封装成帧</li>
+<li>透明传输</li>
+<li>差错检测</li>
+</ol>
+
+        <h1 id="成帧"   >
+          <a href="#成帧" class="heading-link"><i class="fas fa-link"></i></a><a href="#成帧" class="headerlink" title="成帧"></a>成帧</h1>
+      <p>什么是成帧？</p>
+
+        <h2 id="帧定界"   >
+          <a href="#帧定界" class="heading-link"><i class="fas fa-link"></i></a><a href="#帧定界" class="headerlink" title="帧定界"></a>帧定界</h2>
+      <p>帧定界是：用于判断帧的边界，从哪开始到哪结束。要用特殊的字符串表示它的开始和特殊的字符串表示结束。</p>
+<p><strong>帧定界的几种方法</strong>：</p>
+<ol>
+<li>字符填充的首尾界符法</li>
+<li>比特位填充的首位界符法</li>
+<li>字符计数法</li>
+</ol>
+
+        <h2 id="透明传输"   >
+          <a href="#透明传输" class="heading-link"><i class="fas fa-link"></i></a><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h2>
+      <p>数据部分如果出现和头和尾一样的特殊的字符串或位串的内容，会干扰接收方的定界。</p>
+<p><strong>解决透明传输问题</strong>：</p>
+
+        <h2 id="差错控制：循环冗余校验码计算"   >
+          <a href="#差错控制：循环冗余校验码计算" class="heading-link"><i class="fas fa-link"></i></a><a href="#差错控制：循环冗余校验码计算" class="headerlink" title="差错控制：循环冗余校验码计算"></a>差错控制：循环冗余校验码计算</h2>
+      <p>被除数是谁？——原始数据+后面补若干个零（生成多项式的最高次幂）。</p>
+<p>除数是谁？——生成多项式对应的二进制序列。</p>
+<p>商和余数谁是冗余码？——余数。余数位数不够时要在前面补零（最后总位数为生成多项式的最高次幂）</p>
+<p>P77 简答题 6 7 8</p>
+
+        <h2 id="纠错机制-反馈重发机制-传输层"   >
+          <a href="#纠错机制-反馈重发机制-传输层" class="heading-link"><i class="fas fa-link"></i></a><a href="#纠错机制-反馈重发机制-传输层" class="headerlink" title="纠错机制-反馈重发机制[传输层]"></a>纠错机制-反馈重发机制[传输层]</h2>
+      <ul>
+<li>应当明确，“无比特差错”与“无传输差错”是不同的概念。<ul>
+<li>在数据链路层使用 CRC 检验，能够实现无比特差错的传输，但这还不是可靠传输。</li>
+<li>要做到“无差错传输”（即发送什么就收到什么）就必须再加上确认和重传机制。 </li>
+<li>本章介绍的数据链路层协议都不是可靠传输的协议。</li>
+<li><strong>循环冗余校验码只是在数据链路层保证帧的比特位不出错</strong>，即<strong>无比特差错</strong>。但是复杂的情况如帧丢失、帧重复、帧失序这些复杂错误情况就需要更高层的协议来纠错。这里讨论的反馈重发机制是<strong>传输层的可靠传输的工作原理</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>根据上述，由于检错码不能自动纠正所发现帧乱序的错误，所以当接收方发现错误时，要给发送方反馈信息要求重发。</p>
+<p>又叫<strong>自动请求重传ARQ</strong>(Automatic Repeat-reQuest)，重传的请求是自动进行的，接收方不需要请求发送方重传某个出错的帧。</p>
+<ol>
+<li>停止-等待方式</li>
+<li>连续工作方式（连续ARQ协议）<ol>
+<li>拉回方式</li>
+<li>选择性重发方式</li>
+</ol>
+</li>
+</ol>
+
+        <h3 id="停止等待协议"   >
+          <a href="#停止等待协议" class="heading-link"><i class="fas fa-link"></i></a><a href="#停止等待协议" class="headerlink" title="停止等待协议"></a>停止等待协议</h3>
+      <ul>
+<li><p>基本思想</p>
+<ul>
+<li>发送端在<strong>发出一帧后必须停下来等待接收端对所发送的确认帧</strong>进行确认。若确认对方正确收到，则发送方继续发送下一帧，否则，发送方就重发该帧。</li>
+</ul>
+</li>
+<li><p>A向B发送帧：</p>
+<ul>
+<li>B成功接收到了，且检测后正常，则回传A一个确认帧，被A接收到后，A才继续发送下一个帧。</li>
+<li>B接收帧时<strong>检测出错误则丢弃该帧</strong>（或者<strong>帧在传输过程中丢失</strong>），B不会发送任何信息。则A必须重发该帧，直到B成功接收为止。<ul>
+<li>B等确认要等待多长时间？——A设置了一个<strong>超时计时器</strong>，如果到期之前收到了相应的确认则重置该计时器，继续发送下一个帧。</li>
+<li>若帧正确到达B，但B回送的确认丢失或延迟了，<strong>A未收到B的确认，会超时重发该帧</strong>。<strong>B可能会收到重复的帧</strong>。B如何知道收到了重复的帧，需要丢弃呢？——<strong>编号</strong>。<ul>
+<li>A为每一个发送的帧都进行编号。若B收到了编号相同的帧，则B认为收到了重复帧，B丢弃重复的帧，<strong>并且B回送确认</strong>。</li>
+<li>B为发送的确认也进行编号，指示该确认是对哪一个帧的确认。A根据确认帧及其编号，可以确定它是对哪一个帧的确认，避免重复发送，并且<strong>A可以根据此确认号传送下一个帧</strong>。若为重复的确认，则将其丢弃。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>确认帧的编号问题</p>
+<ul>
+<li>确认帧（ACKnowledgement, ACK）——正确接收后回传的帧被称为确认帧。</li>
+<li>习惯将确认序号n表示为ACKn，<strong>ACKn表示“第n–1号帧已经收到，现在期望接收第n号帧”</strong>。</li>
+</ul>
+</li>
+<li><p>性能分析</p>
+<ul>
+<li>停止等待协议实现简单，但<strong>传输距离远时</strong>信道利用率低。</li>
+</ul>
+</li>
+<li><p>改进</p>
+<ul>
+<li>采用<strong>流水线传输</strong>，就是发送方可连续发送多个帧，不必每发完一个帧就停顿下来等待对方的确认。这样可使信道上一直有数据不间断地传送。从而提高信道利用率。<strong>这是连续ARQ协议的基本思想</strong>。</li>
+</ul>
+</li>
+<li><p>与ARQ的关系</p>
+<ul>
+<li>CRC检验器能够自动丢弃检测到的出错帧。实用的CRC检验器都是用硬件完成的。因此所谓的“丢弃出错帧”，对上层软件或用户来说都是感觉不到的。</li>
+<li>发送端对出错的数据帧进行重传是自动进行的，因而这种<strong>差错控制机制</strong>常简称为ARQ(Automatic Repeat reQuest)，直译是自动重传请求，但意思是自动请求重传。因此<strong>停等协议中包含着ARQ协议</strong>（是一种差错控制机制）</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="连续ARQ"   >
+          <a href="#连续ARQ" class="heading-link"><i class="fas fa-link"></i></a><a href="#连续ARQ" class="headerlink" title="连续ARQ"></a>连续ARQ</h3>
+      <ul>
+<li>基本思想<ul>
+<li>发送方在发送一个帧后，<strong>不停下来等待确认帧到来</strong>。而是<strong>连续再发送多个帧</strong>，帧的个数取决于发送方的发送能力和接收端的接收能力。此方式中，必须为不同帧编上序列号作为帧标识。</li>
+<li>接收方一般采用<strong>累积确认</strong>的方式</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="拉回方式"   >
+          <a href="#拉回方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#拉回方式" class="headerlink" title="拉回方式"></a>拉回方式</h4>
+      <p>连续发了多个帧，某一个出错后，从出错的开始需要全部重发，因为要求是按序接收。换言之，一旦接收方发现第n帧出错，则丢弃第n帧及第n帧以后的所有帧。</p>
+<p>在等不到2号帧的确认而重传2号数据帧时，虽然结点A已经发完了5号帧，但仍必须向回走，将2号帧及其以后的各帧全部进行重传。连续 ARQ又称为Go-back-N ARQ，意思是当出现差错必须重传时，要向回走N个帧，然后再开始重传。</p>
+<ul>
+<li>代价：信道的带宽。</li>
+</ul>
+
+        <h4 id="选择重发方式"   >
+          <a href="#选择重发方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#选择重发方式" class="headerlink" title="选择重发方式"></a>选择重发方式</h4>
+      <p>假定发送方连续发送了m帧，而接收方在对收到的数据进行校验后发现第n帧出错(n≤m)，于是<strong>接收方给发送方出错信息要求发送方重发第n帧</strong>。换言之，一旦接收方发现第n帧出错，则丢弃第n帧，但<strong>缓存第n帧以后的所有正确帧</strong>。</p>
+<p>选择重发方式与拉回方式比较，前者只重发出错的数据。效率高。</p>
+<ul>
+<li>代价：存储空间；实现比较复杂<ul>
+<li>接收端必须维持一个足够大的缓存以便存储出错帧之后收到的帧，直到出错帧被重传。</li>
+<li>而且它必须具有<strong>将收到的重传帧插入到正确位置</strong>的逻辑功能。发送端也要求更复杂的逻辑功能以便<strong>能够不按顺序发送一个帧</strong>。由于有这样的复杂性，选择重传ARQ远不如go-back-N ARQ用得广泛。</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="累积确认"   >
+          <a href="#累积确认" class="heading-link"><i class="fas fa-link"></i></a><a href="#累积确认" class="headerlink" title="累积确认"></a>累积确认</h4>
+      <p>即<strong>不必对收到的帧逐个发送确认</strong>，而是对按序到达的<strong>最后一个帧</strong>发送确认，这样就表示：到这个帧为止的所有帧都已正确收到了。</p>
+<p><strong>优点</strong>：容易实现，即使确认丢失也不必重传；<strong>缺点</strong>：不能向发送方反映出接收方已经正确收到的所有帧的信息。</p>
+
+        <h2 id="流量控制"   >
+          <a href="#流量控制" class="heading-link"><i class="fas fa-link"></i></a><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2>
+      <p>滑动窗口协议</p>
+
+        <h2 id="习题"   >
+          <a href="#习题" class="heading-link"><i class="fas fa-link"></i></a><a href="#习题" class="headerlink" title="习题"></a>习题</h2>
+      
+        <h1 id="第四章：局域网技术"   >
+          <a href="#第四章：局域网技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#第四章：局域网技术" class="headerlink" title="第四章：局域网技术"></a>第四章：局域网技术</h1>
+      <p>遵循IEEE 802系列标准。实际上局域网体系结构是物理层和数据链路层（细分成了MAC[Madium Access Control]子层、LLC[Logical Link Control]子层）。与介质相关的是MAC，无关的是LLC。</p>
+
+        <h2 id="介质访问控制"   >
+          <a href="#介质访问控制" class="heading-link"><i class="fas fa-link"></i></a><a href="#介质访问控制" class="headerlink" title="介质访问控制"></a>介质访问控制</h2>
+      <p>都在MAC子层。</p>
+<p>主要包括CSMA/CD。CD指的是Collision Detecion，“带冲突检测”。</p>
+<p>先侦听，再传送。</p>
+
+        <h2 id="争用期"   >
+          <a href="#争用期" class="heading-link"><i class="fas fa-link"></i></a><a href="#争用期" class="headerlink" title="争用期"></a>争用期</h2>
+      
+        <h2 id="最短帧长"   >
+          <a href="#最短帧长" class="heading-link"><i class="fas fa-link"></i></a><a href="#最短帧长" class="headerlink" title="最短帧长"></a>最短帧长</h2>
+      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">https://mrcan.gitee.io/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">数据库</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/03/01/Cpp/Cpp_STL_map/"><span class="paginator-prev__text">Cpp_STL_map</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="toc-number">1.</span> <span class="toc-text">
+          数据链路层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%90%E5%B8%A7"><span class="toc-number">2.</span> <span class="toc-text">
+          成帧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A7%E5%AE%9A%E7%95%8C"><span class="toc-number">2.1.</span> <span class="toc-text">
+          帧定界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%8F%E6%98%8E%E4%BC%A0%E8%BE%93"><span class="toc-number">2.2.</span> <span class="toc-text">
+          透明传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%EF%BC%9A%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C%E7%A0%81%E8%AE%A1%E7%AE%97"><span class="toc-number">2.3.</span> <span class="toc-text">
+          差错控制：循环冗余校验码计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A0%E9%94%99%E6%9C%BA%E5%88%B6-%E5%8F%8D%E9%A6%88%E9%87%8D%E5%8F%91%E6%9C%BA%E5%88%B6-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-number">2.4.</span> <span class="toc-text">
+          纠错机制-反馈重发机制[传输层]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.4.1.</span> <span class="toc-text">
+          停止等待协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%ADARQ"><span class="toc-number">2.4.2.</span> <span class="toc-text">
+          连续ARQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%89%E5%9B%9E%E6%96%B9%E5%BC%8F"><span class="toc-number">2.4.2.1.</span> <span class="toc-text">
+          拉回方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E9%87%8D%E5%8F%91%E6%96%B9%E5%BC%8F"><span class="toc-number">2.4.2.2.</span> <span class="toc-text">
+          选择重发方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%AF%E7%A7%AF%E7%A1%AE%E8%AE%A4"><span class="toc-number">2.4.2.3.</span> <span class="toc-text">
+          累积确认</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">2.5.</span> <span class="toc-text">
+          流量控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-number">2.6.</span> <span class="toc-text">
+          习题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">
+          第四章：局域网技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E8%B4%A8%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text">
+          介质访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%89%E7%94%A8%E6%9C%9F"><span class="toc-number">3.2.</span> <span class="toc-text">
+          争用期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E5%B8%A7%E9%95%BF"><span class="toc-number">3.3.</span> <span class="toc-text">
+          最短帧长</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">90</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
