@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容       本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译                     学习目标        掌握无参数宏定义和带参数宏定义的使用方法 学会使用文件包含 熟悉条件编译指令的使用方法  预处理命令的作用不是实现程序的功能，而是给C语言编译系统提供信息，通知C编译器在对源程序进行编译之前应该做哪些预处理工作。预处理">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容        本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译                      学习目标         掌握无参数宏定义和带参数宏定义的使用方法 学会使用文件包含 熟悉条件编译指令的使用方法  预处理命令的作用不是实现程序的功能，而是给C语言编译系统提供信息，通知C编译器在对源程序进行编译之前应该做哪些预处理工作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言_编译和预处理">
 <meta property="og:url" content="https://mrcan.gitee.io/2021/08/23/C/C%E8%AF%AD%E8%A8%80_%E7%BC%96%E8%AF%91%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
-<meta property="og:description" content="内容       本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译                     学习目标        掌握无参数宏定义和带参数宏定义的使用方法 学会使用文件包含 熟悉条件编译指令的使用方法  预处理命令的作用不是实现程序的功能，而是给C语言编译系统提供信息，通知C编译器在对源程序进行编译之前应该做哪些预处理工作。预处理">
+<meta property="og:description" content="内容        本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译                      学习目标         掌握无参数宏定义和带参数宏定义的使用方法 学会使用文件包含 熟悉条件编译指令的使用方法  预处理命令的作用不是实现程序的功能，而是给C语言编译系统提供信息，通知C编译器在对源程序进行编译之前应该做哪些预处理工作">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-23T07:58:18.809Z">
 <meta property="article:modified_time" content="2022-01-06T10:05:48.034Z">
@@ -34,12 +34,14 @@ var CONFIG = {
 
 window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_编译和预处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-08-23</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span></div></header><div class="post-body">
         <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a href="#内容" class="headerlink" title="内容"></a>内容</h1>
-      <p>本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译</p>
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<p>本章主要讲解了预处理的三种方式：宏定义、文件包含、条件编译</p>
 
         <h1 id="学习目标"   >
-          <a href="#学习目标" class="heading-link"><i class="fas fa-link"></i></a><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h1>
-      <ol>
+          <a href="#学习目标" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#学习目标"></a> 学习目标</h1>
+      
+<ol>
 <li>掌握无参数宏定义和带参数宏定义的使用方法</li>
 <li>学会使用文件包含</li>
 <li>熟悉条件编译指令的使用方法</li>
@@ -47,63 +49,70 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>预处理命令的作用不是实现程序的功能，而是给C语言编译系统提供信息，通知C编译器在对源程序进行编译之前应该做哪些预处理工作。预处理是指在进行编译之前所作的处理，由预处理程序负责完成。接下来还要经过编译、链接，才能变成可执行程序。本章节将结合案例对编译和预处理的相关知识进行详细讲解。</p>
 
         <h1 id="最简单的预处理-不带参宏定义"   >
-          <a href="#最简单的预处理-不带参宏定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#最简单的预处理-不带参宏定义" class="headerlink" title="最简单的预处理-不带参宏定义"></a>最简单的预处理-不带参宏定义</h1>
+          <a href="#最简单的预处理-不带参宏定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#最简单的预处理-不带参宏定义"></a> 最简单的预处理-不带参宏定义</h1>
       
+
         <h2 id="案例描述"   >
-          <a href="#案例描述" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h2>
-      <p>为了引入“预处理”这个概念，本案例要求将矩形的长和宽设置为宏，然后再求出矩形的面积。这事最简单的预处理。</p>
+          <a href="#案例描述" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例描述"></a> 案例描述</h2>
+      
+<p>为了引入“预处理”这个概念，本案例要求将矩形的长和宽设置为宏，然后再求出矩形的面积。这事最简单的预处理。</p>
 
         <h2 id="案例分析"   >
-          <a href="#案例分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h2>
-      <p>宏定义是预处理最常用的功能之一，它用于将一个标识符定义为一个字符串。这样，在源程序被编译器处理之前，预处理器会将标识符替换成定义的字符串。根据是否带参数，可以将宏定义分为无参数宏定义和带参数宏定义。本案例要学习的是不带参数的宏定义。</p>
+          <a href="#案例分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例分析"></a> 案例分析</h2>
+      
+<p>宏定义是预处理最常用的功能之一，它用于将一个标识符定义为一个字符串。这样，在源程序被编译器处理之前，预处理器会将标识符替换成定义的字符串。根据是否带参数，可以将宏定义分为无参数宏定义和带参数宏定义。本案例要学习的是不带参数的宏定义。</p>
 
         <h2 id="必备知识"   >
-          <a href="#必备知识" class="heading-link"><i class="fas fa-link"></i></a><a href="#必备知识" class="headerlink" title="必备知识"></a>必备知识</h2>
+          <a href="#必备知识" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#必备知识"></a> 必备知识</h2>
       
-        <h3 id="不带参数的宏定义"   >
-          <a href="#不带参数的宏定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#不带参数的宏定义" class="headerlink" title="不带参数的宏定义"></a>不带参数的宏定义</h3>
-      <p>在程序中，经常会定义一些常量，例如，3.14、”ABC”。如果这些常量在程序中被频繁使用，难免会出现书写错误的情况。为了避免程序书写错误，可以使用不带参数的宏定义来定义这些常量，其语法格式如下：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 标识符 字符串</span></span><br></pre></td></tr></table></div></figure>
 
-<p>在上述语法格式中，”#define”用于标识一个宏定义，”标识符”指的是所定义的宏名，”字符串”指的是宏体，它可以是常量、表达式等。一般情况下，宏定义需要放在源程序的开头，函数定义之外。它的有效范围是从宏定义语句开始到源文件结束。一般宏名都是大写字母，以便于与其他的操作符区别。</p>
+        <h3 id="不带参数的宏定义"   >
+          <a href="#不带参数的宏定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#不带参数的宏定义"></a> 不带参数的宏定义</h3>
+      
+<p>在程序中，经常会定义一些常量，例如，3.14、“ABC”。如果这些常量在程序中被频繁使用，难免会出现书写错误的情况。为了避免程序书写错误，可以使用不带参数的宏定义来定义这些常量，其语法格式如下：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 标识符 字符串</span></span><br></pre></td></tr></table></div></figure>
+<p>在上述语法格式中，&quot;#define&quot;用于标识一个宏定义，&quot;标识符&quot;指的是所定义的宏名，&quot;字符串&quot;指的是宏体，它可以是常量、表达式等。一般情况下，宏定义需要放在源程序的开头，函数定义之外。它的有效范围是从宏定义语句开始到源文件结束。一般宏名都是大写字母，以便于与其他的操作符区别。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.141592</span></span><br></pre></td></tr></table></div></figure>
 
-
         <h3 id="undef指令取消宏定义"   >
-          <a href="#undef指令取消宏定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#undef指令取消宏定义" class="headerlink" title="#undef指令取消宏定义"></a>#undef指令取消宏定义</h3>
-      <p>与#define相对，还有#undef指令用于取消宏定义，当使用#define定义了一个宏之后，如果预处理器在接下来的源代码中看到了#undef指令，那么#undef后面的代码中这个宏将会失效，如下代码所示。</p>
+          <a href="#undef指令取消宏定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#undef指令取消宏定义"></a> #undef指令取消宏定义</h3>
+      
+<p>与#define相对，还有#undef指令用于取消宏定义，当使用#define定义了一个宏之后，如果预处理器在接下来的源代码中看到了#undef指令，那么#undef后面的代码中这个宏将会失效，如下代码所示。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%f\n&quot;</span>,PI);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> PI</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%f\n&quot;</span>,PI);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
 <p>运行这段程序，会报错</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntelliSense: 未定义标识符 <span class="string">&quot;PI&quot;</span>		<span class="comment">//7行17列</span></span><br><span class="line">error C2065: <span class="string">&quot;PI&quot;</span>: 未声明的标识符	   <span class="comment">//7行1列</span></span><br></pre></td></tr></table></div></figure>
 
-
         <h1 id="第二简单的预处理-带参宏定义"   >
-          <a href="#第二简单的预处理-带参宏定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#第二简单的预处理-带参宏定义" class="headerlink" title="第二简单的预处理-带参宏定义"></a>第二简单的预处理-带参宏定义</h1>
+          <a href="#第二简单的预处理-带参宏定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第二简单的预处理-带参宏定义"></a> 第二简单的预处理-带参宏定义</h1>
       
-        <h2 id="案例描述-1"   >
-          <a href="#案例描述-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例描述-1" class="headerlink" title="案例描述"></a>案例描述</h2>
-      <p>在之前的章节中，我们已经学过简单的数据交换。本案例要求使用宏定义，依次交换两个一维数组中的元素。</p>
 
-        <h2 id="案例分析-1"   >
-          <a href="#案例分析-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例分析-1" class="headerlink" title="案例分析"></a>案例分析</h2>
-      <p>本案例要实现两个一维数组中元素的依次交换，整个交换过程包含多次数组元素的交换。结合之前学习的知识，可以使用函数实现简单的数据交换功能，在使用循环遍历数组的同时，调用交换函数，实现数组元素的交换。本案例要求使用宏定义实现此功能。</p>
+        <h2 id="案例描述-2"   >
+          <a href="#案例描述-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例描述-2"></a> 案例描述</h2>
+      
+<p>在之前的章节中，我们已经学过简单的数据交换。本案例要求使用宏定义，依次交换两个一维数组中的元素。</p>
+
+        <h2 id="案例分析-2"   >
+          <a href="#案例分析-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例分析-2"></a> 案例分析</h2>
+      
+<p>本案例要实现两个一维数组中元素的依次交换，整个交换过程包含多次数组元素的交换。结合之前学习的知识，可以使用函数实现简单的数据交换功能，在使用循环遍历数组的同时，调用交换函数，实现数组元素的交换。本案例要求使用宏定义实现此功能。</p>
 <p>因为数组遍历的过程中，数据在不断改变，而不带参宏定义中只能定义固定的内容。这里我们需要使用第二简单的预处理方法——带参宏定义来完成本案例。</p>
 
-        <h2 id="必备知识-1"   >
-          <a href="#必备知识-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#必备知识-1" class="headerlink" title="必备知识"></a>必备知识</h2>
+        <h2 id="必备知识-2"   >
+          <a href="#必备知识-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#必备知识-2"></a> 必备知识</h2>
       
-        <h3 id="带参数的宏定义"   >
-          <a href="#带参数的宏定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#带参数的宏定义" class="headerlink" title="带参数的宏定义"></a>带参数的宏定义</h3>
-      <p>语法格式如下所示：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 标识符(形参表) 字符串</span></span><br></pre></td></tr></table></div></figure>
 
+        <h3 id="带参数的宏定义"   >
+          <a href="#带参数的宏定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#带参数的宏定义"></a> 带参数的宏定义</h3>
+      
+<p>语法格式如下所示：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 标识符(形参表) 字符串</span></span><br></pre></td></tr></table></div></figure>
 <p>上述语法格式和不带参数的宏定义有些类似，不同的是多了一个括号，括号中的“形参表”由一个或多个形参组成，当多于一个形参时，形参之间要用逗号进行分隔。</p>
 <p>对于带参数的宏定义来说，同样需要使用字符串替换宏名，使用实参替换形参。</p>
 
         <h3 id="与带参函数的区别"   >
-          <a href="#与带参函数的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#与带参函数的区别" class="headerlink" title="与带参函数的区别"></a>与带参函数的区别</h3>
-      <p>带参宏定义和带参函数有时可以实现同样的功能，但两者有本质的不同，具体如表所示。</p>
+          <a href="#与带参函数的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与带参函数的区别"></a> 与带参函数的区别</h3>
+      
+<p>带参宏定义和带参函数有时可以实现同样的功能，但两者有本质的不同，具体如表所示。</p>
 <div class="table-container"><table>
 <thead>
 <tr>
@@ -112,7 +121,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <th>带参数的函数</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>处理时间节点</td>
 <td>预处理时</td>
 <td>程序运行时</td>
@@ -132,171 +142,186 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <td>快</td>
 <td>相对较慢，因为函数的调用会涉及到参数的传递、压栈、出栈等操作</td>
 </tr>
-</tbody></table></div>
+</tbody>
+</table></div>
 
         <h2 id="务必要注意的问题"   >
-          <a href="#务必要注意的问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#务必要注意的问题" class="headerlink" title="务必要注意的问题"></a>务必要注意的问题</h2>
-      <p>来看一个例子</p>
+          <a href="#务必要注意的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#务必要注意的问题"></a> 务必要注意的问题</h2>
+      
+<p>来看一个例子</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ABS(x) ((x)&gt;=0 ? (x): -(x))</span></span><br></pre></td></tr></table></div></figure>
-
 <p>这是一个求绝对值的带参宏定义，调用这个宏定义，代码如下所示：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x = <span class="number">12</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,ABS(++x));</span><br></pre></td></tr></table></div></figure>
-
-<p>输出的结果是14，显然与我们的初意中的12不相符。这是因为在预处理时，表达式”ABS(++x)”会被替换为”( (++x)&gt;=0 ? (++x): -(++x) ) “，因此结果是14。</p>
+<p>输出的结果是14，显然与我们的初意中的12不相符。这是因为在预处理时，表达式&quot;ABS(++x)“会被替换为”( (++x)&gt;=0 ? (++x): -(++x) ) &quot;，因此结果是14。</p>
 <p>那么，这就是带参宏定义时要注意的问题，<strong>宏定义中的参数替换是“整体”替换</strong>，不像是函数中只是参数之间的值传递。</p>
 
         <h2 id="案例实现"   >
-          <a href="#案例实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例实现" class="headerlink" title="案例实现"></a>案例实现</h2>
-      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWAP(a,b) &#123;int temp = a; a=b; b=temp;&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">5</span>]=&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> b[<span class="number">5</span>]=&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        SWAP(a[i],b[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;After swaping:\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果：</span></span><br><span class="line">After swaping</span><br><span class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br></pre></td></tr></table></div></figure>
-
+          <a href="#案例实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例实现"></a> 案例实现</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWAP(a,b) &#123;int temp = a; a=b; b=temp;&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">5</span>]=&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> b[<span class="number">5</span>]=&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        SWAP(a[i],b[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;After swaping:\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果：</span></span><br><span class="line">After swaping</span><br><span class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br></pre></td></tr></table></div></figure>
 
         <h2 id="关于宏定义中参数的替换-要注意的问题"   >
-          <a href="#关于宏定义中参数的替换-要注意的问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#关于宏定义中参数的替换-要注意的问题" class="headerlink" title="关于宏定义中参数的替换-要注意的问题"></a>关于宏定义中参数的替换-要注意的问题</h2>
+          <a href="#关于宏定义中参数的替换-要注意的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关于宏定义中参数的替换-要注意的问题"></a> 关于宏定义中参数的替换-要注意的问题</h2>
       
+
         <h3 id="表达式字符串中出现运算符"   >
-          <a href="#表达式字符串中出现运算符" class="heading-link"><i class="fas fa-link"></i></a><a href="#表达式字符串中出现运算符" class="headerlink" title="表达式字符串中出现运算符"></a>表达式字符串中出现运算符</h3>
-      <p>若宏定义中的字符串出现运算符，需要在合适的位置上加上括号，如果不添加括号可能会出现错误。例如</p>
+          <a href="#表达式字符串中出现运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表达式字符串中出现运算符"></a> 表达式字符串中出现运算符</h3>
+      
+<p>若宏定义中的字符串出现运算符，需要在合适的位置上加上括号，如果不添加括号可能会出现错误。例如</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> S 3+4</span></span><br><span class="line"><span class="keyword">int</span> c = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> a = S*c		<span class="comment">//3+4*c == 403 而非 7*c ==700</span></span><br></pre></td></tr></table></div></figure>
 
-
         <h3 id="宏定义的末尾不要加分号"   >
-          <a href="#宏定义的末尾不要加分号" class="heading-link"><i class="fas fa-link"></i></a><a href="#宏定义的末尾不要加分号" class="headerlink" title="宏定义的末尾不要加分号"></a>宏定义的末尾不要加分号</h3>
-      <p>如果加了分号，将被视为被替换字符串的一部分。</p>
+          <a href="#宏定义的末尾不要加分号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#宏定义的末尾不要加分号"></a> 宏定义的末尾不要加分号</h3>
+      
+<p>如果加了分号，将被视为被替换字符串的一部分。</p>
 <p>宏定义不会进行严格的语法检查，因此宏替换的错误要等到系统编译时才能被发现，例如：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Max=20;</span></span><br><span class="line">....</span><br><span class="line"><span class="keyword">if</span>(result == Max)	<span class="comment">//if(result==20;)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;equal&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//显然if语句会出错</span></span><br></pre></td></tr></table></div></figure>
 
-
         <h3 id="宏定义允许嵌套"   >
-          <a href="#宏定义允许嵌套" class="heading-link"><i class="fas fa-link"></i></a><a href="#宏定义允许嵌套" class="headerlink" title="宏定义允许嵌套"></a>宏定义允许嵌套</h3>
-      <p>在宏定义的字符串中可以使用已经定义的宏名。</p>
+          <a href="#宏定义允许嵌套" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#宏定义允许嵌套"></a> 宏定义允许嵌套</h3>
+      
+<p>在宏定义的字符串中可以使用已经定义的宏名。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.141592</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> P PI*x</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>,P);		<span class="comment">//替换后的语句为printf(&quot;%f&quot;,3.141592*x);</span></span><br></pre></td></tr></table></div></figure>
-
 <p>但宏定义不支持递归，因此下面的宏定义是错误的：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Max Max+5</span></span><br></pre></td></tr></table></div></figure>
 
-
         <h1 id="预处理的第二种方式-文件包含"   >
-          <a href="#预处理的第二种方式-文件包含" class="heading-link"><i class="fas fa-link"></i></a><a href="#预处理的第二种方式-文件包含" class="headerlink" title="预处理的第二种方式-文件包含"></a>预处理的第二种方式-文件包含</h1>
+          <a href="#预处理的第二种方式-文件包含" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#预处理的第二种方式-文件包含"></a> 预处理的第二种方式-文件包含</h1>
       
-        <h2 id="案例描述-2"   >
-          <a href="#案例描述-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例描述-2" class="headerlink" title="案例描述"></a>案例描述</h2>
-      <p>要求设计一个头文件，将经常使用的输出模式都写进头文件中，方便编写代码。</p>
 
-        <h2 id="案例分析-2"   >
-          <a href="#案例分析-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例分析-2" class="headerlink" title="案例分析"></a>案例分析</h2>
-      <p>除宏定义外，文件包含也是一种预处理语句，它的作用就是将一个源程序文件包含到另外一个源程序文件中。</p>
-
-        <h2 id="必备知识-2"   >
-          <a href="#必备知识-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#必备知识-2" class="headerlink" title="必备知识"></a>必备知识</h2>
+        <h2 id="案例描述-3"   >
+          <a href="#案例描述-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例描述-3"></a> 案例描述</h2>
       
+<p>要求设计一个头文件，将经常使用的输出模式都写进头文件中，方便编写代码。</p>
+
+        <h2 id="案例分析-3"   >
+          <a href="#案例分析-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例分析-3"></a> 案例分析</h2>
+      
+<p>除宏定义外，文件包含也是一种预处理语句，它的作用就是将一个源程序文件包含到另外一个源程序文件中。</p>
+
+        <h2 id="必备知识-3"   >
+          <a href="#必备知识-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#必备知识-3"></a> 必备知识</h2>
+      
+
         <h3 id="文件包含命令的形式"   >
-          <a href="#文件包含命令的形式" class="heading-link"><i class="fas fa-link"></i></a><a href="#文件包含命令的形式" class="headerlink" title="文件包含命令的形式"></a>文件包含命令的形式</h3>
-      <p>同引入头文件一样，文件包含也是使用#include指令实现的，它的语法格式有两种，具体如下</p>
+          <a href="#文件包含命令的形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文件包含命令的形式"></a> 文件包含命令的形式</h3>
+      
+<p>同引入头文件一样，文件包含也是使用#include指令实现的，它的语法格式有两种，具体如下</p>
 
         <h4 id="格式一"   >
-          <a href="#格式一" class="heading-link"><i class="fas fa-link"></i></a><a href="#格式一" class="headerlink" title="格式一"></a>格式一</h4>
-      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;文件名&gt;</span></span></span><br></pre></td></tr></table></div></figure>
-
+          <a href="#格式一" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#格式一"></a> 格式一</h4>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;文件名&gt;</span></span></span><br></pre></td></tr></table></div></figure>
 
         <h4 id="格式二"   >
-          <a href="#格式二" class="heading-link"><i class="fas fa-link"></i></a><a href="#格式二" class="headerlink" title="格式二"></a>格式二</h4>
-      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;文件名“</span></span></span><br></pre></td></tr></table></div></figure>
-
+          <a href="#格式二" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#格式二"></a> 格式二</h4>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;文件名“</span></span></span><br></pre></td></tr></table></div></figure>
 
         <h4 id="区别"   >
-          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#区别" class="headerlink" title="区别"></a>区别</h4>
-      <p>上述两种格式都可以实现文件包含，不同的是，<strong>格式一是标准形式，当使用这种格式时，C编译系统在系统指定的路径下搜索尖括号(&lt;&gt;)中的文件</strong>；当使用<strong>第二种格式时，系统首先会在用户当前工作的目录中搜索双引号(“”)中的文件，如果找不到，再按系统指定的路径进行搜索。</strong></p>
+          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h4>
+      
+<p>上述两种格式都可以实现文件包含，不同的是，<strong>格式一是标准形式，当使用这种格式时，C编译系统在系统指定的路径下搜索尖括号(&lt;&gt;)中的文件</strong>；当使用<strong>第二种格式时，系统首先会在用户当前工作的目录中搜索双引号(&quot;&quot;)中的文件，如果找不到，再按系统指定的路径进行搜索。</strong></p>
 
-        <h2 id="案例实现-1"   >
-          <a href="#案例实现-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例实现-1" class="headerlink" title="案例实现"></a>案例实现</h2>
-      <p>foo.h代码如下：</p>
+        <h2 id="案例实现-2"   >
+          <a href="#案例实现-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例实现-2"></a> 案例实现</h2>
+      
+<p>foo.h代码如下：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INT(x) printf(<span class="meta-string">&quot;%d\n&quot;</span>,x)</span></span><br></pre></td></tr></table></div></figure>
-
 <p>main.c代码如下：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Please input an integer:\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br><span class="line">    INT(a);		<span class="comment">//替换为&quot;printf(&quot;%d\n&quot;,a)&quot; + &quot;;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-
         <h1 id="32还是64-条件编译"   >
-          <a href="#32还是64-条件编译" class="heading-link"><i class="fas fa-link"></i></a><a href="#32还是64-条件编译" class="headerlink" title="32还是64-条件编译"></a>32还是64-条件编译</h1>
+          <a href="#32还是64-条件编译" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#32还是64-条件编译"></a> 32还是64-条件编译</h1>
       
-        <h2 id="案例描述-3"   >
-          <a href="#案例描述-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例描述-3" class="headerlink" title="案例描述"></a>案例描述</h2>
-      <p>要求使用条件编译，根据条件输出对应的判定结果：如果系统是32位的，就输出“系统是32位的”；如果系统是64位的，就输出“系统是64位的”。</p>
 
-        <h2 id="案例分析-3"   >
-          <a href="#案例分析-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例分析-3" class="headerlink" title="案例分析"></a>案例分析</h2>
-      <p>上文提到的“条件编译”也是预处理的一种方式。</p>
+        <h2 id="案例描述-4"   >
+          <a href="#案例描述-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例描述-4"></a> 案例描述</h2>
+      
+<p>要求使用条件编译，根据条件输出对应的判定结果：如果系统是32位的，就输出“系统是32位的”；如果系统是64位的，就输出“系统是64位的”。</p>
+
+        <h2 id="案例分析-4"   >
+          <a href="#案例分析-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例分析-4"></a> 案例分析</h2>
+      
+<p>上文提到的“条件编译”也是预处理的一种方式。</p>
 <p>一般情况下，C语言程序中的所有代码都要参与编译，但有时出于程序代码优化的考虑，希望源代码中一部分内容只在指定条件下进行编译。这种根据指定条件，只对程序一部分内容编译的情况，称为条件编译。</p>
 <p>在C语言中条件编译指令的形式有很多种，接下来将详细讲解一种最常见的条件编译指令：#if/#else/#endif，该指令根据常数表达式来决定某段代码是否执行。</p>
 
-        <h2 id="必备知识-3"   >
-          <a href="#必备知识-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#必备知识-3" class="headerlink" title="必备知识"></a>必备知识</h2>
+        <h2 id="必备知识-4"   >
+          <a href="#必备知识-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#必备知识-4"></a> 必备知识</h2>
       
-        <h3 id="if-else-endif指令"   >
-          <a href="#if-else-endif指令" class="heading-link"><i class="fas fa-link"></i></a><a href="#if-else-endif指令" class="headerlink" title="#if/#else/#endif指令"></a>#if/#else/#endif指令</h3>
-      <p>通常情况下，#if指令、#else指令和#endif指令是结合在一起使用的，其语法格式如下所示：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 判断表达式</span></span><br><span class="line">	程序段</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    程序段<span class="number">2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
 
+        <h3 id="ifelseendif指令"   >
+          <a href="#ifelseendif指令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ifelseendif指令"></a> #if/#else/#endif指令</h3>
+      
+<p>通常情况下，#if指令、#else指令和#endif指令是结合在一起使用的，其语法格式如下所示：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 判断表达式</span></span><br><span class="line">	程序段</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    程序段<span class="number">2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
 <p>在上述语法格式中，编译器只会编译程序段1和程序段2中的一段。当条件为真时，编译器会编译程序段1，否则编译程序段2。</p>
 
-        <h2 id="案例实现-2"   >
-          <a href="#案例实现-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例实现-2" class="headerlink" title="案例实现"></a>案例实现</h2>
+        <h2 id="案例实现-3"   >
+          <a href="#案例实现-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例实现-3"></a> 案例实现</h2>
       
+
         <h3 id="案例设计"   >
-          <a href="#案例设计" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例设计" class="headerlink" title="案例设计"></a>案例设计</h3>
-      <ol>
+          <a href="#案例设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例设计"></a> 案例设计</h3>
+      
+<ol>
 <li>定义两个宏，分别表示Windows32位和64位平台；</li>
 <li>定义宏SYSTEM表示其中某个平台；</li>
 <li>使用条件编译指令判断SYSTEM值，并输出结果到屏幕上。</li>
 </ol>
 
         <h3 id="完整代码"   >
-          <a href="#完整代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3>
-      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Win32 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> x64 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYSTEM Win32		<span class="comment">//定义宏SYSTEM是32位的</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> SYSTEM == Win32			<span class="comment">//此处条件成立</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Win32\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;x64&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//执行printf(&quot;Win32\n&quot;);</span></span><br><span class="line">运行结果为 Win32</span><br></pre></td></tr></table></div></figure>
-
-
-        <h1 id="ifdef-神奇的-include-lt-stdio-h-gt"   >
-          <a href="#ifdef-神奇的-include-lt-stdio-h-gt" class="heading-link"><i class="fas fa-link"></i></a><a href="#ifdef-神奇的-include-lt-stdio-h-gt" class="headerlink" title="#ifdef-神奇的#include&lt;stdio.h&gt;"></a>#ifdef-神奇的#include&lt;stdio.h&gt;</h1>
+          <a href="#完整代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#完整代码"></a> 完整代码</h3>
       
-        <h2 id="案例描述-4"   >
-          <a href="#案例描述-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例描述-4" class="headerlink" title="案例描述"></a>案例描述</h2>
-      <p>在同一文件中写两遍”#include&lt;stdio.h&gt;“，编译器进行编译时为什么没有报错呢？按常理而言，文件”stdio.h”中的函数和数据类型等必然被定义了两次，此时编译器应该报出”重定义”的错误，但实际上编译十分顺利。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Win32 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> x64 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYSTEM Win32		<span class="comment">//定义宏SYSTEM是32位的</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> SYSTEM == Win32			<span class="comment">//此处条件成立</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Win32\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;x64&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//执行printf(&quot;Win32\n&quot;);</span></span><br><span class="line">运行结果为 Win32</span><br></pre></td></tr></table></div></figure>
 
-        <h2 id="案例分析-4"   >
-          <a href="#案例分析-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例分析-4" class="headerlink" title="案例分析"></a>案例分析</h2>
-      <p>在上一个案例中我们提到C语言中条件编译指令的形式有很多种，如果现在的你百思不得其解，那是因为你没有学过另一种条件编译指令：#ifdef和#ifndef。下面来讲解。</p>
-
-        <h2 id="必备知识-4"   >
-          <a href="#必备知识-4" class="heading-link"><i class="fas fa-link"></i></a><a href="#必备知识-4" class="headerlink" title="必备知识"></a>必备知识</h2>
+        <h1 id="ifdef-神奇的includestdioh"   >
+          <a href="#ifdef-神奇的includestdioh" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ifdef-神奇的includestdioh"></a> #ifdef-神奇的#include&lt;stdio.h&gt;</h1>
       
+
+        <h2 id="案例描述-5"   >
+          <a href="#案例描述-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例描述-5"></a> 案例描述</h2>
+      
+<p>在同一文件中写两遍&quot;#include&lt;stdio.h&gt;&quot;，编译器进行编译时为什么没有报错呢？按常理而言，文件&quot;stdio.h&quot;中的函数和数据类型等必然被定义了两次，此时编译器应该报出&quot;重定义&quot;的错误，但实际上编译十分顺利。</p>
+
+        <h2 id="案例分析-5"   >
+          <a href="#案例分析-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例分析-5"></a> 案例分析</h2>
+      
+<p>在上一个案例中我们提到C语言中条件编译指令的形式有很多种，如果现在的你百思不得其解，那是因为你没有学过另一种条件编译指令：#ifdef和#ifndef。下面来讲解。</p>
+
+        <h2 id="必备知识-5"   >
+          <a href="#必备知识-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#必备知识-5"></a> 必备知识</h2>
+      
+
         <h3 id="ifdef指令"   >
-          <a href="#ifdef指令" class="heading-link"><i class="fas fa-link"></i></a><a href="#ifdef指令" class="headerlink" title="#ifdef指令"></a>#ifdef指令</h3>
-      <p>如果想判断某个宏是否被定义，可以使用#ifdef指令，通常情况下，该指令需要和#endif一起使用，#ifdef指令的语法格式如下所示：</p>
+          <a href="#ifdef指令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ifdef指令"></a> #ifdef指令</h3>
+      
+<p>如果想判断某个宏是否被定义，可以使用#ifdef指令，通常情况下，该指令需要和#endif一起使用，#ifdef指令的语法格式如下所示：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> 宏名</span></span><br><span class="line">	程序段<span class="number">1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    程序段<span class="number">2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
-
 <p>在上述语法格式中，#ifdef指令用于控制单独的一段源码是否需要编译，它的功能类似于一个单独的#if/#endif</p>
 
         <h3 id="ifndef指令"   >
-          <a href="#ifndef指令" class="heading-link"><i class="fas fa-link"></i></a><a href="#ifndef指令" class="headerlink" title="#ifndef指令"></a>#ifndef指令</h3>
-      <p>和#ifdef相反，#ifdef用来确定某一个宏是否没有被定义，如果宏没有被定义，那么就编译#ifndef和#endif中间的内容，否则就跳过。其语法格式如下所示：</p>
+          <a href="#ifndef指令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ifndef指令"></a> #ifndef指令</h3>
+      
+<p>和#ifdef相反，#ifdef用来确定某一个宏是否没有被定义，如果宏没有被定义，那么就编译#ifndef和#endif中间的内容，否则就跳过。其语法格式如下所示：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> 宏名</span></span><br><span class="line">    程序段<span class="number">1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    程序段<span class="number">2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
 
-
-        <h2 id="案例实现-3"   >
-          <a href="#案例实现-3" class="heading-link"><i class="fas fa-link"></i></a><a href="#案例实现-3" class="headerlink" title="案例实现"></a>案例实现</h2>
-      <p>如果我们打开”stdio.h”这个文件，便会发现其开头是这样的两行代码。</p>
+        <h2 id="案例实现-4"   >
+          <a href="#案例实现-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例实现-4"></a> 案例实现</h2>
+      
+<p>如果我们打开&quot;stdio.h&quot;这个文件，便会发现其开头是这样的两行代码。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _STDIO_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _STDIO_H_</span></span><br></pre></td></tr></table></div></figure>
-
 <p>在其结尾有这样一行代码：</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* _STDIO_H_ */</span></span></span><br></pre></td></tr></table></div></figure>
-
-<p>这三行代码是三条预处理指令，也就是为什么写两遍”#include&lt;stdio.h&gt;”也不会报错。当然，写更多遍也不会报错。</p>
-<p>这三行代码的含义是：如果”_STDIO_H_“没有定义过，那么就定义”_STDIO_H_“。仔细观察后我们会发现**”#define _STDIO_H_“后面什么都没写，其实这也是宏定义的一种写法——并不关注”_STDIO_H_“被定义成了什么，只关注他是否被定义过。**</p>
-<p>综上分析可知，初次遇到”_STDIO_H_“的时候，由于宏”_STDIO_H_“尚未定义，因此，#ifndef条件成立，定义”_STDIO_H_“。当再次遇到”_STDIO_H_“的时候，#ifndef的条件不成立，因此它与”#endif”之间的内容就不会被编译了。</p>
+<p>这三行代码是三条预处理指令，也就是为什么写两遍&quot;#include&lt;stdio.h&gt;&quot;也不会报错。当然，写更多遍也不会报错。</p>
+<p>这三行代码的含义是：如果&quot;_STDIO_H_“没有定义过，那么就定义”_STDIO_H_&quot;。仔细观察后我们会发现**&quot;#define _STDIO_H_“后面什么都没写，其实这也是宏定义的一种写法——并不关注”_STDIO_H_&quot;被定义成了什么，只关注他是否被定义过。**</p>
+<p>综上分析可知，初次遇到&quot;_STDIO_H_“的时候，由于宏”_STDIO_H_“尚未定义，因此，#ifndef条件成立，定义”_STDIO_H_&quot;。当再次遇到&quot;_STDIO_H_“的时候，#ifndef的条件不成立，因此它与”#endif&quot;之间的内容就不会被编译了。</p>
 
         <h2 id="利用预定义宏得知程序允许到了何处"   >
-          <a href="#利用预定义宏得知程序允许到了何处" class="heading-link"><i class="fas fa-link"></i></a><a href="#利用预定义宏得知程序允许到了何处" class="headerlink" title="利用预定义宏得知程序允许到了何处"></a>利用预定义宏得知程序允许到了何处</h2>
-      <p>下面是&lt;stdio.h&gt;头文件中的五个预定义宏，利用这些宏可以轻松得知程序运行到了何处，有助于编程人员进行程序调试，具体如下表。</p>
+          <a href="#利用预定义宏得知程序允许到了何处" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#利用预定义宏得知程序允许到了何处"></a> 利用预定义宏得知程序允许到了何处</h2>
+      
+<p>下面是&lt;stdio.h&gt;头文件中的五个预定义宏，利用这些宏可以轻松得知程序运行到了何处，有助于编程人员进行程序调试，具体如下表。</p>
 <div class="table-container"><table>
 <thead>
 <tr>
@@ -304,7 +329,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>_DATE_</td>
 <td>定义源文件编译日期的宏</td>
 </tr>
@@ -324,50 +350,51 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <td>_FUNCTION_</td>
 <td>定义当前所在函数名的宏</td>
 </tr>
-</tbody></table></div>
+</tbody>
+</table></div>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2021/08/23/C/C%E8%AF%AD%E8%A8%80_%E7%BC%96%E8%AF%91%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86/">https://mrcan.gitee.io/2021/08/23/C/C%E8%AF%AD%E8%A8%80_%E7%BC%96%E8%AF%91%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/08/25/C/C%E8%AF%AD%E8%A8%80_%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_基础数据结构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2021/08/20/C/C%E8%AF%AD%E8%A8%80_%E9%93%BE%E8%A1%A8/"><span class="paginator-prev__text">C语言_链表</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
-          内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">
-          学习目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86-%E4%B8%8D%E5%B8%A6%E5%8F%82%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.</span> <span class="toc-text">
-          最简单的预处理-不带参宏定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">
-          案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">
-          案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">3.3.</span> <span class="toc-text">
-          必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">
-          不带参数的宏定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undef%E6%8C%87%E4%BB%A4%E5%8F%96%E6%B6%88%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.3.2.</span> <span class="toc-text">
-          #undef指令取消宏定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AE%80%E5%8D%95%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86-%E5%B8%A6%E5%8F%82%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">4.</span> <span class="toc-text">
-          第二简单的预处理-带参宏定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-1"><span class="toc-number">4.1.</span> <span class="toc-text">
-          案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-1"><span class="toc-number">4.2.</span> <span class="toc-text">
-          案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-1"><span class="toc-number">4.3.</span> <span class="toc-text">
-          必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">4.3.1.</span> <span class="toc-text">
-          带参数的宏定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%B8%A6%E5%8F%82%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.3.2.</span> <span class="toc-text">
-          与带参函数的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A1%E5%BF%85%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">
-          务必要注意的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.5.</span> <span class="toc-text">
-          案例实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AE%8F%E5%AE%9A%E4%B9%89%E4%B8%AD%E5%8F%82%E6%95%B0%E7%9A%84%E6%9B%BF%E6%8D%A2-%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.6.</span> <span class="toc-text">
-          关于宏定义中参数的替换-要注意的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%87%BA%E7%8E%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">4.6.1.</span> <span class="toc-text">
-          表达式字符串中出现运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E6%9C%AB%E5%B0%BE%E4%B8%8D%E8%A6%81%E5%8A%A0%E5%88%86%E5%8F%B7"><span class="toc-number">4.6.2.</span> <span class="toc-text">
-          宏定义的末尾不要加分号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%85%81%E8%AE%B8%E5%B5%8C%E5%A5%97"><span class="toc-number">4.6.3.</span> <span class="toc-text">
-          宏定义允许嵌套</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-number">5.</span> <span class="toc-text">
-          预处理的第二种方式-文件包含</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">5.1.</span> <span class="toc-text">
-          案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-2"><span class="toc-number">5.2.</span> <span class="toc-text">
-          案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-2"><span class="toc-number">5.3.</span> <span class="toc-text">
-          必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%91%BD%E4%BB%A4%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-number">5.3.1.</span> <span class="toc-text">
-          文件包含命令的形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E4%B8%80"><span class="toc-number">5.3.1.1.</span> <span class="toc-text">
-          格式一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E4%BA%8C"><span class="toc-number">5.3.1.2.</span> <span class="toc-text">
-          格式二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-number">5.3.1.3.</span> <span class="toc-text">
-          区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">5.4.</span> <span class="toc-text">
-          案例实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#32%E8%BF%98%E6%98%AF64-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-number">6.</span> <span class="toc-text">
-          32还是64-条件编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">6.1.</span> <span class="toc-text">
-          案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-3"><span class="toc-number">6.2.</span> <span class="toc-text">
-          案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-3"><span class="toc-number">6.3.</span> <span class="toc-text">
-          必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if-else-endif%E6%8C%87%E4%BB%A4"><span class="toc-number">6.3.1.</span> <span class="toc-text">
-          #if&#x2F;#else&#x2F;#endif指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">6.4.</span> <span class="toc-text">
-          案例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">6.4.1.</span> <span class="toc-text">
-          案例设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">6.4.2.</span> <span class="toc-text">
-          完整代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ifdef-%E7%A5%9E%E5%A5%87%E7%9A%84-include-lt-stdio-h-gt"><span class="toc-number">7.</span> <span class="toc-text">
-          #ifdef-神奇的#include&lt;stdio.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">7.1.</span> <span class="toc-text">
-          案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-4"><span class="toc-number">7.2.</span> <span class="toc-text">
-          案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-4"><span class="toc-number">7.3.</span> <span class="toc-text">
-          必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ifdef%E6%8C%87%E4%BB%A4"><span class="toc-number">7.3.1.</span> <span class="toc-text">
-          #ifdef指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ifndef%E6%8C%87%E4%BB%A4"><span class="toc-number">7.3.2.</span> <span class="toc-text">
-          #ifndef指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">7.4.</span> <span class="toc-text">
-          案例实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E9%A2%84%E5%AE%9A%E4%B9%89%E5%AE%8F%E5%BE%97%E7%9F%A5%E7%A8%8B%E5%BA%8F%E5%85%81%E8%AE%B8%E5%88%B0%E4%BA%86%E4%BD%95%E5%A4%84"><span class="toc-number">7.5.</span> <span class="toc-text">
-          利用预定义宏得知程序允许到了何处</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">90</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">
+           学习目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86-%E4%B8%8D%E5%B8%A6%E5%8F%82%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.</span> <span class="toc-text">
+           最简单的预处理-不带参宏定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">
+           案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-number">3.2.</span> <span class="toc-text">
+           案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">3.3.</span> <span class="toc-text">
+           必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">
+           不带参数的宏定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undef%E6%8C%87%E4%BB%A4%E5%8F%96%E6%B6%88%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">3.3.2.</span> <span class="toc-text">
+           #undef指令取消宏定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AE%80%E5%8D%95%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86-%E5%B8%A6%E5%8F%82%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">4.</span> <span class="toc-text">
+           第二简单的预处理-带参宏定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">
+           案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-2"><span class="toc-number">4.2.</span> <span class="toc-text">
+           案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-2"><span class="toc-number">4.3.</span> <span class="toc-text">
+           必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">4.3.1.</span> <span class="toc-text">
+           带参数的宏定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%B8%A6%E5%8F%82%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.3.2.</span> <span class="toc-text">
+           与带参函数的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A1%E5%BF%85%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">
+           务必要注意的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.5.</span> <span class="toc-text">
+           案例实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AE%8F%E5%AE%9A%E4%B9%89%E4%B8%AD%E5%8F%82%E6%95%B0%E7%9A%84%E6%9B%BF%E6%8D%A2-%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.6.</span> <span class="toc-text">
+           关于宏定义中参数的替换-要注意的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%87%BA%E7%8E%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">4.6.1.</span> <span class="toc-text">
+           表达式字符串中出现运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E7%9A%84%E6%9C%AB%E5%B0%BE%E4%B8%8D%E8%A6%81%E5%8A%A0%E5%88%86%E5%8F%B7"><span class="toc-number">4.6.2.</span> <span class="toc-text">
+           宏定义的末尾不要加分号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%85%81%E8%AE%B8%E5%B5%8C%E5%A5%97"><span class="toc-number">4.6.3.</span> <span class="toc-text">
+           宏定义允许嵌套</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-number">5.</span> <span class="toc-text">
+           预处理的第二种方式-文件包含</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">5.1.</span> <span class="toc-text">
+           案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-3"><span class="toc-number">5.2.</span> <span class="toc-text">
+           案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-3"><span class="toc-number">5.3.</span> <span class="toc-text">
+           必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%91%BD%E4%BB%A4%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-number">5.3.1.</span> <span class="toc-text">
+           文件包含命令的形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E4%B8%80"><span class="toc-number">5.3.1.1.</span> <span class="toc-text">
+           格式一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E4%BA%8C"><span class="toc-number">5.3.1.2.</span> <span class="toc-text">
+           格式二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-number">5.3.1.3.</span> <span class="toc-text">
+           区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">5.4.</span> <span class="toc-text">
+           案例实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#32%E8%BF%98%E6%98%AF64-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-number">6.</span> <span class="toc-text">
+           32还是64-条件编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">6.1.</span> <span class="toc-text">
+           案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-4"><span class="toc-number">6.2.</span> <span class="toc-text">
+           案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-4"><span class="toc-number">6.3.</span> <span class="toc-text">
+           必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ifelseendif%E6%8C%87%E4%BB%A4"><span class="toc-number">6.3.1.</span> <span class="toc-text">
+           #if&#x2F;#else&#x2F;#endif指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">6.4.</span> <span class="toc-text">
+           案例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">6.4.1.</span> <span class="toc-text">
+           案例设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">6.4.2.</span> <span class="toc-text">
+           完整代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ifdef-%E7%A5%9E%E5%A5%87%E7%9A%84includestdioh"><span class="toc-number">7.</span> <span class="toc-text">
+           #ifdef-神奇的#include&lt;stdio.h&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0-5"><span class="toc-number">7.1.</span> <span class="toc-text">
+           案例描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90-5"><span class="toc-number">7.2.</span> <span class="toc-text">
+           案例分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86-5"><span class="toc-number">7.3.</span> <span class="toc-text">
+           必备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ifdef%E6%8C%87%E4%BB%A4"><span class="toc-number">7.3.1.</span> <span class="toc-text">
+           #ifdef指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ifndef%E6%8C%87%E4%BB%A4"><span class="toc-number">7.3.2.</span> <span class="toc-text">
+           #ifndef指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0-4"><span class="toc-number">7.4.</span> <span class="toc-text">
+           案例实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E9%A2%84%E5%AE%9A%E4%B9%89%E5%AE%8F%E5%BE%97%E7%9F%A5%E7%A8%8B%E5%BA%8F%E5%85%81%E8%AE%B8%E5%88%B0%E4%BA%86%E4%BD%95%E5%A4%84"><span class="toc-number">7.5.</span> <span class="toc-text">
+           利用预定义宏得知程序允许到了何处</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">91</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">23</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>

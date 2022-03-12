@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         1  GetValue返回的是临时变量副本，由寄存器作为传递媒介。  a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。 应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。 猜测可以对将亡值进行常引用。                       2">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         1 GetValue返回的是临时变量副本，由寄存器作为传递媒介。  a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。 应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。 猜测可以对将亡值进行常引用。                        2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cpp_返回值">
 <meta property="og:url" content="https://mrcan.gitee.io/2021/11/07/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
-<meta property="og:description" content="内容         1  GetValue返回的是临时变量副本，由寄存器作为传递媒介。  a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。 应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。 猜测可以对将亡值进行常引用。                       2">
+<meta property="og:description" content="内容         1 GetValue返回的是临时变量副本，由寄存器作为传递媒介。  a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。 应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。 猜测可以对将亡值进行常引用。                        2">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://mrcan.gitee.io/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png">
 <meta property="og:image" content="https://mrcan.gitee.io/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png">
@@ -46,11 +46,10 @@ var CONFIG = {
 
 window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_返回值</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-26</span></span></div></header><div class="post-body">
         <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a href="#内容" class="headerlink" title="内容"></a>内容</h1>
-      <img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png" alt="image-20211107095730498" style="zoom:80%;" />
-
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png" alt="image-20211107095730498" style="zoom:80%;" />
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
-
 <p>GetValue返回的是临时变量副本，由寄存器作为传递媒介。</p>
 <ol>
 <li>a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。</li>
@@ -60,30 +59,34 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </ol>
 
         <h2 id="2"   >
-          <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a href="#2" class="headerlink" title="2"></a>2</h2>
-      <img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png" alt="image-20211107101017513" style="zoom:67%;" />
-
+          <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2"></a> 2</h2>
+      
+<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png" alt="image-20211107101017513" style="zoom:67%;" />
 
         <h2 id="3"   >
-          <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a href="#3" class="headerlink" title="3"></a>3</h2>
-      <img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107102226241.png" alt="image-20211107102226241" style="zoom:67%;" />
-
+          <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3"></a> 3</h2>
+      
+<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107102226241.png" alt="image-20211107102226241" style="zoom:67%;" />
 
         <h2 id="4"   >
-          <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a href="#4" class="headerlink" title="4"></a>4</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107103310102.png" alt="image-20211107103310102"></p>
+          <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4"></a> 4</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107103310102.png" alt="image-20211107103310102" /></p>
 
         <h2 id="5"   >
-          <a href="#5" class="heading-link"><i class="fas fa-link"></i></a><a href="#5" class="headerlink" title="5"></a>5</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107112403421.png" alt="image-20211107112403421"></p>
+          <a href="#5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#5"></a> 5</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107112403421.png" alt="image-20211107112403421" /></p>
 
         <h2 id="6"   >
-          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a href="#6" class="headerlink" title="6"></a>6</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107114851729.png" alt="image-20211107114851729"></p>
+          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#6"></a> 6</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107114851729.png" alt="image-20211107114851729" /></p>
 
         <h2 id="7"   >
-          <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a href="#7" class="headerlink" title="7"></a>7</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114192200476.png" alt="image-20211114192200476"></p>
+          <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#7"></a> 7</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114192200476.png" alt="image-20211114192200476" /></p>
 <p>Test ta(10)一个Int</p>
 <ol>
 <li>√–编译器优化，直接拷贝构造，一个Int</li>
@@ -97,8 +100,9 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </ol>
 
         <h2 id="8"   >
-          <a href="#8" class="heading-link"><i class="fas fa-link"></i></a><a href="#8" class="headerlink" title="8"></a>8</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114195324558.png" alt="image-20211114195324558"></p>
+          <a href="#8" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#8"></a> 8</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114195324558.png" alt="image-20211114195324558" /></p>
 <ol>
 <li>√</li>
 <li>×</li>
@@ -112,12 +116,14 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </ol>
 
         <h2 id="9"   >
-          <a href="#9" class="heading-link"><i class="fas fa-link"></i></a><a href="#9" class="headerlink" title="9"></a>9</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114201105648.png" alt="image-20211114201105648"></p>
+          <a href="#9" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#9"></a> 9</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114201105648.png" alt="image-20211114201105648" /></p>
 
         <h2 id="10"   >
-          <a href="#10" class="heading-link"><i class="fas fa-link"></i></a><a href="#10" class="headerlink" title="10"></a>10</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114203355621.png" alt="image-20211114203355621"></p>
+          <a href="#10" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#10"></a> 10</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114203355621.png" alt="image-20211114203355621" /></p>
 <ol>
 <li>√</li>
 <li>√</li>
@@ -130,8 +136,9 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </ol>
 
         <h2 id="11"   >
-          <a href="#11" class="heading-link"><i class="fas fa-link"></i></a><a href="#11" class="headerlink" title="11"></a>11</h2>
-      <p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114204142437.png" alt="image-20211114204142437"></p>
+          <a href="#11" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#11"></a> 11</h2>
+      
+<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114204142437.png" alt="image-20211114204142437" /></p>
 <ol>
 <li>a1：√</li>
 <li>a2：×</li>
@@ -143,14 +150,14 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li>p4：√</li>
 </ol>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2021/11/07/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/">https://mrcan.gitee.io/2021/11/07/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/11/09/Cpp/Cpp_%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_继承和多态</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2021/11/02/Cpp/Cpp_%E6%A8%A1%E6%9D%BF/"><span class="paginator-prev__text">Cpp_模板</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
-          内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-number">1.1.</span> <span class="toc-text">
-          2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3"><span class="toc-number">1.2.</span> <span class="toc-text">
-          3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4"><span class="toc-number">1.3.</span> <span class="toc-text">
-          4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5"><span class="toc-number">1.4.</span> <span class="toc-text">
-          5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6"><span class="toc-number">1.5.</span> <span class="toc-text">
-          6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7"><span class="toc-number">1.6.</span> <span class="toc-text">
-          7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8"><span class="toc-number">1.7.</span> <span class="toc-text">
-          8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9"><span class="toc-number">1.8.</span> <span class="toc-text">
-          9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10"><span class="toc-number">1.9.</span> <span class="toc-text">
-          10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11"><span class="toc-number">1.10.</span> <span class="toc-text">
-          11</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">90</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+           内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-number">1.1.</span> <span class="toc-text">
+           2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3"><span class="toc-number">1.2.</span> <span class="toc-text">
+           3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4"><span class="toc-number">1.3.</span> <span class="toc-text">
+           4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5"><span class="toc-number">1.4.</span> <span class="toc-text">
+           5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6"><span class="toc-number">1.5.</span> <span class="toc-text">
+           6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7"><span class="toc-number">1.6.</span> <span class="toc-text">
+           7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8"><span class="toc-number">1.7.</span> <span class="toc-text">
+           8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9"><span class="toc-number">1.8.</span> <span class="toc-text">
+           9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10"><span class="toc-number">1.9.</span> <span class="toc-text">
+           10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11"><span class="toc-number">1.10.</span> <span class="toc-text">
+           11</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">91</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">23</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
