@@ -202,7 +202,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
       
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1] 刘伟. 设计模式.</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">建造者模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-04-26</span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">建造者模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-04-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -223,8 +223,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#案例-游戏角色设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例-游戏角色设计"></a> 案例-游戏角色设计</h2>
       
 <p>该软件公司游戏开发小组决定开发一款名为《仙魔群侠传》的网络游戏，该游戏采用主流的RPG(Role Playing Game,角色扮演游戏)模式，玩家可以在游戏中扮演虚拟世界中的一个特定角色，角色根据不同的游戏情节和统计数据（如力量、魔法、技能等）具有不同的能力，角色也会随着不断升级而拥有更加强大的能力。</p>
-<p>作为RPG游戏的一个重要组成部分，需要对游戏角色进行设计，而且随着该游戏的升级将不断增加新的角色。不同类型的游戏角色，其性别、脸型、服装、发型等外部特性都有所差异，例如“天使”拥有美丽的面容和披肩的长发，并身穿一袭白裙；而“恶魔”极其丑陋，留着光头并穿一件刺眼的黑衣。</p>
-<p>该公司决定开发一个小工具来创建游戏角色，可以创建不同类型的角色并可以灵活增加新的角色。</p>
+<p>作为RPG游戏的一个重要组成部分，<strong>需要对游戏角色进行设计，而且随着该游戏的升级将不断增加新的角色。不同类型的游戏角色，其性别、脸型、服装、发型等外部特性都有所差异</strong>，例如“天使”拥有美丽的面容和披肩的长发，并身穿一袭白裙；而“恶魔”极其丑陋，留着光头并穿一件刺眼的黑衣。</p>
+<p>该公司决定<strong>开发一个小工具来创建游戏角色，可以创建不同类型的角色并可以灵活增加新的角色</strong>。</p>
 <p>该司的开发人员通过分析发现，游戏角色是一个复杂对象，它包含性别、脸型等多个组成部分，不同的游戏角色其组成部分有所差异，如图所示：</p>
 <p><img src="/images/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/image-20220426115229892.png" alt="image-20220426115229892" /></p>
 <p>无论是何种造型的游戏角色，它的创建步骤都大同小异，都需要逐步创建其组成部分，再将各组成部分装配成一个完整的游戏角色。<strong>如何一步步创建一个包含多个组成部分的复杂对象</strong>，建造者模式为解决此类问题而诞生。</p>
@@ -318,14 +318,46 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="完整解决方案"   >
           <a href="#完整解决方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#完整解决方案"></a> 完整解决方案</h1>
       
-
-        <h1 id="问题"   >
-          <a href="#问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题"></a> 问题</h1>
-      
+<p>该公司开发人员决定使用建造者模式来实现游戏角色的创建，其基本结构如图所示：</p>
+<p><img src="/images/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/image-20220427191321266.png" alt="image-20220427191321266" /></p>
+<p>在图中，ActorController充当指挥者，ActorBuilder充当抽象建造者，HeroBuilder、AngelBuilder和DevilBuilder充当具体建造者，Actor充当复杂产品。</p>
+<p>指挥者类ActorController需要定义<code>construct()</code>方法，该方法拥有一个抽象建造者<code>ActorBuilder</code>类型的参数，在该方法内部实现了游戏角色对象的逐步构建。</p>
+<p>为了提高系统的灵活性和可扩展性，最好将具体建造者类的类名存储在配置文件中，并通过某个工具类Util来读取配置文件并反射生成对象。</p>
 
         <h1 id="总结"   >
           <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
       
+<p>建造者模式的核心在于如何一步步构建一个包含多个组成部件的完整对象，使用相同的构建过程构建不同的产品，在软件开发中，如果我们需要创建复杂对象并希望系统具备很好的灵活性和可扩展性可以考虑使用建造者模式。</p>
+
+        <h2 id="主要优点"   >
+          <a href="#主要优点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主要优点"></a> 主要优点</h2>
+      
+<ul>
+<li>在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li>
+<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</li>
+<li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li>
+</ul>
+
+        <h2 id="主要缺点"   >
+          <a href="#主要缺点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主要缺点"></a> 主要缺点</h2>
+      
+<ul>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。</li>
+<li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。</li>
+</ul>
+
+        <h2 id="适用场景"   >
+          <a href="#适用场景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h2>
+      
+<ul>
+<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li>
+<li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li>
+<li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指挥者类中，而不在建造者类和客户类中。</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+</ul>
+<p>在建造者模式中，<strong>客户端只需实例化指挥者类</strong>，指挥者类针对抽象建造者编程，客户端根据需要传入具体的建造者类型，指挥者将指导具体建造者一步一步构造一个完整的产品（逐步调用具体建造者的buildX()方法），相同的构造过程可以创建完全不同的产品。</p>
+<p>在游戏角色实例中，如果需要更换角色，只需要修改配置文件，更换具体角色建造者类即可；</p>
+<p>如果需要增加新角色，可以增加一个新的具体角色建造者类作为抽象角色建造者的子类，再修改配置文件即可，原有代码无须修改，完全符合“开闭原则”。</p>
 
         <h1 id="参考文献"   >
           <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
