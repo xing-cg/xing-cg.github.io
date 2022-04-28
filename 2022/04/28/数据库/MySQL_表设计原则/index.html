@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         给你一个场景，让你设计表。 关系型数据库的范式设计。                       表间的关系        现实中，表与表之间的关系无非就三种：一对一、一对多、多对多。 如何设计表之间的关联关系？                      一对一        举个例子：用户User和身份信息Info两张表是一对一的关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL_表设计原则">
+<meta property="og:url" content="https://mrcan.gitee.io/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         给你一个场景，让你设计表。 关系型数据库的范式设计。                       表间的关系        现实中，表与表之间的关系无非就三种：一对一、一对多、多对多。 如何设计表之间的关联关系？                      一对一        举个例子：用户User和身份信息Info两张表是一对一的关">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-28T13:01:20.553Z">
+<meta property="article:modified_time" content="2022-04-28T13:29:00.917Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>MySQL_表设计原则 | 罐头先生的博客</title><link ref="canonical" href="https://mrcan.gitee.io/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">MySQL_表设计原则</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-04-28</span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>给你一个场景，让你设计表。</li>
+<li>关系型数据库的范式设计。</li>
+</ol>
+
+        <h1 id="表间的关系"   >
+          <a href="#表间的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表间的关系"></a> 表间的关系</h1>
+      
+<p>现实中，表与表之间的关系无非就三种：一对一、一对多、多对多。</p>
+<p>如何设计表之间的关联关系？</p>
+
+        <h1 id="一对一"   >
+          <a href="#一对一" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一对一"></a> 一对一</h1>
+      
+<p>举个例子：用户User和身份信息Info两张表是一对一的关系。</p>
+<ul>
+<li>用户User</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>uid</th>
+<th>name</th>
+<th>age</th>
+<th>sex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>zhang</td>
+<td>20</td>
+<td>M</td>
+</tr>
+<tr>
+<td>1020</td>
+<td>liu</td>
+<td>21</td>
+<td>W</td>
+</tr>
+<tr>
+<td>2010</td>
+<td>wang</td>
+<td>22</td>
+<td>M</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>身份信息Info</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>cardid</th>
+<th>addrinfo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>112233</td>
+<td>china</td>
+</tr>
+<tr>
+<td>334455</td>
+<td>japan</td>
+</tr>
+<tr>
+<td>556677</td>
+<td>canada</td>
+</tr>
+</tbody>
+</table></div>
+<p>目前来看，身份信息表和用户表完全对应不上。</p>
+<p>需要在用户信息加一个字段uid，才能和用户表对应上。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>uid</th>
+<th>cardid</th>
+<th>addrinfo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>112233</td>
+<td>china</td>
+</tr>
+<tr>
+<td>1020</td>
+<td>334455</td>
+<td>japan</td>
+</tr>
+<tr>
+<td>2010</td>
+<td>556677</td>
+<td>canada</td>
+</tr>
+</tbody>
+</table></div>
+<p>现在，两个表之间的关联就是靠Info表的uid建立起来的，Info表的uid在逻辑上实际上就是外键，Info叫做子表，User叫做父表。但是我们现在不会在sql层指出这是一个外键，外键的处理我们放到应用层代码。以让sql处理更核心的业务。</p>
+<p>使表之间能够一对一关联起来的做法：在子表中<strong>增加一列</strong>，与父表的主键关联。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from info where uid=2010;	#如此就相当于间接查到“王”的身份信息</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="一对多"   >
+          <a href="#一对多" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一对多"></a> 一对多</h1>
+      
+<p>举个例子：电商平台。有三个实体：用户User、商品Product、订单Order。</p>
+
+        <h2 id="分析"   >
+          <a href="#分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+      
+<ul>
+<li>用户 - 商品：之间没有关系</li>
+<li>用户 - 订单：一对多的关系</li>
+<li>商品 - 订单：多对多的关系</li>
+</ul>
+
+        <h2 id="表设计"   >
+          <a href="#表设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表设计"></a> 表设计</h2>
+      
+<ul>
+<li>用户User表</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>uid</th>
+<th>name</th>
+<th>age</th>
+<th>sex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000</td>
+<td>zhang</td>
+<td>20</td>
+<td>M</td>
+</tr>
+<tr>
+<td>1020</td>
+<td>liu</td>
+<td>21</td>
+<td>W</td>
+</tr>
+<tr>
+<td>2010</td>
+<td>wang</td>
+<td>22</td>
+<td>M</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>商品Product表</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>pid</th>
+<th>pname</th>
+<th>price</th>
+<th>amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>phone</td>
+<td>600.0</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2</td>
+<td>notebook</td>
+<td>5.0</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>battery</td>
+<td>10.0</td>
+<td>200</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>订单Order表</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>orderid</th>
+<th>pid</th>
+<th>number</th>
+<th>money</th>
+<th>totalprice</th>
+<th>addrinfo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O1000</td>
+<td>1</td>
+<td>1</td>
+<td>600.0</td>
+<td>660.0</td>
+<td>西安工业大学</td>
+</tr>
+<tr>
+<td>O1000</td>
+<td>2</td>
+<td>2</td>
+<td>10.0</td>
+<td>660.0</td>
+<td>西安工业大学</td>
+</tr>
+<tr>
+<td>O1000</td>
+<td>3</td>
+<td>5</td>
+<td>50.0</td>
+<td>660.0</td>
+<td>西安工业大学</td>
+</tr>
+</tbody>
+</table></div>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">https://mrcan.gitee.io/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/"><span class="paginator-prev__text">MySQL_完整性约束</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.</span> <span class="toc-text">
+           表间的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80"><span class="toc-number">3.</span> <span class="toc-text">
+           一对一</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A"><span class="toc-number">4.</span> <span class="toc-text">
+           一对多</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">
+           分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.2.</span> <span class="toc-text">
+           表设计</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">127</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
