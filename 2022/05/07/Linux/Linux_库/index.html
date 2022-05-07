@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         库文件 静态库 共享库（动态链接库）                       一段代码        123456#include&lt;stdio.h&gt;int main()&amp;#123;    printf(&quot;hello, world!&quot;);    return 0;&amp;#125; 众所周知，引入的.h文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_库">
+<meta property="og:url" content="https://mrcan.gitee.io/2022/05/07/Linux/Linux_%E5%BA%93/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         库文件 静态库 共享库（动态链接库）                       一段代码        123456#include&lt;stdio.h&gt;int main()&amp;#123;    printf(&quot;hello, world!&quot;);    return 0;&amp;#125; 众所周知，引入的.h文件">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mrcan.gitee.io/images/Linux_%E5%BA%93/image-20220507200930308.png">
+<meta property="og:image" content="https://mrcan.gitee.io/images/Linux_%E5%BA%93/image-20220507204616204.png">
+<meta property="og:image" content="https://mrcan.gitee.io/images/Linux_%E5%BA%93/image-20220507194717251.png">
+<meta property="article:published_time" content="2022-05-07T11:08:23.481Z">
+<meta property="article:modified_time" content="2022-05-07T13:22:26.785Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mrcan.gitee.io/images/Linux_%E5%BA%93/image-20220507200930308.png"><title>Linux_库 | 罐头先生的博客</title><link ref="canonical" href="https://mrcan.gitee.io/2022/05/07/Linux/Linux_%E5%BA%93/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_库</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-05-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-07</span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>库文件</li>
+<li>静态库</li>
+<li>共享库（动态链接库）</li>
+</ol>
+
+        <h1 id="一段代码"   >
+          <a href="#一段代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一段代码"></a> 一段代码</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello, world!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>众所周知，引入的<code>.h</code>文件只是引入了一堆函数的声明，在这个源代码和<code>.h</code>文件中并没有实现这些函数。那么<code>printf</code>谁帮我们实现的呢？</p>
+<p>答案就是，c程序自动链接了<code>libc.so</code>库文件。</p>
+
+        <h1 id="举例"   >
+          <a href="#举例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#举例"></a> 举例</h1>
+      
+<p>C语言编程中经常使用的<code>printf()</code>，显然不是我们自己实现的，它是在c标准库中实现的。c标准库即<code>libc.so</code>（后面带<code>.6</code>表示版本号，如<code>libc.so.6</code>），此库文件在系统中充当共享库。</p>
+<p>库中存放的是什么？——预先编译好的方法，把这些方法打包为一个集合，就是库文件。</p>
+<p>比如，<code>add.c</code>、<code>max.c</code>分别编译为<code>add.o</code>、<code>max.o</code>，把编译好的二进制文件打包到<code>libfoo.a</code>或<code>libfoo.so</code>。以后我们要是想使用<code>add.o</code>或<code>max.o</code>中的方法时，链接<code>libfoo</code>库即可成功调用。为了方便他人使用，往往会给调用方再提供一个头文件<code>foo.h</code>，以声明此库中包含哪些接口。</p>
+
+        <h1 id="库文件"   >
+          <a href="#库文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#库文件"></a> 库文件</h1>
+      
+<p>预先编译好的方法（函数）的集合。</p>
+<p>库文件通常存放到<code>/lib</code>、<code>/usr/lib</code>下。</p>
+<p>头文件通常存放到<code>/usr/include</code>下。</p>
+
+        <h2 id="库文件使编译链接方便了"   >
+          <a href="#库文件使编译链接方便了" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#库文件使编译链接方便了"></a> 库文件使编译链接方便了</h2>
+      
+<ul>
+<li>我们编写第一个版本的代码，只有一个文件<code>main.c</code></li>
+</ul>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span> c = add(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>此版本我们把<code>add</code>函数的声明、实现全部写到了此文件中。</p>
+<p>测试编译链接——单文件的编译链接很方便。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c</span><br></pre></td></tr></table></div></figure>
+<p>按上面语句编译即可成功。</p>
+<ul>
+<li>我们编写第二个版本的代码，把add函数抽出来写到第二个文件中。</li>
+</ul>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>改写main.c，对于add函数只在此文件中声明</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span> c = add(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>此时如果再像第一次那样编译就行不通了<code>gcc -o main main.c</code>，报错：</p>
+<p><img src="/images/Linux_%E5%BA%93/image-20220507200930308.png" alt="image-20220507200930308" /></p>
+<p>这时，就得这样编译链接才能通过：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c add.c</span><br></pre></td></tr></table></div></figure>
+<p>后面得加个<code>add.c</code>才行。</p>
+<p><strong>这时，就很有可能出现了一个现象：好多人可能都需要调用<code>add.c</code>里面的函数</strong>。</p>
+<p>此时出现了诸多问题：</p>
+<ol>
+<li>如果直接给你add.c，这个源码就要暴露给所有人了，不利于隐藏代码实现细节。</li>
+<li>实际上，<code>gcc -o main main.c add.c</code>不是一步到位生成main的，而是隐藏了好多过程，如果大家都要用add.c那么大家在每一次生成main之前，都需要另外先编译好add.c，才能与main.o链接生成main。这样重复的工作我们是要想办法避免的，即直接给你编译好的<code>.o</code>文件。</li>
+</ol>
+<p>针对以上问题，我们<code>gcc -c add.c</code>编译add.c文件为.o文件。直接给用户编译好的<code>.o</code>文件，即可解决此问题。</p>
+<p>此时，我们要想通过<code>main.c</code>和<code>add.o</code>生成<code>main</code>可执行文件时，可以如此：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c add.o</span><br></pre></td></tr></table></div></figure>
+<p>生成<code>.o</code>文件解决了两个问题，接下来的问题：<strong>以后我们可能不止有<code>add.o</code>，还可能有很多其他的<code>.o</code>文件，比如<code>max.o</code>。能不能打包为一个文件呢？这样就很方便了。——这就是库文件</strong>。</p>
+
+        <h1 id="静态库"   >
+          <a href="#静态库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#静态库"></a> 静态库</h1>
+      
+<p><code>libxx.a</code></p>
+
+        <h2 id="如何生产静态库ar命令"   >
+          <a href="#如何生产静态库ar命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何生产静态库ar命令"></a> 如何生产静态库？ar命令</h2>
+      
+<p>我们把<code>add.c</code>和<code>max.c</code>做成一个静态库。</p>
+<p>add.c文件内容略。</p>
+<p>max.c文件：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b ? a : b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>把两个.c文件分别<code>gcc -c add.c max.c</code>生成了两个.o文件。</p>
+<p>然后，使用ar命令将指出的.o文件生成静态库。</p>
+<p>ar命令格式：<code>ar [选项] 库名 若干.o文件</code></p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>ar命令的选项参数</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>创建库</td>
+</tr>
+<tr>
+<td>r</td>
+<td>将方法添加到库中</td>
+</tr>
+<tr>
+<td>v</td>
+<td>显示过程</td>
+</tr>
+</tbody>
+</table></div>
+<p>则用以下命令即可把add.o、max.o打包为一个静态库文件<code>libfoo.a</code></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar crv libfoo.a add.o max.o</span><br></pre></td></tr></table></div></figure>
+<p>执行结果：<img src="/images/Linux_%E5%BA%93/image-20220507204616204.png" alt="image-20220507204616204" /></p>
+
+        <h2 id="链接静态库"   >
+          <a href="#链接静态库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#链接静态库"></a> 链接静态库</h2>
+      
+<p>我们当前目录下只有<code>libfoo.a</code>、<code>main.c</code>。</p>
+<p>首先，<code>gcc -o main main.c</code>肯定是不能编译通过的。</p>
+<p>其次，<code>gcc -o main main.c libfoo.a</code>是可以编译通过的。但是这不是一个好的办法，这样做的话每次链接需要把库文件拷贝到当前目录，而且还需要打出库的全名。</p>
+<ul>
+<li>标准的做法：<code>-L</code>指明库所在的目录，<code>-l</code>指明你要链接的库名。
+<ul>
+<li>在我们的例子中，库所在的目录是<code>.</code>；库名为<code>foo</code>，即<code>&quot;lib&quot;</code>的后半部分，不带<code>.a</code>。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c -L. -lfoo</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="库文件及其头文件标准目录"   >
+          <a href="#库文件及其头文件标准目录" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#库文件及其头文件标准目录"></a> 库文件及其头文件标准目录</h2>
+      
+<p>我们为了给调用者声明它可以通过某库文件调用哪些函数，需要另外编写一个<code>foo.h</code>头文件。</p>
+<p><strong>注意，在编写<code>.c</code>文件时，需要<code>#include&lt;foo.h&gt;</code></strong>，如此就不用一个个自己声明函数了。</p>
+<p>foo.h文件</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>改写main.c文件</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;foo.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span> c = add(a, b);	<span class="comment">// add函数已经声明于foo.h</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>标准目录</li>
+</ul>
+<p>标准的位置，同时是<code>gcc</code>程序链接时默认扫描的位置是<code>/usr/include</code>。</p>
+<p>相应的库文件的默认扫描位置，<code>/lib</code>、<code>/usr/lib</code>。</p>
+<p>我们把我们自己编写的<code>foo.h</code>和<code>libfoo.a</code>移到标准目录。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line">mv foo.h /usr/include</span><br><span class="line">mv libfoo.a /usr/lib</span><br></pre></td></tr></table></div></figure>
+<p>现在的编译链接过程，由于头文件、库文件都在标准目录底下，可以不加<code>-L</code>参数，但是仍然必须在后面指定<code>-l库名</code>，即<code>-lfoo</code>，便可编译链接成功。</p>
+<p><strong>注意：除了链接<code>libc.so</code>c标准库，<code>-l</code>通常不可省略，这就相当于c标准库是系统亲生的，用得很多，就默认可以省略。</strong></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c -lfoo</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="动态库"   >
+          <a href="#动态库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动态库"></a> 动态库</h1>
+      
+<p><code>libxx.so</code></p>
+<p>再回到那个众人皆知的代码。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello, world!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>我们编译它。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c</span><br></pre></td></tr></table></div></figure>
+<p>怎么证明<code>main</code>程序链接了<code>libc.so</code>库文件呢？</p>
+
+        <h2 id="ldd命令"   >
+          <a href="#ldd命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ldd命令"></a> ldd命令</h2>
+      
+<p><code>ldd</code>命令可以查看编译好的二进制程序需要链接的库文件信息。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd main</span><br></pre></td></tr></table></div></figure>
+<p>我们的main程序使用到了<code>printf</code>的库，即<code>libc.so</code>，bash下输入<code>ldd main</code>的结果是：</p>
+<p><img src="/images/Linux_%E5%BA%93/image-20220507194717251.png" alt="image-20220507194717251" /></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2022/05/07/Linux/Linux_%E5%BA%93/">https://mrcan.gitee.io/2022/05/07/Linux/Linux_%E5%BA%93/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/05/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%A0%86%E6%A0%88%E8%BF%87%E7%A8%8B/"><span class="paginator-prev__text">函数调用堆栈过程</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">
+           一段代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           举例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">
+           库文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93%E6%96%87%E4%BB%B6%E4%BD%BF%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5%E6%96%B9%E4%BE%BF%E4%BA%86"><span class="toc-number">4.1.</span> <span class="toc-text">
+           库文件使编译链接方便了</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">
+           静态库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E4%BA%A7%E9%9D%99%E6%80%81%E5%BA%93ar%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">
+           如何生产静态库？ar命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">5.2.</span> <span class="toc-text">
+           链接静态库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93%E6%96%87%E4%BB%B6%E5%8F%8A%E5%85%B6%E5%A4%B4%E6%96%87%E4%BB%B6%E6%A0%87%E5%87%86%E7%9B%AE%E5%BD%95"><span class="toc-number">5.3.</span> <span class="toc-text">
+           库文件及其头文件标准目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">6.</span> <span class="toc-text">
+           动态库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ldd%E5%91%BD%E4%BB%A4"><span class="toc-number">6.1.</span> <span class="toc-text">
+           ldd命令</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">130</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
