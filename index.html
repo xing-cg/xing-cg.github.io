@@ -32,7 +32,64 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/12/Linux/Linux_gdb/">Linux_gdb</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-05-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-12</span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/13/Linux/Linux_exit/">Linux_exit</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-05-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-14</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li></li>
+<li><code>exit</code></li>
+<li>僵死进程</li>
+</ol>
+
+        <h1 id="进程5种正常终止方式"   >
+          <a href="#进程5种正常终止方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程5种正常终止方式"></a> 进程5种正常终止方式</h1>
+      
+<ol>
+<li>从main返回</li>
+<li>调用exit</li>
+<li>调用<code>_exit</code>或<code>_Exit</code></li>
+<li>最后一个线程从其启动例程返回</li>
+<li>从最后一个线程调用<code>pthread_exit</code></li>
+</ol>
+
+        <h1 id="进程3种异常终止方式"   >
+          <a href="#进程3种异常终止方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程3种异常终止方式"></a> 进程3种异常终止方式</h1>
+      
+<ol>
+<li>调用abort</li>
+<li>接到一个信号</li>
+<li>最后一个线程对取消请求做出响应</li>
+</ol>
+
+        <h1 id="退出函数"   >
+          <a href="#退出函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#退出函数"></a> 退出函数</h1>
+      
+<p>3个函数用于正常终止一个程序：<code>_exit</code>和<code>_Exit</code>立即进入内核，<code>exit</code>则先执行一些清理处理，然后返回内核。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exit</span><span class="params">(<span class="keyword">int</span> status)</span></span>;</span><br><span class="line"><span class="keyword">void</span> _Exit(<span class="keyword">int</span> status);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="keyword">void</span> _exit(<span class="keyword">int</span> status);</span><br></pre></td></tr></table></div></figure>
+<p>调用这三个函数的进程对其他进程有一定影响（如其父进程和子进程）。</p>
+<blockquote>
+<p>使用不同头文件的原因是<code>exit</code>和<code>_Exit</code>是由<code>ISO C</code>说明的，而<code>_exit</code>是由<code>POSIX.1</code>说明的。</p>
+</blockquote>
+<p>由于历史原因，<code>exit</code>函数总是执行一个标准I/O库的清理关闭操作：对于所有打开流调用<code>fclose</code>函数，这造成输出缓冲中的所有数据都被冲洗（写到文件上）。</p>
+<p>3个退出函数都带一个整型参数，称为<strong>终止状态</strong>（或退出状态，exit status)。大多数UNIX系统shell都提供检查进程终止状态的方法。如果(a)调用这些函数时不带终止状态，或(b)main执行了一个无返回值的return语句，或©main没有声明返回类型为整型，则该进程的终止状态是未定义的。但是，若main的返回类型是整型，并且main执行到最后一条语句时返回（隐式返回），那么该进程的终止状态是0。</p>
+<blockquote>
+<p>这种处理是ISO C标准1999版引入的。历史上，若main函数终止时没有显式使用return语句或调用exit函数，那么进程终止状态是未定义的。</p>
+<p>比如以下程序：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello, world!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>对该程序进行编译，然后运行，则可见到其终止码是随机的。如果在不同的系统上编译该程序，我们很可能得到不同的终止码，这<strong>取决于main函数返回时栈和寄存器的内容</strong></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gcc hello.c</span><br><span class="line">$ ./a.out</span><br><span class="line">hello,world</span><br><span class="line">$ <span class="built_in">echo</span> $?	<span class="comment"># $? 为终止状态码</span></span><br><span class="line">13</span><br></pre></td></tr></table></div></figure>
+<p>现在，我们启用1999 ISO C编译器扩展，则可见到终止码改变了：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -std=c99 hello.c	<span class="comment"># 启用gcc的1999 ISO C扩展</span></span><br><span class="line">hello.c:4: warning: <span class="built_in">return</span> <span class="built_in">type</span> defaults to <span class="string">&#x27;int&#x27;</span></span><br><span class="line">$ ./a.out</span><br><span class="line">hello,world</span><br><span class="line">$ <span class="built_in">echo</span> $?	<span class="comment"># $? 为终止状态码</span></span><br><span class="line">0			<span class="comment"># 此处处理为0</span></span><br></pre></td></tr></table></div></figure>
+</blockquote>
+<p>main函数返回一个整型值与用该值调用<code>exit</code>是等价的。于是在main函数中<code>exit(0);</code>等价于<code>return(0);</code>。</p>
+<p>进程有5种正常终止及3种异常终止方式。5种正常终止方式具体如下。<br />
+（1）在main函数内执行 return语句。如在7.3节中所述，这等效于调用exit。<br />
+（2）调用exit函数。此函数由ISOC定义，其操作包括调用各终止处理程序（终止处理程序在调用atexit 函数时登记），然后关闭所有标准I／O流等。因为ISOC并不处理文件描述符、多进程（父进程和子进程）以及作业控制，所以这一定义对UNIX系统而言是不完整的。<br />
+（3）调用＿exit或＿Exit函数。ISOC定义＿Exit，其目的是为进程提供一种无需运行终止处理程序或信号处理程序而终止的方法。对标准I／O流是否进行冲洗，这取决于实现。在UNIX 系统中，＿Exit和＿exit是同义的，并不冲洗标准I／O流。＿exit 函数由 exit 调用，它处理UNIX系统特定的细节。＿exit是由POSIX．1说明的。<br />
+在大多数UNIX系统实现中，exit（3）是标准C库中的一个函数，而＿exit（2）则是一个<br />
+系统调用。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/12/Linux/Linux_gdb/">Linux_gdb</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-05-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-12</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -1330,262 +1387,4 @@ A：实际上这两种需求都是有相应的解决方法的，<strong>多进�
       
 <p>下面这个查询语句用到了多个运算符：<code>sex='M'</code>、<code>and</code>、<code>score&gt;=90.0</code></p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from where sex=&#x27;M&#x27; and score&gt;=90.0;</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">MySQL_数据类型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-04-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>数值类型</li>
-<li>字符串类型</li>
-<li>日期和时间类型</li>
-<li>enum和set</li>
-</ol>
-
-        <h1 id="分层模型"   >
-          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
-      
-<p>业务层是工作在内存上的，速度很快。</p>
-<p>而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。</p>
-<p>所以我们定义数据表时，每一个字段的数据类型都要好好去斟酌。</p>
-<p>MySQL server虽然工作在内存上，但是它要读取数据、索引时，就要进行磁盘IO。磁盘IO次数越少，则性能越高，所以我们要尽力减少磁盘IO次数。</p>
-<p>MySQL数据类型定义了数据的大小范围，因此使用时选择合适的类型，不仅会降低表占用的磁盘空间，还能间接减少磁盘IO的次数，提高了表的访问效率；不仅如此，索引的效率也和数据类型息息相关。</p>
-
-        <h1 id="数值类型"   >
-          <a href="#数值类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数值类型"></a> 数值类型</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>整数类型</th>
-<th>字节</th>
-<th>最小值</th>
-<th>最大值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>TINYINT</code></td>
-<td>1</td>
-<td>有符号<code>-128</code>；无符号0</td>
-<td>有符号127；无符号255</td>
-</tr>
-<tr>
-<td><code>SMALLINT</code></td>
-<td>2</td>
-<td>有符号<code>-32768</code>；无符号0</td>
-<td>有符号32767；无符号65535</td>
-</tr>
-<tr>
-<td><code>MEDIUMINT</code></td>
-<td>3</td>
-<td>有符号<code>-8388608</code>；无符号0</td>
-<td>有符号8388607；无符号1677215</td>
-</tr>
-<tr>
-<td><code>INT</code>、<code>INTEGER</code></td>
-<td>4</td>
-<td>有符号<code>-2147483648</code>；无符号0</td>
-<td>有符号2147483647；无符号4294967295</td>
-</tr>
-<tr>
-<td><code>BIGINT</code></td>
-<td>8</td>
-<td>有符号<code>-9223372036854775808</code>；无符号0</td>
-<td>有符号9223372036854775807；无符号18446744073709551615</td>
-</tr>
-</tbody>
-</table></div>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>浮点数类型</th>
-<th>字节</th>
-<th>最小值</th>
-<th>最大值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>FLOAT</code></td>
-<td>4</td>
-<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>±</mo><mn>1.175494351</mn><mi>E</mi><mo>−</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 1.175494351E-38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">1</span><span class="mord">7</span><span class="mord">5</span><span class="mord">4</span><span class="mord">9</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>±</mo><mn>3.402823466</mn><mi>E</mi><mo>+</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 3.402823466E+38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">3</span><span class="mord">.</span><span class="mord">4</span><span class="mord">0</span><span class="mord">2</span><span class="mord">8</span><span class="mord">2</span><span class="mord">3</span><span class="mord">4</span><span class="mord">6</span><span class="mord">6</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
-</tr>
-<tr>
-<td><code>DOUBLE</code></td>
-<td>8</td>
-<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>±</mo><mn>2.2250738585072014</mn><mi>E</mi><mo>−</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 2.2250738585072014E-308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">2</span><span class="mord">.</span><span class="mord">2</span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">3</span><span class="mord">8</span><span class="mord">5</span><span class="mord">8</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">2</span><span class="mord">0</span><span class="mord">1</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>±</mo><mn>1.7976931348623517</mn><mi>E</mi><mo>+</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 1.7976931348623517E+308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">7</span><span class="mord">9</span><span class="mord">7</span><span class="mord">6</span><span class="mord">9</span><span class="mord">3</span><span class="mord">1</span><span class="mord">3</span><span class="mord">4</span><span class="mord">8</span><span class="mord">6</span><span class="mord">2</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord">7</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
-</tr>
-</tbody>
-</table></div>
-<p>其中浮点类型推荐使用<code>decimal</code>类型（保存为字符串格式）。</p>
-<ul>
-<li>注意
-<ul>
-<li><code>age INT(9)</code>这不是意味着定义了一个长度为9字节的整型。对于占用内存的大小是固定的、和具体的类型是强相关的来说，括号内的数目只是代表整数显示的宽度。</li>
-</ul>
-</li>
-</ul>
-
-        <h2 id="示例"   >
-          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table user(age TINYINT unsigned NOT NULL default 0)</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="字符串类型"   >
-          <a href="#字符串类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符串类型"></a> 字符串类型</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>字符串类型</th>
-<th>字节</th>
-<th>描述及存储需求</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CHAR(M)</code></td>
-<td>M</td>
-<td>M为<code>0~255</code>之间的整数</td>
-</tr>
-<tr>
-<td><code>VARCHAR(M)</code></td>
-<td></td>
-<td>M为<code>0~65535</code>之间的整数，值的长度+1个字节</td>
-</tr>
-<tr>
-<td><code>TINYBLOB</code></td>
-<td></td>
-<td>允许长度<code>0~255</code>字节，值的长度+1字节</td>
-</tr>
-<tr>
-<td><code>BLOB</code></td>
-<td></td>
-<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
-</tr>
-<tr>
-<td><code>MEDIUMBLOB</code></td>
-<td></td>
-<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
-</tr>
-<tr>
-<td><code>LONGBLOB</code></td>
-<td></td>
-<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
-</tr>
-<tr>
-<td><code>TINYTEXT</code></td>
-<td></td>
-<td>允许长度<code>0~255</code>字节，值的长度+2字节</td>
-</tr>
-<tr>
-<td><code>TEXT</code></td>
-<td></td>
-<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
-</tr>
-<tr>
-<td><code>MEDIUMTEXT</code></td>
-<td></td>
-<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
-</tr>
-<tr>
-<td><code>LONGTEXT</code></td>
-<td></td>
-<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
-</tr>
-<tr>
-<td><code>VARBINARY(M)</code></td>
-<td></td>
-<td>允许长度<code>0~M</code>个字节的变长字节字符串，值的长度+1字节</td>
-</tr>
-<tr>
-<td><code>BINARY(M)</code></td>
-<td>M</td>
-<td>允许长度<code>0~M</code>个字节的定长字节字符串</td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>注意
-<ul>
-<li><code>CHAR(12)</code>和<code>VARCHAR(12)</code>的区别在于，如果存储的字符串长度不够12，如果是<code>VARCHAR</code>则为实际的长度，而如果是<code>CHAR</code>则依旧是12；共同点：如果数据超过12则都会产生截断。</li>
-<li>SQL注入式攻击——字符串拼接导致的问题。</li>
-</ul>
-</li>
-</ul>
-
-        <h1 id="日期和时间类型"   >
-          <a href="#日期和时间类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日期和时间类型"></a> 日期和时间类型</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>日期和时间类型</th>
-<th>字节</th>
-<th>最小值</th>
-<th>最大值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>DATE</code></td>
-<td>4</td>
-<td><code>1000-01-01</code></td>
-<td><code>9999-12-31</code></td>
-</tr>
-<tr>
-<td><code>DATETIME</code></td>
-<td>8</td>
-<td><code>1000-01-01 00:00:00</code></td>
-<td><code>9999-12-31 23:59:59</code></td>
-</tr>
-<tr>
-<td><code>TIMESTAMP</code></td>
-<td>4</td>
-<td><code>19700101080001</code></td>
-<td>2038年的某个时刻</td>
-</tr>
-<tr>
-<td><code>TIME</code></td>
-<td>3</td>
-<td><code>-838:59:59</code></td>
-<td><code>838:59:59</code></td>
-</tr>
-<tr>
-<td><code>YEAR</code></td>
-<td>1</td>
-<td><code>1901</code></td>
-<td><code>2155</code></td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>注意
-<ul>
-<li>日期类型是做项目过程中经常使用的类型信息，尤其是<code>TIMESTAMP</code>和<code>DATETIME</code>两个类型；</li>
-<li>注意<code>TIMESTAMP</code>会自动更新时间，非常适合需要记录最新更新时间的场景，对应的函数是<code>unix_timestamp(now())</code>；而<code>DATETIME</code>需要手动更新。</li>
-</ul>
-</li>
-</ul>
-
-        <h2 id="示例-2"   >
-          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select now();					# 2022-04-28 19:30:11</span><br><span class="line">select unix_timestamp(now());	# 1617683855</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="枚举和集合"   >
-          <a href="#枚举和集合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#枚举和集合"></a> 枚举和集合</h1>
-      
-<ul>
-<li>这两种类型都是限制该字段只能取固定的某些值。比如性别——只能男或女。</li>
-<li>枚举字段只能取一个唯一的值。</li>
-<li>集合字段可以取任意个值。</li>
-</ul>
-
-        <h2 id="示例-3"   >
-          <a href="#示例-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h2>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sex enum(&#x27;M&#x27;,&#x27;W&#x27;) default &#x27;M&#x27;</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">133</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">28</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">134</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">28</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
