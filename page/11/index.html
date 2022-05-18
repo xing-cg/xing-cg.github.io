@@ -32,7 +32,219 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/08/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%98%9F%E5%88%97/">基础数据结构_队列</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2021_1009/">计算机知识体系2021_1009</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<p>今天总结的内容是一个发散性和系统性都有的。</p>
+<p>先要把整个操作系统的体系建立起来，存储体系、进程和线程体系。下去之后看操作系统哲学、程序员自我修养、深入理解计算机系统</p>
+<p>从应用层穿到底层。</p>
+<p>内存方面：通过new和malloc区别穿到：内存开辟底层的实现、内存的管理、页面的调换。</p>
+<p>谷歌的tmalloc源码下载下来分析，不会问老师。</p>
+
+        <h1 id="c语言的整个基础"   >
+          <a href="#c语言的整个基础" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言的整个基础"></a> C语言的整个基础</h1>
+      
+<ol>
+<li>结构体的使用–设计结构体–数据结构</li>
+<li>函数指针</li>
+</ol>
+
+        <h1 id="c的核心"   >
+          <a href="#c的核心" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c的核心"></a> C++的核心</h1>
+      
+<p>学习C++：先练（还是念？没听清），就是先理解面向对象的思想，然后用。C++中最主要的是灵活使用STL。STL有几个重要的点：（Vector、List比较简单，刨除了）Map、HashMap、HashSet，不要剖析VS2019的源码，因为太难了，剖析VC6.0或版本比较低的。<strong>Hash类的STL中，HashMap是最重要的一个点</strong>，其底层是红黑树实现的，但红黑树问的不多，撑死问一个树的左旋右旋。<strong>主要是让你实现HashMap（无序）代码</strong>。</p>
+<p>C++更重要的是：</p>
+<p>C<ins>11新特性很重要，可以看一本书C</ins>11新特性。<strong>最重要的是即智能指针</strong>。智能指针问的问题太多太多了。<strong>STL、智能指针会用，C++就到头了</strong>。</p>
+<p>C++结束后，更重要的是修炼内功。</p>
+<p>操作系统的两个点：进程、内存。I/O、多核可以了解一下，其他的不重要。</p>
+
+        <h2 id="内存"   >
+          <a href="#内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+      
+<p>页面置换算法：九个或八个，老师实现LRU算法，时钟算法自己实现，并且要讲清楚，才可以下达C++代码。</p>
+<p><strong>任务1（一周完成）</strong>：面试可能会问到：如果你定义了一个变量，你能否<strong>打印出其真实的物理地址</strong>？则我们必须对整个LINUX的内存管理原理非常熟悉才可以。</p>
+<p>如果能分析出真实的物理地址，则报文原理、写时拷贝原理（fork的原理）就会立马明白。</p>
+<p><strong>任务2</strong>：父进程建立链表，子进程也要使用链表，子进程和父进程不改变数据值。<br />
+首先在父进程建立链表，创建子进程，打印每个地址和值，父进程也如是。当子进程或父进程改变某个节点数据值后，在子进程和父进程再次打印链表的地址。对照链表有何变化。<br />
+本质问题就是：原来我们讲过，局部变量和全局变量产生写时拷贝，那么我们<strong>在堆区如何产生写时拷贝</strong>？</p>
+
+        <h2 id="进程"   >
+          <a href="#进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程"></a> 进程</h2>
+      
+<ol>
+<li>父进程构造了个对象5，<strong>fork后子进程会不会还要调用构造函数</strong>？当对象的局部发生改变后，打印对象地址。这问题会牵扯到后续的继承内容，有多态，存在虚表问题。</li>
+<li>进程间的通信有哪几种？管道、共享内存、消息队列。如果内存知识不懂，则不会理解。一旦要共享内存，就会有互斥、同步问题。互斥量、互斥锁、信号量、原子操作、条件变量。<strong>任务3</strong>：原子操作的底层实现是？搞清原子操作，就可以搞清信号量、互斥量。</li>
+</ol>
+
+        <h1 id="cc面试"   >
+          <a href="#cc面试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cc面试"></a> C/C++面试</h1>
+      
+<p>C和C<ins>的面试，重点不在语法上，而是透过问题C和C</ins>穿入到操作系统。</p>
+
+        <h2 id="new和malloc区别"   >
+          <a href="#new和malloc区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#new和malloc区别"></a> new和malloc区别</h2>
+      
+<ol>
+<li>
+<p>new是关键字，malloc是函数，new调用malloc。</p>
+</li>
+<li>
+<p>new和malloc都是在堆区申请空间</p>
+</li>
+<li>
+<p>new有三个步骤</p>
+<ol>
+<li>开辟空间</li>
+<li>构造函数，初始化对象。</li>
+<li>返回地址</li>
+</ol>
+<p>如果考虑CPU的串行、并行，则2、3步可能会顺序不一致。有可能还没构建对象就拿到了地址，会导致错误。我们需要强制其按照2、3顺序来。</p>
+</li>
+<li>
+<p>new不会强转返回值类型，malloc需要程序员强转。</p>
+</li>
+<li>
+<p>new封装计算sizeof，而malloc需要程序员清楚要开辟的空间。</p>
+</li>
+<li>
+<p>空间不足时，new会抛异常（bad_alloc），不会执行返回操作。malloc会返回空指针。（int *p = new(nothrow) int(20);//我们可以加nothrow禁止抛出异常，则返回空指针）</p>
+</li>
+<li>
+<p>释放时，如果对象是内置类型，delete和free可以混用。自己设计的类型，如果没有析构函数、继承关系，也没有虚函数，则也可以混用；如果你设计的new是一个完全的面向对象的写法，则不可以混用。</p>
+</li>
+<li>
+<p>new是个关键字，可以重载；malloc是函数，不可以重载。重载new，在类中重载的new和delete的最大特点是其具有静态特性，没有this指针。**为什么类中重载的new没有this指针？**this指向当前对象，new需要给当前对象开辟地址，调动new的时候，还不存在对象，那么无法传递this指针。</p>
+</li>
+</ol>
+<p>透过这个问题，我们可以联想到：</p>
+<p><strong>C++的核心思想</strong>：地址和空间分离。就比如，局部对象的定义时分配的空间是系统管理的，构造函数是无能力开辟空间的，只是在空间中构建出来。所以，有空间不一定有对象，有对象一定有空间。</p>
+<p>针对这个思想，有一个例子：类中没有任何指令、成员的sizeof是1，对象占空间大小也是1字节。因为它至少要体现它存在着，起占位符作用。</p>
+
+        <h2 id="new的三种调用形式"   >
+          <a href="#new的三种调用形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#new的三种调用形式"></a> new的三种调用形式</h2>
+      
+<ol>
+<li>
+<p>关键字</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="built_in"><span class="keyword">int</span></span>(<span class="number">10</span>);</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>函数</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = ::<span class="keyword">operator</span> <span class="built_in"><span class="keyword">new</span></span>(<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));  <span class="comment">//malloc</span></span><br></pre></td></tr></table></div></figure>
+<p>类似于调用malloc，但是还是有区别，这个形式的new内存不足时还是会抛出异常。</p>
+</li>
+<li>
+<p>定位new</p>
+<p>定位new就是对已有的空间，在空间中拿定位new来构建你认为的对象。为什么呢？因为ar传递进去之后，传递进的是个无类型指针，无类型指针在地址范围内构建对象就可以了，不管原来是什么货，我现在认为：有地址即可构建对象。对系统内部来说，认为有空间我就能把地址构建到，而回到用户空间下做的话，整型数组里就不能有对象了。但对系统来说，不管类型，我就是可以构建。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ar[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">new</span>(ar) <span class="built_in">Test</span>(<span class="number">10</span>);<span class="comment">//把对象构建到数组中了。跨越了类型的障碍。</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="malloc"   >
+          <a href="#malloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h2>
+      
+<ol>
+<li>new和malloc都是调用malloc来分配空间</li>
+<li>malloc的底层实现是调用tmalloc和pmalloc，大块内存、小块内存组织方案不一样。这个问题就牵扯到了内存池。理解内存池后，malloc底层效率低，我们需要写自己的内存池来增加效率，比如谷歌的tmalloc，那么与STL中的内存池有何区别？</li>
+<li>谷歌的tmalloc如果考虑在多线程环境下，有可能你调的是1号线程给你分配，有可能是2号，线程多了之后，可以加速分配速度。线程有自己的线程池，并不冲突。但是如果要的空间比较大时，要在底层对大空间进行一个统一的开辟，并且会产生竞争，则会出现同步问题。则会出现以下现象：原来是1号线程分配的空间，释放时用的2号线程。原来是2号线程分配的空间，释放时用的1号线程。那么空间如何有一个统一的方法还回去？线程池从某地方拿了一块给另一方，还回的时候是第二个线程还，那么就会把这一块放到线程空间里。所以有可能从1号的还给2号，有可能从2号来的，还给1号。</li>
+</ol>
+
+        <h2 id="什么是内存泄漏"   >
+          <a href="#什么是内存泄漏" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#什么是内存泄漏"></a> 什么是内存泄漏？</h2>
+      
+<ol>
+<li>内存泄露的本质原因是什么？
+<ol>
+<li>内存泄漏绝不是简单的malloc后没有free。进程结束后，malloc的内存都会释放。<strong>因为我们进程使用的是虚拟地址，我们会在进程执行完毕后，撤销虚拟地址在物理地址的映射关系。</strong></li>
+</ol>
+</li>
+<li>内存不足时，我们采取的政策是什么？</li>
+</ol>
+
+        <h2 id="进程同步经典问题"   >
+          <a href="#进程同步经典问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程同步经典问题"></a> 进程同步经典问题</h2>
+      
+<ol>
+<li>生产者-消费者：面试中经久不衰的问题，因为用到的场景太多了。与播放有关的都是这种问题。
+<ol>
+<li>短视频软件就是一个生产者-消费者模型。有环形的缓冲池，有倒水者（服务器）、接水者（用户）。</li>
+<li>如果只有一个池子：使用过程中，队头和队尾需要一直迭代，我们可能需要计算队列中的个数，需要队尾、队头相减，则需要锁住队头和队尾指针，则不能灌水、取水。</li>
+<li>三个池子来回倒：先把一个池子注满，注满后把池子拉给播放器。接着给另一个池子注，这样来说，两个池子是独立的。并行能力提升了。代价是要有两个池子的资源。</li>
+</ol>
+</li>
+<li>哲学家进餐，避免死锁</li>
+<li>读者-写者问题：实际上是生产者-消费者的变种问题
+<ol>
+<li>读者不可改内容，写者可改。读者可以并发，读者和写者互斥，读者和读者并发，写者和写者互斥。代码比较小，但是要你设计框架。</li>
+</ol>
+</li>
+<li>给上三个线程，第一个线程打印A，第二个线程打印B，第三个线程打印C。总共打印10个，要求先A后B再C。不给信号量，能不能拿原子操作和条件变量完成？能不能拿条件变量和互斥量完成？能不能把原子操作、条件变量、互斥量三者合起来组成一个新的信号量？看你是不是学通了。这就面试到了很根本的难点了。年薪40-50W都会面到。</li>
+</ol>
+
+        <h2 id="进程池-线程池"   >
+          <a href="#进程池-线程池" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程池-线程池"></a> 进程池、线程池</h2>
+      
+<p>如何实现进程池、线程池？</p>
+<p>学了TCP/IP就能体会到线程池了。</p>
+
+        <h1 id="书"   >
+          <a href="#书" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#书"></a> 书</h1>
+      
+<ol>
+<li>操作系统哲学</li>
+<li>程序员的自我修养
+<ol>
+<li>看Linux就够了，Windows不看</li>
+</ol>
+</li>
+</ol>
+<p>两本看完后，可以弄一个4G文件，内存中取500M空间，玩地址映射。</p>
+<ol start="3">
+<li>
+<p>csapp</p>
+<ol>
+<li>
+<p>存储器</p>
+</li>
+<li>
+<p>内存管理</p>
+<ol>
+<li>页面置换算法</li>
+</ol>
+</li>
+<li>
+<p>进程、线程</p>
+</li>
+</ol>
+</li>
+<li>
+<p>effective C++</p>
+<ol>
+<li>可当作对C++的扩充</li>
+<li>最有价值的是第六章，应该反复去看，即继承关系。</li>
+</ol>
+</li>
+<li>
+<p>陈硕-LINUX C++网络库</p>
+<ol>
+<li>智能指针。</li>
+</ol>
+</li>
+<li>
+<p>深入理解C++11</p>
+</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/09/Redis/Redis_%E8%B7%B3%E8%B7%83%E8%A1%A8/">Redis_跳跃表</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+
+        <h1 id="平衡树"   >
+          <a href="#平衡树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#平衡树"></a> 平衡树</h1>
+      
+<p>平衡树(Balance Tree，BT) 指的是，<strong>任意节点的子树的高度差都小于等于1</strong>。常见的符合平衡树的有，B树（多路平衡搜索树）、AVL树（二叉平衡搜索树）等。平衡树可以完成集合的一系列操作, 时间复杂度和空间复杂度相对于“2-3树”要低，在完成集合的一系列操作中始终保持平衡，为大型数据库的组织、索引提供了一条新的途径。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/08/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%98%9F%E5%88%97/">基础数据结构_队列</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-08</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -1438,157 +1650,4 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p><code>POSIX.1</code>明确要求在<code>exec</code>时关闭<strong>打开目录流(open directory streams)</strong>。这通常是由opendir函数实现的，它调用<code>fcntl</code>函数为对应于打开目录流的描述符设置执行时关闭标志。</p>
 </blockquote>
 <p>注意，在exec前后实际用户ID和实际组ID保持不变，而有效ID是否改变则取决于所执行程序文件的设置用户ID位和设置组ID位是否设置。<strong>如果新程序的设置用户ID位已设置，则有效用户ID变成程序文件所有者的ID；否则有效用户ID不变</strong>。对组ID的处理方式与此相同。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/09/26/C/C%E8%AF%AD%E8%A8%80_volatile&amp;const/">C语言_volatile&amp;const</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-03-09</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="演示"   >
-          <a href="#演示" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#演示"></a> 演示</h1>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">volatile</span> <span class="keyword">const</span> <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> b = a;</span><br><span class="line">	<span class="keyword">int</span>* p = (<span class="keyword">int</span>*)&amp;a;</span><br><span class="line">	*p = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926094934967.png" alt="image-20210926094934967" /></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> b = a;</span><br><span class="line">	<span class="keyword">int</span>* p = (<span class="keyword">int</span>*)&amp;a;</span><br><span class="line">	*p = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926095031711.png" alt="image-20210926095031711" /></p>
-<p>如果变量被volatile修饰，则是在给编译器说明：该变量可能随时被改写。所以编译器就不会轻易地去优化代码结构。</p>
-<p>const：本程序段中不能对此变量作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心。但const修饰的变量不允许这里修改不代表不允许别处修改，比如：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="keyword">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = &amp;i;</span><br><span class="line">*p = <span class="number">6</span>; <span class="comment">// 不可以；</span></span><br><span class="line">i = <span class="number">7</span>; <span class="comment">// 完全可以，而且那个“const”的“*p”也跟着变成了7。</span></span><br></pre></td></tr></table></div></figure>
-<p><strong>const和volatile放在一起的意义在于：</strong></p>
-<p>（1）本程序段中不能对a作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心；</p>
-<p>（2）另一个程序段则完全有可能修改，因此编译器最好不要做太激进的优化。</p>
-<p>**“const”**含义是“请做为常量使用”，而并非“放心吧，那肯定是个常量”。<br />
-**“volatile”**的含义是“请不要做没谱的优化，这个值可能变掉的”，而并非“你可以修改这个值”。<br />
-因此，它们本来就不是矛盾的。</p>
-<p>const volatile int i=10;这行代码有没有问题?如果没有，那 i 到底是什么属性?</p>
-<p>回答一：没有问题，例如只读的状态寄存器。它是volatile，因为它可能被意想不到地改变;它是const，因为程序不应该试图去修改它。volatile和const并不矛盾，只是控制的范围不一样，一个在程序本身之外，另一个是程序本身。</p>
-<p>回答二：没问题，const和volatile这两个类型限定符不矛盾。const表示(运行时)常量语义：被const修饰的对象在所在的作用域无法进行修改操作，编译器对于试图直接修改const对象的表达式会产生编译错误。volatile表示“易变的”，即在运行期对象可能在当前程序上下文的控制流以外被修改(例如多线程中被其它线程修改;对象所在的存储器可能被多个硬件设备随机修改等情况)：被volatile修饰的对象，编译器不会对这个对象的操作进行优化。一个对象可以同时被const和volatile修饰，表明这个对象体现常量语义，但同时可能被当前对象所在程序上下文意外的情况修改。另外，LS错误，const可以修饰左值，修饰的对象本身也可以作为左值(例如数组)。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/09/21/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/">基础数据结构_链表</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-09-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-03-21</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>单链表的操作</li>
-<li>单链表的经典题目</li>
-</ol>
-
-        <h1 id="单链表经典题目"   >
-          <a href="#单链表经典题目" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单链表经典题目"></a> 单链表经典题目</h1>
-      
-
-        <h2 id="remove"   >
-          <a href="#remove" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#remove"></a> Remove</h2>
-      
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321090309971.png" alt="image-20220321090309971" /></p>
-<ul>
-<li>删除单个元素–按值</li>
-</ul>
-<p>比如删除34。</p>
-<p>第1种做法，双指针</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Remove</span><span class="params">(LinkList head, ElemType val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    ListNode* back = head;</span><br><span class="line">    ListNode* front = head-&gt;next; </span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span> &amp;&amp; front-&gt;data != val)</span><br><span class="line">    &#123;</span><br><span class="line">        back = front;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(front == <span class="literal">NULL</span>)<span class="keyword">return</span>;</span><br><span class="line">    back-&gt;next = front-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(front);</span><br><span class="line">    front = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>第2种做法，结合API。按值找到该值节点的前驱(调用FindValue_Prev)，然后调用删除Erase_Next。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Erase_Next</span><span class="params">(LinkList head, ListNode *ptr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Remove</span><span class="params">(LinkList head, ElemType val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> Erase_Next(head, FindValue_Prev(head, val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<ul>
-<li>删除所有val值节点</li>
-</ul>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321095517379.png" alt="image-20220321095517379" /></p>
-<p>第1种做法，每次从头开始找val，重复若干次，直到找不到为止。时间复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Erase_Next</span><span class="params">(LinkList head, ListNode *ptr)</span></span>;</span><br><span class="line"><span class="function">ListNode * <span class="title">FindValue_Prev</span><span class="params">(LinkList head, ElemType val)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Remove_All</span><span class="params">(LinkList head, ElemType val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    ListNode * p = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>((p = FindValue_Prev(head, val)) != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Erase_Next(head, p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>第2种做法，思想：back指针在后面守护，front在前面探测：<strong>front遇到非val值时back前移，然后交换此时back和front的数据域</strong>。每轮front都前移一次，直到遍历完毕。</p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321103213898.png" alt="image-20220321103213898" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321103233830.png" alt="image-20220321103233830" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321103315038.png" alt="image-20220321103315038" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321103356110.png" alt="image-20220321103356110" /></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Remove_All</span><span class="params">(LinkList head, ElemType val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    ListNode * back = head;</span><br><span class="line">    ListNode * front = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(front-&gt;data != val)</span><br><span class="line">        &#123;</span><br><span class="line">            back = back-&gt;next;</span><br><span class="line">            Swap(&amp;back-&gt;data, &amp;front-&gt;data);</span><br><span class="line">        &#125;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 此时，所有val节点都集中在back指向的节点之后，while直到删完</span></span><br><span class="line">    <span class="keyword">while</span>(back-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Erase_Next(head, pre);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="reverse"   >
-          <a href="#reverse" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#reverse"></a> Reverse</h2>
-      
-
-        <h3 id="三指针"   >
-          <a href="#三指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#三指针"></a> 三指针</h3>
-      
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，空间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    ListNode *back = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode *temp = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode *front = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        temp = front;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">        temp-&gt;next = back;</span><br><span class="line">        back = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    head-&gt;next = back;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="二指针头插"   >
-          <a href="#二指针头插" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二指针头插"></a> 二指针（头插）</h3>
-      
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321110049606.png" alt="image-20220321110049606" /></p>
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，空间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *front = head-&gt;next;</span><br><span class="line">    ListNode *temp = <span class="literal">NULL</span>;</span><br><span class="line">    head-&gt;next = <span class="literal">NULL</span>;	<span class="comment">// ready to push_front</span></span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// front will move, avoid front-&gt;next change, temp log. </span></span><br><span class="line">        temp = front;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">        <span class="comment">// the next 2 steps : push front</span></span><br><span class="line">        temp-&gt;next = head-&gt;next;</span><br><span class="line">        head-&gt;next = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>头插法逆置还有一种单指针的做法，遍历把每个节点的值取出，调用Push_Front按值购买节点头插。这种做法的空间复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，同时还会涉及到内存泄漏的问题，因为旧有遍历过的节点没有释放。如果要在代码中主动释放，则又需要加个temp指针来记录了。一边申请，一边释放，这种做法是及其耗费资源的，不推荐。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *front = head-&gt;next;</span><br><span class="line">    head-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ElemType val = front-&gt;val;</span><br><span class="line">        Push_Front(head, val);</span><br><span class="line">        </span><br><span class="line">    <span class="comment">/*  ListNode *temp = front;	*/</span></span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    <span class="comment">/*	free(temp);				*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="栈"   >
-          <a href="#栈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#栈"></a> 栈</h3>
-      
-<p>栈的特性：后进先出</p>
-<p>用一个连续空间和push_back/pop_back/get_back模拟一个栈。</p>
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，空间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">    ListNode *front = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ++len;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ElemType *<span class="built_in">stack</span> = (ElemType*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ElemType)*len);</span><br><span class="line">    <span class="keyword">int</span> top = <span class="number">-1</span>;</span><br><span class="line">    front = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        top += <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">stack</span>[top] = p-&gt;data;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    front = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p-&gt;data = <span class="built_in">stack</span>[top];</span><br><span class="line">        top -= <span class="number">1</span>;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(<span class="built_in">stack</span>);</span><br><span class="line">    <span class="built_in">stack</span> = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="递归"   >
-          <a href="#递归" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归"></a> 递归</h3>
-      
-<p>分析最小的递归单元：两个节点的逆置。</p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321133942696.png" alt="image-20220321133942696" /></p>
-<p>两个节点的逆置动作：<strong>首先first指针指向23</strong>，然后分析：要逆置23和34，需要先把23之后的逆置，而34只是一个节点，不做动作直接return自身，<strong>则last指针指向34</strong>。然后first-&gt;next-&gt;next指向first，即34指向自己，先画一个环；然后first-&gt;next = NULL，23与34切断连接。如此即完成两个节点的逆置。以此类推即是链表逆置的递归过程。</p>
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，空间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">Reverse</span><span class="params">(ListNode *first)</span>	<span class="comment">//此函数也可以处理不带头节点的单链表逆置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pnode==<span class="literal">NULL</span> || pnode-&gt;next==<span class="literal">NULL</span>)<span class="keyword">return</span> first;</span><br><span class="line">    ListNode * last = Reverse(first-&gt;next);</span><br><span class="line">    first-&gt;next-&gt;next = first;</span><br><span class="line">    first-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    ListNode *front = head-&gt;next;</span><br><span class="line">    head-&gt;next = Reverse(front);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>举例：</p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321142459489.png" alt="image-20220321142459489" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321142555889.png" alt="image-20220321142555889" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321142645452.png" alt="image-20220321142645452" /></p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321142707390.png" alt="image-20220321142707390" /></p>
-
-        <h3 id="不带头结点单链表的非递归逆置三指针法"   >
-          <a href="#不带头结点单链表的非递归逆置三指针法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#不带头结点单链表的非递归逆置三指针法"></a> 不带头结点单链表的非递归逆置–三指针法</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">NiceReverseList</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)<span class="keyword">return</span> head;</span><br><span class="line">    ListNode *front = head;</span><br><span class="line">    ListNode *back = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode *temp = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        temp = front;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">        temp-&gt;next = back;</span><br><span class="line">        back = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> back;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="倒数第k"   >
-          <a href="#倒数第k" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#倒数第k"></a> 倒数第k</h2>
-      
-<p>打印不带头节点的单链表中倒数第k个节点的数据。</p>
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20220321144102473.png" alt="image-20220321144102473" /></p>
-
-        <h3 id="len减k法"   >
-          <a href="#len减k法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#len减k法"></a> len减k法</h3>
-      
-<p>打印第n-k+1个节点。</p>
-<p>比如，我们有5个节点，要求打印倒数第2个节点。则等效于打印正数第5-2+1个节点。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintKth_List</span><span class="params">(LinkList head, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span> || k &lt; <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    ListNode *front = head;</span><br><span class="line">    <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ++count;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(k &gt; n)<span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    front = head;</span><br><span class="line">    <span class="keyword">while</span>(count-- &gt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%dth data of LinkList : %d. \n&quot;</span>, front-&gt;data);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="递归-2"   >
-          <a href="#递归-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归-2"></a> 递归</h3>
-      
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，空间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PrintKth</span><span class="params">(ListNode * head, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> count = PrintKth(head-&gt;next, k) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(count == k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%dth data of LinkList : %d. \n&quot;</span>, front-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintKth_List</span><span class="params">(LinkList head, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span> || k &lt; <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    PrintKth(head, k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="栈-2"   >
-          <a href="#栈-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#栈-2"></a> 栈</h3>
-      
-
-        <h3 id="双指针"   >
-          <a href="#双指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#双指针"></a> 双指针</h3>
-      
-<p>即快慢指针法，使快慢指针相差k距离，同时步进，当快指针空时，则慢指针指向倒数第k值。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintKth_List</span><span class="params">(LinkList head, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span> || k &lt; <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    ListNode *front = head;</span><br><span class="line">    ListNode *back = head;</span><br><span class="line">    <span class="keyword">int</span> count = k;</span><br><span class="line">    <span class="keyword">while</span>(front!=<span class="literal">NULL</span> &amp;&amp; count&gt;<span class="number">0</span>)	<span class="comment">//front==NULL 或 k==0退出，front==NULL退出是因为k&gt;=n；front!=NULL&amp;&amp;k==0退出 则k&lt;n，正常。</span></span><br><span class="line">    &#123;</span><br><span class="line">        front = front-&gt;next;</span><br><span class="line">        --count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(front == <span class="literal">NULL</span>)<span class="keyword">return</span>;<span class="comment">//k超出节点数量范围</span></span><br><span class="line">        <span class="keyword">while</span>(front != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            front = front-&gt;next;</span><br><span class="line">            back = back-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%dth data of LinkList : %d. \n&quot;</span>, back-&gt;data);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="返回中间节点"   >
-          <a href="#返回中间节点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#返回中间节点"></a> 返回中间节点</h2>
-      
-<p>快慢指针法，快指针一次走两个，慢指针一次走一个。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">GetMidNode</span><span class="params">(LinkList head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span> || head-&gt;next==<span class="literal">NULL</span>)<span class="keyword">return</span> head;</span><br><span class="line">    ListNode * front = head;</span><br><span class="line">    ListNode * back = head;</span><br><span class="line">    <span class="keyword">while</span>(front-&gt;next!=<span class="literal">NULL</span> &amp;&amp; front-&gt;next-&gt;next!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        front = front-&gt;next-&gt;next;</span><br><span class="line">        back = back-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> back;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="环路"   >
-          <a href="#环路" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#环路"></a> 环路</h2>
-      
-
-        <h3 id="数组中的重复数字"   >
-          <a href="#数组中的重复数字" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数组中的重复数字"></a> 数组中的重复数字</h3>
-      
-
-        <h1 id="刷题"   >
-          <a href="#刷题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#刷题"></a> 刷题</h1>
-      
-<p><img src="/images/%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E9%93%BE%E8%A1%A8/image-20210921182935780.png" alt="image-20210921182935780" /></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(struct ListNode* node)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">p</span> =</span> node-&gt;next;</span><br><span class="line">    *node=*p;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>如果考虑最后节点，就没办法用这种方法了，因为最多只能给最后的节点的信息全赋零值，并且前继节点的next指向的地址是无法改变的。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/10/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">137</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">28</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/10/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">139</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
