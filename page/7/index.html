@@ -32,7 +32,83 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/26/Cpp/Cpp_STL_vector/">Cpp_STL_vector</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/28/Cpp/Cpp_STL_deque/">Cpp_STL_deque</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>deque</li>
+</ol>
+
+        <h1 id="构造"   >
+          <a href="#构造" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造"></a> 构造</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; ar1;	<span class="comment">//空vector</span></span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; ar2 = &#123; <span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span>,<span class="number">78</span>,<span class="number">89</span> &#125;; <span class="comment">//类似数组的初始化方式</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar3</span><span class="params">(<span class="number">10</span>, <span class="number">23</span>)</span></span>; <span class="comment">//存10个23</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar4</span><span class="params">(&#123; <span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span> &#125;)</span></span>; <span class="comment">//初始化列表作为参数构造</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar5</span><span class="params">(ar2)</span></span>; <span class="comment">//拷贝构造，按ar2的有效size</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar6</span><span class="params">(std::move(ar2))</span></span>; <span class="comment">//移动构造</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="emplace和push"   >
+          <a href="#emplace和push" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#emplace和push"></a> emplace和push</h1>
+      
+<p>首先来看隐式转换的概念：</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Object</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Object</span>(<span class="keyword">int</span> val) : <span class="built_in">val</span>(val) &#123; &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;Object&gt; objvec;</span><br><span class="line">    objvec.<span class="built_in">push_back</span>(<span class="number">20</span>); <span class="comment">//隐式转换20，创建临时对象Object(20)。实际上是：emplace_back(Object(20))</span></span><br><span class="line">    objvec.<span class="built_in">emplace_back</span>(<span class="number">20</span>); <span class="comment">//在vec.end()处直接定位new Object(20)</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="vector与智能指针结合"   >
+          <a href="#vector与智能指针结合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vector与智能指针结合"></a> vector与智能指针结合</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::vector&lt;Shape*&gt; shape;</span><br><span class="line">    string name;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; name, name != <span class="string">&quot;end&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(name == <span class="string">&quot;Circle&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            shape.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">Circle</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(name == <span class="string">&quot;Square&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            shape.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">Square</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;input class name error: &quot;</span> &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp; x : shape)</span><br><span class="line">    &#123;</span><br><span class="line">        x-&gt;<span class="built_in">draw</span>();</span><br><span class="line">        x-&gt;<span class="built_in">erase</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/28/Cpp/Cpp_STL_list/">Cpp_STL_list</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>list</li>
+<li>区分：list是双向迭代器，vector是随机迭代器</li>
+</ol>
+
+        <h1 id="构造"   >
+          <a href="#构造" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造"></a> 构造</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; ar1;	<span class="comment">//空vector</span></span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; ar2 = &#123; <span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span>,<span class="number">78</span>,<span class="number">89</span> &#125;; <span class="comment">//类似数组的初始化方式</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar3</span><span class="params">(<span class="number">10</span>, <span class="number">23</span>)</span></span>; <span class="comment">//存10个23</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar4</span><span class="params">(&#123; <span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span> &#125;)</span></span>; <span class="comment">//初始化列表作为参数构造</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar5</span><span class="params">(ar2)</span></span>; <span class="comment">//拷贝构造，按ar2的有效size</span></span><br><span class="line">	<span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">ar6</span><span class="params">(std::move(ar2))</span></span>; <span class="comment">//移动构造</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="与vector的区别"   >
+          <a href="#与vector的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与vector的区别"></a> 与vector的区别</h1>
+      
+<ol>
+<li>底层实现</li>
+<li>空间利用率</li>
+<li>查询元素
+<ol>
+<li>vector：iterator operator[]，find O(n)，binary_search O(logn)</li>
+<li>list：iterator find O(n)</li>
+</ol>
+</li>
+<li>插入和删除
+<ol>
+<li>vector情况较多，看是否需要增容；分在中间插入还是在最后插入；删除：最后删除O(1)，中间删除需要内存拷贝；resize和reserve的区别</li>
+<li>list：插入O(1)，需要内存申请，删除O(1)，需要内存释放。</li>
+</ol>
+</li>
+<li>迭代器：
+<ol>
+<li>vector：随即迭代器，可检查越界。支持++，–，+，+=，&lt;，&gt;，==，!=；插入和删除元素可能导致迭代失效。</li>
+<li>list：插入元素不会导致迭代器失效，但是删除元素除了erase有特殊情况，可能会导致当前迭代器失效。</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="如何抉择"   >
+          <a href="#如何抉择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何抉择"></a> 如何抉择？</h1>
+      
+<p>什么时候该用vector？什么时候该用list？</p>
+<ol>
+<li>如果需要高效的随机存取，而不在乎插入和删除的效率（很少使用插入和删除操作)。选用vector。</li>
+<li>如果需要大量的插入和删除的操作，随机存取很少使用。选用list。</li>
+</ol>
+
+        <h2 id="举例"   >
+          <a href="#举例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#举例"></a> 举例</h2>
+      
+<p>例1∶比如制作了一个游戏玩家排行榜，那么就要实时刷新这个排行榜，这个时候，如果有人达到排行的条件，那么就要把他加进去，如果人数多出了，那么就把排名靠后的移除掉，这就需要大量的插入删除操作，那么这个时候就应该优先考虑list，而不是vector。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/26/Cpp/Cpp_STL_vector/">Cpp_STL_vector</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-28</span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -507,307 +583,4 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
       
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1] 刘伟. 设计模式.</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99/">七大原则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-22</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>面向对象的设计原则</li>
-<li>常见七种设计原则</li>
-</ol>
-
-        <h1 id="面向对象的设计原则"   >
-          <a href="#面向对象的设计原则" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面向对象的设计原则"></a> 面向对象的设计原则</h1>
-      
-<p>对于面向对象软件系统的设计而言，在支持可维护性的同时，提高系统的可复用性是一个至关重要的问题，如何同时提高一个软件系统的可维护性和可复用性是面向对象设计需要解决的核心问题之一。在面向对象设计中，可维护性的复用是以设计原则为基础的。每一个原则都蕴含一些面向对象设计的思想，可以从不同的角度提升一个软件结构的设计水平。</p>
-<p>面向对象设计原则为支持可维护性复用而诞生，这些原则蕴含在很多设计模式中，它们是从许多设计方案中总结出的指导性原则。面向对象设计原则也是我们用于评价一个设计模式的使用效果的重要指标之一，在设计模式的学习中，要多问自己，“XXX模式符合XXX原则吗？”、“XXX模式违反了XXX原则吗？”这样的语句。</p>
-
-        <h1 id="常见七种设计原则"   >
-          <a href="#常见七种设计原则" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常见七种设计原则"></a> 常见七种设计原则</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>设计原则名称</th>
-<th>定义</th>
-<th>使用频率</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单一职责原则, Single Responsibility, SRP</td>
-<td>一个类只负责一个功能领域中的相应职责</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>开闭原则, Open-Closed, OCP</td>
-<td>软件实体应对扩展开放，而对修改关闭</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>里氏代换原则, Liskov Substitution, LSP</td>
-<td>所有引用基类对象的地方能够透明地使用其子类的对象</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>依赖倒转原则, Dependence Inversion, DIP</td>
-<td>抽象不应该依赖于细节，细节应该依赖于抽象</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>接口隔离原则, Interface Segregation, ISP</td>
-<td>使用多个专门的接口，而不使用单一的总接口</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>合成复用原则, Composite Reuse, CRP</td>
-<td>尽量使用对象组合，而不是继承来达到复用的目的</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>迪米特法则, Law of Demeter, LoD</td>
-<td>一个软件实体应当尽可能少地与其他实体发生相互作用</td>
-<td>★★★☆☆</td>
-</tr>
-</tbody>
-</table></div>
-
-        <h1 id="设计原则的价值"   >
-          <a href="#设计原则的价值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计原则的价值"></a> 设计原则的价值</h1>
-      
-<p>优秀的面向对象的程序应该是有以下五个特征的：低耦合，高内聚，高复用，易维护，易扩展。</p>
-<ol>
-<li>开闭原则让程序易扩展，易维护。</li>
-<li>里氏替换原则、依赖倒置和合成复用原则可以降低耦合。</li>
-<li>接口隔离、单一职责原则和迪米特原则可以提高内聚性。</li>
-</ol>
-<p>而低耦合，高内聚的代码才能实现高复用。</p>
-
-        <h1 id="参考文献"   >
-          <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1] 刘伟. 设计模式.</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/02/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/">设计模式概述</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-02-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-22</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>模式是什么</li>
-<li>软件模式的由来</li>
-<li>软件模式的构成</li>
-<li>设计模式是什么</li>
-<li>设计模式用途分类，常用模式一览</li>
-<li>设计模式的价值</li>
-<li>如何学习设计模式</li>
-</ol>
-
-        <h1 id="模式是什么"   >
-          <a href="#模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模式是什么"></a> 模式是什么</h1>
-      
-<p>美国Christopher Alexander博士及其研究团队用了约20年的时间，对住宅和周边环境进行了大量的调查研究和资料收集工作，发现人们对舒适住宅和城市环境存在一些共同的认同规律，Christopher Alexander在著作A Pattern Language: Towns, Buildings, Construction中把这些认同规律归纳为253个模式，对每一个模式(Pattern)都从Context（前提条件）、Theme或Problem（目标问题）、 Solution（解决方案）三个方面进行了描述，并给出了从用户需求分析到建筑环境结构设计直至经典实例的过程模型。</p>
-<p>在Christopher Alexander的另一部经典著作《建筑的永恒之道》中，他给出了关于模式的定义：</p>
-<p>**每个模式都描述了一个在我们的环境中不断出现的问题，然后描述了该问题的解决方案的核心，通过这种方式，我们可以无数次地重用那些已有的成功的解决方案，无须再重复相同的工作。**这个定义可以简单地用一句话表示：</p>
-<p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案。</strong><br />
-A pattern is a successful or efficient <strong>solution to a recurring problem</strong> within a context.</p>
-
-        <h1 id="软件模式的由来"   >
-          <a href="#软件模式的由来" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的由来"></a> 软件模式的由来</h1>
-      
-<p>1990年，软件工程界开始关注Christopher Alexander等在这一住宅、公共建筑与城市规划领域的重大突破。最早将模式的思想引入软件工程方法学的是1991-1992年以“四人组(Gang of Four，简称<strong>GoF</strong>，分别是Erich Gamma, Richard Helm, Ralph Johnson和John Vlissides)”自称的四位著名软件工程学者，他们在1994年归纳发表了23种在软件开发中使用频率较高的设计模式，旨在用模式来<strong>统一沟通面向对象方法在分析、设计和实现间的鸿沟</strong>。</p>
-<p>GoF将模式的概念引入软件工程领域，这标志着软件模式的诞生。软件模式(Software Patterns)是将模式的一般概念应用于软件开发领域，即<strong>软件开发的总体指导思路或参照样板</strong>。软件模式<strong>并非仅限于设计模式，还包括架构模式、分析模式和过程模式</strong>等，实际上，<strong>在软件开发生命周期的每一个阶段都存在着一些被认同的模式</strong>。</p>
-
-        <h1 id="软件模式的构成"   >
-          <a href="#软件模式的构成" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的构成"></a> 软件模式的构成</h1>
-      
-<p>软件模式是在软件开发中某些可重现问题的一些有效解决方法，软件模式的基础结构主要由四部分构成，包括问题描述（<strong>待解决的问题是什么</strong>）、前提条件（<strong>在何种环境或约束条件下使用</strong>）、解法（<strong>如何解决</strong>）和效果（<strong>有哪些优缺点</strong>）。</p>
-
-        <h1 id="设计模式是什么"   >
-          <a href="#设计模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式是什么"></a> 设计模式是什么</h1>
-      
-<p>在软件模式中，设计模式是研究最为深入的分支，设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案，它<strong>融合了众多专家的设计经验</strong>，已经在成千上万的软件中得以应用。 1995年， GoF将收集和整理好的23种设计模式汇编成Design Patterns: Elements of Reusable Object-Oriented Software（《设计模式：可复用面向对象软件的基础》）一书，该书的出版也标志着设计模式正式成为面向对象(Object Oriented)软件工程的一个重要研究分支。</p>
-<p>设计模式的一般定义如下：</p>
-<p><strong>设计模式</strong>(Design Pattern)是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的<strong>总结</strong>，使用设计模式是为了可重用代码、让代码更容易被他人理解并且保证代码可靠性。</p>
-
-        <h2 id="设计模式的要素"   >
-          <a href="#设计模式的要素" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的要素"></a> 设计模式的要素</h2>
-      
-<p>设计模式一般包含模式名称、问题、目的、解决方案、效果等组成要素，其中关键要素是模式名称、问题、解决方案和效果。</p>
-<p><strong>模式名称</strong>(Pattern Name)通过一两个词来描述模式的问题、解决方案和效果，以便更好地理解模式并方便开发人员之间的交流，绝大多数模式都是根据其功能或模式结构来命名的（GoF设计模式中没有一个模式用人名命名）</p>
-<p><strong>问题</strong>(Problem)描述了应该在何时使用模式，它包含了设计中存在的问题以及问题存在的原因</p>
-<p><strong>解决方案</strong>(Solution)描述了一个设计模式的组成成分，以及这些组成成分之间的相互关系，各自的职责和协作方式，通常解决方案通过UML类图和核心代码来进行描述</p>
-<p><strong>效果</strong>(Consequences)描述了模式的优缺点以及在使用模式时应权衡的问题。</p>
-
-        <h1 id="设计模式的用途分类"   >
-          <a href="#设计模式的用途分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的用途分类"></a> 设计模式的用途分类</h1>
-      
-<p>虽然GoF设计模式只有23个，但是它们各具特色，每个模式都为某一个可重复的设计问题提供了一套解决方案。</p>
-<p>根据它们的用途，设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种。</p>
-<p>其中<strong>创建型</strong>模式主要用于描述<strong>如何创建对象</strong>；<strong>结构型</strong>模式主要用于描述<strong>如何实现类或对象的组合</strong>；<strong>行为型</strong>模式主要用于描述<strong>类或对象怎样交互以及怎样分配职责</strong>。</p>
-<p>在GoF 23种设计模式中包含5种创建型设计模式、7种结构型设计模式和11种行为型设计模式。此外，根据某个模式主要是用于处理类之间的关系还是对象之间的关系，设计模式还可以分为类模式和对象模式。我们经常将两种分类方式结合使用，如单例模式是对象创建型模式，模板方法模式是类行为型模式。</p>
-
-        <h2 id="常用设计模式一览表"   >
-          <a href="#常用设计模式一览表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用设计模式一览表"></a> 常用设计模式一览表</h2>
-      
-<p>值得一提的是，有一个设计模式虽然不属于GoF 23种设计模式，但一般在介绍设计模式时都会对它进行说明，它就是<strong>简单工厂模式</strong>，也许是太“简单”了，GoF并没有把它写到那本经典著作中，不过现在大部分的设计模式书籍都会对它进行专门的介绍。</p>
-<div class="table-container"><table>
-	<tr>
-	    <th>类型</th>
-	    <th>模式名称</th>
-	    <th>学习难度</th>
-        <th>使用频率</th>
-	</tr>
-	<tr>
-	    <td rowspan="6">创建型模式</td>
-	    <td>单例模式</td>
-	    <td>★☆☆☆☆</td>
-        <td>★★★★☆</td>
-	</tr>
-	<tr>
-	    <td>简单工厂模式</td>
-	    <td>★★☆☆☆</td>
-        <td>★★★☆☆</td>
-	</tr>
-	<tr>
-	    <td>工厂方法模式</td>
-	    <td>★★☆☆☆</td>
-        <td>★★★★★</td>
-	</tr>
-	<tr>
-	    <td>抽象工厂模式</td>
-	    <td>★★★★☆</td>
-        <td>★★★★★</td>
-	</tr>
-    <tr>
-	    <td>原型模式</td>
-	    <td>★★★☆☆</td>
-        <td>★★★☆☆</td>
-	</tr>
-    <tr>
-	    <td>建造者模式</td>
-	    <td>★★★★☆</td>
-        <td>★★☆☆☆</td>
-	</tr>
-    <tr>
-        <td rowspan="7">结构型模式</td>
-        <td>适配器模式</td>
-        <td>★★☆☆☆</td>
-        <td>★★★★☆</td>
-    </tr>
-    <tr>
-        <td>桥接模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★☆☆</td>
-    </tr>
-    <tr>
-        <td>组合模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★★☆</td>
-    </tr>
-    <tr>
-        <td>装饰模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★☆☆</td>
-    </tr>
-    <tr>
-        <td>外观模式</td>
-        <td>★☆☆☆☆</td>
-        <td>★★★★★</td>
-    </tr>
-    <tr>
-        <td>享元模式</td>
-        <td>★★★★☆</td>
-        <td>★☆☆☆☆</td>
-    </tr>
-    <tr>
-        <td>代理模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★★☆</td>
-    </tr>
-    <tr>
-        <td rowspan="11">行为型模式</td>
-        <td>职责链模式</td>
-        <td>★★★☆☆</td>
-        <td>★★☆☆☆</td>
-    </tr>
-    <tr>
-        <td>命令模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★★☆</td>
-    </tr>
-    <tr>
-        <td>解释器模式</td>
-        <td>★★★★★</td>
-        <td>★☆☆☆☆</td>
-    </tr>
-    <tr>
-        <td>迭代器模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★★★</td>
-    </tr>
-    <tr>
-        <td>中介者模式</td>
-        <td>★★★☆☆</td>
-        <td>★★☆☆☆</td>
-    </tr>
-    <tr>
-        <td>备忘录模式</td>
-        <td>★★☆☆☆</td>
-        <td>★★☆☆☆</td>
-    </tr>
-    <tr>
-        <td>观察者模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★★★</td>
-    </tr>
-    <tr>
-        <td>状态模式</td>
-        <td>★★★☆☆</td>
-        <td>★★★☆☆</td>
-    </tr>
-    <tr>
-        <td>策略模式</td>
-        <td>★☆☆☆☆</td>
-        <td>★★★★☆</td>
-    </tr>
-    <tr>
-        <td>模板方法模式</td>
-        <td>★★☆☆☆</td>
-        <td>★★★☆☆</td>
-    </tr>
-    <tr>
-        <td>访问者模式</td>
-        <td>★★★★☆</td>
-        <td>★☆☆☆☆</td>
-    </tr>
-</table></div>
-
-        <h1 id="设计模式的价值"   >
-          <a href="#设计模式的价值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的价值"></a> 设计模式的价值</h1>
-      
-<p>大部分设计模式都兼顾了系统的可重用性和可扩展性，这使得我们可以更好地重用一些已有的设计方案、功能模块甚至一个完整的软件系统，避免我们经常做一些重复的设计、编写一些重复的代码。</p>
-<p>此外，随着软件规模日益增大，系统的可维护性和可扩展性也越来越重要，许多设计模式将有助于提高系统的灵活性和可扩展性，让我们在不修改或者少修改现有系统的基础上增加、删除或者替换功能模块。</p>
-
-        <h1 id="如何学习设计模式"   >
-          <a href="#如何学习设计模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何学习设计模式"></a> 如何学习设计模式</h1>
-      
-<ol>
-<li>在学习每一个设计模式时至少应该掌握如下几点：当你能够回答所有问题时，恭喜你，你了解一个设计模式了，至于掌握它，那就在开发中去使用吧，用多了你自然就掌握了。
-<ol>
-<li>这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；</li>
-<li>它是如何解决的，掌握它的结构图，记住它的关键代码；</li>
-<li>能够想到至少两个它的应用实例，一个生活中的，一个软件中的；</li>
-<li>这个模式的优缺点是什么，在使用时要注意什么。</li>
-</ol>
-</li>
-<li>“如果想体验一下运用模式的感觉，那么最好的方法就是运用它们”。正如在本章最开始所说的，设计模式是“内功心法”，它还是要与“实战招式”相结合才能够相得益彰。学习设计模式的目的在于应用，如果不懂如何使用一个设计模式，而只是学过，能够说出它的用途，绘制它的结构，充其量也只能说你了解这个模式，严格一点说：不会在开发中灵活运用一个模式基本上等于没学。所以一定要做到：少说多做。</li>
-<li>不要滥用模式，不要试图在一个系统中用上所有的模式，也许有这样的系统，但至少目前我没有碰到过。每个模式都有自己的适用场景，不能为了使用模式而使用模式。</li>
-<li>如果将设计模式比喻成“三十六计”，那么每一个模式都是一种计策，它为解决某一类问题而诞生，不管这个设计模式的难度如何，使用频率高不高，都应该好好学学，多学一个模式也就意味着你多了“一计”，说不定什么时候一不小心就用上了。</li>
-<li>设计模式的“上乘”境界：“手中无模式，心中有模式”。模式使用的最高境界是你已经不知道具体某个设计模式的定义和结构了，但你会灵活自如地选择一种设计方案（其实就是某个设计模式）来解决某个问题，设计模式已经成为你开发技能的一部分，能够手到擒来，“内功”与“招式”已浑然一体，要达到这个境界并不是看完某本书或者开发一两个项目就能够实现的，它需要不断沉淀与积累，所以，对模式的学习不要急于求成。</li>
-<li>GoF已故成员、软件工程大师之一John Vlissides的著作《设计模式沉思录》(Pattern Hatching Design Patterns Applied)：模式从不保证任何东西，它不能保证你一定能够做出可复用的软件，提高你的生产率，更不能保证世界和平；模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</li>
-</ol>
-
-        <h1 id="参考文献"   >
-          <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1] 刘伟. 设计模式.</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">142</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Mr-Can" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">144</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
