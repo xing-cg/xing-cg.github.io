@@ -8,7 +8,7 @@
 var CONFIG = {
   root: '/',
   algolia: undefined,
-  assistSearch: undefined,
+  assistSearch: ["google","bing","baidu"],
   fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
   sidebar: {"offsetTop":"20px","tocMaxDepth":6},
   header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
@@ -32,956 +32,513 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/20/Linux/Linux_%E7%BA%BF%E7%A8%8B/">Linux_线程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-03-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/20/Linux/Linux_%E7%BA%BF%E7%A8%8B/" data-flag-title="Linux_线程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">MySQL_完整性约束</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" data-flag-title="MySQL_完整性约束"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>理解程序的并发运行</li>
-<li>线程同步：线程间信号量、互斥锁、条件变量、读写锁</li>
+<li>主键约束</li>
+<li>自增键约束</li>
+<li>唯一键约束</li>
+<li>非空约束</li>
+<li>默认值约束</li>
+<li>外键约束</li>
 </ol>
 
-        <h1 id="与进程的区别"   >
-          <a href="#与进程的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与进程的区别"></a> 与进程的区别</h1>
+        <h1 id="主键约束"   >
+          <a href="#主键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主键约束"></a> 主键约束</h1>
       
-<ol>
-<li>进程：一个正在运行的程序，是资源分配的最小单位。</li>
-<li>线程：进程内部的一条执行路径，是执行任务的最小单位。</li>
-</ol>
+<p><code>PRIMARY KEY</code></p>
+<p>只能有一个主键。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table user(</span><br><span class="line">	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT comment &#x27;用户的主键id&#x27;,</span><br><span class="line">	username VARCHAR(50) UNIQUE NOT NULL COMMENT &#x27;用户名&#x27;,</span><br><span class="line">	age TINYINT UNSIGNED NOT NULL default 18,</span><br><span class="line">	sex ENUM(&#x27;male&#x27;,&#x27;demale&#x27;)</span><br><span class="line">);</span><br><span class="line"># commit + ’...‘ 可以对本属性进行备注注释说明</span><br></pre></td></tr></table></div></figure>
+<p>创建表后，可以通过<code>desc user\G</code>，或者<code>desc user;</code>来查看字段的详细信息。前者是展开列表形式，后者是二维表格形式。</p>
 
-        <h1 id="为什么需要线程"   >
-          <a href="#为什么需要线程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么需要线程"></a> 为什么需要线程</h1>
+        <h1 id="自增键约束"   >
+          <a href="#自增键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#自增键约束"></a> 自增键约束</h1>
       
-<ol>
-<li>程序需要同时做多个事情</li>
-<li>充分利用多处理器（多核）</li>
-</ol>
+<p><code>AUTO_INCREMENT</code></p>
 
-        <h1 id="理解程序的并发运行"   >
-          <a href="#理解程序的并发运行" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#理解程序的并发运行"></a> 理解程序的并发运行</h1>
+        <h1 id="唯一键约束"   >
+          <a href="#唯一键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#唯一键约束"></a> 唯一键约束</h1>
       
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">thread_fun</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> id[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;<span class="number">5</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_create(&amp;id[i], <span class="literal">NULL</span>, thread_fun, (<span class="keyword">void</span>*)&amp;i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>UNIQUE</code></p>
+<p>可以有多个唯一键，而且可以为空。</p>
 
-        <h1 id="同步"   >
-          <a href="#同步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步"></a> 同步</h1>
+        <h1 id="非空约束"   >
+          <a href="#非空约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非空约束"></a> 非空约束</h1>
       
-<p>C语言中，关于同步提供的四个方法：</p>
-<ol>
-<li>信号量</li>
-<li>互斥锁</li>
-<li>条件变量</li>
-<li>读写锁</li>
-</ol>
+<p><code>NOT NULL</code></p>
 
-        <h2 id="信号量"   >
-          <a href="#信号量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信号量"></a> 信号量</h2>
+        <h1 id="默认值约束"   >
+          <a href="#默认值约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#默认值约束"></a> 默认值约束</h1>
       
+<p><code>DEFAULT</code></p>
 
-        <h2 id="互斥锁互斥量"   >
-          <a href="#互斥锁互斥量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#互斥锁互斥量"></a> 互斥锁（互斥量）</h2>
+        <h1 id="外键约束"   >
+          <a href="#外键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#外键约束"></a> 外键约束</h1>
       
-<p>（UNIX环境高级编程_第3版_中文版）为了避免多个线程同时对某公共数据操作时产生冲突，可以使用pthread的互斥接口来保护数据，<strong>确保同一时间只有一个线程访问数据</strong>。</p>
-<p>互斥量(mutex)本质上来说是一把锁，利用互斥量，在访问共享资源前对互斥量进行设置（加锁），在访问完成后释放（解锁）互斥量，即可达到线程同步。</p>
-<p>对互斥量加锁后，其他线程再次对mutex进行lock操作时会被<strong>阻塞</strong>，直到锁被释放。</p>
-<blockquote>
-<p>如果释放互斥量时有一个以上的线程阻塞，那么所有该锁上的阻塞线程都会变成<strong>可运行状态</strong>，只有第一个变为运行态的线程可以拿到锁进行加锁，其他线程会看到互斥量依然是锁着的，只能回去再次等待锁重新变为可用。在这种方式下，每次只有一个线程可以向前执行。</p>
-</blockquote>
-
-        <h3 id="api"   >
-          <a href="#api" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#api"></a> API</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功返回0；否则返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="keyword">const</span> <span class="keyword">pthread_mutexattr_t</span> *<span class="keyword">restrict</span> attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_destroy</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>关于restrict关键字，请移步C/C++语言分栏。</p>
-<p>要用默认的属性初始化互斥量，只需把attr设为NULL。</p>
-<hr />
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功返回0；否则返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_lock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_trylock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_unlock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>如果线程不希望被阻塞，可以使用pthread_mutex_trylock尝试对互斥量进行加锁。<strong>如果调用pthread_mutex_trylock时互斥量处于未锁状态，那么将锁住互斥量，不会出现阻塞直接返回0，否则就会失败，不能锁住互斥量，返回EBUSY。</strong></p>
-
-        <h3 id="避免死锁"   >
-          <a href="#避免死锁" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#避免死锁"></a> 避免死锁</h3>
-      
-<p>如果线程试图对同一个互斥量加锁两次（拿到锁之后再加锁），那么它自身就会陷入死锁状态。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pthread_mutex_t</span> lock;</span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">fun</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    pthread_mutex_lock(&amp;lock);</span><br><span class="line">    pthread_mutex_lock(&amp;lock);	<span class="comment">//死锁</span></span><br><span class="line">    <span class="comment">//... </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = pthread_mutex_init(&amp;lock, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span>(res != <span class="number">0</span>)<span class="comment">// 0 is success, or failed.</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... initialization mutex</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">pthread_t</span> tid1;</span><br><span class="line">    res = pthread_create(&amp;tid1, <span class="literal">NULL</span>, fun, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span>(res != <span class="number">0</span>)<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    res = pthread_join(tid1, <span class="literal">NULL</span>);	<span class="comment">//第二个参数用于接收线程的返回值，不感兴趣可以设置为NULL</span></span><br><span class="line">    <span class="keyword">if</span>(res != <span class="number">0</span>)<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>还有其他方式也能产生死锁，例如，程序中使用一个以上的互斥量时，如果线程1一直占有互斥量1，它要进行下一步的条件是占有互斥量2，而互斥量2一直被线程2占有，线程2下一步的条件是占用互斥量1。即<strong>两个线程都在互相请求另一个线程拥有的资源</strong>。</p>
-<p>可以通过仔细控制互斥量加锁的顺序来避免死锁的发生，例如，假设需要对两个互斥量A和B同时加锁。</p>
-<p>如果所有线程总是在对互斥量B加锁之前能够锁住互斥量A，那么使用这两个互斥量就不会产生死锁。类似地，如果所有的线程总是在锁住互斥量A之前能够锁住互斥量B，那么也不会发生死锁。可能出现的死锁只会发生在一个线程试图锁住另一个线程以相反的顺序锁住的互斥量。</p>
-<p>有时候，应用程序的结构使得对互斥量进行排序是很困难的。如果涉及了太多的锁和数据结构，可用的函数并不能把它转换成简单的层次，那么就需要采用另外的方法。在这种情况下，可以先释放占有的锁，然后过一段时间再试。这种情况可以使用pthread_mutex_trylock接口避免死锁。如果已经占有某些锁而且pthread_mutex_trylock接口返回成功，那么就可以前进。但是，<strong>如果不能获取锁，可以先释放已经占有的锁</strong>，做好清理工作，然后过一段时间再重新试。</p>
-
-        <h2 id="条件变量"   >
-          <a href="#条件变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#条件变量"></a> 条件变量</h2>
-      
-<p>条件变量是线程可用的另一种同步机制。</p>
-<p><strong>条件变量给多个线程提供了一个回合的场所</strong>。</p>
-<p><strong>条件变量与互斥量一起使用时，允许线程以无竞争的方式等待特定的条件发生</strong>。</p>
-<p>条件本身是由互斥量保护的。线程在改变条件状态之前必须首先锁住互斥量。其他线程在获得互斥量之前不会察觉到这种改变，因为互斥量必须在锁定以后才能计算条件。</p>
-<hr />
-
-        <h3 id="api-2"   >
-          <a href="#api-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#api-2"></a> API</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功，返回0；否则，返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_init</span><span class="params">(<span class="keyword">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,</span></span></span><br><span class="line"><span class="params"><span class="function">                      <span class="keyword">const</span> <span class="keyword">pthread_condattr_t</span> *<span class="keyword">restrict</span> attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_destroy</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>在使用条件变量之前，必须先对它进行初始化。</p>
-<p>在释放条件变量底层的内存空间之前，可以使用pthread_cond_destroy函数对条件变量进行反初始化(deinitialize)。</p>
-<hr />
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功，返回0；否则，返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_wait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,</span></span></span><br><span class="line"><span class="params"><span class="function">                      <span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_timedwait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *<span class="keyword">restrict</span> cond,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="keyword">pthread_mutex_t</span> *<span class="keyword">restrict</span> mutex,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="keyword">const</span> struct timespec *<span class="keyword">restrict</span> tsptr)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>我们使用pthread_cond_wait等待条件变量变为真。如果在给定的时间内条件不能满足，那么会返回一个错误码。</p>
-<p>传递给pthread_cond_wait的<strong>互斥量对条件进行保护</strong>。调用者把锁住的互斥量传给函数，<strong>函数然后自动把调用线程放到等待条件的线程列表</strong>上，<strong>对互斥量解锁</strong>。这就<strong>关闭了条件检查</strong>和<strong>线程进入休眠状态等待条件改变</strong>这两个操作<strong>之间的时间通道</strong>，这样线程就不会错过条件的任何变化。pthread_cond_wait返回时，互斥量再次被锁住。</p>
-<blockquote>
-<p>pthread_cond_timedwait函数多了一个超时参数(tsptr)。超时值指定了我们愿意等待多长时间，它是通过timespec结构指定的。需要指定愿意等待多长时间，这个时间值是一个<strong>绝对数</strong>而不是相对数。例如，假设愿意等待3分钟。那么，并不是把3分钟转换成timespec结构，而是需要把当前时间加上3分钟再转换成timespec结构。</p>
-</blockquote>
-<blockquote>
-<p>如果超时到期时条件还是没有出现，pthread_cond_timewait 将重新获取互斥量，然后返回错误ETIMEDOUT。从pthread_cond_wait或者pthread_cond_timedwait调用成功返回时，线程需要重新计算条件，因为另一个线程可能已经在运行并改变了条件。</p>
-</blockquote>
-<blockquote>
-<p>可以使用<strong>clock_gettime函数获取timespec结构</strong>表示的当前时间。但是目前并不是所有的平台都支持这个函数，因此，也可以用另一个函数<strong>gettimeofday获取timeval结构</strong>表示的当前时间，然后把这个时间转换成timespec结构。</p>
-</blockquote>
-<hr />
-<p>有两个函数可以用于通知线程条件已经满足。pthread_cond_signal函数至少能唤醒一个等待该条件的线程，而pthread_cond_broadcast函数则能唤醒等待该条件的所有线程。</p>
-<blockquote>
-<p>POSIX规范为了简化pthread_cond_signal的实现，允许他在实现的时候唤醒一个以上的线程。</p>
-</blockquote>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功，返回0；否则，返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_signal</span><span class="params">(<span class="keyword">pthread_cond_t</span> * cond)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_broadcast</span><span class="params">(<span class="keyword">pthread_cond_t</span> * cond)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>在调用pthread_cond_signal或者pthread_cond_broadcast时，我们说这是在给线程或者条件发信号。必须注意，一定要在改变条件状态以后再给线程发信号。</p>
-<p>条件是工作队列的状态。我们用互斥量保护条件，在while循环中判断条件。把消息放到工作队列时，需要占有互斥量，但在给等待线程发信号时，不需要占有互斥量。只要线程在调用pthread_cond_signal之前把消息从队列中拖出了，就可以在释放互斥量以后完成这部分工作。因为我们是在while循环中检查条件，所以不存在这样的问题：线程醒来，发现队列仍为空，然后返回继续等待。如果代码不能容忍这种竞争，就需要在给线程发信号的时候占有互斥量。</p>
-
-        <h2 id="读写锁共享互斥锁"   >
-          <a href="#读写锁共享互斥锁" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#读写锁共享互斥锁"></a> 读写锁（共享互斥锁）</h2>
-      
-<p>读写锁和互斥量类似，不过读写锁允许更高的并行性。互斥量要么是锁住状态，要么是未锁状态，而且一次只有一个线程可以对其加锁。</p>
-<p>读写锁有3种状态：<strong>读模式下加锁状态</strong>，<strong>写模式下加锁状态</strong>，<strong>不加锁状态</strong>。<strong>一次只有一个线程可以占有写模式的读写锁，但是多个线程可以同时占有读模式的读写锁</strong>。写与写、读都会冲突，读与读不冲突。</p>
-<blockquote>
-<ol>
-<li>当读写锁是写加锁状态时，在这个锁被解锁之前，所有试图对这个锁加锁的线程都会被阻塞；</li>
-<li>当读写锁在读加锁状态时，所有试图以读模式对它进行加锁的线程都可以得到访问权，但是任何希望以写模式对此锁进行加锁的线程都会阻塞，直到所有的线程释放它们的读锁为止。</li>
-<li>虽然各操作系统对读写锁的实现各不相同，但当读写锁处于读模式锁住的状态，而这时有一个线程试图以写模式获取锁时，读写锁通常会阻塞随后的读模式锁请求。这样可以避免读模式锁长期占用，而等待的写模式锁请求一直得不到满足。</li>
-</ol>
-</blockquote>
-<p>读写锁也叫做共享互斥锁(shared-exclusive lock)。<strong>当读模式锁住时，相当于是以共享模式锁住的。当写模式锁住时，是以互斥模式锁住的</strong>。</p>
-
-        <h3 id="api-3"   >
-          <a href="#api-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#api-3"></a> API</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功，返回0；否则，返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_init</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *<span class="keyword">restrict</span> rwlock,</span></span></span><br><span class="line"><span class="params"><span class="function">                        <span class="keyword">pthread_rwlockattr_t</span> *<span class="keyword">restrict</span> attr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_destroy</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>在释放读写锁占用的内存之前，需要调用pthread_rwlock_destroy做清理工作。如果pthread_rwlock_init为读写锁分配了资源，pthread_rwlock_destroy将释放这些资源。</p>
-<p><strong>如果在调用pthread_rwlock_destroy之前就释放了读写锁占用的内存空间，那么分配给这个锁的资源就会丢失</strong>。（分配给这个锁的资源指什么？“丢失”的具体含义？）</p>
-<blockquote>
-<ol>
-<li>如果你的pthread_rwlock_t资源是临时变量，就要保证在生存期之前destroy；</li>
-<li>pthread_rwlock_t * 这个指针指向的内存区域是malloc动态分配的，那就是destroy后，再free释放空间；</li>
-<li>你的pthread_rwlock_t如果是个全局变量，那么生存期其实就不影响，程序退出前destroy。</li>
-</ol>
-</blockquote>
-<hr />
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 函数的返回值：若成功，返回0；否则，返回错误编号 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_rdlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_wrlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_unlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<p>要在读模式下锁定读写锁，需要调用pthread_rwlock_rdlock。要在写模式下锁定读写锁，需要调用pthread_rwlock_wrlock。不管以何种方式锁住读写锁，都可以调用pthread_rwlock_unlock进行解锁。</p>
-
-        <h1 id="生产者-消费者模型"   >
-          <a href="#生产者-消费者模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#生产者-消费者模型"></a> 生产者-消费者模型</h1>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFER_MAX 10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PRODUCER_NUM 2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONSUMER_NUM 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sem_t</span> empty;</span><br><span class="line"><span class="keyword">sem_t</span> full;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> buff[BUFFER_MAX];</span><br><span class="line"><span class="keyword">int</span> in_index = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> out_index = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">produce</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index = (<span class="keyword">int</span>)arg;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">30</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sem_wait(&amp;empty);</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        buff[in_index] = rand()%<span class="number">100</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;the producer %d wrote data %d,where %d\n&quot;</span>,index,buff[in_index],in_index);</span><br><span class="line">        in_index = (in_index + <span class="number">1</span>)%BUFFER_MAX;</span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">        sem_post(&amp;full);</span><br><span class="line"></span><br><span class="line">        sleep(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">consume</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index = (<span class="keyword">int</span>)arg;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">20</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sem_wait(&amp;full);</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;the consumer %d read the data %d,from %d\n&quot;</span>,index,buff[out_index],out_index);</span><br><span class="line">        out_index = (out_index+<span class="number">1</span>)%BUFFER_MAX;</span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">        sem_post(&amp;empty);</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sem_init(&amp;empty,<span class="number">0</span>,BUFFER_MAX);</span><br><span class="line">    sem_init(&amp;full,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    pthread_mutex_init(&amp;mutex,<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    srand((<span class="keyword">int</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create the producers</span></span><br><span class="line">    <span class="keyword">pthread_t</span> producer_id[PRODUCER_NUM];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;PRODUCER_NUM;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_create(&amp;producer_id[i],<span class="literal">NULL</span>,produce,(<span class="keyword">void</span>*)i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">pthread_t</span> consumer_id[CONSUMER_NUM];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;CONSUMER_NUM;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_create(&amp;consumer_id[i],<span class="literal">NULL</span>,consume,(<span class="keyword">void</span>*)i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;PRODUCER_NUM;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_join(producer_id[i],<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;CONSUMER_NUM;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pthread_join(consumer_id[i],<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sem_destroy(&amp;empty);</span><br><span class="line">    sem_destroy(&amp;full);</span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="实现线程的三种模式"   >
-          <a href="#实现线程的三种模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现线程的三种模式"></a> 实现线程的三种模式</h1>
-      
-
-        <h2 id="纯粹的用户级线程"   >
-          <a href="#纯粹的用户级线程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#纯粹的用户级线程"></a> 纯粹的用户级线程</h2>
-      
-
-        <h2 id="纯粹的内核级线程"   >
-          <a href="#纯粹的内核级线程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#纯粹的内核级线程"></a> 纯粹的内核级线程</h2>
-      
-
-        <h2 id="组合"   >
-          <a href="#组合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#组合"></a> 组合</h2>
-      
-
-        <h2 id="区别"   >
-          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h2>
-      
-<ol>
-<li>用户级
-<ol>
-<li>创建开销小，可以创建很多。</li>
-<li>无法使用多个处理器</li>
-</ol>
-</li>
-<li>内核级
-<ol>
-<li>创建开销大。</li>
-<li>由内核直接管理</li>
-<li>可以使用多个处理器</li>
-</ol>
-</li>
-</ol>
-
-        <h1 id="线程安全"   >
-          <a href="#线程安全" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#线程安全"></a> 线程安全</h1>
-      
-
-        <h1 id="查看线程信息的方法"   >
-          <a href="#查看线程信息的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查看线程信息的方法"></a> 查看线程信息的方法</h1>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep main</span><br><span class="line">ps -eLf | grep main <span class="comment">#UID PID PPID LWP（线程ID） C NLWP（线程数目）</span></span><br><span class="line">ps -L <span class="comment">#显示线程id</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="多线程中的fork"   >
-          <a href="#多线程中的fork" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多线程中的fork"></a> 多线程中的fork</h1>
-      
-<p>执行fork后，整个进程会被复制，但是规定只启用fork所在的那条执行路径。</p>
-
-        <h1 id="linux线程的优势"   >
-          <a href="#linux线程的优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux线程的优势"></a> Linux线程的优势</h1>
-      
-<ol>
-<li>外部获得线程的返回值？</li>
-<li></li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/18/Cpp/Cpp_STL/">Cpp_STL</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/18/Cpp/Cpp_STL/" data-flag-title="Cpp_STL"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-
-        <h1 id="近容器"   >
-          <a href="#近容器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#近容器"></a> 近容器</h1>
-      
-<ol>
-<li>int arr[]</li>
-<li>string</li>
-</ol>
-
-        <h1 id="顺序容器"   >
-          <a href="#顺序容器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#顺序容器"></a> 顺序容器</h1>
-      
-
-        <h1 id="容器适配器"   >
-          <a href="#容器适配器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#容器适配器"></a> 容器适配器</h1>
-      
-
-        <h1 id="关联容器"   >
-          <a href="#关联容器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联容器"></a> 关联容器</h1>
-      
-<ol>
-<li>set</li>
-<li>multiset</li>
-<li>map</li>
-<li>multimap</li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">排序算法</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-24</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-flag-title="排序算法"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<p><code>FOREIGN KEY</code></p>
+<p>拿学生信息表、考试信息表来举例子。两张表中的信息是有关联的，不是独立的。</p>
+<p>学生信息表中有张三，那么考试信息表里就可能有依赖张三的信息。</p>
+<p>如果我们要删除张三，那么需要把另一个表中依赖张三的信息也删掉。否则就会出现无效冗余数据。</p>
+<p>外键、存储函数、存储过程、触发器，在现如今的后台开发中几乎不直接用在mysql端了。</p>
+<p>而是尽量把这个过程放在业务逻辑上提前处理好，让数据库持久层专于做增删改查，有利于提高效率。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%BF%90%E7%AE%97%E7%AC%A6/">MySQL_运算符</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-05-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/04/28/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%BF%90%E7%AE%97%E7%AC%A6/" data-flag-title="MySQL_运算符"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>冒泡排序</li>
-<li>简单选择排序</li>
-<li>直接插入排序</li>
+<li>算数运算符</li>
+<li>逻辑运算符</li>
+<li>比较运算符</li>
 </ol>
 
-        <h1 id="冒泡"   >
-          <a href="#冒泡" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#冒泡"></a> 冒泡</h1>
+        <h1 id="算术运算符"   >
+          <a href="#算术运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#算术运算符"></a> 算术运算符</h1>
       
-
-        <h1 id="简单选择"   >
-          <a href="#简单选择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#简单选择"></a> 简单选择</h1>
-      
-
-        <h1 id="直接插入"   >
-          <a href="#直接插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#直接插入"></a> 直接插入</h1>
-      
-<p>依次从待排序序列中取值，向已排序序列中放，保证再次完全有序，直到待排序列中所有值取完。</p>
-
-        <h1 id="希尔"   >
-          <a href="#希尔" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#希尔"></a> 希尔</h1>
-      
-
-        <h1 id="二路归并"   >
-          <a href="#二路归并" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二路归并"></a> 二路归并</h1>
-      
-<p>Merge函数：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="基数"   >
-          <a href="#基数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基数"></a> 基数</h1>
-      
-
-        <h1 id="为何快速排序和归并排序很重要"   >
-          <a href="#为何快速排序和归并排序很重要" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为何快速排序和归并排序很重要"></a> 为何快速排序和归并排序很重要</h1>
-      
-<p>因为这两个算法可以把整个数据进行划分，所以可以使用多线程处理划分的任务，处理完后，最后再用一个主线程处理所有数据。这是可划分算法的优势。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/09/Cpp/Cpp_%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/">Cpp_继承和多态</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-09</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-03-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/09/Cpp/Cpp_%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/" data-flag-title="Cpp_继承和多态"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-
-        <h1 id="引入"   >
-          <a href="#引入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#引入"></a> 引入</h1>
-      
-<p>类与类之间的关系：</p>
-<p>组合/嵌套：一个类中声明了另一个类，是属于的关系。一个类是另一个类的一部分。</p>
-<p>代理：一个类的接口是另一个类接口的子集</p>
-<p>继承：fish–goldFish</p>
-
-        <h1 id="隐藏"   >
-          <a href="#隐藏" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#隐藏"></a> 隐藏</h1>
-      
-<p>子类会隐藏父类的同名成员。----同名隐藏</p>
-<p>访问被隐藏的成员需要加上（父类）作用域。</p>
-
-        <h1 id="动多态"   >
-          <a href="#动多态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动多态"></a> 动多态</h1>
-      
-<p>产生：使用指针或者引用调用虚函数，就会产生动多态调用</p>
-<p>动多态调用的过程：</p>
-<ol>
-<li>使用指针或者引用调用虚函数</li>
-<li>在对象中找到vfptr</li>
-<li>根据vfptr找到vftable</li>
-<li>在vftable中找到要调用的函数</li>
-<li>调用</li>
-</ol>
-<p>vftable</p>
-<p>编译时期如果发现类中有虚函数，就会对这个类生成vftable（虚函数表）。将当前</p>
-
-        <h1 id="面试"   >
-          <a href="#面试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面试"></a> 面试</h1>
-      
-<ol>
-<li>父子类/组合类的构造顺序
-<ol>
-<li>先构造父类，再构造子类。</li>
-<li>先构造内部类，再构造大类。</li>
-</ol>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>加法</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>减法</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乘法</td>
+</tr>
+<tr>
+<td><code>/</code>、<code>DIV</code></td>
+<td>除法，返回商</td>
+</tr>
+<tr>
+<td><code>%</code>、<code>MOD</code></td>
+<td>除法，返回余数</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>注意
+<ul>
+<li>计算时，需要注意当时的数据类型取值范围是否合适，以免越界导致业务出错</li>
+</ul>
 </li>
-<li>类的编译顺序：
-<ol>
-<li>编译类名</li>
-<li>编译成员名=====编译嵌套类</li>
-<li>编译成员方法体</li>
-</ol>
+</ul>
+
+        <h2 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set age=age+1;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="逻辑运算符"   >
+          <a href="#逻辑运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑运算符"></a> 逻辑运算符</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NOT</code>或<code>!</code></td>
+<td>逻辑非</td>
+</tr>
+<tr>
+<td><code>AND</code>或<code>&amp;&amp;</code></td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td><code>OR</code>或<code>||</code></td>
+<td>逻辑或</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="比较运算符"   >
+          <a href="#比较运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#比较运算符"></a> 比较运算符</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>等于</td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code>或<code>!=</code></td>
+<td>不等于（<code>&lt;&gt;</code>在未来可能会被淘汰）</td>
+</tr>
+<tr>
+<td><code>&lt;=&gt;</code></td>
+<td>NULL安全的等于(NULL-safe)</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BETWEEN</code></td>
+<td>存在于指定范围</td>
+</tr>
+<tr>
+<td><code>IN</code></td>
+<td>存在于指定集合</td>
+</tr>
+<tr>
+<td><code>IS NULL</code></td>
+<td>为NULL</td>
+</tr>
+<tr>
+<td><code>IS NOT NULL</code></td>
+<td>不为NULL</td>
+</tr>
+<tr>
+<td><code>LIKE</code></td>
+<td>通配符匹配</td>
+</tr>
+<tr>
+<td><code>REGEXP</code>或<code>RLIKE</code></td>
+<td>正则表达式匹配</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>注意
+<ul>
+<li>判空不要写<code>=NULL</code>，而是要写<code>IS NOT NULL</code>或<code>IS NULL</code>；判空经常出现在左连接、右连接中的外键查询。</li>
+<li>通配符与索引的关系？
+<ul>
+<li><code>LIKE</code>通配符不一定会用到索引，需要看通配符加的地方，如果通配符在中间、末尾则能用到；但是如果加到最开始则不会用到。</li>
+</ul>
 </li>
-<li>什么是多态
-<ol>
-<li>面向对象方法学中，派生类继承基类后表现出来的形式叫多态。这个形式为在基类的行为基础上又派生出各自派生类的特性</li>
-</ol>
+</ul>
 </li>
-<li>动多态的产生条件
-<ol>
-<li>父类有虚函数</li>
-</ol>
-</li>
-<li>动多态的过程
-<ol>
-<li>子类继承父类时，拷贝父类虚函数表，覆盖虚函数表中的同名方法。</li>
-<li>在调用子类方法时，如果发现其是虚函数，则由虚函数表指针找到虚函数表，查出函数指针，调用继承或重写的方法。</li>
-</ol>
-</li>
-<li>vftable什么时候产生？在哪里存储？
-<ol>
-<li>在构造子类前，构造父类时产生。在内存的只读数据段中存储。</li>
-</ol>
-</li>
-<li>构造函数能不能写成虚函数
-<ol>
-<li>不能，因为调用虚函数需要去构造好的对象中找虚函数表指针。但是他还没构造出来。</li>
-</ol>
-</li>
-<li>静态函数能不能写成虚函数
-<ol>
-<li>静态函数属于类的函数，理论上可以被定义为虚函数并继承。</li>
-</ol>
-</li>
-<li>析构函数能不能写成虚函数
-<ol>
-<li>可以，并且在运用多态时，常用。</li>
-</ol>
-</li>
-<li>虚函数能不能被处理为内联
-<ol>
-<li>不能。内联是在编译期代码段展开，而动多态是在运行时。</li>
-</ol>
-</li>
-<li>什么情况下析构函数必须写成虚函数
-<ol>
-<li>父类指针指向子类对象</li>
-</ol>
-</li>
-<li>父类指针能不能指向子类对象？子类指针能不能指向父类对象？
-<ol>
-<li>前者可以，后者不可。</li>
-</ol>
-</li>
-<li>什么是RTTI？在什么时候产生？存储在哪里？</li>
-<li>父类指针如何转化为子类指针？转化有什么条件？</li>
-<li>什么是菱形继承？菱形继承有什么问题？如何解决？</li>
-<li>纯虚函数有什么作用？</li>
-<li>隐藏</li>
-<li>覆盖</li>
-</ol>
+</ul>
 
-        <h2 id="答案"   >
-          <a href="#答案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#答案"></a> 答案</h2>
+        <h2 id="示例-2"   >
+          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
       
-<ol>
-<li>
-<ol>
-<li>静多态
-<ol>
-<li>编译时期的多态，又被称为早绑定</li>
-<li>代表：函数重载、模板</li>
-</ol>
-</li>
-<li>动多态
-<ol>
-<li>运行时期的多态，又被称为晚绑定</li>
-<li>代表：继承中的多态</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>编译类名</li>
-<li>编译成员名=====编译嵌套类</li>
-<li>编译成员方法体</li>
-</ol>
-</li>
-<li></li>
-<li>
-<ol>
-<li>指针或引用调用虚函数 + 对象必须完整</li>
-<li>完整对象：构造函数执行完毕，虚构函数还没开始</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>使用指针或者引用调用虚函数</li>
-<li>在对象中找到vfptr</li>
-<li>找到vftable</li>
-<li>在表中找到对应的函数</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>编译期产生</li>
-<li>放在rodata区</li>
-</ol>
-</li>
-<li>
-<ol>
-<li>不能，构造函数无法通过指针或者引用调用，写成虚函数没有意义。</li>
-<li>vfptr是在构造时才写入对象，而调用虚构造函数时没有对象构造出来。</li>
-</ol>
-</li>
-<li>
-<p>不能，因为静态函数不依赖于对象。</p>
-</li>
-<li>
-<ol>
-<li>不能。已内联的函数在编译期代码段展开，在release版本没有地址。</li>
-</ol>
-</li>
-<li>
-<p>父类指针指向堆上的子类对象时，必须把父类的虚构函数写为虚函数。</p>
-</li>
-<li>
-<ol>
-<li>runtime type info，是一个指向类型信息的指针。</li>
-<li>编译期产生，RTTI指针放在vftable里面，类型信息放在rodata段。</li>
-</ol>
-</li>
-<li>
-<pre class="highlight"><code class="cpp">Derive* pd = <span class="hljs-keyword">dynamic_cast</span>&lt;Derive*&gt;(p);
-<span class="hljs-keyword">dynamic_cast</span> : 父类指针转为子类指针专用的类型强转
-要求：
-    <span class="hljs-number">1.</span>必须有RTTI
-    <span class="hljs-number">2.</span>父类指针指向的对象中的RTTI确实是子类类型。
-&lt;!--code￼<span class="hljs-number">0</span>--&gt;
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where age between 20 and 22;</span><br><span class="line">select * from user where score in (99.0, 100.0);</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where score IS NOT NULL;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where name like &#x27;zhang%&#x27;;	#zhang开头的任何字符串</span><br><span class="line">select * from user where name like &#x27;zhang_&#x27;;	#下划线是占位通配符，只能匹配后面只有一个字符的</span><br></pre></td></tr></table></div></figure>
 
-</code></pre>
-</li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/07/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/">Cpp_返回值</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-02-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/07/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/" data-flag-title="Cpp_返回值"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+        <h1 id="综合示例"   >
+          <a href="#综合示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#综合示例"></a> 综合示例</h1>
       
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png" alt="image-20211107095730498" style="zoom:80%;" />
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
-<p>GetValue返回的是临时变量副本，由寄存器作为传递媒介。</p>
-<ol>
-<li>a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。</li>
-<li>应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。</li>
-<li>猜测可以对将亡值进行常引用。</li>
-<li></li>
-</ol>
+<p>下面这个查询语句用到了多个运算符：<code>sex='M'</code>、<code>and</code>、<code>score&gt;=90.0</code></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from where sex=&#x27;M&#x27; and score&gt;=90.0;</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/9/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/11/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">144</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"><div class="search-btns">Search by:<span class="search-btns-item search-btns-item--google"><i class="fab fa-google"></i>Google</span><span class="search-btns-item search-btns-item--bing"><i></i>Bing</span><span class="search-btns-item search-btns-item--baidu"><i></i>Baidu</span></div></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
 
-        <h2 id="2"   >
-          <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2"></a> 2</h2>
-      
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png" alt="image-20211107101017513" style="zoom:67%;" />
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
 
-        <h2 id="3"   >
-          <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3"></a> 3</h2>
-      
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107102226241.png" alt="image-20211107102226241" style="zoom:67%;" />
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
 
-        <h2 id="4"   >
-          <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4"></a> 4</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107103310102.png" alt="image-20211107103310102" /></p>
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
 
-        <h2 id="5"   >
-          <a href="#5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#5"></a> 5</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107112403421.png" alt="image-20211107112403421" /></p>
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
 
-        <h2 id="6"   >
-          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#6"></a> 6</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107114851729.png" alt="image-20211107114851729" /></p>
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
 
-        <h2 id="7"   >
-          <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#7"></a> 7</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114192200476.png" alt="image-20211114192200476" /></p>
-<p>Test ta(10)一个Int</p>
-<ol>
-<li>√–编译器优化，直接拷贝构造，一个Int</li>
-<li>√–没产生</li>
-<li>√–没产生</li>
-<li>×</li>
-<li>×</li>
-<li>√–没产生</li>
-<li>√–没产生</li>
-<li>√–没产生</li>
-</ol>
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
 
-        <h2 id="8"   >
-          <a href="#8" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#8"></a> 8</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114195324558.png" alt="image-20211114195324558" /></p>
-<ol>
-<li>√</li>
-<li>×</li>
-<li>√</li>
-<li>×</li>
-<li>×</li>
-<li>×</li>
-<li>√</li>
-<li>×</li>
-<li>√</li>
-</ol>
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
 
-        <h2 id="9"   >
-          <a href="#9" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#9"></a> 9</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114201105648.png" alt="image-20211114201105648" /></p>
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-        <h2 id="10"   >
-          <a href="#10" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#10"></a> 10</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114203355621.png" alt="image-20211114203355621" /></p>
-<ol>
-<li>√</li>
-<li>√</li>
-<li>√</li>
-<li>b1：指针的临时量也算是一个将亡值</li>
-<li>p1：√</li>
-<li>p2：√</li>
-<li>p3：√</li>
-<li>p4：√</li>
-</ol>
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
 
-        <h2 id="11"   >
-          <a href="#11" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#11"></a> 11</h2>
-      
-<p><img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114204142437.png" alt="image-20211114204142437" /></p>
-<ol>
-<li>a1：√</li>
-<li>a2：×</li>
-<li>a3：√</li>
-<li>b1：？，×，必须在b1的Int前加const</li>
-<li>p1：×</li>
-<li>p2：√</li>
-<li>p3：×</li>
-<li>p4：√</li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/02/Cpp/Cpp_%E6%A8%A1%E6%9D%BF/">Cpp_模板</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/02/Cpp/Cpp_%E6%A8%A1%E6%9D%BF/" data-flag-title="Cpp_模板"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
 
-        <h1 id="vector"   >
-          <a href="#vector" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vector"></a> vector</h1>
-      
-<p>容器–数组</p>
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
 
-        <h2 id="关于size"   >
-          <a href="#关于size" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关于size"></a> 关于size</h2>
-      
-<p>resize</p>
-<p>reserve</p>
-<p>size</p>
-<p>max_size</p>
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
 
-        <h2 id="使用模板实现vector"   >
-          <a href="#使用模板实现vector" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使用模板实现vector"></a> 使用模板实现vector</h2>
-      
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
 
-        <h2 id="实现迭代器"   >
-          <a href="#实现迭代器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现迭代器"></a> 实现迭代器</h2>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(T &amp; obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">typename</span> T::iterator it = obj.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="keyword">for</span> (; it != obj.<span class="built_in">end</span>();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">r_print</span><span class="params">(T&amp; obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">typename</span> T::reverse_iterator it = obj.<span class="built_in">rbegin</span>();</span><br><span class="line">	<span class="keyword">for</span> (;it != obj.<span class="built_in">rend</span>();it++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/11/01/Linux/Linux_%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1(IPC)/">Linux_进程间通信(IPC)</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-11-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/11/01/Linux/Linux_%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1(IPC)/" data-flag-title="Linux_进程间通信(IPC)"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>管道</li>
-<li>信号量</li>
-<li>共享内存</li>
-<li>消息队列</li>
-<li>套接字</li>
-</ol>
-<p>2-4比较正式。如果填空只有三个空，填2-4。</p>
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
 
-        <h1 id="管道"   >
-          <a href="#管道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#管道"></a> 管道</h1>
-      
-<p>管道文件是在内存中分配空间。</p>
-<p>读端r，写端w。</p>
-<p>分两种，有名管道、无名管道。</p>
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
-        <h2 id="有名管道"   >
-          <a href="#有名管道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#有名管道"></a> 有名管道</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfifo fifo<span class="comment">#mkfifo [名字]</span></span><br><span class="line"><span class="comment">#prw-rw-r-- 1 stu stu 0 fifo</span></span><br><span class="line">mkfifo()</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写端程序</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="keyword">int</span> fdw = open(<span class="string">&quot;fifo&quot;</span>,O_WRONLY);</span><br><span class="line">    assert(fdw!=<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fdw=%d\n&quot;</span>,fdw);</span><br><span class="line">    <span class="keyword">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    fgets(buff,<span class="number">128</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    write(fdw,buff,<span class="built_in">strlen</span>(buff));</span><br><span class="line">    close(fdw);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fdr = open(<span class="string">&quot;fifo&quot;</span>,O_RDONLY);</span><br><span class="line">    assert(fdr!=<span class="number">-1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fdr=%d\n&quot;</span>,fdr);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    read(fdr,buff,<span class="number">127</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,buff);</span><br><span class="line">    close(fdr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
 
-        <h2 id="无名管道"   >
-          <a href="#无名管道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#无名管道"></a> 无名管道</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pipe()</span><br></pre></td></tr></table></div></figure>
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
 
-        <h2 id="总结"   >
-          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
-      
-<ol>
-<li>
-<p>管道为空时，读会阻塞。</p>
-</li>
-<li>
-<p>管道写满时，写会阻塞。</p>
-</li>
-<li>
-<p>两个端口打开后，也写了一些数据，也读了一些数据，如果读完了，则管道内容变空，则读端进程阻塞。而如果写端关闭后，则读端不会再阻塞了，再接着read会返回一个零，可作为写端完毕的标志。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写端</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="keyword">int</span> fdw = open(<span class="string">&quot;fifo&quot;</span>,O_WRONLY);</span><br><span class="line">    assert(fdw!=<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fdw=%d\n&quot;</span>,fdw);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;input util end:&quot;</span>\n);</span><br><span class="line">        fgets(buff,<span class="number">128</span>,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strncmp</span>(buff,<span class="string">&quot;end&quot;</span>,<span class="number">3</span>)==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    write(fdw,buff,<span class="built_in">strlen</span>(buff));</span><br><span class="line">    close(fdw);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//读端</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fdr = open(<span class="string">&quot;fifo&quot;</span>,O_RDONLY);</span><br><span class="line">    assert(fdr!=<span class="number">-1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fdr=%d\n&quot;</span>,fdr);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    	<span class="keyword">int</span> n = read(fdr,buff,<span class="number">127</span>);</span><br><span class="line">    	<span class="keyword">if</span>(n == <span class="number">0</span>)<span class="comment">//n=0肯定是因为写端close了，因为没有在没写入时阻塞</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,buff);</span><br><span class="line">    &#125;</span><br><span class="line">    close(fdr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>管道读端关闭后，写端再写入数据时，则会触发异常，则内核会给写端进程发信号。</p>
-</li>
-<li>
-<p>面试：</p>
-<ol>
-<li>有名管道可以在任意两个进程间通信；无名管道只能在父子进程间使用。</li>
-<li>管道通信方式：半双工的。
-<ol>
-<li>单工：电台从A发到B，收音机不可能给电台发数据。过程不可逆。</li>
-<li>半双工：跟对讲机类似。需要按下按键抢占信道。其余是听。同一时刻只能读或写。</li>
-<li>全双工：腾讯会议。</li>
-</ol>
-</li>
-<li>写入管道的数据，在内存中。有名管道虽然能在磁盘上看到，但只是一个标识，大小是0。</li>
-</ol>
-</li>
-</ol>
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
 
-        <h1 id="信号量"   >
-          <a href="#信号量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信号量"></a> 信号量</h1>
-      
-<p>目的是控制对某个临界资源的访问。</p>
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
 
-        <h2 id="临界资源"   >
-          <a href="#临界资源" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#临界资源"></a> 临界资源</h2>
-      
-<p>临界资源：同一时刻只允许一个进程访问的资源</p>
-<p>临界区：访问临界资源的代码段</p>
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
 
-        <h2 id="取值"   >
-          <a href="#取值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#取值"></a> 取值</h2>
-      
-<p>比较特殊，只取0和正数。</p>
-<p>第一种是0，1二值信号量。</p>
-<p>第二种是计数信号量。</p>
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
 
-        <h2 id="pv操作"   >
-          <a href="#pv操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pv操作"></a> p,v操作</h2>
-      
-<p>p，减一，代表获取资源。</p>
-<p>v，加一，代表释放资源。</p>
+var assistSearchList = window.CONFIG.assistSearch;
 
-        <h2 id="代码封装"   >
-          <a href="#代码封装" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码封装"></a> 代码封装</h2>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1.sem_init()</span></span><br><span class="line"><span class="comment">2.sem_p()</span></span><br><span class="line"><span class="comment">3.sem_v()</span></span><br><span class="line"><span class="comment">4.sem_destroy()</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="共享内存"   >
-          <a href="#共享内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#共享内存"></a> 共享内存</h1>
-      
-<ol>
-<li>创建共享内存</li>
-<li>将共享内存映射到进程中</li>
-<li>断开映射</li>
-<li>销毁共享内存</li>
-</ol>
-
-        <h1 id="消息队列"   >
-          <a href="#消息队列" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#消息队列"></a> 消息队列</h1>
-      
-<ol>
-<li>发送消息，发送两个信息，一是type，二是数据。</li>
-<li>获取消息，获取type。</li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/30/Linux/Linux_%E4%BF%A1%E5%8F%B7/">Linux_信号</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/10/30/Linux/Linux_%E4%BF%A1%E5%8F%B7/" data-flag-title="Linux_信号"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="信号"   >
-          <a href="#信号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信号"></a> 信号</h1>
-      
-<p>也叫软中断。</p>
-<p>通知进程发生了某个事件。</p>
-
-        <h1 id="signal"   >
-          <a href="#signal" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#signal"></a> signal</h1>
-      
-<p><img src="/images/%E4%BF%A1%E5%8F%B7/image-20211030101557246.png" alt="image-20211030101557246" /></p>
-<p>signal第一个参数，信号代号。第二个参数，信号处理函数入口地址。</p>
-<p>默认：SIG_DFL；忽略：SIG_IGN。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认：SIG_DFL；忽略：SIG_IGN。</span></span><br><span class="line">(<span class="keyword">void</span> (*)<span class="number">0</span>)</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下程序把原有的SIGINT信号处理方式改为了我们自定义的函数。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_fun</span><span class="params">(<span class="keyword">int</span> sig)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sig=%d\n&quot;</span>,sig);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    signal(SIGINT, sig_fun);<span class="comment">//只是做了一个约定。没有去调用sig_fun函数。等到信号出现才去调用。</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;hello\n&quot;</span>);</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/29/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/">2021年10月面试</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/10/29/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/" data-flag-title="2021年10月面试"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="1029"   >
-          <a href="#1029" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1029"></a> 1029</h1>
-      
-<p>第一道题，结构体对齐的规则。<br />
-第二大题，实现一个宏，计算结构体成员的相对偏移量。<br />
-第三道题，结构体和共用体的区别。<br />
-第四道题，编写程序完成，int变量的小端存储转换成大端存储。<br />
-第五道题，说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。<br />
-第六道题，代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。<br />
-第七道题，快排，堆排，归并排序，任选一道实现代码。<br />
-第八道题，谈谈顺序表和链表的区别，以及适用的场景。<br />
-第九道题，实现不带头节点单链表的逆置。</p>
-
-        <h1 id="1"   >
-          <a href="#1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1"></a> 1</h1>
-      
-<p>结构体对齐的规则。</p>
-
-        <h2 id="我答的"   >
-          <a href="#我答的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#我答的"></a> 我答的</h2>
-      
-<ol>
-<li><s>所有成员地址相对结构体</s>首地址的偏移量要可以被成员的基本数据类型大小整除。计算sizeof时，首地址默认为0，所以都满足相对首地址可整除。</li>
-<li>各个成员依次从上到下都要相对于前一个成员的首地址偏移量被下一个成员基本数据类型大小整除。</li>
-<li>最后，结构体的大小要可以被该结构体内最大的成员基本数据类型大小整除。</li>
-</ol>
-
-        <h2 id="答案"   >
-          <a href="#答案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#答案"></a> 答案</h2>
-      
-<ol>
-<li>结构体变量的首地址，必须是结构体变量中的“最大基本数据类型成员所占字节数”的整数倍。计算sizeof时，首地址默认为0，所以满足相对首地址可整除。</li>
-<li>结构体变量中，相对于<strong>结构体首地址</strong>，<strong>每个成员</strong>的<strong>偏移量</strong>，都是<strong>成员本身基本数据类型</strong>所占字节数的整数倍。我们可以依次从上到下累计已计算的大小，再看下一某位置是否是其整数倍。</li>
-<li>结构体变量的总大小，为结构体变量中 “最大<strong>基本数据类型</strong>成员所占字节数”的整数倍。</li>
-</ol>
-
-        <h2 id="pragma-pack指定对齐值"   >
-          <a href="#pragma-pack指定对齐值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pragma-pack指定对齐值"></a> #pragma pack指定对齐值</h2>
-      
-<p>预处理指令#pragma pack(n) 可以改变默认对齐数。n 取值是 1, 2, 4, 8 , 16。<br />
-vs 中默认值 = 8，gcc 中默认值 = 4；</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(1)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> cha;</span><br><span class="line">    <span class="keyword">double</span> dx;</span><br><span class="line">    <span class="keyword">char</span> chb;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//若( )内为1-&gt;size:10;</span></span><br><span class="line"><span class="comment">//		为2-&gt;	12;</span></span><br><span class="line"><span class="comment">//		为4-&gt;	16;</span></span><br><span class="line"><span class="comment">//		为8-&gt;	24;</span></span><br><span class="line"><span class="comment">//		为16-&gt;	24;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="加入指定对齐方式的终极总结"   >
-          <a href="#加入指定对齐方式的终极总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#加入指定对齐方式的终极总结"></a> 加入指定对齐方式的终极总结</h2>
-      
-<ol>
-<li>结构体变量的首地址，必须是MIN{“结构体<strong>最大基本数据类型成员</strong>所占字节数”, 指定对齐方式}的整数倍。</li>
-<li>结构体中，相对于结构体首地址，每个成员的偏移量，都是MIN{该基本数据类型成员, 指定对齐方式}的整数倍。</li>
-<li>结构体的总大小，为MIN{结构体最大基本数据类型成员所占字节数, 指定对齐方式}的整数倍。</li>
-</ol>
-
-        <h1 id="2"   >
-          <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2"></a> 2</h1>
-      
-<p>实现一个宏，计算结构体成员的相对偏移量。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> offset(type,member) (int)&amp;( ( (type*)0 ) -&gt;member)</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="3"   >
-          <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3"></a> 3</h1>
-      
-<p>结构体和共用体的区别。</p>
-<p>然后让你判断大小端或者对数据转换</p>
-
-        <h1 id="4"   >
-          <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4"></a> 4</h1>
-      
-<p>编写程序完成，int变量的小端存储转换成大端存储。</p>
-
-        <h1 id="5"   >
-          <a href="#5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#5"></a> 5</h1>
-      
-<p>说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。</p>
-<p>代码区、数据区、堆区、栈区</p>
-<ol>
-<li>管理方式：栈由系统自动管理；堆由程序员控制，使用方便，但易产生内存泄露。</li>
-<li>生长方向：栈向低地址扩展(即”向下生长”)，是连续的内存区域；堆向高地址扩展(即”向上生长”)，是不连续<br />
-的内存区域。这是由于堆区管理系统用链表来存储空闲内存地址，自然不连续，而链表从低地址向高地址遍历。</li>
-<li>空间大小：栈顶地址和栈的最大容量由系统预先规定(通常默认1M 或10M)；堆的大小则受限于计算机系统中有效的虚拟内存，32 位Linux 系统中堆内存可达2.9G 空间。</li>
-<li>存储内容：</li>
-<li>栈在函数调用时，首先压入是函数实参，然后主调函数中下条指令(函数调用语句的下条可执行语句)的地址压入，最后是被调函数的局部变量。本次调用结束后，局部变量先出栈，指令地址出栈，最后栈平衡，程序由该点继续运行下条可执行语句。</li>
-<li>堆通常在头部用一个字节存放其大小，堆用于存储生存期与函数调用无关的数据，具体内容由程序员安排。</li>
-<li>分配方式：</li>
-<li>栈可静态分配或动态分配。静态分配由编译器完成，如局部变量的分配。动态分配由alloc函数在栈上申请空间，用完后自动释放不需要调动free函数。</li>
-<li>堆只能动态分配且手工释放。</li>
-<li>分配效率：</li>
-<li>栈由计算机底层提供支持：分配专门的寄存器存放栈地址，压栈出栈由专门的指令执行，因此效率较高。</li>
-<li>堆由函数库提供，机制复杂，效率比栈低得多。</li>
-<li>分配后系统响应：</li>
-<li>只要栈剩余空间大于所申请空间，系统将为程序提供内存，否则报告异常提示栈溢出。</li>
-<li>操作系统为堆维护一个记录空闲内存地址的链表。当系统收到程序的内存分配申请时，会遍历该链表寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点空间分配给程序。若无足够大小的空间(可能由于内存碎片太多)，有可能调用系统功能去增加程序数据段的内存空间，以便有机会分到足够大小的内存，然后进行返回。大多数系统会在该内存空间首地址处记录本次分配的内存大小，供后续的释放函数(如free/delete)正确释放本内存空间。</li>
-<li>此外，由于找到的堆结点大小不一定正好等于申请的大小，系统会自动将多余的部分重新放入空闲链表中。</li>
-<li>碎片问题：</li>
-<li>栈不会存在碎片问题，因为栈是先进后出的队列，内存块弹出栈之前，在其上面的后进的栈内容已弹出。</li>
-<li>而频繁申请释放操作会造成堆内存空间的不连续，从而造成大量碎片，使程序效率降低。</li>
-<li>可见，堆容易造成内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和内核态切换，内存申请的代价更为昂贵。所以栈在程序中应用最广泛，函数调用也利用栈来完成，调用过程中的参数、返回地址、栈基指针和局部变量等都采用栈的方式存放。所以，建议尽量使用栈，<strong>仅在分配大量或大块内存空间时使用堆</strong>。</li>
-<li>最后使用栈和堆时应避免越界发生，否则可能程序崩溃或破坏程序堆、栈结构，产生意想不到的后果。</li>
-</ol>
-
-        <h1 id="6"   >
-          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#6"></a> 6</h1>
-      
-<p>代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ar[<span class="number">100</span>] = &#123; <span class="number">0</span>,<span class="number">1</span> &#125;;	<span class="comment">//初始化数组</span></span><br><span class="line"><span class="keyword">int</span> n, i, j;</span><br><span class="line"><span class="keyword">int</span> l, r;	<span class="comment">//存放上一层左边的数和右边的数</span></span><br><span class="line">n = <span class="number">10</span>;		<span class="comment">//层数</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= i; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        r = ar[j];				<span class="comment">//面试题空白处</span></span><br><span class="line">        ar[j] = l + r;			<span class="comment">//面试题空白处</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%-4d&quot;</span>, ar[j]);</span><br><span class="line">        l = r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="7"   >
-          <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#7"></a> 7</h1>
-      
-<p>快排，堆排，归并排序，任选一道实现代码。</p>
-
-        <h1 id="8"   >
-          <a href="#8" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#8"></a> 8</h1>
-      
-<p>谈谈顺序表和链表的区别，以及适用的场景。</p>
-
-        <h1 id="9"   >
-          <a href="#9" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#9"></a> 9</h1>
-      
-<p>实现不带头节点单链表的逆置。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/10/28/Cpp/Cpp_new&amp;delete%E9%87%8D%E8%BD%BD/">Cpp_new&amp;delete重载</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-10-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2022-01-23</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/10/28/Cpp/Cpp_new&amp;delete%E9%87%8D%E8%BD%BD/" data-flag-title="Cpp_new&amp;delete重载"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">Visited</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-
-        <h1 id="new的动作"   >
-          <a href="#new的动作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#new的动作"></a> new的动作</h1>
-      
-<p>new是关键字。其实是new operator，本身不可重载。</p>
-<ol>
-<li>申请内存
-<ol>
-<li>new第一步的申请内存调用的是operator new(可看作一个运算符函数)，可以重载。</li>
-</ol>
-</li>
-<li>调用构造<br />
-1.</li>
-<li></li>
-</ol>
-
-        <h1 id="delete的动作"   >
-          <a href="#delete的动作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#delete的动作"></a> delete的动作</h1>
-      
-<p>delete是关键字。其实是delete operator，本身不可重载。</p>
-<ol>
-<li>调用析构</li>
-<li>内存释放
-<ol>
-<li>delete内存释放调用的是operator delete(可看作一个运算符函数)，可以重载。</li>
-</ol>
-</li>
-</ol>
-
-        <h1 id="operator-new重载"   >
-          <a href="#operator-new重载" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#operator-new重载"></a> operator new重载</h1>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* p = <span class="built_in">malloc</span>(size);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;调用了operator new&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>有何作用？</p>
-<p>堆上内存：属于是外部资源。</p>
-<p>申请/释放外部资源，用户态没有权限访问，内核态才有权限。外部资源很多，比如我们的鼠标、键盘、屏幕。</p>
-<p>我们申请/释放资源的过程需要内核态完成，此时，需要从用户态切换到内核态，即<strong>系统调用</strong>。</p>
-<p>系统调用：cout、printf、cin、scanf</p>
-<p>应运而生，会出现内存池的概念。c++自带的内存池：_Alloc</p>
-<p>内存池是：用户态自己维护的<strong>一大段</strong>内存。</p>
-<p>重载new和delete相当于留下了一个可修改的端口，可以<strong>自定义申请、释放内存的内存池</strong>。这就是重载new和delete的意义所在。</p>
-
-        <h1 id="operator-delete重载"   >
-          <a href="#operator-delete重载" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#operator-delete重载"></a> operator delete重载</h1>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;调用了operator delete&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tmp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Tmp</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Tmp()&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">Tmp</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;~Tmp()&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">void</span>* p = <span class="built_in">malloc</span>(size);</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;调用了operator new&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> p;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* p)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;调用了operator delete&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="built_in">free</span>(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Tmp* p = <span class="keyword">new</span> <span class="built_in">Tmp</span>();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="作业"   >
-          <a href="#作业" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#作业"></a> 作业</h1>
-      
-<ol>
-<li>mstring三种：普通的、写时拷贝的、迭代器的</li>
-<li>刷题</li>
-</ol>
-
-        <h1 id="区别"   >
-          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h1>
-      
-<ol>
-<li>
-<p>new是关键字。malloc是函数；</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> * p = <span class="keyword">new</span> <span class="built_in"><span class="keyword">int</span></span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">int</span> * s = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>new不需要类型转换，malloc需要强转</p>
-</li>
-<li>
-<p>new自动计算类型大小，malloc需要sizeof</p>
-</li>
-<li>
-<p>new先malloc，再构造，再返回指针。malloc只申请内存</p>
-</li>
-<li>
-<p>申请空间失败时，new抛出std::bad_malloc；malloc返回NULL</p>
-</li>
-<li>
-<p>new可以申请一组，需要new[],delete[]；malloc-free</p>
-</li>
-<li>
-<p>对于内置类型、POD类型，new/malloc可以混用；对于自定义类型能否混用？主要看类型中有没有析构函数，如果有，在new[]时记录申请了多少对象，于是在delete[]时可以进行。</p>
-</li>
-<li>
-<p>new是运算符，可以进行重载；malloc则不行</p>
-</li>
-<li>
-<p>new有三种调用方式；malloc没有</p>
-</li>
-<li>
-<p>new可以设置nothrow不抛异常，返回NULL；</p>
-</li>
-<li>
-<p>set_new_handler</p>
-</li>
-</ol>
-
-        <h2 id="6"   >
-          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#6"></a> 6</h2>
-      
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Object</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Object </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/9/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/11/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="Zhihu" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">144</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">Categories</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
   var GUEST_INFO = ['nick', 'mail', 'link'];
   var guest_info = 'nick,mail,link';
 
@@ -1009,4 +566,4 @@ if (false) {
   loadValine();
 } else {
   window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
