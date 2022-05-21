@@ -32,198 +32,66 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E9%87%8D%E5%86%99muduo%E5%BA%93/">重写muduo库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-04-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/17/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E7%BA%A2%E9%BB%91%E6%A0%91/">高级数据结构_红黑树</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-17</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-17</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/17/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E7%BA%A2%E9%BB%91%E6%A0%91/" data-flag-title="高级数据结构_红黑树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>阻塞、非阻塞、同步、异步</li>
+<li>红黑树</li>
 </ol>
 
-        <h1 id="阻塞-非阻塞-同步-异步"   >
-          <a href="#阻塞-非阻塞-同步-异步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#阻塞-非阻塞-同步-异步"></a> 阻塞、非阻塞、同步、异步</h1>
+        <h1 id="红黑树的性质"   >
+          <a href="#红黑树的性质" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树的性质"></a> 红黑树的性质</h1>
       
-<p>网络IO阶段分为两个：数据准备和数据读写</p>
-<ul>
-<li>数据准备–根据系统IO操作的就绪状态
-<ul>
-<li>阻塞：调用IO方法的线程进入阻塞状态</li>
-<li>非阻塞：不会改变线程的状态，通过返回值判断</li>
-</ul>
-</li>
-<li>数据读写（IO层面的同步和异步）–根据应用程序和内核的交互方式
-<ul>
-<li>同步：用户的recv完成了所有的动作，而且因此阻塞或者空转等待。数据是用户从TCP的接收缓冲区搬移的。</li>
-<li>异步：应用程序把任务交给操作系统，自己去做别的事情，操作系统处理完后，通知用户层“buf的数据已经准备好了”。可以通过sigio通知或者实现约定的回调方式通知</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">recv</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span>* buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"><span class="keyword">int</span> size = recv(sockfd, buf, <span class="number">1024</span>, <span class="number">0</span>);	<span class="comment">//recv阻塞至sockfd上有数据准备好</span></span><br><span class="line"><span class="comment">//如果recv的属性设置为set non-block，则即使sockfd没有数据也会返回，cpu空转</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	返回值：</span></span><br><span class="line"><span class="comment">		size == -1; # 原因可能为1.系统内部错误; 2.当前处于非阻塞模式，无数据</span></span><br><span class="line"><span class="comment">			若 errno == EAGAIN 则说明 当前的错误是因为处于非阻塞模式。</span></span><br><span class="line"><span class="comment">		size == 0;	# 是由于远端的正常close而返回</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
-<p>陈硕：<strong>（非）阻塞和异/同步IO的关系：在处理IO的时候，阻塞和非阻塞都是同步IO，只有使用了特殊的API才是异步IO。</strong><br />
-<img src="/images/%E9%87%8D%E5%86%99muduo%E5%BA%93/image-20220316211609059.png" alt="image-20220316211609059" /></p>
-<p>即使epoll也是同步的IO，返回发生事件的event，读的时候需要调用recv，所以是同步IO。</p>
-<ul>
-<li>业务层面的一个逻辑处理是同步还是异步？
-<ul>
-<li>同步：A操作等待B操作完毕，得到返回值，继续处理</li>
-<li>异步：A操作告诉B操作它感兴趣的事件及通知方式，A操作继续执行自己的业务逻辑了，等B监听到相应。</li>
-</ul>
-</li>
-</ul>
-
-        <h2 id="总结"   >
-          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
-      
-<blockquote>
-<p>一个典型的网络IO接口调用，分为两个阶段，分别是“数据就绪”和“数据读写”，数据就绪阶<br />
-段分为阻塞和非阻塞，表现得结果就是，阻塞当前线程或是直接返回。</p>
-<p>同步表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），数据的读写都<br />
-是由请求方A自己来完成的（不管是阻塞还是非阻塞）；异步表示A向B请求调用一个网络IO接口<br />
-时（或者调用某个业务逻辑API接口时），向B传入请求的事件以及事件发生时通知的方式，A就<br />
-可以处理其它逻辑了，当B监听到事件处理完成后，会用事先约定好的通知方式，通知A处理结<br />
-果。</p>
-</blockquote>
-
-        <h1 id="五种io模型"   >
-          <a href="#五种io模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#五种io模型"></a> 五种IO模型</h1>
-      
-<ul>
-<li>阻塞 blocking</li>
-<li>非阻塞 non-blocking</li>
-<li>IO复用 IO multiplexing</li>
-<li>信号驱动 signal-driven</li>
-<li>异步 asynchronous</li>
-</ul>
-
-        <h1 id="好的网络服务器设计"   >
-          <a href="#好的网络服务器设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#好的网络服务器设计"></a> 好的网络服务器设计</h1>
-      
-<p>在这个多核时代，服务端网络编程如何选择线程模型？libevent作者的观点：<strong>one loop per thread</strong> is usually a good model. 多线程服务端编程的问题就转换为如何设计一个高效且易用的event loop，然后每个线程run一个event loop就行了【即muduo库的思想】（当然线程间的同步、互斥少不了，还有其他的耗时事件需要起另外的线程来做）。</p>
-<ul>
-<li>event loop是non-blocking网络编程的核心，在现实生活中，non-blocking几乎总是和IO-multiplexing一起使用，原因有二：
-<ul>
-<li><strong>不要单独使用非阻塞IO</strong>：没有人真的会用轮询(busy-polling)来检查某个non-blocking IO操作是否完成，太浪费CPU资源</li>
-<li><strong>不要单独使用IO复用</strong>（比如阻塞的IO复用）：IO multiplexing一般不能和blocking IO用在一起，因为blocking IO中read()/write()/accept()/connect()都有可能阻塞当前线程，这样线程就没办法处理其他socket上的IO操作了</li>
-<li>所以当我们提到non-blocking的时候，实际上指的是non-blocking + IO multiplexing，单用其中任何一个都没有办法很好地实现功能。</li>
-<li>结论：epoll + 非阻塞IO + 线程池(线程的数目一般对应电脑的CPU核数)</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>nginx使用的是epoll + fork，是不是不如epoll + pthread？</p>
-</blockquote>
-<p>nginx采用了epoll+fork模型作为网络模块的架构设计，实现了简单好用的负载算法，使各个fork网络进程不会忙的越忙、闲的越闲，并且<strong>通过一把乐观锁解决了该模型导致的服务器惊群</strong>现象，功能十分强大。</p>
-
-        <h1 id="reactor模型"   >
-          <a href="#reactor模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#reactor模型"></a> Reactor模型</h1>
-      
-<p>muduo库和libevent库都是“基于事件驱动的Reactor模型”。</p>
-<p>Wikipedia给出的Reactor Design Pattern的解释：</p>
-<blockquote>
-<p>The Reactor design pattern is an <strong>event handling pattern</strong> for handling service <strong>requests delivered concurrently</strong> <s>to a service handler</s> by one or more inputs. The service handler then <strong>demultiplexes the incoming requests</strong> and <strong>dispatchers them synchronously</strong> to the associated request handlers.</p>
-</blockquote>
-<p>Google Translate:</p>
-<blockquote>
-<p>Reactor 设计模式是一种事件处理模式，用于处理通过一个或多个输入同时交付给服务处理程序的服务请求。 然后，服务处理程序对传入的请求进行多路分解，并将它们同步分配给相关联的请求处理程序。</p>
-</blockquote>
-<ul>
-<li>Reactor四个重要组件
-<ul>
-<li>Event事件</li>
-<li>Reactor反应堆</li>
-<li>Demultiplex事件分发器</li>
-<li>EventHandler事件处理器</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">%%时序图例子</span><br><span class="line">sequenceDiagram</span><br><span class="line">	participant Event</span><br><span class="line">	participant Reactor</span><br><span class="line">	participant Demultiplex</span><br><span class="line">	participant EventHandler</span><br><span class="line">	Event -&gt;&gt; Reactor: 注册Event和Handler</span><br><span class="line">	loop 事件集合</span><br><span class="line">		Reactor -&gt; Reactor:Event集合</span><br><span class="line">	end</span><br><span class="line">	Reactor -&gt;&gt; Demultiplex: 向Epoll add/mod/del Event</span><br><span class="line">	Reactor -&gt;&gt; Demultiplex: 启动反应堆</span><br><span class="line">    loop 事件分发器</span><br><span class="line">    	Demultiplex -&gt; Demultiplex:开启事件循环epoll_wait</span><br><span class="line">    end</span><br><span class="line">    Demultiplex -&gt;&gt; Reactor: 返回发生事件的Event</span><br><span class="line">    Reactor -&gt;&gt; EventHandler: 调用Event对应的事件处理器EventHandler</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="epoll"   >
-          <a href="#epoll" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll"></a> epoll</h1>
-      
-
-        <h2 id="select和poll的缺点"   >
-          <a href="#select和poll的缺点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#select和poll的缺点"></a> select和poll的缺点</h2>
-      
-<ul>
-<li>select的缺点：
-<ul>
-<li>单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：#define __FD_SETSIZE 1024），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。</li>
-<li>内核/用户空间内存拷贝问题，select需要复制大量的句柄数据结构，产生巨大的开销</li>
-<li>select返回的是含有整个句柄的数组，应用程序需要遍历整个数组才能发现哪些句柄发生了事件</li>
-<li>select的触发方式是水平触发，应用程序如果没有完成对一个已经就绪的文件描述符进行IO操作，那么之后每次select调用还是会将这些文件描述符通知进程（意思就是一件事情处理得太拖沓，拖延好几次才完成，影响效率）。其实epoll的LT模式也是这样。但是ET模式效率不一定比LT好。</li>
-</ul>
-</li>
-<li>poll
-<ul>
-<li>相比select模型，poll使用链表保存文件描述符，因此没有了监视文件数量的限制，但其他三个缺点依然存在。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>以select模型为例，假设我们的服务器需要支持100万的并发连接，则在__FD_SETSIZE 为1024的情况下，则我们至少需要开辟1k个进程才能实现100万的并发连接。除了进程间上下文切换的时间消耗外，从内核/用户空间大量的句柄结构内存拷贝、数组轮询等，是系统难以承受的。因此，基于select模型的服务器程序，要达到100万级别的并发访问，是一个很难完成的任务。</p>
-</blockquote>
-
-        <h2 id="epoll原理及优势"   >
-          <a href="#epoll原理及优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll原理及优势"></a> epoll原理及优势</h2>
-      
-<p>epoll的实现机制与select/poll机制完全不同。</p>
-<p>epoll通过在Linux内核中申请一个简易的文件系统（文件系统一般用什么数据结构实现？B+树，磁盘IO消耗低、效率很高）。把原先的select/poll调用分成以下3个部分：</p>
+<p>红黑树是每个节点都带有颜色属性的<strong>二叉查找树</strong>，颜色是红色或黑色。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求：</p>
 <ol>
-<li>
-<p>调用epoll_create()建立一个epoll对象（在epoll文件系统中为这个句柄对象分配资源）</p>
-<ul>
-<li>
-<p>epoll_create在内核上创建的eventpoll结构如下：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">eventpoll</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">/* 红黑树的根节点，这棵树中存储着所有添加到epoll中的需要监控的事件*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rb_root</span> <span class="title">rbr</span>;</span></span><br><span class="line">    <span class="comment">/* 双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">rdlist</span>;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>调用epoll_ctl向epoll对象中添加这100万个连接的套接字</p>
-</li>
-<li>
-<p>调用epoll_wait收集发生的事件的fd资源</p>
-</li>
+<li>每个节点是红色或黑色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶节点(NIL)是黑色。</li>
+<li>每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)</li>
+<li>从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。</li>
 </ol>
-<blockquote>
-<p>如此一来，要实现上面说的场景，只需在进程启动时建立一个epoll对象，然后在需要时像这个epoll对象中添加或者删除事件。同时epoll_wait时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的事件。</p>
-</blockquote>
-<ul>
-<li>LT模式，muduo采用的是LT模式
-<ul>
-<li>特点：内核数据没被读完，就会一直上报数据</li>
-<li>不会丢失数据或者消息
-<ul>
-<li>应用没有读取完数据，内核会不断上报</li>
-</ul>
-</li>
-<li>低延迟处理
-<ul>
-<li>每次读数据只需要一次系统调用，照顾了多个连接的公平性，不会因为某个连接上的数据量过大而影响其他连接处理消息</li>
-</ul>
-</li>
-<li>跨平台处理
-<ul>
-<li>像select一样可以跨平台使用</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>ET模式
-<ul>
-<li>特点：内核数据只上报一次，效率相对较高</li>
-<li></li>
-</ul>
-</li>
-</ul>
+<p>这些约束强制了红黑树的关键性质：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限允许红黑树在最坏情况下都是高效的，而不同于普通的二叉查找树。</p>
+<p>是性质3导致路径上不能有两个连续的红色节点确保了这个结果。最短的可能路径都是黑色节点，最长的可能路径有交替的红色和黑色节点。因为根据性质4所有最长的路径都有相同数目的黑色节点，这就表明了没有路径能多于任何其他路径的两倍长。</p>
+<p>思考:为什么满足上面的性质，红黑树就能保证:其最长路径中节点个数不会超过最短路径节点个数的两倍？</p>
 
-        <h1 id="muduo网络库编程"   >
-          <a href="#muduo网络库编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库编程"></a> muduo网络库编程</h1>
+        <h1 id="rb树的结构设计"   >
+          <a href="#rb树的结构设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rb树的结构设计"></a> RB树的结构设计</h1>
       
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/17/Linux/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/">Linux_各种配置</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-17</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/17/Linux/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/" data-flag-title="Linux_各种配置"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>切换apt-get源</li>
+</ol>
 
-        <h2 id="开发环境"   >
-          <a href="#开发环境" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#开发环境"></a> 开发环境</h2>
+        <h1 id="切换源"   >
+          <a href="#切换源" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#切换源"></a> 切换源</h1>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak <span class="comment">#备份原来的列表</span></span><br><span class="line">sudo vim /etc/apt/sources.list <span class="comment">#修改源</span></span><br><span class="line"><span class="comment"># 将文件内容替换成源文件内容</span></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line">sudo apt-get update <span class="comment">#更新列表</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="切换系统运行级别"   >
+          <a href="#切换系统运行级别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#切换系统运行级别"></a> 切换系统运行级别</h1>
+      
+<ul>
+<li>runlevel命令可查看系统运行级别</li>
+<li>可以用init命令动态切换0-6七个级别<br />
+0. 关机
+<ol>
+<li>单用户模式</li>
+<li>多用户无网络服务</li>
+<li>完全的多用户文本界面</li>
+<li>未定义或自定义</li>
+<li>图形化界面</li>
+<li>重启</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">runlevel</span><br><span class="line"><span class="comment"># 结果:</span></span><br><span class="line">	<span class="comment"># 图形化模式时 -&gt; N 5</span></span><br><span class="line">	<span class="comment"># 命令行模式时 -&gt; 5 3</span></span><br><span class="line">init 3 <span class="comment">#切换到命令行模式</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="开发环境"   >
+          <a href="#开发环境" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#开发环境"></a> 开发环境</h1>
       
 <ol>
 <li>ubuntu linux</li>
@@ -234,8 +102,11 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>安装nginx</li>
 <li>安装cmake环境</li>
 </ol>
-<ul>
-<li>配置远程开发环境
+
+        <h2 id="vscode配置远程连接主机"   >
+          <a href="#vscode配置远程连接主机" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vscode配置远程连接主机"></a> vscode配置远程连接主机</h2>
+      
+<p>配置远程开发环境</p>
 <ul>
 <li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq756684177/article/details/94236990" >windows+vscode配置远程linux开发环境</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>
 <ol>
@@ -246,67 +117,27 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/QIANGWEIYUAN/article/details/89469717" >VS环境创建远程linux跨平台项目</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
 <li>vscode在linux环境下直接开发</li>
 </ul>
-</li>
-</ul>
 
-        <h2 id="配置链接库-头文件"   >
-          <a href="#配置链接库-头文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置链接库-头文件"></a> 配置链接库、头文件</h2>
-      
-<p>muduo库的使用需要链接lib</p>
-<p>编译链接使用muduo库的程序需要加-l …</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/lib or /usr/local/lib</span></span><br><span class="line"><span class="comment"># 3 lib: libmuduo_base.so; libmuduo_net.so; libpthread.so</span></span><br><span class="line">-lmuduo_base -lmuduo_net -lpthread</span><br></pre></td></tr></table></div></figure>
-<p>一般.so文件都在usr/lib或usr/local/lib路径下</p>
-<p>如何在vscode配置这三个库？</p>
-
-        <h2 id="muduo网络库的多线程模型"   >
-          <a href="#muduo网络库的多线程模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库的多线程模型"></a> muduo网络库的多线程模型</h2>
+        <h2 id="如何在vscode下配置链接库so"   >
+          <a href="#如何在vscode下配置链接库so" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何在vscode下配置链接库so"></a> 如何在vscode下配置链接库(.so)</h2>
       
 <ul>
-<li>网络服务器编程常用模型
-<ol>
-<li>accept + read/write : 不是并发服务器</li>
-<li>accpet + fork (process-pre-connection) : 适合并发连接数不大，计算任务工作量大于fork的开销</li>
-<li>accept + thread (thread-pre-connection) : 比方案2的开销小了一点，但是并发造成线程堆积过多</li>
-<li>reactors in threads (one loop per thread) : 是muduo的网络设计。有一个main reactor负载accept连接，然后把连接分发到某个sub reactor(采用round-robin的方式来选择sub reactor)，该连接的操作都在sub reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。</li>
-<li>reactors in process  (one loop pre process) : 是nginx服务器的网络模块设计，基于进程设计，采用多个Reactors充当I/O进程和工作进程，通过一把accept锁完美解决多个Reactors的“惊群现象”。</li>
-</ol>
-</li>
+<li>配置头文件的搜索路径</li>
+<li>配置库文件的搜索路径</li>
+<li>配置需要链接的.so库</li>
 </ul>
-
-        <h2 id="基于muduo的服务器程序示例"   >
-          <a href="#基于muduo的服务器程序示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于muduo的服务器程序示例"></a> 基于muduo的服务器程序示例</h2>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/14/Cpp/Cpp_%E7%BA%BF%E7%A8%8B%E5%BA%93/">Cpp_线程库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-04-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/14/Cpp/Cpp_%E7%BA%BF%E7%A8%8B%E5%BA%93/" data-flag-title="Cpp_线程库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>线程的构造</li>
-</ol>
-
-        <h1 id="参数有引用的线程对象构造时的处理"   >
-          <a href="#参数有引用的线程对象构造时的处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参数有引用的线程对象构造时的处理"></a> 参数有引用的线程对象构造时的处理</h1>
-      
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> &amp; ret)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;thread fun&quot;</span> &lt;&lt; endl;</span><br><span class="line">		std::this_thread::<span class="built_in">sleep_for</span>(std::chrono::<span class="built_in">milliseconds</span>(<span class="number">100</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	ret = n;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;thread fun end&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="function">std::thread <span class="title">tha</span><span class="params">(fun, <span class="number">5</span>, std::ref(x))</span></span>;</span><br><span class="line">	tha.<span class="built_in">join</span>();</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; endl;		<span class="comment">//输出5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="function">std::thread <span class="title">tha</span><span class="params">(fun, <span class="number">5</span>, x)</span></span>;		<span class="comment">//编译不通过</span></span><br><span class="line">	tha.<span class="built_in">join</span>();</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>为什么直接传x不能编译通过呢？因为thread的构造距离start线程中间有一层可变参模板组件：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;class Function, class... Args&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">thread</span><span class="params">(Function&amp;&amp; f, Args&amp;&amp;... args)</span></span>;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Fn</span>, <span class="title">class</span>... _<span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">thread</span><span class="params">(_Fn&amp;&amp; _Fx, _Args&amp;&amp;... _Ax)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _Start(_STD forward&lt;_Fn&gt;(_Fx), _STD forward&lt;_Args&gt;(_Ax)...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>thread的构造需要先通过这个组件，则由于args是按[模板 &amp;&amp;]接收，如果直接单纯传x，则会识别为普通的int值传递，在到达_Start接口后，x的int类型与参数类型int &amp;不匹配，无法编译通过。</p>
-<p>所以需要一个特殊的机制，用std::ref显式指出把x按引用方式传递（传地址），如此，在经过模板时，先按右值处理，经过_Start接口的完美转发后作为右值<strong>隐式转换</strong>为int &amp;类型，如此便可编译通过，达到按引用传参的目的。</p>
-<ul>
-<li>为什么是隐式转换？</li>
-</ul>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//std::ref的底层是reference_wrapper类，其中有隐式转换</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">reference_wrapper</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> type = _Ty;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Uty</span>&gt;</span></span><br><span class="line">    <span class="built_in">reference_wrapper</span>(_Uty&amp;&amp; _Val)</span><br><span class="line">    &#123;</span><br><span class="line">        _Ty&amp; _Ref = <span class="keyword">static_cast</span>&lt;_Uty&amp;&amp;&gt;(_Val);</span><br><span class="line">        _Ptr      = &amp;_Ref;	<span class="comment">/*_STD addressof(_Ref);*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">operator</span> _Ty&amp;() <span class="keyword">const</span> <span class="keyword">noexcept</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> *_Ptr;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    _Ty* _Ptr&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
-<ul>
-<li>测试</li>
-</ul>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//std::ref的底层是reference_wrapper类，其中有隐式转换</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">my_reference_wrapper</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> type = _Ty;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Uty</span>&gt;</span></span><br><span class="line">    <span class="built_in">my_reference_wrapper</span>(_Uty&amp;&amp; _Val)</span><br><span class="line">    &#123;</span><br><span class="line">        _Ty&amp; _Ref = <span class="keyword">static_cast</span>&lt;_Uty&amp;&amp;&gt;(_Val);</span><br><span class="line">        _Ptr = &amp;_Ref;	<span class="comment">/*_STD addressof(_Ref);*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> _Ty&amp;() <span class="keyword">const</span> <span class="keyword">noexcept</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> *_Ptr;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    _Ty* _Ptr&#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span>&amp; x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;thread fun&quot;</span> &lt;&lt; endl;</span><br><span class="line">        std::this_thread::<span class="built_in">sleep_for</span>(std::chrono::<span class="built_in">milliseconds</span>(<span class="number">100</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    x = n;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;thread fun end&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::thread <span class="title">tha</span><span class="params">(fun, <span class="number">5</span>, my_reference_wrapper&lt;<span class="keyword">int</span>&gt;(x))</span></span>;</span><br><span class="line">    tha.<span class="built_in">join</span>();</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Fn</span>, <span class="title">class</span>... _<span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">thread</span><span class="params">(_Fn&amp;&amp; _Fx, _Args&amp;&amp;... _Ax)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _Start(_STD forward&lt;_Fn&gt;(_Fx), _STD forward&lt;_Args&gt;(_Ax)...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>构造tha时的第三个参数是my_reference_wrapper&lt;int&gt;(x)，是个右值！传入thread可变参模板函数，完美转发，右值叠加右值，依然是右值，调用_Start时优先匹配&amp;&amp;类型的参数，但是发现没有，而且只有一个匹配的选项是：(int n, int &amp; x)，是int&amp;类型，于是乎，无奈之举，调用成员函数operator _Ty()，即为隐式转换为&amp;Ty的左值引用类型。</p>
-<p>如此一来，即可把线程函数外部的x按引用传递。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/24/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/26/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">144</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">29</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>按快捷键F1可把vscode的配置对话框打开，进行检索，我们对cpp文件的编译链接进行配置，输入Edit，找C/C++的条目。</p>
+<p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318152213890.png" alt="image-20220318152213890" /></p>
+<p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318152333543.png" alt="image-20220318152333543" /></p>
+<p>此处的json文件就是cpp文件编译的配置文件。</p>
+<p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318152417135.png" alt="image-20220318152417135" /></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">配置要点：</span><br><span class="line">	g++ -I头文件搜索路径 -L库文件搜索路径 -l库的名称</span><br><span class="line">	includePath可以自定义添加文件的搜索路径	<span class="comment"># usr/(local/)include不用加，是全系统通用的</span></span><br><span class="line">	cppstandard - 如: <span class="string">&quot;cppStandard&quot;</span> : <span class="string">&quot;c++11&quot;</span></span><br><span class="line">	</span><br></pre></td></tr></table></div></figure>
+<p>Ctrl + shift + B - 是对build相关的配置，选择C/C++条目后面的齿轮。点进去发现是一个task.json。</p>
+<p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318153301574.png" alt="image-20220318153301574" /></p>
+<p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318153413837.png" alt="image-20220318153413837" /></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">配置要点：</span><br><span class="line">	<span class="string">&quot;command&quot;</span>是选择哪个路径下的C++编译器</span><br><span class="line">	<span class="string">&quot;args&quot;</span>是编译链接指令后面所带的可加参数的配置信息</span><br><span class="line">		可在最后一行后面加自己相加的参数</span><br><span class="line">		比如: <span class="string">&quot;<span class="variable">$&#123;...&#125;</span>&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lmuduo_net&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lmuduo_base&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lpthread&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>除了c_cpp_properties.json、tasks.json还有个launch.json配置文件，是关于调试、运行的。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/24/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/26/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">145</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">30</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
