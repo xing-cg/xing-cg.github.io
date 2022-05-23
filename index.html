@@ -45,11 +45,89 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#epoll" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll"></a> epoll</h1>
       
 <p>epoll是Linux特有的I/O复用函数。</p>
-<p>epoll的使用实际上不是单独的API，而是有一组函数来完成。三个函数：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event* events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>epoll的使用实际上不是单独的API，而是有一组函数来完成。三个函数。</p>
 
-        <h2 id="内核事件表"   >
-          <a href="#内核事件表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内核事件表"></a> 内核事件表</h2>
+        <h2 id="api"   >
+          <a href="#api" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#api"></a> API</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;	<span class="comment">//创建内核时间表，用于存放描述符和事件</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event* events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>epoll_create()：创建内核事件表，存放描述符和事件，红黑树。</li>
+<li>epoll_ctl()：添加、移除描述符，每个描述符只需要添加一次。</li>
+<li>epoll_wait()：获取已就绪的描述符，复杂度<code>O(1)</code></li>
+</ol>
+<p>内核怎么样实现<code>O(1)</code>？：注册回调函数的方式</p>
+
+        <h2 id="epoll_create"   >
+          <a href="#epoll_create" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll_create"></a> epoll_create</h2>
+      
+<p>epoll把用户关心的文件描述符上的事件放在内核里的一个事件表中，从而无须像select和poll那样每次调用都要重复传描述符集或事件集。</p>
+<p>但epoll需要使用一个额外的文件描述符，来唯一标识内核中的这个事件表。</p>
+<p>这个文件描述符就是使用<code>epoll_create</code>函数来创建。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>只有一个参数<code>size</code>，但是实际上这个参数并不起作用，只是给内核一个提示，告诉他事件表大概需要多大。</p>
+<p>函数返回值为对应这个事件表的一个文件描述符。其他所有epoll系统调用的第一个参数将使用该返回值，以指定要访问的内核事件表。</p>
+
+        <h2 id="epoll_ctl"   >
+          <a href="#epoll_ctl" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll_ctl"></a> epoll_ctl</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"><span class="comment">// epoll_ctl成功时返回0，失败则返回-1并设置errno。</span></span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>
+<p>参数<code>epfd</code>是<code>epoll_create</code>返回值。</p>
+</li>
+<li>
+<p>参数<code>op</code>指定操作类型。操作类型有如下3种：</p>
+<ol>
+<li><code>EPOLL_CTL_ADD</code>，往事件表中注册fd上的事件；</li>
+<li><code>EPOLL_CTL_MOD</code>，修改fd上的注册事件；</li>
+<li><code>EPOLL_CTL_DEL</code>，删除fd上的注册事件；</li>
+</ol>
+</li>
+<li>
+<p>参数<code>fd</code>是要操作的文件描述符</p>
+</li>
+<li>
+<p>参数<code>event</code>指定事件，它是<code>epoll_event</code>结构指针类型</p>
+<ol>
+<li>
+<p><code>epoll_event</code>的定义如下</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">__uint32_t</span> events;	<span class="comment">/* epoll事件, 和poll类似，前加E*/</span></span><br><span class="line">    <span class="keyword">epoll_data_t</span> data;	<span class="comment">/* 用户数据 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>
+<p>结构体中成员<code>events</code>描述事件类型。epoll支持的事件类型与poll基本相同。表示epoll事件类型的宏是在poll对应的宏前加上&quot;E&quot;，比如数据可读事件是<code>EPOLLIN</code>。但epoll有两个额外的事件类型——<code>EPOLLET</code>和<code>EPOLLONESHOT</code>，这俩事件往往对应epoll的高效运作模式。</p>
+</li>
+<li>
+<p>data成员用于存储用户数据。其类型<code>epoll_data_t</code>的定义如下：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> <span class="title">epoll_data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">void</span> * ptr;</span><br><span class="line">    <span class="keyword">int</span> fd;</span><br><span class="line">    <span class="keyword">uint32_t</span> u32;</span><br><span class="line">    <span class="keyword">uint64_t</span> u64;</span><br><span class="line">&#125;<span class="keyword">epoll_data_t</span>;</span><br></pre></td></tr></table></div></figure>
+<p><code>epoll_data_t</code>是一个联合体，其4个成员中：</p>
+<ol>
+<li>使用最多的是<code>fd</code>，它指定事件所从属的目标文件描述符。</li>
+<li>成员<code>ptr</code>可用来指定与<code>fd</code>相关的用户数据。但由于<code>epoll_data_t</code>是一个联合体，不可同时使用<code>ptr</code>和<code>fd</code>，因此，如果要将文件描述符和用户数据关联起来以实现快速的数据访问的话，只能使用其他手段。比如放弃使用<code>fd</code>成员，而在<code>ptr</code>指向的用户数据中包含<code>fd</code>。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="epoll_wait"   >
+          <a href="#epoll_wait" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll_wait"></a> epoll_wait</h2>
+      
+<p>在一段超时时间内等待一组文件描述符上的事件。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event* events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line"><span class="comment">// 成功返回就绪的文件描述符的个数，失败则返回-1并设置errno</span></span><br></pre></td></tr></table></div></figure>
+<p><code>epoll_wait</code>函数如果检测到事件，就将所有就绪的事件从内核事件表（由epfd参数指出）中复制到它的第二个参数<code>events</code>指向的数组中。这个数组只用于用户接收内核检测到的就绪事件，而不像select/poll的数组参数那样拷贝来拷贝去。极大地提高了应用程序索引就绪文件描述符的效率。</p>
+<p>参数<code>maxevents</code>指定最多监听多少个事件，必须大于0。</p>
+<p>参数<code>timeout</code>含义与<code>poll</code>接口的<code>timeout</code>参数相同，都是指定超时值，单位是<code>毫秒</code>。当设置为<code>-1</code>时，<code>poll</code>调用讲永远阻塞直到某个事件发生；当设置为<code>0</code>时<code>poll</code>调用将立即返回。</p>
+
+        <h3 id="与poll的代码差异"   >
+          <a href="#与poll的代码差异" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与poll的代码差异"></a> 与poll的代码差异</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ret = poll(fds, MAX_EVENT_NUMBER, <span class="number">-1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;MAX_EVENT_NUMBER, ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(fds[i].revents &amp; POLLIN)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> sockfd = fds[i].fd;</span><br><span class="line">        <span class="comment">/* 处理sockfd */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以上为poll</span></span><br><span class="line">-----------------------------------------------------</span><br><span class="line"><span class="comment">//以下为epoll</span></span><br><span class="line"><span class="keyword">int</span> ret = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, <span class="number">-1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ret; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = events[i].data.fd;</span><br><span class="line">    <span class="comment">/* sockfd肯定就绪，直接处理 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="内核事件表"   >
+          <a href="#内核事件表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内核事件表"></a> 内核事件表</h1>
       
 <p>epoll的最大优势在于处理描述符特别多的情况，相比轮询方式：</p>
 <ol>
@@ -57,31 +135,41 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>而且虽然select、poll能顺利查出有几个描述符上有事件产生，但是是哪个描述符？并没有告诉我们，所以又得浪费一轮时间来查找产生时间是哪个描述符。</li>
 </ol>
 
-        <h2 id="api"   >
-          <a href="#api" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#api"></a> API</h2>
+        <h2 id="数据结构"   >
+          <a href="#数据结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据结构"></a> 数据结构</h2>
       
-<ol>
-<li>epoll_create()：创建内核事件表，存放描述符和事件，红黑树。</li>
-<li>epoll_ctl()：添加、移除描述符，每个描述符只需要添加一次。</li>
-<li>epoll_wait()：O(1)</li>
-</ol>
-<p>内核实现：注册回调函数的方式实现，O(1)</p>
+<p>本质上，是一棵红黑树。</p>
 
-        <h2 id="ltet"   >
-          <a href="#ltet" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ltet"></a> LT/ET</h2>
+        <h1 id="思路的转变"   >
+          <a href="#思路的转变" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#思路的转变"></a> 思路的转变</h1>
       
+<p>相较于select/poll，我们所关心的事件（描述符）表，直接创建于内核态。</p>
+
+        <h1 id="ltet模式"   >
+          <a href="#ltet模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ltet模式"></a> LT/ET模式</h1>
+      
+<p>epoll对文件描述符的操作有两种模式：LT (Level Trigger, 电平触发)模式和ET (Edge Trigger, 边沿触发)模式。</p>
 <ul>
-<li>LT模式
-<ul>
-<li>有事件就绪后，用户如果没有处理完，还会继续提醒</li>
+<li>LT：有事件就绪后，用户不用立即处理；用户如果没有处理完，还会继续提醒</li>
+<li>ET：有事件就绪，只提醒用户一次。下次就没了。</li>
 </ul>
-</li>
-<li>ET模式
-<ul>
-<li>有事件就绪，只提醒用户一次</li>
-</ul>
-</li>
-</ul>
+
+        <h2 id="lt"   >
+          <a href="#lt" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lt"></a> LT</h2>
+      
+<p>LT模式是默认的工作模式，这种模式下epoll相当于一个效率较高的poll。</p>
+<p>对于采用LT工作模式的文件描述符，当<code>epoll_wait</code>检测到其上有事件发生并将此事件通知应用程序后，应用程序可以不立即处理该事件。这样，当应用程序下一次调用<code>epoll_wait</code>时，<code>epoll_wait</code>还会再次向应用程序通告此事件，直到该事件被处理。</p>
+
+        <h2 id="et"   >
+          <a href="#et" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#et"></a> ET</h2>
+      
+<p>当往epoll内核事件表中注册一个文件描述符上的<code>EPOLLET</code>事件时，epoll将以ET模式来操作该文件描述符。ET模式是epoll的高效工作模式。</p>
+<p>而对于采用ET工作模式的文件描述符，当<code>epoll_wait</code>检测到其上有事件发生并将此事件通知应用程序后，应用程序必须立即处理该事件，因为后续的<code>epoll_wait</code>调用将不再向应用程序通知这一事件。可见，ET模式在很大程度上降低了同一个epoll事件被重复触发的次数，因此效率要比LT模式高。</p>
+
+        <h1 id="代码示例"   >
+          <a href="#代码示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码示例"></a> 代码示例</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#incldue<span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket_init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_add</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    ev.data.fd = fd;</span><br><span class="line">    ev.events = EPOLLIN;<span class="comment">//ev.events = EPOLLIN | EPOLLET; 这样可工作在ET模式</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &amp;ev) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">&quot;epoll ctl add err\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">epoll_del</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(epoll_ctl(epfd, EPOLL_CTL_DEL, fd, <span class="literal">NULL</span>) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">&quot;epoll ctl del err\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = socket_init();</span><br><span class="line">    assert(sockfd != <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">int</span> epfd = epoll_create(MAX);</span><br><span class="line">    assert(epfd != <span class="number">-1</span>);</span><br><span class="line">    </span><br><span class="line">    epoll_add(epfd, sockfd);<span class="comment">//将监听套接字添加到内核事件表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">evs</span>[<span class="title">MAX</span>];</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> n = epoll_wait(epfd, evs, MAX, <span class="number">5000</span>);	<span class="comment">//5000ms</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            perror(<span class="string">&quot;epoll wait err\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;time out\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)<span class="comment">//每个事件均为就绪状态</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> fd = evs[i].data.fd;</span><br><span class="line">                <span class="keyword">if</span>(evs[i].events &amp; EPOLLIN)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(fd == sockfd)<span class="comment">//监听套接字</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">caddr</span>;</span></span><br><span class="line">                        <span class="keyword">int</span> len = <span class="keyword">sizeof</span>(caddr);</span><br><span class="line">                        <span class="keyword">int</span> c = accept(sockfd, (struct sockaddr*)&amp;caddr, &amp;len);</span><br><span class="line">                        <span class="keyword">if</span>(c &lt; <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">&quot;accept c = %d\n&quot;</span>, c);</span><br><span class="line">                        </span><br><span class="line">                        epoll_add(epfd, c);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>	<span class="comment">//连接套接字</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">                        <span class="keyword">int</span> num = recv(fd, buff, <span class="number">127</span>, <span class="number">0</span>);</span><br><span class="line">                        <span class="keyword">if</span>(num &lt;= <span class="number">0</span>)<span class="comment">//对方关闭 或异常，需要移除</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">//注意不要先close，因为epoll_del需要用到fd描述符。</span></span><br><span class="line">                            epoll_del(epfd, fd);</span><br><span class="line">                            close(fd);</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;client close\n&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;recv(%d)=%s\n&quot;</span>, fd, buff);</span><br><span class="line">                            send(fd, <span class="string">&quot;ok&quot;</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/21/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/">阻塞_非阻塞_同步_异步</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-22</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/21/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/" data-flag-title="阻塞_非阻塞_同步_异步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
