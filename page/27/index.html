@@ -111,7 +111,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p><img src="/images/Linux_%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AE/image-20220318153413837.png" alt="image-20220318153413837" /></p>
 <figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">配置要点：</span><br><span class="line">	<span class="string">&quot;command&quot;</span>是选择哪个路径下的C++编译器</span><br><span class="line">	<span class="string">&quot;args&quot;</span>是编译链接指令后面所带的可加参数的配置信息</span><br><span class="line">		可在最后一行后面加自己相加的参数</span><br><span class="line">		比如: <span class="string">&quot;<span class="variable">$&#123;...&#125;</span>&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lmuduo_net&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lmuduo_base&quot;</span>,</span><br><span class="line">			 <span class="string">&quot;-lpthread&quot;</span></span><br></pre></td></tr></table></div></figure>
 <p>除了c_cpp_properties.json、tasks.json还有个launch.json配置文件，是关于调试、运行的。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/">学习muduo库的思想</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-22</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/" data-flag-title="学习muduo库的思想"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/">学习muduo库的思想</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/16/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/" data-flag-title="学习muduo库的思想"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -227,7 +227,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <ul>
 <li>select的缺点：
 <ul>
-<li>单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：#define __FD_SETSIZE 1024），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。</li>
+<li>单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：<code>#define __FD_SETSIZE 1024</code>），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。</li>
 <li>内核/用户空间内存拷贝问题，select需要复制大量的句柄数据结构，产生巨大的开销</li>
 <li>select返回的是含有整个句柄的数组，应用程序需要遍历整个数组才能发现哪些句柄发生了事件</li>
 <li>select的触发方式是水平触发，应用程序如果没有完成对一个已经就绪的文件描述符进行IO操作，那么之后每次select调用还是会将这些文件描述符通知进程（意思就是一件事情处理得太拖沓，拖延好几次才完成，影响效率）。其实epoll的LT模式也是这样。但是ET模式效率不一定比LT好。</li>
@@ -247,26 +247,30 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#epoll原理及优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll原理及优势"></a> epoll原理及优势</h2>
       
 <p>epoll的实现机制与select/poll机制完全不同。</p>
-<p>epoll通过在Linux内核中申请一个简易的文件系统（文件系统一般用什么数据结构实现？B+树，磁盘IO消耗低、效率很高）。把原先的select/poll调用分成以下3个部分：</p>
+<p>epoll通过在Linux内核中申请一个简易的文件系统，提升了效率。</p>
+<blockquote>
+<p>文件系统一般用什么数据结构实现——B+树，磁盘IO消耗低、效率很高。</p>
+</blockquote>
+<p>把原先的select/poll调用分成以下3个部分：</p>
 <ol>
 <li>
-<p>调用epoll_create()建立一个epoll对象（在epoll文件系统中为这个句柄对象分配资源）</p>
+<p>调用<code>epoll_create()</code>建立一个<code>epoll对象</code>（在<code>epoll文件系统</code>中为这个<code>句柄对象</code>分配资源）</p>
 <ul>
 <li>
-<p>epoll_create在内核上创建的eventpoll结构如下：</p>
+<p><code>epoll_create</code>在内核上创建的<code>eventpoll</code>结构如下：</p>
 <figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">eventpoll</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">/* 红黑树的根节点，这棵树中存储着所有添加到epoll中的需要监控的事件*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rb_root</span> <span class="title">rbr</span>;</span></span><br><span class="line">    <span class="comment">/* 双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">rdlist</span>;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </li>
 </ul>
 </li>
 <li>
-<p>调用epoll_ctl向epoll对象中添加这100万个连接的套接字</p>
+<p>调用<code>epoll_ctl</code>向<code>epoll</code>对象中添加这100万个连接的套接字</p>
 </li>
 <li>
-<p>调用epoll_wait收集发生的事件的fd资源</p>
+<p>调用<code>epoll_wait</code>收集发生的事件的<code>fd</code>资源</p>
 </li>
 </ol>
 <blockquote>
-<p>如此一来，要实现上面说的场景，只需在进程启动时建立一个epoll对象，然后在需要时像这个epoll对象中添加或者删除事件。同时epoll_wait时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的事件。</p>
+<p>如此一来，要实现上面说的场景，只需在进程启动时建立一个<code>epoll对象</code>，然后在需要时像这个<code>epoll对象</code>中添加或者删除事件。同时<code>epoll_wait</code>时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的事件。</p>
 </blockquote>
 <ul>
 <li>LT模式，muduo采用的是LT模式
@@ -292,13 +296,12 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>ET模式
 <ul>
 <li>特点：内核数据只上报一次，效率相对较高</li>
-<li></li>
 </ul>
 </li>
 </ul>
 
-        <h1 id="muduo网络库编程"   >
-          <a href="#muduo网络库编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库编程"></a> muduo网络库编程</h1>
+        <h1 id="muduo网络库编程准备"   >
+          <a href="#muduo网络库编程准备" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库编程准备"></a> muduo网络库编程准备</h1>
       
 
         <h2 id="开发环境"   >
@@ -337,11 +340,12 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>一般.so文件都在usr/lib或usr/local/lib路径下</p>
 <p>如何在vscode配置这三个库？</p>
 
-        <h2 id="muduo网络库的多线程模型"   >
-          <a href="#muduo网络库的多线程模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库的多线程模型"></a> muduo网络库的多线程模型</h2>
+        <h1 id="muduo网络库的多线程模型"   >
+          <a href="#muduo网络库的多线程模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库的多线程模型"></a> muduo网络库的多线程模型</h1>
       
 <ul>
-<li>网络服务器编程常用模型
+<li>
+<p>网络服务器编程常用模型</p>
 <ol>
 <li>accept + read/write : 不是并发服务器</li>
 <li>accpet + fork (process-pre-connection) : 适合并发连接数不大，计算任务工作量大于fork的开销</li>
@@ -349,6 +353,9 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>reactors in threads (one loop per thread) : 是muduo的网络设计。有一个main reactor负载accept连接，然后把连接分发到某个sub reactor(采用round-robin的方式来选择sub reactor)，该连接的操作都在sub reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。</li>
 <li>reactors in process  (one loop pre process) : 是nginx服务器的网络模块设计，基于进程设计，采用多个Reactors充当I/O进程和工作进程，通过一把accept锁完美解决多个Reactors的“惊群现象”。</li>
 </ol>
+</li>
+<li>
+<p>muduo底层的模型</p>
 </li>
 </ul>
 
