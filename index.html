@@ -32,7 +32,206 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">原子操作</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/" data-flag-title="原子操作"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">学习muduo库的思想</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="学习muduo库的思想"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>
+<p>muduo库的主要板块</p>
+<ol>
+<li>base - 公共的代码文件</li>
+<li>net - 网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等</li>
+<li>我们主要写网络模块</li>
+</ol>
+</li>
+<li>
+<p>cmake</p>
+</li>
+</ol>
+
+        <h1 id="编写目标"   >
+          <a href="#编写目标" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写目标"></a> 编写目标</h1>
+      
+<p>主要编写muduo库的网络模块代码，以及改进muduo库在使用上的不便。</p>
+<p>muduo库原本属于静态库，且需要依赖boost库。我们改进它，使他与原生C++标准库结合，并把它生成为<code>.so</code>动态库。</p>
+
+        <h1 id="cmake"   >
+          <a href="#cmake" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cmake"></a> cmake</h1>
+      
+<figure class="highlight cmake"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.5</span>)</span><br><span class="line"><span class="keyword">project</span>(mymuduo)</span><br><span class="line"></span><br><span class="line"><span class="comment">#mymuduo 最终编译成so动态库，设置动态库的路径</span></span><br><span class="line"><span class="keyword">set</span>(LIBRARY_OUTPUT_PATH <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/lib)<span class="comment">#注意不是OUTPUT_DIRECTORY.这两者有区别</span></span><br><span class="line"><span class="comment">#设置为调试模式 以及 声明C++11语言标准</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; -g -std=c++11 -fPIC&quot;</span>)<span class="comment">#在较新的编译器后需要加-fPIC，以示生成的是动态库</span></span><br><span class="line"><span class="comment">#定义参与编译的源文件 起一个别名</span></span><br><span class="line"><span class="keyword">aux_source_directory</span>(. SRC_LIST)</span><br><span class="line"><span class="comment">#编译生成动态库mymuduo</span></span><br><span class="line"><span class="keyword">add_library</span>(mymuduo SHARED <span class="variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="辅助类"   >
+          <a href="#辅助类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#辅助类"></a> 辅助类</h1>
+      
+
+        <h2 id="noncopyable"   >
+          <a href="#noncopyable" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#noncopyable"></a> noncopyable</h2>
+      
+<p>noncopyable.h</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * noncopyable 被继承以后，</span></span><br><span class="line"><span class="comment"> * 派生类对象无法拷贝构造、相互赋值。</span></span><br><span class="line"><span class="comment"> * 无参构造、析构是默认处理。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">noncopyable</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>(<span class="keyword">const</span> noncopyable&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    noncopyable &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> noncopyable &amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="copyable"   >
+          <a href="#copyable" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#copyable"></a> copyable</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">copyable</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="tcpserver"   >
+          <a href="#tcpserver" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tcpserver"></a> TcpServer</h1>
+      
+<p>需要封装以下属性：</p>
+<ol>
+<li>EventLoop对象指针 - 多路分发器，相当于epoll</li>
+<li>InetAddress - 打包IP地址和端口号</li>
+</ol>
+
+        <h2 id="inetaddress"   >
+          <a href="#inetaddress" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#inetaddress"></a> InetAddress</h2>
+      
+<ol>
+<li>
+<p>允许拷贝</p>
+</li>
+<li>
+<p>成员变量是<code>sockaddr_in m_addr</code>，也可选择支持IPv6的<code>sockaddr_in6 m_addr6</code>。可用联合体表示。在本项目中，只使用IPv4的<code>m_addr</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;netinet/in.h&gt;</span>		<span class="comment">//sockaddr_in / sockaddr_in6都在此文件下定义</span></span></span><br><span class="line"><span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span>  <span class="title">m_addr</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in6</span> <span class="title">m_addr6</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="eventloop"   >
+          <a href="#eventloop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop"></a> EventLoop</h2>
+      
+<ol>
+<li>不允许拷贝</li>
+<li>主要包含的成员之一：poller（相当于epoll），属性有sockfd及其上面绑定的事件</li>
+<li>另一个主要的成员是channel，属性有fd、events、revents等等</li>
+</ol>
+<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。</p>
+<p>要写EventLoop就要理清楚EventLoop、Channel、Poller之间的关系。Reactor模型中，这三个组件整体对应着Demultiplex。</p>
+
+        <h2 id="channel"   >
+          <a href="#channel" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#channel"></a> Channel</h2>
+      
+<p>通道，封装了sockfd和其感兴趣的event，如EPOLLIN、EPOLLOUT事件。还绑定了poller返回的具体事件。</p>
+
+        <h2 id="公有别名"   >
+          <a href="#公有别名" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#公有别名"></a> 公有别名</h2>
+      
+<p>定义通用事件回调函数、只读事件回调函数的函数对象类型别名。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Channel</span> :</span> noncopyable</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> EventCallback = std::function&lt;<span class="built_in"><span class="keyword">void</span></span>()&gt;;</span><br><span class="line">    <span class="keyword">using</span> ReadEventCallback = std::function&lt;<span class="built_in"><span class="keyword">void</span></span>(Timestamp)&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="成员函数"   >
+          <a href="#成员函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数"></a> 成员函数</h3>
+      
+<ol>
+<li>
+<p>构造/析构函数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Channel</span>(EventLoop * loop, <span class="keyword">int</span> fd);</span><br><span class="line">	~<span class="built_in">Channel</span>();</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>handleEvent</code>：fd得到poller的通知后，处理事件</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">handleEvent</span><span class="params">(Timestamp receiveTime)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>setXxxCallback(EventCallback cb)</code>：对外提供的设置回调函数对象的接口</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setReadCallback</span><span class="params">(ReadEventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setWriteCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setCloseCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setErrorCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>void tie(const std::shared_ptr&lt;void&gt;&amp;)</code>：防止channel被手动remove后，还在执行回调操作</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">tie</span><span class="params">(<span class="keyword">const</span> std::shared_ptr&lt;<span class="keyword">void</span>&gt;&amp;)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>fd</code>、<code>events</code>、<code>revents</code>相关：</p>
+<ol>
+<li>
+<p><code>int fd() const &#123;return m_fd;&#125;</code></p>
+</li>
+<li>
+<p><code>int events() const &#123;return m_events;&#125;</code></p>
+</li>
+<li>
+<p><code>int set_revents(int revt)</code>：向poller提供的设置revents的接口</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">set_revents</span><span class="params">(<span class="keyword">int</span> revt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_revents = revt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>判断函数：判断有没有注册事件等等</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isNoneEvent</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events == kNoneEvent;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isWriting</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kWriteEvent;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isReading</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kReadEvent;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>使能、使不能函数：设置fd相应的事件状态。对<code>m_events</code>进行位操作之后调用<code>update()</code>，即<code>epoll_ctl</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">enableReading</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events |= kReadEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">disableReading</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events &amp;= ~kReadEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">enableWriting</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events |= kWriteEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">disableWriting</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events &amp;= ~kWriteEvent;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">disableAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events = kNoneEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+</li>
+<li>
+<p>与EventLoop相关 - 获取所属的Loop</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">EventLoop * <span class="title">ownerLoop</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_loop;&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>删除 - remove()</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>update() - 相当于调用<code>epoll_ctl</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>handleEventWithGuard - 受保护地处理事件</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">HandleEventWithGuard</span><span class="params">(Timestamp receiveTime)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+<p>其他函数</p>
+<ol>
+<li>for poller的index<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">index</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_index;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">set_index</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;m_index = idx;&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h3 id="成员变量"   >
+          <a href="#成员变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量"></a> 成员变量</h3>
+      
+<ol>
+<li>
+<p><code>kXxxEvent</code>：以下三个变量描述当前fd的状态，没有感兴趣的事件or对读事件感兴趣or对写事件感兴趣？</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kNoneEvent;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kReadEvent;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kWriteEvent;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>m_xxxCallback</code>：四个函数对象，可以绑定外部传入的相关操作。因为channel知道发生了哪些事情（revents记录），所以channel负责调用具体事件的回调函数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	ReadEventCallback m_readCallback;</span><br><span class="line">	EventCallback	  m_writeCallback;</span><br><span class="line">	EventCallback	  m_closeCallback;</span><br><span class="line">	EventCallback	  m_errorCallback;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>EventLoop *m_loop</code>：事件循环</p>
+</li>
+<li>
+<p><code>m_fd</code>：fd，即Poller监听的对象</p>
+</li>
+<li>
+<p><code>m_events</code>：fd感兴趣的事件注册信息</p>
+</li>
+<li>
+<p><code>m_revents</code>：Poller操作的fd上具体发生的事件</p>
+</li>
+<li>
+<p><code>m_index</code>：？</p>
+</li>
+<li>
+<p><code>std::weak_ptr&lt;void&gt; m_tie</code>：防止手动调用remove channel后仍使用此channel，用于监听跨线程的对象生存状态。</p>
+<blockquote>
+<p><code>shared_ptr</code>和<code>weak_ptr</code>配合使用可以发挥两个能力：</p>
+<ol>
+<li>解决shread_ptr循环引用问题</li>
+<li>weak_ptr在多线程程序中可监听资源的生存状态，方法是尝试提升为强指针，若提升成功，则可以访问；若提升失败说明则资源被释放掉了。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>tie的意思是绑定，那么m_tie要和谁绑定呢？——自己。</p>
+<p>绑定自己的工具还可以用另一个工具，<code>shared_from_this</code>，可以尝试得到当前对象的强智能指针。</p>
+</blockquote>
+</li>
+<li>
+<p><code>bool m_tied</code>：配合<code>m_tie</code>使用</p>
+</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">原子操作</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/" data-flag-title="原子操作"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -106,105 +305,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 即转为：<code>while(!pHead.compare_exchange_weak(newnode-&gt;next, newnode));</code></p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StackNode * newnode = <span class="built_in">Buynode</span>();</span><br><span class="line">    <span class="keyword">new</span>(&amp;(newnode-&gt;data)) <span class="built_in">T</span>(val);</span><br><span class="line">    </span><br><span class="line">    newnode-&gt;next = pHead.<span class="built_in">load</span>();</span><br><span class="line">    <span class="keyword">while</span>(!pHead.<span class="built_in">compare_exchange_weak</span>(newnode-&gt;next, newnode));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p>判断<code>pHead</code>是否等于<code>newnode-&gt;next</code>，如果相等，则把<code>newnode</code>赋值给<code>pHead</code>。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Linux%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/">Linux线程调度策略</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Linux%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/" data-flag-title="Linux线程调度策略"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>先来先服务（FIFO）调度策略</li>
-<li>时间片轮转调度策略</li>
-<li>分时调度策略</li>
-</ol>
-
-        <h1 id="linux内核线程的三种调度策略"   >
-          <a href="#linux内核线程的三种调度策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux内核线程的三种调度策略"></a> Linux内核线程的三种调度策略</h1>
-      
-<p>函数<code>pthread_attr_setschedpolicy</code>和<code>pthread_attr_getschedpolicy</code>分别用来设置、获取线程的调度策略。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_setschedpolicy</span><span class="params">(<span class="keyword">pthread_attr_t</span> *, <span class="keyword">int</span> policy)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_getschedpolicy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> *, <span class="keyword">int</span> policy)</span></span>;</span><br><span class="line">参数：</span><br><span class="line">    attr 	- 线程属性变量</span><br><span class="line">    policy	- 调度策略</span><br><span class="line">返回值</span><br><span class="line">    成功返回<span class="number">0</span>，失败返回<span class="number">-1</span></span><br></pre></td></tr></table></div></figure>
-<ol>
-<li><code>SCHED_OTHER</code>：分时调度策略，非实时。不支持优先级。</li>
-<li><code>SCHED_FIFO</code>：先到先服务，实时。一旦占用cpu则一直运行。直到有更高优先级任务或主动放弃cpu。</li>
-<li><code>SCHED_RR</code>：时间片轮转，实时。当进程的时间片用完，重新分配时间片长度，置于就绪队列尾。可以看作是FIFO的延伸。</li>
-</ol>
-
-        <h1 id="先到先服务策略"   >
-          <a href="#先到先服务策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#先到先服务策略"></a> 先到先服务策略</h1>
-      
-<ol>
-<li>创建进程时指定采用FIFO，并设置<strong>实时优先级</strong><code>rt_priority</code>(1-99)。</li>
-<li>如果没有等待资源，则将该任务加入到就绪队列中。</li>
-<li>调度程序遍历就绪队列，根据<strong>实时优先级</strong>计算调度权值(<code>1000+rt_priority</code>)，选择权值最高的任务使用cpu，<strong>该FIFO任务将一直占有cpu直到有优先级更高的任务就绪</strong>(即使优先级相同也不行)<strong>或者主动放弃(等待资源)</strong>。</li>
-<li>调度程序发现有优先级更高的任务到达(高优先级任务可能被中断或定时器任务唤醒，再或被当前运行的任务唤醒等等)，则调度程序立即在当前任务堆栈中保存当前cpu寄存器的所有数据，重新从高优先级任务的堆栈中加载寄存器数据到cpu，此时高优先级的任务开始运行。重复第3步。</li>
-<li>如果当前任务因等待资源而主动放弃cpu使用权，则该任务将从就绪队列中删除，加入等待队列，此时重复第3步。</li>
-</ol>
-
-        <h1 id="时间片轮转策略"   >
-          <a href="#时间片轮转策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#时间片轮转策略"></a> 时间片轮转策略</h1>
-      
-<p>所有任务都采用RR调度策略时：</p>
-<ol>
-<li>
-<p>创建任务时指定调度参数为RR，并设置任务的<strong>实时优先级</strong>和<strong>nice值</strong>(nice值将会转换为该任务的时间片的长度)。</p>
-<blockquote>
-<p>可见，相比于FIFO，时间片轮转法多了一个nice值，用于计算时间片长度。</p>
-</blockquote>
-</li>
-<li>
-<p>如果没有等待资源，则将该任务加入到就绪队列中。</p>
-</li>
-<li>
-<p>调度程序遍历就绪队列，根据<strong>实时优先级</strong>计算调度权值(<code>1000+rt_priority</code>)，<strong>选择权值最高</strong>的任务使用cpu。</p>
-<blockquote>
-<p>相比于FIFO，FIFO会一直占用CPU，直到更高优先级线程到达。</p>
-</blockquote>
-</li>
-<li>
-<p>如果就绪队列中的RR任务<strong>时间片为0，则会根据nice值设置该任务的时间片，同时将该任务放入就绪队列的末尾</strong>。重复步骤3。</p>
-</li>
-<li>
-<p>当前任务由于等待资源而主动退出cpu，则其加入等待队列中。重复步骤3。</p>
-</li>
-</ol>
-
-        <h1 id="分时调度策略"   >
-          <a href="#分时调度策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分时调度策略"></a> 分时调度策略</h1>
-      
-<p>所有任务都采用Linux分时调度策略时：</p>
-<ol>
-<li>
-<p>创建任务指定采用分时调度策略，并指定nice值(<code>-20~19</code>, 可以认为值越小优先级越高)。</p>
-<blockquote>
-<p>相比于FIFO，没有<strong>实时优先级</strong>数值属性(1~99)</p>
-</blockquote>
-</li>
-<li>
-<p>将<strong>根据每个任务的nice值确定在cpu上的执行时间</strong>(counter)。</p>
-</li>
-<li>
-<p>如果没有等待资源，则将该任务<strong>加入到就绪队列</strong>中。</p>
-</li>
-<li>
-<p>调度程序<strong>遍历就绪队列</strong>中的任务，通过对每个任务动态优先级的计算权值(<code>counter+20-nice</code>)结果，选择计算结果最大的一个去运行，当这个时间片用完后(<code>counter减至0</code>)或者主动放弃cpu时，该任务将被放在就绪队列末尾(时间片用完)或等待队列(因等待资源而放弃cpu)中。</p>
-</li>
-<li>
-<p>此时调度程序重复上面计算过程，转到第4步。</p>
-</li>
-<li>
-<p>当调度程序发现所有就绪任务计算所得的权值都<code>不大于0时</code>，重复第2步。</p>
-</li>
-</ol>
-
-        <h1 id="区别"   >
-          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h1>
-      
-<p>系统中既有分时调度，又有时间片轮转调度和先进先出调度：</p>
-<ol>
-<li>RR调度和FIFO调度的进程属于实时进程，以分时调度的进程是非实时进程。</li>
-<li>当实时进程准备就绪后，如果当前cpu正在运行非实时进程，则实时进程立即抢占非实时进程。</li>
-<li>RR进程和FIFO进程<strong>都采用实时优先级</strong>做为调度的<strong>权值标准</strong>，RR是FIFO的一个延伸。</li>
-<li>FIFO时，如果两个进程的优先级一样，则这两个优先级一样的进程具体执行哪一个是由其在队列中的未知决定的，这样导致一些不公正性（优先级是一样的，为什么要让你一直运行？），如果将两个优先级一样的任务的调度策略都设为RR，则保证了这两个任务可以循环执行，保证了公平。</li>
-</ol>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">148</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">30</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">149</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
