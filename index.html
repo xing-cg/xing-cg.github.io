@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">重写muduo库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">重写muduo库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -114,8 +114,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
       
 <p>通道，封装了sockfd和其感兴趣的event，如EPOLLIN、EPOLLOUT事件。还绑定了poller返回的具体事件。</p>
 
-        <h2 id="公有别名"   >
-          <a href="#公有别名" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#公有别名"></a> 公有别名</h2>
+        <h3 id="公有别名"   >
+          <a href="#公有别名" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#公有别名"></a> 公有别名</h3>
       
 <p>定义通用事件回调函数、只读事件回调函数的函数对象类型别名。</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Channel</span> :</span> noncopyable</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> EventCallback = std::function&lt;<span class="built_in"><span class="keyword">void</span></span>()&gt;;</span><br><span class="line">    <span class="keyword">using</span> ReadEventCallback = std::function&lt;<span class="built_in"><span class="keyword">void</span></span>(Timestamp)&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
@@ -150,7 +150,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p><code>int events() const &#123;return m_events;&#125;</code></p>
 </li>
 <li>
-<p><code>int set_revents(int revt)</code>：向poller提供的设置revents的接口</p>
+<p><code>void set_revents(int revt)</code>：向poller提供的设置revents的接口</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">set_revents</span><span class="params">(<span class="keyword">int</span> revt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_revents = revt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 </li>
 <li>
@@ -231,6 +231,112 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p><code>bool m_tied</code>：配合<code>m_tie</code>使用</p>
 </li>
 </ol>
+
+        <h2 id="poller"   >
+          <a href="#poller" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#poller"></a> Poller</h2>
+      
+
+        <h3 id="成员变量-2"   >
+          <a href="#成员变量-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量-2"></a> 成员变量</h3>
+      
+<p>成员变量中包含一个存储<code>&lt;int, Channel*&gt;</code>的map。</p>
+<blockquote>
+<p>poller监听的channel从何而来？EventLoop中有ChannelList以及Poller，则poller监听的肯定是EventLoop中所保存的channel。即这些channel在poller中也被保存了。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelMap = std::unordered_map&lt;<span class="keyword">int</span>, Channel*&gt;;</span><br><span class="line">    ChannelMap m_channels;</span><br></pre></td></tr></table></div></figure>
+<p>还有一个成员变量，<code>m_ownerLoop</code>，指明了从属于哪个loop。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	EventLoop * m_ownerLoop;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="成员函数-2"   >
+          <a href="#成员函数-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-2"></a> 成员函数</h3>
+      
+<ol>
+<li>
+<p>构造/析构函数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Poller</span>(EventLoop *loop);</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Poller</span>() = <span class="keyword">default</span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>poll</code> - 提供给系统的统一的一个IO复用接口</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">using</span> ChannelList = std::vector&lt;Channel*&gt;;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> Timestamp <span class="title">poll</span><span class="params">(<span class="keyword">int</span> timeoutMs, ChannelList * activeChannels)</span> </span>= <span class="number">0</span>;</span><br><span class="line">参数：</span><br><span class="line">	timeoutMs 		- 超时时间，毫秒为单位</span><br><span class="line">    activeChannels  - 当前激活的、对事件注册好的channel列表</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>与事件的注册、注销有过的</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">/* 当fd注册的事件有变更时，channel调用update，函数内包含updateChannel(this) */</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">updateChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br><span class="line">	<span class="comment">/* 当fd注册的事件要注销时，channel调用remove，函数内包含removeChannel(this) */</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">removeChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br><span class="line">参数 channel 均为 [外部channel传入的<span class="keyword">this</span>指针]</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>newDefaultPoller(EventLoop * loop)</code> - 提供给EventLoop的接口，以获取默认的IO复用具体实现。</p>
+<blockquote>
+<p>注意：我们最好不要实现到<code>poller.cc</code>文件中，不大妥当。因为<code>Poller</code>类是基类，而把获取具体实现写到抽象类文件实现中是不好的。可以单独把实现代码写到<code>defaultpoller.cc</code>中。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Poller* <span class="title">newDefaultPoller</span><span class="params">(EventLoop *loop)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>hasChannel</code> - 判断poller是否拥有某一channel</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">hasChannel</span><span class="params">(Channel * channel)</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="epollpoller"   >
+          <a href="#epollpoller" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epollpoller"></a> EpollPoller</h2>
+      
+<p>是Poller抽象基类的一个具体实现类。</p>
+
+        <h3 id="成员函数-3"   >
+          <a href="#成员函数-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-3"></a> 成员函数</h3>
+      
+<ol>
+<li>
+<p>构造/析构 - 构造相当于<code>epoll_create</code>，记录在<code>m_epollfd</code>成员变量中。析构时close该fd。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">EpollPoller</span>(EventLoop *loop);</span><br><span class="line">	~<span class="built_in">EpollPoller</span>() <span class="keyword">override</span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>poll</code> - 重写Poller基类方法 - 相当于<code>epoll_wait</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">Timestamp <span class="title">poll</span><span class="params">(<span class="keyword">int</span> timeoutMs, ChannelList *activeChannels)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>update/removeChannel</code> - 重写Poller基类方法 - 相当于<code>epoll_ctl add/mod/del</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">updateChannel</span><span class="params">(Channel *channel)</span> <span class="keyword">override</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">removeChannel</span><span class="params">(Channel *channel)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>fillActiveChannels</code> - 填写活跃的channels连接</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">fillActiveChannels</span><span class="params">(<span class="keyword">int</span> numEvents, ChannelList *activeChannels)</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>update</code> - 更新channel通道</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> operation, Channel * channel)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h3 id="成员属性"   >
+          <a href="#成员属性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员属性"></a> 成员属性</h3>
+      
+<ol>
+<li>
+<p><code>m_epollfd</code> - epoll相关的方法都需要用到fd，通过epoll_create来创建。映射的是epoll底层的文件系统红黑树。</p>
+</li>
+<li>
+<p><code>m_events</code> - 是一个<code>vector&lt;struct epoll_event</code>容器。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> m_epollfd;</span><br><span class="line">	<span class="keyword">using</span> std::vector&lt;struct epoll_event&gt; EventList;</span><br><span class="line">	EventList m_events;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>kInitEventListSize</code> - <code>EventList</code>初始的长度。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kInitEventListSize = <span class="number">16</span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>从Poller继承而来，拥有poller包含的<code>ChannelMap m_channels</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Poller</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelMap = std::unordered_map&lt;<span class="keyword">int</span>, Channel*&gt;;</span><br><span class="line">    ChannelMap m_channels;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="cc文件实现代码"   >
+          <a href="#cc文件实现代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cc文件实现代码"></a> .cc文件实现代码</h2>
+      
+<p>首先声明了三个全局常量，表示channel的状态</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kNew 		= <span class="number">-1</span>;	<span class="comment">//从未添加到epoll的channel</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kAdded 	= <span class="number">1</span>;	<span class="comment">//已经添加到epoll的channel</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kDeleted 	= <span class="number">2</span>;	<span class="comment">//已把该channel从epoll中删除</span></span><br></pre></td></tr></table></div></figure>
+<p>构造函数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;logger.h&quot;</span>      <span class="comment">//LOG_FATAL</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;errno.h&gt;</span>       <span class="comment">//errno</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::<span class="built_in">EpollPoller</span>(EventLoop * loop)</span><br><span class="line">    : <span class="built_in">Poller</span>(loop),</span><br><span class="line">      <span class="built_in">m_epollfd</span>(<span class="built_in">epoll_create1</span>(EPOLL_CLOEXEC)),	<span class="comment">// epoll_create</span></span><br><span class="line">      <span class="built_in">m_events</span>(kInitEventListSize)  <span class="comment">// vector&lt;epoll_event&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(m_epollfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;epoll_create error: %d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>析构函数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span>      <span class="comment">//close</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::~<span class="built_in">EpollPoller</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">close</span>(m_epollfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">原子操作</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/" data-flag-title="原子操作"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
