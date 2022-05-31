@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">重写muduo库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">重写muduo库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-31</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/28/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -98,8 +98,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </li>
 </ol>
 
-        <h2 id="eventloop"   >
-          <a href="#eventloop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop"></a> EventLoop</h2>
+        <h2 id="eventloop概览"   >
+          <a href="#eventloop概览" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop概览"></a> EventLoop概览</h2>
       
 <ol>
 <li>不允许拷贝</li>
@@ -134,7 +134,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </li>
 <li>
 <p><code>setXxxCallback(EventCallback cb)</code>：对外提供的设置回调函数对象的接口</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setReadCallback</span><span class="params">(ReadEventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setWriteCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setCloseCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setErrorCallback</span><span class="params">(EventCallback cb)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setReadCallback</span><span class="params">(ReadEventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_readCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setWriteCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_writeCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setCloseCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_closeCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setErrorCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_errorCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
 </li>
 <li>
 <p><code>void tie(const std::shared_ptr&lt;void&gt;&amp;)</code>：防止channel被手动remove后，还在执行回调操作</p>
@@ -328,8 +328,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </li>
 </ol>
 
-        <h2 id="cc文件实现代码"   >
-          <a href="#cc文件实现代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cc文件实现代码"></a> .cc文件实现代码</h2>
+        <h2 id="epollpollercc文件实现代码"   >
+          <a href="#epollpollercc文件实现代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epollpollercc文件实现代码"></a> epollpoller.cc文件实现代码</h2>
       
 <p>首先声明了三个全局常量，表示channel的状态</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kNew 		= <span class="number">-1</span>;	<span class="comment">//从未添加到epoll的channel</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kAdded 	= <span class="number">1</span>;	<span class="comment">//已经添加到epoll的channel</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kDeleted 	= <span class="number">2</span>;	<span class="comment">//已把该channel从epoll中删除</span></span><br></pre></td></tr></table></div></figure>
@@ -337,6 +337,160 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;logger.h&quot;</span>      <span class="comment">//LOG_FATAL</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;errno.h&gt;</span>       <span class="comment">//errno</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::<span class="built_in">EpollPoller</span>(EventLoop * loop)</span><br><span class="line">    : <span class="built_in">Poller</span>(loop),</span><br><span class="line">      <span class="built_in">m_epollfd</span>(<span class="built_in">epoll_create1</span>(EPOLL_CLOEXEC)),	<span class="comment">// epoll_create</span></span><br><span class="line">      <span class="built_in">m_events</span>(kInitEventListSize)  <span class="comment">// vector&lt;epoll_event&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(m_epollfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;epoll_create error: %d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p>析构函数</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span>      <span class="comment">//close</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::~<span class="built_in">EpollPoller</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">close</span>(m_epollfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="currentthread-主要用于获取tid"   >
+          <a href="#currentthread-主要用于获取tid" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#currentthread-主要用于获取tid"></a> CurrentThread - 主要用于获取tid</h2>
+      
+<p><code>__thread</code>相当于C++11标准中的<code>thread_local</code>修饰符。用于修饰全局变量。</p>
+<p>修饰之前，全局变量只能被若干线程共享。修饰之后，此全局变量变成每个线程专有的属性。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span>          <span class="comment">//pid_t  syscall</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/syscall.h&gt;</span>     <span class="comment">//SYS_gettid</span></span></span><br><span class="line"><span class="keyword">namespace</span> CurrentThread</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 此变量被__thread修饰, 相当于C++11标准中的thread_local修饰符, </span></span><br><span class="line"><span class="comment">     * 用于修饰全局变量。修饰之前, 全局变量只能被若干线程共享; </span></span><br><span class="line"><span class="comment">     * 修饰之后, 此全局变量变成每个线程专有的属性。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">extern</span> __thread <span class="keyword">int</span> t_cachedTid;</span><br><span class="line">    <span class="comment">/* 通过Linux系统调用SYS_gettid, 加载当前线程的tid值到t_cachedTid */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cacheTid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(t_cachedTid == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            t_cachedTid = <span class="keyword">static_cast</span>&lt;<span class="keyword">pid_t</span>&gt;(<span class="built_in">syscall</span>(SYS_gettid));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 返回当前线程的tid, 若加载过则直接返回存储过的值 */</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">tid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">/* 若t_cachedTid为0说明是第一次加载, 需要调用cacheTid */</span></span><br><span class="line">        <span class="keyword">if</span>(__builtin_expect(t_cachedTid == <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cacheTid</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> t_cachedTid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="eventloop分析"   >
+          <a href="#eventloop分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop分析"></a> EventLoop分析</h2>
+      
+<blockquote>
+<p>前面的EventLoop概览中提到：</p>
+<ol>
+<li>不允许拷贝</li>
+<li>主要包含的成员之一：poller（相当于epoll），属性有sockfd及其上面绑定的事件</li>
+<li>另一个主要的成员是channel，属性有fd、events、revents等等</li>
+</ol>
+<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。</p>
+<p>要写EventLoop就要理清楚EventLoop、Channel、Poller之间的关系。Reactor模型中，这三个组件整体对应着Demultiplex。</p>
+</blockquote>
+<p>由上述约束，在<code>.h</code>文件中，我们可以首先写出：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;noncopyable.h&quot;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Channel</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Poller</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventLoop</span> :</span> noncopyable</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>要用到函数对象。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> Functor = std::function&lt;<span class="built_in"><span class="keyword">void</span></span>()&gt;;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="成员变量-3"   >
+          <a href="#成员变量-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量-3"></a> 成员变量</h3>
+      
+<ol>
+<li>
+<p><code>ChannelList m_activeChannels</code> - EventLoop管理的所有的Channel的List；<br />
+<code>Channel * m_currentActiveChannel</code> - 主要用于断言</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelList = std::vector&lt;Channel*&gt;;</span><br><span class="line">    ChannelList m_activeChannels;</span><br><span class="line"></span><br><span class="line">    Channel * m_currentActiveChannel;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>标志(最好为atomic)</p>
+<ol>
+<li>
+<p><code>m_looping</code> - 事件循环状态标志 - 真则正在循环，假则将要退出循环</p>
+</li>
+<li>
+<p><code>m_quit</code> - 标识退出loop循环</p>
+</li>
+<li>
+<p><code>m_eventHandling</code> -</p>
+</li>
+<li>
+<p><code>m_callingPendingFunctors</code> - 标识当前loop当前是否有需要执行的回调操作</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::<span class="keyword">atomic_bool</span> m_looping;</span><br><span class="line">    std::<span class="keyword">atomic_bool</span> m_quit;</span><br><span class="line">    std::<span class="keyword">atomic_bool</span> m_callingPendingFunctors;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+</li>
+<li>
+<p><code>m_threadId</code> - 记录当前Loop所在线程的ID</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">pid_t</span> m_threadId;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>std::unique&lt;Poller&gt; m_poller</code> - EventLoop所管理的poller，去轮询监听channels上发生的事件。用<code>std::unique_ptr</code>管理</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::unique_ptr&lt;Poller&gt; m_poller;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>Timestamp m_pollReturnTime</code> - poller返回发生事件的channels的时间点</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Timestamp m_pollReturnTime;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>int m_wakeupFd</code> - mainLoop获取到一个新用户的channel后，搭配轮询算法选择一个等待任务的subLoop，通过wakeupFd对其进行唤醒来处理channel。用<code>eventfd</code>创建。<code>eventfd</code>使用线程间的<code>wait/notify</code>事件通知机制，直接在内核唤醒，效率较高。与此处理相似的是，<code>libevent</code>使用的是<code>socketpair</code>的双向通信机制，相当于网络通信层面的机制，效率较低。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m_wakeupFd;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>std::unique_ptr&lt;Channel&gt; m_wakeupChannel</code> - 把wakeupFd封装起来和其Channel关联，因为操作的往往不是fd而是其channel</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::unique_ptr&lt;Channel&gt; m_wakeupChannel;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>std::vector&lt;Functor&gt; m_pendingFunctors</code> - 存储loop需要执行的所有的回调操作。与<code>callingPendingFunctors</code>标识结合使用，如果此标识显示当前loop有需要执行的回调操作，则这些回调操作将在此vector容器中存放。<strong>需要用mutex保护其线程安全</strong>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::vector&lt;Functor&gt; m_pendingFunctors;</span><br><span class="line">    <span class="keyword">mutable</span> std::mutex m_mutex;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h3 id="成员函数-4"   >
+          <a href="#成员函数-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-4"></a> 成员函数</h3>
+      
+<ol>
+<li>
+<p>构造/析构</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">EventLoop</span>();</span><br><span class="line">    ~<span class="built_in">EventLoop</span>();</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>loop</code>/<code>quit</code> - 开始/结束事件循环</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">quit</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>Timestamp pollReturnTime() const</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Timestamp <span class="title">pollReturnTime</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_pollReturnTime;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>runInLoop</code> - 在当前loop中执行cb</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">runInLoop</span><span class="params">(Functor cb)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>queueInLoop</code> - 把cb放入队列中，唤醒loop所在的线程，执行cb</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">queueInLoop</span><span class="params">(Functor cb)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>wakeup</code> - mainLoop唤醒subLoop所在的线程</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wakeup</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>更新Channel相关 - EventLoop的方法调用Poller的方法</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateChannel</span><span class="params">(Channel *channel)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeChannel</span><span class="params">(Channel *channel)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasChannel</span><span class="params">(Channel *channel)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><code>isInLoopThread</code> - 判断EventLoop对象是否在自己的线程里面</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;currentthread.h&quot;</span></span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isInLoopThread</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_threadId == CurrentThread::<span class="built_in">tid</span>();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>handleRead - 处理wakeup唤醒相关的逻辑</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">handleRead</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>doPendingFunctors - 执行回调</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doPendingFunctors</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="eventloopcc实现代码"   >
+          <a href="#eventloopcc实现代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloopcc实现代码"></a> eventloop.cc实现代码</h2>
+      
+
+        <h3 id="全局变量"   >
+          <a href="#全局变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#全局变量"></a> 全局变量</h3>
+      
+<p>防止一个线程创建多个loop</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//__thread修饰表示这个全局变量转为了每个线程私有的属性</span></span><br><span class="line">__thread EventLoop *t_loopInThisThread = <span class="literal">nullptr</span>;</span><br></pre></td></tr></table></div></figure>
+<p>默认的超时时间</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> kPollTimeMs = <span class="number">10000</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="全局函数"   >
+          <a href="#全局函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#全局函数"></a> 全局函数</h3>
+      
+<ol>
+<li>
+<p>createEventfd() - 创建wakeupfd，用来通知等待任务的subLoop，处理新的Channel事件。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/eventfd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">createEventfd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> evtfd = <span class="built_in">eventfd</span>(<span class="number">0</span>, EFD_NONBLOCK | EFD_CLOEXEC);</span><br><span class="line">    <span class="keyword">if</span>(evtfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;Failed in eventfd: %d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> evtfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="成员函数-5"   >
+          <a href="#成员函数-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-5"></a> 成员函数</h2>
+      
+<ol>
+<li>构造/析构<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
 </div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">原子操作</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/" data-flag-title="原子操作"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
