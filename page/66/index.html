@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/08/19/C/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">C_动态内存管理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-08-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-09</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/08/19/C/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-flag-title="C_动态内存管理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2021/08/19/C/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">C_动态内存管理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-08-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-06-04</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2021/08/19/C/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-flag-title="C_动态内存管理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="本章内容"   >
           <a href="#本章内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#本章内容"></a> 本章内容</h1>
       
@@ -46,136 +46,156 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="什么是动态内存"   >
           <a href="#什么是动态内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#什么是动态内存"></a> 什么是动态内存</h1>
       
-<img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20210819005322765.png" alt="image-20210819005322765" style="zoom:67%;" />
+<p>先看一段程序：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">1024</span> * <span class="number">1024</span>];	<span class="comment">// 需要1MB存储空间</span></span><br><span class="line">    print(<span class="string">&quot;hehe \n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20210819005329023.png" alt="image-20210819005329023" /></p>
-<p>运行时程序崩溃。这是为什么呢?<br />
-再次分析编译链接过程</p>
-<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20210819005344578.png" alt="image-20210819005344578" /></p>
-<p>栈区：我们知道栈区在函数被调时分配，用于存放函数的参数值，局部变量等值。在windows 中栈的默认大小是1M，在vs 中可以设置栈区的大小。在Liunx 中栈的默认大小是10M，在gcc 编译时可以设置栈区的大小。<br />
-堆区：程序运行时可以在堆区动态地请求一定大小的内存，并在用完之后归还给堆区。在Liunx 系统中堆区的大小接近3G。windows 下的大小同学们可以自己测一下。<br />
-<strong>一般情况下我们需要大块内存或程序在运行的过程中才知道所需内存大小，我们就从堆区分配空间。</strong></p>
+<p>运行时程序崩溃（在Windows系统下）。这是为什么呢？</p>
+<blockquote>
+<p>注意报错信息：</p>
+<p><code>0xC00000FD</code>: Stackoverflow</p>
+</blockquote>
+<p>再次分析编译链接过程：</p>
+<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20220604082515963.png" alt="image-20220604082515963" /></p>
+<p>先来谈栈区，我们知道栈区的空间在函数被调时会分配，用于存放函数的参数值，局部变量等值。在Windows中栈的默认大小是<code>1MB</code>，在vs中可以设置栈区的大小；在Linux中栈的默认大小是<code>10MB</code>，在gcc编译时可以设置栈区的大小。</p>
+<p>再看堆区，程序运行时可以在堆区动态地请求一定大小的内存，并在用完之后归还给堆区。在Liunx系统中用户可用的堆区的大小接近<code>3GB</code>。Windows下的用户堆区大小是接近<code>2G</code>。可参考此文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.its203.com/article/qq_37200329/97949658" >栈和堆的大小，申请一个整形数组最大可以达到多少（Linux和Windows）</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><strong>如果我们需要大块内存，或者程序在运行的过程中才知道所需内存大小，我们就从堆区分配空间</strong>。</p>
 
-        <h1 id="动态内存分配函数"   >
-          <a href="#动态内存分配函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动态内存分配函数"></a> 动态内存分配函数</h1>
+        <h2 id="动态内存分配函数"   >
+          <a href="#动态内存分配函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动态内存分配函数"></a> 动态内存分配函数</h2>
       
-<p>C 语言中动态内存管理的有四个函数:malloc,calloc,realloc，free,都需要引用stdlib.h 或 malloc.h 文件。</p>
+<p>C语言中动态内存管理的有四个函数：<code>malloc</code>，<code>calloc</code>，<code>realloc</code>，<code>free</code>，都需要引用<code>stdlib.h</code>或<code>malloc.h</code>文件。</p>
 
-        <h2 id="malloc"   >
-          <a href="#malloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h2>
+        <h1 id="malloc"   >
+          <a href="#malloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h1>
       
 <p>向堆区申请一块指定大小的连续内存空间。</p>
-<p>void* malloc( size_t size ); // typedef unsigned int size_t;<br />
-分配 size 字节的未初始化内存。<br />
-若分配成功，则返回为任何拥有基础对齐的对象类型对齐的指针。<br />
-若 size 为零，则 malloc 的行为是实现定义的。例如可返回空指针。亦可返回非空指针；但不应当解引用这种指针，而且应将它传递给 free 以避免内存泄漏。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">size_t</span> = <span class="keyword">unsigned</span> <span class="keyword">int</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">malloc</span><span class="params">(<span class="keyword">size_t</span> size)</span></span>;</span><br><span class="line">参数：</span><br><span class="line">	size	- 要分配的字节数</span><br><span class="line">返回值：</span><br><span class="line">	成功时, 返回指向新分配内存的指针;</span><br><span class="line">	失败时, 返回空指针。</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>分配<code>size</code>字节的未初始化内存。</li>
+<li>若分配成功，则返回为任何拥有<strong>基础对齐</strong>的对象类型对齐的指针。</li>
+<li>若<code>size</code>为零，则<code>malloc</code>的行为是实现定义的。例如可返回空指针，亦可返回非空指针，但不应当<strong>解引用</strong>这种非空指针，而且应将它传递给以避免内存泄漏。</li>
+</ol>
 
-        <h3 id="c11起"   >
-          <a href="#c11起" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c11起"></a> C11起</h3>
+        <h1 id="free"   >
+          <a href="#free" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#free"></a> free</h1>
       
-<p>malloc 是线程安全的：它表现得如同只访问通过其参数可见的内存区域，而非任何静态存储。<br />
-令 free 或 realloc 归还一块内存区域的先前调用，同步于令 malloc 分配相同或部分相同的内存区域的调用。此同步出现于任何通过解分配函数所作的内存访问后，和任何 malloc 所作的内存访问前。所有操作每块特定内存区域的分配和解分配函数有单独全序。</p>
-<p><strong>参数</strong><br />
-size 要分配的字节数<br />
-<strong>返回值</strong><br />
-成功时，返回指向新分配内存的指针。为避免内存泄漏，必须用 free() 或 realloc() 解分配返回的指针。<br />
-失败时，返回空指针。</p>
-
-        <h2 id="free"   >
-          <a href="#free" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#free"></a> free</h2>
-      
-<p>用来释放且仅能释放从 malloc , realloc, calloc 成功获取到的动态内存分配的空间。释放的不是指针本身，而是指针所指的堆区空间。</p>
-<p>void free( void* ptr );<br />
-释放之前由 malloc() 、 calloc() 、 aligned_alloc() (C11 起) 或 realloc() 分配的空间。<br />
-若 ptr 为空指针，则函数不进行操作。<br />
-若 ptr 的值不是之前从 malloc() 、 calloc() 、 realloc() 或 aligned_alloc() (C11 起) 返回的值，则行为未定义。<br />
-若 ptr 所指代的内存区域已经被解分配，则行为未定义，即是说已经以ptr 为参数调用 free() 或 realloc() ，而且没有后继的 malloc() 、 calloc() 或 realloc() 调用以 ptr 为结果。<br />
-若在 free() 返回后通过指针 ptr 访问内存，则行为未定义（除非另一个分配函数恰好返回等于 ptr 的值）。</p>
-
-        <h3 id="c11起-2"   >
-          <a href="#c11起-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c11起-2"></a> C11起</h3>
-      
-<p>free 是线程安全的：它表现得如同只访问通过其参数可见的内存区域，而非任何静态存储。<br />
-令 free 解分配内存区域的调用，同步于任何令分配函数分配相同或部分相同区域的后续调用。这种同步出现于任何解分配函数所做的内存访问后，和任何分配函数所做的内存访问前。所有操作每块特定内存区域的分配及解分配函数拥有单独全序。</p>
+<p>用来释放且仅能释放从<code>malloc</code>，<code>realloc</code>，<code>calloc</code>成功获取到的动态内存分配的空间。释放的不是指针本身，而是指针所指的堆区空间。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">(<span class="keyword">void</span> * ptr)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>释放之前由<code>malloc()</code>、<code>calloc()</code>、<code>aligned_alloc() (C11起)</code>或<code>realloc()</code>分配的空间。</p>
+<ol>
+<li>若<code>ptr</code>为空指针，则函数不进行操作。</li>
+<li>若<code>ptr</code>的值不是之前从<code>malloc()</code>、<code>calloc()</code>、<code>realloc()</code>或<code>aligned_alloc() (C11起)</code>返回的值，则行为未定义。</li>
+<li>若<code>ptr</code>所指代的内存区域已经被解分配，则行为未定义。</li>
+<li>若在<code>free()</code>返回后通过指针<code>ptr</code>访问内存，则行为未定义（除非另一个分配函数恰好返回等于<code>ptr</code>的值）。</li>
+</ol>
 <p><strong>参数</strong><br />
 ptr 指向要解分配的内存的指针<br />
 <strong>返回值（无）</strong><br />
 注解<br />
 此函数接收空指针（并对其不处理）以减少特例的数量。不管分配成功与否，分配函数返回的指针都能传递给 free() 。</p>
 
-        <h3 id="示例"   >
-          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
+        <h2 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
       
 
-        <h3 id="面试重点"   >
-          <a href="#面试重点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面试重点"></a> 面试重点</h3>
+        <h2 id="面试重点"   >
+          <a href="#面试重点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面试重点"></a> 面试重点</h2>
       
 
-        <h2 id="calloc"   >
-          <a href="#calloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#calloc"></a> calloc</h2>
+        <h1 id="calloc"   >
+          <a href="#calloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#calloc"></a> calloc</h1>
       
 <p>分配并使用零初始化连续内存空间</p>
-<p>void* calloc( size_t num, size_t size );<br />
-为 num 个对象（元素）的数组分配内存，并初始化所有分配存储中的字节为零。<br />
-若分配成功，会返回指向分配内存块最低位（首位）字节的指针，它为任何类型适当地对齐。<br />
-若 size 为零，则行为是实现定义的（可返回空指针，或返回不可用于访问存储的非空指针）。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">my_calloc</span><span class="params">(<span class="keyword">size_t</span> count, <span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* s = <span class="built_in">malloc</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">calloc</span><span class="params">(<span class="keyword">size_t</span> num, <span class="keyword">size_t</span> size)</span></span>;</span><br><span class="line">参数:</span><br><span class="line">	num		- 对象（元素）数目</span><br><span class="line">	size	- 每个对象（元素）的大小</span><br><span class="line">返回值:</span><br><span class="line">	成功时，返回指向新分配内存的指针。</span><br><span class="line">	失败时，返回空指针。</span><br></pre></td></tr></table></div></figure>
+<p>为<code>num</code>个对象（元素）的数组分配内存，并初始化所有分配存储中的字节为零。</p>
+<ol>
+<li>若分配成功，会返回指向分配内存块最低位（首位）字节的指针，它为任何类型适当地对齐。</li>
+<li>若<code>size</code>为零，则行为是实现定义的（可返回空指针，或返回不可用于访问存储的非空指针）。</li>
+</ol>
 
-        <h3 id="c11起-3"   >
-          <a href="#c11起-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c11起-3"></a> C11起</h3>
+        <h2 id="模拟实现"   >
+          <a href="#模拟实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模拟实现"></a> 模拟实现</h2>
       
-<p>calloc 是线程安全的：它表现得如同只访问通过其参数可见的内存区域，而非任何静态存储。<br />
-令 free 或 realloc 解分配一块内存区域的先前调用，同步于令 calloc 分配相同或部分相同的内存区域的调用。这种同步出现于任何解分配函数所做的内存访问之后，和任何 calloc 所做的内存访问之前。所有操作每块特定内存区域的分配及解分配函数拥有单独全序。</p>
-<p><strong>参数</strong><br />
-num：对象（元素）数目<br />
-size：每个对象（元素）的大小<br />
-<strong>返回值</strong><br />
-成功时，返回指向新分配内存的指针。为避免内存泄漏，必须用 free() 或 realloc() 解分配返回的指针。<br />
-失败时，返回空指针。</p>
+<p>实际上，calloc是基于malloc实现的。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">my_calloc</span><span class="params">(<span class="keyword">size_t</span> count, <span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* s = <span class="built_in">malloc</span>(count * size);</span><br><span class="line">    <span class="keyword">if</span>(s != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(s, <span class="number">0</span>, count * size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="示例-2"   >
-          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h3>
+        <h1 id="realloc"   >
+          <a href="#realloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#realloc"></a> realloc</h1>
       
-<p>使用memset 函数:将内存单元置为0 值。</p>
-<p>我们使用malloc 或calloc 申请了堆空间内存，但是程序在运行的过程中发现申请空间少了或多了如何处理呢？</p>
+<p>扩充之前分配的内存块(重新分配内存块)。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">realloc</span><span class="params">(<span class="keyword">void</span> * ptr, <span class="keyword">size_t</span> new_size)</span></span>;</span><br><span class="line">参数:</span><br><span class="line">	ptr			- 指向需要重新分配的内存区域的指针</span><br><span class="line">	new_size	- 数组的新大小（字节数）</span><br><span class="line">返回值:</span><br><span class="line">	成功时，返回指向新分配内存的指针。原指针ptr失效，而且任何通过它的访问是未定义行为（即使重分配是就地的）。</span><br><span class="line">	失败时，返回空指针。原指针ptr保持有效。</span><br></pre></td></tr></table></div></figure>
+<p>重新分配给定的内存区域。它必须是之前为<code>malloc()</code>、<code>calloc()</code>或<code>realloc()</code>所分配，并且仍未被<code>free</code>或<code>realloc</code>的调用所释放。否则，结果未定义。</p>
+<p>重新分配按以下二者之一执行：</p>
+<ol>
+<li>
+<p>可能的话，扩张或收缩<code>ptr</code>所指向的已存在内存。内容在新旧大小中的较小者范围内保持不变。若扩张范围，则数组新增部分的内容是未定义的。</p>
+</li>
+<li>
+<p>分配一个大小为<code>new_size</code>字节的新内存块，并复制大小等于新旧大小中较小者的内存区域，然后释放旧内存块。</p>
+</li>
+<li>
+<p>若无足够内存，则不释放旧内存块，并返回空指针。</p>
+</li>
+<li>
+<p>若<code>ptr</code>是<code>NULL</code>，则行为与调用<code>malloc(new_size)</code>相同。</p>
+</li>
+<li>
+<p>若<code>new_size</code>为零，则行为是实现定义的（可返回空指针，此情况下可能或可能不释放旧内存，或返回不会用于访问存储的非空指针）。</p>
+</li>
+</ol>
 
-        <h2 id="realloc"   >
-          <a href="#realloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#realloc"></a> realloc</h2>
+        <h2 id="示例-2"   >
+          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
       
-<p>扩充之前分配的内存块(重新分配内存块)</p>
-<p>void * realloc( void * ptr, size_t new_size );<br />
-重新分配给定的内存区域。它必须是之前为 malloc() 、 calloc() 或 realloc() 所分配，并且仍未被 free 或 realloc 的调用所释放。否则，结果未定义。<br />
-重新分配按以下二者之一执行：<br />
-a) 可能的话，扩张或收缩 ptr 所指向的已存在内存。内容在新旧大小中的较小者范围内保持不变。若扩张范围，则数组新增部分的内容是未定义的。<br />
-b) 分配一个大小为 new_size 字节的新内存块，并复制大小等于新旧大小中较小者的内存区域，然后释放旧内存块。<br />
-若无足够内存，则不释放旧内存块，并返回空指针。<br />
-若 ptr 是 NULL ，则行为与调用 malloc(new_size) 相同。<br />
-若 new_size 为零，则行为是实现定义的（可返回空指针，此情况下可能或可能不释放旧内存，或返回不会用于访问存储的非空指针）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">int</span> dm = <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//现在申请 m 个int空间。</span></span><br><span class="line">    <span class="keyword">int</span>* p = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * m);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        p[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//现在扩展到 n 个int空间。</span></span><br><span class="line">    <span class="keyword">int</span>* newdata = (<span class="keyword">int</span>*)<span class="built_in">realloc</span>(p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * n);<span class="comment">//扩展到n个，不是扩展n个</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == newdata)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;堆无更多空间，增容失败\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    p = newdata;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="扩容"   >
+          <a href="#扩容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#扩容"></a> 扩容</h2>
+      
+<p>realloc扩容有3种情况。</p>
+
+        <h3 id="1-后面足够-就地"   >
+          <a href="#1-后面足够-就地" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1-后面足够-就地"></a> 1 - 后面足够, 就地</h3>
+      
+<p>后续有足够的可分配空间。图示如下：</p>
+<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20220604184349335.png" alt="image-20220604184349335" /></p>
+<ol>
+<li>下越界标记后移。</li>
+<li>修改上越界标记之上的信息为最新大小值。</li>
+</ol>
+
+        <h3 id="2-后面不足-搬到更大的空地"   >
+          <a href="#2-后面不足-搬到更大的空地" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2-后面不足-搬到更大的空地"></a> 2 - 后面不足, 搬到更大的空地</h3>
+      
+<p>后续未分配内存空间不足够大，不能分配空间。图示如下：</p>
+<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20220604184421960.png" alt="image-20220604184421960" /></p>
+<ol>
+<li>在堆内存其他区域开辟要扩展的大小。</li>
+<li>原本的内存内容拷贝到新空间。</li>
+<li>原本的内存释放。</li>
+<li>原来的指针失效，需要重新接收新指针（返回值）。</li>
+</ol>
+
+        <h3 id="3-堆空间不足-会产生内存泄漏"   >
+          <a href="#3-堆空间不足-会产生内存泄漏" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3-堆空间不足-会产生内存泄漏"></a> 3 - 堆空间不足, 会产生内存泄漏</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> * p = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;m; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        p[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 由 100个空间扩展到1000个空间</span></span><br><span class="line">    p = (<span class="keyword">int</span>*)<span class="built_in">realloc</span>(p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * n);</span><br><span class="line">    <span class="comment">//如果返回了一个NULL呢？把p给冲掉了！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>堆内存不足，扩展空间失败，<code>realloc</code>函数返回NULL。</p>
+<p>此时会产生一个<strong>巨大的坑</strong>。</p>
+<p>如果你没有事先保存指针p的值，那么p的值将会丢失。就产生了内存泄漏。</p>
+<blockquote>
+<p>内存泄漏指的不是p所指的空间被释放了，而是p指针所指的地址无从查找了，从而无法管理原有的内存空间了。</p>
+</blockquote>
+
+        <h4 id="安全的方案"   >
+          <a href="#安全的方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#安全的方案"></a> 安全的方案</h4>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> * p = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;m; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        p[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 由 100个空间扩展到1000个空间</span></span><br><span class="line">    <span class="keyword">int</span> * newdata = (<span class="keyword">int</span>*)<span class="built_in">realloc</span>(p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>)*n);</span><br><span class="line">    <span class="keyword">if</span>(newdata == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;内存不足, realloc失败\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">free</span>(p);		<span class="comment">//内存足够, free掉原有空间</span></span><br><span class="line">        p = newdata;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="模拟实现-扩容"   >
+          <a href="#模拟实现-扩容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模拟实现-扩容"></a> 模拟实现 - 扩容</h2>
+      
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">my_realloc</span><span class="params">(<span class="keyword">void</span>* p, <span class="keyword">size_t</span> old_sz, <span class="keyword">size_t</span> new_sz)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* newdata = <span class="built_in">malloc</span>(size);</span><br><span class="line">    <span class="keyword">if</span>(newdata!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        memmove(newdata, p, old_sz);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newdata;</span><br><span class="line">&#125;<span class="comment">//只能模拟第二种情况，第一种情况需要知道内存后面是否有足够空间，需要系统调用。</span></span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="c11起-4"   >
-          <a href="#c11起-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c11起-4"></a> C11起</h3>
-      
-<p>realloc 是线程安全的：它表现得如同只访问通过其参数可见的内存区域，而非任何静态存储。<br />
-先前令 free 或 realloc 归还一块内存区域的调用，同步于任何分配函数的调用，包括分配相同或部分相同内存区域的 realloc 。这种同步出现于任何解分配函数所做的内存访问后，和任何 realloc 所做内存访问前。所有操作一块特定内存区域的分配及解分配函数拥有单独全序。</p>
-<p><strong>参数</strong><br />
-ptr: 指向需要重新分配的内存区域的指针<br />
-new_size: 数组的新大小（字节数）<br />
-<strong>返回值</strong><br />
-成功时，返回指向新分配内存的指针。返回的指针必须用 free() 或 realloc() 归还。原指针 ptr 失效，而且任何通过它的访问是未定义行为（即使重分配是就地的）。<br />
-失败时，返回空指针。原指针 ptr 保持有效，并需要通过 free() 或 realloc() 归还。</p>
-
-        <h3 id="示例-3"   >
-          <a href="#示例-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">int</span> dm = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span>* p = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * m);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        p[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>* newdata = (<span class="keyword">int</span>*)<span class="built_in">realloc</span>(p, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * n);<span class="comment">//扩展到n个，不是扩展n个</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == newdata)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;堆无更多空间，增容失败\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    p = newdata;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>realloc 函数调整内存大小分为3 种情况。<br />
-第一种情况：后续未分配内存空间足够大，可以分配空间。图示如下：</p>
-<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20210819005942545.png" alt="image-20210819005942545" /></p>
-<p>第二种情况： 后续未分配内存空间不足够大，不能分配空间。图示如下：</p>
-<p><img src="/images/C_%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image-20210819005952210.png" alt="image-20210819005952210" /></p>
-<p>总结：</p>
-<p>第三种情况：堆内存不足，扩展空间失败，realloc 函数返回NULL。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
 
         <h1 id="单链表"   >
           <a href="#单链表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单链表"></a> 单链表</h1>
@@ -445,7 +465,7 @@ vs 中默认值 = 8，gcc 中默认值 = 4；</p>
 <p><img src="/images/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/image-20210815114633078.png" alt="image-20210815114633078" /></p>
 </li>
 </ol>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/65/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><span class="page-number current">66</span><a class="page-number" href="/page/67/">67</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/67/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">149</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/65/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><span class="page-number current">66</span><a class="page-number" href="/page/67/">67</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/67/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">148</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
