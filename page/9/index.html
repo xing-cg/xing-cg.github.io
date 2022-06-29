@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/19/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySQL_存储引擎</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/19/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-flag-title="MySQL_存储引擎"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/19/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySQL_存储引擎</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-06-24</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/19/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-flag-title="MySQL_存储引擎"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -40,29 +40,56 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>存储引擎</li>
 </ol>
 
+        <h1 id="存储引擎"   >
+          <a href="#存储引擎" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#存储引擎"></a> 存储引擎</h1>
+      
+<p>MySQL的一大特点就是支持插件式的存储引擎，即其存储引擎是可更换的，支持不同的存储引擎。</p>
+<p>那么，存储引擎代表的是什么呢？</p>
+<p>在创建/使用表时，有三大部分需要管理：</p>
+<ol>
+<li>表的结构（有几个字段，字段的类型，约束条件）</li>
+<li>数据</li>
+<li>索引（有利于加速表的查询）</li>
+</ol>
+<p>存储引擎直接影响以上三大部分内容的存储方式。即，不同的存储引擎，对应的数据及其结构的存储方式是不一样的。</p>
+
         <h1 id="配置文件"   >
           <a href="#配置文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h1>
       
-<p>windows下是my.ini</p>
-<p>Linux下是my.cnf，在<code>/etc</code>下。</p>
+<p>windows下是<code>my.ini</code></p>
+<p>Linux下是<code>my.cnf</code>，在<code>/etc</code>下。</p>
 
         <h1 id="数据库-表对应的文件"   >
           <a href="#数据库-表对应的文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库-表对应的文件"></a> 数据库、表对应的文件</h1>
       
 <p>都存到了<code>/var/lib/mysql</code>下。</p>
 <p>对该目录进行读取时需要进入root用户模式。</p>
-<p><code>ls</code>后发现，每个数据库都会有一个同名的文件夹，里面存放着库中的表。</p>
-<p>进一个文件夹，发现里面每一张表都对应有多种后缀名不同的文件。</p>
-<p><code>.frm</code>表示表的框架信息，即frame。MyISAM和InnoDB存储引擎都要用。</p>
-<p><code>.MYD</code>、<code>.MYI</code>是MyISAM存储引擎下的数据表的文件。</p>
+<ol>
+<li><code>ls</code>后发现，每个数据库都会有一个同名的文件夹，里面存放着库中的表。</li>
+<li>进一个文件夹，发现里面每一张表都对应有多种后缀名不同的文件。
+<ol>
+<li><code>.frm</code>表示表的框架信息，即frame。MyISAM和InnoDB存储引擎都要用。</li>
+<li><code>.MYD</code>、<code>.MYI</code>是MyISAM存储引擎下的数据表的文件。
 <ol>
 <li><code>.MYD</code>表示使用MyISAM引擎的表的数据信息，即MyISAM Data。</li>
 <li><code>.MYI</code>表示使用MyISAM引擎的表的索引信息，即MyISAM Index。</li>
 </ol>
-<p><code>.ibd</code>是InnoDB存储引擎下的数据表的文件，同时存储了表的数据信息和索引信息。</p>
+</li>
+<li><code>.ibd</code>是InnoDB存储引擎下的数据表的文件，同时存储了表的数据信息和索引信息。</li>
+</ol>
+</li>
+</ol>
 <blockquote>
 <p>可以从表的数据文件的存储方式 - 延伸到索引上</p>
 </blockquote>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<ol>
+<li>InnoDB的底层文件存储是<code>.frm</code>+<code>.ibd</code>，其中<code>.frm</code>存储的是表的结构，<code>.ibd</code>存储的是数据+索引；</li>
+<li>MyISAM的底层文件，表结构、表数据、表索引，各有一个对应的文件。</li>
+</ol>
 
         <h1 id="相关命令"   >
           <a href="#相关命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相关命令"></a> 相关命令</h1>
@@ -119,11 +146,11 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </tr>
 </tbody>
 </table></div>
-<p>锁机制：表示数据库在并发请求访问的时候，多个事务在操作时，并发操作的粒度。</p>
-<p>B树索引、哈希索引：加速SQL的查询速度。</p>
-<p>外键：子表的字段依赖父表的主键，设置了两张表的依赖关系。</p>
-<p>事务：多个SQL语句，保证它们共同执行的原子操作，要么全部成功，要么失败。不能只成功一部分，失败后需要回滚事务。</p>
-<p>索引缓存和数据缓存：和MySQL Server的查询缓存相关，在没有对数据和索引做修改之前，重复查询可以不用进行磁盘IO，读取上一次内存中查询的缓存就可以了，提升数据库的性能。</p>
+<p><strong>锁机制</strong>：表示数据库在并发请求访问的时候，多个事务在操作时，并发操作的粒度。</p>
+<p><strong>B树索引、哈希索引</strong>：加速SQL的查询速度。</p>
+<p><strong>外键</strong>：子表的字段依赖父表的主键，设置了两张表的依赖关系。</p>
+<p><strong>事务</strong>：多个SQL语句，保证它们共同执行的原子操作，要么全部成功，要么失败。不能只成功一部分，失败后需要回滚事务。</p>
+<p><strong>索引缓存和数据缓存</strong>：和MySQL Server的查询缓存相关，在没有对数据和索引做修改之前，重复查询可以不用进行磁盘IO，读取上一次内存中查询的缓存就可以了，提升数据库的性能。</p>
 
         <h2 id="数据的存储方式"   >
           <a href="#数据的存储方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据的存储方式"></a> 数据的存储方式</h2>
