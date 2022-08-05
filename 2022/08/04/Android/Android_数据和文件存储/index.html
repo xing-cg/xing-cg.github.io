@@ -1,0 +1,516 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="数据和文件存储概览        Android使用的文件系统类似于其他平台上基于磁盘的文件系统，提供了以下几种保存应用数据的选项：  应用专属存储空间：存储仅供应用使用的文件，可以存储到内部存储卷中的专属目录或外部存储空间中的其他专属目录。使用内部存储空间中的目录保存其他应用不应访问的敏感信息。 共享存储：存储与其他应用共享的文件，包括媒体、文档和其他文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android_数据和文件存储">
+<meta property="og:url" content="https://mrcan.gitee.io/2022/08/04/Android/Android_%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="数据和文件存储概览        Android使用的文件系统类似于其他平台上基于磁盘的文件系统，提供了以下几种保存应用数据的选项：  应用专属存储空间：存储仅供应用使用的文件，可以存储到内部存储卷中的专属目录或外部存储空间中的其他专属目录。使用内部存储空间中的目录保存其他应用不应访问的敏感信息。 共享存储：存储与其他应用共享的文件，包括媒体、文档和其他文">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-04T09:29:31.908Z">
+<meta property="article:modified_time" content="2022-08-05T10:16:50.271Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Android_数据和文件存储 | 罐头先生的博客</title><link ref="canonical" href="https://mrcan.gitee.io/2022/08/04/Android/Android_%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Android_数据和文件存储</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-05</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/04/Android/Android_%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" data-flag-title="Android_数据和文件存储"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="数据和文件存储概览"   >
+          <a href="#数据和文件存储概览" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据和文件存储概览"></a> 数据和文件存储概览</h1>
+      
+<p>Android使用的文件系统类似于其他平台上基于磁盘的文件系统，提供了以下几种保存应用数据的选项：</p>
+<ul>
+<li><strong>应用专属存储空间</strong>：存储仅供应用使用的文件，可以存储到内部存储卷中的专属目录或外部存储空间中的其他专属目录。使用内部存储空间中的目录保存其他应用不应访问的敏感信息。</li>
+<li><strong>共享存储</strong>：存储与其他应用共享的文件，包括媒体、文档和其他文件。</li>
+<li><strong>偏好设置</strong>：以键值对形式存储私有原始数据。</li>
+<li><strong>数据库</strong>：使用Room持久性库将结构化数据存储在专用数据库中。</li>
+</ul>
+<p>下表汇总了这些选项的特点：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th></th>
+<th>内容类型</th>
+<th>访问方法</th>
+<th>所需权限</th>
+<th>其他应用是否可访问</th>
+<th>卸载应用时是否移除文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用专属文件</td>
+<td>仅供应用使用的文件</td>
+<td>从内部存储空间访问，可以使用<code>getFilesDir()</code>或<code>getCacheDir()</code>方法；从外部存储空间访问，可以使用<code>getExternalFilesDir()</code>或<code>getExternalCacheDir()</code>方法</td>
+<td>从内部存储空间访问不需要任何权限。如果应用在搭载Android 4.4（API级别19）或更高版本的设备上运行，从外部存储空间访问不需要任何权限</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>媒体</td>
+<td>可共享的媒体文件（图片、音频文件、视频）</td>
+<td><code>MediaStore</code> API</td>
+<td>在Android 11（API级别30）或更高版本中，访问其他应用的文件需要<code>READ_EXTERNAL_STORAGE</code>在Android 10（API级别29）中，访问其他应用的文件需要<code>READ_EXTERNAL_STORAGE</code>或<code>WRITE_EXTERNAL_STORAGE</code>在Android 9（API级别28）或更低版本中，访问所有文件均需要相关权限</td>
+<td>是，但其他应用需要<code>READ_EXTERNAL_STORAGE</code>权限</td>
+<td>否</td>
+</tr>
+<tr>
+<td>文档和其他文件</td>
+<td>其他类型的可共享内容，包括已下载的文件</td>
+<td>存储访问框架</td>
+<td>无</td>
+<td>是，可以通过系统文件选择器访问</td>
+<td>否</td>
+</tr>
+<tr>
+<td>应用偏好设置</td>
+<td>键值对</td>
+<td>Jetpack Preferences库</td>
+<td>无</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>结构化数据</td>
+<td>Room持久性库</td>
+<td>无</td>
+<td>否</td>
+<td>是</td>
+</tr>
+</tbody>
+</table></div>
+<p>应根据自己的具体需求选择解决方案：</p>
+<ul>
+<li>
+<p>数据需要占用多少空间？</p>
+<p>内部存储空间中用于存储应用专属数据的空间有限。如果需要保存大量数据，应使用其他类型的存储空间。</p>
+</li>
+<li>
+<p>数据访问需要达到怎样的可靠程度？</p>
+<p>如果应用的基本功能需要某些数据（例如应用启动时需要的数据），可以将相应数据存放到内部存储目录或数据库中。存储在外部存储空间中的应用专属文件并非一直可以访问，因为有些设备允许用户移除外部存储实体设备。</p>
+</li>
+<li>
+<p>需要存储哪类数据？</p>
+<p>如果数据仅供您的应用使用，应使用应用专属存储空间。对于可分享的媒体内容，应使用共享的存储空间，以便其他应用可以访问相应内容。对于结构化数据，应使用偏好设置（适合键值对数据）或数据库（适合包含2个以上列的数据）。</p>
+</li>
+<li>
+<p>数据是否应仅供你的应用使用？</p>
+<p>在存储敏感数据（不可通过任何其他应用访问的数据）时，应使用内部存储空间、偏好设置或数据库。内部存储空间的一个额外优势是用户无法看到相应数据。</p>
+</li>
+</ul>
+
+        <h1 id="存储位置的类别"   >
+          <a href="#存储位置的类别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#存储位置的类别"></a> 存储位置的类别</h1>
+      
+<p>Android提供两类物理存储位置：内部存储空间和外部存储空间。在大多数设备上，内部存储空间小于外部存储空间。不过，所有设备上的内部存储空间都是始终可用的，因此在存储应用所依赖的数据时更为可靠。</p>
+<p>可移除卷（例如SD卡）在文件系统中属于外部存储空间。Android使用路径（例如<code>/sdcard</code>）表示这些存储设备。</p>
+<blockquote>
+<p>注意：可用于保存文件的确切位置可能因设备而异。因此，请勿使用硬编码的文件路径。</p>
+</blockquote>
+<p>默认情况下，应用本身存储在内部存储空间中。不过，如果APK非常大，也可以在应用的清单文件中指明偏好设置，以便将应用安装到外部存储空间：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:installLocation</span>=<span class="string">&quot;preferExternal&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="对外部存储空间的访问和所需权限"   >
+          <a href="#对外部存储空间的访问和所需权限" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#对外部存储空间的访问和所需权限"></a> 对外部存储空间的访问和所需权限</h1>
+      
+<p>Android定义了以下与存储相关的权限：<code>READ_EXTERNAL_STORAGE</code>、<code>WRITE_EXTERNAL_STORAGE</code>和 <code>MANAGE_EXTERNAL_STORAGE</code>。</p>
+<p>在较低版本的Android系统中，应用需要声明<code>READ_EXTERNAL_STORAGE</code>权限才能访问位于外部存储空间中应用专属目录之外的任何文件。此外，应用需要声明<code>WRITE_EXTERNAL_STORAGE</code>权限才能向应用专属目录以外的任何文件写入数据。</p>
+<p>Android系统的版本越新，就越依赖于文件的用途而不是位置来确定应用对特定文件的访问和写入能力。特别是，如果应用以Android 11（API级别30）或更高版本为目标平台，<code>WRITE_EXTERNAL_STORAGE</code>权限完全不会影响应用对存储的访问权限。这种基于用途的存储模型可增强用户隐私保护，因为应用只能访问其在设备文件系统中实际使用的区域。</p>
+<p>Android 11引入了<code>MANAGE_EXTERNAL_STORAGE</code>权限，该权限提供对应用专属目录和<code>MediaStore</code>之外文件的写入权限。此权限使大多数应用无需声明此权限即可实现其用例，参阅有关如何<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/manage-all-files?hl=zh-cn" >管理存储设备上所有文件</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的指南。</p>
+
+        <h1 id="分区存储"   >
+          <a href="#分区存储" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分区存储"></a> 分区存储</h1>
+      
+<p>为了让用户更好地管理自己的文件并减少混乱，以Android 10（API级别29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间的分区访问权限（即分区存储）。此类应用只能访问外部存储空间上的应用专属目录，以及本应用所创建的特定类型的媒体文件。</p>
+<blockquote>
+<p>注意：如果应用在运行时请求与存储空间相关的权限，面向用户的对话框会表明应用正在请求对外部存储广泛的访问，即使启用分区存储也是如此。</p>
+</blockquote>
+<p>除非应用需要访问存储在应用专属目录和<code>MediaStore</code> API可以访问的目录之外的文件，否则请使用分区存储。如果将应用专属文件存储在外部存储空间中，则可以将这些文件存放在外部存储空间中的应用专属目录内，以便更加轻松地采用分区存储。这样，在启用分区存储后，应用将可以继续访问这些文件。</p>
+<p>如需应用适合分区存储，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/use-cases?hl=zh-cn" >存储用例和最佳实践</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>指南。如应用有其他用例未包含在分区存储范围内，请<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://source.android.com/setup/contribute/report-bugs?hl=zh-cn" >提交功能请求</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。可以<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/use-cases?hl=zh-cn#opt-out-scoped-storage" >暂时选择停用分区存储</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h1 id="文件存储"   >
+          <a href="#文件存储" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文件存储"></a> 文件存储</h1>
+      
+<p>文件存储不对存储的内容进行任何格式化处理，所有数据原封不动地保存到文件当中，因而比较适合存储一些简单的文本数据或二进制数据。如果想使用文件存储的方式来保存一些较为复杂的结构化数据，需要定义一套自己的格式规范，方便之后将数据从文件中重新解析出来。</p>
+
+        <h2 id="写入到文件中"   >
+          <a href="#写入到文件中" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#写入到文件中"></a> 写入到文件中</h2>
+      
+<p><code>Context</code>类中提供了一个<code>openFileOutput()</code>方法，可以用于将数据存储到指定的文件中。此方法接受两个参数：第一个参数是文件名，在文件创建的时候使用，注意此文件名不可包含路径，因为所有的文件都默认存储到<code>/data/data/&lt;package name&gt;/files/</code>目录下；第二个参数是文件的操作模式，主要有<code>MODE_PRIVATE</code>和<code>MODE_APPEND</code>两种模式可选。默认是<code>MODE_PRIVATE</code>，表示当指定相同文件名时，直接覆盖原文件内容。<code>MODE_APPEND</code>则表示追加内容。<code>MODE_WORLD_READABLE</code>和<code>MODE_WORLD_WRITEABLE</code>表示允许其他应用程序对程序的文件进行读写操作，由于这两种模式过于危险，容易引起应用的安全漏洞，已在Android 4.2版本中废弃。</p>
+<p><code>openFileOutput()</code>方法返回一个<code>FileOutputStream</code>对象，得到这个对象之后借助它构建出OutputStreamWriter对象，再使用OutputStreamWriter对象构建出BufferedWriter对象，如此就可以使用通过BufferedWriter将文本内容写入文件。这就是用Java流的方式将数据写入文件中。</p>
+<p>java代码示例：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String somedata = <span class="string">&quot;Data to save&quot;</span>;</span><br><span class="line">    FileOutputStream out = <span class="keyword">null</span>;</span><br><span class="line">    BufferedWriter writer = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        out = openFileOutput(<span class="string">&quot;data&quot;</span>, Context.MODE_PRIVATE);</span><br><span class="line">        writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(out));</span><br><span class="line">        writer.write(somedata);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (writer != <span class="keyword">null</span>) &#123;</span><br><span class="line">                writer.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>kotlin代码示例：</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">save</span><span class="params">(inputText: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// kotlin没有异常检查机制，意味着使用kotlin编写的所有代码不会强制要求你进行异常捕获或异常抛出；</span></span><br><span class="line">    <span class="comment">// 此处的try catch代码块是参照Java的编程规范添加的，即使不写依然可以编译通过</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> output = openFileOutput(<span class="string">&quot;data&quot;</span>, Context.MODE_PRIVATE)</span><br><span class="line">        <span class="keyword">val</span> writer = BufferedWriter(OutputStreamWriter(output))</span><br><span class="line">        <span class="comment">// kotlin提供的一个内置扩展函数，保证在lambda表达式中的代码全部执行完之后自动将外层的流关闭，</span></span><br><span class="line">        <span class="comment">// 这样就不用再编写一个finally语句手动去关闭流了。</span></span><br><span class="line">        writer.use &#123;</span><br><span class="line">            it.write(inputText)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="实例"   >
+          <a href="#实例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实例"></a> 实例</h3>
+      
+<p>创建一个FilePersistenceTest项目，修改activity_main.xml中的代码，如下：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    <span class="tag">&lt;<span class="name">EditText</span>&gt;</span></span><br><span class="line">        android:id=&quot;@+id/editText&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:hint=&quot;Type something here&quot;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">EditText</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>这里是在布局中加入了一个EditText，用于输入文本内容。</p>
+<p>此时运行程序，街面上有一个文本输入框，输入内容后，按下Back键，输入的内容就丢失了，因为此时它是一个瞬时数据，在Activity销毁后会被回收。现在要做的是，在数据被回收之前将它存储到文件中。修改MainActivity代码：</p>
+<p>java版：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class MainActivity extends <span class="title">AppCompatActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> EditText edit;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        edit = (EditText) findViewById(R.id.edit);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestory();</span><br><span class="line">        String inputText = edit.getText().toString();</span><br><span class="line">        save(inputText);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(String inputText)</span> </span>&#123;</span><br><span class="line">        FileOutputStream out = <span class="keyword">null</span>;</span><br><span class="line">        BufferedWriter writer = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            out = openFileOutput(<span class="string">&quot;data&quot;</span>, Context.MODE_PRIVATE);</span><br><span class="line">            writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(out));</span><br><span class="line">            writer.write(inputText);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (writer != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    writer.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>kotlin版：</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState : <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">        <span class="keyword">val</span> inputText = editText.text.toString()</span><br><span class="line">        save(inputText)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">save</span><span class="params">(inputText: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> output = openFileOutput(<span class="string">&quot;data&quot;</span>, Context.MODE_PRIVATE)</span><br><span class="line">            <span class="keyword">val</span> writer = BufferedWriter(OutputStreamWriter(output))</span><br><span class="line">            writer.use &#123;</span><br><span class="line">                it.write(inputText)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">            e.printStackTrace()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>进入<code>/data/data/com.example.filetest/files/</code>目录，即可以看到有一个data文件。</p>
+<p>需要想办法在下次启动程序时让这些数据能够还原到EditText中。</p>
+
+        <h2 id="从文件中读取数据"   >
+          <a href="#从文件中读取数据" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从文件中读取数据"></a> 从文件中读取数据</h2>
+      
+<p>类似于将数据存储到文件中，Context类中还提供了一个<code>openFileInput</code>方法，用于从文件中读取数据，只接收一个参数，即要读取的文件名，然后系统会自动到<code>/data/data/&lt;package name&gt;/files/</code>目录下去加载这个文件，并返回一个FileInputStream对象，得到了这个对象之后再通过Java流的方式就可以将数据读取出来了。</p>
+<p>Java版：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">load</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FileInputStream in = <span class="keyword">null</span>;</span><br><span class="line">    BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">    StringBuilder content = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        in = openFileInput(<span class="string">&quot;data&quot;</span>);</span><br><span class="line">        reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(in));</span><br><span class="line">        String line = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            content.append(line);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                reader.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> content.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>kotlin版：</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">load</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">val</span> content = StringBuilder()</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> input = openFileInput(<span class="string">&quot;data&quot;</span>)</span><br><span class="line">        <span class="keyword">val</span> reader = BufferedReader(InputStreamReader(input))</span><br><span class="line">        reader.use &#123;</span><br><span class="line">            <span class="comment">// 此处使用了一个forEachLine函数，是Kotlin提供的一个内置扩展函数，它会将读到的每行内容都回调到lambda表达式中，在lambda表达式中完成拼接逻辑即可</span></span><br><span class="line">            reader.forEachLine &#123;</span><br><span class="line">                content.append(it)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">        e.printStackTrace()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> content.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在这段代码中，首先通过<code>openFileInput</code>方法获取到了一个<code>FileInputStream</code>对象，然后借助它又构建出了一个<code>InputStreamReader</code>对象，接着再使用<code>InputStreamReader</code>构建出一个<code>BufferedReader</code> 对象，这样我们就可以通过<code>BufferedReader</code>进行一行行地读取，把文件中所有的文本内容全部读取出来，并存放在一个<code>StringBuilder</code>对象中，最后返回StringBuilder的toString就可以了。</p>
+<p>修改MainActivity中的代码，使得重新启动程序时EditText中能够保留我们上次输入的内容。如下所示：</p>
+<p>Java版</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> EditText edit;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        edit = (EditText) findViewById(R.id.edit);</span><br><span class="line">        String inputText = load();</span><br><span class="line">        <span class="keyword">if</span> (!TextUtils.isEmpty(inputText)) &#123;</span><br><span class="line">            edit.setText(inputText);</span><br><span class="line">            edit.setSelection(inputText.length());</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;Restoring succeeded&quot;</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">load</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FileInputStream in = <span class="keyword">null</span>;</span><br><span class="line">        BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">        StringBuilder content = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = openFileInput(<span class="string">&quot;data&quot;</span>);</span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(in));</span><br><span class="line">            String line = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">while</span>((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                content.append(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    reader.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> content.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>kotlin版：</p>
+<figure class="highlight kotlin"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        <span class="keyword">val</span> inputText = load()</span><br><span class="line">        <span class="keyword">if</span>(inputText.isNotEmpty()) &#123;</span><br><span class="line">            editText.setText(inputText)</span><br><span class="line">            editText.setSelection(inputText.length)</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;Restoring succeeded&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">load</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">val</span> content = StringBuilder()</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> input = openFileInput(<span class="string">&quot;data&quot;</span>)</span><br><span class="line">            <span class="keyword">val</span> reader = BufferedReader(InputStreamReader(input))</span><br><span class="line">            reader.use &#123;</span><br><span class="line">                reader.forEachLine &#123;</span><br><span class="line">                    content.append(it)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">            e.printStackTrace()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> content.toString()</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>可以看到，在onCreate方法中调用load方法来读取文件中存储的文本内容，如果读到的内容不为null，就调用EditText的setText方法将内容填充到EditText里，并调用setSelection方法将输入光标移动到文本的末尾位置以便于继续输入，然后弹出一句还原成功的提示。</p>
+<p>注意，上述代码在对字符串进行非空判断的时候使用了TextUtils.isEmpty方法，这是一个非常好用的方法，它可以一次性进行两种空值的判断。当传入的字符串等于null或者等于空字符串的时候，这个方法都会返回true，从而使得我们不需要先单独判断这两种空值再使用逻辑运算符连接起来了。</p>
+<p>现在重新运行一下程序，刚才保存的Content字符串肯定会被填充到EditText中，然后编写一点其他的内容，比如在EditText中输入Hello，接着按下Back键退出程序，再重新启动程序，这时刚才输入的内容并不会丢失，而是还原到了EditText中。</p>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<p>文件存储的核心技术就是Context类中提供的openFileInput和openFileOutput方法，之后就是利用Java的各种流来进行读写操作。</p>
+<p>但是文件存储的方式并不适合用于保存一些较为复杂的文本数据。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://mrcan.gitee.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://mrcan.gitee.io/2022/08/04/Android/Android_%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/">https://mrcan.gitee.io/2022/08/04/Android/Android_%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/08/05/Android/Android_ContentProvider/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android_ContentProvider</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/07/29/Cpp/Cpp_%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95/"><span class="paginator-prev__text">Cpp_创建目录</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">
+           数据和文件存储概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">
+           存储位置的类别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E8%AE%BF%E9%97%AE%E5%92%8C%E6%89%80%E9%9C%80%E6%9D%83%E9%99%90"><span class="toc-number">3.</span> <span class="toc-text">
+           对外部存储空间的访问和所需权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E5%AD%98%E5%82%A8"><span class="toc-number">4.</span> <span class="toc-text">
+           分区存储</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="toc-number">5.</span> <span class="toc-text">
+           文件存储</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E5%88%B0%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-number">5.1.</span> <span class="toc-text">
+           写入到文件中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.1.1.</span> <span class="toc-text">
+           实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-number">5.2.</span> <span class="toc-text">
+           从文件中读取数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.3.</span> <span class="toc-text">
+           总结</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">167</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">36</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
