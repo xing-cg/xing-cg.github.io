@@ -32,804 +32,236 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93/Linux_C%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">Linux_C连接数据库</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/03/%E6%95%B0%E6%8D%AE%E5%BA%93/Linux_C%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" data-flag-title="Linux_C连接数据库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/13/Cpp/Cpp_%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/">Cpp_右值引用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/13/Cpp/Cpp_%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/" data-flag-title="Cpp_右值引用"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>C/C++连接数据库 – C/S结构通式</li>
-<li>基本sql语句</li>
-<li>视图、索引、事务</li>
+<li>右值引用的例子</li>
+<li>右值引用的实现</li>
 </ol>
 
-        <h1 id="数据库的构成"   >
-          <a href="#数据库的构成" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库的构成"></a> 数据库的构成</h1>
+        <h1 id="右值引用的例子"   >
+          <a href="#右值引用的例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#右值引用的例子"></a> 右值引用的例子</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyString</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span>* str;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyString</span>(<span class="keyword">const</span> <span class="keyword">char</span>* p = <span class="literal">NULL</span>) : <span class="built_in">str</span>(<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> len = <span class="built_in">strlen</span>(p) + <span class="number">1</span>;</span><br><span class="line">            str = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">            <span class="built_in">strcpy_s</span>(str, len, p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyString</span>(<span class="keyword">const</span> MyString &amp; src) : <span class="built_in">str</span>(<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(src.str != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> len = <span class="built_in">strlen</span>(src.str) + <span class="number">1</span>;</span><br><span class="line">            str = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">            <span class="built_in">strcpy_s</span>(str, len, src.str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">MyString</span>(MyString &amp;&amp; src) : <span class="built_in">str</span>(src.str)</span><br><span class="line">    &#123;</span><br><span class="line">        src.str = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">MyString</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(str != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">delete</span>[]str;</span><br><span class="line">        &#125;</span><br><span class="line">        str = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">MyString <span class="title">s1</span><span class="params">(<span class="string">&quot;xcgong&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">MyString <span class="title">s2</span><span class="params">(s1)</span></span>;</span><br><span class="line">    <span class="function">MyString <span class="title">s3</span><span class="params">(std::move(s1))</span></span>;	<span class="comment">//实质上是把s1“强转”为 右值引用 才能进行移动构造</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="move的实现"   >
+          <a href="#move的实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#move的实现"></a> move的实现</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">my_remove_reference</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">using</span> type = _Ty;</span><br><span class="line">    <span class="keyword">using</span> _Const_thru_ref_type = <span class="keyword">const</span> _Ty;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">my_remove_reference</span>&lt;</span>_Ty&amp;&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> type = _Ty;</span><br><span class="line">    <span class="keyword">using</span> _Const_thru_ref_type = <span class="keyword">const</span> _Ty &amp;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">my_remove_reference</span>&lt;</span>_Ty&amp;&amp;&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> type = _Ty;</span><br><span class="line">    <span class="keyword">using</span> _Const_thru_ref_type = <span class="keyword">const</span> _Ty &amp;&amp;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">my_remove_reference_t</span> = <span class="keyword">typename</span> my_remove_reference&lt;_Ty&gt;::type;</span><br><span class="line"><span class="comment">//my_remove_reference_t&lt;Object&gt; --&gt; my_remove_reference&lt;Object&gt;::type;</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class _Ty&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">my_remove_reference_t</span>&lt;_Ty&gt;&amp;&amp; <span class="title">my_move</span><span class="params">(_Ty &amp;&amp; _Arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    								<span class="comment">//强转为_Ty纯粹类型的右值引用形式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">my_remove_reference_t</span>&lt;_Ty&gt; &amp;&amp;&gt;(_Arg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">MyString <span class="title">s1</span><span class="params">(<span class="string">&quot;xcgong&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">MyString <span class="title">s2</span><span class="params">(xcg::my_move(s1))</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	my_move  -&gt;</span></span><br><span class="line"><span class="comment">	    return static_cast&lt;my_remove_reference_t&lt;_Ty&gt; &amp;&amp;&gt;(_Arg);</span></span><br><span class="line"><span class="comment">			my_remove_reference_t&lt;_Ty&gt;  -&gt;</span></span><br><span class="line"><span class="comment">				my_remove_reference&lt;_Ty&gt;::type  -&gt;</span></span><br><span class="line"><span class="comment">					my_remove_reference&lt;MyString&gt;::type  -&gt;</span></span><br><span class="line"><span class="comment">						type == _Ty -&gt; &quot;MyString&quot;</span></span><br><span class="line"><span class="comment">	--&gt; return static_cast&lt;MyString &amp;&amp;&gt;(_Arg);</span></span><br><span class="line"><span class="comment">	效果: _Arg 由 MyString 转为 MyString &amp;&amp;	</span></span><br><span class="line"><span class="comment">则--MyString s2(xcg::my_move(s1))--等效于:</span></span><br><span class="line"><span class="comment">	MyString s2( (MyString &amp;&amp;)s1);</span></span><br><span class="line"><span class="comment">		调用：MyString(MyString &amp;&amp; src), 即移动构造。进行资源拥有权的转移</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/12/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/">高级数据结构_搜索树</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/12/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/" data-flag-title="高级数据结构_搜索树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>数据文件–存在磁盘上</li>
-<li>数据库管理系统</li>
+<li>各种搜索树之间的关系</li>
+<li>树式查找的总体构思</li>
+<li>树式查找基本算法与数据结构</li>
+<li>二叉搜索树–基于半线性的树形结构</li>
+<li>我们的理想：兼顾动态修改与静态查找操作效率</li>
+<li>理想平衡</li>
+<li>适度平衡</li>
+<li>AVL–平衡二叉搜索树–最坏情况下，单次动态修改和静态查找也均可以在O(logn)时间内完成</li>
 </ol>
-
-        <h1 id="基本模式"   >
-          <a href="#基本模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基本模式"></a> 基本模式</h1>
-      
-<p>基本模式就是用客户端连接数据库服务器，使用TCP连接。</p>
+<p>本文章的搜索树实现有两种方式</p>
 <ol>
-<li>首先要启动数据库服务，即先把TCP服务端运行起来</li>
-<li>通过客户端连接数据库</li>
+<li>类C结构体实现方式，自学习实现。</li>
+<li>模板类实现方式，参考邓俊辉的《数据结构_C++语言版_第3版》。</li>
 </ol>
 
-        <h1 id="相关命令"   >
-          <a href="#相关命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相关命令"></a> 相关命令</h1>
+        <h2 id="各种搜索树之间的关系"   >
+          <a href="#各种搜索树之间的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#各种搜索树之间的关系"></a> 各种搜索树之间的关系</h2>
+      
+<p><img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312143749079.png" alt="image-20220312143749079" /></p>
+
+        <h1 id="二叉搜索树类c结构体"   >
+          <a href="#二叉搜索树类c结构体" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二叉搜索树类c结构体"></a> 二叉搜索树–类C结构体</h1>
       
 
-        <h2 id="linux命令"   >
-          <a href="#linux命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux命令"></a> linux命令</h2>
+        <h2 id="节点结构"   >
+          <a href="#节点结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#节点结构"></a> 节点结构</h2>
       
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">service mysql status 	<span class="comment"># 查看状态</span></span><br><span class="line">netstat -natp			<span class="comment"># 查看端口状态（看是否有3306即可知mysql服务是否启动）</span></span><br><span class="line">service mysql restart</span><br><span class="line">service mysql stop</span><br><span class="line">service mysql start</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-<p>连接数据库命令</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">mysql -u用户名 -h主机地址(省略代表本机) -p密码(最好不要在此明文写出)</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="mysql命令"   >
-          <a href="#mysql命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mysql命令"></a> mysql命令</h2>
-      
-<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">user</span>,host,plugin <span class="keyword">from</span> mysql.user;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">user</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span></span><br><span class="line"><span class="string">&#x27;123&#x27;</span>; #注册用本地登录方式的root用户，并且设置密码</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="创建数据库"   >
-          <a href="#创建数据库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建数据库"></a> 创建数据库</h3>
-      
-<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database xcg charset<span class="operator">=</span>utf8;</span><br><span class="line"><span class="keyword">select</span> database();</span><br><span class="line"><span class="keyword">drop</span> database xcg;	#删除</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="创建数据表"   >
-          <a href="#创建数据表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建数据表"></a> 创建数据表</h3>
-      
-<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">### 用户管理与授权</span><br><span class="line"></span><br><span class="line"><span class="operator">*</span> 查看已注册用户信息</span><br><span class="line"></span><br><span class="line">相同名字的<span class="keyword">user</span>可能有不同的登陆方式，这被认为是两个不同的用户，以host字段区分，有两种host，一种是<span class="operator">%</span>，一种是localhost。<span class="operator">%</span>是远程登录，localhost是本地登录。</span><br><span class="line"></span><br><span class="line">```mysql</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">user</span>, host, plugin <span class="keyword">from</span> mysql.user;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93/image-20220319085241427.png" alt="image-20220319085241427" /></p>
 <ul>
-<li>创建用户</li>
+<li>节点结构</li>
 </ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#创建用户示例</span><br><span class="line">create user &#x27;stu&#x27;@&#x27;localhost&#x27; identified by &#x27;123&#x27;;</span><br><span class="line">#创建用户 并 指定加密方式</span><br><span class="line">create user &#x27;stu1&#x27;@&#x27;localhost&#x27; identified WITH mysql_native_password by &#x27;123&#x27;;</span><br><span class="line">#创建root的远程登录用户	&#x27;%&#x27;</span><br><span class="line">create user &#x27;root&#x27;@&#x27;%&#x27; identified WITH mysql_native_password by &#x27;123&#x27;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BstNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	KeyType key;</span><br><span class="line">	BstNode* leftchild;</span><br><span class="line">	BstNode* parent;</span><br><span class="line">	BstNode* rightchild;</span><br><span class="line">&#125;BstNode,*BSTree;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>Buynode</li>
+</ul>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BstNode* <span class="title">Buynode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BstNode* s = (BstNode*)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(BstNode));</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == s)<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(BstNode));</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="远程登录"   >
-          <a href="#远程登录" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#远程登录"></a> 远程登录</h1>
+        <h2 id="insert"   >
+          <a href="#insert" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#insert"></a> Insert</h2>
       
-<p>条件有二</p>
-<ol>
-<li>有远程登陆方式的用户以及设置了密码</li>
-<li>配置文件中要设置可以远程登陆</li>
-</ol>
-<p>配置文件位置在如下位置，需要修改可以用vi打开。注意，修改前需要切换为管理员模式。</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br></pre></td></tr></table></div></figure>
-<p>修改完后，需要重启mysql服务器</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BstNode* <span class="title">MakeRoot</span><span class="params">(KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BstNode* pnode = <span class="built_in">Buynode</span>();</span><br><span class="line">	pnode-&gt;key = kx;</span><br><span class="line">	<span class="keyword">return</span> pnode;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Insert</span><span class="params">(BstNode*&amp; ptr, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (ptr == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ptr = <span class="built_in">MakeRoot</span>(kx);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	BstNode* p = ptr;	<span class="comment">//遍历Node的指针</span></span><br><span class="line">	BstNode* pa = <span class="literal">NULL</span>;	<span class="comment">//实时追踪p的parent</span></span><br><span class="line">	<span class="keyword">while</span> (p != <span class="literal">NULL</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">	&#123;</span><br><span class="line">		pa = p;</span><br><span class="line">		p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/* 实际上不用再判断p-&gt;key == kx, 只要p != NULL就说明找到了相等的节点，</span></span><br><span class="line"><span class="comment">	   如果此时p!=NULL的话，上面的while循环的退出就是因为p-&gt;key==kx而退出的</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="keyword">if</span> (p != <span class="literal">NULL</span> <span class="comment">/* &amp;&amp; p-&gt;key == kx */</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 此时已经找到要插入的位置</span></span><br><span class="line">	p = <span class="built_in">Buynode</span>();</span><br><span class="line">	p-&gt;key = kx;</span><br><span class="line">	p-&gt;parent = pa;</span><br><span class="line">	<span class="comment">// 更新pa的左或右孩子</span></span><br><span class="line">	<span class="keyword">if</span> (p-&gt;key &lt; pa-&gt;key) pa-&gt;leftchild = p;</span><br><span class="line">	<span class="keyword">else</span> pa-&gt;rightchild = p;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>代码结构优化–Insert中包含了建根的情况</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Insert</span><span class="params">(BstNode*&amp; ptr, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BstNode* p = ptr;	<span class="comment">//遍历Node的指针</span></span><br><span class="line">	BstNode* pa = <span class="literal">NULL</span>;	<span class="comment">//实时追踪p的parent</span></span><br><span class="line">	<span class="keyword">while</span> (p != <span class="literal">NULL</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">	&#123;</span><br><span class="line">		pa = p;</span><br><span class="line">		p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (p != <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 此时已经找到要插入的位置			//其中，包括根为空的情况</span></span><br><span class="line">	p = <span class="built_in">Buynode</span>();</span><br><span class="line">	p-&gt;key = kx;</span><br><span class="line">	p-&gt;parent = pa;</span><br><span class="line">    <span class="keyword">if</span>(pa == <span class="literal">NULL</span>)	<span class="comment">//建根的情况</span></span><br><span class="line">    &#123;</span><br><span class="line">        ptr = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// 更新pa的左或右孩子</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;key &lt; pa-&gt;key)</span><br><span class="line">            pa-&gt;leftchild = p;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            pa-&gt;rightchild = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="c语言访问mysql"   >
-          <a href="#c语言访问mysql" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言访问mysql"></a> C语言访问mysql</h1>
+        <h3 id="测试"   >
+          <a href="#测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试"></a> 测试</h3>
       
-<ol>
-<li>
-<p>连接数据库使用的头文件和库文件</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mysql/mysql.h&gt;</span>	<span class="comment">//有的是#include&lt;mysql.h&gt;</span></span></span><br></pre></td></tr></table></div></figure>
-<p>注意，程序中使用了访问mysql的有关函数接口，需要在代码链接时指定库名: -lmysqlclient</p>
-</li>
-<li>
-<p>初始化连接句柄</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL *<span class="title">mysql_init</span><span class="params">(MYSQL *mysql)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>连接数据库</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MYSQL *<span class="title">mysql_real_connect</span><span class="params">(MYSQL *mysql, <span class="keyword">const</span> <span class="keyword">char</span>* host,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="keyword">const</span> <span class="keyword">char</span>* user, <span class="keyword">const</span> <span class="keyword">char</span>* passwd</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="keyword">const</span> <span class="keyword">char</span>* db,	<span class="keyword">unsigned</span> <span class="keyword">int</span> port</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="keyword">const</span> <span class="keyword">char</span>* unix_socket,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="keyword">unsigned</span> <span class="keyword">long</span> clientflag)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (ptr != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">InOrder</span>(ptr-&gt;leftchild);</span><br><span class="line">		cout &lt;&lt; ptr-&gt;key &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		<span class="built_in">InOrder</span>(ptr-&gt;rightchild);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BSTree root = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> ar[] = &#123; <span class="number">53</span>,<span class="number">17</span>,<span class="number">78</span>,<span class="number">9</span>,<span class="number">45</span>,<span class="number">65</span>,<span class="number">87</span>,<span class="number">23</span>,<span class="number">81</span>,<span class="number">94</span>,<span class="number">88</span>,<span class="number">100</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="built_in"><span class="keyword">sizeof</span></span>(ar) / <span class="built_in"><span class="keyword">sizeof</span></span>(ar[<span class="number">0</span>]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">Insert</span>(root, ar[i]) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="built_in">InOrder</span>(root);cout &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h2 id="读"   >
-          <a href="#读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#读"></a> 读</h2>
+        <h2 id="next-niceinorder"   >
+          <a href="#next-niceinorder" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#next-niceinorder"></a> Next &amp; NiceInOrder</h2>
       
-<ol>
-<li>
-<p>指定select语句</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> * sql = <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line"><span class="keyword">if</span>(n != <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    mysql_close(mysql);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>获取结果集</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MYSQL_RES * res = mysql_store_result(mysql);</span><br><span class="line"><span class="keyword">if</span>(res == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    mysql_close(mysql);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>获取结果集的行数、列数</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num = mysql_num_rows(res);</span><br><span class="line"><span class="keyword">int</span> count = mysql_field_count(mysql);</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>遍历</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;num; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    MYSQL_ROW row = mysql_fetch_row(res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;count; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\t&quot;</span>,row[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>收尾工作</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql_free_result(res);</span><br><span class="line">mysql_close(mysql);</span><br><span class="line"><span class="built_in">exit</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BstNode* <span class="title">First</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (ptr != <span class="literal">NULL</span> &amp;&amp; ptr-&gt;leftchild != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ptr = ptr-&gt;leftchild;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 找到当前节点的直接后继（按关键码大小）</span></span><br><span class="line"><span class="function">BstNode* <span class="title">Next</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (ptr == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 存在右分支</span></span><br><span class="line">	<span class="keyword">if</span> (ptr-&gt;rightchild != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">First</span>(ptr-&gt;rightchild);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="comment">// 没有右分支</span></span><br><span class="line">	&#123;</span><br><span class="line">		BstNode* pa = ptr-&gt;parent;</span><br><span class="line">        <span class="comment">// 沿着右子树回溯，直到找到自己作为父节点的左子树</span></span><br><span class="line">        <span class="comment">// 这一过程可以用中序遍历的次序解释</span></span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">NULL</span> &amp;&amp; pa-&gt;leftchild != ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ptr = pa;</span><br><span class="line">            pa = ptr-&gt;parent;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pa;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NiceInOrder</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(BstNode* p = <span class="built_in">First</span>(ptr); p != <span class="literal">NULL</span>; p = <span class="built_in">Next</span>(p))</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; p-&gt;key &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="视图"   >
-          <a href="#视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#视图"></a> 视图</h1>
+        <h2 id="prev-nicerevinorder"   >
+          <a href="#prev-nicerevinorder" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#prev-nicerevinorder"></a> Prev &amp; NiceRevInOrder</h2>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BstNode* <span class="title">Last</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (ptr != <span class="literal">NULL</span> &amp;&amp; ptr-&gt;rightchild != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ptr = ptr-&gt;rightchild;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">BstNode* <span class="title">Prev</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ptr == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 存在左分支</span></span><br><span class="line">    <span class="keyword">if</span>(ptr-&gt;leftchild != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Last</span>(ptr-&gt;leftchild);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        BstNode* pa = ptr-&gt;parent;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">NULL</span> &amp;&amp; pa-&gt;leftchild != ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ptr = pa;</span><br><span class="line">            pa = ptr-&gt;parent;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pa;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NiceRevInOrder</span><span class="params">(BstNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(BstNode* p = <span class="built_in">Last</span>(ptr); p != <span class="literal">NULL</span>; p = <span class="built_in">Prev</span>(p))</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; p-&gt;key &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="remove"   >
+          <a href="#remove" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#remove"></a> Remove</h2>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Remove</span><span class="params">(BstNode*&amp; ptr, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ptr == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    BstNode* p = ptr;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">    &#123;</span><br><span class="line">        p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//双分支的特殊处理，与直接后继节点替换。把删除的目标转向其直接后继节点。进而转为删除单分支节点的情况！</span></span><br><span class="line">    <span class="keyword">if</span>(p-&gt;leftchild != <span class="literal">NULL</span> &amp;&amp; p-&gt;rightchild != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        BstNode * psucc = <span class="built_in">First</span>(p-&gt;rightchild);	<span class="comment">//succ: successor,后继</span></span><br><span class="line">        p-&gt;key = psucc-&gt;key;</span><br><span class="line">        p = psucc;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">//单分支、叶子通用</span></span><br><span class="line">    BstNode* pa = p-&gt;parent;</span><br><span class="line">    BstNode * newchild = p-&gt;leftchild!=<span class="literal">NULL</span> ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使p与newchild解除关系</span></span><br><span class="line">    	<span class="comment">//维护newchild的parent</span></span><br><span class="line">    <span class="keyword">if</span>(newchild != <span class="literal">NULL</span>)newchild-&gt;parent = pa;</span><br><span class="line">    	<span class="comment">//解除p的child关系，由于将被删去，把p的左右孩子置为NULL</span></span><br><span class="line">    p-&gt;rightchild = p-&gt;leftchild = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//此处：维护pa的左右孩子。维护根节点</span></span><br><span class="line">    <span class="comment">//如果删除的是根节点：不维护pa的左右孩子(因为pa为空)，替换root</span></span><br><span class="line">    <span class="keyword">if</span>(pa == <span class="literal">NULL</span>)	<span class="comment">//pa == NULL则说明删除的是根节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        ptr = newchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>			<span class="comment">//删除非根节点的情况，维护pa的左右孩子，不替换root</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 将newchild替代p的位置</span></span><br><span class="line">            <span class="comment">//删除单分支节点时，newchild为其分支节点；</span></span><br><span class="line">            <span class="comment">//删除叶子节点时，newchild为空。不影响。</span></span><br><span class="line">        <span class="keyword">if</span>(pa-&gt;leftchild == p)</span><br><span class="line">            pa-&gt;leftchild = newchild;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            pa-&gt;rightchild = newchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除结束</span></span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="二叉搜索树模板类"   >
+          <a href="#二叉搜索树模板类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二叉搜索树模板类"></a> 二叉搜索树–模板类</h1>
       
 
-        <h1 id="事务"   >
-          <a href="#事务" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#事务"></a> 事务</h1>
+        <h2 id="顺序性"   >
+          <a href="#顺序性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#顺序性"></a> 顺序性</h2>
       
+<p>在二叉搜索树（binary search tree）中，处处都满足顺序性：<br />
+“<strong>任一节点r的左（右）子树中，所有节点（若存在）均不大于（不小于）r</strong>”。</p>
+<p><img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312145342588.png" alt="image-20220312145342588" /></p>
+<p>为回避边界情况，这里暂且假定所有节点互不相等。</p>
+<p>下图左三个示例是二叉搜索树，右三个示例是反例。<br />
+<img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312145511100.png" alt="image-20220312145511100" /></p>
+<p>当然，在实际应用中，对相等元素的禁止既不自然也不必要。可在代码的基础上继续扩展，使得二叉搜索树的接口支持相等词条的同时并存（习题[7-10]）。在去除掉这一限制之后，图中原先的第一个反例，将转而成为合法的二叉搜索树。</p>
 
-        <h1 id="索引"   >
-          <a href="#索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引"></a> 索引</h1>
+        <h2 id="中序遍历序列"   >
+          <a href="#中序遍历序列" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#中序遍历序列"></a> 中序遍历序列</h2>
       
-<p>创建索引</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index t_index on test_index(title(20));</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">网络_数据链路层</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/03/02/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-flag-title="网络_数据链路层"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="数据链路层"   >
-          <a href="#数据链路层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据链路层"></a> 数据链路层</h1>
-      
-<p>传输单位：帧</p>
-<ol>
-<li>点对点信道和广播信道的特点，及两种信道所使用的协议的特点(PPP和CSMA/DA)</li>
-<li>三个基本问题：
-<ol>
-<li>封装成帧</li>
-<li>透明传输</li>
-<li>差错检测</li>
-</ol>
-</li>
-<li>以太网MAC层的硬件地址</li>
-<li>适配器、转发器、集线器、网桥、以太网交换机的作用以及使用场合</li>
-</ol>
+<p>下图为二叉搜索树的中序遍历序列，单调增。<br />
+<img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312145818194.png" alt="image-20220312145818194" /></p>
+<p>顺序性是一项很强的条件。实际上，搜索树中节点之间的全序关系，已完全“蕴含”于这一条件之中。以如上图所示的二叉搜索树为例，只需该树做一次中序遍历，即可将该树转换为一个线性序列，且该序列中的节点严格按照其大小次序排列。</p>
+<p>这一现象，并非巧合。借助数学归纳法，可以证明更具一般性的结论：<strong>任何一棵二叉树是二叉搜索树，当且仅当其中序遍历序列单调非降</strong>。</p>
 
-        <h1 id="点对点信道"   >
-          <a href="#点对点信道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#点对点信道"></a> 点对点信道</h1>
+        <h2 id="bst模板类"   >
+          <a href="#bst模板类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bst模板类"></a> BST模板类</h2>
       
-<p>点对点信道的数据链路层的协议数据单元——帧。</p>
-<p>点对点信道的数据链路层在进行通信时的主要步骤如下：</p>
-<ol>
-<li>节点A的数据链路层把网络层交下来的IP数据报添加首部和尾部封装成帧。</li>
-<li>节点A把封装好的帧发送给节点B的数据链路层。</li>
-<li>若节点B的数据链路层收到的帧无差错，则从收到的帧中提取出IP数据报交给上面的网络层；否则丢弃这个帧。</li>
-</ol>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;BinTree.h&quot;</span></span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">BST</span> :</span> <span class="keyword">public</span> BinTree&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">BinNodePosi</span>(T) _hot;	<span class="comment">//&quot;命中&quot;节点的父亲</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">BinNodePosi</span><span class="params">(T)</span> &amp; <span class="title">search</span><span class="params">(<span class="keyword">const</span> T&amp; e)</span></span>;	<span class="comment">//查找</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="title">BinNodePosi</span><span class="params">(T)</span> <span class="title">insert</span><span class="params">(<span class="keyword">const</span> T&amp; e)</span></span>;		<span class="comment">//插入</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">remove</span><span class="params">(<span class="keyword">const</span> T&amp; e)</span></span>;				<span class="comment">//删除</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>可见，在继承原模板类BinTree的同时，BST内部也继续沿用了二叉树节点模板类BinNode。按照二叉搜索树的接口规范定义，这里新增了三个标准的对外接口search()、insert()和remove()，分别对应于基本的查找、插入和删除操作。这三个标准接口的调用参数，都是属于元素类型T的对象引用——这正是此类结构“循关键码访问”方式的具体体现。</p>
+<p>以后还将以BST为基类，进一步派生出二叉搜索树的多个变种。无论哪一变种，既必须支持上述三个基本接口，同时在内部的具体实现方式又有所不同。因此，它们均被定义为虚成员函数，从而强制要求派生的所有变种，根据各自的规则对其重写。</p>
 
-        <h1 id="成帧"   >
-          <a href="#成帧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成帧"></a> 成帧</h1>
+        <h2 id="查找算法及其实现"   >
+          <a href="#查找算法及其实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查找算法及其实现"></a> 查找算法及其实现</h2>
       
-<p>什么是成帧？</p>
-<p>封装成帧(framing)就是<strong>发送方在一段数据的前后分别添加首部和尾部</strong>，这样就构成了一个帧。<strong>接收端在收到物理层上交的比特流后，就能根据首部和尾部的标记，从收到的比特流中识别帧的开始和结束</strong>。</p>
-<p>我们知道，分组交换的一个重要概念就是：所有在互联网上传送的数据都以分组（即IP 数据报）为传送单位。网络层的IP数据报传送到数据链路层就成为帧的数据部分。在帧的数据部分的前面和后面分别添加上首部和尾部，构成了一个完整的帧。这样的帧就是数据链路层的数据传送单元。</p>
-
-        <h2 id="帧定界"   >
-          <a href="#帧定界" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#帧定界"></a> 帧定界</h2>
-      
-<p>帧定界是：用于判断帧的边界，从哪开始到哪结束。要用特殊的字符串表示它的开始和特殊的字符串表示结束。</p>
-<p>一个帧的帧长等于帧的数据部分长度加上帧首部和帧尾部的长度。首部和尾部的一个重要作用就是进行<strong>帧定界</strong>（即确定帧的界限）。此外，首部和尾部还包括许多必要的控制信息。在发送帧时，是从帧首部开始发送的。各种数据链路层协议都对帧首部和帧尾部的格式有明确的规定。显然，为了提高帧的传输效率，应当使帧的数据部分长度尽可能地大于首部和尾部的长度。但是，每一种<strong>链路层协议都规定了所能传送的帧的数据部分长度上限</strong>——<strong>最大传送单元MTU</strong>(Maximum Transfer Unit)。给出了帧的首部和尾部的位置，以及帧的数据部分与MTU的关系。</p>
-<ul>
-<li>帧定界的几种方法
-<ul>
-<li>字符填充的首尾界符法</li>
-<li>比特位填充的首位界符法</li>
-<li>字符计数法</li>
-</ul>
-</li>
-</ul>
-<p>当数据在传输中出现差错时，帧定界符的作用更加明显。假定发送端在尚未发送完一个帧时突然出故障，中断了发送。但随后很快又恢复正常，于是重新从头开始发送刚才未发送完的帧。由于使用了帧定界符，接收端就知道前面收到的数据是个不完整的帧（只有首部开始符SOH而没有传输结束符EOT），必须丢弃。而后面收到的数据有明确的帧定界符（SOH和EOT），因此这是一个完整的帧，应当收下。</p>
-
-        <h2 id="透明传输"   >
-          <a href="#透明传输" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#透明传输"></a> 透明传输</h2>
-      
-<p>数据部分如果出现和头和尾一样的特殊的字符串或位串的内容，会干扰接收方的定界。</p>
-<p>当传送的帧是用文本文件组成的帧时（文本文件中的字符都是从键盘上输入的），其数据部分显然不会出现像SOH或EOT这样的帧定界控制字符。<strong>可见不管从键盘上输入什么字符都可以放在这样的帧中传输过去，因此这样的传输就是透明传输</strong>。</p>
-<p>但当数据部分是非ASCII码的文本文件时（如二进制代码的计算机程序或图像等），情况就不同了。如果数据中的某个字节的二进制代码恰好和SOH或EOT这种控制字符一样（如图3-6所示），数据链路层就会错误地“找到帧的边界”，把部分帧收下（误认为是个完整的帧），而把剩下的那部分数据丢弃（这部分找不到帧定界控制字符SOH）。这样的帧传输不是透明传输。</p>
-<p><img src="/images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309194235539.png" alt="image-20220309194235539" /></p>
-<ul>
-<li>
-<p>理解透明传输</p>
-<ul>
-<li>“透明”表示：某一个实际存在的事物看起来却好像不存在一样（例如，你看不见在你前面有块100%透明的玻璃的存在）。</li>
-<li>“在数据链路层透明传送数据”——表示无论什么样的比特组合的数据，都<strong>能够按照原样没有差错地通过</strong>这个数据链路层。因此，对所传送的数据来说，这些数据就“看不见”数据链路层有什么妨碍数据传输的东西。或者说，数据链路层对这些数据来说是透明的。</li>
-</ul>
-</li>
-<li>
-<p>解决透明传输问题</p>
-<ul>
-<li>必须设法使数据中可能出现的控制字符“SOH”和“EOT”在接收端不被解释为控制字符。</li>
-<li>具体的方法是：发送端的数据链路层在<strong>数据中</strong>出现控制字符“SOH”或“EOT”的前面插入一个转义字符“ESC”(其十六进制编码是1B，二进制是00011011)。</li>
-<li>在接收端的数据链路层在把数据送往网络层之前删除这个插入的转义字符。</li>
-<li>如果转义字符“ESC“也出现在数据当中，那么解决方法仍然是在转义字符的前面插入一个转义字符。因此，当接收端收到连续的两个转义字符时，就删除其中前面的一个。</li>
-<li>这种方法称为字节填充(byte stuffing)或字符填充(character stuffing)。<br />
-<img src="/images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309195841138.png" alt="image-20220309195841138" /></li>
-</ul>
-</li>
-</ul>
-
-        <h2 id="差错控制循环冗余校验码计算"   >
-          <a href="#差错控制循环冗余校验码计算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#差错控制循环冗余校验码计算"></a> 差错控制：循环冗余校验码计算</h2>
-      
-<p>被除数是谁？——原始数据+后面补若干个零（生成多项式的最高次幂）。</p>
-<p>除数是谁？——生成多项式对应的二进制序列。</p>
-<p>商和余数谁是冗余码？——余数。余数位数不够时要在前面补零（最后总位数为生成多项式的最高次幂）</p>
-<p>P77 简答题 6 7 8</p>
-
-        <h2 id="纠错机制-反馈重发机制传输层"   >
-          <a href="#纠错机制-反馈重发机制传输层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#纠错机制-反馈重发机制传输层"></a> 纠错机制-反馈重发机制[传输层]</h2>
-      
-<ul>
-<li>应当明确，“无比特差错”与“无传输差错”是不同的概念。
-<ul>
-<li>在数据链路层使用 CRC 检验，能够实现无比特差错的传输，但这还不是可靠传输。</li>
-<li>要做到“无差错传输”（即发送什么就收到什么）就必须再加上确认和重传机制。</li>
-<li>本章介绍的数据链路层协议都不是可靠传输的协议。</li>
-<li><strong>循环冗余校验码只是在数据链路层保证帧的比特位不出错</strong>，即<strong>无比特差错</strong>。但是复杂的情况如帧丢失、帧重复、帧失序这些复杂错误情况就需要更高层的协议来纠错。这里讨论的反馈重发机制是<strong>传输层的可靠传输的工作原理</strong>。</li>
-</ul>
-</li>
-</ul>
-<p>根据上述，由于检错码不能自动纠正所发现帧乱序的错误，所以当接收方发现错误时，要给发送方反馈信息要求重发。</p>
-<p>又叫<strong>自动请求重传ARQ</strong>(Automatic Repeat-reQuest)，重传的请求是自动进行的，接收方不需要请求发送方重传某个出错的帧。</p>
-<ol>
-<li>停止-等待方式</li>
-<li>连续工作方式（连续ARQ协议）
-<ol>
-<li>拉回方式</li>
-<li>选择性重发方式</li>
-</ol>
-</li>
-</ol>
-
-        <h3 id="停止等待协议"   >
-          <a href="#停止等待协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#停止等待协议"></a> 停止等待协议</h3>
-      
-<ul>
-<li>
-<p>基本思想</p>
-<ul>
-<li>发送端在<strong>发出一帧后必须停下来等待接收端对所发送的确认帧</strong>进行确认。若确认对方正确收到，则发送方继续发送下一帧，否则，发送方就重发该帧。</li>
-</ul>
-</li>
-<li>
-<p>A向B发送帧：</p>
-<ul>
-<li>B成功接收到了，且检测后正常，则回传A一个确认帧，被A接收到后，A才继续发送下一个帧。</li>
-<li>B接收帧时<strong>检测出错误则丢弃该帧</strong>（或者<strong>帧在传输过程中丢失</strong>），B不会发送任何信息。则A必须重发该帧，直到B成功接收为止。
-<ul>
-<li>B等确认要等待多长时间？——A设置了一个<strong>超时计时器</strong>，如果到期之前收到了相应的确认则重置该计时器，继续发送下一个帧。</li>
-<li>若帧正确到达B，但B回送的确认丢失或延迟了，<strong>A未收到B的确认，会超时重发该帧</strong>。<strong>B可能会收到重复的帧</strong>。B如何知道收到了重复的帧，需要丢弃呢？——<strong>编号</strong>。
-<ul>
-<li>A为每一个发送的帧都进行编号。若B收到了编号相同的帧，则B认为收到了重复帧，B丢弃重复的帧，<strong>并且B回送确认</strong>。</li>
-<li>B为发送的确认也进行编号，指示该确认是对哪一个帧的确认。A根据确认帧及其编号，可以确定它是对哪一个帧的确认，避免重复发送，并且<strong>A可以根据此确认号传送下一个帧</strong>。若为重复的确认，则将其丢弃。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>确认帧的编号问题</p>
-<ul>
-<li>确认帧（ACKnowledgement, ACK）——正确接收后回传的帧被称为确认帧。</li>
-<li>习惯将确认序号n表示为ACKn，<strong>ACKn表示“第n–1号帧已经收到，现在期望接收第n号帧”</strong>。</li>
-</ul>
-</li>
-<li>
-<p>性能分析</p>
-<ul>
-<li>停止等待协议实现简单，但<strong>传输距离远时</strong>信道利用率低。</li>
-</ul>
-</li>
-<li>
-<p>改进</p>
-<ul>
-<li>采用<strong>流水线传输</strong>，就是发送方可连续发送多个帧，不必每发完一个帧就停顿下来等待对方的确认。这样可使信道上一直有数据不间断地传送。从而提高信道利用率。<strong>这是连续ARQ协议的基本思想</strong>。</li>
-</ul>
-</li>
-<li>
-<p>与ARQ的关系</p>
-<ul>
-<li>CRC检验器能够自动丢弃检测到的出错帧。实用的CRC检验器都是用硬件完成的。因此所谓的“丢弃出错帧”，对上层软件或用户来说都是感觉不到的。</li>
-<li>发送端对出错的数据帧进行重传是自动进行的，因而这种<strong>差错控制机制</strong>常简称为ARQ(Automatic Repeat reQuest)，直译是自动重传请求，但意思是自动请求重传。因此<strong>停等协议中包含着ARQ协议</strong>（是一种差错控制机制）</li>
-</ul>
-</li>
-</ul>
-
-        <h3 id="连续arq"   >
-          <a href="#连续arq" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连续arq"></a> 连续ARQ</h3>
-      
-<ul>
-<li>基本思想
-<ul>
-<li>发送方在发送一个帧后，<strong>不停下来等待确认帧到来</strong>。而是<strong>连续再发送多个帧</strong>，帧的个数取决于发送方的发送能力和接收端的接收能力。此方式中，必须为不同帧编上序列号作为帧标识。</li>
-<li>接收方一般采用<strong>累积确认</strong>的方式</li>
-</ul>
-</li>
-</ul>
-
-        <h4 id="拉回方式"   >
-          <a href="#拉回方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#拉回方式"></a> 拉回方式</h4>
-      
-<p>连续发了多个帧，某一个出错后，从出错的开始需要全部重发，因为要求是按序接收。换言之，一旦接收方发现第n帧出错，则丢弃第n帧及第n帧以后的所有帧。</p>
-<p>在等不到2号帧的确认而重传2号数据帧时，虽然结点A已经发完了5号帧，但仍必须向回走，将2号帧及其以后的各帧全部进行重传。连续 ARQ又称为Go-back-N ARQ，意思是当出现差错必须重传时，要向回走N个帧，然后再开始重传。</p>
-<ul>
-<li>代价：信道的带宽。</li>
-</ul>
-
-        <h4 id="选择重发方式"   >
-          <a href="#选择重发方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#选择重发方式"></a> 选择重发方式</h4>
-      
-<p>假定发送方连续发送了m帧，而接收方在对收到的数据进行校验后发现第n帧出错(n≤m)，于是<strong>接收方给发送方出错信息要求发送方重发第n帧</strong>。换言之，一旦接收方发现第n帧出错，则丢弃第n帧，但<strong>缓存第n帧以后的所有正确帧</strong>。</p>
-<p>选择重发方式与拉回方式比较，前者只重发出错的数据。效率高。</p>
-<ul>
-<li>代价：存储空间；实现比较复杂
-<ul>
-<li>接收端必须维持一个足够大的缓存以便存储出错帧之后收到的帧，直到出错帧被重传。</li>
-<li>而且它必须具有<strong>将收到的重传帧插入到正确位置</strong>的逻辑功能。发送端也要求更复杂的逻辑功能以便<strong>能够不按顺序发送一个帧</strong>。由于有这样的复杂性，选择重传ARQ远不如go-back-N ARQ用得广泛。</li>
-</ul>
-</li>
-</ul>
-
-        <h4 id="累积确认"   >
-          <a href="#累积确认" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#累积确认"></a> 累积确认</h4>
-      
-<p>即<strong>不必对收到的帧逐个发送确认</strong>，而是对按序到达的<strong>最后一个帧</strong>发送确认，这样就表示：到这个帧为止的所有帧都已正确收到了。</p>
-<p><strong>优点</strong>：容易实现，即使确认丢失也不必重传；<strong>缺点</strong>：不能向发送方反映出接收方已经正确收到的所有帧的信息。</p>
-
-        <h2 id="流量控制"   >
-          <a href="#流量控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#流量控制"></a> 流量控制</h2>
-      
-<p>滑动窗口协议</p>
-
-        <h2 id="习题"   >
-          <a href="#习题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#习题"></a> 习题</h2>
-      
-
-        <h1 id="使用广播信道的数据链路层"   >
-          <a href="#使用广播信道的数据链路层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使用广播信道的数据链路层"></a> 使用广播信道的数据链路层</h1>
-      
-<p>广播信道可以进行一对多的通信。以太网和无线局域网都是广播链路层技术的例子。下面要讨论的局域网使用的就是广播信道。</p>
-
-        <h1 id="局域网技术"   >
-          <a href="#局域网技术" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网技术"></a> 局域网技术</h1>
-      
-<p>遵循IEEE 802系列标准。实际上局域网体系结构是<strong>物理层和数据链路层</strong>（细分成了MAC[Madium Access Control]子层、LLC[Logical Link Control]子层）。与介质相关的是MAC（与物理层接触），无关的是LLC（与网络层接触）。</p>
-
-        <h2 id="局域网的特点和分类"   >
-          <a href="#局域网的特点和分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网的特点和分类"></a> 局域网的特点和分类</h2>
-      
-<p>局域网最主要的特点是：网络为一个单位所拥有，且地理范围和站点<br />
-数目均有限。</p>
-<p>局域网可按网络拓扑进行分类。由于集线器(hub)的出现和双绞线大量用于局域网中，星形以太网以及多级星形结构的以太网获得了非常广泛的应用。下图为星形网。</p>
-<img src="/images/网络_数据链路层/image-20220309204233779.png" alt="image-20220309204233779" style="zoom:50%;" />
-<p>下图为总线网，各站直接连在总线上。总线两端的匹配电阻吸收在总线上传播的电磁波信号的能量，避免在总线上产生有害的电磁波反射。</p>
-<img src="/images/网络_数据链路层/image-20220309204450154.png" alt="image-20220309204450154" style="zoom:50%;" />
-<p>总线网以传统以太网最为著名，但以太网后来又演变成了星形网。经过四十多年的发展，以太网的速率已大大提高。</p>
-
-        <h2 id="以太网"   >
-          <a href="#以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#以太网"></a> 以太网</h2>
-      
-<p>现在最常用的以太网的速率是1 Gbit/s（家庭或中小企业）、10 Gbit/s（数据中心）和100 Gbit/s（长距离传输），且其速率仍在继续提高。现在以太网已成为了局域网的同义词，因此谈论局域网可以看作是在谈论以太网。</p>
-<ul>
-<li>为了通信的简便，以太网的两种措施
-<ul>
-<li>第一，采用较为灵活的<strong>无连接的工作方式</strong>，即不必先建立连接就可以直接发送数据。适配器对发送的数据帧不进行编号，也不要求对方发回确认。这样做可以使以太网工作起来非常简单，而局域网信道的质量很好，因通信质量不好产生差错的概率是很小的。因此，以太网提供的服务是尽最大努力的交付，即<strong>不可靠的交付</strong>。当目的站收到有差错的数据帧时（例如，<strong>用CRC查出差错</strong>），就把帧丢弃，其他什么也不做。<strong>对有差错帧是否需要重传则由高层来决定</strong>。例如，如果高层使用TCP协议，那么TCP就会发现丢失了一些数据。于是经过一定的时间后，TCP就把这些数据重新传递给以太网进行重传。<strong>但以太网并不知道这是重传帧，而是当作新的数据帧来发送</strong>。</li>
-<li>第二，以太网发送的数据都使用<strong>曼彻斯特(Manchester)编码</strong>的信号。我们知道，二进制基带数字信号通常就是高、低电压交替出现的信号。使用这种信号的最大问题就是当出现一长串连续的1或连续的0时，接收端就无法从收到的比特流中提取位同步（即比特同步）信号。如图所示，<strong>曼彻斯特编码的编码方法是把每一个码元再分成两个相等的间隔</strong>。码元1是前一个间隔为低电压而后一个间隔为高电压。码元0则正好相反，从高电压变到低电压（也可采用相反的约定，即1是“前高后低”而0是“前低后高”）。<strong>这样就保证了在每一个比特的正中间出现一次电压的转换，而接收端就利用这种电压的转换很方便地把位同步信号提取出来</strong>。但是从曼彻斯特编码的波形图也不难看出，<strong>其缺点是它所占的频带宽度比原始的基带信号增加了一倍</strong>（因为每秒传送的码元数加倍了）。</li>
-</ul>
-</li>
-</ul>
-
-        <h2 id="介质访问控制"   >
-          <a href="#介质访问控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#介质访问控制"></a> 介质访问控制</h2>
-      
-<p>介质访问的控制都在MAC子层完成。</p>
-<p>最早的以太网是将许多计算机都连接到一根总线上。当初认为这种连接方法既简单又可靠，因为在那个时代普遍认为：“有源器件不可靠，而无源的电缆线才是最可靠的”。</p>
-<p>总线的特点是：当一台计算机发送数据时，总线上的所有计算机都能检测到这个数据。这种就是广播通信方式。</p>
-<ul>
-<li>为了在总线上实现不干扰他人的一对一的通信，需要采取一些技术措施
-<ul>
-<li>可以使每一台计算机的适配器都拥有一个与其他适配器都不同的地址。在<strong>发送数据帧时，在帧的首部写明接收站的地址</strong>。现在的电子技术可以很容易做到：<strong>仅当数据帧中的目的地址与适配器ROM中存放的硬件地址一致时，该适配器才能接收这个数据帧</strong>，不是发送给自己的数据帧就丢弃。这样，具有广播特性的总线上就实现了一对一的通信。</li>
-<li>除了给每个网络适配器一个单独的地址，还需要解决一个问题，因为<strong>有些节点可能在某一刻同时传输帧，那么所有节点会同时接到多个帧</strong>，这个现象叫做：传输的这些帧在所有的接收方处<strong>碰撞</strong>了。通常，在碰撞发生时，没有一个接收节点能够获得有效帧，因此，涉及此次碰撞的所有帧都消失了，相应的这段时间中广播信道大量带宽会被浪费掉。那么如何来规范广播网络(例如总线网)上的计算机在广播信道上的传输行为呢？这是一个<strong>多路访问问题</strong>。显然需要通过制定<strong>多路访问协议</strong>来解决。</li>
-</ul>
-</li>
-</ul>
-
-        <h3 id="适配器的作用"   >
-          <a href="#适配器的作用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适配器的作用"></a> 适配器的作用</h3>
-      
-<ul>
-<li>重要功能
-<ul>
-<li>进行串行/并行转换</li>
-<li>对数据进行缓存</li>
-<li>在计算机的操作系统安装设备驱动程序</li>
-<li>实现以太网协议</li>
-</ul>
-</li>
-</ul>
-
-        <h3 id="媒体共享技术"   >
-          <a href="#媒体共享技术" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#媒体共享技术"></a> 媒体共享技术</h3>
-      
-<ul>
-<li>静态划分信道
-<ul>
-<li>频分复用</li>
-<li>时分复用</li>
-<li>波分复用</li>
-<li>码分复用</li>
-</ul>
-</li>
-<li>动态媒体接入控制（多点接入）
-<ul>
-<li>随机接入：所有的用户可随机地发送信息</li>
-<li>受控接入：用户必须服从一定的控制，如轮询(polling)</li>
-</ul>
-</li>
-</ul>
-
-        <h3 id="介质访问控制策略"   >
-          <a href="#介质访问控制策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#介质访问控制策略"></a> 介质访问控制策略</h3>
-      
-<p>在介质访问控制技术中，最关键的是控制地点和控制方法。</p>
-<ol>
-<li>
-<p>在什么地方对媒体访问进行控制</p>
-<ul>
-<li>集中式控制
-<ul>
-<li>指定一个单独的集中控制器或一个具有控制整个网络的能力的节点来管理网络的通信，其将拥有控制网络访问的权利。</li>
-<li>优点
-<ul>
-<li>能提供除了对媒体访问外的其他更高级的功能，如优先级控制、可靠性等。</li>
-<li>每个站点的访问控制逻辑简单</li>
-<li>避免进行分布合作可能带来的协调问题</li>
-</ul>
-</li>
-<li>缺点
-<ul>
-<li>如果控制点不能工作，则会导致整个网络瘫痪。</li>
-<li>由于所有访问要经过控制点的允许，可能会形成瓶颈，降低效率。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分布式控制
-<ul>
-<li>无集中控制节点，各节点均处于平等地位；由各个站点共同完成媒体访问控制功能，动态地确定站点的发送顺序；节点间的通信由各节点自身控制。</li>
-<li>分类
-<ul>
-<li>CSMA/CD</li>
-<li>令牌法</li>
-<li>时隙法(Time Slot)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>怎么对共享媒体进行控制访问</p>
-<ul>
-<li>
-<p>同步机制：如FDM、TDM等。</p>
-</li>
-<li>
-<p>异步机制：如时间片轮转（循环式）、预约式、竞争式等。</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th></th>
-<th>总线拓扑</th>
-<th>环型拓扑</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>循环式</td>
-<td>令牌总线(IEEE 802.4)</td>
-<td>令牌环(IEEE 802.5; FDDI)</td>
-</tr>
-<tr>
-<td>预约式</td>
-<td>DQDB(IEEE 802.6)</td>
-<td></td>
-</tr>
-<tr>
-<td>竞争式</td>
-<td>CSMA/CD(IEEE 802.3)</td>
-<td></td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>时间片轮转（循环式）
-<ul>
-<li>每个站点按照一定的时间顺序得到传输时间。如果站点利用这个机会发送，则对其发送时间或发送的数据总量有一定限制，超过这个限制的数据只能在下一轮中发送。</li>
-<li>这种顺序控制可能是集中式的，也可能是分布式的。</li>
-<li>在一段时间内有多个节点要传输数据时，此方式是有效的。</li>
-<li>当要传输数据的节点较少时，时间开销就显得很大。</li>
-</ul>
-</li>
-<li>预约式
-<ul>
-<li>一般来说，这种技术<strong>把传输媒体的使用时间划分为一些时槽</strong>。一个节点要传输数据时，就可以预约一些时槽进行连续传输。</li>
-<li>适合于传输连续数据的情况。<strong>流式通信就是长时间连续传输</strong>，例如话音通信、遥测通信和长文件的传输等。</li>
-<li>可以是集中式的，也可以是分布式的。</li>
-</ul>
-</li>
-<li>竞争式
-<ul>
-<li>这种技术并不对各个工作站点的发送权限进行控制，而是由各个工作站点自由竞争发送机会。</li>
-<li>对突发性的数据传输，竞争是最常用的机制。突发式通信就是短时间的少量传输，例如终端和主机之间的通信就是这样的。</li>
-<li>在低负荷时，性能不错。</li>
-<li>是分布式的。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-        <h3 id="多路访问协议"   >
-          <a href="#多路访问协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多路访问协议"></a> 多路访问协议</h3>
-      
-<p>有关多路访问协议方面的研究仍在活跃，所有的多路访问协议可分为三种类型之一：信道划分协议、随机接入协议、轮流协议。</p>
-
-        <h4 id="信道划分协议"   >
-          <a href="#信道划分协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信道划分协议"></a> 信道划分协议</h4>
-      
-<ul>
-<li>时分多路复用(TDM)</li>
-<li>频分多路复用(FDM)</li>
-<li>码分多址(Code Division Multiple Access, CDMA)</li>
-</ul>
-
-        <h4 id="随机接入协议"   >
-          <a href="#随机接入协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#随机接入协议"></a> 随机接入协议</h4>
-      
-<p>在随机接入协议中，一个传输节点总是以信道的全部速率(即R bps)进行发送。当有碰撞时，涉及碰撞的每个节点反复地重发它的帧，直到无碰撞地通过为止。但是当一个节点经历一次碰撞时，他不必立刻重发该帧，而是在<strong>重发该帧之前等待一个随机时延</strong>。涉及碰撞的每个节点独立地选择随机时延。因为该随机时延是独立选择的，所以可能：这些节点之一所选择的时延充分小于其他碰撞节点的时延，因此能够无碰撞地将它的帧在信道中发出。</p>
-<p>最常用的随机接入协议有<strong>ALOHA协议</strong>和<strong>载波侦听多路访问(CSMA)协议</strong>。以太网是一种流行并广泛部署的CSMA协议。</p>
-<ul>
-<li>ALOHA协议
-<ul>
-<li>访问方式：不监听——随机重发，“发送——冲突——再发送”。</li>
-<li>信道利用率最多为18%</li>
-</ul>
-</li>
-<li>分槽ALOHA协议
-<ul>
-<li>各用户节点只能在下一时间片的起始时刻开始发送信息。</li>
-<li>信道利用率最多为37%</li>
-</ul>
-</li>
-<li>CSMA协议
-<ul>
-<li>载波侦听多路访问，Carrier Sense Multiple Access，是一种适合于总线结构的具有信道检测功能的分布式介质访问控制方法，其控制手段称之为“载波侦听”。</li>
-<li>该协议的一般描述非常简单。如果一个站点有一个帧要发送，它遵循下面的规则：1、侦听介质的活动。2、如果没有活动，则立即传送，否则等待。</li>
-<li>CSMA分为三种方式，非坚持和坚持CSMA，坚持CSMA又分为“1-坚持CSMA”和“p-坚持CSMA”
-<ul>
-<li>非坚持CSMA：一旦监听到信道忙，就不再监听；延迟一个随机时间后再次监听
-<ul>
-<li>优点：降低了冲突发生概率</li>
-<li>缺点：信道利用率降低</li>
-</ul>
-</li>
-<li>1-坚持CSMA：监听到信道忙时，仍继续监听，直到信道空闲立即传输。如果冲突，则等待一段随机的时间后重复第一步。
-<ul>
-<li>优点：有利于抢占信道，减少信道空闲时间</li>
-<li>缺点：冲突概率较大</li>
-</ul>
-</li>
-<li>p-坚持CSMA：1、若介质空闲，以概率p传输，以概率(1-p)延迟一个时间单位，该时间单位通常等于最大传播延迟的两倍；2、若介质忙，继续监听直到信道空闲，并重复第1步；3、若传输延迟了一个时间单位，则重复第1步。</li>
-<li>对比：非坚持CSMA协议中的站点是尊重别人的，而“1-坚持”方式是自私的。试图既能如非坚持算法那样减少冲突而又像“1-坚持”算法那样减少空闲时间的一种折衷方案是“p-坚持”协议。</li>
-</ul>
-</li>
-<li>CSMA的意义：在信道忙时不会有其他主机打乱正在进行的发送。由于采用了信道侦听，因此在一定程度上减少了冲突发生的次数，从而提高了信道的利用率和整个网络的吞吐量。</li>
-<li>CSMA不能完全避免冲突的原因：当主机A认为信道空闲时，主机B也可能认为信道空闲，因此，两台主机差不多同时发送数据，导致冲突发生。</li>
-</ul>
-</li>
-</ul>
-
-        <h3 id="局域网实际常用的访问控制方式"   >
-          <a href="#局域网实际常用的访问控制方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网实际常用的访问控制方式"></a> 局域网实际常用的访问控制方式</h3>
-      
-<ul>
-<li>目前，计算机局域网常用的访问控制方式有三种，分别用于不同的拓扑结构。
-<ul>
-<li>带有冲突检测的载波侦听多路访问法CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</li>
-<li>令牌环访问控制法(Token Ring)</li>
-<li>令牌总线访问控制法(Token Bus)</li>
-</ul>
-</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th></th>
-<th>总线拓扑</th>
-<th>环型拓扑</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>循环式</td>
-<td><strong>令牌总线</strong>(IEEE 802.4)</td>
-<td><strong>令牌环</strong>(IEEE 802.5; FDDI)</td>
-</tr>
-<tr>
-<td>预约式</td>
-<td>DQDB(IEEE 802.6)</td>
-<td></td>
-</tr>
-<tr>
-<td>竞争式</td>
-<td><strong>CSMA/CD</strong>(IEEE 802.3)</td>
-<td></td>
-</tr>
-</tbody>
-</table></div>
-<p>其中CSMA/CD是目前比较流行、应用最广泛的介质访问控制方法，以下重点介绍此访问方法。</p>
-
-        <h4 id="csmacd协议"   >
-          <a href="#csmacd协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#csmacd协议"></a> CSMA/CD协议</h4>
-      
-<p>CSMA/CD和它之前的ALOHA、CSMA技术都是随机访问和竞争发送协议。随机访问意味着任何节点都无法预计其发送的时刻；竞争发送是指所有发送的节点自由竞争信道的使用权。</p>
-<p>回到本原的问题——<strong>如何解决在广播网络中多个帧碰撞的问题</strong>？</p>
-<p>CSMA解决的问题只有监听，监听只能把信道冲突率降低。但不能完全避免冲突。关键是：CSMA只是在发送之前进行侦听有无其他占用信道，发送之后就不再侦听了，这样依旧可能会产生碰撞。所以需要发送后也要侦听才行——于是带上了后缀CD，CD指的是Collision Detecion，“带冲突检测”。</p>
+<p>二叉搜索树的查找算法，亦采用了<strong>减而治之</strong>的思路与策略，其执行过程可描述为：<strong>从树根出发，逐步地缩小查找范围，直到发现目标（成功）或缩小至空树（失败）</strong>。</p>
+<p>例如，在下图中查找关键码22的过程如下。首先，经与根节点16比较确认目标关键码更大，故深入右子树25递归查找；经比较发现目标关键码更小，故继续深入左子树19递归查找；经再次比较确认目标关键码更大后，深入右子树22递归查找；最终在节点22处匹配，查找成功。<br />
+<img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312152123162.png" alt="image-20220312152123162" /></p>
+<p>实际上，针对16、25、19的查找，也将经过该路径的某一前缀，成功终止于对应的节点。当然，查找未必成功。比如针对关键码20的查找也会经过同一查找通路并抵达节点22，但在因目标关键码更小而试图继续向左深入时发现左子树为空，至此即可确认查找失败。</p>
 <blockquote>
-<ul>
-<li>数据在发送前监听到信道“空闲”，什么还会产生碰撞？
-<ul>
-<li>当某站监听到信道是空闲时，可能总线并非真正空闲。电磁波在总线上总是以有限的速率传播。电磁波在1km电缆的传播时延约为5μs。也就是说你听到的已经成为了过去式，不能代表现在进行时。</li>
-</ul>
-</li>
-</ul>
+<p>（此类空节点通常对应于空孩子指针或引用，也可假想地等效为“真实”节点，后一方式不仅可简化算法描述以及退化情况的处理，也可直观地解释（B-树之类）纵贯多级存储层次的搜索树。故在后一场合，空节点也称作外部节点（external node），并等效地当作叶节点的“孩子”。返里暂采用前一方式，故空节点不在插图中出现。）</p>
 </blockquote>
+<p>一般地，在上述查找过程中，一旦发现当前节点为NULL，即说明查找范围已经缩小至空，查找失败；否则，视关键码比较结果，向左（更小）或向右（更大）深入，或者报告成功（相等）。</p>
+<p><strong>对照中序遍历序列可见，整个过程与有序向量的二分查找过程等效，故可视作后者的推广</strong>。</p>
+
+        <h3 id="searchin算法与search接口"   >
+          <a href="#searchin算法与search接口" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#searchin算法与search接口"></a> searchIn()算法与search()接口</h3>
+      
 <ul>
-<li>CSMA/CD的工作流程
-<ol>
-<li>先听后发：每个站在发送数据之前先检测总线上是否空闲。如果信道是空闲的，立即抢占总线发送信息。如果信道忙，则退避一段时间再尝试。</li>
-<li>边听边发：当一个节点将开始发送数据后，在传送的过程中发送者要边发送边监听(listen while talking)</li>
-<li>冲突停止：如果监测到的信息与发出的不一致，说明发生了冲突，则停止发送，并发送一串阻塞信号以加强冲突。</li>
-<li>随机延迟后重发：延迟一个随机时间片再去侦听总线，延迟时间短的节点先抢占总线。</li>
-</ol>
+<li>
+<p>searchIn()</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">BinNodePosi</span><span class="params">(T)</span> &amp; <span class="title">searchIn</span><span class="params">(BinNodePosi(T) &amp; v, <span class="keyword">const</span> T&amp; e, BinNodePosi(T) &amp; hot)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(v==<span class="literal">nullptr</span> || (e == v-&gt;data)) <span class="keyword">return</span> v;</span><br><span class="line">    hot = v;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">searchIn</span>(((e &lt; v-&gt;data) ? v-&gt;lc : v-&gt;rc), e, hot);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </li>
-</ul>
-
-        <h5 id="争用期"   >
-          <a href="#争用期" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#争用期"></a> 争用期</h5>
-      
-
-        <h5 id="最短帧长"   >
-          <a href="#最短帧长" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#最短帧长"></a> 最短帧长</h5>
-      
-<p>交换机的转发方式有两种：1、直通方式（直接转发）；2、存储转发</p>
-<p>直接转发有时只允许转发长度大于64字节的帧，为什么呢？</p>
-<p>电磁波在总线上总是以有限的速率传播的，是有时延的。如果总线上传输中的帧很短，可能电磁波侦听不到，就误以为信道是空闲的。</p>
-
-        <h1 id="交换局域网"   >
-          <a href="#交换局域网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换局域网"></a> 交换局域网</h1>
-      
-
-        <h2 id="在数据链路层扩展以太网"   >
-          <a href="#在数据链路层扩展以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在数据链路层扩展以太网"></a> 在数据链路层扩展以太网</h2>
-      
-
-        <h3 id="网桥"   >
-          <a href="#网桥" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网桥"></a> 网桥</h3>
-      
-<ul>
-<li>最初人们使用的是<strong>网桥</strong>，网桥对收到的帧根据其MAC帧的目的地址进行<strong>转发</strong>和<strong>过滤</strong>。当<strong>网桥收到一个帧时，并不是向所有的端口转发此帧，而是根据此帧的目的MAC地址，查找网桥中的地址表，然后确定将该帧转发到哪一个端口</strong>，或者是把它丢弃（即过滤）。</li>
-</ul>
-
-        <h3 id="交换式集线器"   >
-          <a href="#交换式集线器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换式集线器"></a> 交换式集线器</h3>
-      
-<ul>
-<li><strong>交换式集线器(switching hub)<strong>淘汰了网桥，常被称为以太网</strong>交换机(switch)<strong>或</strong>第二层交换机(L2 switch)</strong>，第二层的意思是强调这种交换机工作在数据链路层。以太网交换机的性能远远超过普通的集线器，而且价格也不贵，这就使工作在物理层的集线器逐渐地退出了市场。</li>
-<li>以太网交换机实质上就是一个<strong>多端口的网桥</strong>，通常都有十几个或更多的端口，和工作在物理层的转发器、集线器有很大的差别。</li>
-<li>以太网交换机的每个端口都直接与一个单台主机或另一个以太网交换机相连，一般都以全双工方式工作。</li>
-<li>具有并行性，即可以同时连通多对端口，使多对主机能够同时通信（即可以一次分析、转发多个帧）。</li>
-<li>相互通信的主机都独占传输媒体，<strong>无碰撞</strong>地传输数据。换句话说，<strong>每一个端口和连接到端口的主机构成了一个碰撞域，具有N个端口的以太网交换机的碰撞域共有N个</strong>。对于传统的10 Mbit/s 的共享式以太网，若共有10 个用户，则每个用户占有的平均带宽只有1 Mbit/s。
-<ul>
-<li>若使用以太网交换机来连接这些主机，虽然在每个端口到主机的带宽还是10Mbit/s，但由于一个用户在通信时是独占而不是和其他网络用户共享传输媒体的带宽，因此对于拥有10个端口的交换机的总容量则为100Mbit/s。这正是交换机的最大优点。</li>
-</ul>
-</li>
-<li>以太网交换机的输出接口设有缓冲存储器，非常类似于路由器接口的缓存。因此，如果连接在以太网交换机上的两台主机，同时向另一台主机发送帧，那么当这台主机的端口繁忙时，发送帧的这两台主机的端口会把收到的帧暂存一下，以后再发送出去。</li>
-</ul>
-
-        <h4 id="从总线以太网到星形以太网"   >
-          <a href="#从总线以太网到星形以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从总线以太网到星形以太网"></a> 从总线以太网到星形以太网</h4>
-      
-<p>传统的电话网是星形结构，其中心就是电话交换机。那么在20世纪70年代中期出现的局域网，为什么不采用这种星形结构呢？这是因为在当时的技术条件下，还很难用廉价的方法制造出高可靠性的以太网交换机。所以那时的以太网就采用无源的总线结构。这种总线式以太网一问世就受到广大用户的欢迎，并获得了很快的发展。</p>
-<p>然而随着以太网上站点数目的增多，使得总线结构以太网的可靠性下降。与此同时，大规模集成电路以及专用芯片的发展，使得星形结构的以太网交换机可以做得既便宜又可靠。在这种情况下，采用以太网交换机的星形结构就成为以太网的首选拓扑，而传统的总线以太网也很快从市场上消失了。</p>
-<p>总线以太网使用CSMA/CD协议，以半双工方式工作。但以太网交换机不使用共享总线，没有碰撞问题，因此不使用CSMA/CD协议，而是以全双工方式工作。</p>
-<p>既然连以太网的重要协议CSMA/CD都不使用了（相关的“争用期”也没有了），为什么还叫作以太网呢？原因就是<strong>它的帧结构未改变，仍然采用以太网的帧结构</strong>。这也就对应了：“交换机对于主机来说是透明的，主机总以为自己在总线上进行通信。”</p>
-
-        <h3 id="交换机的转发方式交换方式"   >
-          <a href="#交换机的转发方式交换方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换机的转发方式交换方式"></a> 交换机的转发方式（交换方式）</h3>
-      
-<p>虽然许多以太网交换机对收到的帧采用<strong>存储转发方式</strong>进行转发，但也有一些交换机采用<strong>直通(cut-through)的交换方式</strong>。</p>
-<p>直通交换不必把整个数据帧先缓存后再进行处理，而是在<strong>接收数据帧的同时</strong>就<strong>立即</strong>地<strong>按数据帧的目的MAC地址决定该帧的转发端口</strong>，因而提高了帧的转发速度。如果在这种交换机的内部采用基于硬件的交叉矩阵，交换时延就非常小。直通交换的一个缺点是它不检查差错就直接将帧转发出去，因此有可能也将一些无效帧转发给其他的站。</p>
-<p>在某些情况下，仍需要采用基于软件的存储转发方式进行交换，例如当需要进行线路速率匹配、协议转换或差错检测时。</p>
-<p>现在有的厂商已生产出能支持两种交换方式的以太网交换机。以太网交换机的发展与建筑物结构化布线系统的普及应用密切相关。在结构化布线系统中，广泛地使用了以太网交换机。</p>
-
-        <h3 id="交换机的地址表"   >
-          <a href="#交换机的地址表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换机的地址表"></a> 交换机的地址表</h3>
-      
-<p>以太网交换机是一种即插即用设备，其内部的帧<strong>交换表（又称为地址表）<strong>是通过</strong>自学习算法</strong>自动地逐渐建立起来的。实际上，这种交换表就是一个<strong>内容可寻址存储器CAM(Content Addressable Memory)</strong>。以太网交换机由于使用了专用的交换结构芯片，交换机的硬件转发帧的转发速率要比使用软件转发的网桥快很多。</p>
-<ul>
-<li>交换机的自学习功能
-<ul>
-<li>假定在图中的以太网交换机有4个端口，各连接一台计算机，其MAC地址分别是A, B, C和D。交换表最重要的就是两个字段：<strong>目的MAC地址</strong>和<strong>相应的转发端口</strong>。在一开始，以太网交换机里面的交换表是空的。<br />
-<img src="/images/网络_数据链路层/image-20220311154911596.png" alt="image-20220311154911596" style="zoom:50%;" /></li>
-<li>假定A先向B发送一帧，从端口1进入到交换机。交换机收到帧后，先查找交换表。现在表中没有B的地址。于是，<strong>交换机把此帧的源地址A和端口1写入交换表</strong>中，并<strong>向除端口1以外的所有端口广播这个帧</strong>。如此广播发送就可保证B收到这个帧，而<strong>其他端口</strong>C和D在收到帧后，<strong>因目的地址不匹配将丢弃此帧</strong>。这一过程也称为<strong>过滤</strong>。</li>
-<li>由于在交换表中写入了项目(A, 1)，因此以后不管从哪个端口收到帧，只要其目的地址是A，就把收到的帧从端口1转发出去送交A。</li>
-<li>接下来假定B通过端口3向A发送一帧。交换机查找交换表，发现交换表中的MAC地址有A，表明凡是发给A的帧（即目的地址为A的帧），都应从端口1转发给A。显然，<strong>现在应直接把收到的帧从端口1转发给A，而没有必要再广播收到的帧</strong>。交换表这时用源地址B写入一个项目(B, 3)，表明今后如有发送给B的帧，应从端口3转发给B。<br />
-<img src="/images/网络_数据链路层/image-20220311155521369.png" alt="image-20220311155521369" style="zoom:67%;" /></li>
-<li>经过一段时间后，只要主机C和D也向其他主机发送帧，以太网交换机中的交换表就会把转发到C或D应当经过的端口号（2或4）写入交换表中。这样，交换表中的项目就逐渐增多了。</li>
-<li>考虑到有时可能要在交换机的端口更换主机，或者主机要更换其网络适配器，这就需要及时<strong>更新</strong>交换表中的项目。为此，<strong>当交换表中写入一个项目时就记下当时的时间，只要超过预先设定的时间（例如300秒），该项目就自动被删除</strong>。用这样的方法保证交换表中的数据都符合当前网络的实际状况。这就是说，图中的交换表<strong>实际上是有三列，即MAC地址、端口和写入时间</strong>。</li>
-<li>以太网交换机的这种自学习方法使得以太网交换机能够即插即用，不必人工进行配置，因此非常方便。</li>
-</ul>
+<li>
+<p>search()</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="title">BinNodePosi</span><span class="params">(T)</span> &amp; BST&lt;T&gt;::<span class="title">search</span><span class="params">(<span class="keyword">const</span> T&amp; e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//返回目标节点位置的引用，以便后续插入、删除操作。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">searchIn</span>(_root, e, hot = <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </li>
 </ul>
 
-        <h2 id="链路层寻址和arp"   >
-          <a href="#链路层寻址和arp" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#链路层寻址和arp"></a> 链路层寻址和ARP</h2>
+        <h3 id="语义约定"   >
+          <a href="#语义约定" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#语义约定"></a> 语义约定</h3>
+      
+<p>以上查找算法之所以如此实现，是为了统一并简化后续不同搜索树的各种操作接口的实现。其中的技巧，主要体现于返回值和hot变量（即BinTree对象内部的_hot变量）的语义约定。</p>
+<ul>
+<li>若查找成功，则searchIn()以及search()的返回值都将如图左所示，指向一个关键码为e且真实存在的节点；</li>
+<li>若查找失败，则返回值的数值虽然为NULL，但是它作为引用将如图右所示，指向最后一次试图转向的空节点。对于后一种情况，不妨假想地将此空节点转换为一个数值为e的哨兵节点——如此，无论成功与否，查找的返回值总是等效地指向“命中节点”。<br />
+<img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312160254950.png" alt="image-20220312160254950" /></li>
+<li>在调用searchIn()算法之前，search()接口首先将内部变量_hot初始化为NULL，然后作为引用型参数hot传递给searchIn()。在整个查找的过程中，hot变量始终指向当前节点的父亲。<br />
+因此在算法返回时，按照如上定义，_hot亦将统一指向“命中节点”的父亲。即便在退化的情况下（比如查找终止并返回于树根处），算法searchIn()的输出依然符合以上语义约定。</li>
+<li>请注意，_hot节点是否拥有另一个孩子，与查找成功与否无关。查找成功时，节点e可能是<br />
+叶子，也可能是内部节点；查找失败时，假想的哨兵e等效于叶节点，但可能有兄弟。</li>
+</ul>
+
+        <h3 id="效率"   >
+          <a href="#效率" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#效率"></a> 效率</h3>
+      
+<ul>
+<li>在二叉搜索树的每一层，查找算法至多访问一个节点，且只需常数时间，故<strong>总体所需时间应线性正比于查找路径的长度</strong>，或最终返回节点的深度。</li>
+<li>在最好情况下，目标关键码恰好出现在树根处（或其附近），此时只需O(1)时间。</li>
+<li>然而不幸的是，对于规模为n的二叉搜索树，深度在最坏情况下可达Ω(n)。比如，当该树退化为（接近于）一条单链时，发生此类情况的概率将很高。此时的单次查找可能需要线性时间并不奇怪，因为实际上这样的一棵“二分”搜索树，已经退化成了一个不折不扣的一维有序列表，而此时的查找则等效于顺序查找。</li>
+<li>由此我们可得到启示：若要控制单次查找在最坏情况下的运行时间，须从控制二叉搜索树的<strong>高度</strong>入手。后续将要讨论的平衡二叉搜索树，正是基于这一思路而做的改进。</li>
+</ul>
+
+        <h2 id="插入算法及其实现"   >
+          <a href="#插入算法及其实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入算法及其实现"></a> 插入算法及其实现</h2>
       
 
-        <h1 id="虚拟局域网"   >
-          <a href="#虚拟局域网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟局域网"></a> 虚拟局域网</h1>
+        <h3 id="算法"   >
+          <a href="#算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#算法"></a> 算法</h3>
       
-<p>以太网交换机的问世，加速了以太网的普及应用。一个以太网交换机可以非常方便地连接几十台计算机，构成一个星形以太网。但是，当一个以太网包含的计算机太多时，往往会带来两个缺点。</p>
-<p>首先，一个以太网是一个广播域。在以太网上经常会出现大量的广播帧。在交换机的交换表的建立过程中要使用许多广播帧。经常使用的ARP和DHCP 协议，也都要在以太网中传送很多的广播帧。在一个主机数量很大的以太网上传播广播帧，必然会消耗很多的网络资源。如果网络的配置出了些差错，就有可能发生广播帧在网络中无限制地兜圈子，形成了“广播风暴”，使整个的网络瘫痪。</p>
-<p>其次，一个单位的以太网往往为好几个下属部门所共享。但有些部门的信息是需要保密的（例如，财务部门或人事部门）。许多部门共享一个局域网对信息安全不利。</p>
-<p>如果使每一个小部门各拥有自己的较小的局域网，那么这不但可使局域网的广播域范围缩小，同时也提高了局域网的安全性。在以太网交换机出现后，我们可以很方便灵活地建立虚拟局域网VLAN (Virtual LAN)。这样就把一个较大的局域网，分割成为一些较小的局域网，而每一个局域网是一个较小的广播域。</p>
-<blockquote>
-<p>在IEEE 802.1Q 标准中，对虚拟局域网VLAN 是这样定义的：<br />
-虚拟局域网VLAN是<strong>由一些局域网网段构成的与物理位置无关的逻辑组</strong>，而这些网段具有某些共同的需求。每一个VLAN的帧都有一个明确的标识符，指明发送这个帧的计算机属于哪一个VLAN。</p>
-</blockquote>
+<ul>
+<li>为了在二叉搜索树中插入一个节点，首先需要利用查找算法search()确定插入的位置及方向，然后才能将新节点作为叶子插入。</li>
+<li>以如左图1所示的二叉搜索树为例。若欲插入关键码40，则在执行search(40)之后，如图2所示，_hot将指向比较过的最后一个节点46，同时返回其左孩子（此时为空）的位置。于是接下来如图©所示，只需创建新节点40，并将其作为46的左孩子接入，拓扑意义上的节点插入即告完成。<br />
+<img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312162256305.png" alt="image-20220312162256305" /></li>
+<li>不过，为保持二叉搜索树作为数据结构的完整性和一致性，还需从节点_hot（46）出发，自底而上地逐个更新新节点40历代祖先的高度。</li>
+<li>接下来若欲插入关键码55，则在执行search(55)之后如图3所示，_hot将指向比较过的最后一个节点53，同时返回其右孩子（此时为NULL）的位置。于是如图4所示，创建新节点55，并将其作为53的右孩子接入。当然，此后同样需从节点_hot出发，逐代更新祖先的高度。</li>
+</ul>
 
-        <h2 id="虚拟局域网的以太网帧格式"   >
-          <a href="#虚拟局域网的以太网帧格式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟局域网的以太网帧格式"></a> 虚拟局域网的以太网帧格式</h2>
+        <h3 id="insert接口的实现"   >
+          <a href="#insert接口的实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#insert接口的实现"></a> insert()接口的实现</h3>
       
-<p>1988年IEEE批准了802.3ac标准，这个标准定义了以太网的帧格式的扩展，以便支持虚拟局域网。虚拟局域网协议允许在以太网的帧格式中插入一个4字节的标识符，称为VLAN标签(tag)，用来指明发送该帧的计算机属于哪一个虚拟局域网。插入VLAN标签的帧称为802.1Q帧。所以虚拟局域网其实只是局域网给用户提供的一种拓展服务，而并不是一种新型局域网。<br />
-<img src="/images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311162303692.png" alt="image-20220311162303692" /></p>
-<p>VLAN标签字段的长度是4字节，插入在以太网MAC帧的源地址字段和类型字段之间。VLAN标签的前两个字节总是设置为0x8100（即二进制的10000001 00000000），称为IEEE 802.1Q标签类型。</p>
-<p>VLAN标签的后两个字节中，前面4位实际上没有什么作用，这里不讨论。<strong>后面的12位是该虚拟局域网VLAN标识符VID (VLAN ID)</strong>，它唯一地标志了802.1Q帧属于哪一个VLAN。12位的VID可识别4096个不同的VLAN。</p>
-<p>插入VLAN标签后，802.1Q帧最后的帧检验序列FCS必须重新计算。</p>
-<p>当数据链路层检测到MAC帧的源地址字段后面的两个字节的值是0x8100时，就知道现在插入了4字节的VLAN标签。由于用于VLAN的以太网帧的首部增加了4个字节，因此以太网的最大帧长从原来的1518字节（1500字节的数据加上18字节的首部和尾部）变为1522字节。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="title">BinNodePosi</span><span class="params">(T)</span> BST&lt;T&gt;::<span class="title">insert</span><span class="params">(<span class="keyword">const</span> T&amp; e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">BinNodePosi</span>(T) &amp;x = <span class="built_in">search</span>(e);	<span class="comment">//search的过程中更新了_hot</span></span><br><span class="line">    <span class="keyword">if</span>(x!=<span class="literal">nullptr</span>)<span class="keyword">return</span> x;<span class="comment">//如果e值在树中已经存在则不插</span></span><br><span class="line">    </span><br><span class="line">    x = <span class="keyword">new</span> BinNode&lt;T&gt; (e, _hot);	<span class="comment">//创建新节点x：以e为关键码，以_hot为父</span></span><br><span class="line">    _size++;</span><br><span class="line">    <span class="built_in">updateHeightAbove</span>(x);			<span class="comment">//更新x及其历代祖先的高度</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>首先调用search()查找e。若返回位置x非空，则说明已有雷同节点，插入操作失败。否则，<br />
+<strong>x必是_hot节点的某一空孩子</strong>，于是创建这个孩子并存入e。</li>
+<li>按照以上实现方式，无论插入操作成功与否，都会返回一个非空位置，且该处的节点与拟插入的节点相等。如此可以确保一致性，以简化后续的操作。</li>
+<li>另外，上面的查找算法中的对“首个节点插入空树”等特殊情况的处理手法与这里的类似，可以认真体会一番。</li>
+</ul>
 
-        <h3 id="例子"   >
-          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h3>
+        <h3 id="效率-2"   >
+          <a href="#效率-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#效率-2"></a> 效率</h3>
       
-<p>这样的802.1Q帧在什么地方使用呢？用简单例子来说明。<br />
-<img src="/images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311163430309.png" alt="image-20220311163430309" /></p>
-<p>交换机#1连接了7台计算机，组成了一个局域网（一个广播域）。现在把局域网划分为两个虚拟局域网VLAN-10和VLAN-20。这里的10和20是虚拟局域网的编号，即VID字段的值，由交换机管理人员设定。</p>
-<p>现在我们有了两个较小的广播域。每台计算机都是通过接入链路(access link)连接到以太网交换机的。管理人员划分虚拟局域网的方法有多种。例如，按交换机的端口划分，或按MAC地址划分。每台主机并不知道自己的VID值（但交换机必须知道这些信息）。这些主机通过接入链路发送到交换机的帧都是标准的以太网帧。</p>
-<blockquote>
-<p>在一个用多个交换机连接起来的较大的局域网中，可以灵活地划分虚拟局域网，不受地理位置的限制。一个虚拟局域网的范围可以跨越不同的交换机。当然，所使用的交换机必须要能够识别和处理虚拟局域网。在图中，在另外一层楼的交换机#2连接了5台计算机，并与交换机#1相连接。交换机#2中的两台计算机加入到VLAN-10，而另外3台加入到VLAN-20。这两个虚拟局域网虽然都跨越了两个交换机，但都各自是一个广播域，即VLAN-10是处于同一广播域，VLAN-20处于另一个广播域。</p>
-</blockquote>
-<ul>
-<li>A给B发（同一交换机，同一VLAN）</li>
-</ul>
-<p>现在假定A向B发送帧。由于交换机#1能够根据帧首部的目的MAC地址，识别B属于本交换机管理的VLAN-10，因此就像在普通以太网中那样直接进行帧的转发，不需要使用VLAN标签。这是最简单的情况。</p>
-<ul>
-<li>A给E发（同一VLAN，跨越交换机的情况）</li>
-</ul>
-<blockquote>
-<p>连接两个交换机端口之间的链路称为<strong>汇聚链路</strong>(trunk link)或干线链路。</p>
-</blockquote>
-<p>现在假定A向E发送帧。交换机#1查到E并没有连接到本交换机，因此必须从汇聚链路把帧转发到交换机#2，但在<strong>转发之前，要插入VLAN标签</strong>，如果不插入VLAN标签，交换机#2就不知道应把帧转发给哪一个VLAN。因此在有虚拟局域网的以太网中的汇聚链路（两个交换机之间）传送的帧是802.1Q帧。交换机#2在向E转发帧之前，要拿走已插入的VLAN标签，因此E收到的帧就是A发送的标准以太网帧，而不是802.1Q帧。上图说明了这种情况。</p>
-<blockquote>
-<p>所以，在有虚拟局域网的以太网中的交换机对于主机来说仍是透明的，交换机在转发给主机前已把VLAN的4字节标签处理。</p>
-</blockquote>
-<ul>
-<li>A给C发（同一交换机，跨越VLAN）</li>
-</ul>
-<p>如果A向C发送帧，情况又怎样呢？这种情况就复杂些了，因为这是在不同网络之间的通信。虽然A和C都连接到同一个交换机，但它们已经处在不同的网络中（VLAN-10和VLAN-20）。这问题是互连网络中的通信问题，已经超过了数据链路层的范围。这要由网络层中的路由器来解决。</p>
-<p>不过有的交换机中嵌入了一个用专用芯片构成的转发模块，用来在不同的VLAN之间转发帧。这样就可以不必再使用另外的路由器，而就在交换机中实现了第3层的转发功能（由于使用硬件转发，转发帧的速率提高了，比使用路由器要快）。这种转发功能被称为<strong>第3层交换</strong>，而<strong>这种交换机常称为L3/L2交换机</strong>。</p>
-<ul>
-<li>A给F发（跨越交换机，跨越VLAN）</li>
-</ul>
-<p>有了这种第3层交换机，甚至于：连接到不同交换机的A和F，都可以不需要经过另外的路由器而相互通信了。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/43/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><span class="page-number current">44</span><a class="page-number" href="/page/45/">45</a><span class="space">&hellip;</span><a class="page-number" href="/page/85/">85</a><a class="extend next" rel="next" href="/page/45/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">170</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">36</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>由上可见，节点插入操作所需的时间，主要消耗于对算法search()及updateHeightAbove()的调用。后者与前者一样，在每一层次至多涉及一个节点，仅消耗O(1)时间，故其<strong>时间复杂度也同样取决于新节点的深度</strong>，在最坏情况下不超过全树的高度。</p>
+
+        <h2 id="删除算法及其实现"   >
+          <a href="#删除算法及其实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除算法及其实现"></a> 删除算法及其实现</h2>
+      
+<p>为从二叉搜索树中删除节点，首先也需要调用算法BST::search()，判断目标节点是否的确存在于树中。若存在，则需返回其位置，然后方能相应地具体实施删除操作。</p>
+<p><img src="/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220312165938462.png" alt="image-20220312165938462" /></p>
+
+        <h3 id="单分支情况"   >
+          <a href="#单分支情况" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单分支情况"></a> 单分支情况</h3>
+      
+<p>以左图1所示二叉搜索树为例，若欲删除节点69，需首先通过search(69)定位待删除的节点69。因该节点的右子树为空，故只需如图2所示，将69替换为64。则拓扑意义上的节点删除即告完成。另外，为保持二叉搜索树作为数据结构的完整性和一致性，还需更新全树的规模记录，释放被摘除的节点69，并自下而上地逐个更新替代节点64历代祖先的高度。<strong>注意，首个需要更新高度的祖先58，恰好由_hot指示</strong>。</p>
+<p>不难理解，对于没有左孩子的目标节点，也可以对称地予以处理。当然，以上同时也已涵盖了左右孩子均不存在的情况（即目标节点为叶子）。</p>
+
+        <h3 id="双分支情况"   >
+          <a href="#双分支情况" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#双分支情况"></a> 双分支情况</h3>
+      
+<p>继续上例，设拟再删除二度节点36，如图2所示，首先调用BinNode::succ()算法，找到该节点的直接后继40。然后，只需如图3所示交换二者的数据项即可将后继节点等效地视作待删除的目标节点。不难验证，该后继节点必无左孩子，从而相当于转化为此前相对简单的情况——单分支情况。最后如图4所示，将新的目标节点36替换为其右孩子46。</p>
+<p>注意，在互换36和40后，如图3所示，曾经一度并不满足顺序性，但这并不要紧，在按照上述方法完成整个删除动作后，全树的顺序性必然又将恢复。</p>
+<p>同样地，除了更新全树规模记录和释放被摘除节点，此时也要更新一系列祖先节点的高度。不难验证，此时首个需要更新高度的祖先53依然恰好由_hot指示。</p>
+
+        <h3 id="remove实现"   >
+          <a href="#remove实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#remove实现"></a> remove()实现</h3>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">bool</span> BST&lt;T&gt;::<span class="built_in">remove</span>(<span class="keyword">const</span> T&amp; e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">BinNodePosi</span>(T) &amp; x = <span class="built_in">search</span>(e);</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="literal">nullptr</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">removeAt</span>(x, _hot);</span><br><span class="line">    --_size;</span><br><span class="line">    <span class="built_in">updateHeightAbove</span>(_hot);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">BinNodePosi</span><span class="params">(T)</span> <span class="title">removeAt</span><span class="params">(BinNodePosi(T) &amp; x, BinNodePosi(T) &amp; hot)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">BinNodePosi</span>(T) w = x;</span><br><span class="line">    <span class="built_in">BinNodePosi</span>(T) succ = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">HasLChild</span>(*x))		<span class="comment">//若要删除的节点没有左孩子	</span></span><br><span class="line">        succ = x = x-&gt;rc;	<span class="comment">//直接将x替换为其右子树</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">HasRChild</span>(*x))	<span class="comment">//若右子树为空</span></span><br><span class="line">        succ = x = x-&gt;lc;	<span class="comment">//对称地处理，注意：此时succ!=NULL</span></span><br><span class="line">    <span class="keyword">else</span>	<span class="comment">//双分支情况</span></span><br><span class="line">    &#123;	<span class="comment">//若左右子树均存在，x和其直接后继w互换，w作为实际被delete节点</span></span><br><span class="line">        w = w-&gt;<span class="built_in">succ</span>();	<span class="comment">//寻找x直接后继w -- 只可能发生在x的右子树中</span></span><br><span class="line">        <span class="built_in">swap</span>(x-&gt;data, w-&gt;data);<span class="comment">//交换x和w的data</span></span><br><span class="line">        <span class="built_in">BinNodePosi</span>(T) u = w-&gt;parent;</span><br><span class="line">        ((u == x) ? u-&gt;rc : u-&gt;lc) = succ = w-&gt;rc;</span><br><span class="line">    &#125;</span><br><span class="line">    hot = w-&gt;parent;</span><br><span class="line">    <span class="keyword">if</span>(succ)succ-&gt;parent = hot;</span><br><span class="line">    <span class="built_in">release</span>(w-&gt;data);</span><br><span class="line">    <span class="built_in">release</span>(w);</span><br><span class="line">    <span class="keyword">return</span> succ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>首先调用search()查找e。若返回位置x为空，则说明树中不含目标节点，故删除操作随即可以失败返回。否则，调用removeAt()删除目标节点x。同样，此后还需更新全树的规模，并调用函数updateHeightAbove(_hot)，更新被删除节点历代祖先的高度。</p>
+
+        <h3 id="效率-3"   >
+          <a href="#效率-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#效率-3"></a> 效率</h3>
+      
+<p>删除操作所需的时间，主要消耗于对search()、succ()和updateHeightAbove()的调用。在树中的任一高度，它们至多消耗O(1)时间。故<strong>总体的渐进时间复杂度，亦不超过全树的高度</strong>。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/43/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><span class="page-number current">44</span><a class="page-number" href="/page/45/">45</a><span class="space">&hellip;</span><a class="page-number" href="/page/87/">87</a><a class="extend next" rel="next" href="/page/45/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">174</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">37</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
