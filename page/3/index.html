@@ -32,164 +32,63 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/15/%E9%A1%B9%E7%9B%AE/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">RPC通信原理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-17</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/15/%E9%A1%B9%E7%9B%AE/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" data-flag-title="RPC通信原理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="rpc通信原理"   >
-          <a href="#rpc通信原理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rpc通信原理"></a> RPC通信原理</h1>
-      
-<p>remote procedure call，远程过程调用。分布式通信靠此实现。也是分布式通信底层要解决的问题。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/16/Linux/Linux_%E4%BC%9A%E8%AF%9D%E5%92%8Cviminfo/">Linux_会话和viminfo</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/16/Linux/Linux_%E4%BC%9A%E8%AF%9D%E5%92%8Cviminfo/" data-flag-title="Linux_会话和viminfo"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>很多软件都具有这样一种功能：在你下一次启动该软件时，它会自动为你恢复到你上次退出的环境，恢复窗口布局、所打开的文件，甚至是上次的设置。</p>
+<p>vim有没有这种功能呢？答案当然是肯定的！这需要使用vim的会话(session)及viminfo的保存和恢复功能。</p>
+<p>使用会话(session)和viminfo，可以把编辑环境保存下来，然后你在下次启动vim后，可以再恢复回这个环境。我们在开发项目或书写文档时，其周期不是一两天。如果你在中途退出了vim而不能恢复原先的编辑环境的话，你又要重新打开你所打开的文件，重新定义你的映射(map)、缩写(abbreviate)，重新定位你所设定的标记的位置(mark)，重新设置项目相关设置(options)等等，不是一般的麻烦！</p>
+<p>要恢复上次的编辑环境，我们需要保存两种不同的信息，一种是会话(session)信息，另外一种是viminfo信息。</p>
+<ul>
+<li>会话信息中保存了所有窗口的视图，外加全局设置。</li>
+<li>viminfo信息中保存了命令行历史(history)、搜索字符串历史(search)、输入行历史、非空的寄存器内容(register)、文件的位置标记(mark)、最近搜索/替换的模式、缓冲区列表、全局变量等信息。</li>
+</ul>
 
-        <h1 id="整体流程"   >
-          <a href="#整体流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#整体流程"></a> 整体流程</h1>
+        <h1 id="会话"   >
+          <a href="#会话" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#会话"></a> 会话</h1>
       
-<p>rpc方法名字，参数。参数一般需要打包。</p>
-<p>从caller端的User到RPCRuntime，中间需要序列化的流程，即把参数打包的流程。序列化之后就可以通过网络传到远端另外的机器。网络可以选用muduo网络库。</p>
-<p>caller端</p>
-<ol>
-<li>User - <strong>用户可见</strong>
-<ol>
-<li>local call - <strong>用户可见</strong></li>
-</ol>
-</li>
-<li>User-stub
-<ol>
-<li>pack argument</li>
-</ol>
-</li>
-<li>RPCRuntime
-<ol>
-<li>transmit</li>
-<li>wait</li>
-</ol>
-</li>
-</ol>
-<p>远端callee端接收到RPC请求之后，从网络底层上报上来，需要把打包的参数进行解析，即反序列化为具体的信息，比如方法的标识、参数。传递到进程中执行某个函数。</p>
-<p>callee端</p>
-<ol>
-<li>RPCRuntime
-<ol>
-<li>receive</li>
-</ol>
-</li>
-<li>Server-stub
-<ol>
-<li>unpack argument</li>
-</ol>
-</li>
-<li>Server - <strong>服务器可见</strong>
-<ol>
-<li>call - <strong>服务器可见</strong></li>
-<li>work（执行函数） - <strong>服务器可见</strong></li>
-<li>return - <strong>服务器可见</strong></li>
-</ol>
-</li>
-</ol>
-<p>远端callee返回结果时，需要pack result，给结果内容打包，序列化。传送给caller。</p>
-<ol>
-<li>Server
-<ol>
-<li>return</li>
-</ol>
-</li>
-<li>Server-stub
-<ol>
-<li>pack result</li>
-</ol>
-</li>
-<li>RPCRuntime
-<ol>
-<li>transmit</li>
-</ol>
-</li>
-</ol>
-<p>caller端收到返回包后，唤醒，反序列化，解析为unpack result，生成本地对象。</p>
-<ol>
-<li>RPCRuntime
-<ol>
-<li>receive</li>
-</ol>
-</li>
-<li>User-stub
-<ol>
-<li>unpack result</li>
-</ol>
-</li>
-<li>User - <strong>用户可见</strong>
-<ol>
-<li>local return - <strong>用户可见</strong></li>
-</ol>
-</li>
-</ol>
-<p>我们RPC框架要实现的东西，除了标识的用户可见、服务器可见的地方之外，都要实现并封装。</p>
-<p><img src="/images/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/image-20220815205906401.png" alt="image-20220815205906401" /></p>
-<p>黄色部分：设计rpc方法参数的打包和解析， 也就是数据的序列化和反序列化， 使用Protobuf。</p>
-<p>绿色部分：网络部分，包括寻找rpc服务主机，发起rpc调用请求和响应rpc调用结果，使用muduo网络库和zookeeper服务配置中心（专门做服务发现）。</p>
-<p>mprpc框架主要包含以上两个部分的内容。</p>
+<p>我们可以使用<code>:mksession [file]</code>命令来创建一个会话文件，如果省略文件名的话，会自动创建一个名为<code>Session.vim</code>的会话文件。</p>
+<p>会话文件，其本质上是一个<strong>vim脚本</strong>，你可以使用上述命令生成一个session文件，然后再查看其中的内容，就会对session文件有一个深入的认识。</p>
+<p>会话文件中保存哪些信息，是由<code>sessionoptions</code>选项决定的。缺省的<code>sessionoptions</code>选项包括：<code>blank</code>, <code>buffers</code>, <code>curdir</code>, <code>folds</code>, <code>help</code>, <code>options</code>, <code>tabpages</code>, <code>winsize</code>，也就是会话文件会恢复当前编辑环境的空窗口、所有的缓冲区、当前目录、折叠(fold)相关的信息、帮助窗口、所有的选项和映射、所有的标签页(tab)、窗口大小。</p>
+<p>如果你使用windows上的vim，并且希望你的会话文件可以同时被windows版本的vim和UNIX版本的vim共同使用的话，在<code>sessionoptions</code>中加入<code>slash</code>和<code>unix</code>，前者把文件名中的<code>\</code>替换为<code>/</code>，后者会把会话文件的换行符保存成unix格式。</p>
+<p>如果你不希望在<code>session</code>文件中保存当前路径，而是希望<code>session</code>文件所在的目录自动成为当前工作目录，那么，需要在<code>sessionoptions</code>去掉<code>curdir</code>，加入<code>sesdir</code>，这样每次载入<code>session</code>文件时，此文件所在的目录就被设为vim的当前工作目录。在你通过网络访问其它项目的session文件时，或者你的项目有多个不同版本（位于不同的目录），而你想始终使用一个session文件时，这个选项比较有用：你只需要把session文件拷贝到不同的目录，然后使用就可以了。设置此选项后，session文件中保存的是文件的相对路径，而不是绝对路径。</p>
+<p>我们在上面使用<code>:mksession</code>命令创建了会话文件，那么怎么使用会话文件恢复编辑环境呢？很简单，你只需要使用<code>:source session-file</code>来导入会话文件。因为会话文件是一个脚本，里面保存的是Ex命令，所以<code>source</code>命令只是把会话文件中的Ex命令执行一遍。</p>
 
-        <h1 id="序列化-反序列化工具"   >
-          <a href="#序列化-反序列化工具" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#序列化-反序列化工具"></a> 序列化、反序列化工具</h1>
+        <h1 id="viminfo"   >
+          <a href="#viminfo" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#viminfo"></a> viminfo</h1>
       
-<p>用protobuf。</p>
-<p>相比于xml、json的文本存储形式来说，protobuf是二进制存储的。</p>
+<p>使用<code>:wviminfo [file]</code>命令，可以手动创建一个<code>viminfo</code>文件。</p>
+<p>其实，在vim退出时，每次都会保存一个<code>.viminfo</code>文件在用户的主目录。我们使用<code>:wviminfo</code>命令则是手动创建一个<code>viminfo</code>文件，因为缺省的<code>.viminfo</code>文件会在每次退出vim时自动更新，谁知道你在关闭当前软件项目后，又使用vim做过些什么呢？这样的话，<code>.viminfo</code>中的信息，也许就与你所进行的软件项目无关了。还是手动保存一个保险。</p>
+<p><code>:wviminfo</code>命令保存哪些内容，以及保存的数量，由<code>viminfo</code>选项决定，这个选项的值在windows上和在linux上的缺省值不同，具体含义参阅手册。</p>
+<p>要读入你所保存的<code>viminfo</code>文件，使用<code>:rviminfo [file]</code>命令。</p>
+<p>现在，先看一下我们当前目录，执行<code>:pwd</code>，显示<code>/home/easwy/src/vim70</code>，接下来，执行下面的命令：</p>
+<figure class="highlight vim"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">cd</span> src                            <span class="comment">&quot;切换到/home/easwy/src/vim70/src目录</span></span><br><span class="line">:<span class="keyword">set</span> sessionoptions-=curdir        <span class="comment">&quot;在session option中去掉curdir</span></span><br><span class="line">:<span class="keyword">set</span> sessionoptions+=sesdir        <span class="comment">&quot;在session option中加入sesdir</span></span><br><span class="line">:<span class="keyword">mksession</span> vim70.<span class="keyword">vim</span>               <span class="comment">&quot;创建一个会话文件</span></span><br><span class="line">:<span class="keyword">wviminfo</span> vim70.viminfo            <span class="comment">&quot;创建一个viminfo文件</span></span><br><span class="line">:<span class="keyword">qa</span>                                <span class="comment">&quot;退出vim</span></span><br></pre></td></tr></table></div></figure>
+<p>退出vim后，在命令行下执行<code>gvim &amp;</code>，再次进入vim，这时看到的是一个空白窗口。然后执行下面的命令：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:source ~/src/vim70/src/vim70.vim  &#x27;载入会话文件</span><br><span class="line">:rviminfo vim70.viminfo            &#x27;读入viminfo文件</span><br></pre></td></tr></table></div></figure>
+<p>太棒了，又恢复到昨天退出时的状态了！继续工作。不过，每次都要手工修改<code>sessionoptions</code>或<code>viminfo</code>吗？多麻烦啊。别着急，现在是时候介绍vimrc了。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/16/Linux/Linux_vimrc/">Linux_vimrc</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/16/Linux/Linux_vimrc/" data-flag-title="Linux_vimrc"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="vimrc在哪"   >
+          <a href="#vimrc在哪" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vimrc在哪"></a> vimrc在哪</h1>
+      
+<p>vimrc究竟在哪儿呢？这个问题对一个vim的入门用户来说，可能实在不是个问题，你可能回答：”不就是<code>$HOME/.vimrc</code>吗？”。是的，这个答案正确，不过不是全部。</p>
+<p>首先，在Linux下的Vim中输入<code>:version</code>命令(可能你是使用Linux下的vi命令打开编辑器，不过在大多数Linux中，vi命令打开的就是Vim)，我们略过不相关的内容，关于vimrc的显示如下(可能你的显示不完全和这里相同)：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">:version</span><br><span class="line">VIM - Vi IMproved 7.4 (2013 Aug 10, compiled Oct 13 2020 16:04:38)</span><br><span class="line">Included patches: 1-1689</span><br><span class="line">Extra patches: 8.0.0056</span><br><span class="line">Modified by pkg-vim-maintainers@lists.alioth.debian.org</span><br><span class="line">Compiled by pkg-vim-maintainers@lists.alioth.debian.org</span><br><span class="line">Huge version without GUI.  Features included (+) or not (-):</span><br><span class="line">+acl             -clipboard       +dialog_con      +file_in_path    +job             +menu            -mouse_sysmouse  +persistent_undo +scrollbind      -tcl             +visual          -xim</span><br><span class="line">+arabic          +cmdline_compl   +diff            +find_in_path    +jumplist        +mksession       +mouse_urxvt     +postscript      +signs           +terminfo        +visualextra     -xsmp</span><br><span class="line">+autocmd         +cmdline_hist    +digraphs        +float           +keymap          +modify_fname    +mouse_xterm     +printer         +smartindent     +termresponse    +viminfo         -xterm_clipboard</span><br><span class="line">-balloon_eval    +cmdline_info    -dnd             +folding         +langmap         +mouse           +multi_byte      +profile         +startuptime     +textobjects     +vreplace        -xterm_save</span><br><span class="line">-browse          +comments        -ebcdic          -footer          +libcall         -mouseshape      +multi_lang      -python          +statusline      +timers          +wildignore      -xpm</span><br><span class="line">++builtin_terms  +conceal         +emacs_tags      +fork()          +linebreak       +mouse_dec       -mzscheme        +python3         -sun_workshop    +title           +wildmenu</span><br><span class="line">+byte_offset     +cryptv          +eval            +gettext         +lispindent      +mouse_gpm       +netbeans_intg   +quickfix        +syntax          -toolbar         +windows</span><br><span class="line">+channel         +cscope          +ex_extra        -hangul_input    +listcmds        -mouse_jsbterm   +packages        +reltime         +tag_binary      +user_commands   +writebackup</span><br><span class="line">+cindent         +cursorbind      +extra_search    +iconv           +localmap        +mouse_netterm   +path_extra      +rightleft       +tag_old_static  +vertsplit       -X11</span><br><span class="line">-clientserver    +cursorshape     +farsi           +insert_expand   -lua             +mouse_sgr       -perl            -ruby            -tag_any_white   +virtualedit     -xfontset</span><br><span class="line">   system vimrc file: &quot;$VIM/vimrc&quot;</span><br><span class="line">     user vimrc file: &quot;$HOME/.vimrc&quot;</span><br><span class="line"> 2nd user vimrc file: &quot;~/.vim/vimrc&quot;</span><br><span class="line">      user exrc file: &quot;$HOME/.exrc&quot;</span><br><span class="line">  fall-back for $VIM: &quot;/usr/share/vim&quot;</span><br><span class="line">Compilation: gcc -c -I. -Iproto -DHAVE_CONFIG_H   -Wdate-time  -g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1</span><br><span class="line">Linking: gcc   -Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -o vim        -lm -ltinfo -lnsl  -lselinux  -lacl -lattr -lgpm -ldl     -L/usr/lib/python3.5/config-3.5m-x86_64-li</span><br><span class="line">nux-gnu -lpython3.5m -lpthread -ldl -lutil -lm</span><br></pre></td></tr></table></div></figure>
+<p>在上面，我们看到列出了几个vimrc文件，有一个系统的vimrc文件，还有用户的vimrc文件，以及系统和用户gvimrc文件。出于和vi兼容的目的，vim也支持vi的exrc配置文件。</p>
+<p>接着，我们在Windows系统中输入<code>:version</code>命令，可以看到如下输出(我使用的是预编译的Vim 8.0)：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">VIM - Vi IMproved 8.0 (2016 Sep 12, compiled Apr 23 2017 20:01:28)</span><br><span class="line">MS-Windows 32-bit GUI version with OLE support</span><br><span class="line">Included patches: 1-586</span><br><span class="line">Compiled by mool@tororo</span><br><span class="line">   system vimrc file: &quot;$VIM\vimrc&quot;</span><br><span class="line">     user vimrc file: &quot;$HOME\_vimrc&quot;</span><br><span class="line"> 2nd user vimrc file: &quot;$HOME\vimfiles\vimrc&quot;</span><br><span class="line"> 3rd user vimrc file: &quot;$VIM\_vimrc&quot;</span><br><span class="line">      user exrc file: &quot;$HOME\_exrc&quot;</span><br><span class="line">  2nd user exrc file: &quot;$VIM\_exrc&quot;</span><br><span class="line">  system gvimrc file: &quot;$VIM\gvimrc&quot;</span><br><span class="line">    user gvimrc file: &quot;$HOME\_gvimrc&quot;</span><br><span class="line">2nd user gvimrc file: &quot;$HOME\vimfiles\gvimrc&quot;</span><br><span class="line">3rd user gvimrc file: &quot;$VIM\_gvimrc&quot;</span><br></pre></td></tr></table></div></figure>
+<p>比较一下上面两个<code>:version</code>命令的输出，我们发现：</p>
 <ol>
-<li>二进制存储有节省空间的优点。在同等网络环境下，性能更优。</li>
-<li>protobuf不需要存储额外的信息，而json存储的是key-value。protobuf只存储值数据。</li>
+<li>在windows下，有两个可选的用户vimrc文件，一个是<code>$HOME\_vimrc</code>，另外一个是<code>$VIM\_vimrc</code>。Vim启动时，会先尝试执行系统的vimrc文件(通常此文件不存在)，然后将按照上述顺序查找用户vimrc，并使用所找到的第一个用户vimrc中的配置，忽略其余的用户vimrc。</li>
+<li>在Linux下使用的vimrc文件名为<code>.vimrc</code>，而在Windows下因为不支持以点<code>.</code>开头的文件名，vimrc文件的名字使用<code>_vimrc</code>。不过，在Linux下，如果未找到名为<code>.vimrc</code>的文件，也会尝试查找名为<code>_vimrc</code>文件；而在Windows下也是这样，只不过查找顺序颠倒一下，如果未找到名为<code>_vimrc</code>的文件，会去查找<code>.vimrc</code>。</li>
+<li>从这里可以看出，vimrc的执行先于gvimrc。所以我们可以把全部vim配置命令都放在vimrc中，不需要用gvimrc。</li>
 </ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/15/%E9%A1%B9%E7%9B%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E6%AF%94/">分布式和集群之间的对比</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-17</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/15/%E9%A1%B9%E7%9B%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E6%AF%94/" data-flag-title="分布式和集群之间的对比"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="单机服务器"   >
-          <a href="#单机服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单机服务器"></a> 单机服务器</h1>
-      
-<p>业务系统做了模块化设计，每一个模块都包含很多特定的业务。</p>
-<p>拿聊天服务器举例子，一个server上，有若干个模块构成，比如，用户管理、好友管理、群组管理、消息管理、后台管理模块。每一个模块都包含特定的业务，比如用户管理模块就包含用户的登录（通常用一个方法来做登录业务），再如用户的注册、用户的注销。好友管理模块包含添加好友、删除好友；群组管理包含加群、创建群、删除群成员等等；消息管理包含离线消息、一对一聊天消息、群聊消息；后台管理包含广播消息等。</p>
+<p>对于vim初学者，如果不知道<code>$HOME</code>或者<code>$VIM</code>具体是哪个目录，可以在vim中用下面的命令查看：</p>
+<figure class="highlight vim"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">echo</span> $VIM</span><br><span class="line">:<span class="keyword">echo</span> $HOME</span><br></pre></td></tr></table></div></figure>
+<p>分别打印的是<code>/usr/share/vim</code>（vim目录），<code>/ssd_b/xingchenggong</code>（家目录）。</p>
+<p>Windows版本的Vim在安装时，缺省会安装一个<code>$VIM/_vimrc</code>，你可以直接修改这个<code>_vimrc</code>，加入你自己的配置(使用<code>:e $VIM/_vimrc</code>即可打开此文件)。或者，你也可以在Windows中增加一个名为<code>HOME</code>的环境变量(<code>控制面板</code> -&gt; <code>系统</code> –&gt; <code>高级</code> –&gt; <code>环境变量</code>)，然后把你的vimrc放在HOME环境变量所指定的目录中。从上面<code>:version</code>命令的输出看到，<code>$HOME/_vimrc</code>如果存在，就会执行这个文件中的配置，从而跳过<code>$VIM/_vimrc</code>。</p>
+<p>如果使用<code>vim -u filename</code>命令来启动Vim，则会用你指定的<code>filename</code>作为Vim的配置文件(在调试你的vimrc时有用)；如果用<code>vim -u NONE</code>命令启动 Vim，则不读取任何vimrc文件：当你怀疑你的vimrc配置有问题时，可以用这种方式跳过vimrc的执行。</p>
 
-        <h2 id="问题单机服务器在性能-设计上有何瓶颈"   >
-          <a href="#问题单机服务器在性能-设计上有何瓶颈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题单机服务器在性能-设计上有何瓶颈"></a> 问题：单机服务器在性能、设计上有何瓶颈？</h2>
+        <h1 id="vimrc初步"   >
+          <a href="#vimrc初步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vimrc初步"></a> vimrc初步</h1>
       
-<ol>
-<li>聊天服务器所能承受的用户的并发量<strong>受限于硬件资源</strong>。比如32位服务器，最多支持2w多人同时在线聊天，即直接受限于socket资源。</li>
-<li>所有模块耦合在一个单体服务器上，如果修改任意一个模块，哪怕是几行代码，都会导致整个项目代码重新编译、部署。</li>
-<li>各模块对于硬件资源的需求不一样。有些模块属于CPU密集型（计算量大），有些是属于IO密集型的。CPU密集型模块应当部署在CPU性能高的机器上，IO密集型则对CPU性能要求不高，而是需要内存资源多、带宽大的机器。</li>
-</ol>
-
-        <h1 id="集群服务器"   >
-          <a href="#集群服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#集群服务器"></a> 集群服务器</h1>
-      
-<p>现在，把同一个服务器程序，独立地运行在三个服务器上，分别是server1、server2、server3，每一台服务器都是一套独立的聊天系统。</p>
-<p>解决了单机服务器的问题1，提升了用户的并发量。但是没有解决问题2，如果需要修改代码，仍需重新编译，只不过只需要编译1份，但是仍需重新部署在多台服务器上。针对问题3，单纯的集群只是水平地扩展硬件机器，每一台机器上的程序并没有分模块去针对性地分配硬件资源。</p>
-<p>比如，后台管理使用的用户并不多，只有极个别的管理员才能使用，因此此模块根本不需要高并发。如果将后台管理部署在每一台服务器上，可能会浪费硬件资源。</p>
-<p>因此，可以想到，如果不能很好地分配集群环境中的机器资源，可能不能把整体系统的性能发挥到最大，即不分模块进行部署则不能充分利用全部资源。</p>
-<p>优点是，部署很简单，因为没有过多的设计，每台机器的部署方式是一样的，直接运行同一个程序即可。</p>
-
-        <h1 id="分布式服务器"   >
-          <a href="#分布式服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式服务器"></a> 分布式服务器</h1>
-      
-<p>现有三台服务器，server1部署用户管理、消息管理模块；server2部署好友管理、群组管理模块；server3部署后台管理模块。</p>
-<p>相对于集群服务器，如果server2失效，整个系统仍可以正常运行。而如果分布式系统中，任何一个服务器失效，都会造成整个系统的失效。因此，分布式系统是所有服务器共同构成一个聊天系统，给客户端提供服务。因此也把每个服务器称为分布式节点。</p>
-<p>解决了问题2，因为分模块部署，如果只修改了某一模块的代码，只需要部分编译，只需要对某一节点进行单独的部署。</p>
-<p>解决了问题3，比如节点3后台管理模块包含CPU密集型业务，则其对应的机器可以针对性增加CPU性能，相对地减少内存资源、网络带宽资源。相反的，节点1的用户管理、消息管理模块对应的机器增加内存资源、网络带宽资源，而不需要过高的CPU性能。如此，可以有利于硬件资源的合理分配。</p>
-
-        <h1 id="分布式集群服务器"   >
-          <a href="#分布式集群服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式集群服务器"></a> 分布式+集群服务器</h1>
-      
-<p>根据节点的并发要求，可以针对某一节点再做节点模块集群部署。</p>
-<p>分布式节点1主要负责用户连接、信息传递的处理，对并发量要求大，所以此时我们需要针对此节点进行扩容，即增加服务器同样部署用户管理、消息管理模块。</p>
-<p>而且，也可以灵活的调整不同节点的职责，比如，可以同样在节点2上部署用户管理模块，当节点1失效时，可以启用节点2的用户管理模块。</p>
-
-        <h2 id="带来的挑战"   >
-          <a href="#带来的挑战" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#带来的挑战"></a> 带来的挑战</h2>
-      
-<ol>
-<li>软件设计：需要设计整个系统的软件模块划分，否则各模块可能会实现大量重复的代码</li>
-<li>框架设计：各模块之间如何访问、通信？各模块都运行在不同的进程里，比如好友管理模块、群组管理模块。需要一个机制使函数调用透明化。</li>
-</ol>
-
-        <h2 id="分布式系统框架解决的问题"   >
-          <a href="#分布式系统框架解决的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式系统框架解决的问题"></a> 分布式系统框架解决的问题</h2>
-      
-<p>比如，节点1负责完用户的登录后，需要获取好友列表，则需要一个机制访问节点2上的好友管理模块。节点1上的模块怎么调用机器2上的模块的一个业务方法？机器1上的一个模块进程1怎么调用机器1上的模块进程2里面的一个业务方法？</p>
-<p>需要在网络上传递函数的标识，函数复杂的参数的数据给其他机器。其他机器执行完毕后，返回数据的过程也是需要在网络上传递给调用方机器。</p>
-<p>这个过程很复杂，因为有可能每个传递过程都会存在网络异常问题，需要有机制去告诉调用方传输状态。所以，需要把整个过程封装到分布式网络通信框架之中。则在用户看来，调用远端的方法就和调用本地进程内的方法一样简单，不用关注具体细节。</p>
-<p>总的来说，分布式是为了克服部署解耦化、资源分配最大化而生。而实现分布式框架需要封装网络通信的具体细节，尤其是，一，传递函数的标识，函数复杂的参数的数据给其他机器，二，需要有机制去告诉调用方每一个传递过程中的传输状态。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/90/">90</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">179</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/91/">91</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">182</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
