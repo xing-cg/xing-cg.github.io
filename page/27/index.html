@@ -32,452 +32,179 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/">MySQL_分组&amp;排序</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/" data-flag-title="MySQL_分组&amp;排序"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/">原子操作</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/" data-flag-title="原子操作"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>排序 - order by
-<ol>
-<li>升序 - asc (默认)</li>
-<li>降序 - desc</li>
-</ol>
-</li>
-<li>分组 - group by</li>
+<li>CAS原理</li>
+<li>原子操作</li>
+<li>栈</li>
+<li>汇编层面</li>
 </ol>
 
-        <h1 id="排序"   >
-          <a href="#排序" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#排序"></a> 排序</h1>
+        <h1 id="cas"   >
+          <a href="#cas" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cas"></a> CAS</h1>
       
-<p>格式如下：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tablename ORDER BY 字段1,字段2,... [ASC(default) | DESC];</span><br></pre></td></tr></table></div></figure>
-<p>其中，<code>ORDER BY</code>后面的条件是优先级规则。先比照<code>字段1</code>，若相同则比照<code>字段2</code>，以此类推；其次，后面的<code>ASC</code>表示升序排列，是默认选项，如果欲按照降序排列则需指明<code>DESC</code>。</p>
+<p>CAS(compare And Swap)也叫比较交换，是一种无锁原子算法，映射到操作系统就是一条cmpxchg硬件汇编指令(<strong>保证原子性</strong>)，其作用是让CPU将内存值更新为新值，但是有个条件，内存值必须与期望值相同，并且CAS操作<strong>无需用户态与内核态切换，直接在用户态对内存进行读写</strong>操作(意味着不会阻塞/线程上下文切换)。</p>
+<p>它包含3个参数CAS(V，E，N) ，<strong>V表示待更新的内存值，E表示预期值</strong>，N表示新值，当V值等于E值时，才会将V值更新成N值，如果V值和E值不等，不做更新，这就是一次CAS的操作。</p>
+<p><img src="/images/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/image-20220527162619434.png" alt="image-20220527162619434" /></p>
 
-        <h2 id="排序查询性能分析"   >
-          <a href="#排序查询性能分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#排序查询性能分析"></a> 排序查询性能分析</h2>
+        <h1 id="链栈"   >
+          <a href="#链栈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#链栈"></a> 链栈</h1>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY age;</span><br><span class="line">EXPLAIN SELECT * FROM user ORDER BY age;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518085532824.png" alt="image-20220518085532824" /></p>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518085549904.png" alt="image-20220518085549904" /></p>
-<p>explain之后发现<code>rows=5</code>，如果单纯地进行排序而不加任何条件，将会进行整表查询。</p>
-<p><code>type</code>为<code>ALL</code>，意为整表查询，以前我们用带索引的查询此处为<code>const</code>，表示常量时间，此处的<code>ALL</code>则代表复杂度较高；<code>Extra</code>为<code>Using filesort</code>，这个标志意味着，此查询涉及到磁盘IO和外排序，将严重影响性能。</p>
-<p>外排序的意思就是，有时磁盘的数据量很大，无法全部装到内存中处理，一般会采用n路归并排序思想，这将会涉及很多磁盘IO，效率低下。</p>
-<p>再来看一个。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM user ORDER BY name;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518090603207.png" alt="image-20220518090603207" /></p>
-<p>explain发现即使按照字段<code>name</code>排序，结果还是与上面的效果一致。</p>
-<p>再来一个。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT name FROM user ORDER BY name;</span><br></pre></td></tr></table></div></figure>
-<p>这次我们没有查按name排序结果后的所有字段，而是只查了字段<code>name</code>。</p>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518090847761.png" alt="image-20220518090847761" /></p>
-<p>explain发现，变化显著。</p>
-<p>首先<code>type</code>变为<code>index</code>；<code>key</code>变为<code>name</code>；最后，<code>Extra</code>变为<code>Using index</code>。</p>
-<p>再试一个。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT age FROM user ORDER BY age;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518091136751.png" alt="image-20220518091136751" /></p>
-<p>explain发现，并不是说按啥排序并且只查啥的话性能就高。我们发现按age排序，只查age的话Extra仍是<code>Using filesort</code>。</p>
-<p>结论就是：order by的性能不仅与待排序的字段是否有索引有关，还与select选择的列字段有关系。这与主索引树、辅助索引树有关，也就是聚集索引和非聚集索引的搜索过程有关，也涉及到回表问题。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	T data;</span><br><span class="line">	StackNode* next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">StackNode* <span class="title">Buynode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	StackNode* s = (StackNode*)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(StackNode));</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == s)<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(StackNode));</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Freenode</span><span class="params">(StackNode* pnode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">free</span>(pnode);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	StackNode* base;</span><br><span class="line">	<span class="keyword">size_t</span> cursize;</span><br><span class="line">	<span class="comment">//mutable std::mutex mtx;</span></span><br><span class="line">	<span class="keyword">mutable</span> std::recursive_mutex mtx;</span><br><span class="line">	<span class="built_in">Stack</span>(<span class="keyword">const</span> Stack&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	Stack&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Stack&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Stack</span>()</span><br><span class="line">		:<span class="built_in">base</span>(<span class="literal">nullptr</span>), <span class="built_in">cursize</span>(<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">Stack</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">clear</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">while</span> (base != <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			StackNode* q = base;</span><br><span class="line">			base = q-&gt;next;</span><br><span class="line">			(&amp;(q-&gt;data))-&gt;~<span class="built_in">T</span>();</span><br><span class="line">			<span class="built_in">Freenode</span>(q);</span><br><span class="line">			cursize -= <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> T&amp; x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		StackNode* s = <span class="built_in">Buynode</span>();</span><br><span class="line">		<span class="keyword">new</span>(&amp;(s-&gt;data)) <span class="built_in">T</span>(x);	<span class="comment">//定位new构造对象</span></span><br><span class="line">		s-&gt;next = base;</span><br><span class="line">		base = s;</span><br><span class="line">		cursize += <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">const</span> T&amp; <span class="title">top</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> base-&gt;data;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">T&amp; <span class="title">top</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> base-&gt;data;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">if</span> (base != <span class="literal">nullptr</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			StackNode* q = base;</span><br><span class="line">			base = q-&gt;next;</span><br><span class="line">			(&amp;(q-&gt;data))-&gt;~<span class="built_in">T</span>();	<span class="comment">//定位析构</span></span><br><span class="line">			<span class="built_in">Freenode</span>(q);</span><br><span class="line">			cursize -= <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">size_t</span> <span class="title">get_size</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> cursize;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">is_empty</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="function">std::lock_guard&lt;std::recursive_mutex&gt; <span class="title">locker</span><span class="params">(mtx)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">get_size</span>() == <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _TEST1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _TEST1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_funa</span><span class="params">(Stack&lt;<span class="keyword">int</span>&gt;&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i += <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">		s.<span class="built_in">push</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_funb</span><span class="params">(Stack&lt;<span class="keyword">int</span>&gt;&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">10</span>; i += <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">		s.<span class="built_in">push</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Stack&lt;<span class="keyword">int</span>&gt; ist;</span><br><span class="line">	<span class="function">std::thread <span class="title">tha</span><span class="params">(thread_funa, std::ref(ist))</span></span>;</span><br><span class="line">	<span class="function">std::thread <span class="title">thb</span><span class="params">(thread_funb, std::ref(ist))</span></span>;</span><br><span class="line"></span><br><span class="line">	tha.<span class="built_in">join</span>();</span><br><span class="line">	thb.<span class="built_in">join</span>();</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;push over.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">while</span> (!ist.<span class="built_in">is_empty</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> val = ist.<span class="built_in">top</span>();</span><br><span class="line">		std::cout &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">		ist.<span class="built_in">pop</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
+<p>结果</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">12</span><br><span class="line"></span><br><span class="line">43</span><br><span class="line"></span><br><span class="line">65</span><br><span class="line"></span><br><span class="line">87</span><br><span class="line"></span><br><span class="line">109</span><br><span class="line"></span><br><span class="line">push over.</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="分组"   >
-          <a href="#分组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分组"></a> 分组</h1>
-      
-<p>按照字段分组，字段内容相同的放在一组。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518092546416.png" alt="image-20220518092546416" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT age FROM user;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518092624988.png" alt="image-20220518092624988" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age FROM user GROUP BY age;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518092651495.png" alt="image-20220518092651495" /></p>
-
-        <h2 id="常用语句"   >
-          <a href="#常用语句" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用语句"></a> 常用语句</h2>
+        <h1 id="标准库原子操作api"   >
+          <a href="#标准库原子操作api" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#标准库原子操作api"></a> 标准库原子操作API</h1>
       
 
-        <h3 id="分组并显示该组记录的条数"   >
-          <a href="#分组并显示该组记录的条数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分组并显示该组记录的条数"></a> 分组并显示该组记录的条数</h3>
+        <h2 id="构造函数"   >
+          <a href="#构造函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造函数"></a> 构造函数</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,COUNT(age) AS number FROM user GROUP BY age;#AS可省略</span><br></pre></td></tr></table></div></figure>
+<p>原型：<code>std::atomic&lt;T&gt;::atomic</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">atomic</span>() <span class="keyword">noexcept</span> = <span class="keyword">default</span>;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="title">atomic</span><span class="params">()</span> </span>= <span class="built_in"><span class="keyword">noexcept</span></span>(std::is_nothrow_default_constructible_v&lt;T&gt;);</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="title">atomic</span><span class="params">(T desired)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="built_in">atomic</span>(<span class="keyword">const</span> atomic&amp;) = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></div></figure>
+<p>有默认无参构造；拷贝构造删除。</p>
 
-        <h3 id="分组后条件筛选-having"   >
-          <a href="#分组后条件筛选-having" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分组后条件筛选-having"></a> 分组后条件筛选 - HAVING</h3>
+        <h2 id="operator"   >
+          <a href="#operator" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#operator"></a> operator=</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,COUNT(age) number FROM user GROUP BY age HAVING age&gt;20;</span><br></pre></td></tr></table></div></figure>
-<p>也可以分组前条件筛选 - where</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,COUNT(age) number FROM user WHERE age&gt;20 GROUP BY age;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">T <span class="keyword">operator</span>=(T desired) <span class="keyword">noexcept</span>;</span><br><span class="line">T <span class="keyword">operator</span>=(T desired) <span class="keyword">volatile</span> <span class="keyword">noexcept</span>;</span><br><span class="line">atomic&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> atomic&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">atomic&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> atomic&amp;) <span class="keyword">volatile</span> = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></div></figure>
+<p>两个原子对象之间不可相互赋值。</p>
 
-        <h3 id="多字段分组"   >
-          <a href="#多字段分组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多字段分组"></a> 多字段分组</h3>
+        <h3 id="代码示例"   >
+          <a href="#代码示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码示例"></a> 代码示例</h3>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,sex FROM user GROUP BY age,sex;</span><br></pre></td></tr></table></div></figure>
-<p>这个语句将会把age和sex同时一样的记录分组。</p>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518094730869.png" alt="image-20220518094730869" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,sex,COUNT(*) FROM user GROUP BY age,sex;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518094828414.png" alt="image-20220518094828414" /></p>
-<p><code>count(*)</code>相当于求的是记录的行数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;atomic&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    atomic&lt;<span class="keyword">int</span>&gt; iat;</span><br><span class="line">    atomic&lt;<span class="keyword">int</span>&gt; iat2;</span><br><span class="line">    <span class="comment">//iat = iat2; //error</span></span><br><span class="line">    iat = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="与排序结合"   >
-          <a href="#与排序结合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与排序结合"></a> 与排序结合</h3>
+        <h2 id="load"   >
+          <a href="#load" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#load"></a> load</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT age,sex,COUNT(*) FROM user GROUP BY age,sex ORDER BY age;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518095349412.png" alt="image-20220518095349412" /></p>
+<p>原子地加载并返回原子对象的当前值。安装order的值影响内存。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">load</span><span class="params">(std::memory_order order = std::memory_order_seq_cst)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function">T <span class="title">load</span><span class="params">(std::memory_order order = std::memory_order_seq_cst)</span> <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line">参数：</span><br><span class="line">    order	- 强制的内存顺数</span><br><span class="line">返回值：</span><br><span class="line">    原子变量的当前值</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;atomic&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    atomic&lt;<span class="keyword">int</span>&gt; iat;</span><br><span class="line">    atomic&lt;<span class="keyword">int</span>&gt; iat2;</span><br><span class="line">    iat = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> val = iat.<span class="built_in">load</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>存在的问题：</p>
+<p>语义是获取原子对象的值没错，但是获取的此值只作为当时的瞬时值。</p>
+<p>在多线程中，可能获得的是脏数据。</p>
 
-        <h2 id="性能分析"   >
-          <a href="#性能分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#性能分析"></a> 性能分析</h2>
+        <h2 id="compare_exchange"   >
+          <a href="#compare_exchange" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#compare_exchange"></a> compare_exchange</h2>
       
-<p>首先我们先确定一下此表的结构属性。再用Explain进行性能分析。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DESC user;</span><br><span class="line">EXPLAIN SELECT age FROM user GROUP BY age;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518095647124.png" alt="image-20220518095647124" /></p>
-<p>desc发现，id有主键索引，name有唯一性索引。其他的age、sex无索引。</p>
-<p>explain发现，<code>Extra</code>中为<code>Using temporary; Using filesort</code>。说明此分组查询需要：产生临时表+使用外排序。效率极差。</p>
-<p>实际上group by也会进行类似order by的排序。分组查询是先把分组以后的数据放到临时表中，然后在临时表中进行排序。由于age没有索引，所以需要使用外排序。</p>
-<p>试试按name分组。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT name FROM user GROUP BY name;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518100614162.png" alt="image-20220518100614162" /></p>
-<p>explain发现，<code>Extra</code>为<code>Using index</code>。变化是很显著的。所以GROUP BY后面加索引也是非常有必要的。</p>
+<p>有两个函数。<code>compare_exchange_weak</code>、<code>compare_exchange_strong</code>。</p>
+<p>原子地比较原子对象与的非原子参数的值，若相等进行交换，若不相等则进行加载。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare_exchange_weak</span><span class="params">(T &amp; expected, T desired, std::memory_order order = std::memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line">参数：</span><br><span class="line">	expected - 到期待在原子对象中找到的值的引用。若比较失败则被存储*<span class="keyword">this</span>的实际值。</span><br><span class="line">	desired  - 若符合期待则存储于原子对象的值</span><br><span class="line">	success  - 若比较成功,则读修改写操作所用的内存同步顺序。容许所有值。</span><br><span class="line">	failure  - 若比较失败,则加载操作所用的内存同步顺序。不能为std::memory_order_release或std::memory_order_acq_rel，且不能指定强于success 的顺序(C++<span class="number">17</span>前)</span><br><span class="line">    order 	 - 两个操作所用的内存同步顺序</span><br><span class="line">返回值：</span><br><span class="line">	若成功更改底层原子值则为<span class="literal">true</span>，否则为<span class="literal">false</span></span><br></pre></td></tr></table></div></figure>
+<p>原子地比较<code>*this</code>原子对象与<code>expected</code>的<code>对象表示(C++20前) | 值表示(C++20起)</code>，而若它们逐位相等则以<code>desired</code>替换前者（进行读修改写操作）。否则，将<code>*this</code>中的实际值加载进<code>expected</code>（进行加载操作）。</p>
+<p>读修改写和加载操作的内存模型分别为<code>success</code>和<code>failure</code>。在上面这个函数中，order用于读修改写操作和加载操作，除了若<code>order == std::memory_order_acq_rel</code>或<code>order== std::memory_order_release</code>，则加载操作分别使用<code>std::memory_order_acquire</code>和<code>std::memory_order_relaxed</code>。</p>
 
-        <h1 id="练习"   >
-          <a href="#练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习"></a> 练习</h1>
+        <h1 id="改写链栈"   >
+          <a href="#改写链栈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#改写链栈"></a> 改写链栈</h1>
       
-<p>某银行代缴话费主流水表（<code>bank_bill</code>）结构：</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>serno</td>
-<td>流水号</td>
-</tr>
-<tr>
-<td>date</td>
-<td>交易日期</td>
-</tr>
-<tr>
-<td>accno</td>
-<td>账号</td>
-</tr>
-<tr>
-<td>name</td>
-<td>姓名</td>
-</tr>
-<tr>
-<td>amount</td>
-<td>金额</td>
-</tr>
-<tr>
-<td>brno</td>
-<td>缴费网点</td>
-</tr>
-</tbody>
-</table></div>
-<p>题目：1）统计表中缴费的总笔数和总金额；2）给出一个SQL，按网点和日期统计每个网点每天的营业额，并按照营业额进行倒序排序。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE bank_bill(</span><br><span class="line">    serno BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,</span><br><span class="line">    date DATE NOT NULL,</span><br><span class="line">    accno VARCHAR(100) NOT NULL,</span><br><span class="line">    name VARCHAR(50) NOT NULL,</span><br><span class="line">    amount DECIMAL(10,1) NOT NULL,</span><br><span class="line">    brno VARCHAR(150) NOT NULL</span><br><span class="line">);</span><br><span class="line">INSERT INTO bank_bill VALUES</span><br><span class="line">(&#x27;101000&#x27;,&#x27;2022-3-1&#x27;,&#x27;111&#x27;,&#x27;zhang&#x27;,100,&#x27;高新区支行&#x27;),</span><br><span class="line">(&#x27;101001&#x27;,&#x27;2022-3-1&#x27;,&#x27;222&#x27;,&#x27;liu&#x27;,200,&#x27;碑林区支行&#x27;),</span><br><span class="line">(&#x27;101002&#x27;,&#x27;2022-3-1&#x27;,&#x27;333&#x27;,&#x27;gao&#x27;,300,&#x27;高新区支行&#x27;),</span><br><span class="line">(&#x27;101003&#x27;,&#x27;2022-3-1&#x27;,&#x27;444&#x27;,&#x27;lian&#x27;,150,&#x27;雁塔区支行&#x27;),</span><br><span class="line">(&#x27;101004&#x27;,&#x27;2022-3-1&#x27;,&#x27;555&#x27;,&#x27;lan&#x27;,360,&#x27;雁塔区支行&#x27;),</span><br><span class="line">(&#x27;101005&#x27;,&#x27;2022-3-1&#x27;,&#x27;666&#x27;,&#x27;wang&#x27;,300,&#x27;碑林区支行&#x27;),</span><br><span class="line">(&#x27;101006&#x27;,&#x27;2022-3-2&#x27;,&#x27;777&#x27;,&#x27;wei&#x27;,500,&#x27;碑林区支行&#x27;),</span><br><span class="line">(&#x27;101007&#x27;,&#x27;2022-3-2&#x27;,&#x27;888&#x27;,&#x27;yao&#x27;,50,&#x27;碑林区支行&#x27;),</span><br><span class="line">(&#x27;101008&#x27;,&#x27;2022-3-2&#x27;,&#x27;111&#x27;,&#x27;zhang&#x27;,100,&#x27;高新区支行&#x27;),</span><br><span class="line">(&#x27;101009&#x27;,&#x27;2022-3-2&#x27;,&#x27;222&#x27;,&#x27;liu&#x27;,200,&#x27;雁塔区支行&#x27;),</span><br><span class="line">(&#x27;101010&#x27;,&#x27;2022-3-3&#x27;,&#x27;333&#x27;,&#x27;gao&#x27;,300,&#x27;高新区支行&#x27;),</span><br><span class="line">(&#x27;101011&#x27;,&#x27;2022-3-3&#x27;,&#x27;444&#x27;,&#x27;lian&#x27;,150,&#x27;雁塔区支行&#x27;),</span><br><span class="line">(&#x27;101012&#x27;,&#x27;2022-3-3&#x27;,&#x27;555&#x27;,&#x27;lan&#x27;,360,&#x27;雁塔区支行&#x27;),</span><br><span class="line">(&#x27;101013&#x27;,&#x27;2022-3-3&#x27;,&#x27;666&#x27;,&#x27;wang&#x27;,300,&#x27;碑林区支行&#x27;);</span><br></pre></td></tr></table></div></figure>
-<p>1）总笔数、总金额：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(serno),SUM(amount) FROM bank_bill;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518102653368.png" alt="image-20220518102653368" /></p>
-<p>2）按网点和日期统计每天营业额，倒序。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT brno,date,sum(amount) AS total FROM bank_bill GROUP BY brno,date ORDER BY brno,total DESC;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E5%88%86%E7%BB%84&amp;%E6%8E%92%E5%BA%8F/image-20220518105904641.png" alt="image-20220518105904641" /></p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/17/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/">MySQL_查询专题</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-17</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/17/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/" data-flag-title="MySQL_查询专题"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	T data;</span><br><span class="line">	StackNode* next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">StackNode* <span class="title">Buynode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	StackNode* s = (StackNode*)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(StackNode));</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> == s)<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(StackNode));</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Freenode</span><span class="params">(StackNode* pnode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">free</span>(pnode);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">mutable</span> std::atomic&lt;StackNode*&gt; pHead;</span><br><span class="line">	<span class="built_in">Stack</span>(<span class="keyword">const</span> Stack&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	Stack&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Stack&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Stack</span>()</span><br><span class="line">		:<span class="built_in">pHead</span>(<span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	~<span class="built_in">Stack</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        StackNode * newnode = <span class="built_in">Buynode</span>();</span><br><span class="line">        <span class="keyword">new</span>(&amp;(newnode-&gt;data)) <span class="built_in">T</span>(val);</span><br><span class="line">        newnode-&gt;next = pHead;</span><br><span class="line">        pHead = newnode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stack&lt;<span class="keyword">int</span>&gt; ist;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>对<code>newnode-&gt;next = pHead; pHead = newnode;</code>进行原子化。<br />
+即转为：<code>while(!pHead.compare_exchange_weak(newnode-&gt;next, newnode));</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">const</span> T&amp; val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StackNode * newnode = <span class="built_in">Buynode</span>();</span><br><span class="line">    <span class="keyword">new</span>(&amp;(newnode-&gt;data)) <span class="built_in">T</span>(val);</span><br><span class="line">    </span><br><span class="line">    newnode-&gt;next = pHead.<span class="built_in">load</span>();</span><br><span class="line">    <span class="keyword">while</span>(!pHead.<span class="built_in">compare_exchange_weak</span>(newnode-&gt;next, newnode));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>判断<code>pHead</code>是否等于<code>newnode-&gt;next</code>，如果相等，则把<code>newnode</code>赋值给<code>pHead</code>。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Linux%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/">Linux线程调度策略</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-05-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/05/26/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Linux%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/" data-flag-title="Linux线程调度策略"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>简单的查询语句</li>
-<li>分页查询 - limit</li>
-<li>排序、分组</li>
-<li>连接查询（多表查询）</li>
+<li>先来先服务（FIFO）调度策略</li>
+<li>时间片轮转调度策略</li>
+<li>分时调度策略</li>
 </ol>
 
-        <h1 id="存储过程"   >
-          <a href="#存储过程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#存储过程"></a> 存储过程</h1>
+        <h1 id="linux内核线程的三种调度策略"   >
+          <a href="#linux内核线程的三种调度策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux内核线程的三种调度策略"></a> Linux内核线程的三种调度策略</h1>
       
-<p>为了模拟实际中的大数据场景，我们创建一个<code>t_user</code>数据库，<code>t_user</code>表，向其中添加200万条记录。</p>
-<p>表的创建：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table t_user(</span><br><span class="line">    id int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">    email varchar(255) DEFAULT NULL,</span><br><span class="line">    password varchar(255) DEFAULT NULL,</span><br><span class="line">    PRIMARY KEY(id)</span><br><span class="line">)engine=InnoDB AUTO_INCREMENT=1000001 DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></div></figure>
-<p>需要用到存储过程。</p>
+<p>函数<code>pthread_attr_setschedpolicy</code>和<code>pthread_attr_getschedpolicy</code>分别用来设置、获取线程的调度策略。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_setschedpolicy</span><span class="params">(<span class="keyword">pthread_attr_t</span> *, <span class="keyword">int</span> policy)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_attr_getschedpolicy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> *, <span class="keyword">int</span> policy)</span></span>;</span><br><span class="line">参数：</span><br><span class="line">    attr 	- 线程属性变量</span><br><span class="line">    policy	- 调度策略</span><br><span class="line">返回值</span><br><span class="line">    成功返回<span class="number">0</span>，失败返回<span class="number">-1</span></span><br></pre></td></tr></table></div></figure>
 <ol>
-<li>首先改变分隔符<code>delimiter $</code></li>
-<li>创建存储过程</li>
+<li><code>SCHED_OTHER</code>：分时调度策略，非实时。不支持优先级。</li>
+<li><code>SCHED_FIFO</code>：先到先服务，实时。一旦占用cpu则一直运行。直到有更高优先级任务或主动放弃cpu。</li>
+<li><code>SCHED_RR</code>：时间片轮转，实时。当进程的时间片用完，重新分配时间片长度，置于就绪队列尾。可以看作是FIFO的延伸。</li>
 </ol>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Create Procedure add_t_user(IN n INT)</span><br><span class="line">BEGIN</span><br><span class="line">DECLARE i INT;</span><br><span class="line">SET i=0;</span><br><span class="line"></span><br><span class="line">WHILE i&lt;n DO</span><br><span class="line">INSERT INTO t_user VALUES(NULL, CONCAT(i+1,&#x27;@xcg.com&#x27;),i+1);</span><br><span class="line">SET i=i+1;</span><br><span class="line">END WHILE;</span><br><span class="line">END$</span><br></pre></td></tr></table></div></figure>
-<p>创建好后，可以<code>show create procedure add_t_user\G</code>查看此存储过程。</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517201206028.png" alt="image-20220517201206028" /></p>
-<ol start="3">
-<li>改回分隔符<code>delimiter ;</code></li>
-<li>调用存储过程<code>call add_t_user(2000000);</code>，括号内的参数为要添加的记录数。</li>
-</ol>
-<p>插入数据成功后，可以对其测试</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM t_user;	#应为2000000</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user LIMIT 10;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE email=&#x27;1@xcg.com&#x27;;</span><br><span class="line">EXPLAIN SELECT * FROM t_user WHERE email=&#x27;1@xcg.com&#x27;;</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="简单的查询语句"   >
-          <a href="#简单的查询语句" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#简单的查询语句"></a> 简单的查询语句</h1>
+        <h1 id="先到先服务策略"   >
+          <a href="#先到先服务策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#先到先服务策略"></a> 先到先服务策略</h1>
       
-<p>在这里我们示例一些简单的查询语句。</p>
-<ul>
-<li>无条件查询全部字段</li>
-</ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user;	#不推荐，最好还是老老实实地写出所有字段名称，因为表的结构之后可能会变更，可能会影响业务代码。</span><br></pre></td></tr></table></div></figure>
-<ul>
-<li>条件查询指定字段</li>
-</ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age,sex FROM user WHERE age&gt;=21;</span><br><span class="line">SELECT name,age,sex FROM user WHERE age&gt;20 AND age&lt;22;</span><br><span class="line">SELECT name,age,sex FROM user WHERE BETWEEN 20 AND 22;#闭区间</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 以下两个sql语句效果一致。</span><br><span class="line">SELECT name,age,sex FROM user WHERE age=20 OR age=21;</span><br><span class="line">SELECT name,age,sex FROM user WHERE age IN (20,21);</span><br></pre></td></tr></table></div></figure>
-<ul>
-<li>使用通配符查询</li>
-</ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age,sex FROM user WHERE name LIKE &quot;zhang%&quot;;#必须用LIKE，不能用=等号，否则会把%通配符看作实际字符。</span><br></pre></td></tr></table></div></figure>
-<ul>
-<li>判断为空不用<code>=</code>，而用<code>IS NULL</code></li>
-</ul>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age,sex FROM user WHERE name IS NULL;</span><br><span class="line">SELECT name,age,sex FROM user WHERE name IS NOT NULL;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="去重"   >
-          <a href="#去重" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#去重"></a> 去重</h2>
-      
-<p>有两种去重的方式</p>
 <ol>
-<li><code>distinct</code> - 简单地去重</li>
-<li><code>group by</code> - 功能强大，耗时</li>
+<li>创建进程时指定采用FIFO，并设置<strong>实时优先级</strong><code>rt_priority</code>(1-99)。</li>
+<li>如果没有等待资源，则将该任务加入到就绪队列中。</li>
+<li>调度程序遍历就绪队列，根据<strong>实时优先级</strong>计算调度权值(<code>1000+rt_priority</code>)，选择权值最高的任务使用cpu，<strong>该FIFO任务将一直占有cpu直到有优先级更高的任务就绪</strong>(即使优先级相同也不行)<strong>或者主动放弃(等待资源)</strong>。</li>
+<li>调度程序发现有优先级更高的任务到达(高优先级任务可能被中断或定时器任务唤醒，再或被当前运行的任务唤醒等等)，则调度程序立即在当前任务堆栈中保存当前cpu寄存器的所有数据，重新从高优先级任务的堆栈中加载寄存器数据到cpu，此时高优先级的任务开始运行。重复第3步。</li>
+<li>如果当前任务因等待资源而主动放弃cpu使用权，则该任务将从就绪队列中删除，加入等待队列，此时重复第3步。</li>
 </ol>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT age FROM user;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517114906800.png" alt="image-20220517114906800" /></p>
 
-        <h2 id="合并查询-union"   >
-          <a href="#合并查询-union" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#合并查询-union"></a> 合并查询 - union</h2>
+        <h1 id="时间片轮转策略"   >
+          <a href="#时间片轮转策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#时间片轮转策略"></a> 时间片轮转策略</h1>
       
-<p>格式如下</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT expression1, expression2, ..., expression</span><br><span class="line">FROM table1 [WHERE conditions]</span><br><span class="line">UNION [ALL | DISTINCT(default)]</span><br><span class="line">SELECT expression1, expression2, ..., expression</span><br><span class="line">FROM table2 [WHERE conditions];</span><br><span class="line"># union默认为distinct去重，all表示显示重复的记录项</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name,age,sex</span><br><span class="line">FROM user WHERE age&gt;=21</span><br><span class="line">UNION ALL</span><br><span class="line">SELECT name,age,sex</span><br><span class="line">FROM user WHERE sex=&#x27;M&#x27;;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517163204447.png" alt="image-20220517163204447" /></p>
-
-        <h1 id="分页查询-limit"   >
-          <a href="#分页查询-limit" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分页查询-limit"></a> 分页查询 - limit</h1>
-      
-<p>需要掌握的内容：</p>
+<p>所有任务都采用RR调度策略时：</p>
 <ol>
-<li>limit分页查询的语法</li>
-<li><code>explain</code>可以查看SQL语句大致的执行计划</li>
-<li>limit在何种情况下能够提升查询效率，使用limit需要注意哪些</li>
-<li>项目中用到分页处理时，如何编写相应的SQL语句</li>
-</ol>
-
-        <h2 id="语法"   >
-          <a href="#语法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#语法"></a> 语法</h2>
-      
-
-        <h3 id="limit-mn-limit-n"   >
-          <a href="#limit-mn-limit-n" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#limit-mn-limit-n"></a> limit M,N - limit N</h3>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user LIMIT N;		#表示取user表第0~N条记录的所有字段，相当于取前N条</span><br><span class="line">SELECT * FROM user LIMIT M,N;	#表示取user表第M~(M+N)条记录的所有字段，相当于先偏移M条，再取N条。</span><br><span class="line">SELECT * FROM user LIMIT N OFFSET M;	#同LIMIT M,N</span><br></pre></td></tr></table></div></figure>
-<p>limit只是改变了数据显示的效果吗？对查询的效率有没有提升呢？先引入一个关键字<code>explain</code>。</p>
+<li>
+<p>创建任务时指定调度参数为RR，并设置任务的<strong>实时优先级</strong>和<strong>nice值</strong>(nice值将会转换为该任务的时间片的长度)。</p>
 <blockquote>
-<p>explain是一个关键字，是定位SQL、索引性能的有利工具。</p>
-<p>使用它加载SQL语句开头，可以查看SQL语句的执行计划。</p>
-<p>explain展示的字段：</p>
-<ol>
-<li>id: 编号</li>
-<li><code>select_type</code>: 如<code>SIMPLE</code>，表示查询语句的复杂程度类型</li>
-<li>table: 如<code>user</code>，当前表</li>
-<li>partitions: NULL</li>
-<li>type: const</li>
-<li><code>possible_keys</code>: name，可能用到的索引</li>
-<li>key: name，实际用到的索引</li>
-<li><code>key_len</code>: 152</li>
-<li>ref: const</li>
-<li>rows: 1，查询语句可能需要扫描的行数。</li>
-<li>filtered: 100.00</li>
-<li>Extra: NULL</li>
-</ol>
+<p>可见，相比于FIFO，时间片轮转法多了一个nice值，用于计算时间片长度。</p>
 </blockquote>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM user WHERE name=&#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517192840144.png" alt="image-20220517192840144" /></p>
-<p>我们发现，搜索&quot;zhangsan&quot;只扫了1行。可能你会猜测是因为他在表的第一行，那么试试查找其他人扫描几行呢？</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM user WHERE name=&#x27;chenwei&#x27;;</span><br><span class="line">EXPLAIN SELECT * FROM user WHERE name=&#x27;zhanglan&#x27;;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517193136218.png" alt="image-20220517193136218" /></p>
-<p>发现仍是<code>row=1</code>。</p>
-<p>这是因为name有索引。</p>
-<p>我们再试试与age有关的查询语句。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM user WHERE age=20;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517193519105.png" alt="image-20220517193519105" /></p>
-<p>我们发现现在的row为5。相当于把user表进行了全表搜索。</p>
-<p>相比于与name有关的查询语句，由于age没有索引，查询的效率就很低。</p>
-<p>怎么尽可能提高效率呢？</p>
-<p>如果我们只想得到第一个满足条件的记录，那么可以用limit。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user WHERE age=20 LIMIT 1;</span><br></pre></td></tr></table></div></figure>
-<p>理论上，EXPLAIN此语句的rows应较小，但实际上rows还是5。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM user WHERE age=20 LIMIT 1;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220517194317756.png" alt="image-20220517194317756" /></p>
-<p>说明EXPLAIN不能看到limit的作用。</p>
-<hr />
-<p>我们现在对拥有200w条记录的<code>t_user</code>表进行测试。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE email=&#x27;1@xcg.com&#x27;;		#约0.44s</span><br><span class="line">EXPLAIN SELECT * FROM t_user WHERE email=&#x27;1@xcg.com&#x27;;</span><br><span class="line">SELECT * FROM t_user WHERE email=&#x27;1@xcg.com&#x27; LIMIT 1;#约0.00s</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user LIMIT 1000000, 1;#约0.20s，说明偏移也很费时</span><br><span class="line">SELECT * FROM t_user WHERE email=&#x27;1000001@xcg.com&#x27;;	#约0.44s</span><br><span class="line">SELECT * FROM t_user WHERE email=&#x27;1000001@xcg.com&#x27; LIMIT 1;	#约0.23s</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="分页需要注意的事情"   >
-          <a href="#分页需要注意的事情" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分页需要注意的事情"></a> 分页需要注意的事情</h2>
-      
-<p>首先需要明白分页的参数<code>pagenum=20</code>，表示每页显示的记录数为20；<code>pageno</code>表示当前的页码。</p>
-<p>那么，根据LIMIT的<code>M,N</code>规则，计算出下面的语句公式：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user LIMIT (pageno-1)*pagenum, pagenum;</span><br></pre></td></tr></table></div></figure>
-<p>这样就实现了每一页显示对应位置的20条记录。</p>
-<p>但是，有个很现实的性能问题，我们总不能让越往后的页数查出来的时间越久吧？因为LIMIT M,N默认是全表顺序查询，查后面的数据时，会在前面查很多冗余的信息，浪费了时间。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user LIMIT 0, 20;	#0.00s</span><br><span class="line">SELECT * FROM t_user LIMIT 1000000, 20;	#0.23s</span><br></pre></td></tr></table></div></figure>
-<p>可以用一个思想来优化性能——过滤。</p>
-<p>我们知道，其主键id是有规律的，可根据对id的限制来进行过滤。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE id&gt;2000000 LIMIT 0, 20;#0.00s</span><br></pre></td></tr></table></div></figure>
-<p>上面的语句和<code>SELECT * FROM t_user LIMIT 1000000, 20;</code>查询出来的结果一样。但是性能却大大提升。</p>
-<p>即</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user WHERE id&gt;上一页最后一条数据的id值 LIMIT 0, 20;</span><br></pre></td></tr></table></div></figure>
-<p>但是，不是每个分页都通过id来解决，具体问题具体分析，选择合适的索引去过滤，不一定非要选id。</p>
-<p>LIMIT可以很好地帮助我们在没有索引的情况下，以相应的列作为过滤条件时，提高效率。</p>
-
-        <h1 id="连接查询"   >
-          <a href="#连接查询" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连接查询"></a> 连接查询</h1>
-      
-<p>分为两种</p>
-<ol>
-<li>内连接查询</li>
-<li>外连接查询
-<ol>
-<li>left连接查询</li>
-<li>right连接查询</li>
-</ol>
+</li>
+<li>
+<p>如果没有等待资源，则将该任务加入到就绪队列中。</p>
+</li>
+<li>
+<p>调度程序遍历就绪队列，根据<strong>实时优先级</strong>计算调度权值(<code>1000+rt_priority</code>)，<strong>选择权值最高</strong>的任务使用cpu。</p>
+<blockquote>
+<p>相比于FIFO，FIFO会一直占用CPU，直到更高优先级线程到达。</p>
+</blockquote>
+</li>
+<li>
+<p>如果就绪队列中的RR任务<strong>时间片为0，则会根据nice值设置该任务的时间片，同时将该任务放入就绪队列的末尾</strong>。重复步骤3。</p>
+</li>
+<li>
+<p>当前任务由于等待资源而主动退出cpu，则其加入等待队列中。重复步骤3。</p>
 </li>
 </ol>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518111035278.png" alt="image-20220518111035278" /></p>
 
-        <h2 id="内连接"   >
-          <a href="#内连接" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内连接"></a> 内连接</h2>
+        <h1 id="分时调度策略"   >
+          <a href="#分时调度策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分时调度策略"></a> 分时调度策略</h1>
       
-<p>场景分析：学生、课程、考试结果</p>
-<p>student: <code>uid、name、age、sex</code></p>
-<p>course: <code>cid、cname、credit</code></p>
-<p>exam: <code>uid、cid、time、score</code></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE student(</span><br><span class="line">    uid INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,</span><br><span class="line">    name VARCHAR(50) NOT NULL,</span><br><span class="line">    age TINYINT UNSIGNED NOT NULL,</span><br><span class="line">    sex ENUM(&#x27;M&#x27;, &#x27;W&#x27;) NOT NULL</span><br><span class="line">);</span><br><span class="line">CREATE TABLE course(</span><br><span class="line">    cid INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,</span><br><span class="line">    cname VARCHAR(50) NOT NULL,</span><br><span class="line">    credit TINYINT UNSIGNED NOT NULL</span><br><span class="line">);</span><br><span class="line">CREATE TABLE exam(</span><br><span class="line">    uid INT UNSIGNED NOT NULL,</span><br><span class="line">    cid INT UNSIGNED NOT NULL,</span><br><span class="line">    time DATE NOT NULL,</span><br><span class="line">    score FLOAT NOT NULL</span><br><span class="line">    PRIMARY KEY(uid,cid) #联合主键</span><br><span class="line">);</span><br><span class="line">DESC student;</span><br><span class="line">DESC course;</span><br><span class="line">DESC exam;</span><br><span class="line">INSERT INTO student(name,age,sex) VALUES</span><br><span class="line">(&#x27;zhangsan&#x27;, 18, &#x27;M&#x27;),</span><br><span class="line">(&#x27;gaoyang&#x27;, 20, &#x27;W&#x27;),</span><br><span class="line">(&#x27;chenwei&#x27;, 22, &#x27;M&#x27;),</span><br><span class="line">(&#x27;liufeng&#x27;, 21, &#x27;W&#x27;),</span><br><span class="line">(&#x27;liuxiang&#x27;, 19, &#x27;W&#x27;);</span><br><span class="line">INSERT INTO course(cname,credit) VALUES</span><br><span class="line">(&#x27;C++基础课程&#x27;, 5),</span><br><span class="line">(&#x27;C++高级课程&#x27;, 10),</span><br><span class="line">(&#x27;C++项目开发&#x27;, 8),</span><br><span class="line">(&#x27;C++算法课程&#x27;, 12),</span><br><span class="line">INSERT INTO exam(uid,cid,time,score) VALUES</span><br><span class="line">(1, 1, &#x27;2022-04-09&#x27;, 99.0),</span><br><span class="line">(1, 2, &#x27;2022-04-10&#x27;, 90.0),</span><br><span class="line">(2, 2, &#x27;2022-04-10&#x27;, 90.0),</span><br><span class="line">(2, 3, &#x27;2022-04-12&#x27;, 85.0),</span><br><span class="line">(3, 1, &#x27;2022-04-09&#x27;, 56.0),</span><br><span class="line">(3, 2, &#x27;2022-04-10&#x27;, 93.0),</span><br><span class="line">(3, 3, &#x27;2022-04-12&#x27;, 89.0),</span><br><span class="line">(3, 4, &#x27;2022-04-11&#x27;, 100.0),</span><br><span class="line">(4, 4, &#x27;2022-04-11&#x27;, 99.0),</span><br><span class="line">(5, 2, &#x27;2022-04-10&#x27;, 59.0),</span><br><span class="line">(5, 3, &#x27;2022-04-12&#x27;, 94.0),</span><br><span class="line">(5, 4, &#x27;2022-04-11&#x27;, 95.0);</span><br></pre></td></tr></table></div></figure>
-<p>zhangsan同学某门课的考试成绩，假设知道预置条件：学号uid: 1、课程号cid: 2</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT score FROM exam WHERE uid=1 AND cid=2;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518113024474.png" alt="image-20220518113024474" /></p>
-<p>按上面这样查，只能查出score: 80。其他的信息没有，这样给出的信息过少。</p>
-<p>怎么进行内连接查询，以获取更多信息呢？</p>
-<p>先查学生表和考试创建表：由于学生中要根据uid，考试成绩中也是要根据uid，所以属于公有的内容，属于内连接。</p>
-<p>下面是两个表单独的SQL：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT uid,name,age,sex FROM student WHERE uid=1;</span><br><span class="line">SELECT score FROM exam WHERE uid=1 AND cid=2;</span><br></pre></td></tr></table></div></figure>
-<p>我们把它想办法合并：</p>
-<p>各表中可能有重复的字段名，所以需要给表起别名</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.uid,S.name,S.age,S.sex FROM student S WHERE S.uid=1;</span><br><span class="line"></span><br><span class="line">SELECT E.score FROM exam E WHERE E.uid=1 AND E.cid=2;</span><br></pre></td></tr></table></div></figure>
-<p>我们发现，两个SQL语句的共同点是uid为1。则是按uid来进行关联的。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.uid,S.name,S.age,S.sex,E.score FROM student S</span><br><span class="line">INNER JOIN exam E</span><br><span class="line">ON S.uid=E.uid	#拿什么来关联</span><br><span class="line">WHERE E.uid=1 AND E.cid=2;	#过滤的条件，即1、查的是某个人；2、查的是某门课</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518144857264.png" alt="image-20220518144857264" /></p>
-<p>连接查询的性能分析：</p>
-<p><code>on S.uid=E.uid</code>按照表中记录的数目来区分大表和小表，小表永远是整表扫描，然后去大表搜索。即从<code>student</code>小表中取出所有的<code>S.uid</code>，然后拿着这些<code>uid</code>去<code>exam</code>大表中搜索。</p>
-<p>继续：现在只有学生信息、分数，但是没有课程信息。</p>
-<p>现在我们发现，如果基于<code>select ... from student</code>的话，无法与course表进行关联。因为student表中无cid。而如果基于eaxm查的话，就很顺利，因为exam表既有uid又有cid，既可与student表关联，又可与course表关联。</p>
-<p>于是我们就需要改造select语句的第一句中的<code>FROM ...</code>。把<code>FROM student</code>改为<code>FROM exam</code>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.uid,S.name,S.age,S.sex,E.score FROM eaxm E</span><br><span class="line">INNER JOIN student S</span><br><span class="line">ON S.uid=E.uid</span><br><span class="line">...</span><br></pre></td></tr></table></div></figure>
-<p>然后，我们接下来要做的就是再去内连接course表，以产生exam与其的关联。先写出要查course表信息的单独的SQL语句：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT cid,cname,credit FROM course C WHERE C.cid=2;</span><br></pre></td></tr></table></div></figure>
-<p>然后再加入到内连接语句中去：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT  S.uid,S.name,S.age,S.sex,</span><br><span class="line">		C.cid,C.cname,C.credit,</span><br><span class="line">		E.score FROM eaxm E</span><br><span class="line">INNER JOIN student S ON E.uid=S.uid</span><br><span class="line">INNER JOIN course C ON E.cid=C.cid</span><br><span class="line">WHERE E.uid=1 AND E.cid=2;</span><br></pre></td></tr></table></div></figure>
-<p>以上就是三表内连接查询的标准写法。</p>
-
-        <h2 id="内连接的应用-与分页结合提升性能"   >
-          <a href="#内连接的应用-与分页结合提升性能" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内连接的应用-与分页结合提升性能"></a> 内连接的应用 - 与分页结合提升性能</h2>
-      
-<p>前面我们研究过了，如果直接按LIMIT M,N进行先偏移后查询的方法来进行的话，越往后性能越差。</p>
-<p>分页 - 第一个方案，最差：</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518163625400.png" alt="image-20220518163625400" /></p>
-<p>同时我们也发现，查询的效率也与查询的字段个数有关系，比如只查id的话，性能就会有所提升。</p>
-<p>分页 - 第二个方案，适中，但是信息少：</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518163818854.png" alt="image-20220518163818854" /></p>
-<p>最极致性能的办法，但是常常不通用——先过滤id，直接从过滤完的位置LIMIT查询N条记录。但是这要求我们知道当前的id值及其条件，通常情况下不能实现，我们只清楚目前偏移到了多少位置，一次取多少条。</p>
-<p>分页 - 第三个方案，极致，但是往往不能实现：</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518164026806.png" alt="image-20220518164026806" /></p>
-<p>我们再把目光转到第二个方案 - 即只查id。</p>
-<p>为了尽可能提高性能，我们只查出了id这一列。目前的信息量过少。但是<strong>我们却可以利用查出的id数据，与自己的原表进行内连接</strong>。这是基本思想。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT U.id,U.email,U.password FROM t_user U</span><br><span class="line">INNER JOIN (SELECT id FROM t_user LIMIT 1500000,10) temp ON U.id=temp.id;</span><br></pre></td></tr></table></div></figure>
-<p>如此不仅仅可以得到更多信息，而且效率和只查id这一列一致。</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518164514376.png" alt="image-20220518164514376" /></p>
-<p>explain此语句的结果：</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220518164909106.png" alt="image-20220518164909106" /></p>
-
-        <h3 id="总结-内连接的过程"   >
-          <a href="#总结-内连接的过程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-内连接的过程"></a> 总结 - 内连接的过程</h3>
-      
+<p>所有任务都采用Linux分时调度策略时：</p>
+<ol>
+<li>
+<p>创建任务指定采用分时调度策略，并指定nice值(<code>-20~19</code>, 可以认为值越小优先级越高)。</p>
 <blockquote>
-<p>在做实验之前，先声明一下表中的最新内容<br />
-<img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519082805106.png" alt="image-20220519082805106" /></p>
+<p>相比于FIFO，没有<strong>实时优先级</strong>数值属性(1~99)</p>
 </blockquote>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519083428353.png" alt="image-20220519083428353" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN</span><br><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519084255059.png" alt="image-20220519084255059" /></p>
-<p>如果我们通过where过滤条件使Exam从大表变小表呢？</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid</span><br><span class="line">WHERE E.cid=3;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519090035026.png" alt="image-20220519090035026" /></p>
-<p>我们看到，在E表进行内连接时，需要先过滤，即E需要进行全表扫描，然后E成为小表（相比于S表），然后，再拿剩下的记录与S表比对。</p>
-<p>E表没有用到cid的索引，因为uid和cid是联合索引，只有先用uid索引，cid才有效。</p>
-<p>再看一个 - 把where的过滤条件改到on中。和上面有区别吗？</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid and E.cid=3;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519091420259.png" alt="image-20220519091420259" /></p>
-<p>发现，对于<code>inner join</code>内连接，过滤条件不管写在where的后面和on连接条件里面，效果是一样的。而且extra里写明第一个是<code>Using where</code>，说明mysql为我们做了优化，改成了where过滤，因为where过滤后再查询的效率会更好。</p>
+</li>
+<li>
+<p>将<strong>根据每个任务的nice值确定在cpu上的执行时间</strong>(counter)。</p>
+</li>
+<li>
+<p>如果没有等待资源，则将该任务<strong>加入到就绪队列</strong>中。</p>
+</li>
+<li>
+<p>调度程序<strong>遍历就绪队列</strong>中的任务，通过对每个任务动态优先级的计算权值(<code>counter+20-nice</code>)结果，选择计算结果最大的一个去运行，当这个时间片用完后(<code>counter减至0</code>)或者主动放弃cpu时，该任务将被放在就绪队列末尾(时间片用完)或等待队列(因等待资源而放弃cpu)中。</p>
+</li>
+<li>
+<p>此时调度程序重复上面计算过程，转到第4步。</p>
+</li>
+<li>
+<p>当调度程序发现所有就绪任务计算所得的权值都<code>不大于0时</code>，重复第2步。</p>
+</li>
+</ol>
 
-        <h2 id="外连接"   >
-          <a href="#外连接" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#外连接"></a> 外连接</h2>
+        <h1 id="区别"   >
+          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h1>
       
-<p>格式：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#左连接查询</span><br><span class="line">#显示left表所有数据，右表中如果不存在相应数据则显示NULL</span><br><span class="line">SELECT a.属性名列表, b.属性名列表 FROM table_a a</span><br><span class="line">LEFT [OUTER] JOIN table_b b ON a.id=b.id;</span><br><span class="line"></span><br><span class="line">#右连接查询</span><br><span class="line">#显示right表所有数据，左表中如果不存在相应数据则显示NULL</span><br><span class="line">SELECT a.属性名列表, b.属性名列表 FROM table_a a</span><br><span class="line">RIGHT [OUTER] JOIN table_b b ON a.id=b.id;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">LEFT JOIN exam E ON S.uid=E.uid;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519094125697.png" alt="image-20220519094125697" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.*,E.* FROM student S</span><br><span class="line">RIGHT JOIN exam E ON S.uid=E.uid;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519094314249.png" alt="image-20220519094314249" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT S.*,E.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT S.*,E.* FROM student S</span><br><span class="line">LEFT JOIN exam E ON S.uid=E.uid;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT S.*,E.* FROM student S</span><br><span class="line">RIGHT JOIN exam E ON S.uid=E.uid;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519100936236.png" alt="image-20220519100936236" /></p>
-<hr />
-<p>实际的问题：能不能查出来谁没参加考试？</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student WHERE uid NOT IN (SELECT DISTINCT uid FROM exam);</span><br></pre></td></tr></table></div></figure>
-<p>上面这个SQL虽然可以完成，但是NOT IN是否能够用到索引是不容易确定的。另外，子查询的结果可能会生成临时表。</p>
-<p>用外连接来解决：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E ON S.uid=E.uid</span><br><span class="line">WHERE E.cid IS NULL;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519101959096.png" alt="image-20220519101959096" /></p>
-<p>Explain查看查询流程：</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519102456318.png" alt="image-20220519102456318" /></p>
-<p>拿student表所有数据与exam表对比。exam表中的uid和cid是联合主键，因为uid是第一列索引，所以可以使用uid索引。</p>
-<hr />
-
-        <h2 id="外连接和内连接的区别"   >
-          <a href="#外连接和内连接的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#外连接和内连接的区别"></a> 外连接和内连接的区别</h2>
-      
-<p>参加过某一门考试的人</p>
-<p>先用内连接来写：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">INNER JOIN exam E ON S.uid=E.uid</span><br><span class="line">WHERE E.cid=3;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519103001353.png" alt="image-20220519103001353" /></p>
-<p>没有参加cid为3的考试的人</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E</span><br><span class="line">ON S.uid=E.uid</span><br><span class="line">WHERE E.uid=3</span><br><span class="line">AND E.cid IS NULL;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E</span><br><span class="line">ON S.uid=E.uid</span><br><span class="line">WHERE E.uid=3;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E</span><br><span class="line">ON S.uid=E.uid AND E.cid=3;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519103539550.png" alt="image-20220519103539550" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E</span><br><span class="line">ON S.uid=E.uid AND E.cid=3</span><br><span class="line">WHERE E.cid IS NULL;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519103820392.png" alt="image-20220519103820392" /></p>
-<p>我们发现，where条件和on条件在内外连接上需要斟酌。</p>
-<hr />
-<p>explain分析</p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519104015360.png" alt="image-20220519104015360" /></p>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519104102999.png" alt="image-20220519104102999" /></p>
-<p>这样写内连接和外连接无区别。都是先使用where过滤，然后exam变为小表。拿exam全部数据（主键）去student搜索。这样的外连接是不正确的。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E ON S.uid=E.uid AND E.uid=3;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519112753295.png" alt="image-20220519112753295" /></p>
-<p>把<code>E.uid=3</code>放在on后面才会对student表进行全表扫描。进而去exam表中匹配。</p>
-<p>然后我们再在这个正确外连接后的基础上，再加<code>WHERE E.cid IS NULL</code>，这才能正确显示未参加cid为的考试的学生。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT S.* FROM student S</span><br><span class="line">LEFT JOIN exam E ON S.uid=E.uid AND E.uid=3</span><br><span class="line">WHERE E.cid IS NULL;</span><br></pre></td></tr></table></div></figure>
-<p><img src="/images/MySQL_%E6%9F%A5%E8%AF%A2%E4%B8%93%E9%A2%98/image-20220519113227107.png" alt="image-20220519113227107" /></p>
-<p>因此我们总结出了一条经验：外连接中，连接时的限制条件要放到ON后面，然后把NULL的过滤条件放到最后的where中。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/26/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/92/">92</a><a class="extend next" rel="next" href="/page/28/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">183</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">40</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>系统中既有分时调度，又有时间片轮转调度和先进先出调度：</p>
+<ol>
+<li>RR调度和FIFO调度的进程属于实时进程，以分时调度的进程是非实时进程。</li>
+<li>当实时进程准备就绪后，如果当前cpu正在运行非实时进程，则实时进程立即抢占非实时进程。</li>
+<li>RR进程和FIFO进程<strong>都采用实时优先级</strong>做为调度的<strong>权值标准</strong>，RR是FIFO的一个延伸。</li>
+<li>FIFO时，如果两个进程的优先级一样，则这两个优先级一样的进程具体执行哪一个是由其在队列中的未知决定的，这样导致一些不公正性（优先级是一样的，为什么要让你一直运行？），如果将两个优先级一样的任务的调度策略都设为RR，则保证了这两个任务可以循环执行，保证了公平。</li>
+</ol>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/26/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/96/">96</a><a class="extend next" rel="next" href="/page/28/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">191</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">42</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
