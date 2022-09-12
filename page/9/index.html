@@ -32,69 +32,350 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/27/Linux/Linux_vim%E4%BF%9D%E5%AD%98%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">Linux_vim保存项目相关配置</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/27/Linux/Linux_vim%E4%BF%9D%E5%AD%98%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" data-flag-title="Linux_vim保存项目相关配置"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>本节所用命令的帮助入口：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:help &#x27;path&#x27;</span><br><span class="line">:help mksession</span><br><span class="line">:help find</span><br><span class="line">:help gf</span><br><span class="line">:help CTRL-W_f</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="引入path"   >
-          <a href="#引入path" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#引入path"></a> 引入：path</h1>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2021_1009/">计算机知识体系2021_1009</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2021_1009/" data-flag-title="计算机知识体系2021_1009"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
-<p>vimrc定义了vim通常的行为。然而，每个项目都有其特殊的定义，虽然我们也可以在vimrc中对每个项目进行定制，但这样一来，vimrc会变得很大，使vim启动速度变慢；另外也会使vimrc变得难以维护。</p>
-<p>因此，使用其它的方法来保存项目相关的信息，将以<em>path</em>选项的设置为例进行。</p>
-<p>path选项定义了一个目录列表，在使用<code>gf</code>，<code>find</code>，以及<code>CTRL-W f</code>等vim命令时，如果使用的是相对路径，那么就会在path选项定义的目录列表中查找相应的文件。path选项以逗号分隔各目录名。我们以vim的源代码为例（源代码放在<code>~/src/vimXX/</code>目录中）。</p>
-<p>对于这个项目，我们的<em>path</em>选项设置如下：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set path=.,/usr/include,,~/src/vim90/**</span><br></pre></td></tr></table></div></figure>
-<p>稍微解释一下各项的含义，更详细的信息，请查看<em>path</em>选项的帮助页：</p>
-<ul>
-<li><code>.</code>：在当前文件所在目录中搜索</li>
-<li><code>/usr/include</code>：在<code>/usr/include</code>目录中搜索</li>
-<li><code>,,</code>：在当前工作路径中搜索</li>
-<li><code>~/src/vim90/**</code>：在<code>~/src/vim90</code>的所有子目录树中进行搜索</li>
-</ul>
-<p>设置了<em>path</em>选项后，怎么用呢？</p>
-<p>我们把光标定位到<code>src/main.c</code>文件第22行的<code>fcntl.h</code>单词上，然后在<code>Normal</code>模式下按<code>gf</code>。咦，<code>vim</code>打开了<code>/usr/include/fcntl.h</code>文件！</p>
-<p>现在我们按<code>CTRL-^</code>回到刚才的位置，光标仍旧定位在第22行的<code>fcntl.h</code>单词上，然后按<code>CTRL-W f</code>。啊哈，这次vim打开了一个水平分隔窗口，在此窗口中打开了<code>/usr/include/fcntl.h</code>。</p>
-<p>尽管在<code>src/main.c</code>中未指定<code>fcntl.h</code>的路径，但vim会在<em>path</em>选项定义的路径中搜索此文件，很方便。</p>
-<p>现在我们看一下<code>find</code>命令，输入：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:find netrw.vim</span><br></pre></td></tr></table></div></figure>
-<p>vim打开了<code>~/src/vim90/runtime/autoload/netrw.vim</code>文件。用这种方法打开文件真是太方便了，你不用输入文件的路径，vim会自动在<em>path</em>选项定义的路径中搜索。不过<code>find</code>命令也有缺陷，如果你只记得文件名的一部分，那么就没有办法用find命令打开这个文件了。而且find命令也不允许使用正则表达式。没关系，我们还有更好的方法来打开文件，要用到Lookupfile插件。</p>
-<p><em>path</em>选项介绍完了，进入正题，如何把本项目相关的配置保存起来，下次打开本项目时自动恢复这些配置呢？</p>
-<p>我们有两种方法做到这一点。</p>
+<p>今天总结的内容是一个发散性和系统性都有的。</p>
+<p>先要把整个操作系统的体系建立起来，存储体系、进程和线程体系。下去之后看操作系统哲学、程序员自我修养、深入理解计算机系统</p>
+<p>从应用层穿到底层。</p>
+<p>内存方面：通过new和malloc区别穿到：内存开辟底层的实现、内存的管理、页面的调换。</p>
+<p>谷歌的tmalloc源码下载下来分析，不会问老师。</p>
 
-        <h2 id="项目相关的配置保存起来方法1"   >
-          <a href="#项目相关的配置保存起来方法1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#项目相关的配置保存起来方法1"></a> 项目相关的配置保存起来：方法1</h2>
+        <h1 id="c语言的整个基础"   >
+          <a href="#c语言的整个基础" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言的整个基础"></a> C语言的整个基础</h1>
       
-<p>我们在<code>~/src/vim90/</code>目录下建立一个文件，假定文件名为<code>workspace.vim</code>，文件内容为：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;set project path</span><br><span class="line">set path+=~/src/vim70/** </span><br></pre></td></tr></table></div></figure>
-<p>这个文件中保存了项目相关的信息，例如选项值，键映射，函数定义，自动命令，等等。我们的例子中只定义的path选项，我们没有使用<code>set path=…</code>语句，在vim手册中建议使用<code>set path+=…</code>和<code>set path-=…</code>格式。</p>
-<p>接下来，在你的vimrc文件中加入下面的语句：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot; execute project related configuration in current directory</span><br><span class="line">if filereadable(&quot;workspace.vim&quot;)</span><br><span class="line">    source workspace.vim</span><br><span class="line">endif</span><br></pre></td></tr></table></div></figure>
-<p>以后，每次在<code>~/src/vim90/</code>目录中启动vim时，vim都会自动载入<code>workspace.vim</code>，恢复项目的配置信息。</p>
-
-        <h2 id="方法2"   >
-          <a href="#方法2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#方法2"></a> 方法2</h2>
-      
-<p>回顾会话(session)和viminfo的作用。使用session文件和viminfo也可以保存项目环境的方法。如果你使用了会话文件，那么选项值，键映射，和其它很多信息都已经保存了。但会话的功能毕竟有限，不能把项目相关的配置全部保存下来，怎么办呢？</p>
-<p>vim的作者已经想到了这个问题，并提供了解决办法。</p>
-<p>在vim载入会话文件的最后一步，它会查找一个额外的文件并执行其中的ex命令。查找的规则是，把会话文件名的后缀去掉，然后在后面加上<code>x.vim</code>。假设你的会话文件名为<code>example.session</code>，vim就会查找是否有<code>examplex.vim</code>，如果找到，就会执行此文件中的ex命令。</p>
-<p>好了，我们先创建我们的会话文件：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:cd ~/src/vim70</span><br><span class="line">:set sessionoptions-=curdir        &#x27;在session option中去掉curdir</span><br><span class="line">:set sessionoptions+=sesdir        &#x27;在session option中加入sesdir</span><br><span class="line">:mksession vim70s.vim              &#x27;创建一个会话文件 </span><br></pre></td></tr></table></div></figure>
-<p>然后再编辑一个名为~/src/vim70/vim70sx.vim的文件，文件的内容为（当然，你可以在这个文件中加入更多内容）：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;set project path</span><br><span class="line">set path+=~/src/vim70/** </span><br></pre></td></tr></table></div></figure>
-<p>退出vim后，在命令行下执行”gvim &amp;”，再次进入vim，这时看到的是一个空白窗口。然后执行下面的命令：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:source ~/src/vim70/vim70s.vim  &#x27;载入会话文件 </span><br></pre></td></tr></table></div></figure>
-<p>太棒了！原来的会话环境已经恢复，并且项目相关的配置也设置好了！</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/27/Linux/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/">Linux_忘记root密码</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/27/Linux/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/" data-flag-title="Linux_忘记root密码"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><ol>
-<li>重启ubuntu系统，启动时持续点按ESC，直到进入GRUB界面，选择Advanced option for ubuntu，按下回车键。<br />
-<img src="/image/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/image-20220826170207222.png" alt="image-20220826170207222" /></li>
-<li>选择recovery mode，按回车，进入Recovery Menu，选择&quot;Root Drop to root shell prompt&quot;）</li>
-<li>进入shell界面，使用<code>passwd</code>命令重新设定密码：<code>password root</code>，回车确认。</li>
-<li>输入新密码，两次。</li>
-<li>sudo reboot，重启系统进入GUI界面。</li>
+<ol>
+<li>结构体的使用–设计结构体–数据结构</li>
+<li>函数指针</li>
 </ol>
+
+        <h1 id="c的核心"   >
+          <a href="#c的核心" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c的核心"></a> C++的核心</h1>
+      
+<p>学习C++：先练（还是念？没听清），就是先理解面向对象的思想，然后用。C++中最主要的是灵活使用STL。STL有几个重要的点：（Vector、List比较简单，刨除了）Map、HashMap、HashSet，不要剖析VS2019的源码，因为太难了，剖析VC6.0或版本比较低的。<strong>Hash类的STL中，HashMap是最重要的一个点</strong>，其底层是红黑树实现的，但红黑树问的不多，撑死问一个树的左旋右旋。<strong>主要是让你实现HashMap（无序）代码</strong>。</p>
+<p>C++更重要的是：</p>
+<p>C<ins>11新特性很重要，可以看一本书C</ins>11新特性。<strong>最重要的是即智能指针</strong>。智能指针问的问题太多太多了。<strong>STL、智能指针会用，C++就到头了</strong>。</p>
+<p>C++结束后，更重要的是修炼内功。</p>
+<p>操作系统的两个点：进程、内存。I/O、多核可以了解一下，其他的不重要。</p>
+
+        <h2 id="内存"   >
+          <a href="#内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+      
+<p>页面置换算法：九个或八个，老师实现LRU算法，时钟算法自己实现，并且要讲清楚，才可以下达C++代码。</p>
+<p><strong>任务1（一周完成）</strong>：面试可能会问到：如果你定义了一个变量，你能否<strong>打印出其真实的物理地址</strong>？则我们必须对整个LINUX的内存管理原理非常熟悉才可以。</p>
+<p>如果能分析出真实的物理地址，则报文原理、写时拷贝原理（fork的原理）就会立马明白。</p>
+<p><strong>任务2</strong>：父进程建立链表，子进程也要使用链表，子进程和父进程不改变数据值。<br />
+首先在父进程建立链表，创建子进程，打印每个地址和值，父进程也如是。当子进程或父进程改变某个节点数据值后，在子进程和父进程再次打印链表的地址。对照链表有何变化。<br />
+本质问题就是：原来我们讲过，局部变量和全局变量产生写时拷贝，那么我们<strong>在堆区如何产生写时拷贝</strong>？</p>
+
+        <h2 id="进程"   >
+          <a href="#进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程"></a> 进程</h2>
+      
+<ol>
+<li>父进程构造了个对象5，<strong>fork后子进程会不会还要调用构造函数</strong>？当对象的局部发生改变后，打印对象地址。这问题会牵扯到后续的继承内容，有多态，存在虚表问题。</li>
+<li>进程间的通信有哪几种？管道、共享内存、消息队列。如果内存知识不懂，则不会理解。一旦要共享内存，就会有互斥、同步问题。互斥量、互斥锁、信号量、原子操作、条件变量。<strong>任务3</strong>：原子操作的底层实现是？搞清原子操作，就可以搞清信号量、互斥量。</li>
+</ol>
+
+        <h1 id="cc面试"   >
+          <a href="#cc面试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cc面试"></a> C/C++面试</h1>
+      
+<p>C和C<ins>的面试，重点不在语法上，而是透过问题C和C</ins>穿入到操作系统。</p>
+
+        <h2 id="new和malloc区别"   >
+          <a href="#new和malloc区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#new和malloc区别"></a> new和malloc区别</h2>
+      
+<ol>
+<li>
+<p>new是关键字，malloc是函数，new调用malloc。</p>
+</li>
+<li>
+<p>new和malloc都是在堆区申请空间</p>
+</li>
+<li>
+<p>new有三个步骤</p>
+<ol>
+<li>开辟空间</li>
+<li>构造函数，初始化对象。</li>
+<li>返回地址</li>
+</ol>
+<p>如果考虑CPU的串行、并行，则2、3步可能会顺序不一致。有可能还没构建对象就拿到了地址，会导致错误。我们需要强制其按照2、3顺序来。</p>
+</li>
+<li>
+<p>new不会强转返回值类型，malloc需要程序员强转。</p>
+</li>
+<li>
+<p>new封装计算sizeof，而malloc需要程序员清楚要开辟的空间。</p>
+</li>
+<li>
+<p>空间不足时，new会抛异常（bad_alloc），不会执行返回操作。malloc会返回空指针。（int *p = new(nothrow) int(20);//我们可以加nothrow禁止抛出异常，则返回空指针）</p>
+</li>
+<li>
+<p>释放时，如果对象是内置类型，delete和free可以混用。自己设计的类型，如果没有析构函数、继承关系，也没有虚函数，则也可以混用；如果你设计的new是一个完全的面向对象的写法，则不可以混用。</p>
+</li>
+<li>
+<p>new是个关键字，可以重载；malloc是函数，不可以重载。重载new，在类中重载的new和delete的最大特点是其具有静态特性，没有this指针。**为什么类中重载的new没有this指针？**this指向当前对象，new需要给当前对象开辟地址，调动new的时候，还不存在对象，那么无法传递this指针。</p>
+</li>
+</ol>
+<p>透过这个问题，我们可以联想到：</p>
+<p><strong>C++的核心思想</strong>：地址和空间分离。就比如，局部对象的定义时分配的空间是系统管理的，构造函数是无能力开辟空间的，只是在空间中构建出来。所以，有空间不一定有对象，有对象一定有空间。</p>
+<p>针对这个思想，有一个例子：类中没有任何指令、成员的sizeof是1，对象占空间大小也是1字节。因为它至少要体现它存在着，起占位符作用。</p>
+
+        <h2 id="new的三种调用形式"   >
+          <a href="#new的三种调用形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#new的三种调用形式"></a> new的三种调用形式</h2>
+      
+<ol>
+<li>
+<p>关键字</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="built_in"><span class="keyword">int</span></span>(<span class="number">10</span>);</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>函数</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = ::<span class="keyword">operator</span> <span class="built_in"><span class="keyword">new</span></span>(<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>));  <span class="comment">//malloc</span></span><br></pre></td></tr></table></div></figure>
+<p>类似于调用malloc，但是还是有区别，这个形式的new内存不足时还是会抛出异常。</p>
+</li>
+<li>
+<p>定位new</p>
+<p>定位new就是对已有的空间，在空间中拿定位new来构建你认为的对象。为什么呢？因为ar传递进去之后，传递进的是个无类型指针，无类型指针在地址范围内构建对象就可以了，不管原来是什么货，我现在认为：有地址即可构建对象。对系统内部来说，认为有空间我就能把地址构建到，而回到用户空间下做的话，整型数组里就不能有对象了。但对系统来说，不管类型，我就是可以构建。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ar[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">new</span>(ar) <span class="built_in">Test</span>(<span class="number">10</span>);<span class="comment">//把对象构建到数组中了。跨越了类型的障碍。</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="malloc"   >
+          <a href="#malloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h2>
+      
+<ol>
+<li>new和malloc都是调用malloc来分配空间</li>
+<li>malloc的底层实现是调用tmalloc和pmalloc，大块内存、小块内存组织方案不一样。这个问题就牵扯到了内存池。理解内存池后，malloc底层效率低，我们需要写自己的内存池来增加效率，比如谷歌的tmalloc，那么与STL中的内存池有何区别？</li>
+<li>谷歌的tmalloc如果考虑在多线程环境下，有可能你调的是1号线程给你分配，有可能是2号，线程多了之后，可以加速分配速度。线程有自己的线程池，并不冲突。但是如果要的空间比较大时，要在底层对大空间进行一个统一的开辟，并且会产生竞争，则会出现同步问题。则会出现以下现象：原来是1号线程分配的空间，释放时用的2号线程。原来是2号线程分配的空间，释放时用的1号线程。那么空间如何有一个统一的方法还回去？线程池从某地方拿了一块给另一方，还回的时候是第二个线程还，那么就会把这一块放到线程空间里。所以有可能从1号的还给2号，有可能从2号来的，还给1号。</li>
+</ol>
+
+        <h2 id="什么是内存泄漏"   >
+          <a href="#什么是内存泄漏" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#什么是内存泄漏"></a> 什么是内存泄漏？</h2>
+      
+<ol>
+<li>内存泄露的本质原因是什么？
+<ol>
+<li>内存泄漏绝不是简单的malloc后没有free。进程结束后，malloc的内存都会释放。<strong>因为我们进程使用的是虚拟地址，我们会在进程执行完毕后，撤销虚拟地址在物理地址的映射关系。</strong></li>
+</ol>
+</li>
+<li>内存不足时，我们采取的政策是什么？</li>
+</ol>
+
+        <h2 id="进程同步经典问题"   >
+          <a href="#进程同步经典问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程同步经典问题"></a> 进程同步经典问题</h2>
+      
+<ol>
+<li>生产者-消费者：面试中经久不衰的问题，因为用到的场景太多了。与播放有关的都是这种问题。
+<ol>
+<li>短视频软件就是一个生产者-消费者模型。有环形的缓冲池，有倒水者（服务器）、接水者（用户）。</li>
+<li>如果只有一个池子：使用过程中，队头和队尾需要一直迭代，我们可能需要计算队列中的个数，需要队尾、队头相减，则需要锁住队头和队尾指针，则不能灌水、取水。</li>
+<li>三个池子来回倒：先把一个池子注满，注满后把池子拉给播放器。接着给另一个池子注，这样来说，两个池子是独立的。并行能力提升了。代价是要有两个池子的资源。</li>
+</ol>
+</li>
+<li>哲学家进餐，避免死锁</li>
+<li>读者-写者问题：实际上是生产者-消费者的变种问题
+<ol>
+<li>读者不可改内容，写者可改。读者可以并发，读者和写者互斥，读者和读者并发，写者和写者互斥。代码比较小，但是要你设计框架。</li>
+</ol>
+</li>
+<li>给上三个线程，第一个线程打印A，第二个线程打印B，第三个线程打印C。总共打印10个，要求先A后B再C。不给信号量，能不能拿原子操作和条件变量完成？能不能拿条件变量和互斥量完成？能不能把原子操作、条件变量、互斥量三者合起来组成一个新的信号量？看你是不是学通了。这就面试到了很根本的难点了。年薪40-50W都会面到。</li>
+</ol>
+
+        <h2 id="进程池-线程池"   >
+          <a href="#进程池-线程池" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程池-线程池"></a> 进程池、线程池</h2>
+      
+<p>如何实现进程池、线程池？</p>
+<p>学了TCP/IP就能体会到线程池了。</p>
+
+        <h1 id="书"   >
+          <a href="#书" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#书"></a> 书</h1>
+      
+<ol>
+<li>操作系统哲学</li>
+<li>程序员的自我修养
+<ol>
+<li>看Linux就够了，Windows不看</li>
+</ol>
+</li>
+</ol>
+<p>两本看完后，可以弄一个4G文件，内存中取500M空间，玩地址映射。</p>
+<ol start="3">
+<li>
+<p>csapp</p>
+<ol>
+<li>
+<p>存储器</p>
+</li>
+<li>
+<p>内存管理</p>
+<ol>
+<li>页面置换算法</li>
+</ol>
+</li>
+<li>
+<p>进程、线程</p>
+</li>
+</ol>
+</li>
+<li>
+<p>effective C++</p>
+<ol>
+<li>可当作对C++的扩充</li>
+<li>最有价值的是第六章，应该反复去看，即继承关系。</li>
+</ol>
+</li>
+<li>
+<p>陈硕-LINUX C++网络库</p>
+<ol>
+<li>智能指针。</li>
+</ol>
+</li>
+<li>
+<p>深入理解C++11</p>
+</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2022/08/28/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/FFmpeg_%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">FFmpeg_常用命令</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2022/08/28/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/FFmpeg_%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-flag-title="FFmpeg_常用命令"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ul>
+<li>常用参数选项</li>
+<li>抽取视频的音频，保存为单独的文件</li>
+</ul>
+
+        <h1 id="常用参数选项"   >
+          <a href="#常用参数选项" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用参数选项"></a> 常用参数选项</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>输入的文件</td>
+</tr>
+<tr>
+<td><code>-vn</code></td>
+<td>disable video</td>
+</tr>
+<tr>
+<td><code>-b:v</code></td>
+<td>视频码率</td>
+</tr>
+<tr>
+<td><code>-b:a</code></td>
+<td>音频码率</td>
+</tr>
+<tr>
+<td><code>-acodec</code>/<code>-vcodec</code> <code>copy</code></td>
+<td>代表复用原音视频格式</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="抽取音频"   >
+          <a href="#抽取音频" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#抽取音频"></a> 抽取音频</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://superuser.com/questions/332347/how-can-i-convert-mp4-video-to-mp3-audio-with-ffmpeg" >https://superuser.com/questions/332347/how-can-i-convert-mp4-video-to-mp3-audio-with-ffmpeg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>The basic command is:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i filename.mp4 filename.mp3</span><br></pre></td></tr></table></div></figure>
+<p>or</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i video.mp4 -b:a 192K -vn music.mp3</span><br></pre></td></tr></table></div></figure>
+<p>Check this URL: <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://donnieknows.com/blog/mp4-video-mp3-file-using-ffmpeg-ubuntu-910-karmic-koala" >MP4 Video to MP3 File Using ffmpeg (Ubuntu 9.10 Karmic Koala)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> link broken [Updated on 7th Dec 2021]</p>
+<p><strong>Note:</strong> Ubuntu does not supply FFmpeg, but the fork named <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://libav.org/" >Libav</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>. The syntax is the same – just use <code>avconv</code> instead of <code>ffmpeg</code> for the above examples.</p>
+<hr />
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9913032/how-can-i-extract-audio-from-video-with-ffmpeg" >https://stackoverflow.com/questions/9913032/how-can-i-extract-audio-from-video-with-ffmpeg</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>To extract the audio stream without re-encoding:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input-video.avi -vn -acodec copy output-audio.aac</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li><code>-vn</code> is no video.</li>
+<li><code>-acodec copy</code> says use the same audio stream that’s already in there.</li>
+</ul>
+<p>Read the output to see what codec it is, to set the right filename extension.</p>
+
+        <h1 id="按时间范围截取"   >
+          <a href="#按时间范围截取" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#按时间范围截取"></a> 按时间范围截取</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/u011573853/article/details/103221606" >https://blog.csdn.net/u011573853/article/details/103221606</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<ul>
+<li>
+<p>截取一段音频</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i lesson.mp3 -ss 6:17 -to 8:25 -c copy lessson4.mp3</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>把音频加入从头加入到视频</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i lessson4.mp3 -i video.mp4 -map 0:0 -map 1:1 -c copy movie.mp4</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>截取一段视频</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i &#x27;1.mp4&#x27; -ss 00:01:17 -t 00:10:45 -vcodec copy -acodec copy yundong.mp4</span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+
+        <h1 id="常用操作命令总结"   >
+          <a href="#常用操作命令总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用操作命令总结"></a> 常用操作命令总结</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/341e0673bfe8" >https://www.jianshu.com/p/341e0673bfe8</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="截图"   >
+          <a href="#截图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#截图"></a> 截图</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:43:55 -i video.mp4  -f image2  -vframes 1 -y frame.png</span><br></pre></td></tr></table></div></figure>
+<p>注意将<code>ss</code>放到最前面可以加快速度, <code>-y</code>代表覆盖文件 <code>-vframes</code>代表帧数 <code>-i</code>代表输入，即in；<code>-ss</code>也可以使用单个数字，代表秒数，从0开始计算。</p>
+
+        <h2 id="去固定水印"   >
+          <a href="#去固定水印" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#去固定水印"></a> 去固定水印</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i video.mp4 -vf <span class="string">&quot;delogo=x=1680:y=60:w=160:h=55&quot;</span>  -y  new_1.mp4</span><br></pre></td></tr></table></div></figure>
+<p>这里<code>-vf</code>表示<code>video filter</code>， 其中<code>delogo</code>的参数代表水印的坐标和大小，把视频左上角作为坐标原点，横向为x轴，纵向为y轴。这种情况除非预先知道水印的位置和大小，否则不是特别方便，当然，准确识别水印位置也是一个难点，不是很轻易能实现的。<br />
+可能根据某些<code>ffmpeg</code>版本不同，需要加<code>-strict experimental</code> 参数，一种情况是比较老的版本音频<code>ACC</code>属于实验阶段，可以按情况设置或者升级<code>ffmpeg</code>版本。</p>
+
+        <h2 id="获取视频时长"   >
+          <a href="#获取视频时长" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#获取视频时长"></a> 获取视频时长</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 new_out.mp4</span><br></pre></td></tr></table></div></figure>
+<p>ffprobe 是ffmpeg 配套的一个工具，可以查看一些内容信息。上面的命令可以直接获得秒为单位的视频时长</p>
+<ol>
+<li>获取视频信息并优化展示<br />
+<code>ffprobe -v quiet -print_format json -show_format -show_streams pianpian.mp4</code><br />
+这里<code>-v</code>代表日志级别，可以使用<code>debug</code>用来分析某些异常；  上面的命令会以json格式输出<code>format</code>和<code>stream</code>两项的信息.</li>
+<li>转码再生成m3u8<br />
+先转为ts格式:</li>
+</ol>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -y -i video.mp4 -c:v copy -c:a copy -vbsf h264_mp4toannexb output.ts</span><br></pre></td></tr></table></div></figure>
+<p>这里 <code>-c:v</code>, <code>-c:a</code>分别代表视频，音频格式，<code>copy</code>代表原视频格式， <code>-vbsf</code>或者<code>-bsf:v</code>(<code>-bsf:a</code>)，表示<code>bitstream filter</code>，转码格式。<br />
+转换m3u8：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i output.ts  -c copy -map 0 -f segment -segment_list index.m3u8 -segment_time 10 video_sgs/video-%03d.ts</span><br></pre></td></tr></table></div></figure>
+<p>中间参数没有太了解，功能是将视频分段并生成m3u8文件， 包括设置分段视频的长度。</p>
+
+        <h2 id="视频分帧"   >
+          <a href="#视频分帧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#视频分帧"></a> 视频分帧</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i src01.avi %d.jpg</span><br></pre></td></tr></table></div></figure>
+<p>将视频所有帧保存为图片。 注意整体内容可能比较大，实验中19MB的1280*720视频，分帧后的图片有3.8G。</p>
+
+        <h2 id="视频加文字水印"   >
+          <a href="#视频加文字水印" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#视频加文字水印"></a> 视频加文字水印</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -vf <span class="string">&quot;drawtext=fontfile=simhei.ttf:text=&#x27;雷&#x27;:x=100:y=10:fontsize=24:fontcolor=yellow:shadowy=2&quot;</span> drawtext.mp4</span><br></pre></td></tr></table></div></figure>
+<p>可以给水印设置字体，大小，颜色等。 字体颜色可以用RGB代码，比如<code>fontcolor=#FFFF00</code>，如果要设置透明度可以这样写：<code>fontcolor=#FFFFFF@0.6</code>，表示0.6的透明度，取值为<code>0.1-1.0</code>。<br />
+<code>shadowy</code>表示阴影。</p>
 <blockquote>
-<p>可能会在其中很有可能会出现”Authentication token manipulation error“的错误。别先执行”<code>mount -rw -o remount /</code>“，然后再执行第3步就可以了。</p>
+<p>注意： 这里冒号<code>:</code>是关键字，如果是要加到水印里，需要转义，用四个\下面是一个例子</p>
 </blockquote>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/8/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/10/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">201</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">42</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i source.mp4 -vf <span class="string">&quot;drawtext=fontfile=MicroYaHei.ttf:text=By\\\\:三峡不好人:x=1240:y=44:fontsize=73:fontcolor=#FFFFFF@0.8&quot;</span>  -y drawtext_out.mp4</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="ffmpeg限制cpu数"   >
+          <a href="#ffmpeg限制cpu数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ffmpeg限制cpu数"></a> ffmpeg限制cpu数</h2>
+      
+<p>ffmpeg在去水印，加水印的时候，默认都是占满可用CPU的，某些情况下需要限制CPU数。网上文章乱七八糟，各种抄，很多说用<code>-threads</code> 参数，但说的不明不白。 以下亲测，<code>-threads</code>参数放到 -y 前面是可以生效的， Linux 可以用<code>top -H -p &lt;pid&gt;</code> 看运行线程数来验证， 同时可以用<code>uptime</code>比较限制线程和不限制的CPU使用率。 如下是限制为2个线程。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i source.mp4 -vf <span class="string">&quot;drawtext=fontfile=MicroYaHei.ttf:text=By\\\\:三峡不好人:x=1240:y=44:fontsize=73:fontcolor=#FFFFFF@0.8&quot;</span>  -threads 2  -y drawtext_out.mp4</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/8/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/10/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">204</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">42</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
