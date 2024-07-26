@@ -1,0 +1,707 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/18/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/18/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/C/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/">C语言_20240214_20240219_串匹配算法</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-02-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/" data-flag-title="C语言_20240214_20240219_串匹配算法"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="串的匹配"   >
+          <a href="#串的匹配" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#串的匹配"></a> 串的匹配</h1>
+      
+<p>串的匹配就是从大的字符串中找到字串，并且返回第一个字串的位置。</p>
+<p>C语言库函数有一个<code>strstr</code>，是朴素的串匹配算法，也叫BF算法。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">BF</span><span class="params">(<span class="built_in">string</span> source, <span class="built_in">string</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; source.size() &amp;&amp; j &lt; pattern.size())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            i = i - j + <span class="number">1</span>;<span class="comment">//后退j个字符，再进1</span></span><br><span class="line">            j = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j == pattern.size())<span class="comment">//如果pattern的j走到了最后，则说明已经全部匹配</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="kmp算法"   >
+          <a href="#kmp算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#kmp算法"></a> KMP算法</h1>
+      
+<p>是一个升级版的串匹配算法，名字取自三个人名（Knuth-Morris-Pratt）。</p>
+<p>总地来说，KMP的核心效果就是让原串的指示器不用退回。如何达到这个效果？就是考虑和模式串已经匹配的部分。这一部分模式串的<strong>子串</strong>，如果后缀有和前缀相重复的部分，则就可以跳过这些部分，即跳过前缀，在前缀的后一个字符开始再次比对（实际操作中，原串指示器不动，而是模式串的指示器回退到当时<strong>子串</strong>前缀的后一个字符位置）。</p>
+<p>于是，整个问题的核心，就从关注原串变到关注模式串本身了。需要找到模式串的不同长度（起点一致，不能从中间分割）下子串的前缀后缀相等的前缀（后缀）最大长度，从而建立一个所谓的next数组。</p>
+<p>这个next数组，教科书的求法是：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * <span class="title function_">getNext</span><span class="params">(<span class="built_in">string</span> str)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * next = new <span class="type">int</span>[str.size()];</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;   <span class="comment">// j 用来遍历子串</span></span><br><span class="line">    <span class="type">int</span> k = <span class="number">-1</span>;   <span class="comment">// k 用来表示公共前后缀的长度</span></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>; <span class="comment">// 表示，当第0个字符都已经匹配失败了，则原串前进1，模式串位置给-1，前进1后自然地（巧妙处理）到0位置。</span></span><br><span class="line">    <span class="keyword">while</span>(j &lt; str.size() - <span class="number">1</span>)<span class="comment">//size不包括\0，即不处理最后一位字符位置</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">-1</span> == k || str[j] == str[k])</span><br><span class="line">        &#123;</span><br><span class="line">            ++j;</span><br><span class="line">            ++k;</span><br><span class="line">            next[j] = k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            k = next[k];     <span class="comment">//如果在找相同的后缀失配，同样也可以使用KMP的思想，在已匹配的这部分字符串中找相同的前后缀部分，从而去回溯k！比如：如果没有相同前后缀，则k为0</span></span><br><span class="line">            <span class="comment">// 这里巧妙地复用了next数组，因为在推进k的过程中，观察的也是这个模式串的一部分，所以可以使用此next作为前缀的next！</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">KMP</span><span class="params">(<span class="built_in">string</span> source, <span class="built_in">string</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> * next = getNext(pattern);<span class="comment">//add</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt; source.size() &amp;&amp; j &lt; pattern.size())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">// modify</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = next[j];   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j == pattern.size())<span class="comment">//如果pattern的j走到了最后，则说明已经全部匹配</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>上面这个求next数组的代码虽然看起来很简洁，但要彻底理解，还是比较难的，因为代码的细节处理得很巧妙，其中<code>k = next[k]</code>更是复用了KMP的next数组思想。<br />
+这个求<code>getNext</code>的函数可以优化，避免模式串中重复的字段：见ShiLei算法180节<br />
+比如：<code>abcabc</code>的next数组如果没有优化，则会成为<code>-1 0 0 0 1 2</code>，而经过优化以后：<code>-1 0 0 -1 0 0</code></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * <span class="title function_">getNext</span><span class="params">(<span class="built_in">string</span> str)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * next = new <span class="type">int</span>[str.size()];</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;   <span class="comment">// j 用来遍历子串</span></span><br><span class="line">    <span class="type">int</span> k = <span class="number">-1</span>;   <span class="comment">// k 用来表示公共前后缀的长度</span></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>; <span class="comment">// 表示，当第0个字符都已经匹配失败了，则原串前进1，模式串位置给-1，前进1后自然地（巧妙处理）到0位置。</span></span><br><span class="line">    <span class="keyword">while</span>(j &lt; str.size() - <span class="number">1</span>)<span class="comment">//size不包括\0，即不处理最后一位字符位置</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">-1</span> == k || str[j] == str[k])</span><br><span class="line">        &#123;</span><br><span class="line">            ++j;</span><br><span class="line">            ++k;</span><br><span class="line">            <span class="comment">// 优化：如果发现此时k的位置字符和j的字符一样，则说明遇到了重复的字段，则继续进行回退，就省去了在kmp处理中多余的回退。</span></span><br><span class="line">            <span class="keyword">if</span>(str[k] == str[j])</span><br><span class="line">            &#123;</span><br><span class="line">                next[j] = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                next[j] = k;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            k = next[k];     <span class="comment">//如果在找相同的后缀失配，同样也可以使用KMP的思想，在已匹配的这部分字符串中找相同的前后缀部分，从而去回溯k！比如：如果没有相同前后缀，则k为0</span></span><br><span class="line">            <span class="comment">// 这里巧妙地复用了next数组，因为在推进k的过程中，观察的也是这个模式串的一部分，所以可以使用此next作为前缀的next！</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>还有一个更直白的找模式串子串的前后缀最大长度的方法如下：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> PMT[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">void</span> <span class="title function_">init_pmt</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="type">char</span> sub[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= len; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">strncpy</span>(sub, pattern, i);</span><br><span class="line">        sub[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="type">char</span> prefix[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">        <span class="type">char</span> suffix[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i - <span class="number">1</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">strncpy</span>(prefix, sub, j);</span><br><span class="line">            prefix[j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">            <span class="built_in">strcpy</span>(suffix, sub + i - j);</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(prefix, suffix) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                PMT[i - <span class="number">1</span>] = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">kmp</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * source, <span class="type">char</span> <span class="type">const</span> * pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//i 指示 原串，j指示模式串</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(source[i] &amp;&amp; pattern[j])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//仅仅是这里与BF不一样。</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 首位不相等，i进1</span></span><br><span class="line">            <span class="keyword">if</span>(j == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ++i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span><span class="comment">// 除了首位不相等j归0外，其他情况为回退j，回退多少？查表</span></span><br><span class="line">            &#123;</span><br><span class="line">                j = PMT[j - <span class="number">1</span>];<span class="comment">// j - 1是已匹配了的最后位置</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pattern[j] == <span class="string">&#x27;\0&#x27;</span>)<span class="comment">//如果j移到了最后，说明已经匹配到</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;<span class="comment">//返回的是原串中 匹配到的模式串的起始位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/image-20240320015452152.png" alt="image-20240320015452152" /></p>
+
+        <h1 id="bayer-moore"   >
+          <a href="#bayer-moore" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bayer-moore"></a> Bayer Moore</h1>
+      
+
+        <h2 id="坏字符"   >
+          <a href="#坏字符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#坏字符"></a> 坏字符</h2>
+      
+<p>每次把目标字符串和原字符串从后往前比较，如果某位置对应不上，则原字符串的这个字符称为“坏（bad）”字符。需要在目标字符串从后往前<strong>继续寻找</strong>（已经在之前匹配上的字符跳过）与这个bad字符相等的字符，然后按照这个相等字符的位置与原字符串的坏字符位置对齐（后移目标字符串）；如果在目标字符串中没找到坏字符，则把目标字符串整体后移到坏字符位置的下一个位置。对齐之后，重新把目标字符串和原字符串从后往前比较。</p>
+<p>找匹配串中下一个坏字符，需要告诉：当前坏字符是什么（原串中的字符），当前坏字符位置在哪（模式串中的下标值），以及目标串指针。即从匹配串中的坏字符的位置的前一个位置开始找下一个相同的字符。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">next_bad</span><span class="params">(<span class="type">char</span> bad, <span class="type">char</span> <span class="type">const</span> * pattern, <span class="type">int</span> wherebad)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// pattern串中从后往前找与原串的坏字符相同的字符，从哪里坏的位置的前一个开始</span></span><br><span class="line">    <span class="comment">// 若未找到字符则i = -1自然退出</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = wherebad - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pattern[i] == bad)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="好后缀"   >
+          <a href="#好后缀" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#好后缀"></a> 好后缀</h2>
+      
+<p>在模式字符串从后往前与原串一一匹配的过程中，遇到了坏字符，那么坏字符之后的，即已经匹配上了的在后面的部分串称之为好后缀。那么，我们可以去寻找模式字符串中还是否存在好后缀。如果存在，则可以让模式字符串的下一个好后缀与原串的当前位置的好后缀对齐，从而达到让模式串快速前进。</p>
+<p><strong>好后缀的思想很类似于KMP算法，即找公共前后缀，让重复的前缀对齐原串的后缀位置。但是区别就在于，BM算法是从后往前去匹配的，找到好后缀的同时，顺带着也找到了坏字符的位置。</strong></p>
+<p>下一个坏字符与原串当前坏字符对齐，或者下一个好后缀与原串当前好后缀对齐，模式字符串前进的步数会不一样，那么，就可以去对比哪个可以前进得更多。</p>
+<p>那么，类似于KMP地，去聚焦于模式字符串本身，不同点在于，每次寻找后缀都是从右向左寻找最近的下一个好后缀。（如果找的不是最近的而是靠左的下下个好后缀的话，那么模式字符串在BM算法前进过程中就会步子迈大了，跳过了可能完全成功匹配的机会）</p>
+<p>去建立一个<code>SUFFIX_TB</code>表格，下标值<code>i</code>代表<strong>此位置</strong>开始的后缀字符串，内容值<code>SUFFIX_TB[i]</code>代表<strong>左边下一个最近的好后缀的下标位置</strong>。<br />
+<code>SUFFIX_TB</code>表格起初把全部值初始化为<code>-1</code>。表示当前<code>i</code>位置时没找到下一个好后缀。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> SUFFIX_TB[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">void</span> <span class="title function_">init_suffix</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * <span class="type">const</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> pattern_len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="type">char</span> sub[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        SUFFIX_TB[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// i指示的是后缀的起始位置，从第1个下标位置开始找</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; pattern_len; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 当前要找的好后缀为 i下标位置开始到最后 </span></span><br><span class="line">        <span class="built_in">strcpy</span>(sub, pattern + i);</span><br><span class="line">        <span class="comment">// 从好后缀开始的位置（i下标）的上一个开始，从右向左比较，因为要找最近的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// sub是要找的好后缀。pattern + j是要对比的字符串的起始位置，他们的长度都应为pattern_len - i</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strncmp</span>(sub, pattern + j, pattern_len - i) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 找到从右往左的最近的下一个好后缀，更新表格。i代表此位置开始的后缀字符串。j代表下一个好后缀的起始位置。</span></span><br><span class="line">                SUFFIX_TB[i] = j;</span><br><span class="line">                <span class="comment">// 不要忘记break！如果不break继续找的话，左边可能有另一个完全匹配的好后缀，会覆盖掉</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>封装到<code>next_good</code>函数，参数只需要一个wherebad，即坏字符的位置（模式串中的下标值），那么就可以确定好后缀的位置了（即坏字符的下一个位置）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">next_good</span><span class="params">(<span class="type">int</span> wherebad)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> SUFFIX_TB[wherebad+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="实现bm算法"   >
+          <a href="#实现bm算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现bm算法"></a> 实现BM算法</h2>
+      
+<p>每次比较选择坏字符和好后缀哪个可以让模式字符串走的更远。参数一个原串指针，一个模式串指针。返回值为匹配成功后，原串中目标子串的起始下标值。如果没找到则返回<code>-1</code>。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">boyer_moore</span><span class="params">(<span class="type">char</span> <span class="type">const</span>* <span class="type">const</span> source, <span class="type">char</span> <span class="type">const</span>* <span class="type">const</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    init_suffix(pattern);</span><br><span class="line">    <span class="type">int</span> src_len = <span class="built_in">strlen</span>(source), pattern_len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="comment">// 因为BM是从后往前比对的，因此，初始值都是 模式串 最后位置的下标值-1</span></span><br><span class="line">    <span class="type">int</span> i = pattern_len - <span class="number">1</span>, j = pattern_len - <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 循环寻找目标串的条件是 原串i 没到结尾</span></span><br><span class="line">    <span class="comment">// 这个循环处理的是i，即只要遇到失配的情况，则i前进，j重新对齐下一个位置进行再次一一匹配。</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; src_len)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 这个循环处理的是j。只要模式串j和原串i位置的字符相等，则j和i同时左移1。同时j的值需要大于等于0。</span></span><br><span class="line">        <span class="keyword">while</span> (source[i] == pattern[j] &amp;&amp; j &gt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            --i;</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果退出了小while循环，则有两种情况</span></span><br><span class="line">        <span class="comment">//情况1： j &lt; 0, 说明模式串j走到最左，则完全匹配。此时i位置处在目标子串开始的前一个位置。则结果应返回i+1</span></span><br><span class="line">        <span class="keyword">if</span> (j &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//情况2： 此时出现失配，即原串的i位置字符失配。</span></span><br><span class="line">            <span class="comment">// 参数：当前坏字符是什么（原串中的字符）；目标串指针；当前坏字符位置在哪（模式串中的下标值）</span></span><br><span class="line">        <span class="type">int</span> next_bad_index = next_bad(source[i], pattern, j);</span><br><span class="line">        <span class="type">int</span> next_good_index = next_good(j);</span><br><span class="line">        <span class="comment">// 对比这两个值。选择哪个？</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果坏字符、好后缀都没找到      0  0 模式串起始点重新对齐到i的下一个位置，i再挪到最后</span></span><br><span class="line">        <span class="comment">// 如果没找到坏字符，找到了好后缀  0  1 由于没找到坏字符，则有好后缀也没意义了，所以与0 0一样：模式串起始点重新对齐到i的下一个位置，i再挪到最后</span></span><br><span class="line">        <span class="comment">// 如果找到了坏字符，没找到好后缀  1  0 虽然好后缀是-1，看起来可以跳过很多，但是！由于存在坏字符，不能一下略过去，所以不能选择好后缀。要选择坏字符位置值</span></span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">        <span class="comment">// 总结：只要有一个没找到，则二者最小值为 -1。模式串起始点都是重新对齐到i的下一个位置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果找到了坏字符，找到了好后缀   1  1</span></span><br><span class="line">            <span class="comment">// 再次分情况：看next_good和next_bad谁值小，选谁。</span></span><br><span class="line">        <span class="comment">//总结：取二者最小值。</span></span><br><span class="line">            <span class="comment">//如果是好后缀则将相当于可以把模式串后移j - next_good + 1。</span></span><br><span class="line">            <span class="comment">//如果是坏字符则将相当于可以把模式串后移j -  next_bad。</span></span><br><span class="line">                <span class="comment">//如果两个都是最小值。即相等，则优先选择好后缀，因为对齐时，好后缀比坏字符更能多进1位。</span></span><br><span class="line">                <span class="comment">//如果最小值为-1，则模式串起始点重新对齐到i的下一个位置</span></span><br><span class="line">        <span class="keyword">if</span> (next_bad_index == <span class="number">-1</span> || next_good_index == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (next_bad_index == <span class="number">-1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                i += j + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(next_good_index == <span class="number">-1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                i += pattern_len - <span class="number">1</span> - next_bad_index;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (next_bad_index &lt; next_good_index)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//i += pattern_len - 1 - j + j - next_bad_index;</span></span><br><span class="line">            i += pattern_len - <span class="number">1</span> - next_bad_index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (next_good_index &lt;= next_bad_index)</span><br><span class="line">        &#123;</span><br><span class="line">            i += pattern_len - <span class="number">1</span> - next_good_index + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        j = pattern_len - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> res = boyer_moore(<span class="string">&quot;GATTGCTAGATTAACTATACTAA&quot;</span>, <span class="string">&quot;CTATACTA&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果：14</span></span><br></pre></td></tr></table></div></figure>
+<p>总结来说，</p>
+<ol>
+<li>如果坏字符、好后缀都找到了。那么取最小值作为下一个的对齐点。
+<ol>
+<li>如果二者相等，则优先取好后缀。因为模式字符串重新对齐时，好后缀比坏字符更能多进1位。</li>
+</ol>
+</li>
+<li>如果至少有一个没找到：
+<ol>
+<li>BM算法最大的易错点：<strong>如果找到了坏字符而没找到好后缀，则必须去对齐坏字符。因为好后缀有时候找不到是很正常的。如果跳过了这个坏字符，那么就会忽略中间的情况！</strong></li>
+<li>如果找到了好后缀而没找到坏字符，则忽略这个好后缀。因为模式串中根本就没有下一个坏字符，你去对齐好后缀是没意义的！所以，没找到坏字符就相当于二者都没找到！见2.3。</li>
+<li>如果都没找到，则模式串起始点重新对齐到当前原串指示位置<code>i</code>的下一个位置（实际上是调整<code>i</code>的值来做到对齐），j再挪到模式串的最后，重新从后向前一一匹配！</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="实际的场景"   >
+          <a href="#实际的场景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实际的场景"></a> 实际的场景</h1>
+      
+<p>线上项目涉及到数据搜索、字符串匹配，如果数据量很大时，应用最多的其实是字典树、倒排索引的数据结构。例子：百度搜索、开源的Lucene、ElasticSearch（ElasticSearch是一个基于Lucene构建的开源项目）</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lucene 和 Elasticsearch（ES）都主要基于倒排索引（Inverted Index）进行高效率搜索。</span><br><span class="line"></span><br><span class="line">倒排索引是一种数据结构，用于快速查找包含特定词条（term）的文档。它将文档中的每个词条映射到包含该词条的文档列表，这样的索引结构使得搜索过程能够快速定位到包含特定词条的文档，而无需扫描整个文档集合。</span><br><span class="line"></span><br><span class="line">在倒排索引中，每个词条都关联着一个包含该词条的文档列表（称为倒排列表），并且可以附加一些额外的信息，如词频、位置等。这使得搜索引擎可以快速定位到满足查询条件的文档，并根据相关度进行排序。</span><br><span class="line"></span><br><span class="line">Lucene 是基于 Java 编写的搜索引擎库，提供了倒排索引的实现和管理功能，开发人员可以使用 Lucene 来构建自己的搜索引擎或搜索功能。而 Elasticsearch 是一个基于 Lucene 构建的分布式搜索和分析引擎，它使用 Lucene 的倒排索引作为核心数据结构，同时提供了分布式存储、查询和分析等功能，使得用户可以轻松地构建和管理大规模的搜索应用。</span><br><span class="line"></span><br><span class="line">因此，倒排索引是 Lucene 和 Elasticsearch 实现高效率搜索的关键数据结构之一。</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="字典树"   >
+          <a href="#字典树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字典树"></a> 字典树</h2>
+      
+<p>字典树是指基于树的一种数据结构，用于以一种能够高效搜索、插入和删除操作的方式存储一组键（通常是字符串）。Trie树（又称prefix tree）和三叉搜索树（Ternary Search Tree，又称T-tree、T树）是字典树的具体实现，各自具有其特点和优势。</p>
+<ol>
+<li>Trie树（前缀树）特别适用于需要进行前缀匹配和检索的任务，例如字典实现和自动完成系统。</li>
+<li>T树（三叉搜索树）在空间效率和快速字符串搜索操作之间提供了平衡。它们也适用于字典实现以及拼写检查和近似字符串匹配等任务。</li>
+</ol>
+<p>总之，虽然Trie树和三叉搜索树是不同的实现，但它们都属于字典树类别，用于高效存储和检索键-值对，尤其是字符串。</p>
+
+        <h2 id="其他树"   >
+          <a href="#其他树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#其他树"></a> 其他树</h2>
+      
+
+        <h3 id="b树"   >
+          <a href="#b树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树"></a> B树</h3>
+      
+<p>B树的全名是“Bayer–McCreight B树”。这是一种由Rudolf Bayer和Edward M. McCreight于1972年引入的数据结构。B树的名称来自于这两位作者姓氏的首字母。B树被广泛应用于数据库和文件系统中，用于高效地存储和检索数据，尤其是在处理大型数据集和基于磁盘的存储时。</p>
+
+        <h3 id="t树"   >
+          <a href="#t树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#t树"></a> <code>T*</code>树</h3>
+      
+<p><code>T*</code>树是B树数据结构的一种变体，旨在提高范围查询的性能，例如查找在给定范围内的所有值，与传统的B树相比。</p>
+<p>在<code>T*</code>树中，每个节点可以有不同数量的子节点，通常范围在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>d</mi></msqrt><mtext>​到</mtext><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">\sqrt d​到2d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.10777999999999999em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.93222em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="padding-left:0.833em;">d</span></span><span style="top:-2.89222em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.10777999999999999em;"><span></span></span></span></span></span><span class="mord">​</span><span class="mord cjk_fallback">到</span><span class="mord">2</span><span class="mord mathnormal">d</span></span></span></span>之间，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">d</span></span></span></span>是树的最大度数。这允许更灵活地平衡树，并且可以使得树的高度相比传统的B树更浅，尤其是对于大型数据集而言。</p>
+<p><code>T*树</code>通过在其内部节点中存储额外的摘要信息来实现高效的范围查询性能，例如存储在其子树中的键的聚合值或范围。这样在范围查询期间可以更快地遍历和修剪不必要的子树。</p>
+<p>总的来说，<code>T*</code>树旨在在保持B树的优点，如高效的插入、删除和搜索操作的同时，提供改进的范围查询性能。它们在数据库系统和其他需要高效范围查询的应用中被广泛使用。</p>
+
+        <h3 id="b树-2"   >
+          <a href="#b树-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树-2"></a> <code>B*</code>树</h3>
+      
+<p><code>B*</code>树是B树的一种改进版本，旨在减少节点的分裂和合并操作，从而减少树的高度，提高查询性能。<br />
+与普通的B树不同，<code>B*</code>树在节点填满时不会立即进行分裂，而是等到达到阈值时才分裂，这样可以减少分裂的频率，减小树的高度。</p>
+<p><code>B*</code>树还通过在非叶节点中保留更多的键来减少合并操作的频率，从而进一步减小树的高度。</p>
+<p>虽然<code>B*</code>树和<code>T*</code>树都是B树的变体，但它们的设计目标和实现方式略有不同。<code>B*</code>树的重点是减少树的高度，而<code>T*</code>树的重点是提高范围查询的性能。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/C/C%E8%AF%AD%E8%A8%80_20240126_20240214_%E6%A0%91/">C语言_20240126_20240214_树</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-01-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_20240126_20240214_%E6%A0%91/" data-flag-title="C语言_20240126_20240214_树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="bst"   >
+          <a href="#bst" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bst"></a> BST</h1>
+      
+<p>Binary Search Tree，二叉搜索树，也称为二叉排序树。规则：相比于根节点的key值，左子树key小，右子树key大。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">TreeNode</span>&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> key;</span><br><span class="line">    <span class="type">char</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TreeNode</span> * <span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TreeNode</span> * <span class="title">right</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="插入"   >
+          <a href="#插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入"></a> 插入</h2>
+      
+<p>在当前节点下插入元素，返回新的root。</p>
+<blockquote>
+<p>为什么要求返回一个新的root呢？</p>
+<ol>
+<li>便于返回新的root。根节点不一定不变，比如之后如果有平衡化的操作。</li>
+<li>便于进行递归，因为树本身就是递归结构，完成insert也可以依赖递归进行，在递归过程中，root是动态变化的，层层递进。</li>
+</ol>
+</blockquote>
+<p>如果遇到插入key相同的情况，将value内容替代。</p>
+<p>以下是自己写的版本：left、right指针没有接上新节点！</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PTreeNode <span class="title function_">insert</span><span class="params">(PTreeNode root, PTreeNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> node;<span class="comment">//终止条件，root为空时，直接将node作为根</span></span><br><span class="line">    <span class="keyword">if</span>(node-&gt;key == root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;val = node-&gt;val;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;key &lt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root = root-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        root = root-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    insert(root, node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>简洁明了的正确版本：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PTreeNode <span class="title function_">insert</span><span class="params">(PTreeNode root, PTreeNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> node;<span class="comment">//终止条件，插入的地方为空时，返回node本身作为根</span></span><br><span class="line">    <span class="keyword">if</span>(node-&gt;key &lt; root-&gt;key) <span class="comment">// key小于root时，插入到左侧</span></span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;left = insert(root-&gt;left, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(node-&gt;key &gt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;right = insert(root-&gt;right, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;val = node-&gt;val;</span><br><span class="line">        <span class="built_in">free</span>(node);<span class="comment">//实际上不该由此函数处理，应该由外部处理</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="创建节点"   >
+          <a href="#创建节点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建节点"></a> 创建节点</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PTreeNode <span class="title function_">make_tree_node</span><span class="params">(<span class="type">unsigned</span> key, <span class="type">char</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode node = (PTreeNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">    node-&gt;key = key;</span><br><span class="line">    node-&gt;val = val;</span><br><span class="line">    node-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">    node-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="查找"   >
+          <a href="#查找" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查找"></a> 查找</h2>
+      
+<p>建立树就是为了查找，虽然插入困难了些，但是一旦有建立好的树，则搜索要简单得多。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PTreeNode <span class="title function_">search</span><span class="params">(PTreeNode root, <span class="type">unsigned</span> key)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(key &lt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> search(root-&gt;left, key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(key &gt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> search(root-&gt;right, key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    PTreeNode node = search(root, <span class="number">2</span>);</span><br><span class="line">    PTreeNode node2 = search(root, <span class="number">20</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="删除"   >
+          <a href="#删除" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除"></a> 删除</h2>
+      
+<p>给定一个root，查找特定的key，删除后，返回0或1（C语言中没有bool类型，用int代替）</p>
+<blockquote>
+<p>需要考虑：</p>
+<ol>
+<li>删除的节点如果有子树怎么办？</li>
+</ol>
+</blockquote>
+<p>首先递归查找key，如果找到了指定key，则有以下几种情况：</p>
+<ol>
+<li>要删除的节点为叶子节点：直接删除</li>
+<li>要删除的节点只有一支子树（左子树或右子树）：子树代替上来即可</li>
+<li>要删除的节点有两支子树：找到和该节点差距最小的节点互换，换位置后，转化为1、2的情况。
+<ol>
+<li>左子树的最右侧节点：左子树中最大值</li>
+<li>右子树的最左侧节点：右子树中最小值</li>
+</ol>
+</li>
+</ol>
+<p>remove也是一种递归，终止条件为当前root为空。</p>
+<blockquote>
+<ol>
+<li>找到节点为叶子节点时，发现返回值应当为PTreeNode，因为你递归删除子树时，需要反馈给上层一个节点地址信息，以更新上层root的孩子链接。</li>
+<li>remove和系统库函数名字冲突，需要改名为remove_node</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">remove_node</span><span class="params">(PTreeNode root, <span class="type">unsigned</span> key)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span>(key &lt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;left = remove_node(root-&gt;left, key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(key &gt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;right = remove_node(root-&gt;right, key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">//找到key</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//情况1：叶子节点</span></span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">free</span>(root);</span><br><span class="line">            root = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//情况3：同时有两支子树</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;left != <span class="literal">NULL</span> &amp;&amp; root-&gt;right != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            PTreeNode right_min = find_right_min(root);</span><br><span class="line">            exchange(right_min, root);</span><br><span class="line">            <span class="comment">//root已经交换到深层，目前是只有一支（右子树）的状态</span></span><br><span class="line">            root-&gt;right = remove_node(root-&gt;right, key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//情况2：有且仅有一支子树</span></span><br><span class="line">        &#123;</span><br><span class="line">            PTreeNode newroot = <span class="literal">NULL</span>;</span><br><span class="line">            <span class="keyword">if</span>(root-&gt;left != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                newroot = root-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                newroot = root-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">free</span>(root);</span><br><span class="line">            root = newroot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//除了交换val值，不要忘记交换key值</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">exchange</span><span class="params">(PTreeNode n1, PTreeNode n2)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> key = n1-&gt;key;</span><br><span class="line">    n1-&gt;key = n2-&gt;key;</span><br><span class="line">    n2-&gt;key = key;</span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> val = n1-&gt;val;</span><br><span class="line">    n1-&gt;val = n2-&gt;val;</span><br><span class="line">    n2-&gt;val = val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PTreeNode <span class="title function_">find_right_min</span><span class="params">(PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//形参传入的是根节点，不是根节点的右子树，所以初始化一定注意应当传入root-&gt;right</span></span><br><span class="line">    PTreeNode right_min = root-&gt;right;</span><br><span class="line">    <span class="keyword">while</span>(right_min-&gt;left)</span><br><span class="line">    &#123;</span><br><span class="line">        right_min = right_min-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right_min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="树的遍历方式"   >
+          <a href="#树的遍历方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#树的遍历方式"></a> 树的遍历方式</h1>
+      
+<p>树是一种非线性结构，既然要遍历就得按照一定顺序。</p>
+<ol>
+<li>若按深度优先（DFS），从访问根节点的时机来看，有前序、中序、后序。
+<ol>
+<li>首先访问根节点，第二遍历左子树，第三遍历右子树：是前序</li>
+<li>首先遍历左子树，第二访问根节点，第三遍历右子树：是中序</li>
+<li>首先遍历左子树，第二遍历右子树，第三访问根节点：是后序</li>
+</ol>
+</li>
+<li>若按广度优先（BFS），则按层次遍历。</li>
+</ol>
+
+        <h2 id="前序preorder"   >
+          <a href="#前序preorder" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#前序preorder"></a> 前序（PreOrder）</h2>
+      
+<p>中序是先访问根节点，再访问左子树、右子树。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">visit</span><span class="params">(<span class="type">void</span> PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key: %u, val: %c\n&quot;</span>, root-&gt;key, root-&gt;val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">preorder</span><span class="params">(PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//终止条件，根节点为空</span></span><br><span class="line">    <span class="keyword">if</span>(!root)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//访问根节点</span></span><br><span class="line">    visit(root);</span><br><span class="line">    <span class="comment">//遍历左子树</span></span><br><span class="line">    preorder(root-&gt;left);</span><br><span class="line">    <span class="comment">//遍历右子树</span></span><br><span class="line">    preorder(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>前序遍历测试代码如下，结果应为：3 2 1 4</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    preorder(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="中序inorder"   >
+          <a href="#中序inorder" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#中序inorder"></a> 中序（InOrder）</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">inorder</span><span class="params">(PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//终止条件，根节点为空</span></span><br><span class="line">    <span class="keyword">if</span>(!root)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//遍历左子树</span></span><br><span class="line">    inorder(root-&gt;left);</span><br><span class="line">    <span class="comment">//访问根节点</span></span><br><span class="line">    visit(root);</span><br><span class="line">    <span class="comment">//遍历右子树</span></span><br><span class="line">    inorder(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>中序遍历测试代码如下，结果应为：1 2 3 4</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    inorder(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="后序postorder"   >
+          <a href="#后序postorder" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#后序postorder"></a> 后序（PostOrder）</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">postorder</span><span class="params">(PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//终止条件，根节点为空</span></span><br><span class="line">    <span class="keyword">if</span>(!root)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//遍历左子树</span></span><br><span class="line">    postorder(root-&gt;left);</span><br><span class="line">    <span class="comment">//遍历右子树</span></span><br><span class="line">    postorder(root-&gt;right);</span><br><span class="line">    <span class="comment">//访问根节点</span></span><br><span class="line">    visit(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>后序遍历测试代码如下，结果应为：1 2 4 3</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    postorder(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="层序bfs"   >
+          <a href="#层序bfs" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#层序bfs"></a> 层序（BFS）</h2>
+      
+<p>递归思想、栈结构对于层序遍历不太好使，需要换一种思路，队列、先进先出（FIFO）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">bfs</span><span class="params">(PTreeNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    push_node(root);</span><br><span class="line">    <span class="keyword">while</span>(queue_size() &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        PTreeNode top = pop();</span><br><span class="line">        visit(top);</span><br><span class="line">        <span class="keyword">if</span>(top-&gt;left != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            push_node(top-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(top-&gt;right != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            push_node(top-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="队列设计"   >
+          <a href="#队列设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#队列设计"></a> 队列设计</h3>
+      
+<p>使用链表充当队列。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">QueueNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    PTreeNode val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">QueueNode</span> * <span class="title">next</span>;</span></span><br><span class="line">&#125;QueueNode, * PQueueNode;</span><br><span class="line"></span><br><span class="line">PQueueNode queue_top = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">PQueueNode <span class="title function_">make_queue_node</span><span class="params">(PTreeNode treeNode)</span></span><br><span class="line">&#123;</span><br><span class="line">    PQueueNode queue_node = (PQueueNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(QueueNode));</span><br><span class="line">    queue_node-&gt;val = treeNode;</span><br><span class="line">    queue_node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> queue_node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">push_node</span><span class="params">(PTreeNode treeNode)</span></span><br><span class="line">&#123;</span><br><span class="line">    PQueueNode queue_node = make_queue_node(treeNode);</span><br><span class="line">    <span class="comment">//判断目前是否有首节点，没有就当作首节点</span></span><br><span class="line">    <span class="keyword">if</span>(queue_top == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        queue_top = queue_node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PQueueNode cur_node = queue_top;</span><br><span class="line">        <span class="keyword">while</span>(cur_node-&gt;next)</span><br><span class="line">        &#123;</span><br><span class="line">            cur_node = cur_node-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur_node-&gt;next = queue_node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">unsigned</span> <span class="title function_">queue_size</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> cnt = <span class="number">0u</span>;</span><br><span class="line">    PQueueNode node = queue_top;</span><br><span class="line">    <span class="keyword">while</span>(node)</span><br><span class="line">    &#123;</span><br><span class="line">        ++cnt;</span><br><span class="line">        node = node-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">PTreeNode <span class="title function_">pop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(queue_top == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    PTreeNode treeNode = queue_top-&gt;val;</span><br><span class="line">    PQueueNode oldNode = queue_top;</span><br><span class="line">    queue_top = queue_top-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(oldNode);</span><br><span class="line">    oldNode = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>层序遍历测试代码如下，结果应为：3 2 4 1</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    PTreeNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert(root, make_tree_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    bfs(root);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="b树2-3-4树"   >
+          <a href="#b树2-3-4树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树2-3-4树"></a> B树（2-3-(4)树）</h1>
+      
+<p>B树派生出好多种形态的树，节点可以有很多，也可以是规定好了的，红黑树就可以从2-3树变种而来，因为红黑树是一种多叉树的二叉树实现。</p>
+
+        <h2 id="节点形态"   >
+          <a href="#节点形态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#节点形态"></a> 节点形态</h2>
+      
+<p>有2型节点、3型节点。</p>
+<p>2型节点是节点内部有1个key，可以有两个子节点；3型节点是内部有2个key，可以有三个子节点。</p>
+<p>插入节点位置的规则遵循BSTree的规则，即从左往右按从小到大的顺序，左侧最小、右侧最大。</p>
+<p>除了以上规则以外，2、3、4型节点要么是叶子节点（没有子节点），要么子节点全占满，没有中间状态。</p>
+<ol>
+<li>假设目前有一个内含6的2型节点</li>
+<li>要插入9，由于子树要么空要么满，所以只能将其与6并列放入节点中，变为一个内含6、9的3型节点。</li>
+<li>继续插入7，会进入一个临时状态，即将其与6、9并列，变为一个内含6、7、9的4型节点。但是紧接着，会分裂为3个2型节点：7作为根节点，左子树为6，右子树为9。</li>
+<li>继续插入5，经过对比，向7的左子树6插入，与6并列，变为一个内含5、6的3型节点。</li>
+<li>继续插入4，经过对比，向7的左子树（5、6）插入，与5、6并列，变为一个内含4、5、6的4型节点。紧接着，又会分裂，但这次不是分裂为3个2型节点了，而是把5上推到父节点的7中，保留4、6。因为如果单纯地分别把4、6下裂后，只有左支的深度单独加1，会导致整个树的不平衡，而上推会保持整个树深度同步。而5上推与7并列后，根节点变为3型节点，需要有三个子树，那么9保留原位，而4、6正好可以各占一个子树的位置。所以，最终结果为：整根为（5、7），子树1为4，子树2为6，子树3为9。</li>
+</ol>
+
+        <h2 id="实现"   >
+          <a href="#实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
+      
+<ol>
+<li>其中一个比较棘手的问题是，凡是两个数以上的比较，都需要一个机制来对比，哪怕是三个数的对比。</li>
+<li>2-3-4树的数据结构不确定，有中间不稳定的4型节点，所以不能简单地用left、middle、right对比。</li>
+<li>如果B树单个节点中有上千个数据，那么就用数组来存放。但是如果此B树是2-3-4树，则数组就显得比较大动干戈了。</li>
+<li>综上原因，我们想到一个巧妙的方法，就是用颜色来代替某些支。由此产生了：红黑树</li>
+</ol>
+
+        <h1 id="红黑树二叉搜索红黑树"   >
+          <a href="#红黑树二叉搜索红黑树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树二叉搜索红黑树"></a> 红黑树（二叉搜索红黑树）</h1>
+      
+<p>红黑树其实是2-3-4树的一个变形。</p>
+<p>红色代表鲜明，意味着在原先的2-3-4树中是同一节点。</p>
+<p>通常规定，把原先2-3树（不存在4型节点）同一节点中的较小数裂在根节点的左侧子树。当然也可以人为规定把较大数放在右侧子树，甚至说同时存在放左、放右的情况（在2-3树中最好不要允许同时放左、放右了，因为如果是2-3-4树也会出现这种情况，容易产生混淆）。所以为了编写程序简单，一般都按前者处理（把原先同一节点中的较小数裂在根节点的左侧子树）。</p>
+
+        <h2 id="有效形式"   >
+          <a href="#有效形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#有效形式"></a> 有效形式</h2>
+      
+<ol>
+<li>规定只能左红，不能出现右红。</li>
+<li>规定只能连续一支红线，即一个节点只能由一个红线连接，即在2-3树中，3型节点的情况。即不能出现连续两支红线。</li>
+</ol>
+
+        <h2 id="极端形式"   >
+          <a href="#极端形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#极端形式"></a> 极端形式</h2>
+      
+<p>二叉树的极端形式就是：一支最长、一支最短：左子树最长情况下是一红线一黑线交替穿插。右子树最短情况下是全黑。这种情况下，左支和右支的高度差最大是2倍。这个高度差是可以接受的，因为红黑树相比于其他树来说插入较简单，比如两边最多差1的AVL树插入是很费劲的，时间复杂度太高。而又能兼顾到查找的速度。</p>
+
+        <h2 id="应用"   >
+          <a href="#应用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应用"></a> 应用</h2>
+      
+<p>STL中的map（dictionary）、set；</p>
+<p>Linux中网络编程中epoll用到的数据结构</p>
+
+        <h2 id="节点定义"   >
+          <a href="#节点定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#节点定义"></a> 节点定义</h2>
+      
+<blockquote>
+<p>用直观的符号代替不直观的内容（整数，不能是小数）。通常需要typedef，否则在声明、初始化枚举类时，需要写出全称<code>enum Color</code>。</p>
+</blockquote>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">Color</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Black = <span class="number">0</span>,</span><br><span class="line">    Red</span><br><span class="line">&#125;Color;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">RBNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> key;</span><br><span class="line">    <span class="type">char</span> val;</span><br><span class="line">    Color color;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">RBNode</span> * <span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">RBNode</span> * <span class="title">right</span>;</span></span><br><span class="line">&#125;RBNode, *PRBNode;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="插入-2"   >
+          <a href="#插入-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入-2"></a> 插入</h2>
+      
+<p>我们可以默认创造出的新节点都是红色的，因为其总是试图与上层节点结合。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PRBNode <span class="title function_">make_rb_node</span><span class="params">(<span class="type">unsigned</span> key, <span class="type">char</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    PRBNode node = (PRBNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(RBNode));</span><br><span class="line">    node-&gt;val = val;</span><br><span class="line">    node-&gt;key = key;</span><br><span class="line">    node-&gt;color = Red;</span><br><span class="line">    node-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">    node-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>
+<p>插入到2-型节点：</p>
+<ol>
+<li>
+<p>比如向一个内含b的2-型节点插入a，如果该2-型节点没有子树，则欲将之插入到左子树，因为已知b没有子树，则相当于在2-3树中合并节点的情况，在红黑树中则将用红线连接此两个节点。</p>
+</li>
+<li>
+<p>比如向一个内含b的2-型节点插入c，如果该2-型节点没有子树，则欲将之插入到右子树，因为已知b没有子树，则相当于在2-3树中合并节点的情况。由于默认创建出来的节点是红的，不符合右边不能有红色的规则，那么就需要<strong>左旋操作</strong>：即让c上位，b下位至c的左子树，且接管c原先的左子树。插入之前，b是黑色，c是红色，插入之后，还需将b、c的颜色交换。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRBNode <span class="title function_">left_rotate</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    PRBNode x = root-&gt;right;</span><br><span class="line">    root-&gt;right = x-&gt;left;</span><br><span class="line">    x-&gt;left = root;</span><br><span class="line">    <span class="keyword">return</span> x; <span class="comment">//new root</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">exchange_color</span><span class="params">(PRBNode n1, PRBNode n2)</span></span><br><span class="line">&#123;</span><br><span class="line">    Color color = n1-&gt;color;</span><br><span class="line">    n1-&gt;color = n2-&gt;color;</span><br><span class="line">    n2-&gt;color = color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+</li>
+<li>
+<p>插入到3-型节点：</p>
+<ol>
+<li>
+<p>该3-型节点此时一定有左子树，且左子树一定为红色，右子树不可能是红的。</p>
+</li>
+<li>
+<p>向（d、g）节点（没有右子树）插入k：k将要插到g的右子树，但k默认为红色， 需要调整。此时相当于在2-3-4树中合并为过渡4-型节点的情况，之后即将分裂为3个2-型节点。而在红黑树中，自然地省去了分裂的步骤，此时需要把d、k节点的红色反转为黑色（flip color）。但是除了反转d、k的颜色。注意！还需要把g的颜色也反转，因为在2-3-4树中的分裂操作中，被上推的节点企图与上层进行结合。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">flip_color</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;color == Red)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;color = Black;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;color = Red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">flip_colors</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//如果根节点颜色反转成功，则才能继续反转子节点</span></span><br><span class="line">    <span class="keyword">if</span>(flip_color(root))</span><br><span class="line">    &#123;</span><br><span class="line">        flip_color(root-&gt;left);</span><br><span class="line">        flip_color(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>向（d、g）节点（没有右子树）插入c：c将要插到d的左子树，但c默认为红色， 出现了左支连续红色，需要调整。此时相当于在2-3-4树中合并为过渡4-型节点的情况，之后即将分裂为3个2-型节点，把d上推，把c、g下裂。在红黑树中，则需要右旋操作：g下位至d的右子树，且接管d原先的右子树。<br />
+颜色问题：调整前的颜色为：g黑、d红、c红，调整后的颜色为：d黑、c红、g红。为什么上移的d变黑了？因为d（newRoot）相当于替代了g（oldRoot）的位置，旧根本来就是黑的，所以d要变黑。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PRBNode <span class="title function_">right_rotate</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    PRBNode x = root-&gt;left;</span><br><span class="line">    root-&gt;left = x-&gt;right;</span><br><span class="line">    x-&gt;right = root;</span><br><span class="line">    exchange_color(x, root);</span><br><span class="line">    <span class="keyword">return</span> x;<span class="comment">// new root</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是此时又出现了一个问题，此时的状态与“向（d、g）节点（没有右子树）插入k”最后颜色反转前一致，需要把三个节点的颜色均反转！</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>整体过程：相比于BSTree的插入，前面的流程一致，只是多了插入后的调平的操作。</p>
+<ol>
+<li>终止条件是当时的root为空</li>
+<li>要插入的node的key与已存在的节点的key相等时，认为是更新节点值的操作</li>
+<li>调整</li>
+<li>最后红黑树还要注意一条规则是总根一定是黑色的。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">PRBNode <span class="title function_">insert_rb_node</span><span class="params">(PRBNode root, PRBNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)<span class="keyword">return</span> node;<span class="comment">//此处不用调整了，会由上一层调整</span></span><br><span class="line">    <span class="keyword">if</span>(root-&gt;key == node-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;val = node-&gt;val;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归向下</span></span><br><span class="line">    <span class="comment">//左支递归插入</span></span><br><span class="line">    <span class="keyword">if</span>(node-&gt;key &lt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;left = insert_rb_node(root-&gt;left, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//右支递归插入</span></span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;right = insert_rb_node(root-&gt;right, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归向上</span></span><br><span class="line">    <span class="comment">//调整</span></span><br><span class="line">    <span class="comment">//左黑右红。左黑右红时局部左旋后会出现左侧连续红，但是不会在同一层递归出现</span></span><br><span class="line">    <span class="keyword">if</span>(!is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;right))</span><br><span class="line">    &#123;</span><br><span class="line">        root = left_rotate(root);<span class="comment">//可能会更新root</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//左侧连续红，必须排到左红右红前面，因为右旋后可能存在左红右红，可能在同一层递归出现</span></span><br><span class="line">        <span class="keyword">if</span>(is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;left-&gt;left))</span><br><span class="line">        &#123;</span><br><span class="line">            root = right_rotate(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左红右红：反转颜色</span></span><br><span class="line">        <span class="keyword">if</span>(is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;right))</span><br><span class="line">        &#123;</span><br><span class="line">            flip_colors(root);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">is_red</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> root-&gt;color == Red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">PRBNode <span class="title function_">insert_node</span><span class="params">(PRBNode root, PRBNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    root = insert_rb_node(root, node);</span><br><span class="line">    <span class="keyword">if</span>(is_red(root))</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;color = Black;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    PRBNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="左红右红的情况支持稳定存在的4-型节点"   >
+          <a href="#左红右红的情况支持稳定存在的4-型节点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#左红右红的情况支持稳定存在的4-型节点"></a> 左红右红的情况（支持稳定存在的4-型节点）</h2>
+      
+<p>原先的4-型节点只是一个临时、不稳定的中间状态，所以稳态下只可能出现左连续两红，不会存在左红右红。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//仅把函数名改为insert_rb_node2，内部依旧调用insert_rb_node</span></span><br><span class="line">PRBNode <span class="title function_">insert_rb_node2</span><span class="params">(PRBNode root, PRBNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)<span class="keyword">return</span> node;<span class="comment">//此处不用调整了，会由上一层调整</span></span><br><span class="line">    <span class="keyword">if</span>(root-&gt;key == node-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;val = node-&gt;val;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归向下之前，先分解所有遇到的4-型节点。</span></span><br><span class="line">    <span class="keyword">if</span>(is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;right))</span><br><span class="line">    &#123;</span><br><span class="line">        flip_colors(root);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归向下</span></span><br><span class="line">    <span class="comment">//左支递归插入</span></span><br><span class="line">    <span class="keyword">if</span>(node-&gt;key &lt; root-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;left = insert_rb_node(root-&gt;left, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//右支递归插入</span></span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;right = insert_rb_node(root-&gt;right, node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归向上</span></span><br><span class="line">    <span class="comment">//调整</span></span><br><span class="line">    <span class="comment">//左黑右红。左黑右红时局部左旋后会出现左侧连续红，但是不会在同一层递归出现</span></span><br><span class="line">    <span class="keyword">if</span>(!is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;right))</span><br><span class="line">    &#123;</span><br><span class="line">        root = left_rotate(root);<span class="comment">//可能会更新root</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//左侧连续红，必须排到左红右红前面，因为右旋后可能存在左红右红，可能在同一层递归出现</span></span><br><span class="line">        <span class="keyword">if</span>(is_red(root-&gt;left) &amp;&amp; is_red(root-&gt;left-&gt;left))</span><br><span class="line">        &#123;</span><br><span class="line">            root = right_rotate(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//在允许4-型的红黑树中，左红右红合法。不用调整。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">is_red</span><span class="params">(PRBNode root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(root)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> root-&gt;color == Red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//测试时还是叫作insert_node，内部调用改为insert_rb_node2</span></span><br><span class="line">PRBNode <span class="title function_">insert_node</span><span class="params">(PRBNode root, PRBNode node)</span></span><br><span class="line">&#123;</span><br><span class="line">    root = insert_rb_node2(root, node);</span><br><span class="line">    <span class="keyword">if</span>(is_red(root))</span><br><span class="line">    &#123;</span><br><span class="line">        root-&gt;color = Black;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    PRBNode root = <span class="literal">NULL</span>;</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">4</span>, <span class="string">&#x27;d&#x27;</span>));</span><br><span class="line">    root = insert_node(root, make_rb_node(<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="删除-2"   >
+          <a href="#删除-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除-2"></a> 删除</h2>
+      
+<p>红黑树的删除可以参考BSTree的过程。</p>
+<p>BSTree中，如果节点是叶子节点或只有一支子树则直接删除（删除后让该支子树替代root自身即可（叶子节点的子树为NULL）），如果有两个子树则先转化为未来的状态（选择两支子树中相近大小的节点替代自身），即把将要删除的节点下移至叶子节点或者下移至只有一支子树的状态再删除。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/17/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/19/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">261</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">47</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
