@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="bool类型        bool只有true 和false；在C语言中0是false，其他情况(非0)都为true。 　　在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。 　　注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。 也可以自己构造">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="bool类型        bool只有true 和false；在C语言中0是false，其他情况(非0)都为true。 在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。 注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。 也可以自己构造bool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言_分支语句、循环语句、函数初步">
 <meta property="og:url" content="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
-<meta property="og:description" content="bool类型        bool只有true 和false；在C语言中0是false，其他情况(非0)都为true。 　　在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。 　　注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。 也可以自己构造">
+<meta property="og:description" content="bool类型        bool只有true 和false；在C语言中0是false，其他情况(非0)都为true。 在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。 注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。 也可以自己构造bool">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210715132315085.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210715132551231.png">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716015329536.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716150924442.png">
 <meta property="article:published_time" content="2021-07-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-18T20:42:37.812Z">
+<meta property="article:modified_time" content="2024-07-29T15:59:10.736Z">
 <meta property="article:author" content="Mr.Can">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210715132315085.png"><title>C语言_分支语句、循环语句、函数初步 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
@@ -59,13 +59,13 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_分支语句、循环语句、函数初步</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/" data-flag-title="C语言_分支语句、循环语句、函数初步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_分支语句、循环语句、函数初步</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/" data-flag-title="C语言_分支语句、循环语句、函数初步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
         <h1 id="bool类型"   >
           <a href="#bool类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bool类型"></a> bool类型</h1>
       
 <p>bool只有true 和false；在C语言中0是false，其他情况(非0)都为true。<br />
-　　在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。<br />
-　　注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。</p>
+在.c文件中需要引入头文件&lt;stdbool.h&gt;；在.cpp文件中直接使用。<br />
+注意：VS2012不完全支持C99标准，不能引入头文件stdbool.h 。但文件后缀为.cpp可以直接使用bool类型。</p>
 <p>也可以自己构造bool 类型（但没必要，因为cpp文件下可以直接用）。</p>
 
         <h2 id="构造bool类型代码示例"   >
@@ -78,15 +78,15 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="关系表达式"   >
           <a href="#关系表达式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关系表达式"></a> 关系表达式</h1>
       
-<p>关系表达式运算结果是bool值。关系运算符都是双目运算符，其结合性均为左结合。关系运算符的优先级低于算术运算符，高于赋值运算符。在六个关系运算符中，&lt;、&lt;=、&gt;、&gt;=的优先级相同，高于==和!=，<mark>和!=的优先级相同。<br />
-　　需要特别注意：</mark> 才表示等于比较，而 = 表示赋值，大家要注意区分，切勿混淆。</p>
+<p>关系表达式运算结果是bool值。关系运算符都是双目运算符，其结合性均为左结合。关系运算符的优先级低于算术运算符，高于赋值运算符。在六个关系运算符中，<code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code>的优先级相同，高于<code>==</code>和<code>!=</code>，<code>==</code>和<code>!=</code>的优先级相同。<br />
+需要特别注意：<code>==</code> 才表示等于比较，而 <code>=</code> 表示赋值，大家要注意区分，切勿混淆。</p>
 <p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210715132315085.png" alt="image-20210715132315085" /></p>
 
         <h2 id="该死的号"   >
-          <a href="#该死的号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#该死的号"></a> 该死的=号</h2>
+          <a href="#该死的号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#该死的号"></a> 该死的<code>=</code>号</h2>
       
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> age = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;age);</span><br><span class="line">	<span class="keyword">if</span>(age = <span class="number">3</span>)  <span class="comment">//if(age==3) //if(3==age)</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;该上幼儿园了 \n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;hehe \n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>此例中if圆括号内的表达式为&quot;age=3&quot;，是一个常量赋值给变量的操作，一定会通过导致表达式结果值为1，所以无论在外输入什么此处判断都会为true。这是因为少打了一个=号造成等值判断误成为了赋值语句。为了规避这个错误，我们应该在使用等值判断语句时尽量把常量放在左边，把待比较的变量放在右边。这样的话，如果写成&quot;3=age&quot;后，编译时期即会报错，而不是把错误延续给运行时期！</p>
+<p>此例中if圆括号内的表达式为<code>&quot;age=3&quot;</code>，是一个常量赋值给变量的操作，一定会通过导致表达式结果值为1，所以无论在外输入什么此处判断都会为true。这是因为少打了一个=号造成等值判断误成为了赋值语句。为了规避这个错误，我们应该在使用等值判断语句时尽量把常量放在左边，把待比较的变量放在右边。这样的话，如果写成<code>&quot;3=age&quot;</code>后，编译时期即会报错，而不是把错误延续给运行时期！</p>
 
         <h1 id="逻辑表达式"   >
           <a href="#逻辑表达式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑表达式"></a> 逻辑表达式</h1>
@@ -95,17 +95,17 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210715132551231.png" alt="image-20210715132551231" /></p>
 
         <h2 id="与运算"   >
-          <a href="#与运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与运算"></a> 与运算(&amp;&amp;)</h2>
+          <a href="#与运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与运算"></a> 与运算(<code>&amp;&amp;</code>)</h2>
       
 <p>又称截断与、简洁与。参与运算的两个表达式都为真时，结果才为真，否则为假。</p>
 
         <h2 id="或运算"   >
-          <a href="#或运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#或运算"></a> 或运算(||)</h2>
+          <a href="#或运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#或运算"></a> 或运算(<code>||</code>)</h2>
       
 <p>又称截断或、简洁或。参与运算的两个表达式只要有一个为真，结果就为真；两个表达式都为假时结果才为假。</p>
 
         <h2 id="非运算"   >
-          <a href="#非运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非运算"></a> 非运算(!)</h2>
+          <a href="#非运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非运算"></a> 非运算(<code>!</code>)</h2>
       
 <p>参与运算的表达式为真时，结果为假；参与运算的表达式为假时，结果为真。</p>
 
@@ -113,8 +113,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#优先级" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优先级"></a> 优先级</h2>
       
 <p>逻辑运算符和其它运算符优先级从低到高依次为：<br />
-　　赋值运算符(=)　<strong>&lt;</strong>　&amp;&amp;和||　<strong>&lt;</strong>　关系运算符　<strong>&lt;</strong>　算术运算符　<strong>&lt;</strong>　非(!)<br />
-　　&amp;&amp;和||低于关系运算符，!高于算术运算符。</p>
+赋值运算符(<code>=</code>)　<code>&lt;</code>　<code>&amp;&amp;</code>和<code>||</code>　<code>&lt;</code>　<code>关系运算符</code>　<code>&lt;</code>　<code>算术运算符</code>　<code>&lt;</code>　非(<code>!</code>)<br />
+<code>&amp;&amp;</code>和<code>||</code>低于<code>关系运算符</code>，<code>!</code>高于<code>算术运算符</code>。</p>
 
         <h1 id="分支语句"   >
           <a href="#分支语句" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分支语句"></a> 分支语句</h1>
@@ -143,7 +143,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入字符给变量有两种写法。</span></span><br><span class="line"><span class="type">char</span> ch;</span><br><span class="line">scanf_s(<span class="string">&quot;%c&quot;</span>,&amp;ch);<span class="comment">//a</span></span><br><span class="line">ch=getchar();</span><br><span class="line"><span class="comment">//以上两种写法是等效的。</span></span><br></pre></td></tr></table></div></figure>
 
         <h4 id="相应的头文件ctypeh"   >
-          <a href="#相应的头文件ctypeh" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相应的头文件ctypeh"></a> 相应的头文件&lt;ctype.h&gt;</h4>
+          <a href="#相应的头文件ctypeh" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相应的头文件ctypeh"></a> 相应的头文件<code>&lt;ctype.h&gt;</code></h4>
       
 
         <h5 id="函数"   >
@@ -154,24 +154,24 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#字符分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符分类"></a> 字符分类</h6>
       
 <ol>
-<li>isalnum(char);判断一个字符是否是字母或数字</li>
-<li>isalpha(char);判断一个字符是否是字母</li>
-<li>islower(char);判断一个字符是否是小写字母</li>
-<li>isupper(char);判断一个字符是否是大写字母</li>
-<li>isdigit(char);判断一个字符是否是数字</li>
-<li>isxdigit(char);判断一个字符是否是十六进制数字字符（0123456789abcdefABCDEF）</li>
-<li>iscntrl(char);判断一个字符是否是控制字符</li>
-<li>isspace(char);判断一个字符是否是空白字符</li>
-<li>isblank(char);判断一个字符是否是空格字符（C99）</li>
-<li>ispunct(char);判断一个字符是否是一个标点符号</li>
+<li><code>isalnum(char)</code>;判断一个字符是否是字母或数字</li>
+<li><code>isalpha(char)</code>;判断一个字符是否是字母</li>
+<li><code>islower(char);</code>判断一个字符是否是小写字母</li>
+<li><code>isupper(char);</code>判断一个字符是否是大写字母</li>
+<li><code>isdigit(char);</code>判断一个字符是否是数字</li>
+<li><code>isxdigit(char);</code>判断一个字符是否是十六进制数字字符（<code>0123456789abcdefABCDEF</code>）</li>
+<li><code>iscntrl(char);</code>判断一个字符是否是控制字符</li>
+<li><code>isspace(char);</code>判断一个字符是否是空白字符</li>
+<li><code>isblank(char);</code>判断一个字符是否是空格字符（<code>C99</code>）</li>
+<li><code>ispunct(char);</code>判断一个字符是否是一个标点符号</li>
 </ol>
 
         <h6 id="字符操作"   >
           <a href="#字符操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符操作"></a> 字符操作</h6>
       
 <ol>
-<li>tolower(char);将字符转换成小写</li>
-<li>toupper(char);将字符转换成大写</li>
+<li><code>tolower(char);</code>将字符转换成小写</li>
+<li><code>toupper(char);</code>将字符转换成大写</li>
 </ol>
 
         <h3 id="良好的代码风格"   >
@@ -199,29 +199,25 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
       
 <p>一类是编译系统预定义的，称为库函数或标准函数，如一些常用的数学计算函数、字符串处理函数、图形处理函数、标准输入输出函数等。这些库函数都按功能分类，集中说明在不同的头文件中。用户只需在自己的程序中包含某个头文件，就可直接使用该文件中定义的函数。</p>
 <ol>
-<li>&lt;asserst.h&gt;</li>
-<li>&lt;ctype.h&gt;</li>
-<li>&lt;math.h&gt;</li>
-<li>&lt;stdio.h&gt;</li>
+<li><code>&lt;asserst.h&gt;</code></li>
+<li><code>&lt;ctype.h&gt;</code></li>
+<li><code>&lt;math.h&gt;</code></li>
+<li><code>&lt;stdio.h&gt;</code><br />
+把函数名字、函数功能记下来。</li>
 </ol>
-<p>把函数名字、函数功能记下来。</p>
 
         <h3 id="用户自定义"   >
           <a href="#用户自定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用户自定义"></a> 用户自定义</h3>
       
 <p>另一类是用户自定义函数，用户可以根据需要将某个具有相对独立功能的程序定义为函数。<br />
-　　自定义函数有：函数返回类型 + 函数名 + 形参列表 + 函数体构成 ；</p>
+自定义函数有：<code>函数返回类型</code> + <code>函数名</code> + <code>形参列表</code> + <code>函数体构成</code> ；</p>
 
         <h4 id="函数的命名要求"   >
           <a href="#函数的命名要求" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数的命名要求"></a> 函数的命名要求</h4>
       
 <ol>
-<li>
-<p>拿英文命名函数</p>
-</li>
-<li>
-<p>第二个要求：见名知义，不要用汉语拼音，有歧义。</p>
-</li>
+<li>拿英文命名函数</li>
+<li>第二个要求：见名知义，不要用汉语拼音，有歧义。</li>
 </ol>
 
         <h4 id="函数的声明-定义注意事项"   >
@@ -231,8 +227,10 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h5 id="原则"   >
           <a href="#原则" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#原则"></a> 原则</h5>
       
-<p>1. 需要外部输入的（比如scanf）写到形参中；<br />
-　　2. 需要打印、输出的，return返回。</p>
+<ol>
+<li>需要外部输入的（比如scanf）写到形参中；</li>
+<li>需要打印、输出的，return返回。</li>
+</ol>
 
         <h5 id="该死的形参"   >
           <a href="#该死的形参" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#该死的形参"></a> 该死的形参</h5>
@@ -250,7 +248,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h6 id="形参变量的定义必须每个参数都有一个类型和一个名称"   >
           <a href="#形参变量的定义必须每个参数都有一个类型和一个名称" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#形参变量的定义必须每个参数都有一个类型和一个名称"></a> 形参变量的定义必须每个参数都有一个类型和一个名称</h6>
       
-<p>形参变量的定义与局部变量定义是有区别的。局部变量是可以int x,y;这样定义的，但形参定义不可以，必须是一个类型匹配一个名称！</p>
+<p>形参变量的定义与局部变量定义是有区别的。局部变量是可以<code>int x,y;</code>这样定义的，但形参定义不可以，必须是一个类型匹配一个名称！</p>
 
         <h5 id="函数声明-定义后的分号"   >
           <a href="#函数声明-定义后的分号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数声明-定义后的分号"></a> 函数声明、定义后的分号</h5>
@@ -270,15 +268,15 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h5 id="函数的调用是允许嵌套的"   >
           <a href="#函数的调用是允许嵌套的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数的调用是允许嵌套的"></a> 函数的调用是允许嵌套的</h5>
       
-<img src="/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716124810268.png" alt="image-20210716124810268" style="zoom:67%;" />
-<img src="/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716124758735.png" alt="image-20210716124758735" style="zoom:67%;" />
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716124810268.png" alt="image-20210716124810268" /><br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716124758735.png" alt="image-20210716124758735" /></p>
 
         <h3 id="示例"   >
           <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
       
 <p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210714182226592.png" alt="image-20210714182226592" /></p>
 <p>定义函数时可能会涉及若干个变量，究竟哪些变量应当作为函数的参数？哪些应当定义在函数体内？这有一个原则：<br />
-　　作为一个相对独立的模块，函数在使用时完全可以被看成 “黑匣子”，除了输入输出外，其他部分可不必关心。从函数的定义看出，函数头正是用来反映函数的功能和使用接口，它所定义的是“做什么”，在这部分必须明确“黑匣子”的输入输出部分，输出就是函数的返回值，输入就是参数。因此，只有那些功能上起自变量作用的变量才必须作为参数定义在参数表中；函数体中具体描述“如何做”，因此除参数之外的为实现算法所需用的变量应当定义在函数体内。</p>
+作为一个相对独立的模块，函数在使用时完全可以被看成 “黑匣子”，除了输入输出外，其他部分可不必关心。从函数的定义看出，函数头正是用来反映函数的功能和使用接口，它所定义的是“做什么”，在这部分必须明确“黑匣子”的输入输出部分，输出就是函数的返回值，输入就是参数。因此，只有那些功能上起自变量作用的变量才必须作为参数定义在参数表中；函数体中具体描述“如何做”，因此除参数之外的为实现算法所需用的变量应当定义在函数体内。</p>
 
         <h2 id="形参和实参"   >
           <a href="#形参和实参" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#形参和实参"></a> 形参和实参</h2>
@@ -326,18 +324,18 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="问题1"   >
           <a href="#问题1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题1"></a> 问题1</h3>
       
-<p>int tmp = *ap;通过指针指向取x的值并修改tmp值的底层实现是如何的？<br />
-mov eax,10;<br />
-mov ebx,0x00b3f9f0;<br />
-mov [ebx],100h;<br />
+<p><code>int tmp = *ap;</code>通过指针指向取x的值并修改tmp值的底层实现是如何的？<br />
+<code>mov eax,10;</code><br />
+<code>mov ebx,0x00b3f9f0;</code><br />
+<code>mov [ebx],100h;</code><br />
 直接访问、间接访问。任何一本讲微机原理的书都有讲解。</p>
 
         <h3 id="问题2"   >
           <a href="#问题2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题2"></a> 问题2</h3>
       
-<img src="/images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716122234042.png" alt="image-20210716122234042" style="zoom:67%;" />
-<p>仔细观察，发现未曾开辟定义的存储空间中都是随机值&quot;cccccccc&quot;，而有两个地址很特殊，就是Swap_p的函数域中ap指针变量的地址之上的两个地址&quot;0X00B3F9F8&quot;和&quot;01351459&quot;。这两个值是什么值呢？</p>
-<p>C语言的面试：指针、编译链接过程、函数调用过程中<strong>线程的保护、恢复</strong>是怎么实现的。调用函数、现场保护，调用完后要实现现场的恢复。这是区分学的好不好、自学能力强不强的标准。C语言全部讲完后，分模块讲时再说。</p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210716122234042.png" alt="image-20210716122234042" /><br />
+仔细观察，发现未曾开辟定义的存储空间中都是随机值&quot;<code>cccccccc</code>&quot;，而有两个地址很特殊，就是<code>Swap_p</code>的函数域中<code>ap</code>指针变量的地址之上的两个地址<code>&quot;0X00B3F9F8&quot;</code>和<code>&quot;01351459&quot;</code>。这两个值是什么值呢？<br />
+C语言的面试：指针、编译链接过程、函数调用过程中<strong>线程的保护、恢复</strong>是怎么实现的。调用函数、现场保护，调用完后要实现现场的恢复。这是区分学的好不好、自学能力强不强的标准。C语言全部讲完后，分模块讲时再说。</p>
 
         <h2 id="函数调用机制"   >
           <a href="#函数调用机制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数调用机制"></a> 函数调用机制</h2>
@@ -345,7 +343,7 @@ mov [ebx],100h;<br />
 <p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E3%80%81%E5%87%BD%E6%95%B0%E5%88%9D%E6%AD%A5/image-20210714182226592.png" alt="image-20210714182226592" /></p>
 <p>C语言中，先把y入栈，再把x入栈，函数参数入栈的顺序是从右向左的！有些编程语言是从左向右的。</p>
 <p>函数调用首先要进行参数传递，参数传递的方向是由实参传递给形参。传递过程是，先计算实参表达式的值，再将该值传递给对应的形参变量。一般情况下，实参和形参的个数和排列顺序应一一对应，并且对应参数应类型匹配（赋值兼容）,即实参的类型可以转化为形参类型。而对应参数的参数名则不要求相同。<br />
-　　在示例中int MaxInt(int a,int b)，a和b是形参，在main中 x, y 是实参。</p>
+在示例中<code>int MaxInt(int a,int b)</code>，a和b是形参，在main中 x, y 是实参。</p>
 <p>查：被调用函数MaxInt return c给主函数中的max变量时，肯定不能直接赋值，而是用临时空间先存放，再取出送给这个max。这个临时空间谁来担当？</p>
 
         <h2 id="多文件结构"   >
@@ -376,24 +374,18 @@ mov [ebx],100h;<br />
           <a href="#for循环" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#for循环"></a> for循环</h2>
       
 <ol>
-<li>
-<p>表达式1只执行一次</p>
-</li>
-<li>
-<p>表达式2判断为真才执行循环体</p>
-</li>
-<li>
-<p>循环体执行完后才执行表达式3</p>
-</li>
+<li>表达式1只执行一次</li>
+<li>表达式2判断为真才执行循环体</li>
+<li>循环体执行完后才执行表达式3<br />
+特点是：编程的执行顺序和我们编写他的顺序不符合，所以有些人不习惯for语句。</li>
 </ol>
-<p>特点是：编程的执行顺序和我们编写他的顺序不符合，所以有些人不习惯for语句。</p>
 
         <h3 id="vs和vc编译器对于for语句中表达式1的区别"   >
           <a href="#vs和vc编译器对于for语句中表达式1的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vs和vc编译器对于for语句中表达式1的区别"></a> VS和VC++编译器对于for语句中表达式1的区别</h3>
       
-<p>VS2012/2019中的for(int i=0;i&lt;10;++i)中i的作用域只在for块内</p>
+<p>VS2012/2019中的<code>for(int i=0;i&lt;10;++i)</code>中i的作用域只在for块内</p>
 <p>VC++中i的作用域在块外也有，因此不能重新声明i</p>
-<p>VC++中.c文件中的for语句中表达式1不能同时定义、初始化。只能在for外先定义i。</p>
+<p>VC++中<code>.c</code>文件中的for语句中表达式1不能同时定义、初始化。只能在for外先定义i。</p>
 
         <h3 id="for循环的惯用法"   >
           <a href="#for循环的惯用法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#for循环的惯用法"></a> for循环的惯用法</h3>
@@ -432,7 +424,7 @@ mov [ebx],100h;<br />
         <h3 id="0716重点跳转语句"   >
           <a href="#0716重点跳转语句" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#0716重点跳转语句"></a> 0716重点：跳转语句</h3>
       
-<p>实际上，break/continue/return都是goto的变种。</p>
+<p>实际上，<code>break/continue/return</code>都是<code>goto</code>的变种。</p>
 
         <h4 id="break"   >
           <a href="#break" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#break"></a> break</h4>
@@ -479,12 +471,8 @@ mov [ebx],100h;<br />
           <a href="#注意" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#注意"></a> 注意</h5>
       
 <ol>
-<li>
-<p>goto最好只用它来从上到下跳。不要从下到上跳，因为可能会产生程序的二义性。</p>
-</li>
-<li>
-<p>不能在函数间跳转，不能跨越两个函数。只能在本函数的作用域、可见性中跳转。</p>
-</li>
+<li>goto最好只用它来从上到下跳。不要从下到上跳，因为可能会产生程序的二义性。</li>
+<li>不能在函数间跳转，不能跨越两个函数。只能在本函数的作用域、可见性中跳转。</li>
 </ol>
 
         <h5 id="vs2019"   >
@@ -495,7 +483,7 @@ mov [ebx],100h;<br />
           <a href="#return" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#return"></a> return</h4>
       
 <p>语句用于结束函数的执行，返回调用者，如果是主函数，则返回至操作系统（终止程序的执行）。<br />
-　　利用一个return语句可以将一个数据返回给调用者。</p>
+利用一个return语句可以将一个数据返回给调用者。</p>
 <p>return本质上就是goto连带一个数据返回。与goto的区别就是goto不能带一个数据，return可以。</p>
 
         <h5 id="主函数中的return与子函数中的return"   >
@@ -512,7 +500,7 @@ mov [ebx],100h;<br />
 <p>在主函数中，exit(1);与return 0;的效果是一样的。都是结束程序的执行；但在子函数中就和return语句不一样了，子函数中调用exit()也会直接终止整个程序的执行。</p>
 <p>调用exit()函数会直接终止程序的进行，需要引入头文件&lt;stdlib.h&gt;。</p>
 <p>传递给exit函数的实际参数和main函数的返回值具有相同的含义：两者都说明程序终止时的状态，为了表示正常<br />
-终止，传递0，即 exit(0)；因为0 有点模糊，所以C语言允许用EXIT_SUCCESS来替代（效果相同）。exit(0);等同于exit(EXIT_SUCCESS);，表示程序正常退出；exit(1);等同于exit(EXIT_FAILURE);，表示程序异常退出。</p>
+终止，传递0，即 exit(0)；因为0 有点模糊，所以C语言允许用<code>EXIT_SUCCESS</code>来替代（效果相同）。exit(0);等同于<code>exit(EXIT_SUCCESS)</code>;，表示程序正常退出；exit(1);等同于exit(EXIT_FAILURE);，表示程序异常退出。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span>(EXIT_SUCCESS); <span class="comment">/* normal termination */</span></span><br><span class="line"><span class="built_in">exit</span>(EXIT_FAILURE); <span class="comment">/* abnormal termination */</span>  <span class="comment">//传递EXIT_FAILURE表示异常终止：</span></span><br><span class="line">EXIT_SUCCESS和EXIT_FAILURE都是定义在&lt;stdlib.h&gt;中的宏。</span><br><span class="line">EXIT_SUCCESS和EXIT_FAILURE的值都分别是<span class="number">0</span>和<span class="number">1.</span></span><br></pre></td></tr></table></div></figure>
 
         <h5 id="返回类型为void"   >

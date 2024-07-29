@@ -224,29 +224,27 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </code></pre>
 </li>
 </ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/">Cpp_返回值</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-11-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/" data-flag-title="Cpp_返回值"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/">Cpp_返回值</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-11-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-29</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E8%BF%94%E5%9B%9E%E5%80%BC/" data-flag-title="Cpp_返回值"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png" alt="image-20211107095730498" style="zoom:80%;" />
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></div></figure>
-<p>GetValue返回的是临时变量副本，由寄存器作为传递媒介。</p>
+<p><img src="../../images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107095730498.png" alt="image-20211107095730498" /><br />
+GetValue返回的是临时变量副本，由寄存器作为传递媒介。</p>
 <ol>
 <li>a1可以。因为调用的是public函数。但是得到的是经过寄存器赋值拿到的副本。</li>
 <li>应该不可以，因为返回值是一个将亡值，不能对其进行普通引用。</li>
 <li>猜测可以对将亡值进行常引用。</li>
-<li></li>
 </ol>
 
         <h2 id="2"   >
           <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2"></a> 2</h2>
       
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png" alt="image-20211107101017513" style="zoom:67%;" />
+<p><img src="../../images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107101017513.png" alt="image-20211107101017513" /></p>
 
         <h2 id="3"   >
           <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3"></a> 3</h2>
       
-<img src="/images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107102226241.png" alt="image-20211107102226241" style="zoom:67%;" />
+<p><img src="../../images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211107102226241.png" alt="image-20211107102226241" /></p>
 
         <h2 id="4"   >
           <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4"></a> 4</h2>
@@ -267,7 +265,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#7"></a> 7</h2>
       
 <p><img src="../../images/%E8%BF%94%E5%9B%9E%E5%80%BC/image-20211114192200476.png" alt="image-20211114192200476" /></p>
-<p>Test ta(10)一个Int</p>
+<p><code>Test ta(10)</code>一个Int</p>
 <ol>
 <li>√–编译器优化，直接拷贝构造，一个Int</li>
 <li>√–没产生</li>
