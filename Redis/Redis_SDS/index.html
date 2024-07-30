@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810025606081.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210721204739876.png">
 <meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-18T20:42:38.045Z">
+<meta property="article:modified_time" content="2024-07-29T16:16:19.024Z">
 <meta property="article:author" content="Mr.Can">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810021047383.png"><title>Redis_SDS | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Redis/Redis_SDS/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
@@ -45,7 +45,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Redis_SDS</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Redis/Redis_SDS/" data-flag-title="Redis_SDS"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>SDS指simple dynamic string，即简单动态字符串。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Redis_SDS</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Redis/Redis_SDS/" data-flag-title="Redis_SDS"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>SDS指simple dynamic string，即简单动态字符串。</p>
 
         <h1 id="memcached与redis的区别和选择"   >
           <a href="#memcached与redis的区别和选择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#memcached与redis的区别和选择"></a> Memcached与Redis的区别和选择</h1>
@@ -98,27 +98,28 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#与另一种实现方法的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与另一种实现方法的对比"></a> 与另一种实现方法的对比</h2>
       
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kd_buff</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="type">int</span> size;</span><br><span class="line">    <span class="type">char</span>* buff;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    kd_buff* p = (kd_buff*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(kd_buff));</span><br><span class="line">    </span><br><span class="line">    p-&gt;buff = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">char</span>)*<span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>));</span><br><span class="line">    <span class="built_in">strcpy</span>(p-&gt;buff,<span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>),<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    p-&gt;num = <span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>)<span class="number">-1</span>;</span><br><span class="line">    p-&gt;size = <span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>显然，指向字符串指针的方法的操作起来比柔性数组操作起来要繁杂一些。</p>
-<img src="/images/Redis_SDS/image-20210810025606081.png" alt="image-20210810025606081" style="zoom:67%;" />
+<p>显然，指向字符串指针的方法的操作起来比柔性数组操作起来要繁杂一些。<br />
+<img src="../../images/Redis_SDS/image-20210810025606081.png" alt="image-20210810025606081" /></p>
 <p>而且，这种结构需要分两次申请空间，导致到最后必须释放两次。而柔性数组只申请一次空间，最后释放时直接释放一次即可。因此，综合考虑，柔性数组明显是优于上述结构的。</p>
 
         <h1 id="退出方案"   >
           <a href="#退出方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#退出方案"></a> 退出方案</h1>
       
-<p>exit(),_exit(),return,abort()函数的区别<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/lyf47/article/details/44203499" >https://blog.csdn.net/lyf47/article/details/44203499</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>在Redis中我们采用的是abort();</p>
+<p><code>exit()</code>, <code>_exit()</code>, <code>return</code>, <code>abort()</code>函数的区别<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/lyf47/article/details/44203499" >https://blog.csdn.net/lyf47/article/details/44203499</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>在Redis中我们采用的是<code>abort();</code></p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">adsOomAbort</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;SDS: out of memory \n&quot;</span>);</span><br><span class="line">    <span class="built_in">abort</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h2 id="abort"   >
-          <a href="#abort" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#abort"></a> abort();</h2>
+          <a href="#abort" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#abort"></a> <code>abort()</code></h2>
       
 
         <h2 id="exitexit_failure"   >
-          <a href="#exitexit_failure" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#exitexit_failure"></a> exit(EXIT_FAILURE);</h2>
+          <a href="#exitexit_failure" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#exitexit_failure"></a> <code>exit(EXIT_FAILURE)</code></h2>
       
 
         <h2 id="_exit"   >
-          <a href="#_exit" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#_exit"></a> _exit();</h2>
+          <a href="#_exit" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#_exit"></a> <code>_exit()</code></h2>
       
 
         <h1 id="代码"   >
@@ -133,26 +134,24 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="memcpy"   >
           <a href="#memcpy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#memcpy"></a> memcpy</h2>
       
-<p>函数原型为void *memcpy(void *destin, void *source, unsigned n)；函数的功能是从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中，即从源source中拷贝n个字节到目标destin中。</p>
+<p>函数原型为<code>void *memcpy(void *destin, void *source, unsigned n)</code>。函数的功能是从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中，即从源source中拷贝n个字节到目标destin中。</p>
 
         <h1 id="c语言传统的字符串"   >
           <a href="#c语言传统的字符串" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言传统的字符串"></a> C语言传统的字符串</h1>
       
 <p>即以空字符结尾的字符数组。</p>
 <ol>
-<li>
-<p>在.rdata数据区里</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* sp = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>数组存放</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> stra[] = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>堆区开辟，并用strcpy_s(cp,10,“yhping”);复制</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span>* cp = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">char</span>)*<span class="number">10</span>);</span><br><span class="line">    strcpy_s(cp,<span class="number">10</span>,<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
+<li>在.rdata数据区里</li>
 </ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* sp = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+<ol start="2">
+<li>数组存放</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> stra[] = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li>堆区开辟，并用strcpy_s(cp,10,“yhping”);复制</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span>* cp = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">char</span>)*<span class="number">10</span>);</span><br><span class="line">    strcpy_s(cp,<span class="number">10</span>,<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h1 id="redis的字符串"   >
           <a href="#redis的字符串" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#redis的字符串"></a> redis的字符串</h1>
@@ -168,14 +167,14 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
       
 
         <h3 id="sdsnewsdsnewlen"   >
-          <a href="#sdsnewsdsnewlen" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsnewsdsnewlen"></a> sdsnew/sdsnewlen</h3>
+          <a href="#sdsnewsdsnewlen" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsnewsdsnewlen"></a> <code>sdsnew</code>/<code>sdsnewlen</code></h3>
       
-<p>其中sdsnew调用了sdsnewlen</p>
+<p>其中<code>sdsnew</code>调用了<code>sdsnewlen</code></p>
 
         <h3 id="sdsempty"   >
-          <a href="#sdsempty" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsempty"></a> sdsempty</h3>
+          <a href="#sdsempty" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsempty"></a> <code>sdsempty</code></h3>
       
-<p>创建柔性数组内只含有’\0’的sdshdr</p>
+<p>创建柔性数组内只含有<code>'\0'</code>的<code>sdshdr</code></p>
 
         <h3 id="sdsdup"   >
           <a href="#sdsdup" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsdup"></a> sdsdup</h3>
@@ -231,9 +230,9 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
            易错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">2.2.</span> <span class="toc-text">
            与另一种实现方法的对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E6%96%B9%E6%A1%88"><span class="toc-number">3.</span> <span class="toc-text">
            退出方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#abort"><span class="toc-number">3.1.</span> <span class="toc-text">
-           abort();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exitexit_failure"><span class="toc-number">3.2.</span> <span class="toc-text">
-           exit(EXIT_FAILURE);</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#_exit"><span class="toc-number">3.3.</span> <span class="toc-text">
-           _exit();</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">
+           abort()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exitexit_failure"><span class="toc-number">3.2.</span> <span class="toc-text">
+           exit(EXIT_FAILURE)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#_exit"><span class="toc-number">3.3.</span> <span class="toc-text">
+           _exit()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">
            代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stringh"><span class="toc-number">5.</span> <span class="toc-text">
            string.h</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#memcpy"><span class="toc-number">5.1.</span> <span class="toc-text">
            memcpy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#c%E8%AF%AD%E8%A8%80%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">6.</span> <span class="toc-text">

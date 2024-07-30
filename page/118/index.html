@@ -52,7 +52,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>const volatile int i=10;这行代码有没有问题?如果没有，那 i 到底是什么属性?</p>
 <p>回答一：没有问题，例如只读的状态寄存器。它是volatile，因为它可能被意想不到地改变;它是const，因为程序不应该试图去修改它。volatile和const并不矛盾，只是控制的范围不一样，一个在程序本身之外，另一个是程序本身。</p>
 <p>回答二：没问题，const和volatile这两个类型限定符不矛盾。const表示(运行时)常量语义：被const修饰的对象在所在的作用域无法进行修改操作，编译器对于试图直接修改const对象的表达式会产生编译错误。volatile表示“易变的”，即在运行期对象可能在当前程序上下文的控制流以外被修改(例如多线程中被其它线程修改;对象所在的存储器可能被多个硬件设备随机修改等情况)：被volatile修饰的对象，编译器不会对这个对象的操作进行优化。一个对象可以同时被const和volatile修饰，表明这个对象体现常量语义，但同时可能被当前对象所在程序上下文意外的情况修改。另外，LS错误，const可以修饰左值，修饰的对象本身也可以作为左值(例如数组)。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E8%BF%9B%E7%A8%8B/">Linux_进程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E8%BF%9B%E7%A8%8B/" data-flag-title="Linux_进程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E8%BF%9B%E7%A8%8B/">Linux_进程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E8%BF%9B%E7%A8%8B/" data-flag-title="Linux_进程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -93,8 +93,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="进程状态"   >
           <a href="#进程状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程状态"></a> 进程状态</h1>
       
-<p>就绪、运行、阻塞</p>
-<img src="/images/Linux_进程/image-20220512212116321.png" alt="image-20220512212116321" />
+<p>就绪、运行、阻塞<br />
+<img src="../../images/Linux_%E8%BF%9B%E7%A8%8B/image-20220512212116321.png" alt="image-20220512212116321" /></p>
 
         <h1 id="并发与并行"   >
           <a href="#并发与并行" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#并发与并行"></a> 并发与并行</h1>
@@ -257,8 +257,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">2</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        fork();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;A\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p>运行结果</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-<p>分析</p>
-<img src="/images/Linux_进程/image-20220513171739655.png" alt="image-20220513171739655"  />
+<p>分析<br />
+<img src="../../images/Linux_%E8%BF%9B%E7%A8%8B/image-20220513171739655.png" alt="image-20220513171739655" /></p>
 <p>每换行一次即清空<strong>行缓冲区</strong>，会立即输出，不会遗留给子进程。</p>
 
         <h2 id="再来一个"   >
@@ -267,8 +267,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i&lt;<span class="number">2</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        fork();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p>运行结果</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AAAAAAAA</span><br></pre></td></tr></table></div></figure>
-<p>分析</p>
-<img src="/images/Linux_进程/image-20220513171823048.png" alt="image-20220513171823048" />
+<p>分析<br />
+<img src="../../images/Linux_%E8%BF%9B%E7%A8%8B/image-20220513171823048.png" alt="image-20220513171823048" /></p>
 <p>每次的<code>printf</code>函数不会立即输出，内容放到了缓冲区，而且会遗留给子进程。直到进程结束才会输出。本质：两个父进程分别输出两个A，两个子进程也分别输出两个A。</p>
 
         <h2 id="试试这个"   >
@@ -278,8 +278,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>运行结果</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">A</span><br><span class="line">A</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
 <p>分析</p>
-<img src="/images/Linux_进程/image-20220513174543556.png" alt="image-20220513174543556" />
-<p>做完了题，别急着走！你还没收拾摊子。</p>
+<p><img src="../../images/Linux_%E8%BF%9B%E7%A8%8B/image-20220513174543556.png" alt="image-20220513174543556" /><br />
+做完了题，别急着走！你还没收拾摊子。</p>
 
         <h1 id="孤儿进程"   >
           <a href="#孤儿进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#孤儿进程"></a> 孤儿进程</h1>
