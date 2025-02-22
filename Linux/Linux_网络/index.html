@@ -6,7 +6,7 @@
 <meta property="og:description" content="内容         基本概念 了解接口socket 了解协议tcp&#x2F;udp io复用 select poll&#x2F;epoll                       分层模型        OSI：七层 TCP&#x2F;IP协议族：四层                      问题         为什么要分层？  解耦，分工。   网络： 互联网：网络和网络">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-18T14:47:25.014Z">
+<meta property="article:modified_time" content="2024-08-29T22:21:49.000Z">
 <meta property="article:author" content="Mr.Can">
 <meta name="twitter:card" content="summary"><title>Linux_网络 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_%E7%BD%91%E7%BB%9C/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
@@ -36,7 +36,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_网络</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-12-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E7%BD%91%E7%BB%9C/" data-flag-title="Linux_网络"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_网络</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-12-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-08-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E7%BD%91%E7%BB%9C/" data-flag-title="Linux_网络"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -52,8 +52,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="分层模型"   >
           <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
       
-<p>OSI：七层</p>
-<p>TCP/IP协议族：四层</p>
+<p>OSI：七层<br />
+TCP/IP协议族：四层</p>
 
         <h2 id="问题"   >
           <a href="#问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
@@ -117,25 +117,21 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
       
 <p>特点：</p>
 <ol>
-<li>
-<p>面向连接的</p>
+<li>面向连接的
 <ol>
-<li>
-<p>三次握手–在客户端connect()时</p>
+<li>三次握手–在客户端connect()时
 <ol>
 <li>必须是三次</li>
 </ol>
 </li>
-<li>
-<p>四次挥手–在任一方close时</p>
+<li>四次挥手–在任一方close时
 <ol>
 <li>有时可以三次</li>
 </ol>
 </li>
 </ol>
 </li>
-<li>
-<p>可靠的</p>
+<li>可靠的
 <ol>
 <li>应答确认</li>
 <li>超时重传</li>
@@ -144,8 +140,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>滑动窗口进行流量控制</li>
 </ol>
 </li>
-<li>
-<p>流式服务</p>
+<li>流式服务
 <ol>
 <li>发送和接收的次数可能不一致。
 <ol>
@@ -159,8 +154,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </li>
 </ol>
 </li>
-<li>
-<p>tcp是有状态的</p>
+<li>tcp是有状态的
 <ol>
 <li>开始closed</li>
 <li>listen–connecting(三次握手中)</li>
@@ -189,28 +183,23 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
       
 <p>特点：</p>
 <ol>
-<li>
-<p>无连接的</p>
+<li>无连接的
 <ol>
 <li>没有严格意义上的服务端/客户端，只要知道ip:port就可以给对方sendto发消息。recvfrom谁的消息都可以收到，也可以收到不同终端的消息。</li>
 </ol>
 </li>
-<li>
-<p>不可靠的</p>
+<li>不可靠的
 <ol>
 <li>没有应答确认机制，发出后是否成功看天意。</li>
 </ol>
 </li>
-<li>
-<p>数据报服务</p>
+<li>数据报服务
 <ol>
 <li>如果send了很多信息，recv一次没收完，则剩下的数据丢包。</li>
 <li>UDP的send和recv也有缓冲区，但是其与收发的动作是一个整体，对应着发送/接收的那一次。</li>
 </ol>
 </li>
-<li>
-<p>无状态的</p>
-</li>
+<li>无状态的</li>
 </ol>
 
         <h1 id="udp编程流程"   >
@@ -221,35 +210,31 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="服务端"   >
           <a href="#服务端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#服务端"></a> 服务端</h2>
       
-<p>socket()</p>
-<p>bind()</p>
-<p>recvfrom()</p>
-<p>sendto()</p>
-<p>close()</p>
+<p>socket()<br />
+bind()<br />
+recvfrom()<br />
+sendto()<br />
+close()</p>
 
         <h2 id="客户端"   >
           <a href="#客户端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h2>
       
-<p>socket()</p>
-<p>//bind()–可以绑定也可以不绑定。</p>
-<p>recvfrom()</p>
-<p>sendto()</p>
-<p>close()</p>
+<p>socket()<br />
+【bind()：可以绑定也可以不绑定】<br />
+recvfrom()<br />
+sendto()<br />
+close()</p>
 
         <h2 id="与tcp的区别"   >
           <a href="#与tcp的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与tcp的区别"></a> 与tcp的区别</h2>
       
 <ol>
-<li>
-<p>创建socket时的第二个参数TCP中是SOCK_STREAM，UDP中是SOCK_DGRAM(指datagrams)</p>
+<li>创建socket时的第二个参数TCP中是SOCK_STREAM，UDP中是SOCK_DGRAM(指datagrams)</li>
+</ol>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sockfd = socket(AF_INET,SOCK_DGRAM,<span class="number">0</span>);</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>recvfrom中多了两个参数，前四个参数与TCP一致，后面一个传入<strong>要接收哪个主机的sockaddr类型的指针</strong>，最后是传入这个<strong>sockaddr对象的长度的指针</strong>。为什么要传指针？因为UDP中某一端接收的数据可以来自不同主机，所以传入指针是要实时的记录谁在给接收端发数据。</p>
-</li>
-<li>
-<p>同样的，sendto也多了两个参数，后面一个传入<strong>要发送到哪个的主机的sockaddr类型的指针</strong>（参数类型为const struct sockaddr* dest_addr），最后传入<strong>这个sockaddr对象的长度大小，通常用sizeof计算</strong>。相对于recvfrom，<strong>为什么不传非const指针了</strong>？因为：要么是服务端，sendto的目的主机已经在recvfrom收到客户端消息后明确；要么是客户端要sendto的目的主机已经很明确地指定。</p>
-</li>
+<ol start="2">
+<li>recvfrom中多了两个参数，前四个参数与TCP一致，后面一个传入<strong>要接收哪个主机的sockaddr类型的指针</strong>，最后是传入这个<strong>sockaddr对象的长度的指针</strong>。为什么要传指针？因为UDP中某一端接收的数据可以来自不同主机，所以传入指针是要实时的记录谁在给接收端发数据。</li>
+<li>同样的，sendto也多了两个参数，后面一个传入<strong>要发送到哪个的主机的sockaddr类型的指针</strong>（参数类型为<code>const struct sockaddr* dest_addr</code>），最后传入<strong>这个<code>sockaddr</code>对象的长度大小，通常用<code>sizeof</code>计算</strong>。相对于<code>recvfrom</code>，<strong>为什么不传<code>非const指针</code>了</strong>？因为：要么是服务端，<code>sendto</code>的目的主机已经在<code>recvfrom</code>收到客户端消息后明确；要么是客户端要<code>sendto</code>的目的主机已经很明确地指定。</li>
 </ol>
 
         <h2 id="一个端口在开启tcp服务的同时也可以开启udp服务"   >
@@ -338,15 +323,13 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>先观察其API</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;poll.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">poll</span><span class="params">(<span class="keyword">struct</span> pollfd* fds, <span class="type">nfds_t</span> nfds, <span class="type">int</span> timeout)</span>;</span><br></pre></td></tr></table></div></figure>
 <ol>
-<li>
-<p>fds参数是一个pollfd结构类型的指针，可指向一段连续空间（数组），因此很灵活，大小可按需声明。它可以指定我们感兴趣的文件描述符上发生的可读、可写和异常等事件。定义如下</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> fd;			<span class="comment">//文件描述符</span></span><br><span class="line">    <span class="type">short</span> events;	<span class="comment">//注册的事件类型，按位标志</span></span><br><span class="line">    <span class="type">short</span> revents;	<span class="comment">//实际发生的事件，按位标志，由内核填充</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<li>fds参数是一个pollfd结构类型的指针，可指向一段连续空间（数组），因此很灵活，大小可按需声明。它可以指定我们感兴趣的文件描述符上发生的可读、可写和异常等事件。定义如下</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> fd;			<span class="comment">//文件描述符</span></span><br><span class="line">    <span class="type">short</span> events;	<span class="comment">//注册的事件类型，按位标志</span></span><br><span class="line">    <span class="type">short</span> revents;	<span class="comment">//实际发生的事件，按位标志，由内核填充</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
 <ol>
 <li>其中，fd成员指定文件描述符。</li>
 <li>events成员告诉poll监听fd上的哪些事件类型，他可以是一系列事件类型的<strong>按位或</strong>。常见的事件类型有：POLLIN(数据可读)、POLLOUT(数据可写)。</li>
 <li>revents成员由内核修改，以通知应用程序fd上实际发生了哪些事件。</li>
-</ol>
-</li>
 </ol>
 
         <h3 id="poll编程"   >
@@ -404,7 +387,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
            poll编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8Eselect%E7%9B%B8%E6%AF%94%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">8.2.2.</span> <span class="toc-text">
            与select相比的优点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll"><span class="toc-number">8.3.</span> <span class="toc-text">
            epoll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E4%BA%8B%E4%BB%B6%E8%A1%A8"><span class="toc-number">8.3.1.</span> <span class="toc-text">
-           内核事件表</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">262</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">47</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+           内核事件表</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">270</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">49</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

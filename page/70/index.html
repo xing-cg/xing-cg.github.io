@@ -32,106 +32,187 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_gdb/">Linux_gdb</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_gdb/" data-flag-title="Linux_gdb"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/">MySQL_索引</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/" data-flag-title="MySQL_索引"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>gdb</li>
+<li>索引</li>
+<li>怎么创建索引</li>
+<li>怎么优化索引</li>
+<li>怎么分析索引的好坏</li>
+<li>索引的创建、删除、使用</li>
+<li>explain分析相关SQL语句</li>
+<li>总结 - 使用索引时需要注意的</li>
 </ol>
 
-        <h1 id="gdb-调试工具"   >
-          <a href="#gdb-调试工具" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#gdb-调试工具"></a> gdb - 调试工具</h1>
+        <h1 id="为什么要有索引"   >
+          <a href="#为什么要有索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么要有索引"></a> 为什么要有索引</h1>
       
-<ul>
-<li>调试的对象：可执行程序</li>
-<li>编译时需要增加调试信息<code>-g</code></li>
-</ul>
+<p>当表中的数据量到达几十万甚至上百万的时候，SQL查询所花费的时间会很长，导致业务超时出错，此时就需要用索引来加速SQL查询。</p>
 
-        <h1 id="常用命令"   >
-          <a href="#常用命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h1>
+        <h1 id="索引的本质"   >
+          <a href="#索引的本质" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的本质"></a> 索引的本质</h1>
       
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>命令标识</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>l</code></td>
-<td>显示代码</td>
-</tr>
-<tr>
-<td><code>Enter（回车键）</code></td>
-<td>重复上一条命令</td>
-</tr>
-<tr>
-<td><code>b 行号</code></td>
-<td>为某行添加断点</td>
-</tr>
-<tr>
-<td>info break</td>
-<td>查看断点信息</td>
-</tr>
-<tr>
-<td><code>r</code>、<code>run</code></td>
-<td>启动程序</td>
-</tr>
-<tr>
-<td><code>n</code>、<code>next</code></td>
-<td>单步执行</td>
-</tr>
-<tr>
-<td><code>p 变量名</code>、<code>print 变量名</code></td>
-<td>打印变量名内容</td>
-</tr>
-<tr>
-<td><code>q</code></td>
-<td>退出调试</td>
-</tr>
-<tr>
-<td><code>s</code>、<code>step</code></td>
-<td>进入函数</td>
-</tr>
-<tr>
-<td><code>f</code>、<code>finish</code></td>
-<td>跳出函数</td>
-</tr>
-<tr>
-<td><code>continue</code></td>
-<td>继续程序（到下一个断点）</td>
-</tr>
-</tbody>
-</table></div>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/makefile/">makefile</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/makefile/" data-flag-title="makefile"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<p>索引也是一个数据结构，B+树。不用的时候，也是会存在磁盘上的。</p>
+
+        <h1 id="索引的双面性"   >
+          <a href="#索引的双面性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的双面性"></a> 索引的双面性</h1>
+      
+<p>由于索引也是需要存储成索引文件的，因此对索引的使用也会涉及磁盘I/O操作。如果索引创建过多，使用不当，会造成SQL查询时大量无用的磁盘I/O操作，降低了SQL的查询效率，就会适得其反，因此掌握良好的索引创建原则非常重要！</p>
+<p>除此之外，如果要对某列建立索引，存储引擎会对列对应的行进行排列，当更新表内容时，不仅仅会改变数据，索引的文件也是要改动的。如果索引数目过多，则牵扯到的改动也会过多。</p>
+
+        <h1 id="索引的分类"   >
+          <a href="#索引的分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的分类"></a> 索引的分类</h1>
+      
+<p>从两个方面来看：物理上/逻辑上</p>
+<p>物理上又可分为：聚集索引、非聚集索引</p>
+<p>逻辑上又可分为：</p>
+<ol>
+<li>普通索引（又称为二级索引）
+<ol>
+<li>没有任何限制条件，可以给任何类型的字段创建普通索引。</li>
+<li>可在创建新表时指定建立索引，也可给已创建表指定建立索引</li>
+<li>索引数量不限，但是不建议过多；有的存储引擎可能对表的索引数量有限制。</li>
+<li>一张表的一次SQL查询只能用1个索引，通常是用where的过滤条件中的某个字段。</li>
+</ol>
+</li>
+<li>唯一性索引
+<ol>
+<li>使用UNIQUE修饰的字段，值不能重复，主键索引也属于唯一性索引。</li>
+</ol>
+</li>
+<li>主键索引
+<ol>
+<li>使用Primary Key修饰的字段会自动创建索引</li>
+<li>要注意主键和主键索引的区分，MyISAM存储引擎下，如果没有设置主键，也不会自动添加一列主键列。只有主动设置主键才会有主键存储。因为它的索引和数据是分开存放的；但在InnoDB存储引擎下，如果没有设置主键，会默认添加一列整型字段的列，作为主键。因为数据和索引是存在一个文件<code>.idb</code>中的，如果没有索引树，数据无处存放。</li>
+</ol>
+</li>
+<li>单列索引
+<ol>
+<li>在一个字段上创建的索引</li>
+</ol>
+</li>
+<li>多列索引
+<ol>
+<li>在表的多个字段上创建的索引，常出现于联合主键上。</li>
+<li>多列索引必须先使用到第一个主键字段，才可能用到多列索引，否则失效。</li>
+</ol>
+</li>
+<li>全文索引
+<ol>
+<li>主要用于字符串搜索</li>
+<li>使用<code>FULLTEXT</code>参数可以设置全文索引，只支持<code>CHAR</code>、<code>VARCHAR</code>和<code>TEXT</code>类型的字段上，常用于数据量较大的字符串类型上，可以提高查询速度。</li>
+<li>但是一般不在本地数据库中使用全文索引，而是给后台服务器另外增设专门的搜索引擎模块，如<code>elasticSearch, ES</code>。</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="索引的创建与删除"   >
+          <a href="#索引的创建与删除" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的创建与删除"></a> 索引的创建与删除</h1>
+      
+<p>创建表的时候指定索引字段</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user(</span><br><span class="line">    id INT,</span><br><span class="line">    name VARCHAR(20),</span><br><span class="line">    sex ENUM(&#x27;male&#x27;, &#x27;female&#x27;),</span><br><span class="line">    INDEX(id)</span><br><span class="line">);</span><br></pre></td></tr></table></div></figure>
+<p>在已创建的表上添加索引</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE [UNIQUE] INDEX [索引名]</span><br><span class="line">ON 表名 (字段名(长度) [ASC | DESC]);</span><br></pre></td></tr></table></div></figure>
+<p>删除索引</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX 索引名 ON 表名;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="实操探索索引"   >
+          <a href="#实操探索索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实操探索索引"></a> 实操探索索引</h1>
+      
+<p>首先<code>su root</code> + <code>netstat -natp | grep mysqld</code>查看mysql守护进程是否正在运行，默认工作在3306端口。</p>
+<p>我们先拿小表来探索。</p>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519170152517.png" alt="image-20220519170152517" /></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE student\G #查看表的结构</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174256317.png" alt="image-20220519174256317" /></p>
+<p>发现此表只有一个uid主键索引。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE uid=3;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174431412.png" alt="image-20220519174431412" /></p>
+<p>由于uid上有主键索引，所以不管此表中有多少数据，只要是按照uid过滤条件来查找，直接就可以找到，不收查找的数据的位置的影响（不会在后面就找得慢，在前面就找得快）。explain结果中type为const表示常量时间，<code>key_len</code>为4，对应了uid的int型的4字节大小。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE name=&#x27;linfeng&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174825252.png" alt="image-20220519174825252" /></p>
+<p>由于<code>name</code>没有索引，所以explain分析出的性能显示此次查找未能使用索引。而且通过name进行查找只能进行全表检索。效率较低。<code>type</code>字段为<code>ALL</code>。</p>
+<p>我们给name字段建立一个索引</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX nameidx ON student(name);</span><br><span class="line">SHOW CREATE TABLE student\G</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175233259.png" alt="image-20220519175233259" /></p>
+<p>发现，下面多了一个<code>KEY nameidx(name)</code>。但是，<strong>建立了索引之后，不一定会用到索引，MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表搜索的数目差不多的话，就不会使用索引</strong>，因为通过索引来检索也是需要消耗磁盘IO的，恐会适得其反。</p>
+<p>对name加完索引之后，再来分析按<code>name</code>搜索的性能：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE name=&#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175732865.png" alt="image-20220519175732865" /></p>
+<p>这里我们看到，加了索引后，<code>type</code>的内容变为<code>ref</code>，<code>key</code>的内容是<code>nameidx</code>。还有一个可以优化的点，我们发现，<code>key_len</code>为152，这个值<strong>我们可以在创建索引时在字段后加一个<code>(长度)</code>，以限制索引的字长，通过控制索引的字长，避免索引长度过大，来提高搜索效率</strong>。通常对字符串索引进行控制。</p>
+<hr />
+<p>现在来测试<code>t_user</code>表，此表中有2000000条数据。</p>
+<p>现在测试查找同一个password的用户。（注意，我们用的是整型的1000000）</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519194908928.png" alt="image-20220519194908928" /></p>
+<p>再运行一次相同的SQL。（测试InnoDB的数据缓存）</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195157521.png" alt="image-20220519195157521" /></p>
+<p>我们发现，由于两次相同的查找之间没有对数据库表进行修改、添加、删除操作，利用了存储引擎的缓存机制，比第一次查找出的时间快了，因为不用花费磁盘IO。</p>
+<p>现在给password字段添加个索引。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX pwdidx ON t_user(password);</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195427490.png" alt="image-20220519195427490" /></p>
+<p>现在再来试试查password。（故意写成整型）</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195537622.png" alt="image-20220519195537622" /></p>
+<p>感觉性能并未大幅提升！这是为啥呢？</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195807298.png" alt="image-20220519195807298" /></p>
+<p>Explain发现索引失效！</p>
+<p>原因是因为在查询过程的过滤过程中，涉及到了一个类型转换操作，如此就会让索引失效。</p>
+<p>我们把它写正确：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=&#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200232453.png" alt="image-20220519200232453" /></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password=&#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200158653.png" alt="image-20220519200158653" /></p>
+<p>可以发现，如果没有类型强转，则一切恢复正常，索引发挥了它原有的功力——即使是在百万数据集中，也能瞬间找到要找的记录。</p>
+<hr />
+<p>最后我们测试一下删除索引</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX pwdidx ON t_user;</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200416678.png" alt="image-20220519200416678" /></p>
+
+        <h1 id="总结-索引要注意的点"   >
+          <a href="#总结-索引要注意的点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-索引要注意的点"></a> 总结 - 索引要注意的点</h1>
+      
+<ol>
+<li>经常作为where条件过滤的字段考虑添加索引</li>
+<li>针对字符串列创建索引时，尽量规定索引的长度，避免索引值的长度<code>key_len</code>过长</li>
+<li>索引字段涉及类型强转、mysql函数调用、表达式计算等，索引就失效了。</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/">安装Nginx</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/" data-flag-title="安装Nginx"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
+<p>安装nginx及其依赖。</p>
+<p>可能需要的命令：</p>
 <ol>
-<li>makefile的编写</li>
-<li>命令</li>
+<li>Linux下<code>\*.tar.gz</code>文件解压缩命令：<code>tar -zxvf 压缩文件名.tar.gz</code></li>
+<li><code>chown -R</code> : 处理指定目录以及其子目录下的所有文件</li>
+</ol>
+<p>参考文章</p>
+<ol>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1945550" >Hexo部署至服务器（Ubuntu 20.04）</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/8af24b0adaf6" >ubuntu nginx源代码安装</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/387379400" >Ubuntu20.04安装openssl-1.1.1k</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/liangtianmeng/article/details/86736761" >linux中ln -s 命令详解</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48033662/article/details/122004967" >解决：Linux8整合Nginx过程中报错：src/os/unix/ngx_user.c: 在函数‘ngx_libc_crypt’中: src/os/unix/ngx_user.c:36:7</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/beagreatprogrammer/article/details/78369638" >OpenSSL library is not used</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://t.zoukankan.com/hoaprox-p-12416624.html" >设置Nginx在linux服务器（Ubuntu）开机启动</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/hancc_824/article/details/109181317" >Unable to locate package sysv-rc-conf</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45837693/article/details/107675339" >https://blog.csdn.net/weixin_45837693/article/details/107675339</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
 </ol>
 
-        <h1 id="示例"   >
-          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h1>
+        <h1 id="安装其依赖"   >
+          <a href="#安装其依赖" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#安装其依赖"></a> 安装其依赖</h1>
       
-<p>示例所用到的代码内容：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a+b = %d\n&quot;</span>,add(a,b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Max = %d\n&quot;</span>,max(a,b));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//add.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//max.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="makefile编写"   >
-          <a href="#makefile编写" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#makefile编写"></a> makefile编写</h1>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Makefile</span></span><br><span class="line">all : main</span><br><span class="line"></span><br><span class="line">main : main.o add.o max.o</span><br><span class="line">	gcc -o main main.o add.o max.o</span><br><span class="line">	</span><br><span class="line">main.o : main.c</span><br><span class="line">	gcc -c main.c</span><br><span class="line"></span><br><span class="line">add.o : add.c</span><br><span class="line">	gcc -c add.c</span><br><span class="line">	</span><br><span class="line">max.o : max.c</span><br><span class="line">	gcc -c max.c</span><br><span class="line">	</span><br><span class="line">clean:</span><br><span class="line">	<span class="built_in">rm</span> -f *.o main</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="命令"   >
-          <a href="#命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#命令"></a> 命令</h1>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make makefile	<span class="comment">#make命令--读取makefile文件</span></span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/69/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><span class="space">&hellip;</span><a class="page-number" href="/page/131/">131</a><a class="extend next" rel="next" href="/page/71/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">262</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">47</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2024</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>nginx依赖pcre、openssl、zlib</p>
+<p>安装pcre</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install libpcre3 libpcre3-dev</span><br></pre></td></tr></table></div></figure>
+<p>安装zlib</p>
+<p>下载地址:<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.zlib.net" >http://www.zlib.net</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf zlib-&lt;version&gt;.tar.gz </span><br><span class="line"><span class="built_in">cd</span> zlib-&lt;version&gt;/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/69/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><span class="space">&hellip;</span><a class="page-number" href="/page/135/">135</a><a class="extend next" rel="next" href="/page/71/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">270</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">49</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
