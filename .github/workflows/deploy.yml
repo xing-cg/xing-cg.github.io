@@ -7,9 +7,6 @@ jobs:
       contents: write  # 关键权限！
       pages: write
       id-token: write
-    env:
-      VALINE_APPID: '${{ secrets.VALINE_APPID }}'
-      VALINE_APPKEY: '${{ secrets.VALINE_APPKEY }}'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,7 +22,7 @@ jobs:
       - name: Install Hexo CLI
         run: npm install -g hexo-cli
 
-      - name: Build with Hexo
+      - name: Build with Hexo 
         run: |
           hexo clean
           hexo generate
