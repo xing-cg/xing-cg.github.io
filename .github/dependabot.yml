@@ -1,31 +1,6 @@
-name: Deploy to GitHub Pages
-on: [push] # 每次 push 到 main 分支时触发
-jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
-    env:
-      ALGOLIA_APP_ID: ${{ secrets.VALINE_APPID }}
-      ALGOLIA_API_KEY: ${{ secrets.VALINE_APPKEY }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build with Hexo
-        run: |
-          hexo clean
-          hexo generate
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
+version: 2  # Dependabot 必须的版本声明
+updates:    # 必须的 updates 模块
+  - package-ecosystem: "npm"    # 例如：更新 npm 依赖
+    directory: "/"              # 依赖文件所在目录
+    schedule:
+      interval: "weekly"        # 每周检查更新
