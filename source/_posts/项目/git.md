@@ -1,15 +1,13 @@
 ---
 title: git
-typora-root-url: ../..
 categories:
-  - [项目]
-  - [Linux]
-  - [git]
-tags:
-  - null 
+  - - 项目
+  - - Linux
+  - - git
+tags: 
 date: 2022/4/10
-update:
-comments:
+update: 
+comments: 
 published:
 ---
 

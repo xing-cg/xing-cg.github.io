@@ -1,14 +1,13 @@
 ---
 title: MySQL数据库连接池
-typora-root-url: ../..
 categories:
-  - [项目, 连接池]
-  - [数据库]
-tags:
-  - null 
+  - - 项目
+    - 连接池
+  - - 数据库
+tags: 
 date: 2022/6/14
-update:
-comments:
+update: 
+comments: 
 published:
 ---
 

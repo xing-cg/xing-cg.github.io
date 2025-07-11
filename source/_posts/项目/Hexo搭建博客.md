@@ -1,13 +1,11 @@
 ---
 title: Hexo搭建博客
-typora-root-url: ../..
 categories:
-  - [一些工具的使用]
-tags:
-  - null 
+  - - 一些工具的使用
+tags: 
 date: 2024/7/18
-update:
-comments:
+update: 
+comments: 
 published:
 ---
 # 安装Hexo
