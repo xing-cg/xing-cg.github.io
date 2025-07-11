@@ -3,6 +3,10 @@ on: [push] # 每次 push 到 main 分支时触发
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 关键权限！
+      pages: write
+      id-token: write
     env:
       ALGOLIA_APP_ID: ${{ secrets.VALINE_APPID }}
       ALGOLIA_API_KEY: ${{ secrets.VALINE_APPKEY }}
