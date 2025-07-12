@@ -15,13 +15,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Clear all caches
+        run: |
+          rm -rf node_modules
+          rm -rf .cache
+          rm -rf public
+          rm -f db.json
+          npm cache clean --force
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Install Hexo CLI
-        run: npm install -g hexo-cli
-
+      - name: Install dependencies
+        run: npm install --force
+        
       - name: Build with Hexo 
         run: |
           hexo clean
@@ -33,3 +37,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+          force_orphan: true  # 关键！强制清空历史记录
+          keep_files: false    # 不保留任何旧文件
