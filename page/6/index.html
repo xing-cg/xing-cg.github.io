@@ -1,0 +1,581 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/6/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/6/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95_%E5%9B%9E%E6%BA%AF/">算法_回溯</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-11-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95_%E5%9B%9E%E6%BA%AF/" data-flag-title="算法_回溯"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>子集树</li>
+<li>排列树</li>
+</ol>
+
+        <h1 id="生成子集树"   >
+          <a href="#生成子集树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#生成子集树"></a> 生成子集树</h1>
+      
+<p>子集树可以用来解决从集合中挑选一些元素以达到一定条件的问题。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> length, <span class="type">int</span> x[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i == length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; length; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (x[j] == <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; arr[j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        x[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length, x);</span><br><span class="line">        x[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>另一种形式：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> i, <span class="type">int</span> length, <span class="type">int</span> x[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i == length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; length; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (x[j] == <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; arr[j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// another form</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &gt;= <span class="number">0</span>; --k)</span><br><span class="line">        &#123;</span><br><span class="line">            x[i] = k;</span><br><span class="line">            <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length, x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是这一种形式不太利于直接添加剪支操作。<br />
+<img src="../../images/%E7%AE%97%E6%B3%95_%E5%9B%9E%E6%BA%AF/image-20241126164920385.png" alt="" /></p>
+
+        <h1 id="选数字达到给定和"   >
+          <a href="#选数字达到给定和" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#选数字达到给定和"></a> 选数字，达到给定和</h1>
+      
+<p>剪左支的条件：选择第<code>i</code>数时，当前累计和已经超过了<code>given_sum</code>，则没必要再往下进行。<br />
+剪右支的条件：选择第<code>i</code>数时，剩下的<code>i + 1</code>到<code>n</code>的累计和（即剩余未处理的数的和，注意，不是”未选择“，而是”未处理“，”处理“是层级别的概念，”选择“是左右子树概念）<code>rest</code>加上当前累计和不够<code>given_sum</code>，则没必要往下进行。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 挑选数字：有一组整数，请挑选出一组数字，使它们的和等于指定的值</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="type">int</span> arr[] = &#123; <span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">3</span> &#125;;</span><br><span class="line"><span class="type">int</span> given_sum = <span class="number">18</span>;</span><br><span class="line"><span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; aux;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> i, <span class="type">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">bool</span> have = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i == length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(res == given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> v : aux)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            std::cout &lt;&lt; std::endl;</span><br><span class="line">            have = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (res + arr[i] &lt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            res += arr[i];</span><br><span class="line">            aux.<span class="built_in">push_back</span>(arr[i]);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line"></span><br><span class="line">            res -= arr[i];</span><br><span class="line">            aux.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> rest = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; length; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            rest += arr[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res + rest &gt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> have;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">bool</span> have = <span class="built_in">func</span>(arr, <span class="number">0</span>, <span class="built_in">sizeof</span>(arr) / <span class="built_in">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">if</span> (!have)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;have not resolution.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>更好的写法：在main函数中先给出rest的总值。在处理第<code>i + 1</code>层前，减去第<code>i</code>个数。处理完第<code>i + 1</code>层后，即开始回溯到<code>i</code>，则<code>i</code>层又活了，需要加回第<code>i</code>个数。<br />
+这样的写法，可以避免每次计算剪右支条件都要走一遍循环计算剩余数字（<code>i + 1</code>到<code>n</code>）的和，而替换成每次只需简单地减、加一个<code>arr[i]</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 挑选数字：有一组整数，请挑选出一组数字，使它们的和等于指定的值</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="type">int</span> arr[] = &#123; <span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">3</span> &#125;;</span><br><span class="line"><span class="type">int</span> given_sum = <span class="number">18</span>;</span><br><span class="line"><span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> rest = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; aux;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> i, <span class="type">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">bool</span> have = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i == length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(res == given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> v : aux)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            std::cout &lt;&lt; std::endl;</span><br><span class="line">            have = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        rest -= arr[i];</span><br><span class="line">        <span class="keyword">if</span> (res + arr[i] &lt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            res += arr[i];</span><br><span class="line">            aux.<span class="built_in">push_back</span>(arr[i]);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line"></span><br><span class="line">            res -= arr[i];</span><br><span class="line">            aux.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (res + rest &gt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">        rest += arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> have;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        rest += v;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="type">bool</span> have = <span class="built_in">func</span>(arr, <span class="number">0</span>, <span class="built_in">sizeof</span>(arr) / <span class="built_in">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="keyword">if</span> (!have)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;have not resolution.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>同时还需要注意，未处理和未选择的概念不要混淆，我第一次写成了如下形式：这是错误的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (res + arr[i] &lt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            res += arr[i];</span><br><span class="line">            rest -= arr[i];   <span class="comment">// 选择</span></span><br><span class="line">            aux.<span class="built_in">push_back</span>(arr[i]);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line"></span><br><span class="line">            res -= arr[i];</span><br><span class="line">            rest += arr[i];   <span class="comment">// 未选择</span></span><br><span class="line">            aux.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (res + rest &gt;= given_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> have;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        rest += v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这与上面的含义完全不一样。我们要做的是”处理“、”未处理“时，rest变量的变化。而不是”选择“、”未选择“时，rest变量的变化。”处理“是层级别的概念，”选择“是左右子树概念。<br />
+即，不管选不选，走不走左右子树，rest都要在之前减去<code>arr[i]</code>；不管选不选，走不走左右子树，之后rest都要加上<code>arr[i]</code>。</p>
+
+        <h2 id="多叉子集树-更高效"   >
+          <a href="#多叉子集树-更高效" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多叉子集树-更高效"></a> 多叉子集树-更高效</h2>
+      
+<p>以下程序生成的是如下图的子集树：<br />
+<img src="../../images/%E7%AE%97%E6%B3%95_%E5%9B%9E%E6%BA%AF/image-20241126164737080.png" alt="" /></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="type">int</span> arr[] = &#123; <span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">3</span> &#125;;</span><br><span class="line"><span class="type">int</span> given_sum = <span class="number">18</span>;</span><br><span class="line"><span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> rest = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; aux;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> length, <span class="type">int</span> number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (number == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v : aux)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 以层的视角看，生成(k, k+1, ..., n)子树并遍历。</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = i; k &lt; length; ++k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (number &gt;= arr[k]) <span class="comment">// 接下来的k元素不能大于number</span></span><br><span class="line">            &#123;</span><br><span class="line">                aux.<span class="built_in">push_back</span>(arr[k]);</span><br><span class="line">                <span class="comment">// 选择 k + 1，则向深度遍历，number条件改变</span></span><br><span class="line">                <span class="built_in">func</span>(k + <span class="number">1</span>, length, number - arr[k]);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 不选择 k + 1，则回溯到上一层，number条件不改变</span></span><br><span class="line">                aux.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">func</span>(<span class="number">0</span>, <span class="number">7</span>, given_sum);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：8 7 3</p>
+
+        <h2 id="变种可以重复选择元素"   >
+          <a href="#变种可以重复选择元素" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#变种可以重复选择元素"></a> 变种：可以重复选择元素</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 以层的视角看，生成(k, k+1, ..., n)子树并遍历。</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = i; k &lt; length; ++k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (number &gt;= arr[k]) <span class="comment">// 接下来的k元素不能大于number</span></span><br><span class="line">            &#123;</span><br><span class="line">                aux.<span class="built_in">push_back</span>(arr[k]);</span><br><span class="line">                <span class="comment">// 更改：</span></span><br><span class="line">                <span class="comment">// 选择 k，则向深度遍历，number条件改变</span></span><br><span class="line">                <span class="built_in">func</span>(k, length, number - arr[k]);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 不选择 k，则回溯到上一层，number条件不改变</span></span><br><span class="line">                aux.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">func</span>(<span class="number">0</span>, <span class="number">7</span>, given_sum);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">4 4 4 3 3</span><br><span class="line">4 4 7 3</span><br><span class="line">4 8 3 3</span><br><span class="line">4 7 7</span><br><span class="line">8 7 3</span><br><span class="line">12 3 3</span><br><span class="line">9 9</span><br><span class="line">9 3 3 3</span><br><span class="line">3 3 3 3 3 3</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="排列树"   >
+          <a href="#排列树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#排列树"></a> 排列树</h1>
+      
+<p>序列有不同的排列方式，求解原始序列的某一种特定的排列方式以达到一定条件的问题。</p>
+<p>排列问题可以表示为以下形式：<br />
+设<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>r</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>r</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>r</mi><mn>3</mn></msub><mo separator="true">,</mo><mo>⋯</mo><mtext> </mtext><mo separator="true">,</mo><msub><mi>r</mi><mi>n</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">R=\{ r_1, r_2, r_3, \cdots, r_n \}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>是要进行排列的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>个元素，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>=</mo><mi>R</mi><mo>−</mo><mo stretchy="false">{</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">R_i=R-\{r_i\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>。<br />
+集合<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>中元素的全排列记为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">perm(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(r_i)perm(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>表示在全排列<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">perm(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>的每一个排列前加上前缀<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">r_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>得到的排列。<br />
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>的全排列可归纳定义如下：</p>
+<ul>
+<li>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">perm(R)=(r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>是集合<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>中唯一的元素</li>
+<li>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n&gt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">perm(R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>由<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>R</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>r</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>R</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo>⋯</mo><mtext> </mtext><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>r</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>R</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(r_1)perm(R_1),(r_2)perm(R_2),\cdots,(r_n)perm(R_n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>构成。（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>=</mo><mi>R</mi><mo>−</mo><mo stretchy="false">{</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">R_i=R-\{r_i\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>）</li>
+</ul>
+<p>比如：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">R=\{1,2,3\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span></span></span></span>，则<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">perm(R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>由<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mo stretchy="false">{</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">}</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mi>p</mi><mi>e</mi><mi>r</mi><mi>m</mi><mo stretchy="false">(</mo><mo stretchy="false">{</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">}</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1)perm(\{2,3\}),(2)perm(\{1,3\}),(3)perm(\{1,2\})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mopen">{</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">}</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mopen">(</span><span class="mopen">{</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">}</span><span class="mclose">)</span></span></span></span>构成。</p>
+<p>在第i层视角上，集合内每个元素都依次与第i个位置进行交换。如下图：元素1到了第1的位置，则出现：<code>(1)R&#123;2,3&#125;</code>，元素2到了第1的位置，则出现：<code>(2)R&#123;1,3&#125;</code>，元素3到了第1的位置，则出现：<code>(3)R&#123;1,2&#125;</code>。</p>
+<p><img src="../../images/%E7%AE%97%E6%B3%95_%E5%9B%9E%E6%BA%AF/image-20241128231648914.png" alt="" /></p>
+<p>于是，在代码中，我们可以写出for循环的条件：第i层时，（以下表述均对应实际元素数组的下标，例如：第0层，对应第1个元素的位置，下标为0），就要把从<code>k</code>（用<code>k</code>作为<code>i</code>的副本）到<code>n-1</code>的元素循环与第<code>i</code>个位置进行交换。</p>
+<p>交换后再次进行perm计算，下一次的<code>i</code>更新为<code>i+1</code>。</p>
+<p>从层次视角看，本层的<code>perm</code>调用结束后，不要忘记把状态回退，即第<code>k</code>个元素换回<code>i</code>位置。</p>
+<p>当到达第<code>n</code>层，达到递归终止条件，这时<code>arr</code>数组中记录的各个元素的位置即为此时序列的某种全排列。直接全部输出即可。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> i, <span class="type">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp = arr[i];</span><br><span class="line">    arr[i] = arr[j];</span><br><span class="line">    arr[j] = tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> i, <span class="type">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i == length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; length; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; arr[j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 生成子树，遍历孩子节点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = i; k &lt; length; ++k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 从 i 到 n，每次arr数组元素的该位置 都与 k 位置交换一下</span></span><br><span class="line">            <span class="built_in">swap</span>(arr, i, k);</span><br><span class="line">            <span class="comment">// 注意此处很重要，不再是k + 1，而是i + 1。</span></span><br><span class="line">            <span class="comment">// 如果我们搞成了k + 1，则变成了上面的多叉子集树（选数字问题）。</span></span><br><span class="line">            <span class="comment">// 因为给出了i+1，for循环中k在变，i是不变的，所以每次都会是相同数个元素进行遍历。</span></span><br><span class="line">            <span class="comment">// 因此才能出现排列方式不同的全集（即全排列）。</span></span><br><span class="line">            <span class="built_in">func</span>(arr, i + <span class="number">1</span>, length);</span><br><span class="line">            <span class="built_in">swap</span>(arr, i, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> length = <span class="built_in">sizeof</span>(arr) / <span class="built_in">sizeof</span>(arr[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">func</span>(arr, <span class="number">0</span>, length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4</span><br><span class="line">1 2 4 3</span><br><span class="line">1 3 2 4</span><br><span class="line">1 3 4 2</span><br><span class="line">1 4 3 2</span><br><span class="line">1 4 2 3</span><br><span class="line">2 1 3 4</span><br><span class="line">2 1 4 3</span><br><span class="line">2 3 1 4</span><br><span class="line">2 3 4 1</span><br><span class="line">2 4 3 1</span><br><span class="line">2 4 1 3</span><br><span class="line">3 2 1 4</span><br><span class="line">3 2 4 1</span><br><span class="line">3 1 2 4</span><br><span class="line">3 1 4 2</span><br><span class="line">3 4 1 2</span><br><span class="line">3 4 2 1</span><br><span class="line">4 2 3 1</span><br><span class="line">4 2 1 3</span><br><span class="line">4 3 2 1</span><br><span class="line">4 3 1 2</span><br><span class="line">4 1 3 2</span><br><span class="line">4 1 2 3</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="n皇后问题n后-八皇后"   >
+          <a href="#n皇后问题n后-八皇后" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#n皇后问题n后-八皇后"></a> n皇后问题（n后、八皇后）</h1>
+      
+<p>在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>格的国际象棋棋盘上放置彼此不受攻击的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>个皇后。皇后可以攻击同一行、同一列或同一斜线上的棋子。</p>
+
+        <h2 id="非递归"   >
+          <a href="#非递归" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非递归"></a> 非递归</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">NiceBackTrack</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    x[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> k = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (k &gt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x[k] += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> ((x[k]) &lt;= n) &amp;&amp; !<span class="built_in">Place</span>(k))</span><br><span class="line">        &#123;</span><br><span class="line">            x[k] += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (x[k] &lt;= n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (k == n)</span><br><span class="line">            &#123;</span><br><span class="line">                sum += <span class="number">1</span>;</span><br><span class="line">                <span class="built_in">PrintQ</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                k += <span class="number">1</span>;</span><br><span class="line">                x[k] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            --k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%87%AA%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8/">网络_自建远程桌面服务器</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-11-23</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%87%AA%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-flag-title="网络_自建远程桌面服务器"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="云服务器选购"   >
+          <a href="#云服务器选购" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#云服务器选购"></a> 云服务器选购</h1>
+      
+<p>阿里云2C2G3M（2 CPU、2G RAM、3M固定带宽（无限流量）），1年99元。选北京地区的，在国内延迟可能低一些。</p>
+
+        <h1 id="软件选择"   >
+          <a href="#软件选择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件选择"></a> 软件选择</h1>
+      
+<p>远程桌面软件选择RustDesk，开源的。<br />
+server端：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/rustdesk/rustdesk-server/releases" >https://github.com/rustdesk/rustdesk-server/releases</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+client端：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/rustdesk/rustdesk/releases" >https://github.com/rustdesk/rustdesk/releases</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="rustdesk下载"   >
+          <a href="#rustdesk下载" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rustdesk下载"></a> RustDesk下载</h1>
+      
+<p>根据<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/install/" >RustDesk官方文档</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。<br />
+服务端的文件有：两个可执行文件和一个文件夹。</p>
+<ul>
+<li><code>hbbs</code> - RustDesk ID/Rendezvous server</li>
+<li><code>hbbr</code> - RustDesk Relay server</li>
+</ul>
+<p>一般，下载这个：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip" >https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>使用<code>wget + url</code>命令即可下载。</p>
+
+        <h1 id="代理"   >
+          <a href="#代理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代理"></a> 代理</h1>
+      
+<p>Linux服务器要下载好多开源项目或者国际软件。往往需要代理网络。</p>
+<p>云服务器只有Linux命令行，因此需要下载mihomo项目（Clash Meta）来用命令行配置。<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/MetaCubeX/mihomo/releases" >https://github.com/MetaCubeX/mihomo/releases</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+下载其中的：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/MetaCubeX/mihomo/releases/download/v1.18.10/mihomo-linux-amd64-v1.18.10.deb" >https://github.com/MetaCubeX/mihomo/releases/download/v1.18.10/mihomo-linux-amd64-v1.18.10.deb</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+是deb格式的安装包。可以使用<code>apt install + 文件名</code>安装这种离线安装包。</p>
+<p>安装后，可以通过<code>find / -name mihomo</code>来查找服务器上名字包含mihomo的文件在哪里。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/root/.config/mihomo</span><br><span class="line">/etc/mihomo</span><br><span class="line">/usr/share/licenses/mihomo</span><br><span class="line">/usr/bin/mihomo</span><br></pre></td></tr></table></div></figure>
+<p><code>/root/.config/mihomo/</code>是mihomo的配置文件目录。<br />
+有以下内容：<br />
+<code>config.yaml   geoip.metadb</code></p>
+<p><code>/etc/mihomo/</code>也是mihomo的一个配置文件目录，但是貌似优先用的是root的（即当前用户的配置优于etc目录下的全局配置）</p>
+
+        <h2 id="守护进程"   >
+          <a href="#守护进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#守护进程"></a> 守护进程</h2>
+      
+<p>安装后，需要把mihomo作为一个守护进程跑在服务器上。<br />
+参考文档：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://wiki.metacubex.one/en/startup/service/" >https://wiki.metacubex.one/en/startup/service/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+如下创建系统配置文件 <code>/etc/systemd/system/mihomo.service</code></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=mihomo Daemon, Another Clash Kernel.</span><br><span class="line">After=network.target NetworkManager.service systemd-networkd.service iwd.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">LimitNPROC=500</span><br><span class="line">LimitNOFILE=1000000</span><br><span class="line">CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH CAP_DAC_OVERRIDE</span><br><span class="line">AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH CAP_DAC_OVERRIDE</span><br><span class="line">Restart=always</span><br><span class="line">ExecStartPre=/usr/bin/sleep 1s</span><br><span class="line">ExecStart=/usr/local/bin/mihomo -d /etc/mihomo</span><br><span class="line">ExecReload=/bin/kill -HUP $MAINPID</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></div></figure>
+<p>使用以下命令重新加载 systemd：<br />
+<code>systemctl daemon-reload</code><br />
+启用Mihomo服务：<br />
+<code>systemctl enable mihomo</code><br />
+使用以下命令立即启动 Mihomo：<br />
+<code>systemctl start mihomo</code><br />
+使用以下命令重新加载 Mihomo：<br />
+<code>systemctl reload mihomo</code><br />
+使用以下命令检查 Mihomo 的状态：<br />
+<code>systemctl status mihomo</code><br />
+使用以下命令查看Mihomo的运行日志：<br />
+<code>journalctl -u mihomo -o cat -e</code>或者<code>journalctl -u mihomo -o cat -f</code></p>
+
+        <h2 id="配置文件"   >
+          <a href="#配置文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h2>
+      
+<p><code>wget + 代理服务商的clash订阅链接</code>下载<code>config.yaml</code>到Linux服务器上。然后把<code>config.yaml</code>拷贝到mihomo配置目录下。<br />
+如果配置目录不对劲，可以通过<code>mihomo -d [配置目录]</code>指定、自定义。</p>
+
+        <h2 id="终端自动代理"   >
+          <a href="#终端自动代理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#终端自动代理"></a> 终端自动代理</h2>
+      
+<p>需要配置<code>/etc/profile</code>。<br />
+在内容中加入：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=127.0.0.1:7890</span><br><span class="line"><span class="built_in">export</span> https_proxy=127.0.0.1:7890</span><br><span class="line"><span class="built_in">export</span> all_proxy=127.0.0.1:7890</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="测试连通"   >
+          <a href="#测试连通" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试连通"></a> 测试连通</h2>
+      
+<p><code>curl www.google.com</code>，如果输出了内容，则可以了。</p>
+
+        <h2 id="ui控制"   >
+          <a href="#ui控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ui控制"></a> UI控制</h2>
+      
+<p>可以配置<code>config.yaml</code>中的：</p>
+<figure class="highlight yaml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">external-controller:</span> <span class="string">&#x27;0.0.0.0:9090&#x27;</span></span><br><span class="line"><span class="comment"># RESTful API 的口令</span></span><br><span class="line"><span class="attr">secret:</span> <span class="string">&#x27;YourPassword&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 您可以将静态网页资源（如 clash-dashboard）放置在一个目录中，clash 将会服务于 `RESTful API/ui`</span></span><br><span class="line"><span class="comment"># 参数应填写配置目录的相对路径或绝对路径。</span></span><br><span class="line"><span class="attr">external-ui:</span> <span class="string">./public</span></span><br></pre></td></tr></table></div></figure>
+<p>如果要绑定到公网IP，需要把默认的<code>127.0.0.1</code>改为<code>0.0.0.0</code>。<br />
+如果对外网开放，强烈建议需要secret鉴权。<br />
+我们还需要提供一个UI的web目录。<br />
+以选用yacd为例。<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/haishanh/yacd/releases" >https://github.com/haishanh/yacd/releases</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+下载<code>yacd.tar.xz</code>。解压操作略。<br />
+然后我们在配置目录下创建一个public，在public里创建yacd。把内容移动到yacd下面。<br />
+然后，就可以通过<code>http://YourIP:9090/ui/yacd/?hostname=YourIP&amp;port=9090&amp;secret=YourSecret</code>进入UI界面了。</p>
+
+        <h1 id="nodejs安装"   >
+          <a href="#nodejs安装" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#nodejs安装"></a> Node.js安装</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://pm2.keymetrics.io/docs/usage/quick-start/" >https://pm2.keymetrics.io/docs/usage/quick-start/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>rustdesk官方建议我们使用pm2管理服务。</p>
+<p>而pm2需要npm安装，即需要安装<code>Node.js</code>。<br />
+Node.js的安装又需要用到NVM。<br />
+根据：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://nodejs.org/en/download/package-manager" >https://nodejs.org/en/download/package-manager</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># installs nvm (Node Version Manager)</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash</span><br><span class="line"><span class="comment"># download and install Node.js (you may need to restart the terminal)</span></span><br><span class="line">nvm install 22</span><br><span class="line"><span class="comment"># verifies the right Node.js version is in the environment</span></span><br><span class="line">node -v <span class="comment"># should print `v22.11.0`</span></span><br><span class="line"><span class="comment"># verifies the right npm version is in the environment</span></span><br><span class="line">npm -v <span class="comment"># should print `10.9.0`</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="sudo-npm-install命令无效"   >
+          <a href="#sudo-npm-install命令无效" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sudo-npm-install命令无效"></a> sudo npm install命令无效</h2>
+      
+<p>但是我们之后发现pm2的安装需要<code>sudo npm install</code>权限。</p>
+<p>但提示：<code>sudo npm install command not found</code></p>
+<p>根据<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/a/73308302/16887299" >https://stackoverflow.com/a/73308302/16887299</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s $(<span class="built_in">which</span> npm) /usr/local/bin/npm</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s $(<span class="built_in">which</span> node) /usr/local/bin/node</span><br></pre></td></tr></table></div></figure>
+<p>即可解决。<br />
+主要原因是按照node.js官方的安装方法，他们给我们安到了：<code>/root/.nvm/versions/node/v22.11.0/bin/node</code>、<code>/root/.nvm/versions/node/v22.11.0/bin/npm</code>。<br />
+所以sudo命令不识别。</p>
+
+        <h2 id="npm设置代理"   >
+          <a href="#npm设置代理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#npm设置代理"></a> npm设置代理</h2>
+      
+<p>同时发现需要给npm单独配置代理。终端的代理无效。<br />
+<code>npm config set proxy http://127.0.0.1:7890</code><br />
+设置好后，可以通过<code>npm config list</code>查看proxy字段是否正确。</p>
+<p>至此，就可以安装pm2了。</p>
+
+        <h1 id="pm2安装"   >
+          <a href="#pm2安装" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pm2安装"></a> pm2安装</h1>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> npm install pm2@latest -g</span><br></pre></td></tr></table></div></figure>
+<p>安装完成后，则可以按照rustdesk文档中用pm2来启动服务。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 start hbbs</span><br><span class="line">pm2 start hbbr</span><br></pre></td></tr></table></div></figure>
+<p>可以通过<code>pm2 list</code>来查看当前pm2管理的服务。<br />
+如果想让<code>hbbs</code> / <code>hbbr</code>在重启后自动运行，最好再执行一下<code>pm2 startup</code>和<code>pm2 save</code>。（详细查阅pm2文档）</p>
+<p>至此，rustdesk服务就运行在服务器上了。</p>
+
+        <h1 id="rustdesk的key"   >
+          <a href="#rustdesk的key" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rustdesk的key"></a> rustdesk的key</h1>
+      
+<p>服务一运行，会自动生成一对加密的私钥和公钥（分别位于运行目录下的<code>id_ed25519</code>和<code>id_ed25519.pub</code>文件中），其主要用途是通信加密。</p>
+<p>这个<code>id_ed25519.pub</code>文件的内容需要填写到客户端的key中。</p>
+<p>如果要更改密钥，请删除<code>id_ed25519</code>和<code>id_ed25519.pub</code>文件并重新启动<code>hbbs</code> / <code>hbbr</code> ， <code>hbbs</code>将生成新的密钥对。</p>
+
+        <h1 id="云服务器防火墙配置"   >
+          <a href="#云服务器防火墙配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#云服务器防火墙配置"></a> 云服务器防火墙配置</h1>
+      
+<p>根据文档，默认情况下， hbbs监听 21114（TCP，用于 Web 控制台，仅在 Pro 版本中可用）、21115 (TCP)、21116 (TCP/UDP) 和 21118 (TCP)， hbbr监听 21117 (TCP) 和 21119 (TCP) 。请务必在防火墙中打开这些端口。请注意，应为 TCP 和 UDP 启用 21116。 21115用于NAT类型测试，21116/UDP用于ID注册和心跳服务，21116/TCP用于TCP打洞和连接服务，21117用于Relay服务，21118和21119用于支持网络客户端。如果不需要Web客户端（21118、21119）支持，可以禁用相应端口。</p>
+<p>设置成如下的即可：<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%87%AA%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8/image-20241123235654198.png" alt="" /></p>
+<p>22是为了ssh协议（远程shell）。</p>
+
+        <h2 id="坑不要贸然开放所有端口"   >
+          <a href="#坑不要贸然开放所有端口" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#坑不要贸然开放所有端口"></a> 坑：不要贸然开放所有端口</h2>
+      
+<p>不要贸然开放所有端口，经过测试，服务器会莫名遭到DDoS攻击，导致CPU、带宽高占用，服务器连接数峰值达到10K，对于2C2G3M的服务器来说，肯定禁不住。导致ssh经常断联、无响应；远程桌面也很卡顿。<br />
+还好分析了一眼阿里云后台的监控数据，不然我以为是网络带宽太小的问题。其实就是端口全开放导致攻击漏洞太大的问题。（也算是亲自体验过DDoS攻击了，这才知道了防火墙的作用有多么重要，自此不再是累赘）</p>
+
+        <h1 id="rustdesk客户端配置"   >
+          <a href="#rustdesk客户端配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rustdesk客户端配置"></a> rustdesk客户端配置</h1>
+      
+<p>设置-网络中。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%87%AA%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%9C%8D%E5%8A%A1%E5%99%A8/image-20241123235810792.png" alt="" /></p>
+<p>ID服务器IP+21116端口，中继服务器IP+21117端口。</p>
+<p>启动服务，若主页下面图标显示就绪，即可以使用。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/141/">141</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

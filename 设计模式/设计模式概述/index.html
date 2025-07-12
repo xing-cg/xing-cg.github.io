@@ -1,0 +1,754 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         模式是什么 软件模式的由来 软件模式的构成 设计模式是什么 设计模式用途分类，常用模式一览 设计模式的价值 如何学习设计模式                       模式是什么        美国Christopher Alexander博士及其研究团队用了约20年的时间，对住宅和周边环境进行了大量的调查研究和资料收集工作，发现人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式概述">
+<meta property="og:url" content="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         模式是什么 软件模式的由来 软件模式的构成 设计模式是什么 设计模式用途分类，常用模式一览 设计模式的价值 如何学习设计模式                       模式是什么        美国Christopher Alexander博士及其研究团队用了约20年的时间，对住宅和周边环境进行了大量的调查研究和资料收集工作，发现人">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.863Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>设计模式概述 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">设计模式概述</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/" data-flag-title="设计模式概述"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>模式是什么</li>
+<li>软件模式的由来</li>
+<li>软件模式的构成</li>
+<li>设计模式是什么</li>
+<li>设计模式用途分类，常用模式一览</li>
+<li>设计模式的价值</li>
+<li>如何学习设计模式</li>
+</ol>
+
+        <h1 id="模式是什么"   >
+          <a href="#模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模式是什么"></a> 模式是什么</h1>
+      
+<p>美国Christopher Alexander博士及其研究团队用了约20年的时间，对住宅和周边环境进行了大量的调查研究和资料收集工作，发现人们对舒适住宅和城市环境存在一些共同的认同规律，Christopher Alexander在著作A Pattern Language: Towns, Buildings, Construction中把这些认同规律归纳为253个模式，对每一个模式(Pattern)都从Context（前提条件）、Theme或Problem（目标问题）、 Solution（解决方案）三个方面进行了描述，并给出了从用户需求分析到建筑环境结构设计直至经典实例的过程模型。</p>
+<p>在Christopher Alexander的另一部经典著作《建筑的永恒之道》中，他给出了关于模式的定义：</p>
+<p>每个模式都描述了一个在我们的环境中不断出现的问题，然后描述了该问题的解决方案的核心，通过这种方式，我们可以无数次地重用那些已有的成功的解决方案，无须再重复相同的工作。</p>
+<p>这个定义可以简单地用一句话表示：</p>
+<p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案。</strong><br />
+A pattern is a successful or efficient <strong>solution to a recurring problem</strong> within a context.</p>
+
+        <h1 id="软件模式的由来23种"   >
+          <a href="#软件模式的由来23种" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的由来23种"></a> 软件模式的由来（23种）</h1>
+      
+<p>1990年，软件工程界开始关注Christopher Alexander等在这一住宅、公共建筑与城市规划领域的重大突破。最早将模式的思想引入软件工程方法学的是1991-1992年以“四人组”自称的四位著名软件工程学者。</p>
+<blockquote>
+<p>Gang of Four，简称<strong>GoF</strong>，分别是Erich Gamma, Richard Helm, Ralph Johnson和John Vlissides。<br />
+书名：Design Patterns: Elements of Reusable Object-Oriented Softwarec - 设计模式：可复用面向对象软件的基础</p>
+</blockquote>
+<p>他们在1994年归纳发表了23种在软件开发中使用频率较高的设计模式，旨在用模式来<strong>统一沟通面向对象方法在分析、设计和实现间的鸿沟</strong>。</p>
+<p>GoF将模式的概念引入软件工程领域，这标志着软件模式的诞生。软件模式是将模式的一般概念应用于软件开发领域，即<strong>软件开发的总体指导思路或参照样板</strong>。软件模式<strong>并非仅限于设计模式，还包括架构模式、分析模式和过程模式</strong>等，实际上，<strong>在软件开发生命周期的每一个阶段都存在着一些被认同的模式</strong>。</p>
+
+        <h1 id="软件模式的构成"   >
+          <a href="#软件模式的构成" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的构成"></a> 软件模式的构成</h1>
+      
+<p>软件模式是在软件开发中某些可重现问题的一些有效解决方法，软件模式的基础结构主要由四部分构成，包括问题描述（<strong>待解决的问题是什么</strong>）、前提条件（<strong>在何种环境或约束条件下使用</strong>）、解法（<strong>如何解决</strong>）和效果（<strong>有哪些优缺点</strong>）。</p>
+
+        <h1 id="设计模式是什么"   >
+          <a href="#设计模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式是什么"></a> 设计模式是什么</h1>
+      
+<p>在软件模式中，设计模式是研究最为深入的分支，设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案，它<strong>融合了众多专家的设计经验</strong>，已经在成千上万的软件中得以应用。 1995年， GoF将收集和整理好的23种设计模式汇编成Design Patterns: Elements of Reusable Object-Oriented Software（《设计模式：可复用面向对象软件的基础》）一书，该书的出版也标志着设计模式正式成为面向对象软件工程的一个重要研究分支。</p>
+<p>设计模式的一般定义如下：</p>
+<p><strong>设计模式</strong>（Design Pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的<strong>总结</strong>，使用设计模式是为了可重用代码、让代码更容易被他人理解并且保证代码可靠性。</p>
+
+        <h2 id="设计模式的要素"   >
+          <a href="#设计模式的要素" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的要素"></a> 设计模式的要素</h2>
+      
+<p>设计模式一般包含模式名称、问题、目的、解决方案、效果等组成要素，其中关键要素是模式名称、问题、解决方案和效果。</p>
+<ol>
+<li><strong>模式名称</strong>(Pattern Name)通过一两个词来描述模式的问题、解决方案和效果，以便更好地理解模式并方便开发人员之间的交流，绝大多数模式都是根据其功能或模式结构来命名的（GoF设计模式中没有一个模式用人名命名）</li>
+<li><strong>问题</strong>(Problem)描述了应该在何时使用模式，它包含了设计中存在的问题以及问题存在的原因</li>
+<li><strong>解决方案</strong>(Solution)描述了一个设计模式的组成成分，以及这些组成成分之间的相互关系，各自的职责和协作方式，通常解决方案通过UML类图和核心代码来进行描述</li>
+<li><strong>效果</strong>(Consequences)描述了模式的优缺点以及在使用模式时应权衡的问题。</li>
+</ol>
+
+        <h1 id="设计模式的用途分类"   >
+          <a href="#设计模式的用途分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的用途分类"></a> 设计模式的用途分类</h1>
+      
+<p>虽然GoF设计模式只有23个，但是它们各具特色，每个模式都为某一个可重复的设计问题提供了一套解决方案。</p>
+<p>根据它们的用途，设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种。</p>
+<ol>
+<li><strong>创建型</strong>模式主要用于描述<strong>如何创建对象</strong>；</li>
+<li><strong>结构型</strong>模式主要用于描述<strong>如何实现类或对象的组合</strong>；</li>
+<li><strong>行为型</strong>模式主要用于描述<strong>类或对象怎样交互以及怎样分配职责</strong>。</li>
+</ol>
+<p>在GoF 23种设计模式中包含5种创建型设计模式、7种结构型设计模式和11种行为型设计模式。</p>
+<p>此外，根据某个模式主要是用于<strong>处理类之间的关系还是对象之间的关系</strong>，设计模式还可以分为<strong>类模式</strong>和<strong>对象模式</strong>。</p>
+<p>我们经常将两种分类方式结合使用，如单例模式是对象创建型模式，模板方法模式是类行为型模式。</p>
+
+        <h2 id="常用设计模式一览表"   >
+          <a href="#常用设计模式一览表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用设计模式一览表"></a> 常用设计模式一览表</h2>
+      
+<p>值得一提的是，有一个设计模式虽然不属于GoF 23种设计模式，但一般在介绍设计模式时都会对它进行说明，它就是<strong>简单工厂模式</strong>，也许是太“简单”了，GoF并没有把它写到那本经典著作中，不过现在大部分的设计模式书籍都会对它进行专门的介绍。</p>
+<p>（以下难度、频率统计结果来自刘伟）</p>
+<div class="table-container"><table>
+	<tr>
+	    <th>类型</th>
+	    <th>模式名称</th>
+	    <th>学习难度</th>
+        <th>使用频率</th>
+	</tr>
+	<tr>
+	    <td rowspan="6">创建型模式 Creational</td>
+	    <td>单例模式 Singleton</td>
+	    <td>★☆☆☆☆</td>
+        <td>★★★★☆</td>
+	</tr>
+	<tr>
+	    <td>简单工厂模式</td>
+	    <td>★★☆☆☆</td>
+        <td>★★★☆☆</td>
+	</tr>
+	<tr>
+	    <td>工厂方法模式 Factory Method</td>
+	    <td>★★☆☆☆</td>
+        <td>★★★★★</td>
+	</tr>
+	<tr>
+	    <td>抽象工厂模式 Abstract Factory</td>
+	    <td>★★★★☆</td>
+        <td>★★★★★</td>
+	</tr>
+    <tr>
+	    <td>原型模式 Prototype</td>
+	    <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+	</tr>
+    <tr>
+	    <td>建造者模式 Builder</td>
+	    <td>★★★★☆</td>
+        <td>★★☆☆☆</td>
+	</tr>
+    <tr>
+        <td rowspan="7">结构型模式 Structural</td>
+        <td>适配器模式 Adapter</td>
+        <td>★★☆☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>桥接模式 Bridge</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>组合模式 Composite</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>装饰模式 Decorator</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>外观模式 Facade</td>
+        <td>★☆☆☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>享元模式 Flyweight</td>
+        <td>★★★★☆</td>
+        <td>★☆☆☆☆</td>
+    </tr>
+    <tr>
+        <td>代理模式 Proxy</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td rowspan="11">行为型模式 Behavioral</td>
+        <td>职责链模式 Chain of Responsibility</td>
+        <td>★★★☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>命令模式 Command</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>解释器模式 Interpreter</td>
+        <td>★★★★★</td>
+        <td>★☆☆☆☆</td>
+    </tr>
+    <tr>
+        <td>迭代器模式 Iterator</td>
+        <td>★★★☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>中介者模式 Mediator</td>
+        <td>★★★☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>备忘录模式 Memento</td>
+        <td>★★☆☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>观察者模式 Observer</td>
+        <td>★★★☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>状态模式 State</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>策略模式 Strategy</td>
+        <td>★☆☆☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>模板方法模式 Template Method</td>
+        <td>★★☆☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>访问者模式 Visitor</td>
+        <td>★★★★☆</td>
+        <td>★☆☆☆☆</td>
+    </tr>
+</table></div>
+
+        <h1 id="1句话描述23个设计模式"   >
+          <a href="#1句话描述23个设计模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1句话描述23个设计模式"></a> 1句话描述23个设计模式</h1>
+      
+
+        <h2 id="结构型"   >
+          <a href="#结构型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构型"></a> 结构型</h2>
+      
+<ol>
+<li>
+<p><strong>适配器模式（Adapter）</strong>：将一个类的接口转换成客户希望的另一个接口。</p>
+<ul>
+<li>例子：电源适配器，将两孔插头适配成三孔插头。</li>
+</ul>
+</li>
+<li>
+<p><strong>桥接模式（Bridge）</strong>：将抽象部分与它的实现部分分离，使它们可以独立变化。</p>
+<ul>
+<li>例子：遥控器（抽象部分）和不同类型的电视机（实现部分）。</li>
+<li>苹果系统中OC和C语言之间的桥梁。</li>
+</ul>
+</li>
+<li>
+<p><strong>组合模式（Composite）</strong>：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
+<ul>
+<li>例子：文件夹和文件的结构，一个文件夹可以包含文件或子文件夹。</li>
+</ul>
+</li>
+<li>
+<p><strong>装饰模式（Decorator）</strong>：动态地给对象添加一些额外的职责。</p>
+<ul>
+<li>例子：给圣诞树添加装饰品，每个装饰品增加新的特性。</li>
+</ul>
+</li>
+<li>
+<p><strong>外观模式（Facade）</strong>：为子系统中的一组接口提供一个一致的界面，使子系统更容易使用。</p>
+<ul>
+<li>例子：餐厅服务员，统一点菜、送菜和结账的接口。</li>
+</ul>
+</li>
+<li>
+<p><strong>享元模式（Flyweight，也叫轻量对象模式）</strong>：通过共享大量细粒度对象来节省内存。</p>
+<ul>
+<li>例子：围棋棋子，黑白棋子共享一个对象，节省内存。</li>
+</ul>
+</li>
+<li>
+<p><strong>代理模式（Proxy）</strong>：为其他对象提供一种代理，以控制对这个对象的访问。</p>
+<ul>
+<li>例子：明星的经纪人，代理处理事务和安排活动。</li>
+</ul>
+</li>
+</ol>
+
+        <h2 id="行为型"   >
+          <a href="#行为型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#行为型"></a> 行为型</h2>
+      
+<ol>
+<li>
+<p><strong>责任链模式（Chain of Responsibility）</strong>：将请求消息沿着处理者链传递，直到有处理者处理它。</p>
+<ul>
+<li>例子：公司请假审批流程，依次由主管、经理、总监审批。</li>
+</ul>
+</li>
+<li>
+<p><strong>命令模式（Command）</strong>：将请求封装成对象，使不同的请求、队列或日志参数化。</p>
+<ul>
+<li>例子：遥控器上的按钮，每个按钮封装一个命令。</li>
+</ul>
+</li>
+<li>
+<p><strong>解释器模式（Interpreter）</strong>：给定一个语言，定义它的文法表示，并定义一个解释器来处理这些表示。</p>
+<ul>
+<li>例子：正则表达式解析器，解释和处理正则表达式。</li>
+<li>3D软件中通过脚本或命令按钮控制界面，或控制物体运动。</li>
+</ul>
+</li>
+<li>
+<p><strong>迭代器模式（Iterator）</strong>：提供一种方法顺序访问一个聚合对象中的各个元素，而不暴露其内部表示。</p>
+<ul>
+<li>例子：图书馆的书架，使用迭代器遍历书籍。</li>
+<li>STL中容器和算法之间的桥梁。</li>
+</ul>
+</li>
+<li>
+<p><strong>中介者模式（Mediator）</strong>：用一个中介对象来封装一系列对象的交互。</p>
+<ul>
+<li>例子：机场的塔台，调度和管理飞机的起降。</li>
+<li>游戏引擎中用的居多。</li>
+</ul>
+</li>
+<li>
+<p><strong>备忘录模式（Memento）</strong>：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。</p>
+<ul>
+<li>例子：电脑的系统还原点，记录系统状态以便将来恢复。</li>
+<li>Word编辑过程中的undo、redo。</li>
+</ul>
+</li>
+<li>
+<p><strong>观察者模式（Observer）</strong>：定义对象间的一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并被自动更新。</p>
+<ul>
+<li>例子：订阅报纸，当报纸有新内容时，通知所有订阅者。</li>
+</ul>
+</li>
+<li>
+<p><strong>状态模式（State）</strong>：允许对象在内部状态改变时改变它的行为。</p>
+<ul>
+<li>例子：电梯的状态，不同状态（上下楼、开关门）下电梯行为不同。</li>
+</ul>
+</li>
+<li>
+<p><strong>策略模式（Strategy）</strong>：定义一系列算法，将每个算法封装起来，并使它们可以互换。</p>
+<ul>
+<li>例子：旅游出行策略，根据情况选择不同的出行方式（开车、坐公交、骑自行车）。</li>
+<li>比如HDC，不同的设备对应不同的DC。</li>
+</ul>
+</li>
+<li>
+<p><strong>模板方法模式（Template Method）</strong>：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中，使得子类可以不改变算法的结构即可重定义该算法的某些步骤。</p>
+<ul>
+<li>例子：制作咖啡的步骤，具体的咖啡制作细节由不同种类的咖啡决定。</li>
+<li><a href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1.md">Windows_面向对象程序设计</a>中建立的Window框架就是模板方法模式。</li>
+</ul>
+</li>
+<li>
+<p><strong>访问者模式（Visitor）</strong>：表示一个作用于某对象结构中的各元素的操作，使得可以在不改变各元素类的前提下定义作用于这些元素的新操作。</p>
+<ul>
+<li>例子：博物馆导览员，不同导览员为游客讲解不同展品的信息。</li>
+</ul>
+</li>
+</ol>
+
+        <h2 id="创建型"   >
+          <a href="#创建型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建型"></a> 创建型</h2>
+      
+<ol>
+<li>
+<p><strong>单例模式（Singleton）</strong>：确保一个类只有一个实例，并提供全局访问点。</p>
+<ul>
+<li>例子：总统办公室（全国只有一个总统）。</li>
+</ul>
+</li>
+<li>
+<p><strong>工厂方法模式（Factory Method）</strong>：定义一个创建对象的接口，但让子类决定实例化哪个类。</p>
+<ul>
+<li>例子：披萨店，根据订单制作不同类型的披萨。</li>
+</ul>
+</li>
+<li>
+<p><strong>抽象工厂模式（Abstract Factory）</strong>：提供一个接口，用于创建相关或依赖对象的家族，而无需指定具体类。</p>
+<ul>
+<li>例子：家具工厂，可以创建一整套风格一致的家具（如现代风格或古典风格）。</li>
+</ul>
+</li>
+<li>
+<p><strong>建造者模式（Builder）</strong>：将一个复杂对象的构建过程拆解，与其表示分离，使同样的构建过程可以创建不同的表示。</p>
+<ul>
+<li>例子：建筑工人，按照设计图纸建造不同的房屋。</li>
+</ul>
+</li>
+<li>
+<p><strong>原型模式（Prototype）</strong>：通过复制现有对象来创建新对象。</p>
+<ul>
+<li>例子：细胞分裂，通过复制自身产生新细胞。</li>
+</ul>
+</li>
+</ol>
+
+        <h1 id="设计模式的价值"   >
+          <a href="#设计模式的价值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的价值"></a> 设计模式的价值</h1>
+      
+<p>大部分设计模式都兼顾了系统的可重用性和可扩展性，这使得我们可以更好地重用一些已有的设计方案、功能模块甚至一个完整的软件系统，避免我们经常做一些重复的设计、编写一些重复的代码。</p>
+<p>此外，随着软件规模日益增大，系统的可维护性和可扩展性也越来越重要，许多设计模式将有助于提高系统的灵活性和可扩展性，让我们在不修改或者少修改现有系统的基础上增加、删除或者替换功能模块。</p>
+
+        <h1 id="如何学习设计模式"   >
+          <a href="#如何学习设计模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何学习设计模式"></a> 如何学习设计模式</h1>
+      
+<ol>
+<li>在学习每一个设计模式时至少应该掌握如下几点：当你能够回答所有问题时，恭喜你，你了解一个设计模式了，至于掌握它，那就在开发中去使用吧，用多了你自然就掌握了。
+<ol>
+<li>这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；</li>
+<li>它是如何解决的，掌握它的结构图，记住它的关键代码；</li>
+<li>能够想到至少两个它的应用实例，一个生活中的，一个软件中的；</li>
+<li>这个模式的优缺点是什么，在使用时要注意什么。</li>
+</ol>
+</li>
+<li>“如果想体验一下运用模式的感觉，那么最好的方法就是运用它们。”正如在本章最开始所说的，设计模式是“内功心法”，它还是要与“实战招式”相结合才能够相得益彰。学习设计模式的目的在于应用，如果不懂如何使用一个设计模式，而只是学过，能够说出它的用途，绘制它的结构，充其量也只能说你了解这个模式，严格一点说：不会在开发中灵活运用一个模式基本上等于没学。所以一定要做到：少说多做。</li>
+<li>不要滥用模式，不要试图在一个系统中用上所有的模式。每个模式都有自己的适用场景，不能为了使用模式而使用模式。</li>
+<li>如果将设计模式比喻成“三十六计”，那么每一个模式都是一种计策，它为解决某一类问题而诞生，不管这个设计模式的难度如何，使用频率高不高，都应该好好学学，多学一个模式也就意味着你多了“一计”，说不定什么时候就用上了。</li>
+<li>设计模式的“上乘”境界：“手中无模式，心中有模式”。模式使用的最高境界是你已经不知道具体某个设计模式的定义和结构了，但你会灵活自如地选择一种设计方案（其实就是某个设计模式）来解决某个问题，设计模式已经成为你开发技能的一部分，能够手到擒来，“内功”与“招式”已浑然一体，要达到这个境界并不是看完某本书或者开发一两个项目就能够实现的，它需要不断沉淀与积累，所以，对模式的学习不要急于求成。</li>
+<li>GoF已故成员、软件工程大师之一John Vlissides的著作《设计模式沉思录》(Pattern Hatching Design Patterns Applied)：模式从不保证任何东西，它不能保证你一定能够做出可复用的软件，提高你的生产率，更不能保证世界和平；模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/">https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">设计原则</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"><span class="paginator-prev__text">排序_快速排序</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">
+           模式是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%94%B1%E6%9D%A523%E7%A7%8D"><span class="toc-number">3.</span> <span class="toc-text">
+           软件模式的由来（23种）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9E%84%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">
+           软件模式的构成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">5.</span> <span class="toc-text">
+           设计模式是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%A6%81%E7%B4%A0"><span class="toc-number">5.1.</span> <span class="toc-text">
+           设计模式的要素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%94%A8%E9%80%94%E5%88%86%E7%B1%BB"><span class="toc-number">6.</span> <span class="toc-text">
+           设计模式的用途分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80%E8%A7%88%E8%A1%A8"><span class="toc-number">6.1.</span> <span class="toc-text">
+           常用设计模式一览表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E5%8F%A5%E8%AF%9D%E6%8F%8F%E8%BF%B023%E4%B8%AA%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">
+           1句话描述23个设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B"><span class="toc-number">7.1.</span> <span class="toc-text">
+           结构型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%9E%8B"><span class="toc-number">7.2.</span> <span class="toc-text">
+           行为型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B"><span class="toc-number">7.3.</span> <span class="toc-text">
+           创建型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="toc-number">8.</span> <span class="toc-text">
+           设计模式的价值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">9.</span> <span class="toc-text">
+           如何学习设计模式</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

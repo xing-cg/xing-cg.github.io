@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/82/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/82/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%BF%9B%E7%A8%8B%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%BD%93%E7%B3%BB/">进程地址空间体系</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%BF%9B%E7%A8%8B%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%BD%93%E7%B3%BB/" data-flag-title="进程地址空间体系"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="进程地址空间体系图"   >
+          <a href="#进程地址空间体系图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程地址空间体系图"></a> 进程地址空间体系图</h1>
+      
+<p><img src="../../images/%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E4%BD%93%E7%B3%BB/image-20220507094939651.png" alt="image-20220507094939651" /></p>
+<p>对于32位X86架构上运行的Linux而言， 其虚拟地址空间的寻址范围从<code>0 ~ 4G</code>，内核将这块空间划分为两个部分，将最高的<strong>1G</strong>字节<code>0xC0000000 ~ 0xFFFFFFFF</code>称为**“内核空间”<strong>， 顾名思义是提供给内核使用；而将较低</strong>3G<strong>字节<code>0x00000000 ~ 0xBFFFFFFF</code>称为</strong>“用户空间”**，即提供给各个运行的进程使用。</p>
+<p>理论上，每个进程都是可以访问全部能寻址的4G虚拟内存空间的，但是系统为了防止内核空间被用户进程有意或无意的破坏，所以采用了分级保护措施： 将内核定为0级，将用户进程定为3级， <strong>这样用户进程便无法直接访问内核的虚拟内存空间，仅能通过系统调用来进入内核态，从而来访问被限定的部分内核空间地址</strong>。同时，由于访问权限的机制，不同的进程间也都拥有独立的用户空间。这样非对称的访问机制使得Linux系统运行更加的安全稳定。</p>
+<p>另外，<strong>用户进程是无法访问<code>0x00000000 ~ 0x08048000</code>这一段虚拟内存地址的</strong>，在这段地址上有诸多例如C库，动态加载器如ld.so和VDSO等的映射地址。 如果用户进程访问到该区间会返回段错误。</p>
+
+        <h1 id="内核空间"   >
+          <a href="#内核空间" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内核空间"></a> 内核空间</h1>
+      
+<p>每一个进程的用户空间是私有的，但是所有进程共享用一个内核空间。</p>
+<p>所以，进程之间的通信方式中的匿名管道通信就应用于此。</p>
+
+        <h2 id="zone_highmem"   >
+          <a href="#zone_highmem" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#zone_highmem"></a> ZONE_HIGHMEM</h2>
+      
+<p>高端内存。在32位Linux系统，内核空间只有1G，在内核中映射高于1G的物理内存时，会使用到高端内存。64位不存在高端内存，因为64位系统的内核空间有512G。</p>
+
+        <h2 id="zone_normal"   >
+          <a href="#zone_normal" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#zone_normal"></a> ZONE_NORMAL</h2>
+      
+<p>内核常用的部分、最重要的部分。</p>
+
+        <h2 id="zone_dma"   >
+          <a href="#zone_dma" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#zone_dma"></a> ZONE_DMA</h2>
+      
+<p>直接内存访问。加快磁盘和内存交换数据。避免了经过CPU寄存器的过程，因此可以避免浪费CPU资源。</p>
+
+        <h1 id="命令行参数和环境变量"   >
+          <a href="#命令行参数和环境变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#命令行参数和环境变量"></a> 命令行参数和环境变量</h1>
+      
+<p>main函数的原型就是一个例子。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char ** argv, char ** environ)</span><br></pre></td></tr></table></div></figure>
+<p>argc记录了命令行参数的个数。</p>
+<p>argv存的是命令行参数。</p>
+<p>environ存的是环境变量。</p>
+<p>我们简单地引入一个stdio.h头文件，就能使用C语言库函数了，这个头文件并没有在本地，这是因为环境变量指出了库文件存在哪些位置，程序编译链接时加载了环境变量。</p>
+<p>这里涉及的命令行参数、环境变量都是存在于栈的高内存地址空间的。</p>
+
+        <h1 id="栈"   >
+          <a href="#栈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#栈"></a> 栈</h1>
+      
+<p>为何要有栈？程序运行时，总要有一个主入口，即</p>
+<p><strong>进程中的每一个线程都有属于自己的栈</strong>。</p>
+<p>用户空间中地址最高的段叫做栈，他被<strong>用于存放函数参数和动态局部变量</strong>。调用一个方法或函数会将一个新的栈帧（stack frame）压入到栈中，这个栈帧会在函数返回时被清理掉。</p>
+<p>在程序运行过程中，进程通过函数的调用和返回使得控制权在各个函数间转移，在新函数调用时，原函数的栈帧状态保持不变，并为新的函数开辟其所需的帧空间；当调用函数返回时，该函数的运行空间随着栈帧被弹出而清空，这次进程回到原函数的栈帧环境中继续执行。</p>
+<blockquote>
+<p>通过不断向栈中压入数据，超出其容量就会耗尽栈所对应的内存区域，这将触发一个页故障（page fault），而被Linux的<code>expand_stack()</code>处理，它会调用<code>acct_stack_growth()</code>来检查是否还有合适的地方用于栈的增长。</p>
+<p>如果栈的大小低于<code>RLIMIT_STACK</code>（通常为8MB），那么一般情况下栈会被加长，程序继续执行，感觉不到发生了什么事情。这是一种将栈扩展到所需大小的常规机制；</p>
+<p>然而，如果达到了最大栈空间的大小，就会栈溢出(stack overflow)，程序收到一个段错误(segmentation fault)。</p>
+<ul>
+<li>动态栈增长是唯一一种访问未映射内存区域而被允许的情形，其他任何对未映射内存区域的访问都会触发页错误，从而导致段错误。一些被映射的区域是只读的，因此企图写这些区域也会导致段错误。</li>
+</ul>
+</blockquote>
+
+        <h1 id="共享库内存段"   >
+          <a href="#共享库内存段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#共享库内存段"></a> 共享库内存段</h1>
+      
+<p>在栈和堆之间，有一段是用来存放共享库的。</p>
+
+        <h1 id="mmap段"   >
+          <a href="#mmap段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mmap段"></a> mmap段</h1>
+      
+<p>mmap段，即Memory Mapping Segment。</p>
+<blockquote>
+<p>File mappings (including dynamic libraries) and anonymous mappings. Example: <code>/lib/libc.so</code></p>
+</blockquote>
+<p>在栈段的低一段便是mmap段，mmap是一种高效便捷的文件I/O方式，<strong>内核将文件内容映射在此段内存中，常见情形便是加载动态链接库</strong>。另外，在Linux中，如果你通过<code>malloc</code>申请一块大于<code>MMAP_THRESHOLD</code>(通常默认为128KB， 可用<code>mallopt()</code>修改)大小的堆空间时， glibc会返回一块匿名的mmap内存块而非一块堆内存。</p>
+
+        <h1 id="堆"   >
+          <a href="#堆" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#堆"></a> 堆</h1>
+      
+<p>在mmap段下面便是堆段了，堆段同栈段一样，都是为进程运行提供动态的内存分配，<strong>但是其和栈的区别在于堆上内存的生命期和执行分配的函数的生命期不一致，堆上分配的内存只有在对应进程通过系统调用主动释放或进程结束后才会释放</strong>。所以，内存泄露这个经典的问题便由此产生。</p>
+<p>另外， 由于堆内存的反复申请和释放，也不可避免的会造成堆段碎片化。这种情况可以使用“对象池”的设计手段来避免。</p>
+
+        <h1 id="静态内存区域数据段bss段和data段"   >
+          <a href="#静态内存区域数据段bss段和data段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#静态内存区域数据段bss段和data段"></a> 静态内存区域（数据段）–bss段和data段</h1>
+      
+<p>堆段再往下便是<strong>BSS段</strong>和<strong>DATA段</strong>这两个静态内存区域，这两段都是用来存储静态局部或静态全局变量，其在编译期间便决定了虚拟内存的消耗。</p>
+<p><strong>区别是DATA段存放的是已经初始化的变量，其映射自程序镜像中包含对应静态变量的文件；而BSS段则存放的是未初始化的变量，它不映射自任何一个执行文件</strong>。</p>
+<p>根据C语言标准规定，未初始化的静态成员变量的初始值必须为0，所以内核在加载二进制文件后执行程序前会将BSS段清0。</p>
+
+        <h1 id="代码段"   >
+          <a href="#代码段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码段"></a> 代码段</h1>
+      
+<p>BSS和DATA段下是<strong>代码段</strong>(TEXT)，此段存有程序的指令代码。Text段是通过只读的方式加载到内存中的，在多个进程中可以被安全共享。</p>
+
+        <h1 id="数据存放于哪个段"   >
+          <a href="#数据存放于哪个段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据存放于哪个段"></a> 数据存放于哪个段？</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> gdata1 = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> gdata2 = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> gdata3;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata4 = <span class="number">11</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata5 = <span class="number">0</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata6;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> c;</span><br><span class="line">    </span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> d = <span class="number">13</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> e = <span class="number">0</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> f;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>全部的指令都存放在代码段，而一个程序除了数据就是指令，因此，函数中的局部变量<code>int a = 12; int b = 0; int c;</code>均为指令。其余的静态变量、全局变量都为数据。</p>
+
+        <h2 id="对于全局变量"   >
+          <a href="#对于全局变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#对于全局变量"></a> 对于全局变量</h2>
+      
+<p>全局变量都是数据。则<code>gdata1~gdata6</code>都是数据，都会生成对应的符号。</p>
+<p>然而，如果未初始化或者初始化为0，均视为未初始化，如<code>gdata2</code>、<code>gdata3</code>、<code>gdata5</code>、<code>gdata6</code>预留在<code>.bss</code>段。</p>
+<blockquote>
+<p>未初始化和初始化为0是不同的概念、动作！即使最终的结果都是把int数据置0且存到bss段。但是显式初始化在C语言中会生成强符号，没有进行初始化的（即没有=0）会生成弱符号！</p>
+</blockquote>
+<p><code>gdata1</code>、<code>gdata4</code>分配到<code>.data</code>段。</p>
+
+        <h2 id="对于局部变量"   >
+          <a href="#对于局部变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#对于局部变量"></a> 对于局部变量</h2>
+      
+<p>对于非静态量，即<code>a</code>、<code>b</code>、<code>c</code>来说，已经不再属于数据，因为不会生成相应的符号。</p>
+<p>而是属于指令的范畴。实际翻译过来的指令含义如下。</p>
+<figure class="highlight x86asm"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mov</span> <span class="built_in">dword</span> <span class="built_in">ptr</span>[a], <span class="number">0Ch</span>	# <span class="built_in">word</span>为<span class="number">2</span>字节，<span class="built_in">dword</span>表示double <span class="built_in">word</span>，即<span class="number">4</span>字节数据</span><br></pre></td></tr></table></div></figure>
+<p>即把<code>0Ch</code>移到a的内存中。</p>
+<p>这些指令产生后，在<code>.data</code>代码段存放。</p>
+<p>对于静态量，即<code>d</code>、<code>e</code>、<code>f</code>来说，依旧当作数据处理，生成符号，如果未初始化或者初始化为0，均视为未初始化，如<code>e</code>、<code>f</code>预留在<code>.bss</code>段。</p>
+<p><code>d</code>分配到<code>.data</code>段。</p>
+
+        <h1 id="虚拟地址的实现原理"   >
+          <a href="#虚拟地址的实现原理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟地址的实现原理"></a> 虚拟地址的实现原理</h1>
+      
+<p>它存在，你能看得见，这是物理的；<br />
+它存在，你看不见，这是透明的；<br />
+它不存在，你却看得见，这是虚拟的；<br />
+它不存在，你也看不见，这是删除的。</p>
+<hr />
+<p>每个进程都运行在一个属于自己的内存沙盒里，这个沙盒即虚拟地址空间，这些虚拟地址再通过页表(page table)来映射到物理内存上，页表由操作系统维护并被CPU所引用。所以用户空间地址的映射是动态变化的；而内核空间则是持续存在的，在每个进程中都映射到相同的物理内存中，这样便于寻址以应对随时出现的中断和系统调用。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">MySQL_完整性约束</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" data-flag-title="MySQL_完整性约束"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>主键约束</li>
+<li>自增键约束</li>
+<li>唯一键约束</li>
+<li>非空约束</li>
+<li>默认值约束</li>
+<li>外键约束</li>
+</ol>
+
+        <h1 id="主键约束"   >
+          <a href="#主键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主键约束"></a> 主键约束</h1>
+      
+<p><code>PRIMARY KEY</code></p>
+<p>只能有一个主键。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table user(</span><br><span class="line">	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT comment &#x27;用户的主键id&#x27;,</span><br><span class="line">	username VARCHAR(50) UNIQUE NOT NULL COMMENT &#x27;用户名&#x27;,</span><br><span class="line">	age TINYINT UNSIGNED NOT NULL default 18,</span><br><span class="line">	sex ENUM(&#x27;male&#x27;,&#x27;demale&#x27;)</span><br><span class="line">);</span><br><span class="line"># commit + ’...‘ 可以对本属性进行备注注释说明</span><br></pre></td></tr></table></div></figure>
+<p>创建表后，可以通过<code>desc user\G</code>，或者<code>desc user;</code>来查看字段的详细信息。前者是展开列表形式，后者是二维表格形式。</p>
+
+        <h1 id="自增键约束"   >
+          <a href="#自增键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#自增键约束"></a> 自增键约束</h1>
+      
+<p><code>AUTO_INCREMENT</code></p>
+
+        <h1 id="唯一键约束"   >
+          <a href="#唯一键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#唯一键约束"></a> 唯一键约束</h1>
+      
+<p><code>UNIQUE</code></p>
+<p>可以有多个唯一键，而且可以为空。</p>
+
+        <h1 id="非空约束"   >
+          <a href="#非空约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非空约束"></a> 非空约束</h1>
+      
+<p><code>NOT NULL</code></p>
+
+        <h1 id="默认值约束"   >
+          <a href="#默认值约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#默认值约束"></a> 默认值约束</h1>
+      
+<p><code>DEFAULT</code></p>
+
+        <h1 id="外键约束"   >
+          <a href="#外键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#外键约束"></a> 外键约束</h1>
+      
+<p><code>FOREIGN KEY</code></p>
+<p>拿学生信息表、考试信息表来举例子。两张表中的信息是有关联的，不是独立的。</p>
+<p>学生信息表中有张三，那么考试信息表里就可能有依赖张三的信息。</p>
+<p>如果我们要删除张三，那么需要把另一个表中依赖张三的信息也删掉。否则就会出现无效冗余数据。</p>
+<p>外键、存储函数、存储过程、触发器，在现如今的后台开发中几乎不直接用在mysql端了。</p>
+<p>而是尽量把这个过程放在业务逻辑上提前处理好，让数据库持久层专于做增删改查，有利于提高效率。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/81/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/81/">81</a><span class="page-number current">82</span><a class="page-number" href="/page/83/">83</a><span class="space">&hellip;</span><a class="page-number" href="/page/141/">141</a><a class="extend next" rel="next" href="/page/83/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

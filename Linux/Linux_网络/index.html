@@ -1,0 +1,691 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         基本概念 了解接口socket 了解协议tcp&#x2F;udp io复用 select poll&#x2F;epoll                       分层模型        OSI：七层 TCP&#x2F;IP协议族：四层                      问题         为什么要分层？  解耦，分工。   网络： 互联网：网络和网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_网络">
+<meta property="og:url" content="https://xing-cg.github.io/Linux/Linux_%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         基本概念 了解接口socket 了解协议tcp&#x2F;udp io复用 select poll&#x2F;epoll                       分层模型        OSI：七层 TCP&#x2F;IP协议族：四层                      问题         为什么要分层？  解耦，分工。   网络： 互联网：网络和网络">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.813Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Linux_网络 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_%E7%BD%91%E7%BB%9C/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_网络</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-12-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E7%BD%91%E7%BB%9C/" data-flag-title="Linux_网络"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>基本概念</li>
+<li>了解接口socket</li>
+<li>了解协议tcp/udp</li>
+<li>io复用</li>
+<li>select</li>
+<li>poll/epoll</li>
+</ol>
+
+        <h1 id="分层模型"   >
+          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
+      
+<p>OSI：七层<br />
+TCP/IP协议族：四层</p>
+
+        <h2 id="问题"   >
+          <a href="#问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+      
+<ol>
+<li>为什么要分层？
+<ol>
+<li>解耦，分工。</li>
+</ol>
+</li>
+<li>网络：</li>
+<li>互联网：网络和网络连接起来，就是互联网</li>
+<li>ipv4：是32位的，用“.”分成4个段，每个段是8位。每个段用1个10进制表示。</li>
+<li>ipv6：是128位的，用“:”分成8个段，每个段是16位。每个段用4个16进制表示。</li>
+<li>MAC地址：物理地址，又称硬件地址。</li>
+<li>有了MAC地址，为什么还要有ip地址？寻址！</li>
+<li>端口号：软件层次的概念。因为最终要达到进程的通信。</li>
+<li>协议：
+<ol>
+<li>tcp</li>
+<li>http</li>
+<li>ip</li>
+<li>udp</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="tcp编程流程"   >
+          <a href="#tcp编程流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tcp编程流程"></a> TCP编程流程</h1>
+      
+<p>面试唯一要写代码的。</p>
+<ol>
+<li>服务器端：
+<ol>
+<li>创建套接字socket()
+<ol>
+<li>所需地址：ip+port</li>
+</ol>
+</li>
+<li>bind()</li>
+<li>listen()</li>
+<li>c = accept()</li>
+<li>recv()</li>
+<li>send()</li>
+<li>close()</li>
+</ol>
+</li>
+<li>客户端：
+<ol>
+<li>socket()</li>
+<li>connect()</li>
+<li>send()</li>
+<li>recv()</li>
+<li>close()</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="tcp"   >
+          <a href="#tcp" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tcp"></a> TCP</h1>
+      
+<p>特点：</p>
+<ol>
+<li>面向连接的
+<ol>
+<li>三次握手–在客户端connect()时
+<ol>
+<li>必须是三次</li>
+</ol>
+</li>
+<li>四次挥手–在任一方close时
+<ol>
+<li>有时可以三次</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>可靠的
+<ol>
+<li>应答确认</li>
+<li>超时重传</li>
+<li>乱序重排</li>
+<li>去重</li>
+<li>滑动窗口进行流量控制</li>
+</ol>
+</li>
+<li>流式服务
+<ol>
+<li>发送和接收的次数可能不一致。
+<ol>
+<li>连续多次发送的数据可能会被对方一次性收到。
+<ol>
+<li>起始末尾加标记</li>
+<li>send之后recv隔开</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>tcp是有状态的
+<ol>
+<li>开始closed</li>
+<li>listen–connecting(三次握手中)</li>
+<li>established(已完成握手)</li>
+<li>FIN_WAIT_1/2</li>
+<li>TIME_WAIT
+<ol>
+<li>可靠地终止TCP的连接</li>
+<li>让迟来的报文在这一段时间被识别，即收集后丢弃，以防止误传给下一个使用该端口的连接。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>问题：1、TCP/IP协议详解 卷一；2、UNIX网络编程 卷一</p>
+<ol>
+<li>三次握手，四次挥手</li>
+<li>应答确认、超时重传机制</li>
+<li>乱序重排、去重、滑动窗口进行流量控制</li>
+<li>什么是粘包？怎么解决？</li>
+<li>中间转换状态的意义？TIME_WAIT状态的意义？</li>
+</ol>
+
+        <h1 id="udp"   >
+          <a href="#udp" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#udp"></a> UDP</h1>
+      
+<p>特点：</p>
+<ol>
+<li>无连接的
+<ol>
+<li>没有严格意义上的服务端/客户端，只要知道ip:port就可以给对方sendto发消息。recvfrom谁的消息都可以收到，也可以收到不同终端的消息。</li>
+</ol>
+</li>
+<li>不可靠的
+<ol>
+<li>没有应答确认机制，发出后是否成功看天意。</li>
+</ol>
+</li>
+<li>数据报服务
+<ol>
+<li>如果send了很多信息，recv一次没收完，则剩下的数据丢包。</li>
+<li>UDP的send和recv也有缓冲区，但是其与收发的动作是一个整体，对应着发送/接收的那一次。</li>
+</ol>
+</li>
+<li>无状态的</li>
+</ol>
+
+        <h1 id="udp编程流程"   >
+          <a href="#udp编程流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#udp编程流程"></a> UDP编程流程</h1>
+      
+<p>在UDP场景中，其实没有严格意义上的服务端/客户端。因为编程流程很相似。</p>
+
+        <h2 id="服务端"   >
+          <a href="#服务端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#服务端"></a> 服务端</h2>
+      
+<p>socket()<br />
+bind()<br />
+recvfrom()<br />
+sendto()<br />
+close()</p>
+
+        <h2 id="客户端"   >
+          <a href="#客户端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h2>
+      
+<p>socket()<br />
+【bind()：可以绑定也可以不绑定】<br />
+recvfrom()<br />
+sendto()<br />
+close()</p>
+
+        <h2 id="与tcp的区别"   >
+          <a href="#与tcp的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与tcp的区别"></a> 与tcp的区别</h2>
+      
+<ol>
+<li>创建socket时的第二个参数TCP中是SOCK_STREAM，UDP中是SOCK_DGRAM(指datagrams)</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sockfd = socket(AF_INET,SOCK_DGRAM,<span class="number">0</span>);</span><br></pre></td></tr></table></div></figure>
+<ol start="2">
+<li>recvfrom中多了两个参数，前四个参数与TCP一致，后面一个传入<strong>要接收哪个主机的sockaddr类型的指针</strong>，最后是传入这个<strong>sockaddr对象的长度的指针</strong>。为什么要传指针？因为UDP中某一端接收的数据可以来自不同主机，所以传入指针是要实时的记录谁在给接收端发数据。</li>
+<li>同样的，sendto也多了两个参数，后面一个传入<strong>要发送到哪个的主机的sockaddr类型的指针</strong>（参数类型为<code>const struct sockaddr* dest_addr</code>），最后传入<strong>这个<code>sockaddr</code>对象的长度大小，通常用<code>sizeof</code>计算</strong>。相对于<code>recvfrom</code>，<strong>为什么不传<code>非const指针</code>了</strong>？因为：要么是服务端，<code>sendto</code>的目的主机已经在<code>recvfrom</code>收到客户端消息后明确；要么是客户端要<code>sendto</code>的目的主机已经很明确地指定。</li>
+</ol>
+
+        <h2 id="一个端口在开启tcp服务的同时也可以开启udp服务"   >
+          <a href="#一个端口在开启tcp服务的同时也可以开启udp服务" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一个端口在开启tcp服务的同时也可以开启udp服务"></a> 一个端口在开启TCP服务的同时，也可以开启UDP服务</h2>
+      
+<p>我们常说：一个端口标识一个进程，但是对于不同的协议，两个进程居然可以绑定到同一端口！但是，知道为什么能这样做，再去想，这句话还是没毛病的。</p>
+<p>只有一个端口，如何能够区分不同协议？这个区分工作通常是在应用层完成的。比如，一个进程是TCP服务端，另一个进程的UDP服务端。UDP报文过来了，该给谁；下一刻TCP数据过来了再给谁。端口虽然不能区分不同协议的数据报，但是我们最终都要把该数据包传到某个进程中去！<strong>两个进程同时监听到了端口的数据传来，此时这个数据报头已经加了其协议头，进程在去解析协议头时就清楚了该不该继续接收这个数据报</strong>，这样就自然的完成了对不同协议的区分。即：在应用层，每个连接就需要按照五元组来区分：{协议，源ip，源port，目的ip，目的port}。即使不区分，按照SOCK_STREAM或SOCK_DGRAM，报文类型不一样，根本就不适配，所以两者使用的端口在应用层来说是独立的。</p>
+
+        <h1 id="http"   >
+          <a href="#http" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#http"></a> http</h1>
+      
+<ol>
+<li>浏览器解析到IP后，端口约定为80，connect三次握手建立TCP连接。</li>
+<li>浏览器给服务器发送http请求报文。浏览器send</li>
+<li>服务器给浏览器回复应答报文。浏览器recv</li>
+<li>如果2、3步只发生一次，为短连接。发生了两次以上，则为长连接，之后不会很快断开。如此可以避免握手、挥手浪费的时间。</li>
+</ol>
+
+        <h1 id="io复用"   >
+          <a href="#io复用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#io复用"></a> I/O复用</h1>
+      
+<ol>
+<li>select</li>
+<li>poll</li>
+<li>epoll</li>
+</ol>
+
+        <h2 id="select"   >
+          <a href="#select" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#select"></a> select</h2>
+      
+<p>先观察其API</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">select</span><span class="params">(<span class="type">int</span> nfds, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, <span class="keyword">struct</span> timeval* timeout)</span>;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>参数
+<ol>
+<li>nfds参数通常被设置为select监听的所有文件描述符中的最大值加1，表示在fd_set集合中，我们关心的描述符的总数。为什么加1呢？因为文件描述符是从0开始计数的。nfds与fd_set容量大小不一样，容量大小指的是FD_SETSIZE，即fd_set容量大小是fd_set可容纳描述符的最大大小。</li>
+<li>readfds参数是select关心的读事件的集合；</li>
+<li>writefds参数是select关心的写事件的集合；</li>
+<li>exceptfds参数select关心的异常事件的集合；</li>
+<li>timeout参数设置select的超时时间。</li>
+</ol>
+</li>
+<li>返回值
+<ol>
+<li>集合中有事件就绪的描述符的个数</li>
+<li>但是并没有告诉你具体是哪一个描述符就绪</li>
+</ol>
+</li>
+</ol>
+
+        <h3 id="fd_set结构体"   >
+          <a href="#fd_set结构体" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fd_set结构体"></a> fd_set结构体</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;typesizes.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FD_SETSIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FD_SETSIZE __FD_SETSIZE</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">int</span> __fd_mask;</span><br><span class="line"><span class="meta">#<span class="keyword">undef</span> __NFDBITS</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __NFDBITS (8*(int)sizeof(__fd_mask))</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __USE_XOPEN</span></span><br><span class="line">    __fd_mask fds_bits[__FD_SETSIZE / __NFDBITS];</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FDS_BITS(set) ((set)-&gt;fds_bits)</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    __fd_mask __fds_bits[__FD_SETSIZE / __NFDBITS];</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __FDS_BITS(set) ((set)-&gt;__fds_bits)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;fd_set;</span><br></pre></td></tr></table></div></figure>
+<p>其中，__FD_SETSIZE指出select可以关注的最大文件描述符个数，默认为1024。</p>
+<p>__fd_mask被定义为long int的类型别称，long int在32位机占8个字节。</p>
+<p>__NFDBITS计算的是1个__fd_mask元素所占用的位数，一个字节占8位，sizeof算出__fd_mask的字节数，相乘得其占用的bit大小。</p>
+<p>接着，定义fds_bits，其是long int型的数组，数组大小为__FD_SETSIZE除以__NFDBITS。比如SETSIZE为1024位，NFDBITS是64位，则数组大小位1024/64=16。这里的计算主要是为了计算出数组的大小，以确定多大的数组可以正好容纳1024个位数，来记录文件描述符信息。</p>
+
+        <h3 id="用到的宏函数"   >
+          <a href="#用到的宏函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用到的宏函数"></a> 用到的宏函数</h3>
+      
+<p>fd_set集合对于文件描述符的管理是按位进行的，而位只有0和1两种状态。</p>
+<p>假如SETSIZE=1024，则可管理1024个文件描述符，如果文件描述符7有效，我们需要对位操作，使其位变为1。</p>
+<p>由于位操作过于繁琐，select API中提供了一系列宏函数来方便我们访问、操作fd_set集合状态。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/select.h&gt;</span></span></span><br><span class="line">FD_ZERO(fd_set *fdset);				<span class="comment">/*清除fdset的所有位*/</span></span><br><span class="line">FD_SET(<span class="type">int</span> fd, fd_set *fdset);		<span class="comment">/*设置fdset的位fd*/</span></span><br><span class="line">FD_CLR(<span class="type">int</span> fd, fd_set *fdset);		<span class="comment">/*清除fdset的位fd*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">FD_ISSET</span><span class="params">(<span class="type">int</span> fd, fd_set *fdset)</span>;<span class="comment">/*测试fdset的位fd是否被设置*/</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="select编程思路"   >
+          <a href="#select编程思路" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#select编程思路"></a> select编程思路</h3>
+      
+<p>最好另外定义一个整型数组，其大小为我们预测将要出现的描述符的最多数目。用作我们存放描述符的容器。初始化时将数组值一律设为-1，表示容器中该位置还没有存放描述符。如果在某一时刻有一个描述符有了消息，我们就将该描述符数值覆盖到这个容器中第一个为-1的地方。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX 10</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">fds_init</span><span class="params">(<span class="type">int</span> fds[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        fds[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fds_add</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> fds[])</span><span class="comment">//向fds容器中添加描述符fd</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(fd&lt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;无效的描述符\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(fds[i]==<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fds[i] = fd;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;容器已满，无法添加该描述符\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fds_del</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> fds[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(fds[i]==fd)</span><br><span class="line">        &#123;</span><br><span class="line">            fds[i] = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;没有找到该描述符\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> fds[MAX];</span><br><span class="line">    fds_init(fds);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="示例tcp服务使用select处理多个套接字"   >
+          <a href="#示例tcp服务使用select处理多个套接字" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例tcp服务使用select处理多个套接字"></a> 示例–TCP服务使用select处理多个套接字</h4>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sockfd = socket_init();<span class="comment">//socket_init封装了bind(ip:port)的操作，还封装了对sockfd进行listen的操作，并设置了监听队列大小。</span></span><br><span class="line">    assert(sockfd!=<span class="number">-1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> fds[MAX];</span><br><span class="line">    fds_init(fds);</span><br><span class="line">    </span><br><span class="line">    fds_add(sockfd, fds);</span><br><span class="line">    </span><br><span class="line">    fd_set fdset;<span class="comment">//此处的fd_set即&lt;sys/select.h&gt;库中API提供的fd_set结构体</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)<span class="comment">//将fds[MAX]中所有有效的(即&gt;=0)描述符全部“加入”fdset中，即把fdset中与某有效描述符对应的[位]的状态设为1。</span></span><br><span class="line">    &#123;</span><br><span class="line">        FD_ZERO(&amp;fdset);</span><br><span class="line">        <span class="type">int</span> maxfd = <span class="number">-1</span>;<span class="comment">//记录当前最大的描述符数值是多少，方便过后调用select传入第一个参数nfds。</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(fds[i]==<span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">            FD_SET(fds[i],fdset);</span><br><span class="line">            <span class="keyword">if</span>(maxfd&lt;fds[i])<span class="comment">//寻找最大描述符数值</span></span><br><span class="line">            &#123;</span><br><span class="line">                maxfd = fds[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="comment">//此时，我们已经把开始创建的sockfd添加到了fdset中。下面就可以用select来监测该套接字是否有消息了。比如，sockfd监听到了客户端的connect信息，则select就可以探测到fdset中对应的sockfd位处于消息就绪态，则select就可以不再阻塞，立马返回。</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">tv</span> =</span> &#123;<span class="number">5</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> n = select(maxfd+<span class="number">1</span>,&amp;fdset,<span class="literal">NULL</span>,<span class="literal">NULL</span>,&amp;tv);<span class="comment">//返回在fdset集合中有信息的描述符的个数。</span></span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">0</span>)<span class="built_in">printf</span>(<span class="string">&quot;select err\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">0</span>)<span class="built_in">printf</span>(<span class="string">&quot;time out\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)<span class="comment">//依然需要根据fdset进行查询目前是哪个描述符有事件产生，fdset的过滤又需要根据fds的记录进行遍历。</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(fds[i]==<span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(FD_ISSET(fds[i],&amp;fdset))<span class="comment">//此处判断ISSET即是判断我们关注的描述符是否有事件产生。为什么此时标志位为1一定有事件产生？--因为在这之前我们进行了select，select不仅说明有事件产生，它还做了更多的工作：将我们关心的描述符却在其上没有事件产生的标志位置0。因此目前所有标志位为1的描述符均有事件。</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//以下才是核心的业务代码，抓住了有事件产生的描述符，对这些描述符我们的处理流程，对于不同类型的描述符，需要不同的处理流程。比如sockfd用accept处理，accept返回一个新的描述符c，则先将其加入fds容器，下一轮再用recv处理描述符c的消息。</span></span><br><span class="line">                    <span class="keyword">if</span>(fds[i] == sockfd)<span class="comment">//处理监听套接字sockfd</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">caddr</span>;</span></span><br><span class="line">                        <span class="type">int</span> len = <span class="keyword">sizeof</span>(caddr);</span><br><span class="line">                        <span class="type">int</span> c = accept(sockfd,(<span class="keyword">struct</span> sockaddr*)&amp;caddr,&amp;len);</span><br><span class="line">                        <span class="keyword">if</span>(c&lt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">&quot;accept c = %d\n&quot;</span>,c);</span><br><span class="line">                        fds_add(c,fds);<span class="comment">//只是先收集到fds容器中，下一次的while扫描才将c添加到fdset集合中。</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span><span class="comment">//处理收发套接字，在此程序，除了sockfd皆为收发套接字c</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="type">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">                        <span class="type">int</span> num = recv(fds[i],buff,<span class="number">127</span>,<span class="number">0</span>);</span><br><span class="line">                        <span class="keyword">if</span>(num &lt;= <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;client close\n&quot;</span>);</span><br><span class="line">                            close(fds[i]);</span><br><span class="line">                            fds_del(fds[i],fds);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span><span class="comment">//num &gt; 0，读到了数据</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;recv(c = %d) = %s\n&quot;</span>,fds[i],buff);</span><br><span class="line">                            send(fds[i],<span class="string">&quot;ok&quot;</span>,<span class="number">2</span>,<span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//while end</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>场景情况：如果客户端与select服务端已建立连接，而客户端进程结束，select会一直阻塞、未感知吗？–不会。</p>
+<p>因为客户端的进程结束，也算是一种读事件，相当于通知服务端该套接字连接结束了。那么服务端recv会返回0，达到关闭该套接字的条件，关闭后，别忘了在fds容器中删除掉该描述符。</p>
+<p>如果忘记了close该套接字，且忘了fds_del该描述符，那么如果客户端结束进程，服务端就会一直打印&quot;client close&quot;，因为select一直在探测此描述符有无读事件，若该套接字连接关闭，那么此描述符一直有读事件，recv返回0，由于没有fds_del，每次都会关注，所以每次都会打印&quot;client close&quot;。</p>
+
+        <h2 id="poll"   >
+          <a href="#poll" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#poll"></a> poll</h2>
+      
+<p>可以理解为加强版的select。</p>
+<p>先观察其API</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;poll.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">poll</span><span class="params">(<span class="keyword">struct</span> pollfd* fds, <span class="type">nfds_t</span> nfds, <span class="type">int</span> timeout)</span>;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>fds参数是一个pollfd结构类型的指针，可指向一段连续空间（数组），因此很灵活，大小可按需声明。它可以指定我们感兴趣的文件描述符上发生的可读、可写和异常等事件。定义如下</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> fd;			<span class="comment">//文件描述符</span></span><br><span class="line">    <span class="type">short</span> events;	<span class="comment">//注册的事件类型，按位标志</span></span><br><span class="line">    <span class="type">short</span> revents;	<span class="comment">//实际发生的事件，按位标志，由内核填充</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>其中，fd成员指定文件描述符。</li>
+<li>events成员告诉poll监听fd上的哪些事件类型，他可以是一系列事件类型的<strong>按位或</strong>。常见的事件类型有：POLLIN(数据可读)、POLLOUT(数据可写)。</li>
+<li>revents成员由内核修改，以通知应用程序fd上实际发生了哪些事件。</li>
+</ol>
+
+        <h3 id="poll编程"   >
+          <a href="#poll编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#poll编程"></a> poll编程</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">poll_fds_init</span><span class="params">(<span class="keyword">struct</span> pollfd* fds)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        fds[i].fd = <span class="number">-1</span>;</span><br><span class="line">        fds[i].events = <span class="number">0</span>;</span><br><span class="line">        fds[i].revents = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">poll_fds_add</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> pollfd* fds)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(fds[i].fd == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fds[i].fd = fd;</span><br><span class="line">            fds[i].events = POLLIN;<span class="comment">//只关注读事件</span></span><br><span class="line">            fds[i].revents = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">poll_fds_del</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> pollfd* fds)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(fds[i].fd == fd)</span><br><span class="line">        &#123;</span><br><span class="line">            fds[i].fd = <span class="number">-1</span>;</span><br><span class="line">            fds[i].events = <span class="number">0</span>;</span><br><span class="line">            fds[i].revents = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX 10</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sockfd = socket_init();</span><br><span class="line">    assert(sockfd != <span class="number">-1</span>);</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> <span class="title">poll_fds</span>[<span class="title">MAX</span>];</span></span><br><span class="line">    poll_fds_init(poll_fds);</span><br><span class="line">    poll_fds_add(sockfd,poll_fds);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> n = poll(poll_fds,MAX,<span class="number">5000</span>);<span class="comment">//5000ms timeout </span></span><br><span class="line">        <span class="keyword">if</span>(n &lt; <span class="number">0</span>)<span class="built_in">printf</span>(<span class="string">&quot;poll error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">0</span>)<span class="built_in">printf</span>(<span class="string">&quot;time out \n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;MAX;++i)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(poll_fds[i].fd == <span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">//short has 16bits,POLLIN is 10000000 ...,</span></span><br><span class="line">                <span class="comment">//when revents is 10000000 ...,then the read event is going</span></span><br><span class="line">                <span class="keyword">if</span>(poll_fds[i].revents &amp; POLLIN)<span class="comment">//revents &amp; POLLIN 不为0 则代表有读事件产生</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(poll_fds[i].fd == sockfd)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">caddr</span>;</span></span><br><span class="line">                        <span class="type">int</span> len = <span class="keyword">sizeof</span>(caddr);</span><br><span class="line">                        <span class="type">int</span> c = accept(sockfd,(<span class="keyword">struct</span> sockaddr*)&amp;caddr,&amp;len);</span><br><span class="line">                        <span class="keyword">if</span>(c&lt;<span class="number">0</span>)<span class="keyword">continue</span>;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">&quot;accept:%d\n&quot;</span>,c);</span><br><span class="line">                        poll_fds_add(c,poll_fds);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="type">char</span> buff[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">                        <span class="type">int</span> num = recv(poll_fds[i].fd,buff,<span class="number">127</span>,<span class="number">0</span>);</span><br><span class="line">                        <span class="keyword">if</span>(num &lt;=<span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            close(poll_fds[i].fd);</span><br><span class="line">                            poll_fds_del(poll_fds[i].fd,poll_fds);</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;client close\n&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">printf</span>(<span class="string">&quot;recv(%d):%s\n&quot;</span>,poll_fds[i].fd,buff);</span><br><span class="line">                            send(poll_fds[i].fd,<span class="string">&quot;ok&quot;</span>,<span class="number">2</span>,<span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(poll_fds[i].revents &amp; POLLOUT)</span><br><span class="line">                &#123;</span><br><span class="line">					<span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>与select的一处细节区别：</p>
+<p>每次select除了监测fd_set有效描述符上有无事件，其次还将没有事件的描述符从fd_set移除（其实是将该描述符对应在fd_set上的位进行置0操作）（<strong>这样就得每次select之前都要重新注册一遍我们关注的描述符（即用户和内核共同操作FD_SET、FD_CLR等）。</strong>），然后下面过滤有事件的描述符时，只要找到fd_set集合哪个位是1状态即就找到了有事件产生的描述符。</p>
+<p>而poll的用法是：用户只管注册events，实际上的有无事件<strong>由内核来进行对revents的填充</strong>，以此来更好地区别该描述符是否有事件产生。<strong>这样，就不用在每次poll之前重新注册一遍我们关注的描述符的结构体里的events了</strong>。我们只要把要关心的描述符的fd置成非-1，以及管理好要关心的哪些事件类型events即可。</p>
+
+        <h3 id="与select相比的优点"   >
+          <a href="#与select相比的优点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与select相比的优点"></a> 与select相比的优点</h3>
+      
+<ol>
+<li>可以监听的描述符的最大数目可以超过1024个，大小按需自拟。</li>
+<li>可以监听的事件类型数目变多、变细了，更强大了。</li>
+<li><strong>不用</strong>在每次poll之前<strong>重新注册</strong>一遍我们关注的描述符的结构体里的events了</li>
+</ol>
+
+        <h2 id="epoll"   >
+          <a href="#epoll" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll"></a> epoll</h2>
+      
+<p>epoll是Linux特有的I/O复用函数。</p>
+<p>epoll的使用实际上不是单独的API，而是有一组函数来完成。三个函数：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">epoll_create</span><span class="params">(<span class="type">int</span> size)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">epoll_ctl</span><span class="params">(<span class="type">int</span> epfd, <span class="type">int</span> op, <span class="type">int</span> fd, <span class="keyword">struct</span> epoll_event *event)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">epoll_wait</span><span class="params">(<span class="type">int</span> epfd, <span class="keyword">struct</span> epoll_event* events, <span class="type">int</span> maxevents, <span class="type">int</span> timeout)</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="内核事件表"   >
+          <a href="#内核事件表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内核事件表"></a> 内核事件表</h3>
+      
+<p>epoll的最大优势在于处理描述符特别多的情况，相比轮询方式：</p>
+<ol>
+<li>如果用传统的select、poll单纯的顺序轮询方法监测就绪的描述符，那么性能会很低下的。</li>
+<li>而且虽然select、poll能顺利查出有几个描述符上有事件产生，但是是哪个描述符？并没有告诉我们，所以又得浪费一轮时间来查找产生时间是哪个描述符。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Linux/Linux_%E7%BD%91%E7%BB%9C/">https://xing-cg.github.io/Linux/Linux_%E7%BD%91%E7%BB%9C/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">生产者消费者</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"><span class="paginator-prev__text">Cpp_智能指针</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">
+           分层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">
+           问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp%E7%BC%96%E7%A8%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           TCP编程流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">4.</span> <span class="toc-text">
+           TCP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp"><span class="toc-number">5.</span> <span class="toc-text">
+           UDP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp%E7%BC%96%E7%A8%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">6.</span> <span class="toc-text">
+           UDP编程流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">6.1.</span> <span class="toc-text">
+           服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">6.2.</span> <span class="toc-text">
+           客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8Etcp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">6.3.</span> <span class="toc-text">
+           与tcp的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E7%AB%AF%E5%8F%A3%E5%9C%A8%E5%BC%80%E5%90%AFtcp%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%90%8C%E6%97%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%BC%80%E5%90%AFudp%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.4.</span> <span class="toc-text">
+           一个端口在开启TCP服务的同时，也可以开启UDP服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#http"><span class="toc-number">7.</span> <span class="toc-text">
+           http</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#io%E5%A4%8D%E7%94%A8"><span class="toc-number">8.</span> <span class="toc-text">
+           I&#x2F;O复用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-number">8.1.</span> <span class="toc-text">
+           select</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fd_set%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">8.1.1.</span> <span class="toc-text">
+           fd_set结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E5%88%B0%E7%9A%84%E5%AE%8F%E5%87%BD%E6%95%B0"><span class="toc-number">8.1.2.</span> <span class="toc-text">
+           用到的宏函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#select%E7%BC%96%E7%A8%8B%E6%80%9D%E8%B7%AF"><span class="toc-number">8.1.3.</span> <span class="toc-text">
+           select编程思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8Btcp%E6%9C%8D%E5%8A%A1%E4%BD%BF%E7%94%A8select%E5%A4%84%E7%90%86%E5%A4%9A%E4%B8%AA%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-number">8.1.3.1.</span> <span class="toc-text">
+           示例–TCP服务使用select处理多个套接字</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll"><span class="toc-number">8.2.</span> <span class="toc-text">
+           poll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#poll%E7%BC%96%E7%A8%8B"><span class="toc-number">8.2.1.</span> <span class="toc-text">
+           poll编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8Eselect%E7%9B%B8%E6%AF%94%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">8.2.2.</span> <span class="toc-text">
+           与select相比的优点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll"><span class="toc-number">8.3.</span> <span class="toc-text">
+           epoll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E4%BA%8B%E4%BB%B6%E8%A1%A8"><span class="toc-number">8.3.1.</span> <span class="toc-text">
+           内核事件表</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

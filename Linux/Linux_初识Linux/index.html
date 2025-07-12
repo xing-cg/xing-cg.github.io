@@ -1,0 +1,854 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="Linux学习内容         基本操作 gcc&#x2F;g++（程序如何编译） 工程文件管理makefile 调试gdb 库文件 进程：复制进程fork、替换进程 进程间通信（比如QQ互发信息）：管道、共享内存、信号量 线程：同步、并发 网络编程：跨主机发送数据（最好有计算机网络基础），TCP、HTTP、I&#x2F;O复用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_初识Linux">
+<meta property="og:url" content="https://xing-cg.github.io/Linux/Linux_%E5%88%9D%E8%AF%86Linux/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="Linux学习内容         基本操作 gcc&#x2F;g++（程序如何编译） 工程文件管理makefile 调试gdb 库文件 进程：复制进程fork、替换进程 进程间通信（比如QQ互发信息）：管道、共享内存、信号量 线程：同步、并发 网络编程：跨主机发送数据（最好有计算机网络基础），TCP、HTTP、I&#x2F;O复用方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E5%88%9D%E8%AF%86Linux/image-20220512112348998.png">
+<meta property="article:published_time" content="2021-07-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.808Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/Linux_%E5%88%9D%E8%AF%86Linux/image-20220512112348998.png"><title>Linux_初识Linux | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_%E5%88%9D%E8%AF%86Linux/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_初识Linux</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E5%88%9D%E8%AF%86Linux/" data-flag-title="Linux_初识Linux"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="linux学习内容"   >
+          <a href="#linux学习内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux学习内容"></a> Linux学习内容</h1>
+      
+<ol>
+<li>基本操作</li>
+<li><code>gcc/g++</code>（程序如何编译）</li>
+<li>工程文件管理makefile</li>
+<li>调试gdb</li>
+<li>库文件</li>
+<li>进程：复制进程fork、替换进程</li>
+<li>进程间通信（比如QQ互发信息）：管道、共享内存、信号量</li>
+<li>线程：同步、并发</li>
+<li>网络编程：跨主机发送数据（最好有计算机网络基础），TCP、HTTP、I/O复用方法</li>
+</ol>
+
+        <h2 id="初识内容"   >
+          <a href="#初识内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#初识内容"></a> 初识内容</h2>
+      
+<ol>
+<li>目录结构：Linux中的文件夹称为目录</li>
+<li>文件类型</li>
+<li>权限</li>
+<li>命令</li>
+</ol>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<ol>
+<li>与Windows相比：Linux多用命令行，我们要掌握基本的命令。</li>
+<li>了解系统的目录结构，是个倒状树，记住常见的四五个目录的作用。</li>
+<li>用户存放文件，要放到自己的家目录。</li>
+</ol>
+
+        <h1 id="linux目录结构"   >
+          <a href="#linux目录结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux目录结构"></a> Linux目录结构</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>描述</th>
+<th>全拼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>根目录</td>
+<td></td>
+</tr>
+<tr>
+<td>bin</td>
+<td>二进制可执行程序，常用的命令就存放到这了。</td>
+<td>binary, 表示二进制可执行文件</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>硬件设备文件，把硬件设备抽象成为了文件</td>
+<td>device, 设备</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>库文件</td>
+<td>library, 库</td>
+</tr>
+<tr>
+<td>mnt</td>
+<td>临时挂载移动设备</td>
+<td>mount</td>
+</tr>
+<tr>
+<td>proc</td>
+<td>将内存中进程的信息映射到了文件中</td>
+<td>process, 进程</td>
+</tr>
+<tr>
+<td>home</td>
+<td>普通用户的家目录，以用户名为准，如<code>/home/xcg</code></td>
+<td></td>
+</tr>
+<tr>
+<td>root</td>
+<td>管理员的家目录</td>
+<td></td>
+</tr>
+<tr>
+<td>boot</td>
+<td>存放系统启动相关的内核文件</td>
+<td></td>
+</tr>
+<tr>
+<td>etc</td>
+<td>系统的配置文件</td>
+<td>et cetera, “等等”</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>在系统运行过程中，不经常改变的内容，比如说安装的软件。存放所有命令、库、手册等共享资源</td>
+<td>不是user的缩写，而是Unix Shared Resources</td>
+</tr>
+<tr>
+<td>var</td>
+<td>usr目录下的软件产生的数据，会存放于此；除此之外还有邮件、系统日志等。因此经常改变。</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="etc"   >
+          <a href="#etc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#etc"></a> etc</h2>
+      
+<p>etc不是什么缩写，是&quot;and so on&quot;的意思，来源于法语的&quot;et cetera&quot;，翻译成中文就是&quot;等等&quot;的意思。至于为什么在<code>/etc</code>下面存放配置文件，按照原始的UNIX的说法这下面放的都是一堆零零碎碎的东西，就叫etc，这其实是个历史遗留。</p>
+<p>这个目录一般用来存放程序所需的整个文件系统的配置文件。</p>
+<p><code>/etc</code>目录包含很多文件，许多网络配置文件在其中：</p>
+<ol>
+<li><code>/etc/rc</code>or<code>/etc/rc.d</code>or<code>/etc/rc*.d</code>：启动、或改变运行级时运行的scripts或scripts的目录。</li>
+<li><code>/etc/passwd</code>：用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息。</li>
+<li><code>/etc/fstab</code>：启动时mount -a命令(在/etc/rc 或等效的启动文件中)自动mount的文件系统列表。Linux下也包括用swapon -a启用的swap区的信息。</li>
+<li><code>/etc/group</code>：类似<code>/etc/passwd</code>，但说明的不是用户而是组</li>
+<li><code>/etc/issue</code>：getty在登录提示符前的输出信息，通常包括系统的一段短说明或欢迎信息，内容由系统管理员确定。</li>
+<li><code>/etc/magic</code>：file的配置文件，包含不同文件格式的说明，file基于它猜测文件类型。</li>
+<li><code>/etc/mtab</code>：当前安装的文件系统列表，由scripts初始化，并由mount命令自动更新。需要一个当前安装的文件系统的列表时使用，例如df命令。</li>
+<li><code>/etc/shadow</code>：在安装了影子口令软件的系统上的影子口令文件，影子口令文件将<code>/etc/passwd</code>文件中的加密口令移动到<code>/etc/shadow</code>中，而后者只对<code>root</code>可读，这使破译口令更困难。</li>
+<li><code>/etc/login.defs</code>：login命令的配置文件。</li>
+<li><code>/etc/profile, /etc/csh.login, /etc/csh.cshrc</code>：登录或启动时Bourne或Cshells执行的文件，这允许系统管理员为所有用户建立全局缺省环境。</li>
+<li><code>/etc/shells</code>：列出可信任的shell.chsh命令允许用户在本文件指定范围内改变登录shell。提供一台机器FTP服务的服务进程ftpd检查用户shell是否列在 <code>/etc/shells</code>文件中，如果不是将不允许该用户登录</li>
+</ol>
+
+        <h2 id="usr"   >
+          <a href="#usr" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#usr"></a> usr</h2>
+      
+<p>之前一直没有怎么关注过它，反正程序都是安装在里边的，也没有什么值得追根溯源的东西。那么usr到底是什么的缩写呢，它又是怎么来的呢？讨论中，大部分观点认为：</p>
+<ol>
+<li>usr是user的缩写；</li>
+<li>usr是unix system resources的缩写；</li>
+<li>usr是unix software resources的缩写。</li>
+<li>usr是unix shared resources</li>
+</ol>
+<p>根据常识判断，是user缩写的可能性不大，因为和<code>/home</code>冲突了。不过是system resources还是software resources的缩写还真不好说。特此查了好多东西，却发现竟然连wikipedia也模棱两可。<code>/usr</code>是linux系统核心所在，包含了所有的共享文件。<br />
+它是unix系统中最重要的目录之一，涵盖了二进位制文件，各种文件，各种标头文件，还有各种库文件，还有诸多程序，例如ftp，telnet等等。</p>
+<p>曾经的<code>/usr</code>还是使用者的家目录，存放着各种使用者文件，但现在已经被<code>/home</code>取代了（例如<code>/usr/someone</code>已经改为<code>/home/someone</code>）。<br />
+现代的<code>/usr</code>只专门存放各种程序和资料，使用者目录已经转移。虽然<code>/usr</code>名称未改，不过其含义已经从“使用者目录” 变成了“unix系统资源” 目录。值得注意的是，在一些unix系统上，仍然把<code>/usr/someone</code>当做使用者家目录，如Minix。</p>
+<p><code>/usr</code>文件系统经常很大，因为所有程序安装在这里。<code>/usr</code>里的所有文件一般来自Linux distribution；本地安装的程序和其他东西在<code>/usr/local</code>下。这样可能在升级新版系统或新distribution时无须重新安装全部程序。</p>
+<p>由于<code>/usr</code>中的文件不和特定的计算机相关，也不会在通常使用中修改，因此可以通过互联网共享这个目录（文件系统），这样，当管理员安装了新的站群软件之后，所有共享这一文件系统的计算机均可以使用新的站群软件。</p>
+<p>至此，真相大白。看来就像前一阵子的<code>/var/run</code>移到<code>/run</code>一样。</p>
+<p>真的是不看不知道，一看吓一跳呀。原来linux几经进化，好多目录的诞生和用途已经产生了根本的变化。</p>
+<ul>
+<li><code>/usr/bin</code>: 所有可执行文件，如gcc等（指不包含在 <code>/sbin</code> 和 <code>/bin</code> 内的）；</li>
+<li><code>/usr/include</code>: 各种标头文件，编译文件等时需要使用；
+<ul>
+<li><code>/usr/include/’package-name’</code> : 程序特定的标头文件；</li>
+</ul>
+</li>
+<li><code>/usr/lib</code>: 所有可执行文件所需要的库文件；</li>
+<li><code>/usr/local</code>: 这里主要存放那些手动安装的站群软件，即不是通过“新立得” 或 <code>apt-get</code> 安装的站群软件。 它和<code>/usr</code>目录具有相类似的目录结构 。让站群软件包管理器来管理<code>/usr</code>目录，而把自定义的指令码（scripts）放到<code>/usr/local</code>目录下面，应该是个不错的主意。</li>
+<li><code>/usr/games</code>: 曾经包含游戏等文件，现在很少用到；</li>
+<li><code>/usr/man</code>: man 手册，已经移至 <code>/usr/share/man</code>；</li>
+<li><code>/usr/sbin</code>: 类似 <code>/sbin</code>，root 可以执行。但此目录不包含在环境变数 <code>$PATH</code> 中，它包含的程序类似于 <code>chroot</code>, <code>useradd</code>, <code>in.tftpd</code> and <code>pppconfig</code>；</li>
+<li><code>/usr/share</code>: 它包含了各种程序间的共享文件，如字型，图示，文件等。（<code>/usr/local</code> 对应的目录是 <code>/usr/loca/share</code>）;
+<ul>
+<li><code>/usr/share/doc</code> : 类似应用程序的 man 手册。它包含程序的说明文件，预设配置文件等；</li>
+<li><code>/usr/share/info</code> : 不常用，已经被 man 代替；</li>
+<li><code>/usr/share/man</code> : app 的 manual；</li>
+<li><code>/usr/share/icons</code> : 应用程序的图示等文件，分为png，svg等多种格式；</li>
+</ul>
+</li>
+<li><code>/usr/src</code> : linux 核心的原始码和说明文件等；
+<ul>
+<li><code>/usr/src/linux</code> : linux 原始码；</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="文件属性"   >
+          <a href="#文件属性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文件属性"></a> 文件属性</h1>
+      
+<p><img src="../../images/Linux_%E5%88%9D%E8%AF%86Linux/image-20220512112348998.png" alt="image-20220512112348998" /></p>
+
+        <h2 id="文件类型"   >
+          <a href="#文件类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文件类型"></a> 文件类型</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>符号表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通文件（文档）</td>
+<td><code>-</code></td>
+</tr>
+<tr>
+<td>目录文件（文件夹）</td>
+<td>d</td>
+</tr>
+<tr>
+<td>管道文件</td>
+<td>p</td>
+</tr>
+<tr>
+<td>设备文件</td>
+<td><code>c</code>、<code>b</code></td>
+</tr>
+<tr>
+<td>链接文件</td>
+<td><code>l</code></td>
+</tr>
+<tr>
+<td>套接字文件</td>
+<td>s</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="文件权限"   >
+          <a href="#文件权限" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文件权限"></a> 文件权限</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>文件权限</th>
+<th>符号表示</th>
+<th>二进制表示</th>
+<th>十进制数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无权限</td>
+<td><code>-</code></td>
+<td>0000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>可读</td>
+<td>r</td>
+<td>0100</td>
+<td>4</td>
+</tr>
+<tr>
+<td>可写</td>
+<td>w</td>
+<td>0010</td>
+<td>2</td>
+</tr>
+<tr>
+<td>可执行</td>
+<td>x</td>
+<td>0001</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="chmod改权限"   >
+          <a href="#chmod改权限" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#chmod改权限"></a> chmod改权限</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>所有权范围</th>
+<th>符号表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自己（属主）</td>
+<td>u</td>
+</tr>
+<tr>
+<td>同组人</td>
+<td>g</td>
+</tr>
+<tr>
+<td>其他人</td>
+<td>o</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#chmod 改权限</span></span><br><span class="line"><span class="built_in">chmod</span> u-w main <span class="comment">#属主 去除 写权限</span></span><br><span class="line"><span class="built_in">chmod</span> o+w main <span class="comment">#其他人 增加 写权限</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="基础命令"   >
+          <a href="#基础命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基础命令"></a> 基础命令</h1>
+      
+
+        <h2 id="基本文件操作"   >
+          <a href="#基本文件操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基本文件操作"></a> 基本文件操作</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件操作基本命令</span></span><br><span class="line"><span class="built_in">cd</span> 	<span class="comment">#切换目录</span></span><br><span class="line"><span class="built_in">pwd</span> <span class="comment">#显示当前位置</span></span><br><span class="line"><span class="built_in">ls</span> 	<span class="comment">#显示当前目录下有哪些文件</span></span><br><span class="line"><span class="built_in">ls</span> -l <span class="comment">#显示详细信息</span></span><br><span class="line"><span class="built_in">ls</span> -a <span class="comment">#显示隐藏文件</span></span><br><span class="line"><span class="built_in">touch</span> <span class="comment">#创建普通文件</span></span><br><span class="line"><span class="built_in">touch</span> a.c</span><br><span class="line"><span class="built_in">mkdir</span> tmp <span class="comment">#创建tmp目录（文件夹）</span></span><br><span class="line"><span class="built_in">cp</span></span><br><span class="line"><span class="built_in">rm</span></span><br><span class="line"><span class="built_in">mv</span></span><br><span class="line"><span class="built_in">cat</span></span><br><span class="line">more/less/head/tail	<span class="comment"># 优先学习more、tail</span></span><br><span class="line">vi/vim	<span class="comment">#编辑文件</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="ls"   >
+          <a href="#ls" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ls"></a> ls</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> 	<span class="comment">#显示当前目录下有哪些文件</span></span><br><span class="line"><span class="built_in">ls</span> -l <span class="comment">#显示详细信息</span></span><br><span class="line"><span class="built_in">ls</span> -a <span class="comment">#显示隐藏文件</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="cd"   >
+          <a href="#cd" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cd"></a> cd</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cd 	#切换目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> \	<span class="comment">#切换位置到根目录下	#也可写作cd /</span></span><br><span class="line"><span class="built_in">cd</span> tmp 	<span class="comment">#进入tmp这个目录（文件夹）</span></span><br><span class="line"><span class="built_in">cd</span> ~ 	<span class="comment">#回到家目录</span></span><br><span class="line"><span class="built_in">cd</span> .. 	<span class="comment">#返回上一层</span></span><br><span class="line"><span class="comment">#绝对路径</span></span><br><span class="line"><span class="comment">#相对路径</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="cpmv"   >
+          <a href="#cpmv" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cpmv"></a> cp/mv</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span>	<span class="comment">#拷贝</span></span><br><span class="line"><span class="built_in">cp</span> a.c b.c <span class="comment">#拷贝普通文件</span></span><br><span class="line"><span class="built_in">cp</span> -r tmp tmp1 <span class="comment">#拷贝文件夹，包括文件夹的内容，参数要加-r</span></span><br><span class="line"><span class="built_in">cp</span> file.txt tmp</span><br><span class="line"><span class="built_in">cp</span> file.txt tmp/file.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">mv</span>	<span class="comment">#1.移动 2.重命名</span></span><br><span class="line"><span class="comment">#mv对文件夹的操作不需要加-r</span></span><br><span class="line"><span class="built_in">mv</span> a.c b.c <span class="comment">#将a.c重命名为b.c</span></span><br><span class="line"><span class="built_in">mv</span> dir1 dir2#将目录1重命名为目录2</span><br><span class="line"><span class="built_in">mv</span> b.c <span class="built_in">dir</span>#如果已经有<span class="built_in">dir</span>这个目录，那么我们将会把b.c移动到<span class="built_in">dir</span>里；如果不存在<span class="built_in">dir</span>文件，则会重命名b.c为<span class="built_in">dir</span></span><br><span class="line"><span class="built_in">mv</span> b.c <span class="built_in">dir</span>/a.c <span class="comment">#如果已经有dir这个目录，那么我们将会把b.c移动到dir里并重命名为a.c</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="rm"   >
+          <a href="#rm" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rm"></a> rm</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span>	<span class="comment">#删除</span></span><br><span class="line"><span class="built_in">rm</span> -f 	<span class="comment">#不给提示报错的删除</span></span><br><span class="line"><span class="built_in">rm</span> -d 	<span class="comment">#删除文件夹（只能删除空的）</span></span><br><span class="line"><span class="built_in">rm</span> -r 	<span class="comment">#递归删除文件夹（包含里面所有内容）</span></span><br><span class="line"><span class="built_in">rm</span> -rf	<span class="comment">#-r和-f的组合用法，强有力，一定要谨慎使用</span></span><br><span class="line"><span class="built_in">rmdir</span> 	<span class="comment">#删除空文件夹</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="高级文件操作"   >
+          <a href="#高级文件操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#高级文件操作"></a> 高级文件操作</h2>
+      
+
+        <h3 id="catmorelessheadtail"   >
+          <a href="#catmorelessheadtail" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#catmorelessheadtail"></a> cat/more/less/head/tail</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> <span class="comment">#1.打印文件内容 2.向文件输入内容 3.合并文件</span></span><br><span class="line"><span class="built_in">cat</span> a.c <span class="comment">#打印文件内容</span></span><br><span class="line"><span class="built_in">cat</span> &gt; a.txt#键盘输入内容，重定向到文件里。Ctrl+D结束输入。如果a.txt不存在，自动创建。</span><br><span class="line"><span class="built_in">cat</span> a.c b.c &gt; d.txt#把a.c和b.c的内容按顺序写到d.txt中。合并到另一文件中。</span><br><span class="line">more <span class="comment">#分屏幕显示，适于输出超过一个屏幕的文件内容，但只能看一次，空格是翻页，回车是下一行</span></span><br><span class="line">less <span class="comment">#在more的基础上，可以回滚。退出按q</span></span><br><span class="line"><span class="built_in">head</span> <span class="comment">#默认打印文件前10行</span></span><br><span class="line"><span class="built_in">head</span> -3 passwd <span class="comment">#打印前三行</span></span><br><span class="line"><span class="built_in">tail</span> <span class="comment">#默认打印文件后10行</span></span><br><span class="line"><span class="built_in">tail</span> -3 passwd <span class="comment">#打印后三行 </span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="tar"   >
+          <a href="#tar" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tar"></a> tar</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf name.tar.gz <span class="comment">#解包</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="find"   >
+          <a href="#find" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#find"></a> find</h3>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home/xcg -name a.c <span class="comment">#找某个目录下有无a.c</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="grep"   >
+          <a href="#grep" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#grep"></a> grep</h3>
+      
+
+        <h2 id="vivim"   >
+          <a href="#vivim" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#vivim"></a> vi/vim</h2>
+      
+
+        <h3 id="关于vi的配置"   >
+          <a href="#关于vi的配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关于vi的配置"></a> 关于vi的配置</h3>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/hydah/archive/2012/04/10/2440225.html" >vi默认的tab缩进是制表符，怎么改为空格？</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>对于使用vim的程序员来说，shiftwidth，tabstop，softtabstop绝对是经常接触的三个缩进因素。能否有方便美观的，整体化的缩进，主要是由他们相互间的配合决定。在经过一段时间试用后，总结一下我的设置经验。</p>
+<p><strong>shiftwidth</strong>：</p>
+<p>这个是<strong>用于程序中自动缩进所使用的空白长度</strong>指示的。一般来说为了保持程序的美观，和下面的参数最好一致。同时它也是符号移位长度的制定者。</p>
+<p><strong>tabstop</strong>：</p>
+<p><strong>定义tab所等同的空格长度</strong>，一般来说最好设置成8，因为如果是其它值的话，可能引起文件在打印之类的场合中看起来很别扭。除非你设置了 <strong>expandtab模式，也就是把tabs转换成空格</strong>，这样的话就不会一起混淆，不过毕竟制表符为8是最常用最普遍的设置，所以一般还是不要改。</p>
+<p><strong>softtabstop</strong>：</p>
+<p>如果我们希望改变程序中的缩进怎么办？shiftwidth和tabstop不一样的话，你会发现程序比较难看的。这时候，softtabstop就起作用了。可以从vim的说明中看到，<strong>一旦设置了softtabstop的值时，你按下tab键，插入的是空格和tab制表符的混合</strong>，具体如何混合取决于你设定的softtabstop，举个例子，如果设定softtabstop=8,那么按下tab键，插入的就是正常的一个制表符;如果设定 softtabstop=16,那么插入的就是两个制表符；如果softtabstop=12,那么插入的就是一个制表符加上4个空格；如果 softtabstop=4呢？那么一开始，插入的就是4个空格，此时一旦你再按下一次tab，这次的四个空格就会和上次的四个空格组合起来变成一个制表符。换句话说，softtabstop是“逢8空格进1制表符”,前提是你tabstop=8。</p>
+<p>关于<strong>expandtab</strong></p>
+<p>举个例子，在多人一起开发项目时，为了使代码风格尽量保持一致，一般<strong>不允许在代码使用TAB符，而以4个空格代之</strong>。我们可以编辑一个文件，包含下面的内容：<br />
+set shiftwidth=4<br />
+set expandtab</p>
+<p>然后把下面的命令加入到.vimrc中：<br />
+autocmd FileType c,cpp set shiftwidth=4 | set expandtab</p>
+<p>就可以只在编辑c和cpp文件时实行这种设置了</p>
+<p>删除掉每一行末尾的空格：</p>
+<p>行末：<code>$</code><br />
+行首：<code>^</code><br />
+空格：<code>\s</code><br />
+行末空格：<code>\s\+$</code><br />
+行首空格：<code>^\+\s</code><br />
+有些人认为行末的空格是无用，浪费而难看的。要删除这些每行后面多余的空格，可以执行如下命令：<br />
+<code>:%s/\s\+$//</code><br />
+命令前面指明范围是&quot;%“，所以这会作用于整个文件。“substitute” 命令的匹配模式是<br />
+<code>&quot;\s\+$&quot;</code>。这表示行末（$）前的一个或者多个（+）空格（\s）。后面我们会介绍怎样<br />
+写这样的模式。<br />
+替换命令的 “to” 部分是空的：”//&quot;。这样就会删除那些匹配的空白字符。<br />
+另一种没有用的空格是 Tab 前面的字符。通常这可以删除而不影响格式。但并不是总这样！所以，你最好手工删除它。执行如下命令：<br />
+/<br />
+你什么都看不见，其实这是一个空格加一个 TAB 键。相当于 “/”。现在，<br />
+你可以用 “x” 删除多余的空格，并保证格式没有改变。接着你可以用 “n” 找到下一个<br />
+位置并重复这个操作。</p>
+
+        <h3 id="插入模式编辑模式"   >
+          <a href="#插入模式编辑模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入模式编辑模式"></a> 插入模式(编辑模式)</h3>
+      
+<p><code>命令模式--i/a/o/s--&gt;插入模式--ESC--&gt;命令模式</code></p>
+<ul>
+<li>i:在光标所在字符前开始插入</li>
+<li>a:在光标所在字符后开始插入</li>
+<li>o:在光标所在行的下面另起一新行插入</li>
+<li>s:删除光标所在的字符并开始插入</li>
+<li>I:在光标所在行的行首开始插入 如果行首有空格则在空格之后插入</li>
+<li>A:在光标所在行的行尾开始插入</li>
+<li>O:在光标所在行的上面另起一行开始插入</li>
+<li>S:删除光标所在行并开始插入</li>
+</ul>
+
+        <h3 id="命令模式"   >
+          <a href="#命令模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#命令模式"></a> 命令模式</h3>
+      
+<p><code>底行命令模式/插入模式--ESC--&gt;命令模式</code></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">r <span class="comment">#只替换一个</span></span><br><span class="line">R <span class="comment">#一直替换 按esc结束</span></span><br><span class="line">x <span class="comment">#删除一个字符，但是不能删除空行</span></span><br><span class="line">cc <span class="comment">#清除整行并进入插入模式</span></span><br><span class="line"><span class="built_in">shift</span>+c或C <span class="comment">#清楚本行光标及以后的内容，并进入插入模式</span></span><br><span class="line">/ <span class="comment">#对文本进行全文向下搜索字符串string	如：/text</span></span><br><span class="line">? <span class="comment">#对文本进行全文向上搜索字符串string 如：?text</span></span><br><span class="line">G <span class="comment">#切换到末尾行</span></span><br></pre></td></tr></table></div></figure>
+<p>vi打开文件，以搜索&quot;port&quot;为例：</p>
+<p>从开头处开始搜索：/port</p>
+<p>从结尾处开始搜索：?port</p>
+<p>向下搜索：n</p>
+<p>向上搜索：N，或者shift+n，或者shift+#</p>
+
+        <h3 id="底行命令模式"   >
+          <a href="#底行命令模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#底行命令模式"></a> 底行命令模式</h3>
+      
+<p><code>命令模式--:--&gt;末行模式--&gt;</code></p>
+<p>1:<strong>wq</strong>保存并退出 2:**q!**强制不保存退出 3:<strong>w</strong>只保存 4:<strong>q</strong>仅退出</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:n <span class="comment">#切换到第n行</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="练习"   >
+          <a href="#练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习"></a> 练习</h3>
+      
+<ol>
+<li>
+<p>复制51到60行，并且粘贴到最后一行后面</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">50G		<span class="comment">#先跳转到50行</span></span><br><span class="line">10yy	<span class="comment">#复制光标下10行</span></span><br><span class="line">G		<span class="comment">#跳转到文件最末</span></span><br><span class="line">p		<span class="comment">#粘贴复制内容</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>删除11到30行之间的20行</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10G		<span class="comment">#先跳转到10行</span></span><br><span class="line">20dd	<span class="comment">#删除光标下20行</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>移动到第29行，并且删除15个字符。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">29G		<span class="comment">#先跳转到29行</span></span><br><span class="line">15x		<span class="comment">#x表示删除光标所在位置的一个字符，X表示删除光标所在位置的前面一个字符，前面加数字可以删除指定个。</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="gcc"   >
+          <a href="#gcc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#gcc"></a> gcc</h2>
+      
+<p>关于编译链接更多内容请查看文章“Linux_库”。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o main main.c</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="进程操作"   >
+          <a href="#进程操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程操作"></a> 进程操作</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进程操作基本命令</span></span><br><span class="line">ps		<span class="comment">#查看当前终端中运行的进程</span></span><br><span class="line"><span class="built_in">kill</span>	<span class="comment">#结束进程</span></span><br><span class="line"><span class="built_in">jobs</span> 	<span class="comment">#查看后台运行的进程</span></span><br><span class="line">&amp;		<span class="comment">#放到后台运行</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="帮助手册命令-man"   >
+          <a href="#帮助手册命令-man" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#帮助手册命令-man"></a> 帮助手册命令-man</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">man <span class="comment">#帮助文档 1.命令 2.系统调用 3.库函数</span></span><br><span class="line"><span class="comment">#printf 既有命令也有库函数，而man默认输出命令相关文档，所以要输出库函数时，我们要加 3</span></span><br><span class="line">man 3 <span class="built_in">printf</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="快捷键"   >
+          <a href="#快捷键" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#快捷键"></a> 快捷键</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开终端</td>
+<td>Ctrl+Alt+T</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="一些需要搜索才知道的操作"   >
+          <a href="#一些需要搜索才知道的操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一些需要搜索才知道的操作"></a> 一些需要搜索才知道的操作</h1>
+      
+<ol>
+<li>
+<p>网上下载的deb安装包双击后提示”软件无法安装:不支持“。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>关闭没有必要的动画特效</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.interface enable-animations <span class="literal">false</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>找不到环境文件夹——链接</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655306/ubuntu-usr-bin-env-python-no-such-file-or-directory" >https://stackoverflow.com/questions/3655306/ubuntu-usr-bin-env-python-no-such-file-or-directory</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whereis python3</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /usr/bin/python3 /usr/bin/python</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Linux/Linux_%E5%88%9D%E8%AF%86Linux/">https://xing-cg.github.io/Linux/Linux_%E5%88%9D%E8%AF%86Linux/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/C/C%E8%AF%AD%E8%A8%80_%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_二级指针</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Redis/Redis_dict/"><span class="paginator-prev__text">Redis_dict</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           Linux学习内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">
+           初识内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text">
+           总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">
+           Linux目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#etc"><span class="toc-number">2.1.</span> <span class="toc-text">
+           etc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#usr"><span class="toc-number">2.2.</span> <span class="toc-text">
+           usr</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">
+           文件属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">
+           文件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">3.2.</span> <span class="toc-text">
+           文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chmod%E6%94%B9%E6%9D%83%E9%99%90"><span class="toc-number">3.2.1.</span> <span class="toc-text">
+           chmod改权限</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">
+           基础命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">4.1.</span> <span class="toc-text">
+           基本文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ls"><span class="toc-number">4.1.1.</span> <span class="toc-text">
+           ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cd"><span class="toc-number">4.1.2.</span> <span class="toc-text">
+           cd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpmv"><span class="toc-number">4.1.3.</span> <span class="toc-text">
+           cp&#x2F;mv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rm"><span class="toc-number">4.1.4.</span> <span class="toc-text">
+           rm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text">
+           高级文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#catmorelessheadtail"><span class="toc-number">4.2.1.</span> <span class="toc-text">
+           cat&#x2F;more&#x2F;less&#x2F;head&#x2F;tail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar"><span class="toc-number">4.2.2.</span> <span class="toc-text">
+           tar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#find"><span class="toc-number">4.2.3.</span> <span class="toc-text">
+           find</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep"><span class="toc-number">4.2.4.</span> <span class="toc-text">
+           grep</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vivim"><span class="toc-number">4.3.</span> <span class="toc-text">
+           vi&#x2F;vim</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Evi%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">4.3.1.</span> <span class="toc-text">
+           关于vi的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.3.2.</span> <span class="toc-text">
+           插入模式(编辑模式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.3.3.</span> <span class="toc-text">
+           命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E8%A1%8C%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.3.4.</span> <span class="toc-text">
+           底行命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0"><span class="toc-number">4.3.5.</span> <span class="toc-text">
+           练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gcc"><span class="toc-number">4.4.</span> <span class="toc-text">
+           gcc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%93%8D%E4%BD%9C"><span class="toc-number">4.5.</span> <span class="toc-text">
+           进程操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C%E5%91%BD%E4%BB%A4-man"><span class="toc-number">4.6.</span> <span class="toc-text">
+           帮助手册命令-man</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">5.</span> <span class="toc-text">
+           快捷键</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E9%9C%80%E8%A6%81%E6%90%9C%E7%B4%A2%E6%89%8D%E7%9F%A5%E9%81%93%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">
+           一些需要搜索才知道的操作</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         const：运行期；只能修饰变量（即使能修饰成员函数，但是本质上修饰的是this变量）；常性 constexpr：可能运行期、可能编译期；可修饰变量、可修饰函数；常性  if constexpr   consteval：编译期；只能修饰函数；函数是一段代码，没有常性一说 模板参数可以传入常量  传入某一类型的常量 传入auto常量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_const家族_与模板的关系">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         const：运行期；只能修饰变量（即使能修饰成员函数，但是本质上修饰的是this变量）；常性 constexpr：可能运行期、可能编译期；可修饰变量、可修饰函数；常性  if constexpr   consteval：编译期；只能修饰函数；函数是一段代码，没有常性一说 模板参数可以传入常量  传入某一类型的常量 传入auto常量">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.786Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Cpp_const家族_与模板的关系 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_const家族_与模板的关系</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-04-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/" data-flag-title="Cpp_const家族_与模板的关系"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>const：运行期；只能修饰变量（即使能修饰成员函数，但是本质上修饰的是this变量）；常性</li>
+<li>constexpr：可能运行期、可能编译期；可修饰变量、可修饰函数；常性
+<ul>
+<li>if constexpr</li>
+</ul>
+</li>
+<li>consteval：编译期；只能修饰函数；函数是一段代码，没有常性一说</li>
+<li>模板参数可以传入常量
+<ol>
+<li>传入某一类型的常量</li>
+<li>传入auto常量</li>
+</ol>
+</li>
+<li>constinit：编译期；修饰全局变量（包括静态变量）；无常性</li>
+</ol>
+
+        <h1 id="常量"   >
+          <a href="#常量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常量"></a> 常量</h1>
+      
+<p>不能以变量给数组的大小做定义。因为数组要确定容量，在编译时就确定了它的内存的映像、结构（即必须在运行前就需要清楚大小），执行时不能改变。</p>
+<blockquote>
+<p>类似数组的大小要确定的例子，还有switch case中的值，必须用字面常量或常量来描述。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> arr[a] = &#123; <span class="number">0</span> &#125;;  <span class="comment">// error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>普通int肯定是不行的。但是const int却可以：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> N = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;  <span class="comment">// ok</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>为什么呢？因为此处的const就代表：编译期时，N可以得到确定为5。所以，满足了数组的定义的条件即编译期时确定大小，于是可以通过。</p>
+<blockquote>
+<p>但const修饰变量不是一定能在编译期确定的。比如：</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> N = <span class="built_in">get_size</span>(<span class="number">5</span>);  <span class="comment">// ok</span></span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;        <span class="comment">// error</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>通过函数返回值去初始化const变量时，虽然可以定义、初始化const变量，但是用在<code>arr[N]</code>中又会报错。这说明，const int N在定义时，是可以感知到后面的值是一个字面常量还是一个函数返回值（本质上是一个变量）的。如果是通过函数返回值（变量）初始化的，虽然可以得到初始化，但是却不能用于定义数组。这是因为，函数本质上是在执行代码时，通过栈帧动态进行的，这又陷入了执行期才能确定具体结果，所以不能给数组定义。</p>
+<p>所以：const修饰的变量，不一定能在编译期决定，即也是有可能在执行期确定的。但是编译期是可以清楚地分明你这个N的来历的，即使N被声明const也无所谓。因此const这个关键字是模棱两可的。<br />
+于是，如果我们要限制一个变量必须在编译期就确定常性，就得用constexpr来修饰。而不是用const；const以后则可以用于修饰运行期的行为，以后最好不要再乱用const来修饰编译期常量。</p>
+
+        <h1 id="constexpr"   >
+          <a href="#constexpr" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#constexpr"></a> constexpr</h1>
+      
+<p>Modern Cpp提供的关键字。</p>
+<ol>
+<li>如果用来修饰变量：就可以用于限制等式右边的值是一个常量。这个常量一定是在编译期就确定了的。</li>
+<li>如果用来修饰函数：函数被constexpr修饰后，看调用点接收返回值的变量是否也为constexpr。
+<ol>
+<li>如果是，则编译期就会确定死返回值，直接在调用点替换，而不生成代码。</li>
+<li>如果不是，则改函数正常生成可编译代码，变为普通的函数在运行期流转。</li>
+</ol>
+</li>
+</ol>
+<p>如下，如果告知了N是一个constexpr变量，但发现<code>get_size</code>不是一个constexpr，则编译不通过。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> N = <span class="built_in">get_size</span>(<span class="number">5</span>);  <span class="comment">// error</span></span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;             <span class="comment">// error</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果改为5，则通过。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> N = <span class="number">5</span>;  <span class="comment">// ok</span></span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;   <span class="comment">// ok</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>那么，如何通过函数返回值初始化constexpr变量呢？就需要给函数也用constexpr修饰。但是注意，不再支持前置声明，后置定义函数的形式，而只能直接写在前置：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">get_size</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 错误，get_size() 必须在调用点之前完整定义</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> N = <span class="built_in">get_size</span>();</span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;          </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">get_size</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>正确写法：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> N = <span class="built_in">get_size</span>();<span class="comment">//ok</span></span><br><span class="line">    <span class="type">int</span> arr[N] = &#123; <span class="number">0</span> &#125;;          <span class="comment">//ok</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>因为constexpr的函数实际不会生成函数体，因此不支持前置声明、后置定义的形式。所以，constexpr的函数建议写为inline类型或者写在头文件中包含到前置。</p>
+
+        <h1 id="consteval"   >
+          <a href="#consteval" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#consteval"></a> consteval</h1>
+      
+<p>不能修饰变量，只能用于修饰函数，目的是比constexpr更严格地限制修饰的内容要在编译期确定。</p>
+<p>如果发现函数中返回值表达式中有非常量（下例则是val是变量），则不能编译通过。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">consteval</span> <span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span> + val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_value</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> b = <span class="built_in">get_value</span>();    <span class="comment">// ok</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> a = <span class="built_in">get_zize</span>(b);    <span class="comment">// error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>若改为：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">consteval</span> <span class="type">int</span> <span class="title">get_size</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span> + val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_value</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> a = <span class="built_in">get_zize</span>(b);    <span class="comment">// ok</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>其实a用const、constexpr修饰都已无所谓了，因为consteval已经可以严格限制<code>get_size(b)</code>的返回值是编译期确定的了，无需靠constexpr来约束，用const也行。</p>
+</blockquote>
+
+        <h1 id="总结constexpr和consteval"   >
+          <a href="#总结constexpr和consteval" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结constexpr和consteval"></a> 总结constexpr和consteval</h1>
+      
+<ol>
+<li>constexpr修饰函数时，并不严格限制函数中的内容必须是编译期就确定的，分两种情况：
+<ol>
+<li>满足编译期就确定时，函数变为常量表达式，在调用点处替换</li>
+<li>不满足时，如传入一个变量参数，则必须在运行期才能确定的，就退化为一个普通函数。</li>
+</ol>
+</li>
+<li>consteval是加强版的constexpr，不能修饰变量，因为修饰变量没意义。主要是用于修饰函数。主要是看函数参数是否全支持编译期确定。</li>
+<li>被constexpr、consteval修饰的函数体内可以是递归。比如递归求和：（此时把鼠标挪在a上面，发现直接计算出了结果，55）</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">consteval</span> <span class="type">int</span> <span class="title">sum</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    <span class="keyword">return</span> n + <span class="built_in">sum</span>(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="built_in">sum</span>(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是，递归的层数默认最多为512层。这个值，不同编译器可以通过不同命令修改。</p>
+
+        <h1 id="模板参数传入常量"   >
+          <a href="#模板参数传入常量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板参数传入常量"></a> 模板参数传入常量</h1>
+      
+
+        <h2 id="模板参数传入某一类型的常量"   >
+          <a href="#模板参数传入某一类型的常量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板参数传入某一类型的常量"></a> 模板参数传入某一类型的常量</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> N&gt;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">get_number</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> N;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="built_in">get_number</span>&lt;<span class="number">15</span>&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>实际编译完后，相当于产生以下代码：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_number</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="built_in">get_number</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>此例中的模板参数N必须是常量，最好用constexpr修饰。总之：变量不行；const可能不行（若等号右边的值不是字面常量、常量）<br />
+同理，因为模板函数也是编译期确定的，所以N这种特定值参数必须也像上面谈的常量的用法一样，编译期必须确定。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> N&gt;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">get_number</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> N;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//int b = 15;</span></span><br><span class="line">    <span class="comment">//constexpr int a = get_number&lt;b&gt;(); // error</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> b = <span class="number">15</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="built_in">get_number</span>&lt;b&gt;();   <span class="comment">// ok</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="get_element"   >
+          <a href="#get_element" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#get_element"></a> <code>get_element</code></h3>
+      
+<p>编译期判断。用constexpr修饰if语句</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Obj</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    std::string b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="type">int</span> N&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">get_element</span><span class="params">(Obj &amp; obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(N == <span class="number">0</span>)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">return</span> obj.a</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">constexpr</span> (N == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> obj.b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果编译时确定<code>N == 1</code>，则会生成相应的函数。auto将切换成对应类型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">get_element</span><span class="params">(Obj &amp; obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj.b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Obj obj &#123; <span class="number">5</span>, <span class="string">&quot;Hello&quot;</span> &#125;;</span><br><span class="line">    <span class="type">int</span> a = <span class="built_in">get_element</span>&lt;<span class="number">0</span>&gt;(obj);           <span class="comment">// 5</span></span><br><span class="line">    std::string b = <span class="built_in">get_element</span>&lt;<span class="number">1</span>&gt;(obj);   <span class="comment">// Hello</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="模板参数传入auto常量"   >
+          <a href="#模板参数传入auto常量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板参数传入auto常量"></a> 模板参数传入auto常量</h2>
+      
+<p><code>template&lt;int N&gt;</code>是int类型的特定值，而<code>template&lt;auto V&gt;</code>是任意类型的特定值。</p>
+<p>static的特点是，生命周期和全局变量一样，但是可见范围仅限于一部分，下面的value就仅限于类中可见。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">auto</span> V&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Constant</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> value = V;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> a = Constant&lt;<span class="number">19</span>&gt;::value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="constexpr配合auto配合模板auto常量使用"   >
+          <a href="#constexpr配合auto配合模板auto常量使用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#constexpr配合auto配合模板auto常量使用"></a> constexpr配合auto，配合模板auto常量使用</h3>
+      
+<p>如果把a修饰为constexpr，则就会变为编译期计算。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">auto</span> a = Constant&lt;<span class="number">19</span>&gt;::value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这么做的意义在于，可以让一个同名的变量具有不同的类型、不同的值，即复用了名字。模板原先只能用于类模板、函数模板，这样，套了一个类模板的外壳，让变量也具有了模板的能力。</p>
+
+        <h1 id="优化全局变量的初始化constinit"   >
+          <a href="#优化全局变量的初始化constinit" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优化全局变量的初始化constinit"></a> 优化全局变量的初始化：constinit</h1>
+      
+<ol>
+<li>与作用域无关</li>
+<li>与常性无关</li>
+<li>修饰全局变量（包含静态变量）</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> val = <span class="number">8</span>;</span><br><span class="line">    std::cout &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上程序，val的初始化不在bar函数中，而是在main函数执行之前。所以调试的断点会掉下来。<br />
+但是这不代表val是编译期执行的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_int</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">7</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> val = <span class="built_in">get_int</span>();</span><br><span class="line">    std::cout &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上代码，通过函数确定val值时，第一次调用bar，static语句是在bar函数执行时才执行的。而第二次调用bar，static语句不执行任何动作。</p>
+<p>全局变量，可能有两种行为：</p>
+<ol>
+<li>在static语句前就执行完了</li>
+<li>在static语句执行<br />
+能不能优化，让static语句在static语句前就执行完？或者说，让它在编译期就完成行为？<br />
+用constinit修饰就能起到这个作用。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_int</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">7</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// constinit static int val = get_int();  // error, get_int() is not const value</span></span><br><span class="line">    <span class="keyword">constinit</span> <span class="type">static</span> <span class="type">int</span> val = <span class="number">8</span>;             <span class="comment">// ok</span></span><br><span class="line">    std::cout &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>与consteval有异曲同工之妙，被constinit修饰的变量，必须保证等号右边是一个常量（即编译期确定下来），否则编译不通过。这样，就能保证static语句在编译期初始化完毕。<br />
+所以，val不能直接接受普通的<code>get_int()</code>函数返回值，如果要编译通过，需要修饰函数为<code>consteval</code>。</p>
+<p>虽然关键字带有const，但是不代表被修饰的变量是常性的，后期该值会不会被修改，是未定义的。如果要保证这个全局变量是常性，需要另外修饰const。</p>
+<blockquote>
+<p>其实用constexpr直接修饰全局变量，也可以起到让全局变量在编译期执行的效果，但是constinit的特点在于，它修饰后，变量不带有常性，可以后期更改，而constexpr修饰变量后，后面就没法更改了。</p>
+</blockquote>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+      
+<p>模板都是和类型打交道。各种的策略最后本质上都是以不同类型决定的。本质上做的工作就是帮助编译器在编译期分辨各种类型，组装类、函数、实例，供开发人员使用。</p>
+<p>判断类型的特性，比如看是否是指针？需要用到<code>if constexpr</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">get_val</span><span class="params">(T t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(std::is_pointer_v&lt;T&gt;)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">return</span> *t</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">auto</span> v = <span class="built_in">get_val</span>(&amp;a); <span class="comment">// &amp;a 识别为 int *  返回值得到的是int型，值为9</span></span><br><span class="line">    <span class="keyword">auto</span> v2 = <span class="built_in">get_val</span>(a); <span class="comment">// a 识别为  int    返回值得到的是int型，值为9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/">https://xing-cg.github.io/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Cpp/Cpp_concept/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_concept</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/"><span class="paginator-prev__text">Cpp_模板_Traits_Policy</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">
+           常量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#constexpr"><span class="toc-number">3.</span> <span class="toc-text">
+           constexpr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#consteval"><span class="toc-number">4.</span> <span class="toc-text">
+           consteval</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93constexpr%E5%92%8Cconsteval"><span class="toc-number">5.</span> <span class="toc-text">
+           总结constexpr和consteval</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E4%BC%A0%E5%85%A5%E5%B8%B8%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">
+           模板参数传入常量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E4%BC%A0%E5%85%A5%E6%9F%90%E4%B8%80%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B8%B8%E9%87%8F"><span class="toc-number">6.1.</span> <span class="toc-text">
+           模板参数传入某一类型的常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#get_element"><span class="toc-number">6.1.1.</span> <span class="toc-text">
+           get_element</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E4%BC%A0%E5%85%A5auto%E5%B8%B8%E9%87%8F"><span class="toc-number">6.2.</span> <span class="toc-text">
+           模板参数传入auto常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#constexpr%E9%85%8D%E5%90%88auto%E9%85%8D%E5%90%88%E6%A8%A1%E6%9D%BFauto%E5%B8%B8%E9%87%8F%E4%BD%BF%E7%94%A8"><span class="toc-number">6.2.1.</span> <span class="toc-text">
+           constexpr配合auto，配合模板auto常量使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96constinit"><span class="toc-number">7.</span> <span class="toc-text">
+           优化全局变量的初始化：constinit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">
+           总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

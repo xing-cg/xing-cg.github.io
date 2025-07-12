@@ -1,0 +1,497 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/57/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/57/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">RPC通信原理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" data-flag-title="RPC通信原理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="rpc通信原理"   >
+          <a href="#rpc通信原理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rpc通信原理"></a> RPC通信原理</h1>
+      
+<p>remote procedure call，远程过程调用。分布式通信靠此实现。也是分布式通信底层要解决的问题。</p>
+
+        <h1 id="整体流程"   >
+          <a href="#整体流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#整体流程"></a> 整体流程</h1>
+      
+<p>rpc方法名字，参数。参数一般需要打包。</p>
+<p>从caller端的User到RPCRuntime，中间需要序列化的流程，即把参数打包的流程。序列化之后就可以通过网络传到远端另外的机器。网络可以选用muduo网络库。</p>
+<p>caller端</p>
+<ol>
+<li>User - <strong>用户可见</strong>
+<ol>
+<li>local call - <strong>用户可见</strong></li>
+</ol>
+</li>
+<li>User-stub
+<ol>
+<li>pack argument</li>
+</ol>
+</li>
+<li>RPCRuntime
+<ol>
+<li>transmit</li>
+<li>wait</li>
+</ol>
+</li>
+</ol>
+<p>远端callee端接收到RPC请求之后，从网络底层上报上来，需要把打包的参数进行解析，即反序列化为具体的信息，比如方法的标识、参数。传递到进程中执行某个函数。</p>
+<p>callee端</p>
+<ol>
+<li>RPCRuntime
+<ol>
+<li>receive</li>
+</ol>
+</li>
+<li>Server-stub
+<ol>
+<li>unpack argument</li>
+</ol>
+</li>
+<li>Server - <strong>服务器可见</strong>
+<ol>
+<li>call - <strong>服务器可见</strong></li>
+<li>work（执行函数） - <strong>服务器可见</strong></li>
+<li>return - <strong>服务器可见</strong></li>
+</ol>
+</li>
+</ol>
+<p>远端callee返回结果时，需要pack result，给结果内容打包，序列化。传送给caller。</p>
+<ol>
+<li>Server
+<ol>
+<li>return</li>
+</ol>
+</li>
+<li>Server-stub
+<ol>
+<li>pack result</li>
+</ol>
+</li>
+<li>RPCRuntime
+<ol>
+<li>transmit</li>
+</ol>
+</li>
+</ol>
+<p>caller端收到返回包后，唤醒，反序列化，解析为unpack result，生成本地对象。</p>
+<ol>
+<li>RPCRuntime
+<ol>
+<li>receive</li>
+</ol>
+</li>
+<li>User-stub
+<ol>
+<li>unpack result</li>
+</ol>
+</li>
+<li>User - <strong>用户可见</strong>
+<ol>
+<li>local return - <strong>用户可见</strong></li>
+</ol>
+</li>
+</ol>
+<p>我们RPC框架要实现的东西，除了标识的用户可见、服务器可见的地方之外，都要实现并封装。</p>
+<p><img src="../../images/RPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/image-20220815205906401.png" alt="image-20220815205906401" /></p>
+<p>黄色部分：设计rpc方法参数的打包和解析， 也就是数据的序列化和反序列化， <strong>使用Protobuf</strong>。此部分称之为stub，意思是桩，是一个代理类的角色。</p>
+<p>绿色部分：网络部分，包括寻找rpc服务主机，发起rpc调用请求和响应rpc调用结果，<strong>使用muduo网络库和zookeeper服务配置中心</strong>（专门做服务发现）。</p>
+<p>mprpc框架主要包含以上两个部分的内容。</p>
+
+        <h1 id="序列化-反序列化工具"   >
+          <a href="#序列化-反序列化工具" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#序列化-反序列化工具"></a> 序列化、反序列化工具</h1>
+      
+<p>用protobuf。</p>
+<p>protobuf是二进制存储的。相比于xml、json的文本存储形式来说，</p>
+<ol>
+<li>二进制存储有节省空间的优点。在同等网络环境下，性能更优。</li>
+<li>protobuf不需要存储额外的信息，而json存储的是key-value。protobuf只存储值数据。</li>
+</ol>
+<p>可能的形式：<br />
+Json：</p>
+<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name<span class="punctuation">:</span> <span class="string">&quot;zhang san&quot;</span><span class="punctuation">,</span></span><br><span class="line">pwd<span class="punctuation">:</span> <span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>Protobuf：</p>
+<figure class="highlight protobuf"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;zhangsan&quot;</span><span class="string">&quot;123456&quot;</span></span><br></pre></td></tr></table></div></figure></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E6%AF%94/">分布式和集群之间的对比</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E6%AF%94/" data-flag-title="分布式和集群之间的对比"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="单机服务器"   >
+          <a href="#单机服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单机服务器"></a> 单机服务器</h1>
+      
+<p>业务系统做了模块化设计，每一个模块都包含很多特定的业务。</p>
+<p>拿聊天服务器举例子，一个server上，有若干个模块构成，比如，用户管理、好友管理、群组管理、消息管理、后台管理模块。每一个模块都包含特定的业务，比如用户管理模块就包含用户的登录（通常用一个方法来做登录业务），再如用户的注册、用户的注销。好友管理模块包含添加好友、删除好友；群组管理包含加群、创建群、删除群成员等等；消息管理包含离线消息、一对一聊天消息、群聊消息；后台管理包含广播消息等。</p>
+
+        <h2 id="问题单机服务器在性能-设计上有何瓶颈"   >
+          <a href="#问题单机服务器在性能-设计上有何瓶颈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题单机服务器在性能-设计上有何瓶颈"></a> 问题：单机服务器在性能、设计上有何瓶颈？</h2>
+      
+<ol>
+<li>聊天服务器所能承受的用户的并发量<strong>受限于硬件资源</strong>。比如32位服务器，最多支持2w多人同时在线聊天，即直接受限于socket资源。</li>
+<li>所有模块耦合在一个单体服务器上，如果修改任意一个模块，哪怕是几行代码，都会导致整个项目代码重新编译、部署。</li>
+<li>各模块对于硬件资源的需求不一样。有些模块属于CPU密集型（计算量大），有些是属于IO密集型的。CPU密集型模块应当部署在CPU性能高的机器上，IO密集型则对CPU性能要求不高，而是需要内存资源多、带宽大的机器。</li>
+</ol>
+
+        <h1 id="集群服务器"   >
+          <a href="#集群服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#集群服务器"></a> 集群服务器</h1>
+      
+<p>现在，把同一个服务器程序，独立地运行在三个服务器上，分别是server1、server2、server3，每一台服务器都是一套独立的聊天系统。</p>
+<p>解决了单机服务器的问题1，提升了用户的并发量。但是没有解决问题2，如果需要修改代码，仍需重新编译，只不过只需要编译1份，但是仍需重新部署在多台服务器上。针对问题3，单纯的集群只是水平地扩展硬件机器，每一台机器上的程序并没有分模块去针对性地分配硬件资源。</p>
+<p>比如，后台管理使用的用户并不多，只有极个别的管理员才能使用，因此此模块根本不需要高并发。如果将后台管理部署在每一台服务器上，可能会浪费硬件资源。</p>
+<p>因此，可以想到，如果不能很好地分配集群环境中的机器资源，可能不能把整体系统的性能发挥到最大，即不分模块进行部署则不能充分利用全部资源。</p>
+<p>优点是，部署很简单，因为没有过多的设计，每台机器的部署方式是一样的，直接运行同一个程序即可。</p>
+
+        <h1 id="分布式服务器"   >
+          <a href="#分布式服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式服务器"></a> 分布式服务器</h1>
+      
+<p>现有三台服务器，server1部署用户管理、消息管理模块；server2部署好友管理、群组管理模块；server3部署后台管理模块。</p>
+<p>相对于集群服务器，如果server2失效，整个系统仍可以正常运行。而如果分布式系统中，任何一个服务器失效，都会造成整个系统的失效。因此，分布式系统是所有服务器共同构成一个聊天系统，给客户端提供服务。因此也把每个服务器称为分布式节点。</p>
+<p>解决了问题2，因为分模块部署，如果只修改了某一模块的代码，只需要部分编译，只需要对某一节点进行单独的部署。</p>
+<p>解决了问题3，比如节点3后台管理模块包含CPU密集型业务，则其对应的机器可以针对性增加CPU性能，相对地减少内存资源、网络带宽资源。相反的，节点1的用户管理、消息管理模块对应的机器增加内存资源、网络带宽资源，而不需要过高的CPU性能。如此，可以有利于硬件资源的合理分配。</p>
+
+        <h1 id="分布式集群服务器"   >
+          <a href="#分布式集群服务器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式集群服务器"></a> 分布式+集群服务器</h1>
+      
+<p>根据节点的并发要求，可以针对某一节点再做节点模块集群部署。</p>
+<p>分布式节点1主要负责用户连接、信息传递的处理，对并发量要求大，所以此时我们需要针对此节点进行扩容，即增加服务器同样部署用户管理、消息管理模块。</p>
+<p>而且，也可以灵活的调整不同节点的职责，比如，可以同样在节点2上部署用户管理模块，当节点1失效时，可以启用节点2的用户管理模块。</p>
+
+        <h2 id="带来的挑战"   >
+          <a href="#带来的挑战" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#带来的挑战"></a> 带来的挑战</h2>
+      
+<ol>
+<li>软件设计：需要设计整个系统的软件模块划分，否则各模块可能会实现大量重复的代码</li>
+<li>框架设计：各模块之间如何访问、通信？各模块都运行在不同的进程里，比如好友管理模块、群组管理模块。需要一个机制使函数调用透明化。</li>
+</ol>
+
+        <h2 id="分布式系统框架解决的问题"   >
+          <a href="#分布式系统框架解决的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式系统框架解决的问题"></a> 分布式系统框架解决的问题</h2>
+      
+<p>比如，节点1负责完用户的登录后，需要获取好友列表，则需要一个机制访问节点2上的好友管理模块。节点1上的模块怎么调用机器2上的模块的一个业务方法？机器1上的一个模块进程1怎么调用机器1上的模块进程2里面的一个业务方法？</p>
+<p>需要在网络上传递函数的标识，函数复杂的参数的数据给其他机器。其他机器执行完毕后，返回数据的过程也是需要在网络上传递给调用方机器。</p>
+<p>这个过程很复杂，因为有可能每个传递过程都会存在网络异常问题，需要有机制去告诉调用方传输状态。所以，需要把整个过程封装到分布式网络通信框架之中。则在用户看来，调用远端的方法就和调用本地进程内的方法一样简单，不用关注具体细节。</p>
+<p>总的来说，分布式是为了克服部署解耦化、资源分配最大化而生。而实现分布式框架需要封装网络通信的具体细节，尤其是，一，传递函数的标识，函数复杂的参数的数据给其他机器，二，需要有机制去告诉调用方每一个传递过程中的传输状态。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/56/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><span class="page-number current">57</span><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/141/">141</a><a class="extend next" rel="next" href="/page/58/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

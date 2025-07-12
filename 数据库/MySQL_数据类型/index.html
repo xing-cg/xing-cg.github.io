@@ -1,0 +1,607 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         数值类型 字符串类型 日期和时间类型 enum和set                       分层模型        业务层是工作在内存上的，速度很快。 而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。 所以我们定义数据表时，每一个字段的数据类型都要好好去斟酌。 MySQL server虽然工作在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL_数据类型">
+<meta property="og:url" content="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         数值类型 字符串类型 日期和时间类型 enum和set                       分层模型        业务层是工作在内存上的，速度很快。 而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。 所以我们定义数据表时，每一个字段的数据类型都要好好去斟酌。 MySQL server虽然工作在">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.838Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>MySQL_数据类型 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">MySQL_数据类型</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-flag-title="MySQL_数据类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>数值类型</li>
+<li>字符串类型</li>
+<li>日期和时间类型</li>
+<li>enum和set</li>
+</ol>
+
+        <h1 id="分层模型"   >
+          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
+      
+<p>业务层是工作在内存上的，速度很快。</p>
+<p>而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。</p>
+<p>所以我们定义数据表时，每一个字段的数据类型都要好好去斟酌。</p>
+<p>MySQL server虽然工作在内存上，但是它要读取数据、索引时，就要进行磁盘IO。磁盘IO次数越少，则性能越高，所以我们要尽力减少磁盘IO次数。</p>
+<p>MySQL数据类型定义了数据的大小范围，因此使用时选择合适的类型，不仅会降低表占用的磁盘空间，还能间接减少磁盘IO的次数，提高了表的访问效率；不仅如此，索引的效率也和数据类型息息相关。</p>
+
+        <h1 id="数值类型"   >
+          <a href="#数值类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数值类型"></a> 数值类型</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>整数类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TINYINT</code></td>
+<td>1</td>
+<td>有符号<code>-128</code>；无符号0</td>
+<td>有符号127；无符号255</td>
+</tr>
+<tr>
+<td><code>SMALLINT</code></td>
+<td>2</td>
+<td>有符号<code>-32768</code>；无符号0</td>
+<td>有符号32767；无符号65535</td>
+</tr>
+<tr>
+<td><code>MEDIUMINT</code></td>
+<td>3</td>
+<td>有符号<code>-8388608</code>；无符号0</td>
+<td>有符号8388607；无符号1677215</td>
+</tr>
+<tr>
+<td><code>INT</code>、<code>INTEGER</code></td>
+<td>4</td>
+<td>有符号<code>-2147483648</code>；无符号0</td>
+<td>有符号2147483647；无符号4294967295</td>
+</tr>
+<tr>
+<td><code>BIGINT</code></td>
+<td>8</td>
+<td>有符号<code>-9223372036854775808</code>；无符号0</td>
+<td>有符号9223372036854775807；无符号18446744073709551615</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>浮点数类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FLOAT</code></td>
+<td>4</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1.175494351</mn><mi>E</mi><mo>−</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 1.175494351E-38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">1</span><span class="mord">7</span><span class="mord">5</span><span class="mord">4</span><span class="mord">9</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>3.402823466</mn><mi>E</mi><mo>+</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 3.402823466E+38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">3</span><span class="mord">.</span><span class="mord">4</span><span class="mord">0</span><span class="mord">2</span><span class="mord">8</span><span class="mord">2</span><span class="mord">3</span><span class="mord">4</span><span class="mord">6</span><span class="mord">6</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
+</tr>
+<tr>
+<td><code>DOUBLE</code></td>
+<td>8</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>2.2250738585072014</mn><mi>E</mi><mo>−</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 2.2250738585072014E-308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">2</span><span class="mord">.</span><span class="mord">2</span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">3</span><span class="mord">8</span><span class="mord">5</span><span class="mord">8</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">2</span><span class="mord">0</span><span class="mord">1</span><span class="mord">4</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1.7976931348623517</mn><mi>E</mi><mo>+</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 1.7976931348623517E+308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">7</span><span class="mord">9</span><span class="mord">7</span><span class="mord">6</span><span class="mord">9</span><span class="mord">3</span><span class="mord">1</span><span class="mord">3</span><span class="mord">4</span><span class="mord">8</span><span class="mord">6</span><span class="mord">2</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
+</tr>
+</tbody>
+</table></div>
+<p>其中浮点类型推荐使用<code>decimal</code>类型（保存为字符串格式）。</p>
+<ul>
+<li>注意
+<ul>
+<li><code>age INT(9)</code>这不是意味着定义了一个长度为9字节的整型。对于占用内存的大小是固定的、和具体的类型是强相关的来说，括号内的数目只是代表整数显示的宽度。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table user(age TINYINT unsigned NOT NULL default 0)</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="字符串类型"   >
+          <a href="#字符串类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符串类型"></a> 字符串类型</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字符串类型</th>
+<th>字节</th>
+<th>描述及存储需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CHAR(M)</code></td>
+<td>M</td>
+<td>M为<code>0~255</code>之间的整数</td>
+</tr>
+<tr>
+<td><code>VARCHAR(M)</code></td>
+<td></td>
+<td>M为<code>0~65535</code>之间的整数，值的长度+1个字节</td>
+</tr>
+<tr>
+<td><code>TINYBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~255</code>字节，值的长度+1字节</td>
+</tr>
+<tr>
+<td><code>BLOB</code></td>
+<td></td>
+<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
+</tr>
+<tr>
+<td><code>MEDIUMBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
+</tr>
+<tr>
+<td><code>LONGBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
+</tr>
+<tr>
+<td><code>TINYTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~255</code>字节，值的长度+2字节</td>
+</tr>
+<tr>
+<td><code>TEXT</code></td>
+<td></td>
+<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
+</tr>
+<tr>
+<td><code>MEDIUMTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
+</tr>
+<tr>
+<td><code>LONGTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
+</tr>
+<tr>
+<td><code>VARBINARY(M)</code></td>
+<td></td>
+<td>允许长度<code>0~M</code>个字节的变长字节字符串，值的长度+1字节</td>
+</tr>
+<tr>
+<td><code>BINARY(M)</code></td>
+<td>M</td>
+<td>允许长度<code>0~M</code>个字节的定长字节字符串</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>注意
+<ul>
+<li><code>CHAR(12)</code>和<code>VARCHAR(12)</code>的区别在于，如果存储的字符串长度不够12，如果是<code>VARCHAR</code>则为实际的长度，而如果是<code>CHAR</code>则依旧是12；共同点：如果数据超过12则都会产生截断。</li>
+<li>SQL注入式攻击——字符串拼接导致的问题。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="日期和时间类型"   >
+          <a href="#日期和时间类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日期和时间类型"></a> 日期和时间类型</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>日期和时间类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATE</code></td>
+<td>4</td>
+<td><code>1000-01-01</code></td>
+<td><code>9999-12-31</code></td>
+</tr>
+<tr>
+<td><code>DATETIME</code></td>
+<td>8</td>
+<td><code>1000-01-01 00:00:00</code></td>
+<td><code>9999-12-31 23:59:59</code></td>
+</tr>
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td>4</td>
+<td><code>19700101080001</code></td>
+<td>2038年的某个时刻</td>
+</tr>
+<tr>
+<td><code>TIME</code></td>
+<td>3</td>
+<td><code>-838:59:59</code></td>
+<td><code>838:59:59</code></td>
+</tr>
+<tr>
+<td><code>YEAR</code></td>
+<td>1</td>
+<td><code>1901</code></td>
+<td><code>2155</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>注意
+<ul>
+<li>日期类型是做项目过程中经常使用的类型信息，尤其是<code>TIMESTAMP</code>和<code>DATETIME</code>两个类型；</li>
+<li>注意<code>TIMESTAMP</code>会自动更新时间，非常适合需要记录最新更新时间的场景，对应的函数是<code>unix_timestamp(now())</code>；而<code>DATETIME</code>需要手动更新。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="示例-2"   >
+          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select now();					# 2022-04-28 19:30:11</span><br><span class="line">select unix_timestamp(now());	# 1617683855</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="枚举和集合"   >
+          <a href="#枚举和集合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#枚举和集合"></a> 枚举和集合</h1>
+      
+<ul>
+<li>这两种类型都是限制该字段只能取固定的某些值。比如性别——只能男或女。</li>
+<li>枚举字段只能取一个唯一的值。</li>
+<li>集合字段可以取任意个值。</li>
+</ul>
+
+        <h2 id="示例-3"   >
+          <a href="#示例-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sex enum(&#x27;M&#x27;,&#x27;W&#x27;) default &#x27;M&#x27;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">MySQL_完整性约束</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%BF%90%E7%AE%97%E7%AC%A6/"><span class="paginator-prev__text">MySQL_运算符</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">
+           分层模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           数值类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.1.</span> <span class="toc-text">
+           示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">
+           字符串类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">
+           日期和时间类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="toc-number">5.1.</span> <span class="toc-text">
+           示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%92%8C%E9%9B%86%E5%90%88"><span class="toc-number">6.</span> <span class="toc-text">
+           枚举和集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-3"><span class="toc-number">6.1.</span> <span class="toc-text">
+           示例</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

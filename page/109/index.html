@@ -1,0 +1,598 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/109/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/109/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">归并排序</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" data-flag-title="归并排序"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>默认划分法</li>
+</ol>
+
+        <h1 id="代码逻辑"   >
+          <a href="#代码逻辑" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码逻辑"></a> 代码逻辑</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span>* dest, <span class="type">int</span>* src, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>src表示源数据，dest表示目标空间。left表示源数据的最左位置，mid表示源数据的中间位置，right表示源数据的最右位置。其中，left到mid数据要满足有序，mid到right要满足同向有序。</p>
+<p>此函数欲将src中的数据归并到dest中，使整体有序。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Copy</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* dest, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        dest[left] = src[left];</span><br><span class="line">        ++left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* tmp, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = left, j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> k = left;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid &amp;&amp; j&lt;=right)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[i] &lt;= src[j] ? src[i++] : src[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=right)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergePass</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* tmp, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &lt; right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (right+left)/<span class="number">2</span>;</span><br><span class="line">        <span class="built_in">MergePass</span>(src,tmp,left,mid);	<span class="comment">//左部分</span></span><br><span class="line">        <span class="built_in">MergePass</span>(src,tmp,mid<span class="number">+1</span>,right);	<span class="comment">//右部分</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">Merge</span>(src,tmp,left,mid,right);	<span class="comment">//左右两部分比对合并，tmp临时存储</span></span><br><span class="line">        <span class="built_in">Copy</span>(tmp,src,left,right);<span class="comment">//将tmp内容导到src，便于下次两部分均有序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergeSort</span><span class="params">(<span class="type">int</span>* br, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(br == <span class="literal">NULL</span> || n &lt;= <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span>* tmp = <span class="keyword">new</span> <span class="type">int</span>[n];</span><br><span class="line">    <span class="built_in">MergePass</span>(br, tmp, <span class="number">0</span>, n<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">delete</span>[]tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="非递归形式"   >
+          <a href="#非递归形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非递归形式"></a> 非递归形式</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">假设对0 1 2 3 4 5 6 7 8排序</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 0, 1)  --s=1</span></span><br><span class="line"><span class="comment">				 2	2  3</span></span><br><span class="line"><span class="comment">				 4  4  5</span></span><br><span class="line"><span class="comment">				 6  6  7</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 1, 3)  --s=2</span></span><br><span class="line"><span class="comment">				 4, 5, 7</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 3, 7)  --s=4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span> * src, <span class="type">int</span> * dest, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span>;</span><br><span class="line"><span class="comment">// s代表当前一轮归并的元素数（一半规模）</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergePass</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* dest, <span class="type">int</span> n, <span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// for的条件判断是看 剩下的元素数还够不够凑一个2 * s（s是要归并的半块）</span></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i + <span class="number">2</span> * s - <span class="number">1</span> &lt;= n - <span class="number">1</span>; i += <span class="number">2</span> * s)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Merge</span>(src, dest, i, i + s - <span class="number">1</span>, i + <span class="number">2</span> * s - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n - <span class="number">1</span> &gt; i + s - <span class="number">1</span>)<span class="comment">//对于[0 1]-[2 3] [4 5]-[6 7] [8 9]-[10]而言(11-1&gt;8+2-1)，即[8 9][10]还需要再合并：即此处处理的是剩下的两块，右部分的一块不整齐（10）</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Merge</span>(src, dest, i, i + s - <span class="number">1</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//[0 1 2 3]-[4 5 6 7] [8 9 10]而言(不满足if的11-1&gt;10+1-1)，也就是说，8 9 10落单了，没有下一组与它们合并，则原样复制</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = i; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            dest[j] = src[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergeSort</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar == <span class="literal">NULL</span> || n &lt;= <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> * tmp = <span class="keyword">new</span>[n];</span><br><span class="line">    <span class="comment">// s代表当前一轮归并的元素数（一半规模）</span></span><br><span class="line">    <span class="type">int</span> s = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(s &lt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">MergePass</span>(ar, tmp, n, s);</span><br><span class="line">        s += s;</span><br><span class="line">        <span class="built_in">MergePass</span>(tmp, ar, n, s);</span><br><span class="line">        s += s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[]tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="适用思想的题"   >
+          <a href="#适用思想的题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适用思想的题"></a> 适用思想的题</h1>
+      
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_Shell%E7%BC%96%E7%A8%8B/">Linux_Shell编程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_Shell%E7%BC%96%E7%A8%8B/" data-flag-title="Linux_Shell编程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>编译型语言</li>
+<li>解释器</li>
+<li>变量：本地变量、环境变量、参数变量</li>
+<li>条件：字符串判断、算术、文件测试</li>
+<li>控制结构：循环、case</li>
+<li>函数</li>
+<li>脚本调用脚本，c语言调用脚本</li>
+<li>awk，sed</li>
+</ol>
+
+        <h1 id="字符串处理"   >
+          <a href="#字符串处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符串处理"></a> 字符串处理</h1>
+      
+<ol>
+<li>
+<p>注意双引号、单引号的功能，双引号引起主要是为了消除空格的影响，保留转义效果；而单引号是把所引的内容<strong>原封不动地</strong>保留。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;xcg&quot;</span></span><br><span class="line">str=<span class="string">&quot;<span class="variable">$a</span>&quot;</span>	<span class="comment">#把a的值赋给了str</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$str</span>&quot;</span> <span class="comment">#输出:xcg</span></span><br><span class="line"></span><br><span class="line">str=<span class="string">&#x27;$a&#x27;</span>	<span class="comment">#把&quot;$a&quot;赋给了str</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$str</span>&quot;</span>	<span class="comment">#输出:$a</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>如果想把某一个命令的运行结果作为字符串返回给str，则有两种方式。</p>
+<ol>
+<li>
+<p>$( )</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str=$(<span class="built_in">ls</span>)	<span class="comment">#把当前目录的文件信息字符串赋给str</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>反引号</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str=`<span class="built_in">ls</span>`	<span class="comment">##把当前目录的文件信息字符串赋给str</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="循环"   >
+          <a href="#循环" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#循环"></a> 循环</h1>
+      
+
+        <h2 id="要注意的是对计数变量的处理"   >
+          <a href="#要注意的是对计数变量的处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#要注意的是对计数变量的处理"></a> 要注意的是对计数变量的处理</h2>
+      
+<p>有2种方式：</p>
+<ol>
+<li>
+<p>let</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line"><span class="built_in">let</span> <span class="string">&quot;i+=1&quot;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>(( ))，双括号中是想要执行的命令/表达式，可以用$取表达式的值。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">a=$((i++))</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>反引号`expr …`</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">a=`<span class="built_in">expr</span> <span class="variable">$i</span> \* 2`	<span class="comment">#*在脚本中有其他意义，需要加\转义为&#x27;*&#x27;，在此表示乘号</span></span><br><span class="line">i=`<span class="built_in">expr</span> <span class="variable">$i</span> + 1`		<span class="comment">#此方式i自增的方法</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h2 id="for"   >
+          <a href="#for" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#for"></a> for</h2>
+      
+<p>for循环的次数由in后面值的数目决定</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 1 2 3</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> i=<span class="variable">$i</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> $(<span class="built_in">ls</span>)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;filename: <span class="variable">$name</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="while"   >
+          <a href="#while" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#while"></a> while</h2>
+      
+<p>判断条件，满足则循环执行。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#死循环示例</span></span><br><span class="line"><span class="keyword">while</span> [ 1 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;run&quot;</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#死循环输出输入的内容，直到输入end</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;input&quot;</span></span><br><span class="line">	<span class="built_in">read</span> line</span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$line</span>&quot;</span> = end ]</span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		<span class="built_in">break</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;line=<span class="variable">$line</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#输出0-9</span></span><br><span class="line"><span class="keyword">while</span> [ <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -lt 10 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;i=<span class="variable">$i</span>&quot;</span></span><br><span class="line">	<span class="comment">#let &quot;i+=1&quot;</span></span><br><span class="line">	<span class="comment">#((++i))</span></span><br><span class="line">	i=`<span class="built_in">expr</span> <span class="variable">$i</span> + 1`</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="until"   >
+          <a href="#until" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#until"></a> until</h2>
+      
+<p>条件没满足时，循环执行；一旦条件满足则退出。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#本地找file.txt文件，隔一秒找一遍，直到找到，退出。</span></span><br><span class="line"><span class="keyword">until</span> [ -f file.txt ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;not find file.txt&quot;</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;find file.txt&quot;</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="read"   >
+          <a href="#read" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#read"></a> read</h1>
+      
+<p>read命令 -n(不换行) -p(提示语句) -n(字符个数)-t(等待时间) -s(不回显)</p>
+
+        <h1 id="case"   >
+          <a href="#case" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#case"></a> case</h1>
+      
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;input:&quot;</span></span><br><span class="line">    <span class="built_in">read</span> line</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">yes</span> | Y) 	<span class="built_in">echo</span> <span class="string">&quot;this is yes&quot;</span>;;</span><br><span class="line">        no	| N)	<span class="built_in">echo</span> <span class="string">&quot;this is no&quot;</span>;;</span><br><span class="line">        end)		<span class="built_in">break</span>;;</span><br><span class="line">        *)			<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#可以搭配正则表达式使用。</span></span><br><span class="line"><span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    [Yy][Ee][Ss] | [Yy])<span class="built_in">echo</span> <span class="string">&quot;this is yes&quot;</span>;;</span><br><span class="line">    [Nn][Oo] | [Nn])	<span class="built_in">echo</span> <span class="string">&quot;this is no&quot;</span>;;</span><br><span class="line">    end)				<span class="built_in">break</span>;;</span><br><span class="line">    *)					<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="正则表达式"   >
+          <a href="#正则表达式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#正则表达式"></a> 正则表达式</h2>
+      
+<p>上面case的示例中</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[][][]代表三个字符。</span><br><span class="line">[]代表一个字符。</span><br><span class="line">[]里可以填正则表达式。</span><br><span class="line">1.[a-z]表示一个小写的a到z均可</span><br><span class="line">2.[abcde]表示一个字符的可取范围</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="函数"   >
+          <a href="#函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数"></a> 函数</h1>
+      
+<p>三个问题：1、如何传参的问题；2、函数返回值如何获得；3、如何看待函数内定义的变量</p>
+
+        <h2 id="特点"   >
+          <a href="#特点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特点"></a> 特点</h2>
+      
+<ol>
+<li>shell脚本中的函数没有声明，需要直接定义在最前面。</li>
+<li>调用函数不用加圆括号，而是只有函数名</li>
+</ol>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fun</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun run&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">fun</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="参数"   >
+          <a href="#参数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参数"></a> 参数</h2>
+      
+<p>注意**$#/$1/$2**在函数中、函数外的区别：在函数中代表函数的参数；而在函数外代表此shell脚本的参数。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fun</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun run&quot;</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$#=<span class="variable">$#</span>&quot;</span>	<span class="comment"># &quot;$#&quot;代表参数个数</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$1=<span class="variable">$1</span>&quot;</span>	<span class="comment"># &quot;$1&quot;表示该函数的第一个参数</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$2=<span class="variable">$2</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">fun hello 123</span><br><span class="line"><span class="comment">#此处就要注意与上面函数中$#/$1/$2的区别了，在函数中代表函数的参数；而在函数外代表此shell脚本的参数。</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$#=<span class="variable">$#</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$1=<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$2=<span class="variable">$2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在外部执行脚本时：</span></span><br><span class="line"><span class="comment"># ./my.sh xcg test</span></span><br><span class="line">	<span class="comment"># 输出:</span></span><br><span class="line">        <span class="comment"># fun: $#=2</span></span><br><span class="line">        <span class="comment"># fun: $1=hello</span></span><br><span class="line">        <span class="comment"># fun: $2=123</span></span><br><span class="line">        <span class="comment"># my.sh: $#=2</span></span><br><span class="line">        <span class="comment"># my.sh: $1=xcg</span></span><br><span class="line">        <span class="comment"># my.sh: $2=test</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="返回值"   >
+          <a href="#返回值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#返回值"></a> 返回值</h2>
+      
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_add</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$#</span>&quot;</span> -ne 2 ]	<span class="comment"># -ne : not equal</span></span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		<span class="built_in">echo</span> <span class="string">&quot;参数有误&quot;</span></span><br><span class="line">		<span class="built_in">return</span> 0</span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	res=`<span class="built_in">expr</span> <span class="variable">$1</span> + <span class="variable">$2</span>`</span><br><span class="line">	<span class="built_in">return</span> <span class="variable">$res</span></span><br><span class="line">&#125;</span><br><span class="line">res=my_add</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$res</span>&quot;</span></span><br><span class="line"><span class="comment"># 或者写为</span></span><br><span class="line">	<span class="comment"># my_add</span></span><br><span class="line">	<span class="comment"># echo &quot;$?&quot;</span></span><br><span class="line">		<span class="comment"># &quot;$?&quot;代表上一行语句执行的结果(返回值)。</span></span><br><span class="line"><span class="comment"># 如果想保存返回值，可以：</span></span><br><span class="line">	<span class="comment"># my_add 123 234</span></span><br><span class="line">	<span class="comment"># result=$?</span></span><br><span class="line">		<span class="comment"># 如果连续写两行&quot;$?&quot;，则第二行的结果是0，因为&quot;$?&quot;的执行结果是0，代表执行成功。</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="变量生存期问题"   >
+          <a href="#变量生存期问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#变量生存期问题"></a> 变量生存期问题</h2>
+      
+<p>函数中的变量可能污染到函数外</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=hello</span></span><br><span class="line"><span class="comment"># 由此可见，函数中的变量污染到了函数外。</span></span><br></pre></td></tr></table></div></figure>
+<p>此问题的原因：<br />
+脚本程序的概念并不存在作用域的概念。所以，函数中定义、赋值str语句<strong>执行</strong>后，不管是函数中，还是bash解释器，也就都存在str这个变量。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">test2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;test2:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">test2</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=hello</span></span><br><span class="line">	<span class="comment"># test2:str=hello</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">test2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;test2:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">test2</span><br><span class="line">my_test</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># str=</span></span><br><span class="line">	<span class="comment"># test2:str=</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line"><span class="comment"># 在执行my_test前，还没有str变量给出，所以，test2和函数外的str都打印为空</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="解决变量污染的方法"   >
+          <a href="#解决变量污染的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#解决变量污染的方法"></a> 解决变量污染的方法</h3>
+      
+<blockquote>
+<p>1、可以通过unset在用完变量后，销毁之。</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>2、可以在变量名前加local</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">local</span> str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=abcdef</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>注意事项：unset对于local变量，只会局部地销毁这个变量，不影响全局的同名变量。</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#################### 程序1</span></span><br><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">local</span> str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=abcdef</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################### 程序2</span></span><br><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="脚本间的调用"   >
+          <a href="#脚本间的调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#脚本间的调用"></a> 脚本间的调用</h1>
+      
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5346</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5347</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="脚本间变量的传递问题"   >
+          <a href="#脚本间变量的传递问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#脚本间变量的传递问题"></a> 脚本间变量的传递问题</h3>
+      
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5368</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5369</span></span><br><span class="line">        <span class="comment"># d.sh mystr=</span></span><br><span class="line"><span class="comment"># 注意，此时d.sh没有打印出来b.sh中的mystr，说明两个脚本程序各自运行在不同的进程空间内，变量互不污染。</span></span><br></pre></td></tr></table></div></figure>
+<p>为了在脚本间可以传递变量，可有以下方式</p>
+<blockquote>
+<p>1、在一个sh中调用另一个sh时，后面加参数。但是只是能拿到值，变量名字不能通用，需要用“$1”来取出。</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh <span class="variable">$mystr</span>			<span class="comment">#!!! 后面加参数</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$1</span>&quot;</span>	<span class="comment">#!!! 需要用“$1”来取出</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5380</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5381</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>2、如果想要变量名字通用，可以export改变mystr为环境变量，因为环境变量可以被继承，所以让变量名字通用了。</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">export</span> mystr			<span class="comment">#export改变mystr为环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5380</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5381</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>3、通过source。source的作用是在调用另一个脚本时，不启动另外的sh，而是在自身的解释器中去运行另一个脚本的命令。相当于内联展开于此，所以原来的变量可以复用。但是问题的隐患很多，因为调用的脚本会对原来的脚本造就的环境造成影响。</p>
+</blockquote>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">. ./d.sh	<span class="comment"># 前面的“.+空格”中的“.”即代表source</span></span><br><span class="line"><span class="comment"># source ./d.sh</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果: !!!发现pid一样！</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5448</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5448</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
+<p>source的作用：有时需要对当前的bash进行环境变量的初始化，可以用source(. ./xx.sh)来在本sh直接运行提前写好的配置脚本。</p>
+
+        <h1 id="c程序和脚本间的调用"   >
+          <a href="#c程序和脚本间的调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c程序和脚本间的调用"></a> C程序和脚本间的调用</h1>
+      
+<p>脚本调用C程序显而易见。</p>
+<p>我们讨论C程序调用脚本。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh pid=$$&quot;</span></span><br><span class="line">mystr=<span class="string">&quot;hello^_^&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;main pid=%d\n&quot;</span>,getpid());</span><br><span class="line">    execl(<span class="string">&quot;./my.sh&quot;</span>,<span class="string">&quot;my.sh&quot;</span>,(<span class="type">char</span>*)<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;execl err\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果</span></span><br><span class="line">	<span class="comment">// main pid=5607</span></span><br><span class="line">	<span class="comment">// my.sh pid=5607</span></span><br><span class="line">	<span class="comment">// mystr=hello^_^</span></span><br><span class="line"><span class="comment">// 为什么pid一样呢？因为在main函数中exec了自身。</span></span><br></pre></td></tr></table></div></figure>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--my-pv2cw5p35b8v2cg5x053a5f2a.sh" >表面上启动的是my.sh</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，实际上启动的是/usr/bin/bash。</p>
+
+        <h1 id="练习"   >
+          <a href="#练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习"></a> 练习</h1>
+      
+<ul>
+<li>从键盘读取一个成绩，0~100之外的不可以。把整数值转为等级A、B、C、D。</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>成绩</th>
+<th>等级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;= 90</td>
+<td>A</td>
+</tr>
+<tr>
+<td>&gt;= 80</td>
+<td>B</td>
+</tr>
+<tr>
+<td>&gt;= 70</td>
+<td>C</td>
+</tr>
+<tr>
+<td>&gt;= 60</td>
+<td>D</td>
+</tr>
+<tr>
+<td>&lt; 60</td>
+<td>E</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> [ 1 ]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">&#x27;please input your score:&#x27;</span></span><br><span class="line">  <span class="built_in">read</span> score</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$score</span> -ge 0 ] &amp;&amp; [ <span class="variable">$score</span> -le 100 ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    grade=$((<span class="variable">$score</span>/<span class="number">10</span>))</span><br><span class="line">    <span class="comment">#echo $grade</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&#x27;your grade is:&#x27;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$grade</span> <span class="keyword">in</span></span><br><span class="line">      9 | 10 ) <span class="built_in">echo</span> <span class="string">&quot;A&quot;</span>;;</span><br><span class="line">      8 ) <span class="built_in">echo</span> <span class="string">&quot;B&quot;</span>;;</span><br><span class="line">      7 ) <span class="built_in">echo</span> <span class="string">&quot;C&quot;</span>;;</span><br><span class="line">      6 ) <span class="built_in">echo</span> <span class="string">&quot;D&quot;</span>;;</span><br><span class="line">      * ) <span class="built_in">echo</span> <span class="string">&quot;E&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;error in your input!&quot;</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></div></figure>
+<p>测试结果：</p>
+<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20220215130731237.png" alt="image-20220215130731237" /></p>
+<ul>
+<li>第一题的优化</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&#x27;输入你的成绩：&#x27;</span></span><br><span class="line"><span class="built_in">read</span> score</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">    [0-9] | [1-9][0-9] | 100)</span><br><span class="line">        grade=$((<span class="variable">$score</span>/<span class="number">10</span>))</span><br><span class="line">        <span class="comment">#echo $grade</span></span><br><span class="line">        <span class="built_in">printf</span> <span class="string">&quot;你的成绩是<span class="variable">$score</span>，等级：&quot;</span></span><br><span class="line">        <span class="keyword">case</span> <span class="variable">$grade</span> <span class="keyword">in</span></span><br><span class="line">            9 | 10 ) <span class="built_in">echo</span> <span class="string">&quot;优&quot;</span>;;</span><br><span class="line">            8 ) <span class="built_in">echo</span> <span class="string">&quot;良&quot;</span>;;</span><br><span class="line">            7 ) <span class="built_in">echo</span> <span class="string">&quot;中&quot;</span>;;</span><br><span class="line">            6 ) <span class="built_in">echo</span> <span class="string">&quot;及格&quot;</span>;;</span><br><span class="line">            * ) <span class="built_in">echo</span> <span class="string">&quot;不及格&quot;</span>;;</span><br><span class="line">        <span class="keyword">esac</span>;;</span><br><span class="line">    *) <span class="built_in">echo</span> <span class="string">&quot;error in your input!&quot;</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>循环接收用户输入的学生成绩（百分制），若成绩小于60，输出“不及格”；若成绩大于等于60，输出“及格”，按Q(q)键退出。</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">&quot;输入成绩：&quot;</span> score</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">        [Qq]) <span class="built_in">exit</span>;;</span><br><span class="line">        [0-9] | [1-5][0-9]) <span class="built_in">echo</span> <span class="string">&quot;不及格&quot;</span>;;</span><br><span class="line">        100 | [6-9][0-9])   <span class="built_in">echo</span> <span class="string">&quot;及格&quot;</span>;;</span><br><span class="line">        *)  <span class="built_in">echo</span> <span class="string">&quot;不合法，请输入0~100&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>循环接收某门课程的成绩，计算用户已输入的最高分、最低分、平均分，按P(p)键输出计算结果，按Q(q)键退出。</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">min=100</span><br><span class="line">max=0</span><br><span class="line"><span class="built_in">sum</span>=0</span><br><span class="line">count=0</span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">&quot;输入分数：&quot;</span> score</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">        [0-9] | [1-9][0-9] | 100)</span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$score</span> 已录入&quot;</span></span><br><span class="line">            <span class="built_in">sum</span>=$((<span class="variable">$sum</span>+<span class="variable">$score</span>))</span><br><span class="line">            count=$((<span class="variable">$count</span>+<span class="number">1</span>))</span><br><span class="line">            <span class="keyword">if</span> [ <span class="variable">$score</span> -gt <span class="variable">$max</span> ]</span><br><span class="line">            <span class="keyword">then</span> max=<span class="variable">$score</span></span><br><span class="line">            <span class="keyword">fi</span></span><br><span class="line">            <span class="keyword">if</span> [ <span class="variable">$score</span> -lt <span class="variable">$min</span> ]</span><br><span class="line">            <span class="keyword">then</span> min=<span class="variable">$score</span></span><br><span class="line">            <span class="keyword">fi</span>;;</span><br><span class="line">        [Pp])</span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;max = <span class="variable">$max</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;min = <span class="variable">$min</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;avg = <span class="subst">$(($sum/$count)</span>)&quot;</span></span><br><span class="line">            <span class="built_in">continue</span>;;</span><br><span class="line">        [Qq])   <span class="built_in">exit</span>;;</span><br><span class="line">        *)      <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$score</span> 不合法，请重新输入。&quot;</span></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="注意"   >
+          <a href="#注意" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#注意"></a> 注意</h1>
+      
+<p>例：输入一个正整数，判断其是否为质数。正确的程序如下：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入一个正整数：&quot;</span> number</span><br><span class="line">[ <span class="variable">$number</span> -eq 1 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span> 不是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">seq</span> 2 $((<span class="variable">$number</span>-<span class="number">1</span>))`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    [ $[<span class="variable">$number</span> % <span class="variable">$i</span>] -eq 0 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>不是质数&quot;</span> $$ <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 正确的测试结果：</span></span><br><span class="line"><span class="comment"># 	输入 1</span></span><br><span class="line"><span class="comment"># 	输出 1不是质数</span></span><br><span class="line"><span class="comment"># 正确的测试结果：</span></span><br><span class="line"><span class="comment"># 	输入 7</span></span><br><span class="line"><span class="comment"># 	输出 7是质数</span></span><br></pre></td></tr></table></div></figure>
+<p>其中，判断语句如[ $number -eq 1 ]必须在首尾中括号之间有空格，不然找不到命令。如下是错误的。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入一个正整数：&quot;</span> number</span><br><span class="line">[<span class="variable">$number</span> -eq 1] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span> 不是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span>	<span class="comment">#错误</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">seq</span> 2 $((<span class="variable">$number</span>-<span class="number">1</span>))`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    [$[<span class="variable">$number</span> % <span class="variable">$i</span>] -eq 0] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>不是质数&quot;</span> $$ <span class="built_in">exit</span> <span class="comment">#错误</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 测试：</span></span><br><span class="line"><span class="comment"># 	输入 1</span></span><br><span class="line"><span class="comment"># 	输出 ./zhishu.sh: line 4: [1: command not found</span></span><br><span class="line"><span class="comment"># 		 1是质数</span></span><br><span class="line"><span class="comment"># 测试：</span></span><br><span class="line"><span class="comment"># 	输入 7</span></span><br><span class="line"><span class="comment"># 	输出 ./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [3: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [2: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		7是质数</span></span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/108/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><span class="page-number current">109</span><a class="page-number" href="/page/110/">110</a><span class="space">&hellip;</span><a class="page-number" href="/page/141/">141</a><a class="extend next" rel="next" href="/page/110/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

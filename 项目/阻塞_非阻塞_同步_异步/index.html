@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         阻塞 非阻塞 同步 异步  首先应该阐明的是：阻塞、非阻塞、同步、异步描述的都是IO的状态。然后从IO的两个阶段谈。  五种IO模型                       典型IO的两个阶段        数据准备 - 数据读写                      例子        recv，传sockfd、buf、le">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阻塞_非阻塞_同步_异步">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         阻塞 非阻塞 同步 异步  首先应该阐明的是：阻塞、非阻塞、同步、异步描述的都是IO的状态。然后从IO的两个阶段谈。  五种IO模型                       典型IO的两个阶段        数据准备 - 数据读写                      例子        recv，传sockfd、buf、le">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194427303.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194949186.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522200137240.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522201543844.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522202459276.png">
+<meta property="article:published_time" content="2022-05-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.876Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194427303.png"><title>阻塞_非阻塞_同步_异步 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">阻塞_非阻塞_同步_异步</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/" data-flag-title="阻塞_非阻塞_同步_异步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>阻塞</li>
+<li>非阻塞</li>
+<li>同步</li>
+<li>异步</li>
+</ol>
+<p>首先应该阐明的是：阻塞、非阻塞、同步、异步描述的都是IO的状态。然后从IO的两个阶段谈。</p>
+<ol start="5">
+<li>五种IO模型</li>
+</ol>
+
+        <h1 id="典型io的两个阶段"   >
+          <a href="#典型io的两个阶段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#典型io的两个阶段"></a> 典型IO的两个阶段</h1>
+      
+<p>数据准备 - 数据读写</p>
+
+        <h2 id="例子"   >
+          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+      
+<p>recv，传sockfd、buf、len。数据准备即观察接收缓冲区是否有数据可读。</p>
+<ul>
+<li>数据未就绪 - 阻塞、非阻塞</li>
+</ul>
+<p>当sockfd工作在阻塞模式下，调用recv，如果没有数据就绪，则会阻塞；若sockfd工作在非阻塞模式下，如果没有数据就绪，则立即返回。</p>
+<p>如何判断返回的原因？看返回值。以判断是否正常返回。</p>
+<ul>
+<li>数据就绪 - 同步、异步</li>
+</ul>
+<p>应用程序讲内核缓冲区中准备好的数据拷贝到用户空间中的buf缓存区。这个拷贝的过程是需要等待的，等待拷贝完毕应用程序才可以继续向下执行。</p>
+<p>异步和同步的方式不一样，需要调用linux提供的异步io接口，<code>aio_read</code>、<code>aio_write</code>。需要传递<code>sockfd</code>、<code>buf</code>、<code>sigio信号(通知方式)</code>。之后应用程序则立即往后执行其他业务，直到被通知buf的数据已经准备好了，则调用实现绑定的回调函数进行处理。</p>
+
+        <h1 id="同步异步"   >
+          <a href="#同步异步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步异步"></a> 同步/异步</h1>
+      
+<p>在两个方面都涉及同步/异步。一个方面是<strong>IO同步/异步</strong>，属于上面谈到的。</p>
+<p>另一个方面是<strong>业务层面的同步/异步</strong>。</p>
+<p>两个方面，角度不同，但思路是一样的，同步是需要自己操心；异步是约定好处理方式，先去忙别的。</p>
+<p><strong>同步</strong>表示A（应用程序）向B（操作系统）请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），数据的读写都是由请求方A自己来完成的（不管是阻塞还是非阻塞（非阻塞的同步类似于忙等待））；<strong>异步</strong>表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），向B传入请求的事件以及事件发生时通知的方式，A就可以处理其它逻辑了，当B监听到事件处理完成后，会用事先约定好的通知方式，通知A处理结果。</p>
+
+        <h1 id="五种io模型"   >
+          <a href="#五种io模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#五种io模型"></a> 五种IO模型</h1>
+      
+<p>这里谈的IO是指网络IO。</p>
+
+        <h2 id="同步阻塞io"   >
+          <a href="#同步阻塞io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步阻塞io"></a> 同步阻塞IO</h2>
+      
+<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194427303.png" alt="image-20220522194427303" /></p>
+<p>阻塞指上半段等待准备好数据；同步指需要花费用户应用程序的时间去拷贝数据、处理数据。</p>
+
+        <h2 id="同步非阻塞io"   >
+          <a href="#同步非阻塞io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步非阻塞io"></a> 同步非阻塞IO</h2>
+      
+<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194949186.png" alt="image-20220522194949186" /></p>
+<p>非阻塞指上半段不管数据是否准备好，立即返回；同步指需要花费用户应用程序的时间去拷贝数据、处理数据。</p>
+
+        <h2 id="io复用"   >
+          <a href="#io复用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#io复用"></a> IO复用</h2>
+      
+<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522200137240.png" alt="image-20220522200137240" /></p>
+<p>三种接口都是同步阻塞IO。与上面的区别是，一个线程可以管理多个socket。</p>
+
+        <h2 id="信号驱动"   >
+          <a href="#信号驱动" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信号驱动"></a> 信号驱动</h2>
+      
+<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522201543844.png" alt="image-20220522201543844" /></p>
+<p>等待数据是异步的过程。在数据就绪前，用户应用程序执行其他逻辑；但是数据准备好后，还是得需要用户应用程序自己处理。仍是同步过程。</p>
+<p>优点是提供了消息通知机制，减少了系统调用的次数（相比于同步非阻塞的反复调用EAGAIN）</p>
+
+        <h2 id="异步io"   >
+          <a href="#异步io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步io"></a> 异步IO</h2>
+      
+<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522202459276.png" alt="image-20220522202459276" /></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">aiocb</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> 			aio_fildes;</span><br><span class="line">    <span class="type">off_t</span> 			aio_offset;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">void</span> *	aio_buf;</span><br><span class="line">    <span class="type">size_t</span> 			aio_nbytes;</span><br><span class="line">    <span class="type">int</span> 			aio_reqprio;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> 			<span class="title">sigevent</span> <span class="title">aio_sigevent</span>;</span></span><br><span class="line">    <span class="type">int</span>				aio_lio_opcode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/">https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Linux/Linux_IO%E5%A4%8D%E7%94%A8_epoll/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Linux_IO复用_epoll</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_BST/"><span class="paginator-prev__text">高级数据结构_BST</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B8%E5%9E%8Bio%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-number">2.</span> <span class="toc-text">
+           典型IO的两个阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">2.1.</span> <span class="toc-text">
+           例子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5"><span class="toc-number">3.</span> <span class="toc-text">
+           同步&#x2F;异步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E7%A7%8Dio%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">
+           五种IO模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%98%BB%E5%A1%9Eio"><span class="toc-number">4.1.</span> <span class="toc-text">
+           同步阻塞IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%9D%9E%E9%98%BB%E5%A1%9Eio"><span class="toc-number">4.2.</span> <span class="toc-text">
+           同步非阻塞IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io%E5%A4%8D%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">
+           IO复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8"><span class="toc-number">4.4.</span> <span class="toc-text">
+           信号驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5io"><span class="toc-number">4.5.</span> <span class="toc-text">
+           异步IO</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

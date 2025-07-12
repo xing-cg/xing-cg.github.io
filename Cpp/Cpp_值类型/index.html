@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="static_cast        int a不能直接用int &amp;&amp; e接收。 123456int main()&#123;    int a &#x3D; 12;    int &amp;&amp; e &#x3D; a;  &#x2F;&#x2F; error    e &#x3D; 13;&#125; int a强转为int&amp;&amp;时，可以用int &amp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_值类型">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="static_cast        int a不能直接用int &amp;&amp; e接收。 123456int main()&#123;    int a &#x3D; 12;    int &amp;&amp; e &#x3D; a;  &#x2F;&#x2F; error    e &#x3D; 13;&#125; int a强转为int&amp;&amp;时，可以用int &amp;&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.788Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Cpp_值类型 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_值类型</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/" data-flag-title="Cpp_值类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="static_cast"   >
+          <a href="#static_cast" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#static_cast"></a> <code>static_cast</code></h1>
+      
+<p><code>int a</code>不能直接用<code>int &amp;&amp; e</code>接收。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> &amp;&amp; e = a;  <span class="comment">// error</span></span><br><span class="line">    e = <span class="number">13</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>int a</code>强转为<code>int&amp;&amp;</code>时，可以用<code>int &amp;&amp; e</code>接收，修改e，会连带修改a。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> &amp;&amp; e = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&amp;&amp;&gt;(a);</span><br><span class="line">    e = <span class="number">13</span>;     <span class="comment">// e = 13; a = 13</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>int a</code>强转为<code>int</code>时，可以用<code>int &amp;&amp; e</code>接收，修改e，不会连带修改a。</p>
+<blockquote>
+<p>为什么？<br />
+强转为值类型时，相当于拷贝了一份临时对象（另创空间）。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> &amp;&amp; e = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(a);</span><br><span class="line">    e = <span class="number">13</span>;     <span class="comment">// e = 13; a = 12</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="移动构造拷贝右值构造"   >
+          <a href="#移动构造拷贝右值构造" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#移动构造拷贝右值构造"></a> 移动构造（拷贝右值构造）</h1>
+      
+<ol>
+<li>参数不能加const，因为语义上，是要把other对象的资源移动过来，是需要改动other的。</li>
+<li>经验上，要把移动构造函数声明为noexcept，因为涉及到资源的移动的动作过程中即使出现了异常也无法处理、修复。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Test</span>(<span class="type">int</span> val) : _val &#123; <span class="keyword">new</span> <span class="built_in">int</span>(val) &#125;</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    <span class="comment">// 以非右值对象拷贝构造</span></span><br><span class="line">    <span class="built_in">Test</span>(Test <span class="type">const</span> &amp; other)</span><br><span class="line">    &#123;</span><br><span class="line">        _val = <span class="keyword">new</span> <span class="built_in">int</span>(*other._val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 以右值对象移动构造</span></span><br><span class="line">    <span class="built_in">Test</span>(Test &amp;&amp; other) <span class="keyword">noexcept</span></span><br><span class="line">    &#123;</span><br><span class="line">        _val = other._val;</span><br><span class="line">        other._val = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Test</span>()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(_val)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">delete</span> _val;</span><br><span class="line">            _val = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_value</span><span class="params">(<span class="type">int</span> v)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(_val)</span><br><span class="line">        &#123;</span><br><span class="line">            *_val = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> * _val;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>测试移动构造：以下代码未能走到移动构造函数的断点——编译器优化了</p>
+<blockquote>
+<p>编译器优化了：<code>Test test&#123; get_test() &#125;</code>。没走移动构造，而是直接把<code>Test test&#123;5&#125;</code>在main函数中的test上构造了。<br />
+这个现象叫做：具名的返回值优化。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Test <span class="title">get_test</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123;<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">return</span> test;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="built_in">get_test</span>() &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果不优化的话，会是以下的情况：一共创建了3个对象，有2个是中间无用的临时对象</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Test <span class="title">get_test</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">5</span> &#125;;         <span class="comment">// create a new test object</span></span><br><span class="line">    <span class="keyword">return</span> test;            <span class="comment">// generated a temporary test object</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="built_in">get_test</span>() &#125;;<span class="comment">// create a new object by calling copy-constructor</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>为了能看到移动构造函数的断点：不通过函数返回的临时值，通过自己手动创建一个test，来强转为右值引用，从而移动构造新的test。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test2&#123; <span class="built_in">static_cast</span>&lt;Test&amp;&amp;&gt;(test) &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="赋值重载"   >
+          <a href="#赋值重载" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#赋值重载"></a> 赋值重载</h1>
+      
+<p>以非右值对象赋值</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Test &amp; <span class="keyword">operator</span>=(Test <span class="type">const</span>&amp; other)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(&amp;other == <span class="keyword">this</span>) <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">if</span>(_val != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">delete</span> _val;</span><br><span class="line">        _val = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(other._val != <span class="literal">nullptr</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        _val = <span class="keyword">new</span> <span class="type">int</span> &#123; *other._val &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以右值对象赋值</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Test &amp; <span class="keyword">operator</span>=(Test &amp;&amp; other)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(&amp;other == <span class="keyword">this</span>) <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">if</span>(_val != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">delete</span> _val;</span><br><span class="line">        _val = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    _val = other._val;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="static_cast三种值类型的行为"   >
+          <a href="#static_cast三种值类型的行为" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#static_cast三种值类型的行为"></a> <code>static_cast</code>三种值类型的行为</h1>
+      
+<p>没有变量接收时的行为：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">2</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">static_cast</span>&lt;Test&gt;(test);</span><br><span class="line">    <span class="built_in">static_cast</span>&lt;Test&amp;&gt;(test);</span><br><span class="line">    <span class="built_in">static_cast</span>&lt;Test&amp;&amp;&gt;(test);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>通过断点调试，发现，强转为普通值类型<code>&lt;Test&gt;</code>时，而且是在不进行其他操作的情况下，仍会调用一次普通拷贝构造函数。其他两句不会进行拷贝。</p>
+<p>接下来研究其他两个语句——在有变量接收时的行为。</p>
+
+        <h2 id="强转为普通值类型"   >
+          <a href="#强转为普通值类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#强转为普通值类型"></a> 强转为普通值类型</h2>
+      
+<ol>
+<li>以普通值类型接收时，会拷贝，调用的是普通拷贝构造；</li>
+<li>不可以左值引用接收普通值类型。</li>
+<li>以右值引用接收时，<strong>也会拷贝</strong>，调用的是普通拷贝构造。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">2</span> &#125;;</span><br><span class="line"></span><br><span class="line">    Test    test11 = <span class="built_in">static_cast</span>&lt;Test&gt;(test);</span><br><span class="line">    Test &amp;  test12 = <span class="built_in">static_cast</span>&lt;Test&gt;(test);</span><br><span class="line">    Test &amp;&amp; test13 = <span class="built_in">static_cast</span>&lt;Test&gt;(test);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="强转为左值"   >
+          <a href="#强转为左值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#强转为左值"></a> 强转为左值</h2>
+      
+<ol>
+<li>以普通值类型接收时，会拷贝，调用的是普通拷贝构造；</li>
+<li>以左值引用接收时，不会拷贝，<strong>是高效的用法</strong>。</li>
+<li>不可以右值引用接收左值。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">2</span> &#125;;</span><br><span class="line"></span><br><span class="line">    Test    test21 = <span class="built_in">static_cast</span>&lt;Test&amp;&gt;(test);</span><br><span class="line">    Test &amp;  test22 = <span class="built_in">static_cast</span>&lt;Test&amp;&gt;(test);</span><br><span class="line">  <span class="comment">//Test &amp;&amp; test23 = static_cast&lt;Test&amp;&gt;(test);  // error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="强转为右值"   >
+          <a href="#强转为右值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#强转为右值"></a> 强转为右值</h2>
+      
+<ol>
+<li>以普通值类型接收时，会拷贝，<strong>调用右值构造</strong>（如果右值构造较好地处理了资源的移动，则较高效。<strong>若没有明确写右值构造，则仍会进行普通拷贝，则降低了效率</strong>）；</li>
+<li>不可以左值引用接收右值。</li>
+<li>以右值引用接收时，不会拷贝，<strong>是高效的用法</strong>。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">2</span> &#125;;</span><br><span class="line"></span><br><span class="line">    Test    test31 = <span class="built_in">static_cast</span>&lt;Test&amp;&amp;&gt;(test);  <span class="comment">// decide on Move Constructor</span></span><br><span class="line">  <span class="comment">//Test &amp;  test32 = static_cast&lt;Test&amp;&amp;&gt;(test);  // error</span></span><br><span class="line">    Test &amp;&amp; test33 = <span class="built_in">static_cast</span>&lt;Test&amp;&amp;&gt;(test);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>其中，以“右值引用类型”接收“强转为右值的对象”（或者<code>std::move</code>后的对象），这个行为其实是对“右值对象”的生命期的延展。如果通过右值引用来修改对象，那么对象源值也会修改。这才是右值引用最本原的功能。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test test&#123; <span class="number">2</span> &#125;;</span><br><span class="line">    <span class="comment">// test    : _val : 2</span></span><br><span class="line"></span><br><span class="line">    Test &amp;&amp; test33 = <span class="built_in">static_cast</span>&lt;Test&amp;&amp;&gt;(test);</span><br><span class="line">    test<span class="number">33.</span><span class="built_in">set_value</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="comment">// test.33 : _val : 4</span></span><br><span class="line">    <span class="comment">// test    : _val : 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<p>Modern Cpp引入了值类型的细分，不是让你装逼的，也不是为了给程序员增加痛苦的，而是为了让各种类型都有它最好的归宿：</p>
+<ol>
+<li>
+<p>左值交给左值引用（不会有任何其他多余的操作，高效转手）</p>
+</li>
+<li>
+<p>右值交给右值引用（不会有任何其他多余的操作，高效转手）</p>
+</li>
+<li>
+<p>右值交给普通类型（调用右值构造，如果右值构造较好地处理了资源的移动，则较高效）</p>
+</li>
+<li>
+<p>对于前两种来说，只要引用类型匹配，则无需程序员费心，便可提高效率。</p>
+</li>
+<li>
+<p>而对于程序员来说，最要注意的就是第三种情况，即右值构造函数需要程序员来明确写出，指明资源转移的动作，决定了右值交给普通类型的效率。<strong>如果没有写右值构造函数，则仍会进行普通拷贝，则降低了效率。</strong></p>
+</li>
+</ol>
+
+        <h1 id="forwarding_reference"   >
+          <a href="#forwarding_reference" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#forwarding_reference"></a> <code>forwarding_reference</code></h1>
+      
+<p>形式上和右值引用一样，但性质、行为是未定义的。</p>
+<ol>
+<li>传入模板的类型，是不确定的，需要接收后另外推断。</li>
+<li>传给auto的类型，亦如此，接收后需要推断。</li>
+</ol>
+<p>困扰：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(T <span class="type">const</span> &amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> ca = <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">11</span>;</span><br><span class="line">    <span class="built_in">test</span>(ca);</span><br><span class="line">    <span class="built_in">test</span>(a);</span><br><span class="line">    <span class="built_in">test</span>(<span class="number">9</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>问题：字面常量无法传递给<code>T &amp; t</code>。<br />
+于是加了<code>T const &amp; t</code>，可以传递了。</p>
+<p>但是，导致，如果传的是const int变量，则T后加const与否对应的行为不一样。<br />
+总结起来就是：</p>
+<ol>
+<li>T后无const时
+<ol>
+<li>传入非常左值，T对应的类型是<code>const int</code>，t对应的类型是<code>const int &amp;</code></li>
+<li>传入常左值，T对应的类型是<code>int</code>，t对应的类型是<code>int &amp;</code></li>
+<li>常性在传入前后始终是对应的，很好。</li>
+<li>但是：不能接收右值。</li>
+<li>总结：虽然不怎么通用，但是起码没有很乱。</li>
+</ol>
+</li>
+<li>T后有const时
+<ol>
+<li>能接收右值了，很好。</li>
+<li>但是，无论传入的是常左值、非常左值、右值，最后，T对应的类型都会是<code>int</code>，t对应的类型都会是<code>const int &amp;</code>。</li>
+<li>那么就导致：如果传入的是非常左值，由于t被污染成了const int，导致t无法修改。</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="全新的解决方案"   >
+          <a href="#全新的解决方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#全新的解决方案"></a> 全新的解决方案</h2>
+      
+<p>使用<code>T &amp;&amp;</code>这个形式改进<code>T const &amp; </code>。虽然样子看起来是右值引用，但它不是，因为T是不确定类型，而它又常用在参数转发中，所以起了新名叫”转发引用 (Forwarding Reference)“（也有人叫Universal Reference）。根据接收的值类型的不同，T也会跟着变化。</p>
+<p>包容度和<code>T const &amp;</code>一样，既能接收常左值、非常左值，又能接收右值。<br />
+最终达到的效果却比<code>T const &amp;</code>更好：</p>
+<ol>
+<li>常左值，T对应的类型是<code>const int &amp;</code>，t对应的类型是<code>const int &amp;</code></li>
+<li>左值，T对应的类型是<code>int &amp;</code>，t对应的类型是<code>int &amp;</code></li>
+<li>右值，T对应的类型是<code>int</code>，t对应的类型是<code>int &amp;&amp;</code></li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(T &amp;&amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">11</span>;</span><br><span class="line">    <span class="built_in">test</span>(a);</span><br><span class="line">    <span class="built_in">test</span>(<span class="number">9</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="引用折叠"   >
+          <a href="#引用折叠" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#引用折叠"></a> 引用折叠</h2>
+      
+<p>Reference Collapsed</p>
+
+        <h2 id="模板参数中的"   >
+          <a href="#模板参数中的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板参数中的"></a> 模板参数中的<code>&amp;&amp;</code></h2>
+      
+<p>虽然经过传入，变成了对应的引用，在函数中也可以修改t的值（const类型除外），但是其实没啥意义，这个转发引用的意义就是在于让你转发的，不是修改值。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(T &amp;&amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    t = <span class="number">8</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">11</span>;</span><br><span class="line">    <span class="built_in">test</span>(a);    <span class="comment">// 可以把本身改为8。</span></span><br><span class="line">    <span class="built_in">test</span>(<span class="number">9</span>);    <span class="comment">// 9还是9，不变。   t = 8修改的是副本</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="auto后的"   >
+          <a href="#auto后的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#auto后的"></a> auto后的<code>&amp;&amp;</code></h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">11</span>;</span><br><span class="line">  <span class="comment">//int  &amp;&amp; ri = a;   // error  右值引用无法接收左值</span></span><br><span class="line">  <span class="comment">//auto &amp;  la = 9;   // error  左值引用无法接收右值</span></span><br><span class="line">    <span class="keyword">auto</span> &amp;&amp; ra = a;   <span class="comment">// ok     ra : int &amp;  </span></span><br><span class="line">    <span class="keyword">auto</span> &amp;&amp; ra2= <span class="number">9</span>;   <span class="comment">// ok     ra2: int &amp;&amp; ra2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="move"   >
+          <a href="#move" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#move"></a> move</h1>
+      
+<p>把传入的值类型转换为右值。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">T&amp;&amp; <span class="title">mymove</span><span class="params">(T &amp;&amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;T&amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T: int &amp; + &amp;&amp; -&gt; t: int &amp;</span><br><span class="line">T: int   + &amp;&amp; -&gt; t: int &amp;&amp; </span><br></pre></td></tr></table></div></figure>
+<p>现在的问题是：传入不同值类型的变量后，行为不一致。若是左值，则最终只能强转为<code>int &amp;</code>；若为右值，则最终只能强转为<code>int &amp;&amp;</code>。现在我们想要追求：无论左右值，最终都转为左值。</p>
+<p>那么可以考虑用Traits技术，消除左右值的区别、影响，统一。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemoveRefTraits</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> TYPE = T;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemoveRefTraits</span>&lt;T&amp;&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> TYPE = T;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemoveRefTraits</span>&lt;T&amp;&amp;&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> TYPE = T;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> RemRef_t = RemoveRefTraits&lt;T&gt;::TYPE;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">RemRef_t&lt;T&gt;&amp;&amp; <span class="title">mymove</span><span class="params">(T &amp;&amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;RemRef_t&lt;T&gt;&amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="完美转发"   >
+          <a href="#完美转发" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#完美转发"></a> 完美转发</h1>
+      
+<p>Perfect Forwarding</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/">https://xing-cg.github.io/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">高级数据结构_平衡搜索树</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E6%90%9C%E7%B4%A2%E6%A0%91/"><span class="paginator-prev__text">高级数据结构_搜索树</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#static_cast"><span class="toc-number">1.</span> <span class="toc-text">
+           static_cast</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E6%8B%B7%E8%B4%9D%E5%8F%B3%E5%80%BC%E6%9E%84%E9%80%A0"><span class="toc-number">2.</span> <span class="toc-text">
+           移动构造（拷贝右值构造）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E9%87%8D%E8%BD%BD"><span class="toc-number">3.</span> <span class="toc-text">
+           赋值重载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#static_cast%E4%B8%89%E7%A7%8D%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-number">4.</span> <span class="toc-text">
+           static_cast三种值类型的行为</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E8%BD%AC%E4%B8%BA%E6%99%AE%E9%80%9A%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">
+           强转为普通值类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E8%BD%AC%E4%B8%BA%E5%B7%A6%E5%80%BC"><span class="toc-number">4.2.</span> <span class="toc-text">
+           强转为左值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E8%BD%AC%E4%B8%BA%E5%8F%B3%E5%80%BC"><span class="toc-number">4.3.</span> <span class="toc-text">
+           强转为右值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.4.</span> <span class="toc-text">
+           总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#forwarding_reference"><span class="toc-number">5.</span> <span class="toc-text">
+           forwarding_reference</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E6%96%B0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">5.1.</span> <span class="toc-text">
+           全新的解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%8A%98%E5%8F%A0"><span class="toc-number">5.2.</span> <span class="toc-text">
+           引用折叠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E4%B8%AD%E7%9A%84"><span class="toc-number">5.3.</span> <span class="toc-text">
+           模板参数中的&amp;&amp;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#auto%E5%90%8E%E7%9A%84"><span class="toc-number">5.4.</span> <span class="toc-text">
+           auto后的&amp;&amp;</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#move"><span class="toc-number">6.</span> <span class="toc-text">
+           move</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91"><span class="toc-number">7.</span> <span class="toc-text">
+           完美转发</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

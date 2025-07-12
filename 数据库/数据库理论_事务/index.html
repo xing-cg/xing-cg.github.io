@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="理论学习                             关键字                             Transaction(Read, Write, Commit, Abort)        事务（读取、写入、提交、中止） 从程序角度来说，事务就是一组原子性的SQL语句，或者说是一个独立的工作单元。如果数据库引擎能够成功地对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库理论_事务">
+<meta property="og:url" content="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="理论学习                             关键字                             Transaction(Read, Write, Commit, Abort)        事务（读取、写入、提交、中止） 从程序角度来说，事务就是一组原子性的SQL语句，或者说是一个独立的工作单元。如果数据库引擎能够成功地对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724215039732.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724223733635.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724223100988.png">
+<meta property="article:published_time" content="2022-07-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.840Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724215039732.png"><title>数据库理论_事务 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数据库理论_事务</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/" data-flag-title="数据库理论_事务"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="理论学习"   >
+          <a href="#理论学习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#理论学习"></a> 理论学习</h1>
+      
+
+        <h2 id="关键字"   >
+          <a href="#关键字" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键字"></a> 关键字</h2>
+      
+
+        <h3 id="transactionread-write-commit-abort"   >
+          <a href="#transactionread-write-commit-abort" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#transactionread-write-commit-abort"></a> Transaction(Read, Write, Commit, Abort)</h3>
+      
+<p>事务（读取、写入、提交、中止）</p>
+<p>从程序角度来说，事务就是一组原子性的SQL语句，或者说是一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该语句，那么就执行；如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句要么全部执行成功，要么全部执行失败。</p>
+<p>事务并非总能成功地执行完成。这种事务称为<strong>中止(aborted)</strong>。我们如果要确保原子性，中止事务必须对数据库的状态不造成影响。因此，中止事务对数据库所做的任何改变必须撤销。一旦中止事务造成的变更被撤销，我们就说事务<strong>已回滚(rolledback)</strong>。恢复机制负责管理事务中止。典型的方法是维护一个日志(log)。每个事务对数据库的修改都首先会记录到日志中。我们记录执行修改的事务标识符、修改的数据项标识符以及数据项的旧值（修改前的）和新值（修改后的）。然后数据库才会修改。维护日志提供了重做修改以保证原子性和持久性的可能，以及撤销修改以保证在事务执行发生故障时的原子性的可能。</p>
+<p>成功完成执行的事务称为<strong>已提交(committed)</strong>。一个对数据库进行过更新的已提交事务使数据库<strong>进入一个新的一致状态</strong>，即使出现系统故障，这个状态也必须保持。</p>
+<p>一旦事务已提交，我们不能通过中止它来撤销其造成的影响。撤销已提交事务所造成影响的唯方法是执行一个<strong>补偿事务(compensating transaction)</strong>。例如，如果一个事务给一个账户加上了<code>$20</code>，其补偿事务应当从该账户减去<code>$20</code>。然而，我们不总是能够创建这样的补偿事务。因此，书写和执行一个补偿事务的责任就留给了用户，而不是通过数据库系统来处理。</p>
+<p>我们需要更准确地定义一个事务成功完成的含义。为此我们建立了一个简单的抽象事务模型。事务必须处于以下状态之一。</p>
+<ol>
+<li>活动的(active)：初始状态，事务执行时处于这个状态。</li>
+<li>部分提交的(partially committed)：最后一条语句执行后。</li>
+<li>失败的(failed)：发现正常的执行不能继续后。</li>
+<li>中止的(aborted)：事务回滚并且数据库已恢复到事务开始执行前的状态后。</li>
+<li>提交的(committed)：成功完成后。</li>
+</ol>
+<p>事务相应的状态图如图所示。只有在事务已进入提交状态后，我们才说事务已提交。类似地，仅当事务已进入中止状态，我们才说事务已中止。如果事务是提交的或中止的，它称为已经结束的(terminated)。</p>
+<p><img src="../../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724215039732.png" alt="image-20220724215039732" /></p>
+<p>事务从活动状态开始。<strong>当事务完成它的最后一条语句后就进入了部分提交状态。此刻，事务已经完成执行，但由于实际输出可能仍临时驻留在主存中，因此一个硬件故障可能阻止其成功完成，于是事务仍有可能不得不中止。</strong></p>
+<p>接着数据库系统往磁盘上**写入(write)**足够的信息，确保即使出现故障时事务所做的更新也能在系统重启后重新创建。当最后一条这样的信息写完后，事务就进入提交状态。</p>
+<p>系统判定事务不能继续正常执行后（例如，由于硬件或逻辑错误），事务就进入失败状态。这种事务必须回滚。这样，事务就进人中止状态。此刻，系统有两种选择。</p>
+<ol>
+<li>它可以重启(restart)事务，但仅当引起事务中止的是硬件错误或不是由事务的内部逻辑所产生的软件错误时。重启的事务被看成是一个新事务。</li>
+<li>它可以杀死(kill)事务，这样做通常是由于事务的内部逻辑造成的错误，只有重写应用程序才能改正，或者由于输入错误，或所需数据在数据库中没有找到。</li>
+</ol>
+<p>在处理可见的外部写(observable external write)，比如写到用户屏幕，或者发送电子邮件时，我们必须要小心。由于写的结果可能已经在数据库系统之外看到，因此一旦发生这种写操作，就不能再抹去。大多数系统只允许这种写操作在事务进入提交状态后发生。实现这种模式的一种方法是在非易失性存储设备中临时写下与外部写相关的所有数据，然后在事务进入提交状态后再执行真正的写操作。</p>
+<p>如果在事务已进入提交状态而外部写操作尚未完成之时，系统出现了故障，数据库系统就可以在重启后（用存储在非易失性设备中的数据）执行外部写操作。</p>
+<p>在某些情况下处理外部写操作会更复杂，例如，我们假设外部动作是在自动取款机上支付现金，并且系统恰好在支付现金之前发生故障（我们假定现金能自动支付），当系统重新启动时再执行现金支付将毫无意义，因为用户可能已经离开。在这种情况下，重新启动时系统应该执行一个补偿事务，比如将现金存回用户的账户。</p>
+
+        <h3 id="serializability"   >
+          <a href="#serializability" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#serializability"></a> Serializability</h3>
+      
+<p>如果并发执行的控制完全由操作系统负责，许多调度都是可能的，包括像上述调度那样使数据库处于不一致状态的调度。保证所执行的任何调度都能使数据库处于一致状态，这是数据库系统的任务，数据库系统中负责完成此任务的是并发控制(concurrency-control)部件。</p>
+<p>在并发执行中，<strong>通过保证所执行的任何调度的效果都与没有并发执行的调度效果一样，我们可以确保数据库的一致性</strong>。也就是说，调度应该在某种意义上等价于一个串行调度。这种调度称为**可串行化(serializable)**调度。</p>
+<p>事务处理系统通常允许多个事务并发地执行。正如我们先前看到的，允许多个事务并发更新数据引起许多数据一致性的复杂问题。在存在事务并发执行的情况下保证一致性需进行额外工作；如果我们强制事务串行地(serially)执行将简单得多次执行一个事务，每个事务仅当前一事务执行完后才开始。</p>
+<p>在我们考虑数据库系统并发控制部件如何保证串行化之前，我们考虑如何确定一个调度是可串行化的。显然，串行调度是可串行化的，但是如果许多事务的步骤交错执行，则很难确定一个调度是否是可串行化的。由于事务就是程序，因此要确定一个事务有哪些操作、多个事务的操作如何相互作用是有困难的。由于这个缘故，我们将不会考虑一个事务对某一数据项可执行的各种不同类型的操作， 而只考虑两种操作：<strong>read和write</strong>。</p>
+<p>我们这样假设， 在数据项Q上的read(Q)和write(Q)指令之间，事务可以对驻留在事务局部缓冲区中的Q的拷贝执行任意操作序列。按这种模式， 从调度的角度来看， 事务唯一重要的操作是read与write指令。commit操作尽管相关， 但是我们后面才考虑它。因此，我们在调度中通常只显示read与write指令，正如图所示。</p>
+<p><img src="../../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724223733635.png" alt="image-20220724223733635" /></p>
+
+        <h3 id="history"   >
+          <a href="#history" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#history"></a> History</h3>
+      
+
+        <h3 id="schedule"   >
+          <a href="#schedule" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#schedule"></a> Schedule</h3>
+      
+<p>执行顺序称为调度(schedule)。它们表示指令在系统中执行的时间顺序。显然，一组事务的一个<strong>调度必须包含这一组事务的全部指令</strong>，并且必须保持指令在各个事务中出现的顺序。例如，在任何一个有效的调度中，事务T1中指令write(A)必须在指令read(B)之前出现。请注意，我们在调度中包括了commit操作来表示事务已经进入提交状态。在下面的讨论中，我们将称第一种执行顺序为调度1（T2跟在T1之后），称第二种执行顺序为调度2（T1跟在T2之后）。</p>
+<p><img src="../../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/image-20220724223100988.png" alt="image-20220724223100988" /></p>
+<p>这两个调度是串行的(serial)。每个串行调度由来自各事务的指令序列组成，其中属于同一事务的指令在调度中紧挨在一起。回顾组合数学中一个众所周知的阶乘公式，我们知道，对于有n个事务的事务组，共有<code>n!</code>个不同的有效串行调度。</p>
+
+        <h3 id="conflict-graphww-wr-rw"   >
+          <a href="#conflict-graphww-wr-rw" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#conflict-graphww-wr-rw"></a> Conflict graph(WW, WR, RW)</h3>
+      
+<p>为确定一个调度是否冲突可串行化，我们这里给出了一个简单有效的等价的一个串行调度方法。设S是一个调度，我们由S构造一个有向图，称为<strong>优先图</strong>(precedence graph)。该图由两部分组成<code>G=(V,E)</code>，其中V是顶点集，E是边集，顶点集由所有参与调度的事务组成，边集由满足下列三个条件之一的边<code>Ti -&gt; Tj</code>组成。</p>
+<ol>
+<li>在Tj执行read(Q)之前，Ti执行write(Q)。</li>
+<li>在Tj执行write(Q)之前，Ti执行read(Q)。</li>
+<li>在Tj执行write(Q)之前，Ti执行write(Q)。</li>
+</ol>
+
+        <h3 id="isolation-levelsserializable-snapshot-isolation-repeatable-read-read-committed-read-uncommitted"   >
+          <a href="#isolation-levelsserializable-snapshot-isolation-repeatable-read-read-committed-read-uncommitted" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#isolation-levelsserializable-snapshot-isolation-repeatable-read-read-committed-read-uncommitted"></a> Isolation levels(Serializable, Snapshot Isolation, Repeatable Read, Read Committed, Read Uncommitted)</h3>
+      
+<p>可串行性是一个有用的概念，因为当程序员对事务编码时，它允许程序员忽略与并发性相关的问题。如果事务在独立执行时保证数据库一致性，那么可串行性就能确保并发执行时也具有一致性。然而，对于某些应用，保证可串行性的那些协议可能只允许极小的并发度。</p>
+<p>在这种情况下,我们采用较弱级别的一致性。为了保证数据库的正确性，使用较弱级别一致性给程序员增加了额外负担。</p>
+<p>SQL标准也允许一个事务这样规定：它可以以一种与其他事务不可串行化的方式执行。例如，一个事务可能在未提交读级别上操作，这里允许事务读取甚至还未提交的记录。SQL为那些不要求精确结果的长事务提供这种特征。如果这些事务要在可串行化的方式下执行，它们就会干扰其他事务，造成其他事务执行的延迟。<br />
+SQL标准规定的隔离性级别如下。</p>
+<ol>
+<li><strong>可串行化(serializable)</strong>：通常保证可串行化调度。然而，正如我们将要解释的，一些数据库系统对该隔离性级别的实现在某些情况下允许非可串行化执行。</li>
+<li><strong>可重复读(repeatable read)</strong>：只允许读取已提交数据， 而且在一个事务两次读取一个数据项期间，其他事务不得更新该数据。但该事务不要求与其他事务可串行化。例如：当一个事务在查找满足某些条件的数据时，它可能找到一个已提交事务插入的一些数据，但可能找不到该事务插入的其他数据。</li>
+<li><strong>已提交读(read committed)</strong>：只允许读取已提交数据， 但不要求可重复读。比如， 在事务两次读取一个数据项期间，另一个事务更新了该数据并提交。</li>
+<li><strong>未提交读(read uncommitted)</strong>：允许读取未提交数据。这是SQL允许的最低一致性级别。</li>
+</ol>
+<p>许多数据库系统运行时的默认隔离性级别是已提交读。</p>
+
+        <h3 id="anomaliesdirty-write-dirty-read-non-repeatable-read-phantom-read"   >
+          <a href="#anomaliesdirty-write-dirty-read-non-repeatable-read-phantom-read" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#anomaliesdirty-write-dirty-read-non-repeatable-read-phantom-read"></a> Anomalies(Dirty Write, Dirty Read, Non-repeatable Read, Phantom Read)</h3>
+      
+<p>以上所有隔离性级别都不允许<strong>脏写(dirty write)</strong>，即如果一个数据项已经被另外一个尚未提交或中止的事务写人，则不允许对该数据项执行写操作。</p>
+<p>根据违反可串行化的三种现象，SQL标准定义了不同的隔离性级别。这三种现象称作：读脏数据不可重复读和读幻象，定义如下：</p>
+<ol>
+<li><strong>读脏数据(dirty read)</strong>。事务读了由另一个尚未提交事务所写的值。</li>
+<li><strong>不可重复读(non-repeatable read)</strong>。一个事务在执行过程中对同一对象读了两次，第二次得到了不同的值，尽管在此期间该事务并没有改变其值。</li>
+<li><strong>读幻象(phantom read)</strong>。事务重新执行返回结果为满足某搜索条件的行集合的查询，发现满足条件的行集合已经改变，这是由于另一个事务最近提交了。</li>
+</ol>
+<p>很显然上述每种现象都破坏了事务的隔离性，因此违反了可串行化。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/">https://xing-cg.github.io/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Linux_守护进程</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_%E6%B5%85%E8%B0%88%E5%BD%A2%E5%8F%82%E4%B8%ADconst%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8/"><span class="paginator-prev__text">Cpp_浅谈形参中const和引用的作用</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">
+           理论学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.1.</span> <span class="toc-text">
+           关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#transactionread-write-commit-abort"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+           Transaction(Read, Write, Commit, Abort)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#serializability"><span class="toc-number">1.1.2.</span> <span class="toc-text">
+           Serializability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#history"><span class="toc-number">1.1.3.</span> <span class="toc-text">
+           History</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#schedule"><span class="toc-number">1.1.4.</span> <span class="toc-text">
+           Schedule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#conflict-graphww-wr-rw"><span class="toc-number">1.1.5.</span> <span class="toc-text">
+           Conflict graph(WW, WR, RW)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isolation-levelsserializable-snapshot-isolation-repeatable-read-read-committed-read-uncommitted"><span class="toc-number">1.1.6.</span> <span class="toc-text">
+           Isolation levels(Serializable, Snapshot Isolation, Repeatable Read, Read Committed, Read Uncommitted)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#anomaliesdirty-write-dirty-read-non-repeatable-read-phantom-read"><span class="toc-number">1.1.7.</span> <span class="toc-text">
+           Anomalies(Dirty Write, Dirty Read, Non-repeatable Read, Phantom Read)</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

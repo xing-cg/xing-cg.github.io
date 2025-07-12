@@ -1,0 +1,444 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容        本节将说明守护进程结构，以及如何编写守护进程程序。因为守护进程没有控制终端，我们需要了解在出现问题时，守护进程如何报告出错情况。  守护进程的特点 进程组、控制终端、会话 守护进程编程流程                       守护进程        守护进程(daemon)是生存期长的一种进程。常常在系统引导装入时启动，仅在系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_守护进程">
+<meta property="og:url" content="https://xing-cg.github.io/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容        本节将说明守护进程结构，以及如何编写守护进程程序。因为守护进程没有控制终端，我们需要了解在出现问题时，守护进程如何报告出错情况。  守护进程的特点 进程组、控制终端、会话 守护进程编程流程                       守护进程        守护进程(daemon)是生存期长的一种进程。常常在系统引导装入时启动，仅在系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.810Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Linux_守护进程 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_守护进程</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/" data-flag-title="Linux_守护进程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<p>本节将说明守护进程结构，以及如何编写守护进程程序。因为守护进程没有控制终端，我们需要了解在出现问题时，守护进程如何报告出错情况。</p>
+<ol>
+<li>守护进程的特点</li>
+<li>进程组、控制终端、会话</li>
+<li>守护进程编程流程</li>
+</ol>
+
+        <h1 id="守护进程"   >
+          <a href="#守护进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#守护进程"></a> 守护进程</h1>
+      
+<p>守护进程(daemon)是生存期长的一种进程。常常在系统引导装入时启动，仅在系统关闭时才终止。因为它们没有控制终端，所以说它们是在后台运行的。UNIX系统有很多守护进程，它们执行日常事务活动。</p>
+<p>在基于BSD的系统下执行<code>ps -axj</code>：</p>
+<p>选项<code>-a</code>显示由其他用户所拥有的进程的状态，<code>-x</code>显示没有控制终端的进程状态，<code>-j</code>显示与作业有关的信息：会话ID、进程组ID、控制终端以及终端进程组ID。</p>
+<p>类似的命令，在基于System V的系统中，与此相类似的命令是<code>ps -efj</code>（为了提高安全性，某些UNIX系统不允许用户使用<code>ps</code>命令查看不属于自己的进程）。</p>
+<p>有以下比较关键的列：UID（用户ID）、PID（进程ID）、PPID（父进程ID）、PGID（进程组ID）、SID（session ID, 会话ID）、终端名称（TTY）、命令字符串（CMD）。</p>
+<p>此<code>ps</code>命令在支持会话ID的系统上运行（Linux 3.2.0），<code>setsid</code>函数中的sid即会话ID。简单地说，它就是会话首进程的进程ID。</p>
+<blockquote>
+<p>系统进程历程</p>
+<p>系统进程依赖于操作系统实现。父进程ID为0的各进程通常是内核进程，它们作为系统引导装入过程的一部分而启动。（<code>init</code>是个例外，它是一个由内核在引导装入时启动的用户层次的命令。）内核进程是特殊的，通常存在于系统的整个生命期中。它们以超级用户特权运行，无控制终端，无命令行。</p>
+</blockquote>
+<p>在<code>ps</code>的输出实例中，内核守护进程的名字出现在方括号中，如<code>[sshd]</code>该版本的Linux使用一个名为kthreadd的特殊内核进程来创建其他内核进程，所以kthreadd表现为其他内核进程的父进程。对于需要在进程上下文执行工作但却不被用户层进程上下文调用的每一个内核组件，通常有它自己的内核守护进程。例如，在Linux中：</p>
+<ol>
+<li><code>kswapd</code>守护进程，内存换页守护进程。它支持虚拟内存子系统在经过一段时间后将脏页面慢慢地写回磁盘来回收这些页面。</li>
+<li><code>flush</code>守护进程在可用内存达到设置的最小阈值时将脏页面冲洗至磁盘。它也定期地将脏页面冲洗回磁盘来减少在系统出现故障时发生的数据丢失。多个冲洗守护进程可以同时存在，每个写回的设备都有一个冲洗守护进程。比如一个名为<code>flush-8:0</code>的冲洗守护进程。从名字中可以看出，写回设备是通过主设备号（8）和副设备号（0）来识别的。</li>
+<li><code>sync_supers</code>守护进程定期将文件系统元数据冲洗至磁盘。</li>
+<li><code>jbd</code>守护进程帮助实现了<code>ext4</code>文件系统中的日志功能。</li>
+</ol>
+<p>进程1通常是<code>init</code>，它是一个系统守护进程，除了其他工作外，主要负责启动各运行层次特定的系统服务。这些服务通常是在它们自己拥有的守护进程的帮助下实现的。</p>
+<p><code>netd</code>守护进程。它侦听系统网络接口，以便取得来自网络的对各种网络服务进程的请求。<code>nfsd</code>、<code>nfsiod</code>、<code>lockd</code>、<code>rpciod</code>、<code>rpe.idmapd</code>、<code>rpc.statd</code>和<code>rpc.mountd</code>守护进程提供对网络文件系统（Network File System，NFS）的支持。注意，前4个是内核守护进程，后3个是用户级守护进程。</p>
+<p>注意，大多数守护进程都以超级用户（root）特权运行。所有的守护进程都没有控制终端，其终端名设置为<strong>问号</strong>。<strong>内核守护进程</strong>以无控制终端方式启动。<strong>用户层守护进程</strong>缺少控制终端可能是守护进程调用了<code>setsid</code>的结果。<strong>大多数用户层守护进程都是进程组的组长进程以及会话的首进程</strong>，而且<strong>是这些进程组和会话中的唯一进程</strong>（<code>rsyslogd</code>是一个例外）。最后，应当引起注意的是用户层守护进程的父进程是<code>init</code>进程。</p>
+
+        <h1 id="特点"   >
+          <a href="#特点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特点"></a> 特点</h1>
+      
+<p>运行周期长，在后台执行，不需要和用户交互。</p>
+
+        <h1 id="概念"   >
+          <a href="#概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#概念"></a> 概念</h1>
+      
+<ol>
+<li>会话：每当打开一个终端，就相当于和内核建立了一个会话。再打开一个终端就会创建一个新会话，与第一个会话不同。即会话是伴随终端的打开而建立的。用<strong>会话首进程的pid</strong>来作为整个会话的sid。即使该进程结束了，会话id依然不变。</li>
+<li>会话首进程：在该会话中运行的第一个进程。一般来讲会话首进程就是bash。</li>
+<li>进程组：在会话中每运行一个命令，比如执行ls，会创建一个进程组，同时会创建一个进程。用该进程组的首进程pid作为整个进程组的pgid，即组长进程。进程组中有可能会有多个进程，是组内进程fork产生的。如果父进程（组长进程）结束了，pgid不会改变。只有进程组中一个进程都没有时该进程组才消失。进程组可以便于系统进行管理，比如给组长进程发一个信号，其他人都可以收到。</li>
+<li>组长进程</li>
+</ol>
+<p>如果关闭终端，则会话里的进程会全部结束。</p>
+<p>我们要想办法使会话中的进程与终端断绝关系，独立起来。</p>
+<p>思路：可以新建另一个会话，把终端中的进程组挪出来到这个会话里，然后就可以放心地关闭终端了。这就叫做守护进程。</p>
+<p>创建新会话可调用<code>setsid</code>。但是是有条件的，调用该函数的进程不能是一个组长进程，因为这会引起组长id冲突。即必须是非组长才可创建新会话。</p>
+
+        <h1 id="编程流程"   >
+          <a href="#编程流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编程流程"></a> 编程流程</h1>
+      
+<ol>
+<li><code>fork()</code>：父进程创建子进程，退出父进程，这样就保证了子进程不是组长id。</li>
+<li><code>setsid()</code></li>
+<li><code>fork()</code>：子进程再创建孙子进程，保证孙子进程不是组长id，保证不和终端再关联。但不必要。</li>
+<li><code>chdir(&quot;/&quot;)</code>：把工作目录改变到根目录，保险，为长时间的运行做好准备。但不一定能用的到。这么做是防止被卸载。</li>
+<li><code>unmask()</code>：清空掩码，保证创建文件时创建出应有的权限。</li>
+<li><code>close()</code>：关闭用不到的文件描述符，如0、1、2</li>
+<li>如果可能产生子进程，还需要注意处理僵死进程。</li>
+</ol>
+<p>在编写守护进程程序时需遵循一些基本规则，以防止产生不必要的交互作用。 下面先说明这些规则，然后给出一个按照这些规则编写的函数<code>daemonize</code>。</p>
+<ol>
+<li>
+<p>首先要做的是调用<code>umask</code>将文件模式创建屏蔽字设置为一个已知值（通常是0）。由继承得来的文件模式创建屏蔽字可能会被设置为拒绝某些权限。如果守护进程要创建文件，那么它可能要设置特定的权限。例如，若守护进程要创建组可读、组可写的文件，继承的文件模式创建屏蔽字可能会屏蔽上述两种权限中的一种，而使其无法发挥作用。另一方面，如果守护进程调用的库函数创建了文件，那么将文件模式创建屏蔽字设置为一个限制性更强的值（如007）可能会更明智，因为库函数可能不允许调用者通过一个显式的函数参数来设置权限。</p>
+</li>
+<li>
+<p>调用fork，然后使父进程exit。这样做实现了下面几点。第一，如果该守护进程是作为一条简单的shell命令启动的，那么父进程终止会让shell认为这条命令已经执行完毕。第二，虽然子进程继承了父进程的进程组ID，但获得了一个新的进程ID，这就保证了子进程不是一个进程组的组长进程。这是下面将要进行的<code>setsid</code>调用的先决条件。</p>
+</li>
+<li>
+<p>调用<code>setsid</code>创建一个新会话。然后执行9.5节中列出的3个步骤，使调用进程∶（a）成为新会话的首进程，（b）成为一个新进程组的组长进程，（c）没有控制终端。</p>
+<blockquote>
+<p>在基于System V的系统中，有些人建议在此时再次调用fork，终止父进程，继续使用子进程中的守护进程。这就保证了该守护进程不是会话首进程，于是按照System V规则（见UNIX环境高级编程9.6节）可以防止它取得控制终端。为了避免取得控制终端的另一种方法是，无论何时打开一个终端设备，都一定要指定<code>O_NOCTTY</code>。</p>
+</blockquote>
+</li>
+<li>
+<p>将当前工作目录更改为根日录。从父进程处继承过来的当前工作目录可能在一个挂载的文件系统中。因为守护进程通常在系统再引导之前是一直存在的，所以如果守护进程的当前工作目录在一个挂载文件系统中，那么该文件系统就不能被卸载。或者，某些守护进程还可能会把当前工作目录更改到某个指定位置，并在此位置进行它们的全部工作。例如，行式打印机假脱机守护进程就可能将其工作目录更改到它们的spool目录上。</p>
+</li>
+<li>
+<p>关闭不再需要的文件描述符。这使守护进程不再持有从其父进程继承来的任何文件描述符（父进程可能是shell进程，或某个其他进程）。可以使用<code>open_max</code>函数（见2.17节）或<code>getrlimit</code>函数（见 7.11节）来判定最高文件描述符值，并关闭直到该值的所有描述符。</p>
+</li>
+<li>
+<p>某些守护进程打开<code>/dev/null</code>使其具有文件描述符0、1和2，这样，任何一个试图读标准输入、写标准输出或标准错误的库例程都不会产生任何效果。因为守护进程并不与终端设备相关联，所以其输出无处显示，也无处从交互式用户那里接收输入。即使守护讲程是从交互式会话启动的，但是守护进程是在后台运行的，所以登录会话的终止并不影响守护进程。如果其他用户在同一终端设备上登录，我们不希望在该终端上见到守护进程的输出，用户也不期望他们在终端上的输入被守护进程读取。</p>
+</li>
+</ol>
+
+        <h1 id="实例"   >
+          <a href="#实例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实例"></a> 实例</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;apue.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;syslog.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">daemonize</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * cmd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span>              i, fd0, fd1, fd2;</span><br><span class="line">    <span class="type">pid_t</span>            pid;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">rlimit</span>    rl;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sigaction</span> sa;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Clear file creation mask. */</span></span><br><span class="line">    <span class="built_in">umask</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Get maximum number of file descriptions. */</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">getrlimit</span>(RLIMIT_NOFILE, &amp;rl) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;%s: can&#x27;t get file limit&quot;</span>, cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* Become a session leader to lose controlling TTY. */</span></span><br><span class="line">    <span class="keyword">if</span>((pid = fork()) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;%s: can&#x27;t fork&quot;</span>, cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid != <span class="number">0</span>)<span class="comment">//parent</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">setsid</span>();</span><br><span class="line">    <span class="comment">/* Ensure future opens won&#x27;t allocate controlling TTYs. */</span></span><br><span class="line">    sa.sa_handler = SIG_IGN;</span><br><span class="line">    <span class="built_in">sigemptyset</span>(&amp;sa.sa_mask);</span><br><span class="line">    sa.sa_flags = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">sigaction</span>(SIGHUP, &amp;sa, <span class="literal">NULL</span>) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;%s: can&#x27;t ignore SIGHUP&quot;</span>, cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((pid = fork()) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;%s: can&#x27;t fork&quot;</span>, cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid != <span class="number">0</span>)<span class="comment">//parent</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* change the current working directory to the root, </span></span><br><span class="line"><span class="comment">    so we won&#x27;t prevent file systems from being unmounted. */</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">chdir</span>(<span class="string">&quot;/&quot;</span>) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;%s: can&#x27;t change directory to /&quot;</span>, cmd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* close all open file descriptors */</span></span><br><span class="line">    <span class="keyword">if</span>(rl.rlim_max == RLIM_INFINTY)</span><br><span class="line">    &#123;</span><br><span class="line">        rl.rlim_max = <span class="number">1024</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; rl.rlim_max; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">close</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* attach file descriptors 0, 1, and 2 to /dev/null */</span></span><br><span class="line">    fd0 = <span class="built_in">open</span>(<span class="string">&quot;/dev/null&quot;</span>, O_RDWR);</span><br><span class="line">    fd1 = <span class="built_in">dup</span>(<span class="number">0</span>);</span><br><span class="line">    fd2 = <span class="built_in">dup</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">/* initialize the log file. */</span></span><br><span class="line">    <span class="built_in">openlog</span>(cmd, LOG_CONS, LOG_DAEMON);</span><br><span class="line">    <span class="keyword">if</span>(fd0 != <span class="number">0</span> || fd1 != <span class="number">1</span> || fd2 != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">syslog</span>(LOG_ERR, <span class="string">&quot;unexpected file descriptors %d %d %d&quot;</span>, fd0, fd1, fd2);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>若<code>daemonize</code>函数由<code>main</code>程序调用，然后<code>main</code>程序进入休眠状态，那么可以用<code>ps</code>命令检查该守护进程的状态：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ./a.out</span><br><span class="line">$ ps -efj</span><br><span class="line">UID    PID  PPID  PGID   SID TTY CMD</span><br><span class="line">sar 13800      1 13799 13799  ?  ./a.out</span><br><span class="line">$ ps -efj | grep 13799</span><br><span class="line">sar 13800      1 13799 13799  ?  ./a.out</span><br></pre></td></tr></table></div></figure>
+<p>我们也可用<code>ps</code>命令验证，没有活动进程存在的ID是<code>13799</code>。这意味着，守护进程在一个孤儿进程组中（见9.10节），它不是会话首进程，因此没有机会被分配到一个控制终端。这一结果是在<code>daemonize</code>函数中执行第二个<code>fork</code>造成的。可以看出，守护进程已经被正确地初始化了。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/">https://xing-cg.github.io/Linux/Linux_%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E9%A1%B9%E7%9B%AE/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">分布式系统架构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA_%E4%BA%8B%E5%8A%A1/"><span class="paginator-prev__text">数据库理论_事务</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">
+           守护进程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">
+           特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">4.</span> <span class="toc-text">
+           概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">
+           编程流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">
+           实例</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

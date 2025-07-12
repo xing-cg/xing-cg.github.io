@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="仿函数        Functor 仿函数是类。 相比于普通函数，仿函数作为类对象，有更多功能可以集成。 12345678class IsOdd&#123;public:    bool operator () (int const&amp; v)    &#123;        return v % 2 !&#x3D; 0;    &#125;&#125;;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_仿函数_lambda表达式">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_%E4%BB%BF%E5%87%BD%E6%95%B0_lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="仿函数        Functor 仿函数是类。 相比于普通函数，仿函数作为类对象，有更多功能可以集成。 12345678class IsOdd&#123;public:    bool operator () (int const&amp; v)    &#123;        return v % 2 !&#x3D; 0;    &#125;&#125;;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/Cpp_20240515_%E4%BB%BF%E5%87%BD%E6%95%B0/image-20240719052258968.png">
+<meta property="article:published_time" content="2024-05-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.788Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/Cpp_20240515_%E4%BB%BF%E5%87%BD%E6%95%B0/image-20240719052258968.png"><title>Cpp_仿函数_lambda表达式 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_%E4%BB%BF%E5%87%BD%E6%95%B0_lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_仿函数_lambda表达式</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-05-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E4%BB%BF%E5%87%BD%E6%95%B0_lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-flag-title="Cpp_仿函数_lambda表达式"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="仿函数"   >
+          <a href="#仿函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#仿函数"></a> 仿函数</h1>
+      
+<p>Functor</p>
+<p>仿函数是类。<br />
+相比于普通函数，仿函数作为类对象，有更多功能可以集成。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">IsOdd</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(<span class="type">int</span> <span class="type">const</span>&amp; v)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v % <span class="number">2</span> != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>使用如下：需要先实例化出一个对象。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; vec&#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    </span><br><span class="line">    IsOdd is_odd_functor;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> it != std::<span class="built_in">find_if</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), is_odd_functor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="剖析find_if"   >
+          <a href="#剖析find_if" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#剖析find_if"></a> 剖析find_if</h2>
+      
+<ol>
+<li>first和last是迭代器，需要先解引用才能使用pred去判断值。</li>
+<li>first到last左闭右开，first等于last时结束。</li>
+<li>内部封装了pred的实际调用形式<code>pred(...)</code>。所以不管是函数、仿函数，只要支持<code>(...)</code>的调用形式就能使用。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">InputIterator</span>, <span class="keyword">class</span> <span class="title class_">UnaryPredicate</span>&gt;</span><br><span class="line"><span class="function">InputIterator <span class="title">find_if</span><span class="params">(InputIterator first, InputIterator last, UnaryPredicate pred)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (first != last)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">pred</span>(*first))</span><br><span class="line">            <span class="keyword">return</span> first;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ++first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="lambda表达式"   >
+          <a href="#lambda表达式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lambda表达式"></a> lambda表达式</h1>
+      
+<p>也叫lambda-calculus（演算）、lexical closure（词法闭包，闭包指穷举所有的状态）</p>
+<blockquote>
+<p>在<code>C++</code>中，本质上是生成了一个类，拥有一个static方法。</p>
+</blockquote>
+<p>为什么叫做词法闭包呢？</p>
+<p>假设，fn在内部定义了fn2、fn4，fn2内部定义了fn3。外界调用fn时是看不到它的内部的。但fn的结果依赖于fn2、fn4，fn2依赖于fn3。<br />
+总之，定义在内部，外界看不到，类似于黑盒，而且各部分的依赖关系不能断，需要穷尽路线，所以叫闭包。</p>
+<ol>
+<li>功能不在全局定义，而是在内部定义。空间不易混乱</li>
+<li>fn可以直接使用fn2作为部分功能<br />
+<img src="../../images/Cpp_20240515_%E4%BB%BF%E5%87%BD%E6%95%B0/image-20240719052258968.png" alt="" /><br />
+有了lambda表达式，就可以形式上在函数中嵌套定义函数了。<br />
+但有个问题，fn中定义的变量，fn2可以访问吗？</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostrean&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="写法形式"   >
+          <a href="#写法形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#写法形式"></a> 写法形式</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Capture List](Parameters) -&gt; ReturnType &#123;&#125;;</span><br><span class="line">    ^              ^       ^       ^      ^</span><br><span class="line"> 捕获列表          参数   goes to  返回类型  函数体</span><br></pre></td></tr></table></div></figure>
+<p>类似于函数，可以互相传递，还可以在中间捕获。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostrean&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// 以下生成了函数对象，可以就地调用：</span></span><br><span class="line">    <span class="type">int</span> b = [a]() -&gt; <span class="type">void</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + <span class="number">20</span>;</span><br><span class="line">        &#125;()<span class="comment">/* 熟悉的函数调用标志：圆括号 */</span>;</span><br><span class="line">    <span class="type">int</span> c = [a](<span class="type">int</span> v) -&gt; <span class="type">void</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + v + <span class="number">20</span>;</span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">bar</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="按值捕获"   >
+          <a href="#按值捕获" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#按值捕获"></a> 按值捕获</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    <span class="type">int</span> c = [a, b](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b + v + <span class="number">20</span>;</span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 也可以在中括号只填一个&quot;=&quot;，代表按值捕获全部</span></span><br><span class="line">    <span class="type">int</span> d = [=](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b + v + <span class="number">20</span>;</span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>按值捕获时，内部lambda函数对捕获的变量修改时，外部值不变，相当于成为了自己的局部变量。<br />
+这个捕获的局部变量在内部也是默认不能改值的，但可以加mutable。明确告诉编译器自己要修改，并不是误会。但加了mutable依然不会影响外部。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    <span class="type">int</span> c = [=](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>; <span class="comment">// error, b can&#x27;t be modified.</span></span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="type">int</span> d = [=](<span class="type">int</span> v) <span class="keyword">mutable</span> -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>; <span class="comment">// ok. , b = 12</span></span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> b;  <span class="comment">// b = 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="按引用捕获"   >
+          <a href="#按引用捕获" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#按引用捕获"></a> 按引用捕获</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    <span class="comment">// 如果想要按引用捕获全部变量，可以在[]中只写一个&quot;&amp;&quot;</span></span><br><span class="line">    <span class="type">int</span> c = [=, &amp;b](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>;</span><br><span class="line">        &#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> b;  <span class="comment">// b = 12</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>如果想要按引用捕获全部变量，可以在<code>[]</code>中只写一个&quot;&amp;&quot;</li>
+<li>也可以在中括号只填一个&quot;=&quot;，代表按值捕获全部</li>
+<li>但是不能<code>[=, &amp;]</code>既全部按值又全部按引用。同时存在时必须有一个是部分变量如<code>[=, &amp;b]</code></li>
+<li>引用可以把外部值联动改变。</li>
+</ol>
+
+        <h2 id="函数对象"   >
+          <a href="#函数对象" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数对象"></a> 函数对象</h2>
+      
+<ol>
+<li>可以用函数对象来存储定义的lambda函数。</li>
+<li>不能用函数指针直接引用。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> lambda = [=, &amp;b](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lambda</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上是使用auto来自动推断、接收。<br />
+也可以使用<code>std::function</code>准确定义相应的函数对象类型来接收lambda函数。（也可以接收普通函数，只要返回值类型、参数类型符合即可）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    </span><br><span class="line">    std::function&lt;<span class="type">int</span>(<span class="type">int</span>)&gt; lambda = [=, &amp;b](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lambda</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="lambda函数对象的生存周期"   >
+          <a href="#lambda函数对象的生存周期" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lambda函数对象的生存周期"></a> lambda函数对象的生存周期</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::function&lt;<span class="title">int</span><span class="params">(<span class="type">int</span>)</span>&gt; <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">11</span>;</span><br><span class="line">    std::function&lt;<span class="type">int</span>(<span class="type">int</span>)&gt; lambda = [=, &amp;b](<span class="type">int</span> v) -&gt; <span class="type">int</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b++ + v + <span class="number">20</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> lam = <span class="built_in">bar</span>();</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">lam</span>(<span class="number">5</span>);</span><br><span class="line">    r = <span class="built_in">lam</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上main函数调用了两次<code>bar()</code>函数内部生成的lambda函数，其中lambda函数自己内部的b是按引用捕获的。<br />
+如果是普通函数的栈帧，则bar函数按理来说在第一行代码结束后就会塌陷，导致引用的b空间被污染。<br />
+在之前的<code>C++11</code>版本确实会存在这类问题，因为<code>C++</code>是静态编译期计算的，而Java、C#、Python是有垃圾回收机制的，有一个引用计数，如果仍有人引用b，则不会对其析构，因此往往让这些局部变量在堆上创建。但<code>C++</code>早期是建立在栈上，因此会发生问题。<br />
+后续版本<code>C++17</code>之后克服了此问题，每个厂商具体细节不同，微软公司也是把局部变量建立在堆上了，并用智能指针管理，即使bar函数栈帧塌陷了，也会帮你把类似a、b的局部变量存储到其他地方。</p>
+
+        <h2 id="lambda函数与面向对象结合捕获this"   >
+          <a href="#lambda函数与面向对象结合捕获this" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lambda函数与面向对象结合捕获this"></a> lambda函数与面向对象结合（捕获this）</h2>
+      
+<p>比如让lambda函数调用某个对象的成员方法、成员变量，可以在lambda表达式中的捕获列表里写this指针。</p>
+
+        <h1 id="面向函数编程"   >
+          <a href="#面向函数编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面向函数编程"></a> 面向函数编程</h1>
+      
+<p>比较关心逻辑，不太关心细节。细节用高阶函数来完成。<br />
+就像是：如果不使用<code>copy_if</code>来做filter，那么就需要另写繁琐的for循环。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_%E4%BB%BF%E5%87%BD%E6%95%B0_lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">https://xing-cg.github.io/Cpp/Cpp_%E4%BB%BF%E5%87%BD%E6%95%B0_lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Cpp/Cpp_%E6%96%87%E4%BB%B6%E5%BA%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_文件库</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_STL_%E7%AE%97%E6%B3%95_ranges/"><span class="paginator-prev__text">Cpp_STL_算法_ranges</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%BF%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">
+           仿函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%96%E6%9E%90find_if"><span class="toc-number">1.1.</span> <span class="toc-text">
+           剖析find_if</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">
+           lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E6%B3%95%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">
+           写法形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E5%80%BC%E6%8D%95%E8%8E%B7"><span class="toc-number">2.2.</span> <span class="toc-text">
+           按值捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E5%BC%95%E7%94%A8%E6%8D%95%E8%8E%B7"><span class="toc-number">2.3.</span> <span class="toc-text">
+           按引用捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.4.</span> <span class="toc-text">
+           函数对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%AD%98%E5%91%A8%E6%9C%9F"><span class="toc-number">2.5.</span> <span class="toc-text">
+           lambda函数对象的生存周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BB%93%E5%90%88%E6%8D%95%E8%8E%B7this"><span class="toc-number">2.6.</span> <span class="toc-text">
+           lambda函数与面向对象结合（捕获this）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%87%BD%E6%95%B0%E7%BC%96%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           面向函数编程</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="动态规划        高阶马尔科夫模型。 一个问题是否是动态规划，决定因素在于某一状态是否依赖于前面的一些状态，至少要依赖多于一种的状态才行。贪心算法其实也是动态规划的一种，可以转化为简单的动态规划。而动态规划与贪心的区别就在于动态规划的眼光比较长远，而贪心只顾及眼前的利益。 动态规划常能解决的有：01背包问题。 简单来说动态规划就是把难以解决的问题分割">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划_C语言实现">
+<meta property="og:url" content="https://xing-cg.github.io/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="动态规划        高阶马尔科夫模型。 一个问题是否是动态规划，决定因素在于某一状态是否依赖于前面的一些状态，至少要依赖多于一种的状态才行。贪心算法其实也是动态规划的一种，可以转化为简单的动态规划。而动态规划与贪心的区别就在于动态规划的眼光比较长远，而贪心只顾及眼前的利益。 动态规划常能解决的有：01背包问题。 简单来说动态规划就是把难以解决的问题分割">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_20240223_0310_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20241115035830301.png">
+<meta property="article:published_time" content="2024-02-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-09T16:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_20240223_0310_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20241115035830301.png"><title>动态规划_C语言实现 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">动态规划_C语言实现</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-02-23</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-03-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/" data-flag-title="动态规划_C语言实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="动态规划"   >
+          <a href="#动态规划" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h1>
+      
+<p>高阶马尔科夫模型。</p>
+<p>一个问题是否是动态规划，决定因素在于某一状态是否依赖于前面的一些状态，至少要依赖多于一种的状态才行。贪心算法其实也是动态规划的一种，可以转化为简单的动态规划。而动态规划与贪心的区别就在于动态规划的眼光比较长远，而贪心只顾及眼前的利益。</p>
+<p>动态规划常能解决的有：01背包问题。</p>
+<p>简单来说动态规划就是把难以解决的问题分割为很多结构相似的小问题。</p>
+
+        <h1 id="fibonacci"   >
+          <a href="#fibonacci" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fibonacci"></a> Fibonacci</h1>
+      
+<p>斐波那契数列。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 1 2 3 5 8 13 21 34 55 89</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="递归法"   >
+          <a href="#递归法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归法"></a> 递归法</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fibo</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fibo(n - <span class="number">1</span>) + fibo(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = fibo(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="迭代法"   >
+          <a href="#迭代法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法"></a> 迭代法</h2>
+      
+<p>即循环，无需硬件栈，速度更快，状态不重复，但是需要依赖表格。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fibo2</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> dp[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">3</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="背包"   >
+          <a href="#背包" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#背包"></a> 背包</h1>
+      
+<p>起始于一种状态：有一个包，小偷偷东西，有大有小，有贵有贱。那么小偷就要考虑如何在有限的容量下拿尽多价值的东西。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>item</th>
+<th>Value</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>5</td>
+<td>9</td>
+</tr>
+<tr>
+<td>1</td>
+<td>9</td>
+<td>11</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>11</td>
+<td>15</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16</td>
+<td>18</td>
+</tr>
+<tr>
+<td>5</td>
+<td>13</td>
+<td>14</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="递归法-2"   >
+          <a href="#递归法-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归法-2"></a> 递归法</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> vals[] = &#123;<span class="number">5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">13</span>&#125;;</span><br><span class="line"><span class="type">int</span> weights[] = &#123;<span class="number">9</span>, <span class="number">11</span>, <span class="number">6</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">14</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">ks</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> cap)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> cap &gt;= weights[n] ? vals[n] : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果不选，则价值为：</span></span><br><span class="line">    <span class="type">int</span> no = ks(n - <span class="number">1</span>, cap);</span><br><span class="line">    <span class="comment">// 如果选择的价值：（先初始化为不选）</span></span><br><span class="line">    <span class="type">int</span> yes = no;</span><br><span class="line">    <span class="keyword">if</span>(cap &gt;= weights[n])</span><br><span class="line">    &#123;</span><br><span class="line">        yes = ks(n - <span class="number">1</span>, cap - weights[n]) + vals[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> no &gt;= yes ? no : yes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试，结果应为45</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = ks(<span class="number">5</span>, <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="迭代法-2"   >
+          <a href="#迭代法-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法-2"></a> 迭代法</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> vals[] = &#123;<span class="number">5</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">13</span>&#125;;</span><br><span class="line"><span class="type">int</span> weights[] = &#123;<span class="number">9</span>, <span class="number">11</span>, <span class="number">6</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">14</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">ks2</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> cap)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 6行 51列</span></span><br><span class="line">    <span class="type">int</span> res[<span class="number">6</span>][<span class="number">51</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// 初始化表格</span></span><br><span class="line">    <span class="comment">// i指的是背包目前的容量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">50</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; weights[<span class="number">0</span>])<span class="comment">// weights[0]对应于 第0号物品的重量</span></span><br><span class="line">        &#123;</span><br><span class="line">            res[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            res[<span class="number">0</span>][i] = vals[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 遍历计算每一个状态</span></span><br><span class="line">    <span class="comment">// 行 对应于n</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 列 对应于cap</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt;= cap; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> no = res[i - <span class="number">1</span>][j];</span><br><span class="line">            <span class="type">int</span> yes = no;</span><br><span class="line">            <span class="keyword">if</span>(j &gt;= weights[i])</span><br><span class="line">            &#123;</span><br><span class="line">                yes = vals[i] + res[i - <span class="number">1</span>][j - weights[i]];</span><br><span class="line">            &#125;</span><br><span class="line">            res[i][j] = no &gt;= yes ? no : yes;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res[n][c];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试，结果应为45</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = ks2(<span class="number">5</span>, <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="背包变型-凑数"   >
+          <a href="#背包变型-凑数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#背包变型-凑数"></a> 背包变型 - 凑数</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">nums[] = <span class="number">5</span> <span class="number">8</span> <span class="number">1</span> <span class="number">3</span> <span class="number">9</span> <span class="number">2</span> <span class="number">4</span> <span class="number">7</span> <span class="number">6</span> -&gt; 能不能凑出<span class="number">25</span></span><br><span class="line"><span class="type">bool</span> mk_sum(n, target_val)</span><br><span class="line">不取：mk_sum(n - <span class="number">1</span>, target_val)           -&gt;能不能从剩下的n<span class="number">-1</span>个中凑出tar</span><br><span class="line">取： mk_sum(n - <span class="number">1</span>, target_val - nums[n])  -&gt;能不能从剩下的n<span class="number">-1</span>中凑出tar-nums[n]</span><br><span class="line">    </span><br><span class="line">两个状态之间应该取OR（或）的关系，只要有一边可以达到，则就可以凑出<span class="number">25</span></span><br><span class="line">    </span><br><span class="line">终止条件：</span><br><span class="line">    （<span class="number">1</span>）n = <span class="number">0</span>，此时看target_get和第<span class="number">0</span>个数是否相等。</span><br><span class="line">    （<span class="number">2</span>）或者target_val为<span class="number">0</span>（全不选即可凑为<span class="number">0</span>）</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sums[] = &#123;<span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">6</span>&#125;;<span class="comment">//9个数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">mk_sum</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> target_val)</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="comment">// 终止条件</span></span><br><span class="line">    <span class="keyword">if</span>(target_val == <span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>; <span class="comment">//true</span></span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>)<span class="keyword">return</span> target_val == nums[<span class="number">0</span>];</span><br><span class="line">    <span class="type">int</span> no = mk_sum(n - <span class="number">1</span>, target_val);</span><br><span class="line">    <span class="type">int</span> yes = no;</span><br><span class="line">    <span class="keyword">if</span>(target_val &gt;= nums[n])</span><br><span class="line">    &#123;</span><br><span class="line">        yes = mk_sum(n - <span class="number">1</span>, target_val - nums[n]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> no || yes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="迭代法-3"   >
+          <a href="#迭代法-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法-3"></a> 迭代法</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n ∈ [0, 8]</span><br><span class="line">target ∈ [0, 99] //其实target应该无上限才对，本例只看99以下的凑数情况</span><br><span class="line">所以需要 9 × 100 的数组</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sums[] = &#123;<span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mk_sum2</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> target_val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> res[<span class="number">9</span>][<span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;<span class="comment">//因为表中的值只能有0、1，为了节省空间，用char</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        res[i][<span class="number">0</span>] = <span class="number">1</span>;<span class="comment">// 第0列，代表target_val为0，此时为凑0，即全不选即可</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 以下for其实可以替换为一句话：res[0][nums[0]] = 1</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= target_val; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 在第0个数时，为一个终止条件，看j正好与自身nums[0]相等时正好能凑</span></span><br><span class="line">        res[<span class="number">0</span>][j] = j == nums[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算表格中每一个状态</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= target_val; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">char</span> no = res[i - <span class="number">1</span>][j];</span><br><span class="line">            <span class="type">char</span> yes = no;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt;= j)</span><br><span class="line">            &#123;</span><br><span class="line">                yes = res[i - <span class="number">1</span>][j - nums[i]];</span><br><span class="line">            &#125;</span><br><span class="line">            res[i][j] = yes || no;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res[n][target_val];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试，结果应为1</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> i = mk_sum2(<span class="number">8</span>, <span class="number">45</span>);<span class="comment">//从八个数中凑45</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="每次两边二选一最后总数最大"   >
+          <a href="#每次两边二选一最后总数最大" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#每次两边二选一最后总数最大"></a> 每次两边二选一最后总数最大</h1>
+      
+<p>若干个小球排列成一排，每个小球上面写有一个整数。<br />
+玩家a和玩家b依次拿走小球，一名玩家一次只能拿一个球，规定玩家a先拿，玩家b后拿，但是每个玩家每次只能拿走最左或最右的球。<br />
+游戏结束时，每个玩家已经拿走的球上面的数字之和就是他得到的分数。<br />
+玩家a和玩家b都绝顶聪明，他们总会采用最优策略。<br />
+请返回最后获胜者的分数。</p>
+<p>示例：<br />
+小球序列用一个整型数组 A 表示。<br />
+如：<code>arr = [1,2,100,3]</code><br />
+开始时玩家A只能拿走<code>1</code>或<code>3</code>。如果玩家A拿走1，则排列变为<code>[2,100,3]</code>，接下来玩家B可以拿走<code>2</code>或<code>3</code>，然后继续轮到玩家A。如果开始时玩家A拿走<code>3</code>，则排列变为<code>[1,2,100]</code>，接下来玩家B可以拿走<code>1</code>或<code>100</code>，然后继续轮到玩家A。玩家A作为绝顶聪明的人不会先拿<code>3</code>，因为拿了<code>3</code>之后玩家B将拿走<code>100</code>。所以玩家A会先拿<code>1</code>，让排列变为<code>[2,100,3]</code>，接下来玩家B不管怎么选，<code>100</code>都会被玩家A拿走、玩家A会获胜，分数为<code>101</code>。所以返回<code>101</code>。<br />
+如：<code>arr = [1,100,2]</code><br />
+开始时玩家A不管拿<code>1</code>还是<code>2</code>，玩家B作为绝顶聪明的人，都会把<code>100</code>拿走。玩家B会获胜，分数为<code>100</code>，所以返回<code>100</code>。</p>
+
+        <h2 id="结构体"   >
+          <a href="#结构体" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体"></a> 结构体</h2>
+      
+<p>可以自定义一个结构体，最后返回这个结构体，从而可以分析两个记录值。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_Score</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> current;</span><br><span class="line">    <span class="type">int</span> other;</span><br><span class="line">&#125;Score;</span><br></pre></td></tr></table></div></figure>
+<p>current代表当前人的总分数，other代表另一个人的总分数。<br />
+第一次选时，假设current是A，other是B。<br />
+则第二次选时（问题深度加1），current是B，other是A。<br />
+可以用king代表函数名，函数中有两个参数，<code>left</code>代表最左数的下标，<code>right</code>代表最右数的下标。<br />
+<code>king(left, right)</code>表示A先选，返回值<code>current</code>表示A在<code>left</code>到<code>right</code>之间，和B一起轮流选后的总分，other表示B的总分。<br />
+通过分析，可以清晰地知道，只有<code>left</code>和<code>right</code>两个通路，以此可以递推出两个迭代函数。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 2 100 3</span><br><span class="line"></span><br><span class="line">king(left, right) = ?</span><br><span class="line"></span><br><span class="line">最后最高得分：</span><br><span class="line">第1人（A）选择left:  king(left + 1, right)  -- 此时Current变为B</span><br><span class="line">第1人（A）选择right: king(left, right - 1)  -- 此时Current变为B</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="递归法-3"   >
+          <a href="#递归法-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归法-3"></a> 递归法</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">Score</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> current;</span><br><span class="line">    <span class="type">int</span> other;</span><br><span class="line">&#125;Score;</span><br><span class="line"><span class="type">int</span> arr[] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">100</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">Score <span class="title function_">king_recur</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    Score score;</span><br><span class="line">    <span class="keyword">if</span> (left == right)</span><br><span class="line">    &#123;</span><br><span class="line">        score.current = arr[left]; <span class="comment">// left == right, 只有一个数</span></span><br><span class="line">        score.other = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> score;</span><br><span class="line">    &#125;</span><br><span class="line">    Score left_score  = king_recur(left + <span class="number">1</span>, right);</span><br><span class="line">    Score right_score = king_recur(left, right - <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// left_score.other + arr[left]   表示 上次选的人 选择左之后 的分数</span></span><br><span class="line">    <span class="comment">// left_score.other + arr[right]  表示 上次选的人 选择右之后 的分数</span></span><br><span class="line">    <span class="comment">// left_score.current             表示  这次要选的人        的分数</span></span><br><span class="line">    <span class="comment">// 如果 上次的人选 左边 之后 的 分数 减去 这次要选的人 的分数，</span></span><br><span class="line">    <span class="comment">// 比  上次的人选 右边 之后 的 分数 减去 这次要选的人 的分数大，则 上次的人（current）选左边：</span></span><br><span class="line">    <span class="keyword">if</span> (left_score.other + arr[left] - left_score.current &gt;= right_score.other + arr[right] - right_score.current)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 上次的other成为了这次的current，选了左边，因此current = other+arr[left]</span></span><br><span class="line">        score.current = left_score.other + arr[left];</span><br><span class="line">        <span class="comment">// 上次的current成为了这次的other</span></span><br><span class="line">        score.other   = left_score.current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// 否则，上次的人（current）就选右边。</span></span><br><span class="line">    &#123;</span><br><span class="line">        score.current = right_score.other + arr[right];</span><br><span class="line">        score.other   = right_score.current;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Score score = king_recur(<span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;A: &quot;</span> &lt;&lt; score.current &lt;&lt; <span class="string">&quot;, B: &quot;</span> &lt;&lt; score.other &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试：A: 101, B: 5</p>
+
+        <h3 id="复杂度分析"   >
+          <a href="#复杂度分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h3>
+      
+<p>每一次迭代有2个分支，因此递归法的时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
+
+        <h2 id="迭代法-4"   >
+          <a href="#迭代法-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法-4"></a> 迭代法</h2>
+      
+<p>终止条件是：<code>left == right</code>。这时只剩下一个球，只能选择这个球，此时值为这个球的数字。<br />
+因此，在迭代法中，就可以先以对角线斜行进行初始化。<br />
+还有一些可以轻松排除的：left不可能大于right，这些位置的值都无效，左下半角数值无意义。</p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_20240223_0310_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20241115035830301.png" alt="" /><br />
+接下来，我们再来分析<code>left = 0, right = 1</code>的情况：</p>
+<ol>
+<li>如果上一次的人选走了0号（1），那么<code>king(0, 1) =&gt; current = 2, other = 1</code></li>
+<li>如果上一次的人选走了1号（2），那么<code>king(0, 1) =&gt; current = 1, other = 2</code></li>
+<li>即每一个格子的值都依赖于左边的格或下边的格。
+<ol>
+<li>如果选了左边，则和下方格的other加和，作为当前current，与下方格的current对比，求差值=<code>左other+下数字价值-左current</code></li>
+<li>如果选了下边，则和左方格的other加和，作为当前current，与左方格的current对比，求差值=<code>下other+左数字价值-下current</code></li>
+<li>如果差值1大于差值2，则选左边；如果差值2大于差值1，则选右边。</li>
+</ol>
+</li>
+</ol>
+<p>这种需要依赖左1和下1的，需要斜着迭代，而不是简单地一行一行、一列一列地。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">100</span>, <span class="number">3</span> &#125;;</span><br><span class="line">Score scores[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line">Score <span class="title function_">king_interation</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = left; i &lt;= right; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        scores[i][i].current = arr[i];</span><br><span class="line">        scores[i][i].other   = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Matrix:&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; scores[i][j].current &lt;&lt; <span class="string">&quot;,&quot;</span> &lt;&lt; scores[i][j].other &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = left + <span class="number">1</span>; j &lt;= right; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = left; i &lt;= right - (j - i); ++i, ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// i小，j大</span></span><br><span class="line">            <span class="comment">// 选右边的情况 优于 选左边的情况</span></span><br><span class="line">            <span class="keyword">if</span> (scores[i][j - <span class="number">1</span>].other + arr[j] - scores[i][j - <span class="number">1</span>].current &gt;= scores[i + <span class="number">1</span>][j].other + arr[i] - scores[i + <span class="number">1</span>][j].current)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 左边的other（以前选的）+ 这次选的右边</span></span><br><span class="line">                scores[i][j].current = scores[i][j - <span class="number">1</span>].other + arr[j];</span><br><span class="line">                scores[i][j].other = scores[i][j - <span class="number">1</span>].current;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span><span class="comment">// 选右边的情况 差于 选左边的情况</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 右边的other（以前选的）+ 这次选的左边</span></span><br><span class="line">                scores[i][j].current = scores[i + <span class="number">1</span>][j].other + arr[i];</span><br><span class="line">                scores[i][j].other = scores[i + <span class="number">1</span>][j].current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        j = j - i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> scores[left][right];</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    score = king_interation(<span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Matrix:&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; scores[i][j].current &lt;&lt; <span class="string">&quot;,&quot;</span> &lt;&lt; scores[i][j].other &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;A: &quot;</span> &lt;&lt; score.current &lt;&lt; <span class="string">&quot;, B: &quot;</span> &lt;&lt; score.other &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="优化逻辑"   >
+          <a href="#优化逻辑" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优化逻辑"></a> 优化逻辑</h3>
+      
+<p>其实可以直接比较得分而无需计算差值。<br />
+我们之所以不使用“差值”进行比较，是因为这里的目标并不是仅仅<strong>最大化与对手的得分差</strong>，而是<strong>获得尽可能多的分数</strong>。在这个游戏的规则下：</p>
+<ul>
+<li>每个回合的目标是为当前玩家（无论是A还是B）取得当前回合的最高得分；</li>
+<li>同时，下一轮再以递归的方式计算对手得分的最大化策略。</li>
+</ul>
+<p>因此，<strong>差值并不能准确反映最佳选择</strong>，因为差值只考虑到某一轮次的得失，而不是整个局面的最优解。而在动态规划中，我们将所有可能的得分组合记录下来，从而避免错过任何潜在的最优策略。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Score <span class="title">king_interation</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = left; i &lt;= right; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        scores[i][i].current = arr[i];</span><br><span class="line">        scores[i][i].other   = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Matrix:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; scores[i][j].current &lt;&lt; <span class="string">&quot;,&quot;</span> &lt;&lt; scores[i][j].other &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = left + <span class="number">1</span>; j &lt;= right; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = left; i &lt;= right - (j - i); ++i, ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 选择左边或右边球</span></span><br><span class="line">            <span class="type">int</span> pickLeft = arr[i] + scores[i + <span class="number">1</span>][j].other;</span><br><span class="line">            <span class="type">int</span> pickRight = arr[j] + scores[i][j - <span class="number">1</span>].other;</span><br><span class="line">        </span><br><span class="line">            <span class="comment">// 选择更优策略</span></span><br><span class="line">            <span class="keyword">if</span> (pickLeft &gt; pickRight) &#123;</span><br><span class="line">                scores[i][j].current = pickLeft;</span><br><span class="line">                scores[i][j].other = scores[i + <span class="number">1</span>][j].current;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                scores[i][j].current = pickRight;</span><br><span class="line">                scores[i][j].other = scores[i][j - <span class="number">1</span>].current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        j = j - i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> scores[left][right];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="动态规划与贪心的区别"   >
+          <a href="#动态规划与贪心的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#动态规划与贪心的区别"></a> 动态规划与贪心的区别</h3>
+      
+<p>在这个动态规划的方案中：</p>
+<ol>
+<li><strong>完整性</strong>：动态规划表记录了从每一个子问题的解开始，构建整个问题的解。这样就保证了即使在更早的步骤中没有获得“局部最高得分”，也能通过累计得到最终的最优解。</li>
+<li><strong>非贪心性</strong>：如果采用贪心策略，每一步都会选择当前“最显眼”的得分选项（例如，选择最大值或最小值），忽视之后的可能得分。然而动态规划在 <code>scores[i][j]</code> 中记录了所有可能选项带来的得分情况，使得每一步都是基于整体最优，而非局部最优。对于 <code>[0, 3]</code> 的序列，不直接依赖于局部差值，而是递归地从 <code>scores[0][1], scores[1][3]</code> 等子问题的最优解构建整个区间的最优解。</li>
+</ol>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<p>这道题的难点在于：current、other这两个变量名我们是固定好的，但是每一次选完之后，current和other的实际身份互换。要在错综复杂的分析中明确迭代方程在本层与上一层之间的联系、区别。同时，if条件表达式比较长，需要保持清楚的逻辑分析出，究竟需要看什么条件，此题不只是简单的看谁最终取得最大值，而是在过程中，看A选左边或右边之后，与B的差值，哪个大。</p>
+
+        <h1 id="playing-with-beads"   >
+          <a href="#playing-with-beads" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#playing-with-beads"></a> Playing with Beads</h1>
+      
+<p>There are <code>N</code> people in a group labeled from <code>1</code> to <code>N</code>. People are connected to each other via threads in the following manner.<br />
+The person with label number <code>K</code> is connected to all the persons with label <code>J</code> such that <code>J</code> exactly divides <code>K</code>. Beads can be passed through the threads. If a person <code>P</code> has a bead, in how many ways can the bead be passed in the network of threads so that it returns to the same person within <code>X</code> moves or less?</p>
+<p>MOVE: Passing the bead from one person to the other.</p>
+<p>Input specification:<br />
+input1: <code>N</code>, denoting the number of people.<br />
+input2: <code>P</code>, label of the person having the bead<br />
+input3: <code>X</code>, maximum number of moves that can be made</p>
+<p>Output specification:<br />
+Your function should return the total number of ways in which the bead will return to its initial position within <code>X</code> moves.</p>
+<p>Example 1:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">input1: 3</span><br><span class="line">input2: 2</span><br><span class="line">input3: 2</span><br><span class="line"></span><br><span class="line">Output: 1</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">Only 1 way:</span><br><span class="line">2-&gt;1-&gt;2</span><br></pre></td></tr></table></div></figure>
+<p>Example 2:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input1: 3</span><br><span class="line">input2: 2</span><br><span class="line">input3: 4</span><br><span class="line"></span><br><span class="line">Output: 3</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">3 ways:</span><br><span class="line">2-&gt;1-&gt;2</span><br><span class="line">2-&gt;1-&gt;3-&gt;1-&gt;2</span><br><span class="line">2-&gt;1-&gt;2-&gt;1-&gt;2</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="分析"   >
+          <a href="#分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+      
+<p>假如K可以被J整除，则K和J相连。相连者可以互传球。</p>
+<ol>
+<li>输入1：共有N个人。标记为1到N。</li>
+<li>输入2：从P开始传球</li>
+<li>输入3：在X步内，有多少种方法可以传回同一人？</li>
+</ol>
+
+        <h2 id="递归法-4"   >
+          <a href="#递归法-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归法-4"></a> 递归法</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> begin;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">playbeads_recur</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;End&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((i % p == <span class="number">0</span> || p % i == <span class="number">0</span>) &amp;&amp; (i != p))</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; p &lt;&lt; <span class="string">&quot;-&gt;&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; std::endl;</span><br><span class="line">                <span class="keyword">if</span> (i == begin)</span><br><span class="line">                &#123;</span><br><span class="line">                    sum += <span class="number">1</span>;</span><br><span class="line">                    std::cout &lt;&lt; <span class="string">&quot;This is a Way&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">                &#125;</span><br><span class="line">                sum += <span class="built_in">playbeads_recur</span>(i, x - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n = <span class="number">3</span>;</span><br><span class="line">    begin = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span> sum = <span class="built_in">playbeads_recur</span>(begin, x);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Total Ways: &quot;</span> &lt;&lt; sum &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>结果：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">2-&gt;1,</span><br><span class="line">1-&gt;2,</span><br><span class="line">This is a Way</span><br><span class="line">2-&gt;1,</span><br><span class="line">1-&gt;2,</span><br><span class="line">This is a Way</span><br><span class="line">End</span><br><span class="line">1-&gt;3,</span><br><span class="line">End</span><br><span class="line">1-&gt;3,</span><br><span class="line">3-&gt;1,</span><br><span class="line">1-&gt;2,</span><br><span class="line">This is a Way</span><br><span class="line">End</span><br><span class="line">1-&gt;3,</span><br><span class="line">End</span><br><span class="line">Total Ways: 3</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="迭代法-5"   >
+          <a href="#迭代法-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法-5"></a> 迭代法</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> begin;</span><br><span class="line"><span class="type">int</span> arr[<span class="number">4</span>][<span class="number">5</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">playbeads</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= x; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i][j] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (begin == i)</span><br><span class="line">        &#123;</span><br><span class="line">            arr[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Matrix&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= x; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; arr[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// i 是 第几人</span></span><br><span class="line">    <span class="comment">// j 是 剩下几步</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= x; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 注意，i==begin 且 j==x时表示第一步球在p手中，不能算</span></span><br><span class="line">            <span class="keyword">if</span> (i == begin &amp;&amp; j != x)</span><br><span class="line">            &#123;</span><br><span class="line">                arr[i][j] += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> ((i != k) &amp;&amp; (i % k == <span class="number">0</span> || k % i == <span class="number">0</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    arr[i][j] += arr[k][j<span class="number">-1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Matrix&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= x; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; arr[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr[p][x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n = <span class="number">3</span>;</span><br><span class="line">    begin = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">4</span>;</span><br><span class="line">    <span class="comment">//int sum = playbeads_recur(begin, x);</span></span><br><span class="line">    <span class="type">int</span> sum = <span class="built_in">playbeads</span>(begin, x);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Total Ways: &quot;</span> &lt;&lt; sum &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Matrix</span><br><span class="line">0 0 0 0 0</span><br><span class="line">0 0 0 0 0</span><br><span class="line">1 0 0 0 0</span><br><span class="line">0 0 0 0 0</span><br><span class="line">Matrix</span><br><span class="line">0 0 0 0 0</span><br><span class="line">0 1 1 3 3</span><br><span class="line">1 1 2 2 3</span><br><span class="line">0 0 1 1 3</span><br><span class="line">Total Ways: 3</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/">https://xing-cg.github.io/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E7%AE%97%E6%B3%95/Floyd%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Floyd图算法中的动态规划_C语言实现</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/"><span class="paginator-prev__text">C语言_串匹配算法</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.</span> <span class="toc-text">
+           动态规划</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fibonacci"><span class="toc-number">2.</span> <span class="toc-text">
+           Fibonacci</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">
+           递归法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">
+           迭代法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">
+           背包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%B3%95-2"><span class="toc-number">3.1.</span> <span class="toc-text">
+           递归法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95-2"><span class="toc-number">3.2.</span> <span class="toc-text">
+           迭代法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E5%8C%85%E5%8F%98%E5%9E%8B-%E5%87%91%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">
+           背包变型 - 凑数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95-3"><span class="toc-number">4.1.</span> <span class="toc-text">
+           迭代法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AF%8F%E6%AC%A1%E4%B8%A4%E8%BE%B9%E4%BA%8C%E9%80%89%E4%B8%80%E6%9C%80%E5%90%8E%E6%80%BB%E6%95%B0%E6%9C%80%E5%A4%A7"><span class="toc-number">5.</span> <span class="toc-text">
+           每次两边二选一最后总数最大</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">5.1.</span> <span class="toc-text">
+           结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%B3%95-3"><span class="toc-number">5.2.</span> <span class="toc-text">
+           递归法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">5.2.1.</span> <span class="toc-text">
+           复杂度分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95-4"><span class="toc-number">5.3.</span> <span class="toc-text">
+           迭代法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E9%80%BB%E8%BE%91"><span class="toc-number">5.3.1.</span> <span class="toc-text">
+           优化逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%8E%E8%B4%AA%E5%BF%83%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.3.2.</span> <span class="toc-text">
+           动态规划与贪心的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.4.</span> <span class="toc-text">
+           总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#playing-with-beads"><span class="toc-number">6.</span> <span class="toc-text">
+           Playing with Beads</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">6.1.</span> <span class="toc-text">
+           分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%B3%95-4"><span class="toc-number">6.2.</span> <span class="toc-text">
+           递归法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95-5"><span class="toc-number">6.3.</span> <span class="toc-text">
+           迭代法</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

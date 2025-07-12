@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="SDS指simple dynamic string，即简单动态字符串。                      Memcached与Redis的区别和选择        Memcached与Redis的区别和选择https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_18671415&#x2F;article&#x2F;details&#x2F;104540628 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1839">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis_SDS">
+<meta property="og:url" content="https://xing-cg.github.io/Redis/Redis_SDS/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="SDS指simple dynamic string，即简单动态字符串。                      Memcached与Redis的区别和选择        Memcached与Redis的区别和选择https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_18671415&#x2F;article&#x2F;details&#x2F;104540628 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1839">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810021047383.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810022209189.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810022351037.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810023944795.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810024031901.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810024054322.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810025606081.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210721204739876.png">
+<meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.815Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/Redis_SDS/image-20210810021047383.png"><title>Redis_SDS | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Redis/Redis_SDS/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Redis_SDS</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-07-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Redis/Redis_SDS/" data-flag-title="Redis_SDS"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>SDS指simple dynamic string，即简单动态字符串。</p>
+
+        <h1 id="memcached与redis的区别和选择"   >
+          <a href="#memcached与redis的区别和选择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#memcached与redis的区别和选择"></a> Memcached与Redis的区别和选择</h1>
+      
+<p>Memcached与Redis的区别和选择<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18671415/article/details/104540628" >https://blog.csdn.net/qq_18671415/article/details/104540628</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183993817" >https://zhuanlan.zhihu.com/p/183993817</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>Redis 这几年的大热，现在已经替代 Memcached 成为缓存技术的首要中间件，作为大厂的带头兵，在 BAT 里面，Redis 也已经逐渐取代了 Memcached，广泛使用 Redis 作为缓存应用方案。</p>
+<p><strong>1）速度更快</strong></p>
+<p>Memcached 使用的是多线程模型，既然是多线程，就会因为全局加锁而带来性能损耗。而 Redis 使用的是单线程模型，没有锁竞争，速度非常快。</p>
+<p><strong>2）数据类型更丰富</strong></p>
+<p>Memcached 数据类型非常单一，只支持 String 数据类型，在业务实现上就非常有瓶颈。</p>
+<p>而 Redis 支持 string(字符串)、hash(哈希)、list(列表)、set(集合)、zset(sorted set:有序集合) 等……丰富的数据类型可以让 Redis 在业务上大展拳脚。</p>
+<p>这也是 Redis 能代替 Memcached 最重要的原因之一。</p>
+<p>并且，Memcached 值最大上限为：1M，而 Redis 最大可以到：1GB。</p>
+<p><strong>3）数据持久化</strong></p>
+<p>Memcached 不支持持久化，Redis 支持。</p>
+<p>缓存服务器断电后，Memcached 的数据是不能恢复的，而 Redis 可以将数据保久化在磁盘中，服务器重启的后可以加载再次使用，不会造成数据断电丢失。</p>
+<p>比如，有些数据是直接放在缓存数据库中的，其他地方可能没有备份，如果丢失了，那可能会造成业务影响，这也是 Redis 非常有用的一个保障特性。</p>
+
+        <h1 id="柔性数组"   >
+          <a href="#柔性数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#柔性数组"></a> 柔性数组</h1>
+      
+<p>先看一个结构体的设计</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXLEN 1024 <span class="comment">//1K  //对于操作系统层面来讲，分配、管理内存是以一页为单位的，占4K即1024*4=4096字节</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">kd_node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kd_node</span>* <span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kd_node</span>* <span class="title">right</span>;</span></span><br><span class="line">    <span class="type">int</span> dim;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> data[MAXLEN];<span class="comment">//数据  //占用了1024*sizeof(unsigned long long)=8k字节</span></span><br><span class="line">&#125;kd_node;</span><br></pre></td></tr></table></div></figure>
+<p>在上面这段代码中，为了存储数据，申请了长度为1024的unsigned long long型数组。若是数据的长度远远小于MAXLEN，这样的设计是很浪费空间的。</p>
+<p>对于数组，我们的原则是大开小用（尽可能开辟足够的空间，但使用时不能全都用上）。而对于动态内存分配，我们就可以更加的灵活运用，但代价是使用完后要释放掉。</p>
+<p>C99标准中给出了新的设计方法，通过柔性数组可以解决这个问题。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sd_node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> num;<span class="comment">//数据的长度，即已填入的数据占用的长度</span></span><br><span class="line">    <span class="type">int</span> size;<span class="comment">//总长度</span></span><br><span class="line">    <span class="type">char</span> data[];<span class="comment">//或char data[0];</span></span><br><span class="line">    <span class="comment">//数组的大小声明为0或不给出大小，称之为柔性数组。必须在最后位置声明，且一旦声明后面不能再声明其他结构。全局数组和局部数组不可如此定义。</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">sizeof</span>(<span class="keyword">struct</span> sd_node);<span class="comment">//8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在struct sd_node结构体中data仅仅是一个待使用的标识符，不占用存储空间。</p>
+<p>用途：柔性数组的主要用途是为了满足长度可变的结构体。</p>
+<p>用法：在一个结构体的最后，声明一个长度为0的数组，就可以使得这个结构体是可变长的。<strong>对于编译器来说</strong>，此时长度为0的数组并不占用空间，因为数组名本身不占空间，它只是一个偏移量。数组名这个符号本身代表了一个<strong>不可修改的地址常量</strong>。但对于这个数组的大小，我们可以进行动态分配。</p>
+<p>注意：如果结构体是通过calloc/malloc/realloc等动态分配方式生成的，在不使用时需要释放相应的空间。</p>
+<p>优点：比起在结构体中声明一个指针变量再进行动态分配的做法，柔性数组方法效率要高，因为简单。</p>
+<p>缺点：在结构体中，数组为0的数组必须在最后声明，在设计结构体类型时有一定限制。</p>
+<p><img src="../../images/Redis_SDS/image-20210810021047383.png" alt="image-20210810021047383" /></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">kd_node</span>* <span class="title">sp1</span> =</span> (<span class="keyword">struct</span> kd_node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> kd_node)+<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(sp1==nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">    &#125;</span><br><span class="line">    strcpy_s(sp1-&gt;data,<span class="number">20</span>,<span class="string">&quot;yhping&quot;</span>);<span class="comment">//20指sp1-&gt;data的最大空间，使其安全拷贝</span></span><br><span class="line">    sp1-&gt;num = <span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">    sp1-&gt;size = <span class="number">20</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;size: %d \n&quot;</span>,sp1-&gt;size);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;num: %d \n&quot;</span>,sp1-&gt;num);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;data: %s \n&quot;</span>,sp1-&gt;data);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">free</span>(sp1);</span><br><span class="line">    sp1 = nullptr;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Redis_SDS/image-20210810022209189.png" alt="image-20210810022209189" /></p>
+<p><img src="../../images/Redis_SDS/image-20210810022351037.png" alt="image-20210810022351037" /></p>
+
+        <h2 id="易错"   >
+          <a href="#易错" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#易错"></a> 易错</h2>
+      
+<p><img src="../../images/Redis_SDS/image-20210810023944795.png" alt="image-20210810023944795" /></p>
+<p><img src="../../images/Redis_SDS/image-20210810024031901.png" alt="image-20210810024031901" /></p>
+<p>运行结果</p>
+<p><img src="../../images/Redis_SDS/image-20210810024054322.png" alt="image-20210810024054322" /></p>
+<p>sizeof的运算只发生在编译时期，因此只计算变量的类型的大小，经典的例子就是sizeof(++a)，再次输出a时发现没有+1，是因为sizeof(++a)根本没有执行。</p>
+
+        <h2 id="与另一种实现方法的对比"   >
+          <a href="#与另一种实现方法的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与另一种实现方法的对比"></a> 与另一种实现方法的对比</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kd_buff</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="type">int</span> size;</span><br><span class="line">    <span class="type">char</span>* buff;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    kd_buff* p = (kd_buff*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(kd_buff));</span><br><span class="line">    </span><br><span class="line">    p-&gt;buff = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">char</span>)*<span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>));</span><br><span class="line">    <span class="built_in">strcpy</span>(p-&gt;buff,<span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>),<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    p-&gt;num = <span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>)<span class="number">-1</span>;</span><br><span class="line">    p-&gt;size = <span class="built_in">strlen</span>(<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>显然，指向字符串指针的方法的操作起来比柔性数组操作起来要繁杂一些。<br />
+<img src="../../images/Redis_SDS/image-20210810025606081.png" alt="image-20210810025606081" /></p>
+<p>而且，这种结构需要分两次申请空间，导致到最后必须释放两次。而柔性数组只申请一次空间，最后释放时直接释放一次即可。因此，综合考虑，柔性数组明显是优于上述结构的。</p>
+
+        <h1 id="退出方案"   >
+          <a href="#退出方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#退出方案"></a> 退出方案</h1>
+      
+<p><code>exit()</code>, <code>_exit()</code>, <code>return</code>, <code>abort()</code>函数的区别<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/lyf47/article/details/44203499" >https://blog.csdn.net/lyf47/article/details/44203499</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>在Redis中我们采用的是<code>abort();</code></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">adsOomAbort</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;SDS: out of memory \n&quot;</span>);</span><br><span class="line">    <span class="built_in">abort</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="abort"   >
+          <a href="#abort" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#abort"></a> <code>abort()</code></h2>
+      
+
+        <h2 id="exitexit_failure"   >
+          <a href="#exitexit_failure" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#exitexit_failure"></a> <code>exit(EXIT_FAILURE)</code></h2>
+      
+
+        <h2 id="_exit"   >
+          <a href="#_exit" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#_exit"></a> <code>_exit()</code></h2>
+      
+
+        <h1 id="代码"   >
+          <a href="#代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> sds <span class="type">char</span>*;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sdsclear</span><span class="params">(sds s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>* <span class="title">sh</span>=</span>(<span class="keyword">struct</span> sdshdr*)s-<span class="keyword">sizeof</span>(<span class="keyword">struct</span>*(sdshdr));</span><br><span class="line">    sh-&gt;<span class="built_in">free</span>+=sh-&gt;len;</span><br><span class="line">    sh-&gt;len=<span class="number">0</span>;</span><br><span class="line">    sh-&gt;buf[<span class="number">0</span>]=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">sds <span class="title function_">sdscat</span><span class="params">(sds stra,sds strb)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdshar</span>* <span class="title">sh_a</span>=</span>(<span class="keyword">struct</span> sdshdr*)stra-<span class="keyword">sizeof</span>(<span class="keyword">struct</span>*(sdshdr));</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdshar</span>* <span class="title">sh_b</span>=</span>(<span class="keyword">struct</span> sdshdr*)strb-<span class="keyword">sizeof</span>(<span class="keyword">struct</span>*(sdshdr));</span><br><span class="line">    <span class="keyword">if</span>(sh_a-&gt;<span class="built_in">free</span>&gt;=str-&gt;<span class="built_in">free</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        memcpy_s(<span class="string">&quot;&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stra[<span class="number">6</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="stringh"   >
+          <a href="#stringh" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stringh"></a> string.h</h1>
+      
+
+        <h2 id="memcpy"   >
+          <a href="#memcpy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#memcpy"></a> memcpy</h2>
+      
+<p>函数原型为<code>void *memcpy(void *destin, void *source, unsigned n)</code>。函数的功能是从源内存地址的起始位置开始拷贝若干个字节到目标内存地址中，即从源source中拷贝n个字节到目标destin中。</p>
+
+        <h1 id="c语言传统的字符串"   >
+          <a href="#c语言传统的字符串" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言传统的字符串"></a> C语言传统的字符串</h1>
+      
+<p>即以空字符结尾的字符数组。</p>
+<ol>
+<li>在.rdata数据区里</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* sp = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+<ol start="2">
+<li>数组存放</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> stra[] = <span class="string">&quot;yhping&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li>堆区开辟，并用strcpy_s(cp,10,“yhping”);复制</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span>* cp = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">char</span>)*<span class="number">10</span>);</span><br><span class="line">    strcpy_s(cp,<span class="number">10</span>,<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="redis的字符串"   >
+          <a href="#redis的字符串" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#redis的字符串"></a> redis的字符串</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span>* sds;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> len; <span class="comment">//已输入的字符串不包括\0的长度</span></span><br><span class="line">    <span class="type">int</span> <span class="built_in">free</span>;<span class="comment">//还未使用的字节数，同样不包括\0</span></span><br><span class="line">    <span class="type">char</span> buf[];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//传入一个init指针（多为字符串）和其长度，长度不计算\0，memcpy写入内存时不包括\0的写入，\0是单独用memset处理的</span></span><br><span class="line">sds <span class="title function_">sdsnewlen</span><span class="params">(<span class="type">const</span> <span class="type">void</span> *init, <span class="type">size_t</span> initlen)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> *<span class="title">sh</span>;</span><span class="comment">//声明定义一个sdshdr结构体指针 </span></span><br><span class="line"></span><br><span class="line">    sh = zmalloc(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> sdshdr)+initlen+<span class="number">1</span>);<span class="comment">//开辟sdshdr结构体类型大小（8字节）+initlen+1（存放\0）字节。 头部赋给指针sh </span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> SDS_ABORT_ON_OOM</span></span><br><span class="line">    <span class="keyword">if</span> (sh == <span class="literal">NULL</span>) sdsOomAbort();</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">if</span> (sh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    sh-&gt;len = initlen;<span class="comment">//把initlen数值赋给sh-&gt;len </span></span><br><span class="line">    sh-&gt;<span class="built_in">free</span> = <span class="number">0</span>;<span class="comment">//sh-&gt;free暂时初始化为0 </span></span><br><span class="line">    <span class="keyword">if</span> (initlen) &#123;</span><br><span class="line">        <span class="keyword">if</span> (init) <span class="built_in">memcpy</span>(sh-&gt;buf, init, initlen);<span class="comment">//如果init不为空 则 将init指针开始的initlen长度内存空间中的内容复制给sh-&gt;buf同样长度 </span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">memset</span>(sh-&gt;buf,<span class="number">0</span>,initlen);<span class="comment">//如果init为空 则 将sh-&gt;开始的initlen长度的空间的内容赋为0 </span></span><br><span class="line">    &#125;</span><br><span class="line">    sh-&gt;buf[initlen] = <span class="string">&#x27;\0&#x27;</span>;  <span class="comment">//无论如何，buf的initlen下标处（也就是不包含\0的字符串的尾部的后一位）赋值为\0 </span></span><br><span class="line">    <span class="keyword">return</span> (<span class="type">char</span>*)sh-&gt;buf;<span class="comment">//返回一个指向buf的sds指针 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将字符串传入，生成对应的sds，适用于直接传一个常规的字符串，只写一个参数即可 </span></span><br><span class="line">sds <span class="title function_">sdsnew</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *init)</span> &#123;</span><br><span class="line">    <span class="type">size_t</span> initlen = (init == <span class="literal">NULL</span>) ? <span class="number">0</span> : <span class="built_in">strlen</span>(init); <span class="comment">//字符串为空则initlen=0，不为空则initlen等于不包含\0的字符串长度 </span></span><br><span class="line">    <span class="keyword">return</span> sdsnewlen(init, initlen);<span class="comment">//调用sdsnewlen创建sds结构体 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	sds sdsp = sdsnew(<span class="string">&quot;yhping&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="sds函数"   >
+          <a href="#sds函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sds函数"></a> sds函数</h1>
+      
+
+        <h2 id="创建"   >
+          <a href="#创建" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建"></a> 创建</h2>
+      
+
+        <h3 id="sdsnewsdsnewlen"   >
+          <a href="#sdsnewsdsnewlen" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsnewsdsnewlen"></a> <code>sdsnew</code>/<code>sdsnewlen</code></h3>
+      
+<p>其中<code>sdsnew</code>调用了<code>sdsnewlen</code></p>
+
+        <h3 id="sdsempty"   >
+          <a href="#sdsempty" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsempty"></a> <code>sdsempty</code></h3>
+      
+<p>创建柔性数组内只含有<code>'\0'</code>的<code>sdshdr</code></p>
+
+        <h3 id="sdsdup"   >
+          <a href="#sdsdup" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsdup"></a> sdsdup</h3>
+      
+<p>创建sdshdr的副本</p>
+
+        <h2 id="属性"   >
+          <a href="#属性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#属性"></a> 属性</h2>
+      
+<p>sdslen返回已使用空间字节数即len；sdsavail返回未使用空间字节数即free。</p>
+
+        <h2 id="释放"   >
+          <a href="#释放" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#释放"></a> 释放</h2>
+      
+
+        <h3 id="sdsfree"   >
+          <a href="#sdsfree" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsfree"></a> sdsfree</h3>
+      
+<p>对应于创建sdshdr的sdsnew，即释放sdshdr</p>
+
+        <h3 id="sdsclear"   >
+          <a href="#sdsclear" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsclear"></a> sdsclear</h3>
+      
+<p>惰性释放，只删除字符串内容，更新len属性和free属性，结构保留。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">sdsclear</span><span class="params">(sds s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>* <span class="title">sh</span> =</span> (<span class="keyword">struct</span> sdshdr*)(s-<span class="keyword">sizeof</span>(<span class="keyword">struct</span> sdshdr));</span><br><span class="line">    sh-&gt;<span class="built_in">free</span> += sh-&gt;len;</span><br><span class="line">    sh-&gt;len=<span class="number">0</span>;</span><br><span class="line">    sh-&gt;buf[<span class="number">0</span>]=<span class="string">&#x27;\0&#x27;</span>;<span class="comment">//不显式清零字符串内存空间内容，而是在逻辑上使字符串buf[0]=\0标志，使之无法访问。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="扩展"   >
+          <a href="#扩展" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#扩展"></a> 扩展</h2>
+      
+
+        <h3 id="sdsgrowzero"   >
+          <a href="#sdsgrowzero" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdsgrowzero"></a> sdsgrowzero</h3>
+      
+<p>将柔性数组长度扩展到指定长度，多余空间用’\0’填充。</p>
+
+        <h3 id="sdscatlen"   >
+          <a href="#sdscatlen" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sdscatlen"></a> sdscatlen</h3>
+      
+
+        <h1 id="可变参数"   >
+          <a href="#可变参数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#可变参数"></a> 可变参数</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">10</span>,b=<span class="number">20</span>;</span><br><span class="line"><span class="type">char</span> buff[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;a=%d b=%d\n&quot;</span>,a,b);<span class="comment">//stdout a=10 b=20</span></span><br><span class="line"><span class="built_in">sprintf</span>(buff,<span class="string">&quot;a=%d b=%d \n&quot;</span>,a,b);</span><br><span class="line"><span class="comment">//把数据放到了buff中</span></span><br><span class="line">sprintf_s(buff,<span class="number">20</span>,<span class="string">&quot;a=%d b=%d \n&quot;</span>,a,b);</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>,b = <span class="number">20</span>;</span><br><span class="line"><span class="type">char</span> buff[<span class="number">20</span>];</span><br><span class="line"><span class="type">int</span> len = <span class="built_in">sprintf</span>(buff,<span class="string">&quot;a = %d b = %d \n&quot;</span>,a,b);<span class="comment">//返回字符串的长度15，格式化转化后存放的是&quot;a = 10 b = 20 \n\0&quot;，但算长度时不包含\0长度</span></span><br><span class="line"><span class="built_in">sprintf</span>(buff,<span class="number">20</span>,<span class="string">&quot;a = %d b = %d \n&quot;</span>,a,b);<span class="comment">//相比于不带_s的sprintf更安全，因为限制了长度</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">funa</span><span class="params">(<span class="type">int</span> a,<span class="type">char</span> cx,<span class="type">int</span> b,<span class="type">char</span> cy)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %d \n&quot;</span>,&amp;a,a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %c \n&quot;</span>,&amp;cx,cx);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %d \n&quot;</span>,&amp;b,b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %d \n&quot;</span>,&amp;cy,cy);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">funb</span><span class="params">(<span class="type">int</span> a,<span class="type">float</span> ft,<span class="type">double</span> dx,<span class="type">char</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %d \n&quot;</span>,&amp;a,a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %f \n&quot;</span>,&amp;ft,ft);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %f \n&quot;</span>,&amp;dx,dx);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p =&gt; %c \n&quot;</span>,&amp;c,c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> num, ...)</span><span class="comment">//fun(3,&#x27;a&#x27;,12,&#x27;b&#x27;);</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span>* p = &amp;num;</span><br><span class="line">    <span class="type">int</span>* p1 = p+<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,*p1);</span><br><span class="line">    <span class="type">int</span>* p2 = p1+<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c\n&quot;</span>,*p2);</span><br><span class="line">    <span class="type">int</span>* p3 = p2+<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,*p3);</span><br><span class="line">    <span class="type">int</span>* p4 = p3+<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c\n&quot;</span>,*p4);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    funa(<span class="number">12</span>,<span class="string">&#x27;a&#x27;</span>,<span class="number">23</span>,<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">    funb(<span class="number">12</span>,<span class="number">12.25</span>,<span class="number">25.50</span>,<span class="string">&#x27;b&#x27;</span>);<span class="comment">//80-84-88-差了8个字节-90</span></span><br><span class="line">    <span class="comment">//fun(0);</span></span><br><span class="line">    <span class="comment">//fun(1,23);</span></span><br><span class="line">    <span class="comment">//fun(2,23,34);</span></span><br><span class="line">    fun(<span class="number">3</span>,<span class="string">&#x27;a&#x27;</span>,<span class="number">12</span>,<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* fmt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    fun(<span class="string">&quot;%c %d %c \n&quot;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="number">12</span>,<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Redis_SDS/image-20210721204739876.png" alt="image-20210721204739876" /></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* fmt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list ap = nullptr;</span><br><span class="line">    va_start(ap,fmt);</span><br><span class="line">    va_start(ap,<span class="type">char</span>);</span><br><span class="line">    va_start(ap,<span class="type">int</span>);</span><br><span class="line">    va_start(ap,<span class="type">char</span>);</span><br><span class="line">    </span><br><span class="line">    va_end(ap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* fmt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list ap = nullptr;<span class="comment">//typedef char* va_list</span></span><br><span class="line">    <span class="type">char</span>* p = nullptr, * sval = nullptr;</span><br><span class="line">    <span class="type">int</span> ival = <span class="number">0</span>;</span><br><span class="line">    <span class="type">double</span> dval = <span class="number">0</span>;</span><br><span class="line">    va_start(ap,fmt);</span><br><span class="line">    <span class="keyword">for</span>(p=fmt;*p!=<span class="string">&#x27;\0&#x27;</span>;++p)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(*p!=<span class="string">&#x27;%&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">switch</span>(*++p)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">                    ival = va_arg(ap,<span class="type">int</span>);</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,ival);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;f&#x27;</span>:</span><br><span class="line">                    fval = va_arg(ap,<span class="type">float</span>);</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>,dval);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">                    sval = va_arg(ap,<span class="type">char</span>*);</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,sval);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="built_in">putchar</span>(*p);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    va_end(ap);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    fun(<span class="string">&quot;a = %d\nft = %f\nstr = %s\n&quot;</span>,<span class="number">12</span>,<span class="number">12.25f</span>,<span class="string">&quot;hello tulun&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//#define va_start __crt_va_start</span></span><br><span class="line"><span class="comment">//#define va_arg   __crt_va_arg</span></span><br><span class="line"><span class="comment">//#define va_end   __crt_va_end</span></span><br><span class="line"><span class="comment">//#define va_copy(destination, source) ((destination) = (source))</span></span><br><span class="line"><span class="comment">//#define __crt_va_start(ap, x) __crt_va_start_a(ap, x)</span></span><br><span class="line"><span class="comment">//#define __crt_va_start_a(ap, v) ((void)(ap = (va_list)_ADDRESSOF(v) + _INTSIZEOF(v)))</span></span><br><span class="line"><span class="comment">//#define __crt_va_arg(ap, t)     (*(t*)((ap += _INTSIZEOF(t)) - _INTSIZEOF(t)))</span></span><br><span class="line"><span class="comment">//#define __crt_va_end(ap)        ((void)(ap = (va_list)0))</span></span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Redis/Redis_SDS/">https://xing-cg.github.io/Redis/Redis_SDS/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E5%85%A5%E9%97%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_指针_入门</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E6%95%B0%E7%BB%84%E5%85%A5%E9%97%A8%E5%8F%8A%E7%BB%83%E4%B9%A0/"><span class="paginator-prev__text">C语言_数组入门及练习</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#memcached%E4%B8%8Eredis%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E9%80%89%E6%8B%A9"><span class="toc-number">1.</span> <span class="toc-text">
+           Memcached与Redis的区别和选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%94%E6%80%A7%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">
+           柔性数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%93%E9%94%99"><span class="toc-number">2.1.</span> <span class="toc-text">
+           易错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">2.2.</span> <span class="toc-text">
+           与另一种实现方法的对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E6%96%B9%E6%A1%88"><span class="toc-number">3.</span> <span class="toc-text">
+           退出方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#abort"><span class="toc-number">3.1.</span> <span class="toc-text">
+           abort()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exitexit_failure"><span class="toc-number">3.2.</span> <span class="toc-text">
+           exit(EXIT_FAILURE)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#_exit"><span class="toc-number">3.3.</span> <span class="toc-text">
+           _exit()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">
+           代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stringh"><span class="toc-number">5.</span> <span class="toc-text">
+           string.h</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#memcpy"><span class="toc-number">5.1.</span> <span class="toc-text">
+           memcpy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#c%E8%AF%AD%E8%A8%80%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">6.</span> <span class="toc-text">
+           C语言传统的字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redis%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">7.</span> <span class="toc-text">
+           redis的字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sds%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">
+           sds函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA"><span class="toc-number">8.1.</span> <span class="toc-text">
+           创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsnewsdsnewlen"><span class="toc-number">8.1.1.</span> <span class="toc-text">
+           sdsnew&#x2F;sdsnewlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsempty"><span class="toc-number">8.1.2.</span> <span class="toc-text">
+           sdsempty</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsdup"><span class="toc-number">8.1.3.</span> <span class="toc-text">
+           sdsdup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">8.2.</span> <span class="toc-text">
+           属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8A%E6%94%BE"><span class="toc-number">8.3.</span> <span class="toc-text">
+           释放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsfree"><span class="toc-number">8.3.1.</span> <span class="toc-text">
+           sdsfree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsclear"><span class="toc-number">8.3.2.</span> <span class="toc-text">
+           sdsclear</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95"><span class="toc-number">8.4.</span> <span class="toc-text">
+           扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sdsgrowzero"><span class="toc-number">8.4.1.</span> <span class="toc-text">
+           sdsgrowzero</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdscatlen"><span class="toc-number">8.4.2.</span> <span class="toc-text">
+           sdscatlen</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="toc-number">9.</span> <span class="toc-text">
+           可变参数</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

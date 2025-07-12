@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         awk sed                       awk        是按{域,分隔符,域}生成报表的工具。 经典应用有：把**（文本）文件**中浮点数的整数部分解析出来。 1234# file.txt1.712.8923.9 12345awk -F. &#x27;&#123;print $1&#125;&#x27; fi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_三剑客">
+<meta property="og:url" content="https://xing-cg.github.io/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         awk sed                       awk        是按{域,分隔符,域}生成报表的工具。 经典应用有：把**（文本）文件**中浮点数的整数部分解析出来。 1234# file.txt1.712.8923.9 12345awk -F. &#x27;&#123;print $1&#125;&#x27; fi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015642539.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015307603.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015341443.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015940913.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020120370.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020238848.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020743625.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103120355.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103359029.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103601475.png">
+<meta property="article:published_time" content="2022-07-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.807Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015642539.png"><title>Linux_三剑客 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_三剑客</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/" data-flag-title="Linux_三剑客"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>awk</li>
+<li>sed</li>
+</ol>
+
+        <h1 id="awk"   >
+          <a href="#awk" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#awk"></a> awk</h1>
+      
+<p>是按{域,分隔符,域}生成报表的工具。</p>
+<p>经典应用有：把**（文本）文件**中浮点数的整数部分解析出来。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file.txt</span></span><br><span class="line">1.7</span><br><span class="line">12.89</span><br><span class="line">23.9</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> file.txt</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># 1</span></span><br><span class="line">	<span class="comment"># 12</span></span><br><span class="line">	<span class="comment"># 23</span></span><br></pre></td></tr></table></div></figure>
+<p>重定向：</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> file.txt &gt; newfile</span><br><span class="line"><span class="built_in">cat</span> newfile</span><br><span class="line"><span class="comment"># 执行结果(来自newfile)</span></span><br><span class="line">	<span class="comment"># 1</span></span><br><span class="line">	<span class="comment"># 12</span></span><br><span class="line">	<span class="comment"># 23</span></span><br></pre></td></tr></table></div></figure>
+<p>小改动：把**（文本）文件<strong>中浮点数的</strong>小数**部分解析出来。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> file.txt &gt; newfile</span><br><span class="line"><span class="built_in">cat</span> newfile</span><br><span class="line"><span class="comment"># 执行结果(来自newfile)</span></span><br><span class="line">	<span class="comment"># 7</span></span><br><span class="line">	<span class="comment"># 89</span></span><br><span class="line">	<span class="comment"># 9</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/passwd .</span><br><span class="line">awk -F: <span class="string">&#x27;&#123;print $1,$3&#125;&#x27;</span> passwd</span><br><span class="line">awk -F: <span class="string">&#x27;&#123;if($3 &gt;= 1000) print $1,$3&#125;&#x27;</span> passwd</span><br><span class="line">awk -F: <span class="string">&#x27;BEGIN&#123;print &quot;name\t uid&quot;&#125;&#123;print $1&quot;\t&quot;$3&#125;END&#123;print&quot;----end----&quot;&#125;&#x27;</span> passwd</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="场景对命令执行输出的信息进行处理"   >
+          <a href="#场景对命令执行输出的信息进行处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#场景对命令执行输出的信息进行处理"></a> 场景–对命令执行输出的信息进行处理</h2>
+      
+
+        <h3 id="编写脚本杀死全部当前正在睡眠的进程"   >
+          <a href="#编写脚本杀死全部当前正在睡眠的进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写脚本杀死全部当前正在睡眠的进程"></a> 编写脚本杀死全部当前正在睡眠的进程</h3>
+      
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># some shells are sleeping...</span></span><br><span class="line">ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span></span><br><span class="line"><span class="comment"># xcg	4168	4162	0	......</span></span><br><span class="line">ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> <span class="comment"># 4168</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line">PIDS=`ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$PIDS</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;没有sleeping进程在运行&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">for</span> pid <span class="keyword">in</span> <span class="variable">$PIDS</span>		<span class="comment"># PIDS不要加双引号，如果加了，那么pid会一次接收整个PIDS。虽然也能(kill xxx xxx,而不是kill xxx,kill xxx)。但是echo只echo一次，输出出现问题。</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">kill</span> <span class="variable">$pid</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;进程:<span class="variable">$pid</span> 被杀死了&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="结合netstat-natp命令"   >
+          <a href="#结合netstat-natp命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合netstat-natp命令"></a> 结合netstat -natp命令</h3>
+      
+<p>获取端口、地址信息、状态信息去处理</p>
+
+        <h3 id="结合free命令"   >
+          <a href="#结合free命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合free命令"></a> 结合free命令</h3>
+      
+
+        <h1 id="sed"   >
+          <a href="#sed" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sed"></a> sed</h1>
+      
+<p>是对文件进行编辑的工具。在某行增删内容。</p>
+<p>示例：对文件文本进行简单处理</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file.txt</span></span><br><span class="line">1.7</span><br><span class="line">12.89</span><br><span class="line">23.9</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2i\3.3&#x27;</span> file.txt &gt; newfile <span class="comment"># 在第二行之前插入3.3，之后的行下移一行、</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 3.3</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2a\3.3&#x27;</span> file.txt &gt; newfile <span class="comment"># 在第二行下面附加3.3，之后的行下移一行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 3.3</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2,3d&#x27;</span> file.txt &gt; newfile <span class="comment"># 删除第2、3行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;1,2p&#x27;</span> file.txt <span class="comment"># 打印1~2行，但是默认会重复打印</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line">sed <span class="string">&#x27;1,3p&#x27;</span> file.txt <span class="comment"># 打印1~3行，但是默认会重复打印</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line">sed -n <span class="string">&#x27;1,2p&#x27;</span> file.txt <span class="comment"># 只打印1~2行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="结合"   >
+          <a href="#结合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合"></a> 结合</h1>
+      
+<p>要灵活运用三剑客，应对两种结合方式：</p>
+<ol>
+<li>结合，对文件操作</li>
+<li>结合，对命令操作</li>
+</ol>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp			 <span class="comment"># 未过滤</span></span><br><span class="line">netstat -natp | grep tcp <span class="comment"># 注意，此时 &quot;|&quot; 这个管道只能用来 过滤 标准输出(1)的信息，如果前面的信息有标准错误输出stderr(2)则无法过滤。</span></span><br><span class="line">netstat -natp 2&gt;&amp;1 | grep tcp <span class="comment"># 此时已把标准错误输出2重定向到1,这时再过滤时将会一视同仁。</span></span><br></pre></td></tr></table></div></figure>
+<p>未过滤的结果：<br />
+<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015642539.png" alt="image-20220222015642539" /></p>
+<p>标准错误输出未重定向时：<br />
+<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015307603.png" alt="image-20220222015307603" /></p>
+<p>标准错误输出重定向后（过滤掉上面的提示信息做法1）：<br />
+<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015341443.png" alt="image-20220222015341443" /></p>
+<p>sed剔除前n行后（过滤掉上面的提示信息做法2）：</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> <span class="comment"># 输出4行及之后的全部行</span></span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015940913.png" alt="image-20220222015940913" /></p>
+<p>结合awk提取第4列（Local Address）：</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;print $4&#x27;</span></span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020120370.png" alt="image-20220222020120370" /></p>
+<p>接上一步，提取地址信息中的端口号。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;print $4&#x27;</span> | awk -F: <span class="string">&#x27;&#123;print $2&#125;&#x27;</span></span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020238848.png" alt="image-20220222020238848" /></p>
+<p>但是出现问题，最后的&quot;:::22&quot;和&quot;::1:631&quot;被忽略了。需要另分一类特殊处理。</p>
+<p>然后，我们用上面这个命令，可以做以下工作：查询某个端口是否被打开？</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$#</span>&quot;</span> -ne 1 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;请输入查询的端口&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">test_port=<span class="variable">$1</span></span><br><span class="line"></span><br><span class="line">PORTS=`netstat -natp 2&gt;&amp;1 | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;&#123;print $4&#125;&#x27;</span> | awk -F: <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$PORTS</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;没有打开的端口&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">port=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$PORTS</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -eq <span class="string">&quot;<span class="variable">$test_port</span>&quot;</span> ]</span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		port=<span class="variable">$i</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$port</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;端口:<span class="variable">$port</span> 是打开的&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;端口:<span class="variable">$port</span> 未打开&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020743625.png" alt="image-20220222020743625" /></p>
+
+        <h1 id="日积月累"   >
+          <a href="#日积月累" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日积月累"></a> 日积月累</h1>
+      
+
+        <h2 id="awk从指定列打印到最后一列"   >
+          <a href="#awk从指定列打印到最后一列" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#awk从指定列打印到最后一列"></a> awk从指定列打印到最后一列</h2>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1602035/how-to-print-third-column-to-last-column" >https://stackoverflow.com/questions/1602035/how-to-print-third-column-to-last-column</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103120355.png" alt="image-20220801103120355" /></p>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103359029.png" alt="image-20220801103359029" /></p>
+<p>其中，涉及了两个awk内置变量：NF和FS。</p>
+<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103601475.png" alt="image-20220801103601475" /></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/">https://xing-cg.github.io/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Android/Android_%E5%BA%94%E7%94%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android_应用基础知识</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/git/git_stash/"><span class="paginator-prev__text">git_stash</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk"><span class="toc-number">2.</span> <span class="toc-text">
+           awk</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%AF%B9%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BE%93%E5%87%BA%E7%9A%84%E4%BF%A1%E6%81%AF%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">
+           场景–对命令执行输出的信息进行处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E6%9D%80%E6%AD%BB%E5%85%A8%E9%83%A8%E5%BD%93%E5%89%8D%E6%AD%A3%E5%9C%A8%E7%9D%A1%E7%9C%A0%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">
+           编写脚本杀死全部当前正在睡眠的进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E5%90%88netstat-natp%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.2.</span> <span class="toc-text">
+           结合netstat -natp命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E5%90%88free%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.3.</span> <span class="toc-text">
+           结合free命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sed"><span class="toc-number">3.</span> <span class="toc-text">
+           sed</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text">
+           结合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E7%A7%AF%E6%9C%88%E7%B4%AF"><span class="toc-number">5.</span> <span class="toc-text">
+           日积月累</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk%E4%BB%8E%E6%8C%87%E5%AE%9A%E5%88%97%E6%89%93%E5%8D%B0%E5%88%B0%E6%9C%80%E5%90%8E%E4%B8%80%E5%88%97"><span class="toc-number">5.1.</span> <span class="toc-text">
+           awk从指定列打印到最后一列</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

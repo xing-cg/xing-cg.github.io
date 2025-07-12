@@ -1,0 +1,754 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="项目目录结构         .gradle和.idea：这两个目录都是Android Studio自动生成的文件。无须关心，不要手动编辑。 app：项目中的代码、资源等内容几乎都是放置在这个目录下，开发工作也基本都是在这个目录下进行。 build：这个目录主要包含了一些在编译时自动生成的文件。 gradle：这个目录下包含了gradle wrapper的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android_项目目录结构">
+<meta property="og:url" content="https://xing-cg.github.io/Android/Android_%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="项目目录结构         .gradle和.idea：这两个目录都是Android Studio自动生成的文件。无须关心，不要手动编辑。 app：项目中的代码、资源等内容几乎都是放置在这个目录下，开发工作也基本都是在这个目录下进行。 build：这个目录主要包含了一些在编译时自动生成的文件。 gradle：这个目录下包含了gradle wrapper的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.768Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Android_项目目录结构 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Android/Android_%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Android_项目目录结构</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Android/Android_%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" data-flag-title="Android_项目目录结构"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="项目目录结构"   >
+          <a href="#项目目录结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#项目目录结构"></a> 项目目录结构</h1>
+      
+<ol>
+<li><code>.gradle</code>和<code>.idea</code>：这两个目录都是Android Studio自动生成的文件。无须关心，不要手动编辑。</li>
+<li>app：项目中的代码、资源等内容几乎都是放置在这个目录下，开发工作也基本都是在这个目录下进行。</li>
+<li>build：这个目录主要包含了一些在编译时自动生成的文件。</li>
+<li>gradle：这个目录下包含了<code>gradle wrapper</code>的配置文件，使用gradle wrapper的方式不需要提前将gradle下载好，而是会自动根据本地的缓存情况决定是否需要联网下载gradle。Android Studio默认没有启用gradle wrapper的方式，如果需要打开，可以点击<code>File, Settings, Build, Execution, Deployment, Gradle</code>，进行配置更改。</li>
+<li><code>.gitignore</code>：这个文件用来将指定的目录或文件排除在版本控制之外。</li>
+<li><code>build.gradle</code>：项目全局的gradle构建脚本，文件内容通常不需要修改。</li>
+<li><code>gradle.properties</code>：项目全局的gradle配置文件，在这里配置的属性将会影响到项目中所有的gradle编译脚本。</li>
+<li>gradlew和<code>gradlew.bat</code>：这两个文件是用来在命令行界面中执行gradle命令的，其中gradlew是在Linux或Mac系统使用，<code>gradlew.bat</code>是在Windows系统中使用。</li>
+<li><code>项目名.iml</code>：iml文件是所有IntelliJ IDEA项目都会自动生成的一个文件（Android Studio是基于IntelliJ IDEA开发的），用于标识这是一个IntelliJ IDEA项目，我们不需要修改这个文件中的任何内容。</li>
+<li><code>local.properties</code>：这个文件用于指定本机中的Android SDK路径，通常内容都是自动生成的，并不需要修改。除非本机中的Android SDK位置发生了变化，那么就将这个文件中的路径改成新的位置即可。</li>
+<li><code>settings.gradle</code>：用于指定项目中所有引入的模块。由于此时项目中只有一个app模块，因此文件中只引入了app这一个模块。通常情况下，模块的引入是自动完成的，很少去手动修改此文件。</li>
+</ol>
+<p>发现，基本上除了app目录之外，大多数目录、文件都是自动生成的。下面对app内容进行更为详细的分析。</p>
+<ol>
+<li>
+<p>build：这个目录和外层的build目录类似，主要也是包含了一些在编译时自动生成的文件，不过它里面的内容更多更杂，不需要过多关心。</p>
+</li>
+<li>
+<p>libs：如果你的项目中使用到了第三方jar包，就需要把这些jar包都放在libs目录下，放在这个目录下的jar包都会被自动添加到构建路径里去。</p>
+</li>
+<li>
+<p>androidTest：此处是用来编写Android Test测试用例的，可以对项目进行一些自动化测试。</p>
+</li>
+<li>
+<p>java：java目录是放置所有Java代码的地方，展开该目录，将看到刚才创建的HelloWorldActivity文件就在里面。</p>
+</li>
+<li>
+<p>res：这个目录下的内容有点多。简单点说，就是在项目中使用到的所有图片、布局、字符串等资源都要存放在这个目录下。当然这个目录下还有很多子目录，图片放在drawable目录下，布局放在layout目录下，字符串放在values目录下，所以不用担心会把整个res目录弄得乱糟糟的。</p>
+</li>
+<li>
+<p><code>AndroidManifest.xml</code>：这是整个Android项目的配置文件，在程序中定义的所有四大组件都需要在这个文件里注册，另外还可以在这个文件中给应用程序添加权限声明。</p>
+</li>
+<li>
+<p>test：此处是用来编写Unit Test测试用例的，是对项目进行自动化测试的另一种方式。</p>
+</li>
+<li>
+<p><code>.gitignore</code>：这个文件用于将app模块内的指定的目录或文件排除在版本控制之外，作用和外层的<code>.gitignore</code>文件类似。</p>
+</li>
+<li>
+<p><code>app.iml</code>：IntelliJ IDEA项目自动生成的文件，不需要关心或修改这个文件中的内容。</p>
+</li>
+<li>
+<p><code>build.gradle</code>：这是app模块的gradle构建脚本，这个文件中会指定很多项目构建相关的配置。</p>
+</li>
+<li>
+<p><code>proguard-rules.pro</code>：这个文件用于指定项目代码的混淆规则，当代码开发完成后打成安装包文件，如果不希望代码被别人破解，通常会将代码进行混淆，从而让破解者难以阅读。</p>
+</li>
+</ol>
+
+        <h1 id="androidmanifestxml"   >
+          <a href="#androidmanifestxml" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#androidmanifestxml"></a> AndroidManifest.xml</h1>
+      
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">anroid:name</span>=<span class="string">&quot;.HelloWorldActivity&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>这段代码表示对HelloWorldActivity这个活动进行注册， 没有在AndroidManifest.xml里注册的活动是不能使用的。其中intent-filter里的两行代码非常重要，<code>&lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</code>和	<code>&lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;</code>表示HelloWorldActivity是这个项目的主活动，在手机上点击应用图标， 首先启动的就是这个活动。</p>
+<p>Activity是Android应用程序的门面，凡是在应用中看得到的东西，都是放在活动中的。因此看到的界面，其实就是HelloWorldActivity这个活动。打开HelloWorldActivity，代码如下所示：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorldActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.hello_world_layout);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>可以看到，HelloWorldActivity是继承自AppCompatActivity的，这是一种向下兼容的Activity，可以将Activity在各个系统版本中增加的特性和功能最低兼容到Android2.1系统。</p>
+<p>Activity是Android系统提供的一个活动基类，我们项目中所有的活动都必须继承它或者它的子类才能拥有活动的特性（AppCompatActivity是Activity的子类）。然后可以看到HelloWorldActivity中有一个<code>onCreate()</code>方法，这个方法是一个活动被创建时必定要执行的方法，其中只有两行代码，并且没有<code>Hello World!</code>的字样。那么显示的<code>Hello World!</code>是在哪里定义的呢？</p>
+<p>其实Android程序的设计讲究逻辑和视图分离，因此是<strong>不推荐在活动中直接编写界面的，更加通用的一种做法是，在布局文件中编写界面，然后在活动中引入进来</strong>。可以看到，在onCreate方法的第二行调用了setContentView方法，就是这个方法给当前的活动引入了一个<code>hello_world_layout</code>布局，<code>Hello World!</code>就是在这里定义的。</p>
+<p>布局文件都是定义在<code>res/layout</code>目录下的，展开layout目录，会看到<code>hello_world_layout.xml</code>这个文件。打开该文件并切换到Text视图，代码就出来了：</p>
+
+        <h1 id="项目中的资源"   >
+          <a href="#项目中的资源" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#项目中的资源"></a> 项目中的资源</h1>
+      
+<ol>
+<li>所有以drawable开头的文件夹都是用来放图片的；</li>
+<li>所有以mipmap开头的文件夹都是用来放应用图标的；</li>
+<li>所有以values开头的文件夹都是用来放字符串、样式、颜色等配置的；</li>
+<li>layout文件夹是用来放布局文件的。</li>
+</ol>
+<p>mipmap开头的文件夹有很多，主要是为了兼容各种设备。drawable文件夹也是相同的道理，虽然Android Studio没有自动生成，但应该自己创建drawable-hdpi、drawable-xhdpi、drawable-xxhdpi等文件夹。在制作程序的时候最好能够给同一张图片提供几个不同分辨率的版本，分别放在对应的文件夹下。当程序运行的时候，会自动根据当前运行设备分辨率的高低选择加载。如果只有一份图片，那就都放在drawable-xxhdpi文件夹下。</p>
+
+        <h2 id="values"   >
+          <a href="#values" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#values"></a> values</h2>
+      
+<p>打开<code>res/values/strings.xml</code>文件，内容如下所示：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span>&gt;</span>HelloWorld<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>这里定义了一个应用程序名的字符串，有以下两种方式来引用它。</p>
+<ul>
+<li>在代码中通过<code>R.string.app_name</code>可以获得该字符串的引用</li>
+<li>在XML中通过<code>@string/app_name</code>可以获得该字符串的引用</li>
+</ul>
+<p>其中string部分可以替换，如果引用的是图片资源可以替换成drawable，如果引用的是应用图标可以替换成mipmap，如果引用的是布局文件可以替换成layout</p>
+<p>打开<code>AndroidManifest.xml</code>文件，找到如下代码：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span>&gt;</span></span><br><span class="line">    android:allowBackup=&quot;true&quot;</span><br><span class="line">    android:icon=&quot;@mipmap/ic_launcher&quot;</span><br><span class="line">    android:label=&quot;@string/app_name&quot;</span><br><span class="line">    android:supportRtl=&quot;true&quot;</span><br><span class="line">    android:theme=&quot;@style/AppTheme&quot;</span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>其中，HelloWorld项目的应用图标是通过<code>android:icon</code>来指定的，应用的名称则是通过<code>android:label</code>属性指定的。</p>
+
+        <h1 id="buildgradle文件"   >
+          <a href="#buildgradle文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#buildgradle文件"></a> build.gradle文件</h1>
+      
+<p>Android Studio采用Gradle来构建项目。Gradle使用一种基于Groovy的领域特定预言（DSL）来声明项目设置，摒弃了传统基于XML（如Ant和Maven）的烦琐配置。</p>
+<p>HelloWorld项目中有两个<code>build.gradle</code>文件，一个是在最外层目录下，一个是在app目录下。</p>
+
+        <h1 id="android系统源码目录"   >
+          <a href="#android系统源码目录" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#android系统源码目录"></a> Android系统源码目录</h1>
+      
+
+        <h2 id="整体结构"   >
+          <a href="#整体结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#整体结构"></a> 整体结构</h2>
+      
+<p>各个版本的源码目录基本是类似的，如果是编译后的源码目录，会多一个out文件夹，用来存储编译产生的文件。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>Android源码根目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>art</td>
+<td>ART运行环境</td>
+</tr>
+<tr>
+<td>bionic</td>
+<td>系统C库</td>
+</tr>
+<tr>
+<td>bootable</td>
+<td>启动引导相关代码</td>
+</tr>
+<tr>
+<td>build</td>
+<td>存放系统编译规则及generic等基础开发包配置</td>
+</tr>
+<tr>
+<td>cts</td>
+<td>Android兼容性测试套件标准</td>
+</tr>
+<tr>
+<td>dalvik</td>
+<td>Dalvik虚拟机</td>
+</tr>
+<tr>
+<td>developers</td>
+<td>开发者目录</td>
+</tr>
+<tr>
+<td>development</td>
+<td>与应用程序开发相关</td>
+</tr>
+<tr>
+<td>device</td>
+<td>设备相关配置</td>
+</tr>
+<tr>
+<td>external</td>
+<td>开源模组相关文件</td>
+</tr>
+<tr>
+<td>frameworks</td>
+<td>应用程序框架，Android系统核心部分，由Java和<code>C++</code>编写</td>
+</tr>
+<tr>
+<td>hardware</td>
+<td>主要是硬件抽象层的代码</td>
+</tr>
+<tr>
+<td>libcore</td>
+<td>核心库相关文件</td>
+</tr>
+<tr>
+<td>libnativehelper</td>
+<td>动态库，实现JNI库的基础</td>
+</tr>
+<tr>
+<td>out</td>
+<td>编译完成后代码在此目录输出</td>
+</tr>
+<tr>
+<td>packages</td>
+<td>应用程序包</td>
+</tr>
+<tr>
+<td>pdk</td>
+<td>Plug Development Kit的缩写，本地开发套件</td>
+</tr>
+<tr>
+<td>platform_testing</td>
+<td>平台测试</td>
+</tr>
+<tr>
+<td>prebuilts</td>
+<td>X86和ARM架构下预编译的一些资源</td>
+</tr>
+<tr>
+<td>sdk</td>
+<td>SDK和模拟器</td>
+</tr>
+<tr>
+<td>system</td>
+<td>底层文件系统库、应用和组件</td>
+</tr>
+<tr>
+<td>toolchain</td>
+<td>工具链文件</td>
+</tr>
+<tr>
+<td>tools</td>
+<td>工具文件</td>
+</tr>
+<tr>
+<td>Makefile</td>
+<td>全局Makefile文件，用来定义编译规则</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="packages目录结构"   >
+          <a href="#packages目录结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#packages目录结构"></a> packages目录结构</h2>
+      
+<p>应用层位于整个Android系统的最上层，开发者开发的应用程序以及系统内置的应用程序都在应用层。源码根目录中的packages目录对应着系统应用层，它的目录结构如表所示。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>packages目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apps</td>
+<td>核心应用程序</td>
+</tr>
+<tr>
+<td>experimental</td>
+<td>第三方应用程序</td>
+</tr>
+<tr>
+<td>inputmethods</td>
+<td>输入法目录</td>
+</tr>
+<tr>
+<td>providers</td>
+<td>内容提供者目录</td>
+</tr>
+<tr>
+<td>screensavers</td>
+<td>屏幕保护</td>
+</tr>
+<tr>
+<td>services</td>
+<td>通信服务</td>
+</tr>
+<tr>
+<td>wallpapers</td>
+<td>墙纸</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="应用框架层部分"   >
+          <a href="#应用框架层部分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应用框架层部分"></a> 应用框架层部分</h2>
+      
+<p>应用框架层是系统的核心部分，一方面向上提供接口给应用层调用，另一方面向下与<code>C/C++</code>程序库及硬件抽象层等进行衔接。应用框架层的主要实现代码在<code>frameworks/base</code>和<code>frameworks/av</code>目录下，其中<code>frameworks/base</code>目录结构如表所示。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>frameworks/base目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>api</td>
+<td>定义API</td>
+</tr>
+<tr>
+<td>cmds</td>
+<td>重要命令：am、app_proce</td>
+</tr>
+<tr>
+<td>core</td>
+<td>核心库</td>
+</tr>
+<tr>
+<td>data</td>
+<td>字体和声音等数据文件</td>
+</tr>
+<tr>
+<td>graphics</td>
+<td>与图形图像相关</td>
+</tr>
+<tr>
+<td>keystore</td>
+<td>与数据签名证书相关</td>
+</tr>
+<tr>
+<td>libs</td>
+<td>库</td>
+</tr>
+<tr>
+<td>location</td>
+<td>地理位置相关库</td>
+</tr>
+<tr>
+<td>media</td>
+<td>多媒体相关库</td>
+</tr>
+<tr>
+<td>native</td>
+<td>本地库</td>
+</tr>
+<tr>
+<td>nfc-extras</td>
+<td>与NFC相关</td>
+</tr>
+<tr>
+<td>obex</td>
+<td>蓝牙传输</td>
+</tr>
+<tr>
+<td>opengl</td>
+<td>2D/3D图形API</td>
+</tr>
+<tr>
+<td>packages</td>
+<td>设置、TTS、VPN程序</td>
+</tr>
+<tr>
+<td>sax</td>
+<td>XML解析器</td>
+</tr>
+<tr>
+<td>services</td>
+<td>系统服务</td>
+</tr>
+<tr>
+<td>telephony</td>
+<td>电话通信管理</td>
+</tr>
+<tr>
+<td>test-runner</td>
+<td>测试工具相关</td>
+</tr>
+<tr>
+<td>tests</td>
+<td>与测试相关</td>
+</tr>
+<tr>
+<td>tools</td>
+<td>工具</td>
+</tr>
+<tr>
+<td>wifi</td>
+<td>WiFi无线网络</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="cc程序库部分"   >
+          <a href="#cc程序库部分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cc程序库部分"></a> <code>C/C++</code>程序库部分</h2>
+      
+<p>系统运行库层（Native）中的<code>C/C++</code>程序库的类型繁多，功能强大，<code>C/C++</code>程序库并不完全在一个目录中，这里给出几个常用且比较重要的<code>C/C++</code>程序库所在的目录位置，如表所示。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>目录位置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bionic</td>
+<td>Google开发的系统C库，以BSD许可形式开源</td>
+</tr>
+<tr>
+<td><code>frameworks/av/media</code></td>
+<td>系统媒体库</td>
+</tr>
+<tr>
+<td><code>frameworks/native/opengl</code></td>
+<td>第三方图形渲染库</td>
+</tr>
+<tr>
+<td><code>frameworks/native/services/surfaceflinger</code></td>
+<td>图形显示库，主要负责图形的渲染、叠加和绘制等功能</td>
+</tr>
+<tr>
+<td><code>external/sqlite</code></td>
+<td>轻量级关系型数据库SQLite的<code>C++</code>实现</td>
+</tr>
+</tbody>
+</table></div>
+<p>Android运行时库的代码在<code>art/</code>目录中；硬件抽象层的代码在<code>hardware/</code>目录中，这是手机厂商改动最大的部分，根据手机终端所采用的硬件平台不同会有不同的实现。</p>
+
+        <h1 id="源码阅读"   >
+          <a href="#源码阅读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#源码阅读"></a> 源码阅读</h1>
+      
+<p>系统源码的阅读有很多种方式，总的来说分为两种：一种是在线阅读，另一种是下载源码到本地用软件工具阅读。</p>
+<ol>
+<li>在线阅读
+<ol>
+<li>Android 在线阅读源码的网站有很多，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--www-eo8er22f.grepcode.com" >比如www.grepcode.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>、<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.androidxref.com" >www.androidxref.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，www.androidos.net.cn等，这里推荐使用www.androidxref.com进行在线阅读。</li>
+</ol>
+</li>
+<li>使用本地工具，本地阅读源码可以采用Android Studio、Eclipse、Sublime和Source Insight等软件。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Android/Android_%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">https://xing-cg.github.io/Android/Android_%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Android/Android_%E5%BA%94%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Android_应用初体验</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Android/Android_repo%E5%92%8C%E7%BC%96%E8%AF%91_%E7%83%A7%E5%BD%95/"><span class="paginator-prev__text">Android_repo和编译_烧录</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">
+           项目目录结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#androidmanifestxml"><span class="toc-number">2.</span> <span class="toc-text">
+           AndroidManifest.xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">
+           项目中的资源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#values"><span class="toc-number">3.1.</span> <span class="toc-text">
+           values</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#buildgradle%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">
+           build.gradle文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#android%E7%B3%BB%E7%BB%9F%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95"><span class="toc-number">5.</span> <span class="toc-text">
+           Android系统源码目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">5.1.</span> <span class="toc-text">
+           整体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#packages%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.2.</span> <span class="toc-text">
+           packages目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6%E5%B1%82%E9%83%A8%E5%88%86"><span class="toc-number">5.3.</span> <span class="toc-text">
+           应用框架层部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cc%E7%A8%8B%E5%BA%8F%E5%BA%93%E9%83%A8%E5%88%86"><span class="toc-number">5.4.</span> <span class="toc-text">
+           C&#x2F;C++程序库部分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="toc-number">6.</span> <span class="toc-text">
+           源码阅读</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

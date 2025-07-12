@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="1029        第一道题，结构体对齐的规则。 第二大题，实现一个宏，计算结构体成员的相对偏移量。 第三道题，结构体和共用体的区别。 第四道题，编写程序完成，int变量的小端存储转换成大端存储。 第五道题，说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。 第六道题，代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。 第七道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021年10月面试">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="1029        第一道题，结构体对齐的规则。 第二大题，实现一个宏，计算结构体成员的相对偏移量。 第三道题，结构体和共用体的区别。 第四道题，编写程序完成，int变量的小端存储转换成大端存储。 第五道题，说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。 第六道题，代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。 第七道">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.866Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>2021年10月面试 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">2021年10月面试</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-10-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/" data-flag-title="2021年10月面试"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="1029"   >
+          <a href="#1029" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1029"></a> 1029</h1>
+      
+<p>第一道题，结构体对齐的规则。<br />
+第二大题，实现一个宏，计算结构体成员的相对偏移量。<br />
+第三道题，结构体和共用体的区别。<br />
+第四道题，编写程序完成，int变量的小端存储转换成大端存储。<br />
+第五道题，说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。<br />
+第六道题，代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。<br />
+第七道题，快排，堆排，归并排序，任选一道实现代码。<br />
+第八道题，谈谈顺序表和链表的区别，以及适用的场景。<br />
+第九道题，实现不带头节点单链表的逆置。</p>
+
+        <h1 id="1"   >
+          <a href="#1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1"></a> 1</h1>
+      
+<p>结构体对齐的规则。</p>
+
+        <h2 id="我答的"   >
+          <a href="#我答的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#我答的"></a> 我答的</h2>
+      
+<ol>
+<li><s>所有成员地址相对结构体</s>首地址的偏移量要可以被成员的基本数据类型大小整除。计算sizeof时，首地址默认为0，所以都满足相对首地址可整除。</li>
+<li>各个成员依次从上到下都要相对于前一个成员的首地址偏移量被下一个成员基本数据类型大小整除。</li>
+<li>最后，结构体的大小要可以被该结构体内最大的成员基本数据类型大小整除。</li>
+</ol>
+
+        <h2 id="答案"   >
+          <a href="#答案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#答案"></a> 答案</h2>
+      
+<ol>
+<li>结构体变量的首地址，必须是结构体变量中的“最大基本数据类型成员所占字节数”的整数倍。计算sizeof时，首地址默认为0，所以满足相对首地址可整除。</li>
+<li>结构体变量中，相对于<strong>结构体首地址</strong>，<strong>每个成员</strong>的<strong>偏移量</strong>，都是<strong>成员本身基本数据类型</strong>所占字节数的整数倍。我们可以依次从上到下累计已计算的大小，再看下一某位置是否是其整数倍。</li>
+<li>结构体变量的总大小，为结构体变量中 “最大<strong>基本数据类型</strong>成员所占字节数”的整数倍。</li>
+</ol>
+
+        <h2 id="pragma-pack指定对齐值"   >
+          <a href="#pragma-pack指定对齐值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pragma-pack指定对齐值"></a> #pragma pack指定对齐值</h2>
+      
+<p>预处理指令#pragma pack(n) 可以改变默认对齐数。n 取值是 1, 2, 4, 8 , 16。<br />
+vs 中默认值 = 8，gcc 中默认值 = 4；</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(1)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> cha;</span><br><span class="line">    <span class="type">double</span> dx;</span><br><span class="line">    <span class="type">char</span> chb;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//若( )内为1-&gt;size:10;</span></span><br><span class="line"><span class="comment">//		为2-&gt;	12;</span></span><br><span class="line"><span class="comment">//		为4-&gt;	16;</span></span><br><span class="line"><span class="comment">//		为8-&gt;	24;</span></span><br><span class="line"><span class="comment">//		为16-&gt;	24;</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="加入指定对齐方式的终极总结"   >
+          <a href="#加入指定对齐方式的终极总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#加入指定对齐方式的终极总结"></a> 加入指定对齐方式的终极总结</h2>
+      
+<ol>
+<li>结构体变量的首地址，必须是MIN{“结构体<strong>最大基本数据类型成员</strong>所占字节数”, 指定对齐方式}的整数倍。</li>
+<li>结构体中，相对于结构体首地址，每个成员的偏移量，都是MIN{该基本数据类型成员, 指定对齐方式}的整数倍。</li>
+<li>结构体的总大小，为MIN{结构体最大基本数据类型成员所占字节数, 指定对齐方式}的整数倍。</li>
+</ol>
+
+        <h1 id="2"   >
+          <a href="#2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2"></a> 2</h1>
+      
+<p>实现一个宏，计算结构体成员的相对偏移量。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> offset(type,member) (int)&amp;( ( (type*)0 ) -&gt;member)</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="3"   >
+          <a href="#3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3"></a> 3</h1>
+      
+<p>结构体和共用体的区别。</p>
+<p>然后让你判断大小端或者对数据转换</p>
+
+        <h1 id="4"   >
+          <a href="#4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4"></a> 4</h1>
+      
+<p>编写程序完成，int变量的小端存储转换成大端存储。</p>
+
+        <h1 id="5"   >
+          <a href="#5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#5"></a> 5</h1>
+      
+<p>说一下用户存储空间都有哪几个区构成？回答一下，栈区和堆区的区别。</p>
+<p>代码区、数据区、堆区、栈区</p>
+<ol>
+<li>管理方式：栈由系统自动管理；堆由程序员控制，使用方便，但易产生内存泄露。</li>
+<li>生长方向：栈向低地址扩展(即”向下生长”)，是连续的内存区域；堆向高地址扩展(即”向上生长”)，是不连续的内存区域。这是由于堆区管理系统用链表来存储空闲内存地址，自然不连续，而链表从低地址向高地址遍历。</li>
+<li>空间大小：栈顶地址和栈的最大容量由系统预先规定(通常默认1M 或10M)；堆的大小则受限于计算机系统中有效的虚拟内存，32 位Linux 系统中堆内存可达2.9G 空间。</li>
+<li>存储内容：
+<ol>
+<li>栈在函数调用时，首先压入是函数实参，然后主调函数中下条指令(函数调用语句的下条可执行语句)的地址压入，最后是被调函数的局部变量。本次调用结束后，局部变量先出栈，指令地址出栈，最后栈平衡，程序由该点继续运行下条可执行语句。</li>
+<li>堆通常在头部用一个字节存放其大小，堆用于存储生存期与函数调用无关的数据，具体内容由程序员安排。</li>
+</ol>
+</li>
+<li>分配方式：
+<ol>
+<li>栈可静态分配或动态分配。静态分配由编译器完成，如局部变量的分配。动态分配由alloc函数在栈上申请空间，用完后自动释放不需要调动free函数。</li>
+<li>堆只能动态分配且手工释放。</li>
+</ol>
+</li>
+<li>分配效率：
+<ol>
+<li>栈由计算机底层提供支持：分配专门的寄存器存放栈地址，压栈出栈由专门的指令执行，因此效率较高。</li>
+<li>堆由函数库提供，机制复杂，效率比栈低得多。</li>
+</ol>
+</li>
+<li>分配后系统响应：
+<ol>
+<li>只要栈剩余空间大于所申请空间，系统将为程序提供内存，否则报告异常提示栈溢出。</li>
+<li>操作系统为堆维护一个记录空闲内存地址的链表。当系统收到程序的内存分配申请时，会遍历该链表寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点空间分配给程序。若无足够大小的空间(可能由于内存碎片太多)，有可能调用系统功能去增加程序数据段的内存空间，以便有机会分到足够大小的内存，然后进行返回。大多数系统会在该内存空间首地址处记录本次分配的内存大小，供后续的释放函数(如free/delete)正确释放本内存空间。</li>
+<li>此外，由于找到的堆结点大小不一定正好等于申请的大小，系统会自动将多余的部分重新放入空闲链表中。</li>
+</ol>
+</li>
+<li>碎片问题：
+<ol>
+<li>栈不会存在碎片问题，因为栈是先进后出的队列，内存块弹出栈之前，在其上面的后进的栈内容已弹出。</li>
+<li>而频繁申请释放操作会造成堆内存空间的不连续，从而造成大量碎片，使程序效率降低。</li>
+<li>可见，堆容易造成内存碎片；由于没有专门的系统支持，效率很低；由于可能引发用户态和内核态切换，内存申请的代价更为昂贵。所以栈在程序中应用最广泛，函数调用也利用栈来完成，调用过程中的参数、返回地址、栈基指针和局部变量等都采用栈的方式存放。所以，建议尽量使用栈，<strong>仅在分配大量或大块内存空间时使用堆</strong>。</li>
+<li>最后使用栈和堆时应避免越界发生，否则可能程序崩溃或破坏程序堆、栈结构，产生意想不到的后果。</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="6"   >
+          <a href="#6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#6"></a> 6</h1>
+      
+<p>代码实现打印N行杨辉三角。不得使用二维数组，可以使用一维数组。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ar[<span class="number">100</span>] = &#123; <span class="number">0</span>,<span class="number">1</span> &#125;;	<span class="comment">//初始化数组</span></span><br><span class="line"><span class="type">int</span> n, i, j;</span><br><span class="line"><span class="type">int</span> l, r;	<span class="comment">//存放上一层左边的数和右边的数</span></span><br><span class="line">n = <span class="number">10</span>;		<span class="comment">//层数</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= i; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        r = ar[j];				<span class="comment">//面试题空白处</span></span><br><span class="line">        ar[j] = l + r;			<span class="comment">//面试题空白处</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%-4d&quot;</span>, ar[j]);</span><br><span class="line">        l = r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="7"   >
+          <a href="#7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#7"></a> 7</h1>
+      
+<p>快排，堆排，归并排序，任选一道实现代码。</p>
+
+        <h1 id="8"   >
+          <a href="#8" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#8"></a> 8</h1>
+      
+<p>谈谈顺序表和链表的区别，以及适用的场景。</p>
+
+        <h1 id="9"   >
+          <a href="#9" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#9"></a> 9</h1>
+      
+<p>实现不带头节点单链表的逆置。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/">https://xing-cg.github.io/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/2021%E5%B9%B410%E6%9C%88%E9%9D%A2%E8%AF%95/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Linux/Linux_%E4%BF%A1%E5%8F%B7/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Linux_信号</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_Mstring&amp;%E8%BF%AD%E4%BB%A3%E5%99%A8/"><span class="paginator-prev__text">Cpp_Mstring&amp;迭代器</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1029"><span class="toc-number">1.</span> <span class="toc-text">
+           1029</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1"><span class="toc-number">2.</span> <span class="toc-text">
+           1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%AD%94%E7%9A%84"><span class="toc-number">2.1.</span> <span class="toc-text">
+           我答的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%94%E6%A1%88"><span class="toc-number">2.2.</span> <span class="toc-text">
+           答案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pragma-pack%E6%8C%87%E5%AE%9A%E5%AF%B9%E9%BD%90%E5%80%BC"><span class="toc-number">2.3.</span> <span class="toc-text">
+           #pragma pack指定对齐值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E6%8C%87%E5%AE%9A%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F%E7%9A%84%E7%BB%88%E6%9E%81%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">
+           加入指定对齐方式的终极总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2"><span class="toc-number">3.</span> <span class="toc-text">
+           2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3"><span class="toc-number">4.</span> <span class="toc-text">
+           3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4"><span class="toc-number">5.</span> <span class="toc-text">
+           4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5"><span class="toc-number">6.</span> <span class="toc-text">
+           5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6"><span class="toc-number">7.</span> <span class="toc-text">
+           6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7"><span class="toc-number">8.</span> <span class="toc-text">
+           7</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8"><span class="toc-number">9.</span> <span class="toc-text">
+           8</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9"><span class="toc-number">10.</span> <span class="toc-text">
+           9</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

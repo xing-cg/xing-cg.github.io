@@ -1,0 +1,811 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta property="og:type" content="website">
+<meta property="og:title" content="罐头先生的博客">
+<meta property="og:url" content="https://xing-cg.github.io/page/96/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/page/96/index.html"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E7%BA%A2%E9%BB%91%E6%A0%91/">高级数据结构_红黑树</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-17</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E7%BA%A2%E9%BB%91%E6%A0%91/" data-flag-title="高级数据结构_红黑树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>红黑树</li>
+</ol>
+
+        <h1 id="红黑树"   >
+          <a href="#红黑树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树"></a> 红黑树</h1>
+      
+<p>在计算机科学中，红黑树是一种自平衡二叉搜索树。典型用途是实现<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84" >关联数组</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>(即map)。红黑树是从 4 阶 B 树（即2-3-4树）衍生出来的形式。</p>
+<blockquote>
+<p>以下内容来自wiki：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree" >https://en.wikipedia.org/wiki/Red–black_tree</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+1972年，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Rudolf_Bayer" >鲁道夫·拜耳</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>发明了一种<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/B-tree"  title="B-tree">B 树</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>的特殊 4 阶形式。这个 4 阶 B 树维护从根到叶的所有路径，节点数相同，从而创建完美平衡的树（然而，并不是<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9" >二叉搜索树</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>）。拜尔在他的论文中称呼他们为“<strong>对称二叉 B 树</strong>”（symmetric binary B-tree），后来这种 4 阶 B 树被称为<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/2%E2%80%933%E2%80%934_tree"  title="2–3–4 tree">2-3-4 树</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>在 1978 年的论文《A Dichromatic Framework for Balanced Trees》中，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Leonidas_J._Guibas"  title="Leonidas J. Guibas">Leonidas J. Guibas</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>和<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Robert_Sedgewick_(computer_scientist)"  title="Robert Sedgewick (computer scientist)">Robert Sedgewick</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>从 2-3-4 树中衍生出了红黑树。</p>
+<p>之所以选择“红色”是因为它是作者在Xerox PARC工作时可用的彩色激光打印机打印出的最好看的颜色。Guibas 的另一个回应是，这是因为他们可以使用红色和黑色的笔来画树。</p>
+<p>1993 年，Arne Andersson 提出右倾树的概念，以简化插入和删除操作。<br />
+1999 年， <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chris_Okasaki"  title="Chris Okasaki">Chris Okasaki</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>展示了如何使插入操作纯粹函数化（purely functional）。其平衡函数只需要处理 4 种不平衡情况和 1 种默认平​​衡情况。<br />
+原始算法需要处理 8 种不平衡情况，但 2001 年，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree#CITEREFCormenLeisersonRivestStein2001" >Cormen 等人</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>将其简化为 6 种不平衡情况。Sedgewick 通过实践证明，插入操作仅需46行Java代码即可实现。<br />
+2008 年，Sedgewick 基于 Arne Andersson 简化插入和删除操作的理念，提出了<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Left-leaning_red%E2%80%93black_tree"  title="Left-leaning red–black tree">左倾红黑树</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。该结构初期允许节点拥有两个红色子节点（更接近2-3-4树特性），后期通过增加节点限制使其更贴近2-3树结构。改进后，Sedgewick将插入算法的代码量从46行精减至33行，显著提升了代码效率。</p>
+</blockquote>
+<p>每个节点存储一个表示“颜色”（“红色”或“黑色”）的额外位，用于确保树在插入和删除期间保持平衡。</p>
+<p>当树被修改时，新树被重新排列并“重新绘制”以恢复限制树在最坏情况下可能变得多么不平衡的着色属性。这些属性被设计成可以有效地执行这种重新排列和重新着色。</p>
+<p>重新平衡并不完美，但保证在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>时间内搜索，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>是条目数。插入和删除操作以及树的重新排列和重新着色也在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>时间内执行。</p>
+<p>跟踪每个节点的颜色只需要每个节点的一位信息，因为只有两种颜色。该树不包含任何其他特定于它是红黑树的数据，因此它的内存占用几乎与经典（未着色）二叉搜索树的内存占用相同。在许多情况下，无需额外的内存成本即可存储额外的信息位。</p>
+
+        <h2 id="红黑树与avl的对比"   >
+          <a href="#红黑树与avl的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树与avl的对比"></a> 红黑树与AVL的对比</h2>
+      
+<p>实际上树节点的结构与AVL一模一样, 只是balance的状态值只有两个, 然后又在这个基础上, 对其进行了一些限制;</p>
+<p>这样的好处就是, 对于红黑树的插入/删除操作, 在编写代码时, 只需考虑其两种状态即可, 这有利于开发实践; 而AVL需要考虑三种状态, 对于开发代码来说难度加大, 并且AVL树过于理想化, 导致旋转操作过多, 反而会影响性能;</p>
+<p>AVL树本来想解决什么问题呢? 是为了防止不加限制的二叉搜索树在持续插入一些极端的值(依次插入有序的数)后, 搜索树的结构退化为了一个长度为n的链表, 因此查找性能也会退化;</p>
+<p>但是, 对二叉搜索树的极度限制, 使其保持一个理想化的平衡又显得矫枉过正, 虽然插入数据时不用做过多的旋转(最多做2次旋转操作), 但是删除操作的时候, 可能会涉及到一长串的旋转处理(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\log n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span></span></span></span>次), 这也会导致性能的退化;</p>
+<p>于是, 红黑树的性质就像是同时克服了两者的缺点, 但是在高度平衡上, 做出了一些妥协, 但是这也是无伤大雅的, 红黑树节点的左右子树高度差, 长的长度不超过短的长度的2倍;</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>AVL的时间复杂度</th>
+<th>红黑树的时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增删查</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>Insert最多旋转次数</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>remove最多旋转次数</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>根据上表, 可以得出, 如果操作涉及到查询/插入较多, 优先选择AVL树, AVL是绝对平衡的树, 查询效率不会低于红黑树; 而插入效率两者等效;</p>
+<p>如果操作涉及修改较多, 查询不多, 则选择红黑树; 除此之外, 红黑树在百万级数据或更大规模的数据场景中表现将会脱颖而出;</p>
+<p>如果增删查三者操作都比较多, 红黑书综合性能要更优;</p>
+
+        <h1 id="红黑树的性质"   >
+          <a href="#红黑树的性质" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树的性质"></a> 红黑树的性质</h1>
+      
+<p>红黑树是每个节点都带有颜色属性的<strong>二叉查找树</strong>，颜色是红色或黑色。基于二叉查找树的强制要求，对于任何有效的红黑树我们增加了如下的额外要求：</p>
+<ol>
+<li>每个节点不是红色就是黑色。</li>
+<li>如果左右孩子是NIL, 则把此孩子看作黑色节点; 实际上这个NIL节点是哨兵节点, 可看作一个公共叶子节点;</li>
+<li>根节点是黑色。</li>
+<li>从每个叶子到根的所有路径上不能有两个连续的红色节点; 如此, 每个红色节点的两个子节点都是黑色。</li>
+<li>从任一节点到其每个叶子(可以包含NIL公共叶节点)的所有路径都包含相同数目的黑色节点。</li>
+</ol>
+<p>这些约束强制了红黑树的关键性质：从根到叶子的最长的可能路径不多于最短的可能路径的两倍长。结果是这个树大致上是平衡的。因为操作比如插入、删除和查找某个值的最坏情况时间都要求与树的高度成比例，这个在高度上的理论上限允许红黑树在最坏情况下都是高效的，而不同于普通的二叉查找树。</p>
+<p>是性质4导致路径上不能有两个连续的红色节点确保了这个结果。最短的可能路径都是黑色节点，最长的可能路径有交替的红色和黑色节点。因为根据性质5所有最长的路径都有相同数目的黑色节点，这就表明了没有路径能多于任何其他路径的两倍长。</p>
+<blockquote>
+<p>思考: 为什么满足上面的性质，红黑树就能保证: 其最长路径中节点个数不会超过最短路径节点个数的两倍(红黑树节点的左右子树高度差, 长的长度不超过短的长度的2倍; )？</p>
+<p>可以做个假设: 一个节点到其<code>叶子节点1</code>, 全部是黑色节点, 共10个; 而到其<code>叶子节点2</code>, 黑红节点交替, 共20个, 这种是满足性质5最大的极限了, 由于性质5的限制, 其最长路径中节点个数不会超过最短路径节点个数的两倍;</p>
+</blockquote>
+
+        <h1 id="用途和好处"   >
+          <a href="#用途和好处" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用途和好处"></a> 用途和好处</h1>
+      
+<p>红黑树和AVL树一样都对插入时间、删除时间和查找时间提供了最好可能的最坏情况担保。不只在时间敏感的应用如实时应用（real time application）中有价值; 而且在提供最坏情况担保的其他数据结构中作为基础模板有价值, 例如，在计算几何中使用的很多数据结构都可以基于红黑树实现。</p>
+<p>红黑树在函数式编程中也特别有用，在这里它们是最常用的持久数据结构（persistent data structure）之一，它们用来构造关联数组和集合，每次插入、删除之后它们能保持为以前的版本。除了<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的时间之外，红黑树的持久版本对每次插入或删除需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的空间。</p>
+<p>红黑树是2-3-4树的一种等同。换句话说，对于每个2-3-4树，都存在至少一个数据元素是同样次序的红黑树。在2-3-4树上的插入和删除操作也等同于在红黑树中颜色翻转和旋转。这使得2-3-4树成为理解红黑树背后的逻辑的重要工具，这也是很多介绍算法的教科书在红黑树之前介绍2-3-4树的原因，尽管2-3-4树在实践中不经常使用。</p>
+<p>红黑树相对于AVL树来说，牺牲了部分平衡性以换取插入/删除操作时少量的旋转操作，整体来说性能要优于AVL树。</p>
+
+        <h1 id="rb树的结构设计"   >
+          <a href="#rb树的结构设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rb树的结构设计"></a> RB树的结构设计</h1>
+      
+<p>红黑树相比于AVL树, 有一个伎俩, 就是设置了一个哨兵节点, 作为每个叶节点的左右孩子, 或者是: 不为叶节点, 但有一孩子指针为空时指向的一个节点, 这会使编程难度降低;</p>
+<p>还可以引入一个作为整个红黑树的头节点, 双亲指针指向红黑树根节点, 左孩子指针指向红黑树最左节点(最小值), 右孩子指针指向红黑树最右节点(最大值), 根节点的双亲指针指向该头节点;</p>
+
+        <h2 id="节点结构"   >
+          <a href="#节点结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#节点结构"></a> 节点结构</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123; RED = <span class="number">0</span>, BLACK = <span class="number">1</span> &#125; ColorType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">rb_node</span></span><br><span class="line">&#123;</span><br><span class="line">    rb_node * leftchild;</span><br><span class="line">    rb_node * parent;</span><br><span class="line">    rb_node * rightchild;</span><br><span class="line">    ColorType color;</span><br><span class="line">    KeyType key;</span><br><span class="line">&#125;rb_node, *RBTree;</span><br><span class="line"><span class="type">static</span> rb_node *NIL = <span class="built_in">BuyNode</span>();</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="新建节点函数-buynode"   >
+          <a href="#新建节点函数-buynode" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#新建节点函数-buynode"></a> 新建节点函数 - BuyNode</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">rb_node * <span class="title">BuyNode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * s = (rb_node*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(rb_node));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">nullptr</span> == s) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="built_in">sizeof</span>(rb_node));</span><br><span class="line">    s-&gt;leftchild = NIL;</span><br><span class="line">    s-&gt;rightchild = NIL;</span><br><span class="line">    s-&gt;color = RED;		<span class="comment">//出生的红黑树节点默认为红色</span></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="插入"   >
+          <a href="#插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入"></a> 插入</h1>
+      
+
+        <h2 id="建根函数"   >
+          <a href="#建根函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#建根函数"></a> 建根函数</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">rb_node * <span class="title">MakeRoot</span><span class="params">(KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * root = <span class="built_in">BuyNode</span>();</span><br><span class="line">    root-&gt;color = BLACK;		<span class="comment">//默认根节点为黑色</span></span><br><span class="line">    root-&gt;key = kx;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="insert"   >
+          <a href="#insert" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#insert"></a> Insert</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">Insert</span><span class="params">(rb_node *&amp; tree, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        tree = <span class="built_in">MakeRoot</span>(kx);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rb_node * pa = <span class="literal">nullptr</span>;</span><br><span class="line">    rb_node * p = tree;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">    &#123;</span><br><span class="line">        pa = p;</span><br><span class="line">        p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key == kx) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    p = <span class="built_in">BuyNode</span>();</span><br><span class="line">    p-&gt;key = kx;</span><br><span class="line">    p-&gt;parent = pa;</span><br><span class="line">    <span class="keyword">if</span>(kx &lt; pa-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;leftchild = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;rightchild = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">PassRBTree</span>(tree, p);    <span class="comment">//红黑树调整</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="红黑树调整"   >
+          <a href="#红黑树调整" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#红黑树调整"></a> 红黑树调整</h2>
+      
+
+        <h3 id="左单旋-rotateleft"   >
+          <a href="#左单旋-rotateleft" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#左单旋-rotateleft"></a> 左单旋 - RotateLeft</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLeft</span><span class="params">(rb_node *&amp; tree, rb_node * ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * newroot = ptr-&gt;rightchild;</span><br><span class="line">    newroot-&gt;parent = ptr-&gt;parent;</span><br><span class="line">    ptr-&gt;rightchild = newroot-&gt;leftchild;  <span class="comment">//1 原根继承 轴节点的左孩子</span></span><br><span class="line">    <span class="keyword">if</span>(newroot-&gt;leftchild != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        newroot-&gt;leftchild-&gt;parent = ptr;  </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    newroot-&gt;leftchild = ptr;              <span class="comment">//2 轴节点包揽原根</span></span><br><span class="line">    <span class="comment">//3 处理 原根父节点(或无父节点) 的左右孩子指针(或tree指针)</span></span><br><span class="line">    <span class="keyword">if</span>(ptr == tree)</span><br><span class="line">    &#123;</span><br><span class="line">        tree = newroot;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ptr-&gt;parent-&gt;leftchild == ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ptr-&gt;parent-&gt;leftchild = newroot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ptr-&gt;parent-&gt;rightchild = newroot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ptr-&gt;parent = newroot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="右单旋-rotateright"   >
+          <a href="#右单旋-rotateright" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#右单旋-rotateright"></a> 右单旋 - RotateRight</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateRight</span><span class="params">(rb_node *&amp; tree, rb_node * ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * newroot = ptr-&gt;leftchild;</span><br><span class="line">    newroot-&gt;parent = ptr-&gt;parent;</span><br><span class="line">    ptr-&gt;leftchild = newroot-&gt;rightchild;</span><br><span class="line">    <span class="keyword">if</span>(newroot-&gt;rightchild != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        newroot-&gt;rightchild-&gt;parent = ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    newroot-&gt;rightchild = ptr;</span><br><span class="line">    <span class="keyword">if</span>(ptr == tree)</span><br><span class="line">    &#123;</span><br><span class="line">        tree = newroot;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ptr-&gt;parent-&gt;leftchild == ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            ptr-&gt;parent-&gt;leftchild = newroot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ptr-&gt;parent-&gt;rightchild = newroot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ptr-&gt;parent = newroot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="调整函数"   >
+          <a href="#调整函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#调整函数"></a> 调整函数</h3>
+      
+<p>对红黑树修改时, 出现不平衡或颜色冲突, 对其调整使其平衡, 颜色正确的函数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PassRBTree</span><span class="params">(rb_node *&amp; tree, rb_node *p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * _X = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">for</span>(; p != tree &amp;&amp; p-&gt;parent-&gt;color == RED; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;parent-&gt;parent-&gt;rightchild == p-&gt;parent)<span class="comment">//说明在爷爷的右边插入</span></span><br><span class="line">        &#123;</span><br><span class="line">            _X = p-&gt;parent-&gt;parent-&gt;leftchild;</span><br><span class="line">            <span class="keyword">if</span>(_X-&gt;color == RED)</span><br><span class="line">            &#123;</span><br><span class="line">                _X-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                p = p-&gt;parent-&gt;parent;	<span class="comment">//接下来循环看他爷爷的双亲是不是红</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//左单旋</span></span><br><span class="line">            &#123;</span><br><span class="line">                p-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                <span class="built_in">RotateLeft</span>(tree, p-&gt;parent-&gt;parent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    tree-&gt;color = BLACK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>加上双旋的情况</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PassRBTree</span><span class="params">(rb_node *&amp; tree, rb_node *p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rb_node * _X = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">for</span>(; p != tree &amp;&amp; p-&gt;parent-&gt;color == RED; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;parent-&gt;parent-&gt;rightchild == p-&gt;parent)<span class="comment">//说明在爷爷的右边插入</span></span><br><span class="line">        &#123;</span><br><span class="line">            _X = p-&gt;parent-&gt;parent-&gt;leftchild;</span><br><span class="line">            <span class="keyword">if</span>(_X-&gt;color == RED)</span><br><span class="line">            &#123;</span><br><span class="line">                _X-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                p = p-&gt;parent-&gt;parent;	<span class="comment">//接下来循环看他爷爷的双亲是不是红</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;parent-&gt;leftchild == p)<span class="comment">//在父节点的左边, 需要双旋</span></span><br><span class="line">                &#123;</span><br><span class="line">                    p = p-&gt;parent;       <span class="comment">//关键一步, 偷换p, 以与下面语句串联</span></span><br><span class="line">                    <span class="built_in">RotateRight</span>(tree, p);<span class="comment">//这是双旋第1步, 之后p调到其父节点的右边了</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//不管上面的情况, 到这一步, p肯定在父节点的右边, 只需要左旋</span></span><br><span class="line">                p-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                p-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                <span class="built_in">RotateLeft</span>(tree, p-&gt;parent-&gt;parent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _X = p-&gt;parent-&gt;parent-&gt;rightchild;</span><br><span class="line">            <span class="keyword">if</span>(_X-&gt;color == RED)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//要旋转</span></span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    tree-&gt;color = BLACK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE-muduo/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/">学习muduo库的思想</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE-muduo/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/" data-flag-title="学习muduo库的思想"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>阻塞、非阻塞、同步、异步</li>
+<li>五种IO模型</li>
+<li>好的网路服务器设计思路</li>
+<li>Reactor模型</li>
+<li>select/poll/epoll、LT/ET模式对比</li>
+<li>muduo网络库编程环境配置</li>
+<li>muduo网络库的多线程模型</li>
+<li>基于muduo的服务器程序实例</li>
+<li>muduo网络库提供的类</li>
+<li>muduo网络库中TcpServer类中的回调类型</li>
+<li>代码示例ChatServer及运行测试结果</li>
+</ol>
+
+        <h1 id="阻塞-非阻塞-同步-异步"   >
+          <a href="#阻塞-非阻塞-同步-异步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#阻塞-非阻塞-同步-异步"></a> 阻塞、非阻塞、同步、异步</h1>
+      
+<p>网络IO阶段分为两个：数据准备和数据读写</p>
+<ul>
+<li>数据准备–根据系统IO操作的就绪状态
+<ul>
+<li>阻塞：调用IO方法的线程进入阻塞状态</li>
+<li>非阻塞：不会改变线程的状态，通过返回值判断</li>
+</ul>
+</li>
+<li>数据读写（IO层面的同步和异步）–根据应用程序和内核的交互方式
+<ul>
+<li>同步：用户的recv完成了所有的动作，而且因此阻塞或者空转等待。数据是用户从TCP的接收缓冲区搬移的。</li>
+<li>异步：应用程序把任务交给操作系统，自己去做别的事情，操作系统处理完后，通知用户层“buf的数据已经准备好了”。可以通过sigio通知或者实现约定的回调方式通知</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> <span class="title function_">recv</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span>* buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">int</span> size = recv(sockfd, buf, <span class="number">1024</span>, <span class="number">0</span>);	<span class="comment">//recv阻塞至sockfd上有数据准备好</span></span><br><span class="line"><span class="comment">//如果recv的属性设置为set non-block，则即使sockfd没有数据也会返回，cpu空转</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	返回值：</span></span><br><span class="line"><span class="comment">		size == -1; # 原因可能为1.系统内部错误; 2.当前处于非阻塞模式，无数据</span></span><br><span class="line"><span class="comment">			若 errno == EAGAIN 则说明 当前的错误是因为处于非阻塞模式。</span></span><br><span class="line"><span class="comment">		size == 0;	# 是由于远端的正常close而返回</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
+<p>陈硕：<strong>（非）阻塞和异/同步IO的关系：在处理IO的时候，阻塞和非阻塞都是同步IO，只有使用了特殊的API才是异步IO。</strong><br />
+<img src="../../images/%E5%AD%A6%E4%B9%A0muduo%E5%BA%93%E7%9A%84%E6%80%9D%E6%83%B3/image-20220316211609059.png" alt="image-20220316211609059" /></p>
+<p>即使epoll也是同步的IO，返回发生事件的event，读的时候需要调用recv，所以是同步IO。</p>
+<ul>
+<li>业务层面的一个逻辑处理是同步还是异步？
+<ul>
+<li>同步：A操作等待B操作完毕，得到返回值，继续处理</li>
+<li>异步：A操作告诉B操作它感兴趣的事件及通知方式，A操作继续执行自己的业务逻辑了，等B监听到相应。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<blockquote>
+<p>一个典型的网络IO接口调用，分为两个阶段，分别是“数据就绪”和“数据读写”，数据就绪阶<br />
+段分为阻塞和非阻塞，表现得结果就是，阻塞当前线程或是直接返回。</p>
+<p>同步表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），数据的读写都<br />
+是由请求方A自己来完成的（不管是阻塞还是非阻塞）；异步表示A向B请求调用一个网络IO接口<br />
+时（或者调用某个业务逻辑API接口时），向B传入请求的事件以及事件发生时通知的方式，A就<br />
+可以处理其它逻辑了，当B监听到事件处理完成后，会用事先约定好的通知方式，通知A处理结<br />
+果。</p>
+</blockquote>
+
+        <h1 id="五种io模型"   >
+          <a href="#五种io模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#五种io模型"></a> 五种IO模型</h1>
+      
+<ul>
+<li>阻塞 blocking</li>
+<li>非阻塞 non-blocking</li>
+<li>IO复用 IO multiplexing</li>
+<li>信号驱动 signal-driven</li>
+<li>异步 asynchronous</li>
+</ul>
+
+        <h1 id="好的网络服务器设计"   >
+          <a href="#好的网络服务器设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#好的网络服务器设计"></a> 好的网络服务器设计</h1>
+      
+<p>在这个多核时代，服务端网络编程如何选择线程模型？libevent作者的观点：<strong>one loop(事件循环, 一般用IO复用作为事件分发器) per thread</strong> is usually a good model. 多线程服务端编程的问题就转换为如何设计一个高效且易用的event loop，然后每个线程run一个event loop就行了【即muduo库的思想】（当然线程间的同步、互斥少不了，还有其他的耗时事件需要起另外的线程来做）。</p>
+<ul>
+<li>event loop是non-blocking网络编程的核心，在现实生活中，non-blocking几乎总是和IO-multiplexing一起使用，原因有二：
+<ul>
+<li><strong>不要单独使用非阻塞IO</strong>：没有人真的会用轮询(busy-polling)来检查某个non-blocking IO操作是否完成，太浪费CPU资源</li>
+<li><strong>不要单独使用IO复用</strong>（比如阻塞的IO复用）：IO multiplexing一般不能和blocking IO用在一起，因为blocking IO中read()/write()/accept()/connect()都有可能阻塞当前线程，这样线程就没办法处理其他socket上的IO操作了</li>
+<li>所以当我们提到non-blocking的时候，实际上指的是non-blocking + IO multiplexing，单用其中任何一个都没有办法很好地实现功能。</li>
+<li>结论：epoll + 非阻塞IO + 线程池(线程的数目一般对应电脑的CPU核数)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>nginx使用的是epoll + fork，是不是不如epoll + pthread？</p>
+</blockquote>
+<p>nginx采用了epoll+fork模型作为网络模块的架构设计，实现了简单好用的负载算法，使各个fork网络进程不会忙的越忙、闲的越闲，并且<strong>通过一把乐观锁解决了该模型导致的服务器惊群</strong>现象，功能十分强大。</p>
+
+        <h1 id="reactor模型"   >
+          <a href="#reactor模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#reactor模型"></a> Reactor模型</h1>
+      
+<p>muduo库和libevent库都是“基于事件驱动的Reactor模型”。</p>
+<p>Wikipedia给出的Reactor Design Pattern的解释：</p>
+<blockquote>
+<p>The Reactor design pattern is an <strong>event handling pattern</strong> for handling service <strong>requests delivered concurrently</strong> <s>to a service handler</s> by one or more inputs. The service handler then <strong>demultiplexes the incoming requests</strong> and <strong>dispatchers them synchronously</strong> to the associated request handlers.</p>
+</blockquote>
+<p>Google Translate:</p>
+<blockquote>
+<p>Reactor 设计模式是一种事件处理模式，用于处理通过一个或多个输入同时交付给服务处理程序的服务请求。 然后，服务处理程序对传入的请求进行多路分解，并将它们同步分配给相关联的请求处理程序。</p>
+</blockquote>
+<ul>
+<li>Reactor四个重要组件
+<ul>
+<li>Event事件</li>
+<li>Reactor反应堆</li>
+<li>Demultiplex事件分发器</li>
+<li>EventHandler事件处理器</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">%%时序图例子</span><br><span class="line">sequenceDiagram</span><br><span class="line">	participant Event</span><br><span class="line">	participant Reactor</span><br><span class="line">	participant Demultiplex</span><br><span class="line">	participant EventHandler</span><br><span class="line">	Event -&gt;&gt; Reactor: 注册Event和Handler</span><br><span class="line">	loop 事件集合</span><br><span class="line">		Reactor -&gt; Reactor:Event集合</span><br><span class="line">	end</span><br><span class="line">	Reactor -&gt;&gt; Demultiplex: 向Epoll add/mod/del Event</span><br><span class="line">	Reactor -&gt;&gt; Demultiplex: 启动反应堆</span><br><span class="line">    loop 事件分发器</span><br><span class="line">    	Demultiplex -&gt; Demultiplex:开启事件循环epoll_wait</span><br><span class="line">    end</span><br><span class="line">    Demultiplex -&gt;&gt; Reactor: 返回发生事件的Event</span><br><span class="line">    Reactor -&gt;&gt; EventHandler: 调用Event对应的事件处理器EventHandler</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="epoll"   >
+          <a href="#epoll" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll"></a> epoll</h1>
+      
+
+        <h2 id="select和poll的缺点"   >
+          <a href="#select和poll的缺点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#select和poll的缺点"></a> select和poll的缺点</h2>
+      
+<ul>
+<li>select的缺点：
+<ul>
+<li>单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：<code>#define __FD_SETSIZE 1024</code>），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。</li>
+<li>内核/用户空间内存拷贝问题，select需要复制大量的句柄数据结构，产生巨大的开销</li>
+<li>select返回的是含有整个句柄的数组，应用程序需要遍历整个数组才能发现哪些句柄发生了事件</li>
+<li>select的触发方式是水平触发，应用程序如果没有完成对一个已经就绪的文件描述符进行IO操作，那么之后每次select调用还是会将这些文件描述符通知进程（意思就是一件事情处理得太拖沓，拖延好几次才完成，影响效率）。其实epoll的LT模式也是这样。但是ET模式效率不一定比LT好。</li>
+</ul>
+</li>
+<li>poll
+<ul>
+<li>相比select模型，poll使用链表保存文件描述符，因此没有了监视文件数量的限制，但其他三个缺点依然存在。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>以select模型为例，假设我们的服务器需要支持100万的并发连接，则在__FD_SETSIZE 为1024的情况下，则我们至少需要开辟1k个进程才能实现100万的并发连接。除了进程间上下文切换的时间消耗外，从内核/用户空间大量的句柄结构内存拷贝、数组轮询等，是系统难以承受的。因此，基于select模型的服务器程序，要达到100万级别的并发访问，是一个很难完成的任务。</p>
+</blockquote>
+
+        <h2 id="epoll原理及优势"   >
+          <a href="#epoll原理及优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epoll原理及优势"></a> epoll原理及优势</h2>
+      
+<p>epoll的实现机制与select/poll机制完全不同。</p>
+<p>epoll通过在Linux内核中申请一个简易的文件系统，提升了效率。</p>
+<blockquote>
+<p>文件系统一般用什么数据结构实现——B+树，磁盘IO消耗低、效率很高。</p>
+</blockquote>
+<p>把原先的select/poll调用分成以下3个部分：</p>
+<ol>
+<li>
+<p>调用<code>epoll_create()</code>建立一个<code>epoll对象</code>（在<code>epoll文件系统</code>中为这个<code>句柄对象</code>分配资源）</p>
+<ul>
+<li>
+<p><code>epoll_create</code>在内核上创建的<code>eventpoll</code>结构如下：</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">eventpoll</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">/* 红黑树的根节点，这棵树中存储着所有添加到epoll中的需要监控的事件*/</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">rb_root</span> rbr;</span><br><span class="line">    <span class="comment">/* 双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">list_head</span> rdlist;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>调用<code>epoll_ctl</code>向<code>epoll</code>对象中添加这100万个连接的套接字</p>
+</li>
+<li>
+<p>调用<code>epoll_wait</code>收集发生的事件的<code>fd</code>资源</p>
+</li>
+</ol>
+<blockquote>
+<p>如此一来，要实现上面说的场景，只需在进程启动时建立一个<code>epoll对象</code>，然后在需要时像这个<code>epoll对象</code>中添加或者删除事件。同时<code>epoll_wait</code>时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的事件。</p>
+</blockquote>
+<ul>
+<li>LT模式，muduo采用的是LT模式
+<ul>
+<li>特点：内核数据没被读完，就会一直上报数据</li>
+<li>不会丢失数据或者消息
+<ul>
+<li>应用没有读取完数据，内核会不断上报</li>
+</ul>
+</li>
+<li>低延迟处理
+<ul>
+<li>每次读数据只需要一次系统调用，照顾了多个连接的公平性，不会因为某个连接上的数据量过大而影响其他连接处理消息</li>
+</ul>
+</li>
+<li>跨平台处理
+<ul>
+<li>像select一样可以跨平台使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ET模式
+<ul>
+<li>特点：内核数据只上报一次，效率相对较高</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="muduo网络库编程准备"   >
+          <a href="#muduo网络库编程准备" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库编程准备"></a> muduo网络库编程准备</h1>
+      
+
+        <h2 id="开发环境"   >
+          <a href="#开发环境" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#开发环境"></a> 开发环境</h2>
+      
+<ol>
+<li>ubuntu linux</li>
+<li>安装json开发库</li>
+<li>安装boost + muduo网络库开发环境<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/QIANGWEIYUAN/article/details/89023980" >muduo库源码编译安装</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>安装redis环境</li>
+<li>安装mysql数据库环境</li>
+<li>安装nginx</li>
+<li>安装cmake环境</li>
+</ol>
+<ul>
+<li>配置远程开发环境
+<ul>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq756684177/article/details/94236990" >windows+vscode配置远程linux开发环境</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>
+<ol>
+<li>linux系统运行sshd服务</li>
+<li>在vscode上安装Remote Development插件，其依赖插件会自动安装</li>
+</ol>
+</li>
+<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/QIANGWEIYUAN/article/details/89469717" >VS环境创建远程linux跨平台项目</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>vscode在linux环境下直接开发</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="配置链接库-头文件"   >
+          <a href="#配置链接库-头文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置链接库-头文件"></a> 配置链接库、头文件</h2>
+      
+<p>muduo库的使用需要链接<code>lib</code>库文件，一般为<code>.so</code>文件。一般<code>.so</code>文件都在<code>/usr/lib或/usr/local/lib</code>路径下。</p>
+<p>编译链接使用muduo库的程序需要加后缀<code>-l ...</code></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/lib or /usr/local/lib</span></span><br><span class="line"><span class="comment"># 3 lib: libmuduo_base.so; libmuduo_net.so; libpthread.so</span></span><br><span class="line">-lmuduo_net -lmuduo_base -lpthread</span><br><span class="line"><span class="comment"># 注意顺序，net需要写在前面，因为net依赖base；base写中间，因为依赖phtread</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="如何在vscode配置这三个库"   >
+          <a href="#如何在vscode配置这三个库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何在vscode配置这三个库"></a> 如何在vscode配置这三个库？</h3>
+      
+<p>vscode中按<code>F1</code>键，搜索<code>edit configurations</code>，将会打开：</p>
+<p>项目目录下的<code>.vscode</code>文件夹下的<code>c_cpp_properties.json</code></p>
+<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Linux&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;includePath&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;$&#123;workspaceFolder&#125;/**&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;defines&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/gcc&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cStandard&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c17&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cppStandard&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c++20&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;intelliSenseMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;linux-gcc-x64&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></div></figure>
+<p>build构建项目的快捷键是<code>ctrl+shift+B</code>键，但若你没有配置过build流程，将会弹出选项让你配置。实际上就是让你配置<code>.vscode</code>下的<code>tasks.json</code>。</p>
+<blockquote>
+<p>除了上面这两个json文件，vscode下的cpp项目中还有一个json配置文件是launch.json，是关于调试的配置信息。</p>
+</blockquote>
+<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tasks&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/g++&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;-g&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;$&#123;file&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;-o&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;problemMatcher&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;$gcc&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;group&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></div></figure>
+<p>其中，<code>args</code>键就是build时编译链接命令后面加的参数。</p>
+<p>我们在此使用muduo库，若想用vscode来一键build，则可以在args里加上三个参数。</p>
+<figure class="highlight json"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">          <span class="comment">// ...</span></span><br><span class="line">	<span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="comment">// ...</span></span><br><span class="line">              <span class="string">&quot;-lmuduo_net&quot;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="string">&quot;-lmuduo_base&quot;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="string">&quot;-lpthread&quot;</span></span><br><span class="line">          <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">          <span class="comment">// ...</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></div></figure>
+<p>如果配置文件写好了，则就可以在vscode下一键build。</p>
+
+        <h1 id="muduo网络库的多线程模型"   >
+          <a href="#muduo网络库的多线程模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库的多线程模型"></a> muduo网络库的多线程模型</h1>
+      
+<ul>
+<li>
+<p>网络服务器编程常用模型</p>
+<ol>
+<li>accept + read/write : 不是并发服务器</li>
+<li>accpet + fork (process-pre-connection) : 适合并发连接数不大，计算任务工作量大于fork的开销</li>
+<li>accept + thread (thread-pre-connection) : 比方案2的开销小了一点，但是并发造成线程堆积过多</li>
+<li>reactors in threads (one loop per thread) : 是muduo的网络设计。有一个main reactor负载accept连接，然后把连接分发到某个sub reactor(采用round-robin的方式来选择sub reactor)，该连接的操作都在sub reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。</li>
+<li>reactors in process  (one loop pre process) : 是nginx服务器的网络模块设计，基于进程设计，采用多个Reactors充当I/O进程和工作进程，通过一把accept锁完美解决多个Reactors的“惊群现象”。</li>
+</ol>
+</li>
+<li>
+<p>muduo底层的模型</p>
+</li>
+</ul>
+<p>muduo的网络设计：reactors in threads - one loop per thread.</p>
+<p>方案的特点是&quot;one loop per thread&quot;，有一个main reactor负责accept连接，然后把连接分发到某个sub reactor（轮询方式选择）。该连接的所有操作都在该reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。如果有过多的耗费CPU IO的计算任务，可以设置一个专门处理耗时计算任务的线程负责处理该类任务。</p>
+<p>reactor poll的大小根据CPU核心的数目确定。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置EventLoop的线程个数，底层通过EventLoopThreadPool线程池管理线程类EventLoopThread</span></span><br><span class="line">_server.<span class="built_in">setThreadNum</span>(<span class="number">10</span>);</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="基于muduo的服务器程序"   >
+          <a href="#基于muduo的服务器程序" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于muduo的服务器程序"></a> 基于muduo的服务器程序</h1>
+      
+
+        <h2 id="muduo网络库提供的类"   >
+          <a href="#muduo网络库提供的类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo网络库提供的类"></a> muduo网络库提供的类</h2>
+      
+<ol>
+<li>TcpServer：用于编写服务器程序的。</li>
+<li>TcpClient：用于编写客户端程序的。</li>
+</ol>
+<p>这两个类，实际上就是把<code>epoll+线程池</code>封装在一起了。好处就是把网络IO代码和业务代码区分开，使程序员可以专心开发业务代码。</p>
+<p>业务代码关注的两件事情：</p>
+<ol>
+<li>用户的连接与断开</li>
+<li>用户的可读写事件</li>
+</ol>
+<p>但这两件事情，如果我们使用了网络库，则如何监听、何时发生事件全都由网络库给程序员上报。</p>
+
+        <h2 id="muduo库中tcpserver类中重要的回调属性"   >
+          <a href="#muduo库中tcpserver类中重要的回调属性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo库中tcpserver类中重要的回调属性"></a> muduo库中TcpServer类中重要的回调属性</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">setConnectionCallback</span><span class="params">(<span class="type">const</span> ConnectionCallback&amp; cb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    connectionCallback_ = cb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setMessageCallback</span><span class="params">(<span class="type">const</span> MessageCallback &amp; cb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    messageCallback_ = cb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> std::function&lt;<span class="type">void</span> (<span class="type">const</span> TcpConnectionPtr&amp;)&gt; ConnectionCallback;</span><br><span class="line"><span class="keyword">typedef</span> std::function&lt;<span class="type">void</span> (<span class="type">const</span> TcpConnectionPtr&amp;, Buffer*, Timestamp)&gt; MessageCallback;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="代码示例-chatserver"   >
+          <a href="#代码示例-chatserver" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码示例-chatserver"></a> 代码示例 - ChatServer</h2>
+      
+<p>需要包含的头文件</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;muduo/net/TcpServer.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;muduo/net/EventLoop.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::placeholders;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ChatServer</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 在其中：</span></span><br><span class="line"><span class="comment">     * 1、类内构造TcpServer，初始化EventLoop指针</span></span><br><span class="line"><span class="comment">     * 2、给TcpServer注册用户连接的创建、连接的断开回调</span></span><br><span class="line"><span class="comment">     * 3、给TcpServer注册用户读写事件回调</span></span><br><span class="line"><span class="comment">     * 4、设置TcpServer的线程数量，muduo库会自己分配IO线程和工作线程</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">ChatServer</span>(muduo::net::EventLoop* loop, <span class="comment">//事件循环</span></span><br><span class="line">               <span class="type">const</span> muduo::net::InetAddress&amp; listenAddr,   <span class="comment">//IP+port</span></span><br><span class="line">               <span class="type">const</span> std::string&amp; nameArg)  <span class="comment">//服务器的名字</span></span><br><span class="line">        : <span class="built_in">m_server</span>(loop, listenAddr, nameArg),</span><br><span class="line">          <span class="built_in">m_loop</span>(loop)</span><br><span class="line">    &#123;</span><br><span class="line">        m_server.<span class="built_in">setConnectionCallback</span>(std::<span class="built_in">bind</span>(&amp;ChatServer::onConnection, <span class="keyword">this</span>, _1));</span><br><span class="line">        m_server.<span class="built_in">setMessageCallback</span>(std::<span class="built_in">bind</span>(&amp;ChatServer::onMessage, <span class="keyword">this</span>, _1, _2, _3));</span><br><span class="line">        m_server.<span class="built_in">setThreadNum</span>(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//开启事件循环</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_server.<span class="built_in">start</span>();</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//当发生用户的连接创建、连接断开事件后，调用函数</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">onConnection</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr &amp;conn)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//读写事件发生后，调用函数</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">onMessage</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr &amp;conn,</span></span></span><br><span class="line"><span class="params"><span class="function">                   muduo::net::Buffer * buffer,</span></span></span><br><span class="line"><span class="params"><span class="function">                   muduo::Timestamp time)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    muduo::net::TcpServer m_server;</span><br><span class="line">    muduo::net::EventLoop * m_loop;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="编写回调函数"   >
+          <a href="#编写回调函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写回调函数"></a> 编写回调函数</h3>
+      
+<p>OnConnection和OnMessage</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当发生用户的连接创建、连接断开事件后，调用函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">onConnection</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr &amp;conn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; conn-&gt;<span class="built_in">peerAddress</span>().<span class="built_in">toIpPort</span>() &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt;</span><br><span class="line">        conn-&gt;<span class="built_in">localAddress</span>().<span class="built_in">toIpPort</span>() &lt;&lt; <span class="string">&quot; state:&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(conn-&gt;<span class="built_in">connected</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; online.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; offline.&quot;</span></span><br><span class="line">        conn-&gt;<span class="built_in">shutdown</span>();</span><br><span class="line">        <span class="comment">//_loop-&gt;quit();</span></span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//读写事件发生后，调用函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">onMessage</span><span class="params">(<span class="type">const</span> muduo::net::TcpConnectionPtr &amp;conn,</span></span></span><br><span class="line"><span class="params"><span class="function">               muduo::net::Buffer * buffer,</span></span></span><br><span class="line"><span class="params"><span class="function">               muduo::Timestamp time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::string buf = buffer-&gt;<span class="built_in">retrieveAllAsString</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;recv data: &quot;</span> &lt;&lt; buf &lt;&lt; <span class="string">&quot; time: &quot;</span> &lt;&lt; time.<span class="built_in">toString</span>() &lt;&lt; std::endl;</span><br><span class="line">    conn-&gt;<span class="built_in">send</span>(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="主函数"   >
+          <a href="#主函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主函数"></a> 主函数</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    muduo::net::EventLoop loop; <span class="comment">//相当于创建了一个epoll</span></span><br><span class="line">    muduo::<span class="function">net::InetAddress <span class="title">addr</span><span class="params">(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6000</span>)</span></span>;</span><br><span class="line">    <span class="function">ChatServer <span class="title">chatserver</span><span class="params">(&amp;loop, addr, <span class="string">&quot;mychat&quot;</span>)</span></span>;</span><br><span class="line">    chatserver.<span class="built_in">start</span>();</span><br><span class="line">    loop.<span class="built_in">loop</span>();    <span class="comment">//相当于调用epoll_wait，以阻塞方式等待新用户连接事件、已连接用户的读写事件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="测试服务器程序"   >
+          <a href="#测试服务器程序" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试服务器程序"></a> 测试服务器程序</h3>
+      
+<p>首先，编译链接需要加后缀<code>-lmuduo_net -lmuduo_base -lpthread</code>。</p>
+<p>编译链接后，执行程序。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./chatserver</span><br></pre></td></tr></table></div></figure>
+<p>可以通过telnet连接服务器。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 127.0.0.1 6000</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="运行结果"   >
+          <a href="#运行结果" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#运行结果"></a> 运行结果</h4>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">xcg@ubuntu:~$ telnet 127.0.0.1 6000</span><br><span class="line">Trying 127.0.0.1...</span><br><span class="line">Connected to 127.0.0.1.</span><br><span class="line">Escape character is &#x27;^]&#x27;.</span><br><span class="line">hello!					#客户端输入显示到屏幕上的，发送给服务器的内容</span><br><span class="line">hello!					#收到的服务器复制后回发的一模一样的内容。</span><br><span class="line">^]</span><br><span class="line">telnet&gt; quit</span><br><span class="line">Connection closed.</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xcg@ubuntu:~/muduo-0528$ ./chatserver </span><br><span class="line">20220528 08:10:49.554317Z  8116 INFO  TcpServer::newConnection [mychat] - new connection [mychat-127.0.0.1:6000#1] from 127.0.0.1:60338 - TcpServer.cc:80</span><br><span class="line">127.0.0.1:60338 -&gt; 127.0.0.1:6000 state: online.</span><br><span class="line">recv data: hello!</span><br><span class="line"> time: 1653725453.563665</span><br><span class="line">127.0.0.1:60338 -&gt; 127.0.0.1:6000 state: offline.</span><br><span class="line">20220528 08:10:56.835295Z  8116 INFO  TcpServer::removeConnectionInLoop [mychat] - connection mychat-127.0.0.1:6000#1 - TcpServer.cc:109</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/95/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/95/">95</a><span class="page-number current">96</span><a class="page-number" href="/page/97/">97</a><span class="space">&hellip;</span><a class="page-number" href="/page/141/">141</a><a class="extend next" rel="next" href="/page/97/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

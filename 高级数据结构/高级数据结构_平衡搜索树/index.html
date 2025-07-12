@@ -1,0 +1,550 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         AVL - 平衡搜索树 单旋转 双旋转                       平衡搜索树        在计算机科学中，AVL树（以发明者Adelson-Velsky和Landis 命名）是一种自平衡-二叉搜索树(BST)。在AVL树中，任何节点的两个子树的高度最多相差1；如果在任何时候它们的差异超过1，则会进行重新平衡以恢复此">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级数据结构_平衡搜索树">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         AVL - 平衡搜索树 单旋转 双旋转                       平衡搜索树        在计算机科学中，AVL树（以发明者Adelson-Velsky和Landis 命名）是一种自平衡-二叉搜索树(BST)。在AVL树中，任何节点的两个子树的高度最多相差1；如果在任何时候它们的差异超过1，则会进行重新平衡以恢复此">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155058162.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155134839.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314163614131.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314163747839.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314164516467.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314164731464.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155238443.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155251894.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220320184924205.png">
+<meta property="article:published_time" content="2022-03-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.881Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155058162.png"><title>高级数据结构_平衡搜索树 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">高级数据结构_平衡搜索树</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/" data-flag-title="高级数据结构_平衡搜索树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>AVL - 平衡搜索树</li>
+<li>单旋转</li>
+<li>双旋转</li>
+</ol>
+
+        <h1 id="平衡搜索树"   >
+          <a href="#平衡搜索树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#平衡搜索树"></a> 平衡搜索树</h1>
+      
+<p>在计算机科学中，AVL树（以发明者Adelson-Velsky和Landis 命名）是一种<strong>自平衡-二叉搜索树(BST)</strong>。在AVL树中，任何节点的两个子树的高度最多相差1；如果在任何时候它们的差异超过1，则会进行重新平衡以恢复此属性。在平均情况和最坏情况下，查找、插入和删除都需要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>时间，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>是操作之前树中的节点数。插入和删除可能需要通过一个或多个树旋转来重新平衡树。</p>
+<p>AVL树以其两位苏联发明家Georgy Adelson-Velsky和Evgenii Landis的名字命名;</p>
+<p>AVL树经常与红黑树进行比较，因为它们都支持相同的操作集并且采用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>基本操作的时间。对于查找密集型应用程序，AVL树比红黑树更快，因为它们更严格地平衡。</p>
+
+        <h1 id="类c实现方式"   >
+          <a href="#类c实现方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#类c实现方式"></a> 类C实现方式</h1>
+      
+
+        <h2 id="节点结构"   >
+          <a href="#节点结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#节点结构"></a> 节点结构</h2>
+      
+<p>可以看到, 相比于二叉搜索树只多出一个balance因子, 这个平衡因子将带来什么魔力呢?</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">AVLNode</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">AVLNode</span>* leftchild;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">AVLNode</span>* parent;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">AVLNode</span>* rightchild;</span><br><span class="line">	KeyType key;</span><br><span class="line">    <span class="type">int</span> balance;	<span class="comment">//-1,0,1</span></span><br><span class="line">&#125;AVLNode, *AVLTree;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="旋转"   >
+          <a href="#旋转" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#旋转"></a> 旋转</h1>
+      
+<p>如果在一棵平衡的二叉搜索树中插入一个新节点，造成了不平衡。此时必须调整树的结构，使之平衡化。</p>
+<p>平衡化旋转有两类：</p>
+<ol>
+<li>单旋转（左旋和右旋）</li>
+<li>双旋转（左平衡和右平衡）</li>
+</ol>
+<ul>
+<li>每插入一个新节点时，AVL树中相关节点的平衡状态会发生改变。因此，在插入一个新节点后，需要从插入位置沿通向根的路径回溯，检查各结点的平衡因子（左、右子树的高度差）。
+<ul>
+<li>如果在某一节点发现高度不平衡，停止回溯。</li>
+<li>从发生不平衡的节点起，沿刚才回溯的路径取直接下两层的节点。</li>
+<li>如果这三个节点处于一条直线上，则采用单旋转进行平衡化。单旋转可按其方向分为左单旋转和右单旋转，其中一个是另一个的镜像，其方向与不平衡的形状相关。</li>
+<li>如果这三个节点处于一条折线上，则采用双旋转进行平衡化。双旋转分为先左后右和先右后左两类。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="单旋转"   >
+          <a href="#单旋转" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单旋转"></a> 单旋转</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>要达到平衡需要的旋转操作</th>
+<th>例子</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>右单旋转(顺时针)</td>
+<td><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155058162.png" alt="image-20220314155058162" /></td>
+<td>左孩子的左子树高 - 左左旋转</td>
+</tr>
+<tr>
+<td>左单旋转(逆时针)</td>
+<td><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155134839.png" alt="image-20220314155134839" /></td>
+<td>右孩子的右子树高 - 右右旋转</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="左单旋转右右旋转-逆时针"   >
+          <a href="#左单旋转右右旋转-逆时针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#左单旋转右右旋转-逆时针"></a> 左单旋转(右右旋转) - 逆时针</h2>
+      
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314163614131.png" alt="image-20220314163614131" /></p>
+<p>此图为例，插入100后，56的平衡因子为2，78为1，89为1。则我们需要以78为轴，将56进行左单旋转。</p>
+<p>左单旋转会是什么效果？先看简单的情况</p>
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314163747839.png" alt="image-20220314163747839" /></p>
+<p>以此为启发，进行旋转</p>
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314164516467.png" alt="image-20220314164516467" /></p>
+<p>再来看一个与代码步骤有关的图例</p>
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314164731464.png" alt="image-20220314164731464" /></p>
+<ol>
+<li>newroot指针指向ptr的右子树（轴）</li>
+<li>ptr的右孩子指针指向newroot的左子树（承）</li>
+<li>newroot的左孩子指针指向ptr（揽）</li>
+</ol>
+<p>以下为最基本的三步走：</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLeft</span><span class="params">(AVLTree&amp; tree, AVLNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AVLNode* newroot = ptr-&gt;rightchild;	  <span class="comment">//1:以ptr右子树为轴</span></span><br><span class="line">	ptr-&gt;rightchild = newroot-&gt;leftchild; <span class="comment">//2:ptr的右指针承接newroot的左孩子</span></span><br><span class="line">	newroot-&gt;leftchild = ptr;             <span class="comment">//3:newroot的左指针包揽ptr为首的子树，揽为已有</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在这三步中，每一步的后面都要做相应的对parent的维护</p>
+<ol>
+<li>newroot的父指针指向ptr的父节点（ptr的父节点代替了newroot的父）</li>
+<li>若newroot有左孩子，则左孩子的父指针指向ptr的节点</li>
+<li>ptr的父指针指向newroot</li>
+</ol>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLeft</span><span class="params">(AVLTree&amp; tree, AVLNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AVLNode* newroot = ptr-&gt;rightchild;		<span class="comment">//1.1:</span></span><br><span class="line">    newroot-&gt;parent = ptr-&gt;parent			<span class="comment">//1.2:</span></span><br><span class="line"></span><br><span class="line">	ptr-&gt;rightchild = newroot-&gt;leftchild;	<span class="comment">//2.1:ptr右指针承接newroot左孩</span></span><br><span class="line">    <span class="keyword">if</span>(newroot-&gt;left != <span class="literal">nullptr</span>)newroot-&gt;leftchild-&gt;parent = ptr;<span class="comment">//2.2:</span></span><br><span class="line">	</span><br><span class="line">    newroot-&gt;leftchild = ptr;				<span class="comment">//3.1:newroot左指针包揽ptr子树</span></span><br><span class="line">    ptr-&gt;parent = newroot;					<span class="comment">//3.2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在最后一步，处理ptr的parent指针之前，还要处理<strong>ptr的父节点的某一孩子指针</strong>指向问题，<strong>原本是指向50的(即ptr)</strong>，但70(newroot)包揽了50(ptr)的地位，则原本50(ptr)的父节点的一个孩子指针就要指向70(newroot)，<strong>至于是左孩子指针还是右孩子指针，需要根据是否和ptr地址是否相等判断</strong>。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLeft</span><span class="params">(AVLTree&amp; tree, AVLNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AVLNode* newroot = ptr-&gt;rightchild;		<span class="comment">//1.1:</span></span><br><span class="line">    newroot-&gt;parent = ptr-&gt;parent;			<span class="comment">//1.2:</span></span><br><span class="line"></span><br><span class="line">	ptr-&gt;rightchild = newroot-&gt;leftchild;	<span class="comment">//2.1:ptr右指针承接newroot左孩</span></span><br><span class="line">    <span class="keyword">if</span>(newroot-&gt;left != <span class="literal">nullptr</span>)newroot-&gt;leftchild-&gt;parent = ptr;<span class="comment">//2.2:</span></span><br><span class="line">	</span><br><span class="line">    newroot-&gt;leftchild = ptr;				<span class="comment">//3.1:newroot左指针包揽ptr子树</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//??? : 此处是否需要判空</span></span><br><span class="line">    <span class="keyword">if</span>(ptr-&gt;parent-&gt;leftchild == ptr)ptr-&gt;parent-&gt;leftchild = newroot;</span><br><span class="line">    <span class="keyword">else</span> ptr-&gt;parent-&gt;rightchild = newroot;	<span class="comment">//4:</span></span><br><span class="line">    </span><br><span class="line">    ptr-&gt;parent = newroot;					<span class="comment">//3.2:</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>代码还没完，还要处理根节点的变化</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RotateLeft</span><span class="params">(AVLTree&amp; tree, AVLNode* ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AVLNode* newroot = ptr-&gt;rightchild;		<span class="comment">//1.1:</span></span><br><span class="line">    newroot-&gt;parent = ptr-&gt;parent;			<span class="comment">//1.2:</span></span><br><span class="line"></span><br><span class="line">	ptr-&gt;rightchild = newroot-&gt;leftchild;	<span class="comment">//2.1:ptr右指针承接newroot左孩</span></span><br><span class="line">    <span class="keyword">if</span>(newroot-&gt;left != <span class="literal">nullptr</span>)newroot-&gt;leftchild-&gt;parent = ptr;<span class="comment">//2.2:</span></span><br><span class="line">	</span><br><span class="line">    newroot-&gt;leftchild = ptr;				<span class="comment">//3.1:newroot左指针包揽ptr子树</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(ptr == tree)tree = newroot;			<span class="comment">//4:如果ptr正好是根，则newroot替代root</span></span><br><span class="line">    <span class="keyword">else</span>									<span class="comment">//5:若ptr不是根，则处理其父节点的左右孩子指针</span></span><br><span class="line">    &#123;	<span class="comment">//此处不用判空，既然ptr不是根则ptr-&gt;parent一定不为空！</span></span><br><span class="line">        <span class="keyword">if</span>(ptr-&gt;parent-&gt;leftchild == ptr)ptr-&gt;parent-&gt;leftchild = newroot;</span><br><span class="line">        <span class="keyword">else</span> ptr-&gt;parent-&gt;rightchild = newroot;	</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ptr-&gt;parent = newroot;					<span class="comment">//3.2:</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="双旋转"   >
+          <a href="#双旋转" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#双旋转"></a> 双旋转</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>旋转方向</th>
+<th>例子</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左右双旋转</td>
+<td><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155238443.png" alt="image-20220314155238443" /></td>
+<td>左孩子的右子树高</td>
+</tr>
+<tr>
+<td>右左双旋转</td>
+<td><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220314155251894.png" alt="image-20220314155251894" /></td>
+<td>右孩子的左子树高</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="左右旋转-先左旋后右旋"   >
+          <a href="#左右旋转-先左旋后右旋" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#左右旋转-先左旋后右旋"></a> 左右旋转 - 先左旋后右旋</h2>
+      
+<p>先以左孩子节点为根节点, 左孩子节点的右孩子节点为轴, 进行左单旋转;</p>
+<p>再, 以父节点为根节点, 左孩子节点为轴, 进行右单旋转;</p>
+
+        <h1 id="insert"   >
+          <a href="#insert" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#insert"></a> Insert</h1>
+      
+<p>在向一棵本来是高度平衡<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>b</mi><mi>a</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(balance = 0,1,-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>的AVL树中插入一个新节点和在BST树一样，区别是如果树中某个节点的平衡因子<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>b</mi><mi>a</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mi mathvariant="normal">∣</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|balance| &gt; 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal">b</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mord mathnormal">e</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，则出现了不平衡，需要做平衡化处理，使得树中各节点重新平衡化。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">AVLNode * <span class="title">Buynode</span><span class="params">(KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AVLNode * s = (AVLNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(AVLNode));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">nullptr</span> == s) <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="built_in">sizeof</span>(AVLNode));</span><br><span class="line">    s-&gt;key = kx;</span><br><span class="line">    s-&gt;balance = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">Insert</span><span class="params">(AVLNode *&amp; tree, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        tree = <span class="built_in">MakeRoot</span>(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    AVLNode * pa = <span class="literal">nullptr</span>;</span><br><span class="line">    AVLNode * p = tree;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">    &#123;</span><br><span class="line">        pa = p;</span><br><span class="line">        p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key == kx) <span class="comment">//已存在重复值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    p = <span class="built_in">Buynode</span>(kx);</span><br><span class="line">    </span><br><span class="line">    p-&gt;parent = pa;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(kx &lt; pa-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;leftchild = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;rightchild = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="回溯平衡"   >
+          <a href="#回溯平衡" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#回溯平衡"></a> 回溯平衡</h2>
+      
+<p>对于AVL树来说, 单纯的Insert是不够的, 还需要依靠四个函数 - 左旋/右旋/左右旋转/右左旋转, 来达到对树结构的平衡化;</p>
+<p>需要考虑的一个关键点: 回溯的终止条件是什么? 即for循环终止判断语句;</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PassBalance</span><span class="params">(AVLNode &amp;tree, AVLNode * ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AVLNode * pa = p-&gt;parent;</span><br><span class="line">    <span class="keyword">for</span>(; pa != <span class="literal">nullptr</span>; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(pa-&gt;leftchild == p) <span class="comment">//p在pa的左边</span></span><br><span class="line">        <span class="keyword">switch</span>(pa-&gt;balance)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">//本来平衡, 插到左, -1</span></span><br><span class="line">                pa-&gt;balance = <span class="number">-1</span>;     <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//本来右1, 插到左, 0</span></span><br><span class="line">                pa-&gt;balance = <span class="number">0</span>;      <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">//本来左1, 插到左, 需要平衡</span></span><br><span class="line">                <span class="built_in">LeftBalance</span>(tree, pa);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//p在pa的右边</span></span><br><span class="line">        <span class="keyword">switch</span>(pa-&gt;balance)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">//本来平衡, 插到右, 1</span></span><br><span class="line">                pa-&gt;balance = <span class="number">1</span>;      <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">//本来左1, 插到右, 平衡</span></span><br><span class="line">                pa-&gt;balance = <span class="number">0</span>;      <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//本来右1, 插到右, 需要平衡</span></span><br><span class="line">                <span class="built_in">RightBalance</span>(tree, pa);<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        p = pa;</span><br><span class="line">        pa = p-&gt;parent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>还可以进一步做优化: 循环不一定要一直继续 - 有可能节点在插入之后, 整个树的高度没有发生变化, 此时无需进行全部的回溯;</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PassBalance</span><span class="params">(AVLNode &amp;tree, AVLNode * ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AVLNode * pa = p-&gt;parent;</span><br><span class="line">    <span class="type">bool</span> taller = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(; pa != <span class="literal">nullptr</span> &amp;&amp; taller; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(pa-&gt;leftchild == p) <span class="comment">//p在pa的左边</span></span><br><span class="line">        <span class="keyword">switch</span>(pa-&gt;balance)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">//本来平衡, 插到左, -1</span></span><br><span class="line">                pa-&gt;balance = <span class="number">-1</span>;     <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//本来右1, 插到左, 0, 因此树高无变化, 无需回溯</span></span><br><span class="line">                pa-&gt;balance = <span class="number">0</span>;</span><br><span class="line">                taller = <span class="literal">false</span>;       <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">//本来左1, 插到左, 需要平衡, 进行旋转后, 树高也平衡了, 无需回溯</span></span><br><span class="line">                <span class="built_in">LeftBalance</span>(tree, pa);</span><br><span class="line">                taller = <span class="literal">false</span>;       <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//p在pa的右边</span></span><br><span class="line">        <span class="keyword">switch</span>(pa-&gt;balance)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">//本来平衡, 插到右, 1</span></span><br><span class="line">                pa-&gt;balance = <span class="number">1</span>;      <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">//本来左1, 插到右, 平衡, 因此树高无变化, 无需回溯</span></span><br><span class="line">                pa-&gt;balance = <span class="number">0</span>;</span><br><span class="line">                taller = <span class="literal">false</span>;       <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//本来右1, 插到右, 需要平衡, 进行旋转后, 树高也平衡了, 无需回溯</span></span><br><span class="line">                <span class="built_in">RightBalance</span>(tree, pa);</span><br><span class="line">                taller = <span class="literal">false</span>;       <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        p = pa;</span><br><span class="line">        pa = p-&gt;parent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这样一来, 此循环最多进入两次即可退出, 因为, 不管你把<code>pa-&gt;balance</code>调为<code>-1</code>或<code>1</code>, 下次循环中的<code>pa-&gt;balance</code>肯定不会是上次的值, 而某一case中, 除了第一种情况taller为true, 其他两种均为false;</p>
+
+        <h3 id="左平衡"   >
+          <a href="#左平衡" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#左平衡"></a> 左平衡</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">LeftBalance</span><span class="params">(AVLTree &amp; tree, AVLNode * ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AVLNode * leftsub = ptr-&gt;leftchild;</span><br><span class="line">    AVLNode * rightsub = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">switch</span>(leftsub-&gt;balance)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">/* left balance, but maybe a fault */</span> <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">/* 左直线, 需要右单旋转 */</span></span><br><span class="line">            <span class="built_in">RotateLeft</span>(tree, ptr);</span><br><span class="line">            ptr-&gt;balance = <span class="number">0</span>;</span><br><span class="line">            leftsub-&gt;balance = <span class="number">0</span>;                     <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">/* 左右折线, 需要双旋转 */</span></span><br><span class="line">            rightsub = leftsub-&gt;rightchild;</span><br><span class="line">            <span class="keyword">switch</span>(rightsub-&gt;balance)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">-1</span>:<span class="comment">/* 在根的左孩子的右孩子的左边插入 */</span></span><br><span class="line">                    leftsub-&gt;balance = <span class="number">0</span>;</span><br><span class="line">                    ptr-&gt;balance = <span class="number">1</span>;                 <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">/* 在根的左孩子的右孩子的右边插入 */</span></span><br><span class="line">                    leftsub-&gt;balance = <span class="number">-1</span>;</span><br><span class="line">                    ptr-&gt;balance = <span class="number">0</span>;                 <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">/* */</span></span><br><span class="line">                    leftsub-&gt;balance = <span class="number">0</span>;</span><br><span class="line">                    ptr-&gt;balance = <span class="number">0</span>;                 <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* 先以根的左孩子为根节点, 以其右孩子为轴, 进行左单旋转 */</span></span><br><span class="line">            <span class="built_in">RotateLeft</span>(tree, leftsub);</span><br><span class="line">            <span class="comment">/* 再以根(ptr)作为根节点, 以其左孩子为轴, 进行右单旋转 */</span></span><br><span class="line">            <span class="built_in">RotateRight</span>(tree, ptr);</span><br><span class="line">            rightsub-&gt;balance = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//case 1, end</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="delete"   >
+          <a href="#delete" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#delete"></a> Delete</h1>
+      
+<ul>
+<li>
+<p>如果被删结点x最多只有一个孩子，那么问题比较简单。如果被删结点x有两个孩子，首先搜索在中序次序下的直接前驱y（同样可以找直接后继）。再把结点y的内容传送给结点x，现在问题转移到删除结点y。</p>
+<ul>
+<li>把结点y当作被删结点x。</li>
+</ul>
+</li>
+<li>
+<p>将结点x从树中删去。因为结点x最多有一个孩子，我们可以简单地把x的双亲结点中原来指向x的指针改指到这个孩子结点；如果结点x没有孩子，x双亲结点的相应指针置为NULL。然后将原来以结点x为根的子树的高度减1，</p>
+</li>
+<li>
+<p>必须沿x通向根的路径反向追踪高度的变化对路径上各个结点的影响。</p>
+</li>
+<li>
+<p>用一个布尔变量shorter来指明子树的高度是否被缩短。在每个结点上要做的操作取决于shorter的值和结点的balance，有时还要依赖子女的balance。</p>
+</li>
+<li>
+<p>布尔变量shorter的值初始化为True。然后对于从x的双亲到根的路径上的各个结点p，在shorter保持为True时执行下面的操作。如果shorter变成False，算法终止。</p>
+</li>
+<li>
+<p>case 1：当前节点p的balance为0。</p>
+<ul>
+<li>如果它的左子树或右子树被缩短，则它的balance改为1或-1，同时shorter置为false。</li>
+</ul>
+</li>
+<li>
+<p>case 2：节点p的balance不为0，且较高的子树被缩短，则p的balance改为0，同时shorter置为true。</p>
+</li>
+</ul>
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/image-20220320184924205.png" alt="image-20220320184924205" /></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/">https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Cpp/Cpp_%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_类型转换</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_%E5%80%BC%E7%B1%BB%E5%9E%8B/"><span class="paginator-prev__text">Cpp_值类型</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">
+           平衡搜索树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BBc%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">
+           类C实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">
+           节点结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC"><span class="toc-number">4.</span> <span class="toc-text">
+           旋转</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E6%97%8B%E8%BD%AC"><span class="toc-number">4.1.</span> <span class="toc-text">
+           单旋转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A6%E5%8D%95%E6%97%8B%E8%BD%AC%E5%8F%B3%E5%8F%B3%E6%97%8B%E8%BD%AC-%E9%80%86%E6%97%B6%E9%92%88"><span class="toc-number">4.2.</span> <span class="toc-text">
+           左单旋转(右右旋转) - 逆时针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">
+           双旋转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A6%E5%8F%B3%E6%97%8B%E8%BD%AC-%E5%85%88%E5%B7%A6%E6%97%8B%E5%90%8E%E5%8F%B3%E6%97%8B"><span class="toc-number">4.4.</span> <span class="toc-text">
+           左右旋转 - 先左旋后右旋</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#insert"><span class="toc-number">5.</span> <span class="toc-text">
+           Insert</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E5%B9%B3%E8%A1%A1"><span class="toc-number">5.1.</span> <span class="toc-text">
+           回溯平衡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%B9%B3%E8%A1%A1"><span class="toc-number">5.1.1.</span> <span class="toc-text">
+           左平衡</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#delete"><span class="toc-number">6.</span> <span class="toc-text">
+           Delete</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

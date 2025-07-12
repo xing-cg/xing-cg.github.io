@@ -1,0 +1,641 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="模板是为了什么？         利用了模板的元编程，可以像面向对象那样复用、组合可用的代码（即也可以把一段代码作为组件使用），但是这不是Cpp的本意，实际上是Cpp的“副作用”，只是貌似是一种优势。 利用了模板的元编程的更有价值的作用在于：可以编译期执行、计算。  模板是为了编译期运算，编译期运算就可以达到零开销的效果。 传统的运行时运算的程序的性能主要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_模板_Traits_Policy">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="模板是为了什么？         利用了模板的元编程，可以像面向对象那样复用、组合可用的代码（即也可以把一段代码作为组件使用），但是这不是Cpp的本意，实际上是Cpp的“副作用”，只是貌似是一种优势。 利用了模板的元编程的更有价值的作用在于：可以编译期执行、计算。  模板是为了编译期运算，编译期运算就可以达到零开销的效果。 传统的运行时运算的程序的性能主要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.795Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Cpp_模板_Traits_Policy | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_模板_Traits_Policy</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-04-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/" data-flag-title="Cpp_模板_Traits_Policy"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="模板是为了什么"   >
+          <a href="#模板是为了什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板是为了什么"></a> 模板是为了什么？</h1>
+      
+<blockquote>
+<p>利用了模板的元编程，可以像面向对象那样复用、组合可用的代码（即也可以把一段代码作为组件使用），但是这不是Cpp的本意，实际上是Cpp的“副作用”，只是貌似是一种优势。<br />
+利用了模板的元编程的更有价值的作用在于：可以编译期执行、计算。</p>
+</blockquote>
+<p>模板是为了编译期运算，编译期运算就可以达到零开销的效果。</p>
+<p>传统的运行时运算的程序的性能主要依赖于客户端的计算机性能。而编译期运算的性能则主要依赖开发侧的计算机性能。<code>C++</code>的设计目标就在于<code>Zero Overhead</code>，即零开销，意思是尽量把工作都在编译期间完成。</p>
+<p>主要体现在模板、元编程上，指导编译器生成代码</p>
+<p>比如，现在有一个需求，是编写add函数，返回两个操作数的加和值。</p>
+<p>刚开始可能只想到了两个整型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是问题在于，后期可能要加上float型的情况。那我们可以通过Cpp的函数重载功能进行解决。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">float</span> <span class="title">add</span><span class="params">(<span class="type">float</span> a, <span class="type">float</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>由此可以看出，需要模板的地方在于：</p>
+<ol>
+<li>需要函数重载</li>
+<li>虽然是函数重载，但是这些函数的结构相似，具体的操作、行为都一样。</li>
+<li>区别仅在于操作的对象的数据类型不同。<br />
+在这种情况下，可以不用反复重载，而是利用模板，让编译器为我们自动生成。当然，编译器不会一下子全部把所有情况都生成，而是我们当时的代码具体用哪个，就在编译期特别地生成哪个。这就叫做模板编程。</li>
+</ol>
+
+        <h1 id="模板编程"   >
+          <a href="#模板编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板编程"></a> 模板编程</h1>
+      
+<p>以下叫做函数模板。不能叫做函数。这个函数模板也不是编译单元，即不是可编译的代码。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>而是从<code>add&lt;float&gt;</code>开始到之后才是编译单元。总之：模板不会生成代码，模板不能编译，而是在使用模板的时候，指导编译器生成相应的函数代码，才有了可编译的代码。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> c = <span class="built_in">add</span>&lt;<span class="type">float</span>&gt;(<span class="number">1.0f</span>, <span class="number">2.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="模板特化"   >
+          <a href="#模板特化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模板特化"></a> 模板特化</h1>
+      
+<p>Specialization</p>
+
+        <h2 id="全特化"   >
+          <a href="#全特化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#全特化"></a> 全特化</h2>
+      
+<p>Full Specialization</p>
+<p>如果模板中的所有类型T都被具体类型替代了，那么<code>&lt; &gt;</code>中就不用写<code>typename T</code>了，空着。叫做全特化。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="灵活利用特化"   >
+          <a href="#灵活利用特化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#灵活利用特化"></a> 灵活利用特化</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以下语句是无法编译通过的，因为调用语句只说明了函数参数的类型，而函数返回类型系统是无法推断的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> f = <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果以下这样写呢？也不行，因为模板中类型的顺序问题，导致float对应的是第一个类型T，因此系统还是未知函数返回类型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> f = <span class="built_in">add</span>&lt;<span class="type">float</span>&gt;(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>只能全部写出：<code>add&lt;int, float&gt;(1, 2);</code></p>
+<p>或者：使用类似于后位缺省的写法习惯，来解决这个问题。即把T、R换个顺序，那么在调用add时，就可以略去T了。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以下调用，走的是<code>template&lt;typename R, typename T&gt;</code>的add。会生成：<code>float add(int, int)</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> f = <span class="built_in">add</span>&lt;<span class="type">float</span>&gt;(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果：配合上全特化模板函数。如以下main函数调用<code>add&lt;int&gt;</code>，则系统就判断出我们调用的是<code>int add(int, int)</code>了。总之，只要R和T全都对应上了特化的模板函数的所有类型，就会走模板特化函数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>&lt;<span class="type">int</span>&gt;(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">//int add(int a, int b)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="简便的写法"   >
+          <a href="#简便的写法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#简便的写法"></a> 简便的写法</h3>
+      
+<p>模板类型的后面的参数是可以有默认类型的。<br />
+如果还是T、R的顺序，如下写：就是在说：如果不指定模板第二个类型参数，就会默认返回类型为int。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R </span>= <span class="type">int</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>而我们模板第一个类型参数T又是可以通过函数参数推断的，那么就可以全部省略：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">//int add(int a, int b)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>来看看以下的情况：此时走的是<code>R add(T a, T b)</code>，是<code>int add(double, double)</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>(<span class="number">1.0</span>, <span class="number">2.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>而如果这样：就会编译不通过，因为无法推断T的类型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>(<span class="number">1.0</span>, <span class="number">2.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>那么就需要明确在add后加<code>&lt; &gt;</code>指出，T是什么。如果加的是double，那么<code>2.0f</code>会转为double型进行计算。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">add</span>&lt;<span class="type">double</span>&gt;(<span class="number">1.0</span>, <span class="number">2.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="部分特化实际上是函数模板的重载"   >
+          <a href="#部分特化实际上是函数模板的重载" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#部分特化实际上是函数模板的重载"></a> 部分特化（实际上是函数模板的重载）</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R </span>= <span class="type">int</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a + b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R </span>= <span class="type">float</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(<span class="type">long</span> <span class="type">long</span> a, <span class="type">long</span> <span class="type">long</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">add</span>(<span class="number">1ll</span>, <span class="number">2ll</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上，add函数优先和特化的模板函数匹配，而不是和<code>R add(T a, T b)</code>匹配，因为，参数<code>1ll</code>和<code>2ll</code>与特化模板函数中的long long对应上了，即<code>R add(long long a, long long b)</code>，所以最后生成的函数是<code>float add(long long a, long long b)</code>。</p>
+<p>实际上，<code>template&lt;typename R = float&gt;</code>，这个形式，本质上是一种函数模板的重载。因为，给出了参数在某些特别类型下，函数的重定义，体现了多态。总之：同一个名字，不同的形式，都叫overload。</p>
+
+        <h3 id="再举一个例子_1"   >
+          <a href="#再举一个例子_1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#再举一个例子_1"></a> 再举一个例子_1</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R </span>= <span class="type">float</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(<span class="type">long</span> <span class="type">long</span> a, <span class="type">long</span> <span class="type">long</span>* pb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + *pb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> b = <span class="number">2ll</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">add</span>(<span class="number">1ll</span>, &amp;b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>走的是<code>R add(long long a, long long* pb)</code>。这也是一个function template overload。</p>
+
+        <h3 id="再举一个例子_2"   >
+          <a href="#再举一个例子_2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#再举一个例子_2"></a> 再举一个例子_2</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R </span>= <span class="type">float</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(<span class="type">long</span> <span class="type">long</span> a, <span class="type">long</span> <span class="type">long</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R </span>= <span class="type">float</span>&gt;</span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(<span class="type">long</span> <span class="type">long</span> a, <span class="type">long</span> <span class="type">long</span>&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> b = <span class="number">2ll</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">add</span>(<span class="number">1ll</span>, &amp;b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>此时，如果没有用到<code>add(long long, long long&amp;)</code>，是可以正常编译的。<br />
+但是，如果一旦用到了：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> b = <span class="number">2ll</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">add</span>(<span class="number">1ll</span>, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>就会报错：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x27;add&#x27;: ambiguous call to overloaded function</span><br><span class="line"></span><br><span class="line">more than one instance of overloaded function &quot;add&quot; matches the argument list:</span><br><span class="line">    function template &quot;R add(long long a, long long b)&quot;</span><br><span class="line">    function template &quot;R add(long long a, long long &amp;b)&quot;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="类模板"   >
+          <a href="#类模板" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#类模板"></a> 类模板</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Addition&lt;<span class="type">int</span>, <span class="type">int</span>&gt; addition;</span><br><span class="line">    <span class="keyword">auto</span> c = addition.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li><code>Addition&lt;int, int&gt;</code>是对类模板的实例化，产生了类。</li>
+<li><code>Addition&lt;int, int&gt; addition;</code>是对类的实例化，产生了对象。</li>
+<li><code>addition.add(1, 2);</code>调用类模板函数。生成了代码。</li>
+</ol>
+
+        <h2 id="简便的写法-2"   >
+          <a href="#简便的写法-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#简便的写法-2"></a> 简便的写法</h2>
+      
+<p>能不能省一个模板参数，写出构造函数？</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T = <span class="type">int</span>&gt;</span><br><span class="line"><span class="keyword">class</span> Addition</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Addition</span>(<span class="type">void</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Addition</span>(T a, T b) : _a&#123; a &#125;, _b&#123; b &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    R <span class="built_in">add</span>(T a, T b) <span class="type">const</span> <span class="keyword">noexcept</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">R <span class="title">add</span><span class="params">(<span class="type">void</span>)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _a + _b;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T _a;</span><br><span class="line">    T _b;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Addition <span class="title">addition</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span></span>;     <span class="comment">// C++14标准无法编译通过</span></span><br><span class="line">    <span class="keyword">auto</span> c = addition.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="类的部分特化偏特化"   >
+          <a href="#类的部分特化偏特化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#类的部分特化偏特化"></a> 类的部分特化（偏特化）</h2>
+      
+<p>Class Template Partial Specialization</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>类的部分特化，定义时，要在类名后写尖括号，写入模板参数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span>&lt;T, <span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(T a, T b)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Addition&lt;<span class="type">int</span>, <span class="type">int</span>&gt; addition;</span><br><span class="line">    <span class="keyword">auto</span> c = addition.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>类的实例化走的是<code>class Addition&lt;T, int&gt;</code>。</p>
+
+        <h2 id="类的全特化"   >
+          <a href="#类的全特化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#类的全特化"></a> 类的全特化</h2>
+      
+<p>Class Template Full Specialization</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span>&lt;<span class="type">int</span>, <span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Addition&lt;<span class="type">int</span>, <span class="type">int</span>&gt; addition;</span><br><span class="line">    <span class="keyword">auto</span> c = addition.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>类的实例化走的是<code>class Addition&lt;int, int&gt;</code>。</p>
+
+        <h3 id="再来个例子"   >
+          <a href="#再来个例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#再来个例子"></a> 再来个例子</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span>&lt;<span class="type">int</span>, <span class="type">int</span>*&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span>* b)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + *b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> b = <span class="number">2</span>;</span><br><span class="line">    Addition&lt;<span class="type">int</span>, <span class="type">int</span>*&gt; addition;</span><br><span class="line">    <span class="keyword">auto</span> c = addition.<span class="built_in">add</span>(<span class="number">1</span>, &amp;b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>类的实例化走的是<code>class Addition&lt;int, int*&gt;</code>。</p>
+
+        <h1 id="traits"   >
+          <a href="#traits" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#traits"></a> Traits</h1>
+      
+<p>Traits是特质、特性的意思，主要用来区分不同类型。在Modern Cpp中，有<code>&lt;traits&gt;</code>库，可以用来分析各种类型。<br />
+如果要对某种类型单独做特别的处理时，就会用到Traits，这在meta progrmming中是一种设计模式。</p>
+
+        <h2 id="addtraits"   >
+          <a href="#addtraits" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#addtraits"></a> AddTraits</h2>
+      
+<p>比如拿Addition加和函数举例：整型有整型的策略，浮点型有浮点型的策略。更具体地，整型中也有不同的整型：int有int的策略，long有long的策略……</p>
+<ol>
+<li>int数和另一个int数相加，可能会溢出，这时就需要转为long数加和并返回。</li>
+<li>long数和另一个long数相加，可能会溢出，这时就需要转为long long数加和并返回。</li>
+</ol>
+<p>如果只是通过两个模板参数来解决这个问题，可以采用如下方案：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是，这个方案不够自动化。每当处理不同的类型，都需要时刻调整模板参数：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">20</span>;</span><br><span class="line">    <span class="type">long</span> c = <span class="built_in">add</span>&lt;<span class="type">long</span>, <span class="type">int</span>&gt;(a, b);</span><br><span class="line">    <span class="type">long</span> d = <span class="number">2000</span>;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> e = <span class="built_in">add</span>&lt;<span class="type">long</span> <span class="type">long</span>, <span class="type">long</span>&gt;(c, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>Traits就是为了解决这个问题。通过提前约束不同类型的行为，从而让调用更简便。这让模板函数在使用上更自动化了。</p>
+<p>要写这样的Addition模板群，就要先声明一个主模板：<br />
+T代表操作数类型。而操作数的返回值类型通过T对应的具体的class得出（本例中为R）。<br />
+这个主模板可以不实现，因为这个主模板是一个抽象的定义。后期才会定义具体的、特化的类模板。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="通过类模板的特化实现addtraits"   >
+          <a href="#通过类模板的特化实现addtraits" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#通过类模板的特化实现addtraits"></a> 通过类模板的特化实现AddTraits</h2>
+      
+<p>Traits是利用特化来实现的。通过类模板的特化，来区分不同类型的加和。</p>
+<p>拿unsigned short的加和类模板举例：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">short</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> R;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>以上，在unsigned short类型的加和下，规定了目标类型R（即加和的返回类型）为unsigned int。<br />
+这个R，要在模板类外部得到其实例可以如下操作：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// AddTraits&lt;unsigned short&gt;::R 前面需要加一个typename，不然R可能会被认作是静态变量名字。</span></span><br><span class="line">    <span class="keyword">typename</span> AddTraits&lt;<span class="type">unsigned</span> <span class="type">short</span>&gt;::R r = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>更多地：unsigned int的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> R;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>unsigned long的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">long</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> R;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="用addtraits类模板编写add函数模板"   >
+          <a href="#用addtraits类模板编写add函数模板" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用addtraits类模板编写add函数模板"></a> 用AddTraits类模板编写Add函数模板</h2>
+      
+<p>我们的需求、目标就是，已知两个T类型的数，加和，返回T加和后特定、自定、规定的更大包容的类型。那么这个更大包容的类型就是每一个特化类模板中的R，现在可以统一写为：<code>typename AddTraits&lt;T&gt;::R</code>。</p>
+<blockquote>
+<p>为了便于书写，可以重命名<code>AddTraits&lt;T&gt;::R</code>为R。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> AddTraits&lt;T&gt;::<span class="function">R <span class="title">add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> AddTraits&lt;T&gt;::R R;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) + <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>以上函数形式也可以如下写。即在模板参数中就通过缺省值的形式指明R是什么的别名，就可以用在返回值类型的简化了。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line">R <span class="built_in">add</span>(T a, T b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) + <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">1u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">2u</span>;</span><br><span class="line">    <span class="comment">// 调用的是unsigned int add&lt;unsigned short&gt;(unsigned short a, unsigned short b)</span></span><br><span class="line">    <span class="keyword">auto</span> c1 = <span class="built_in">add</span>(a, b);</span><br><span class="line">    <span class="comment">// 调用的是unsigned long long add&lt;unsigned int&gt;(unsigned int a, unsigned int b)</span></span><br><span class="line">    <span class="keyword">auto</span> c2 = <span class="built_in">add</span>(<span class="number">1u</span>, <span class="number">2u</span>);</span><br><span class="line">    <span class="comment">// 调用的是unsigned long long add&lt;unsigned long&gt;(unsigned long a, unsigned long b)</span></span><br><span class="line">    <span class="keyword">auto</span> c3 = <span class="built_in">add</span>(<span class="number">1ul</span>, <span class="number">2ul</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="policy"   >
+          <a href="#policy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#policy"></a> Policy</h1>
+      
+<p>Traits是关于类型的封装。而Policy——策略，是关于行为的封装。比如把加法、减法、乘法、除法都封装成一样的行为，就是Policy。再如，日志系统，有的要写到文件中，有的则要写到服务器中，或者直接控制台输出。</p>
+
+        <h2 id="封装addpolicy"   >
+          <a href="#封装addpolicy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#封装addpolicy"></a> 封装AddPolicy</h2>
+      
+<p>比如要把加法封装为Policy，就是要封装上面的<code>R add(T a, T b)</code>：</p>
+<blockquote>
+<p>AddPolicy即是一个具体的OperatePolicy，那么，OperatePolicy都将有一个calculate方法。</p>
+</blockquote>
+<p>以加法Policy来说，它的特征就是：</p>
+<ol>
+<li>有两个操作数a、b，类型为T。</li>
+<li>有一个计算的指令，指令名可以都叫做calculate，作为函数名。函数名中则是具体的计算行为，加法Policy中则是<code>a + b</code>。</li>
+<li>会返回一个值，类型为R。</li>
+</ol>
+<blockquote>
+<p>我们只是利用类的外壳，实际有用的是静态方法。<br />
+再利用Traits，通过具体T指明R将返回什么。`R = AddTraits<T>::R</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// T是操作数类型，R是返回类型</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line"><span class="keyword">class</span> AddPolicy</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> R <span class="built_in">calculate</span>(T a, T b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) + <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="封装multiplypolicy"   >
+          <a href="#封装multiplypolicy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#封装multiplypolicy"></a> 封装MultiplyPolicy</h2>
+      
+<p>现在我们要编写第二个具体的Policy，即乘法Policy。因为加法和乘法最后都表现出同样的特质，所以乘法Traits可以复用AddTraits。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line"><span class="keyword">class</span> MultiplyPolicy</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> R <span class="built_in">calculate</span>(T a, T b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) * <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="封装traits和policy为operate函数模板"   >
+          <a href="#封装traits和policy为operate函数模板" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#封装traits和policy为operate函数模板"></a> 封装Traits和Policy为Operate函数模板</h1>
+      
+<p>设计一个函数模板，把数据特性Traits和行为抽象Policy封装。</p>
+<p>其中，T是原始数据类型，U是一个Policy如AddPolicy。</p>
+
+        <h2 id="封装addoperate"   >
+          <a href="#封装addoperate" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#封装addoperate"></a> 封装AddOperate</h2>
+      
+<p>首先可以尝试封装一个具体的Policy如AddPolicy。<br />
+这个函数返回AddPolicy的calculate的计算结果，即返回数据类型是<code>AddTraits&lt;T&gt;::R</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// T是操作数类型，U是Policy</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U = AddPolicy&lt;T&gt; &gt;</span><br><span class="line"><span class="keyword">typename</span> AddTraits&lt;T&gt;::R <span class="built_in">AddOperate</span>(T a, T b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> U::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">AddOperate</span>(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; std::endl; <span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="优化"   >
+          <a href="#优化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优化"></a> 优化</h3>
+      
+<p>opt函数的返回类型书写太冗长，考虑可以用个简化的别名。可以利用<code>AddTraits&lt;T&gt;::R</code>在AddPolicy中存在、使用这个特点，则可以在AddPolicy中另起模板参数R的别名为RTNTYPE（除了R，其他名字都行）。好处在于：类中另起的RTNTYPE和模板参数的R相比，前者可以在类外部直接使用，而后者不可以。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// T是操作数类型，R是返回类型</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line"><span class="keyword">class</span> AddPolicy</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> RTNTYPE = R;</span><br><span class="line">    <span class="function"><span class="type">static</span> R <span class="title">calculate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) + <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>T为操作数类型；U为Policy；R为返回值类型。</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, U = AddPolicy&lt;T&gt; &gt;</span><br><span class="line">U::RTNTYPE <span class="built_in">AddOperate</span>(T a, T b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> U::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">7u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">3u</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">AddOperate</span>(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="封装抽象operate"   >
+          <a href="#封装抽象operate" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#封装抽象operate"></a> 封装抽象Operate</h2>
+      
+<p>抽象的Operate是真正的可以传入任意的Policy参数的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">U::RTNTYPE <span class="title">Operate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> U::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是，如果这样写的话，得给AddPolicy后面加具体的操作数类型才能编译通过。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">3u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">7u</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = Operate&lt;AddPolicy&lt;<span class="keyword">decltype</span>(a)&gt; &gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>有没有什么办法能不传入<code>decltype(a)</code>就能进行的呢？那样的话，就可以非常地简洁：<code>Operate&lt;AddPolicy&gt;(a, b)</code>。<br />
+方法就是把Operate中的U参数指明为类模板。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Policy</span>&gt;</span><br><span class="line">Policy&lt;T, Policy::RTNTYPE&gt;::<span class="function">RTNTYPE <span class="title">Operate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Policy&lt;T, Policy::RTNTYPE&gt;::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是以上代码肯定编译不过，因为出现了无限递归解析：Policy不是一个具体类，因此无法通过Policy指明具体RTNTYPE，于是就得加第三个模板参数Traits。</p>
+<blockquote>
+<p>注意，<code>Policy&lt;T, typename Traits::R&gt;</code>中的<code>Traits::R</code>前面应该加typename。以明确区分传入的是类型而不是常量值（因为模板参数可以传入常量值）</p>
+</blockquote>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Policy</span>, <span class="keyword">typename</span> Traits, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">Traits::R <span class="title">Operate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Policy&lt;T, <span class="keyword">typename</span> Traits::R&gt;::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">3u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">7u</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = Operate&lt;AddPolicy, AddTraits&lt;<span class="keyword">decltype</span>(a)&gt;&gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这样的话，还是得在AddTraits后加一个<code>decltype(a)</code>才行，能不能彻底消灭呢？类比指明Policy是个类模板的经验，把Traits也指明为一个类模板，即可：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Policy</span>, <span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Traits</span>, <span class="keyword">typename</span> T&gt;</span><br><span class="line">Traits&lt;T&gt;::<span class="function">R <span class="title">Operate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Policy&lt;T, <span class="keyword">typename</span> Traits&lt;T&gt;::R&gt;::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">3u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">7u</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">Operate</span>&lt;AddPolicy, AddTraits&gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;                  <span class="comment">// 10</span></span><br><span class="line">    c = <span class="built_in">Operate</span>&lt;MultiplyPolicy, AddTraits&gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;                  <span class="comment">// 21</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如此，终于把Operate的调用变得简洁、美观了！这个调用形式也体现了Policy和Traits合二为一、相辅相成的美感。</p>
+
+        <h1 id="最终代码"   >
+          <a href="#最终代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#最终代码"></a> 最终代码</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">short</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> R;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> R;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddTraits</span>&lt;<span class="type">unsigned</span> <span class="type">long</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> R;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line"><span class="keyword">class</span> AddPolicy</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> RTNTYPE = R;</span><br><span class="line">    <span class="function"><span class="type">static</span> R <span class="title">calculate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) + <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> R = AddTraits&lt;T&gt;::R&gt;</span><br><span class="line"><span class="keyword">class</span> MultiplyPolicy</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> RTNTYPE = R;</span><br><span class="line">    <span class="function"><span class="type">static</span> R <span class="title">calculate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;R&gt;(a) * <span class="built_in">static_cast</span>&lt;R&gt;(b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Policy</span>, <span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt; <span class="keyword">class</span> <span class="title class_">Traits</span>, <span class="keyword">typename</span> T&gt;</span><br><span class="line">Traits&lt;T&gt;::<span class="function">R <span class="title">Operate</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Policy&lt;T, <span class="keyword">typename</span> Traits&lt;T&gt;::R&gt;::<span class="built_in">calculate</span>(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> a = <span class="number">3u</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> b = <span class="number">7u</span>;</span><br><span class="line">    <span class="keyword">auto</span> c = <span class="built_in">Operate</span>&lt;AddPolicy, AddTraits&gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">    c = <span class="built_in">Operate</span>&lt;MultiplyPolicy, AddTraits&gt;(a, b);</span><br><span class="line">    std::cout &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/">https://xing-cg.github.io/Cpp/Cpp_%E6%A8%A1%E6%9D%BF_Traits_Policy/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Cpp/Cpp_const%E5%AE%B6%E6%97%8F_%E4%B8%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%85%B3%E7%B3%BB/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_const家族_与模板的关系</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_string%E4%BB%BF%E5%86%99_compare%E5%BA%93_%E5%BC%95%E5%85%A5%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8/"><span class="paginator-prev__text">Cpp_string仿写_compare库_引入右值引用</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%98%AF%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">
+           模板是为了什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">
+           模板编程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E7%89%B9%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">
+           模板特化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E7%89%B9%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">
+           全特化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%B5%E6%B4%BB%E5%88%A9%E7%94%A8%E7%89%B9%E5%8C%96"><span class="toc-number">3.1.1.</span> <span class="toc-text">
+           灵活利用特化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BE%BF%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">3.1.2.</span> <span class="toc-text">
+           简便的写法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E7%89%B9%E5%8C%96%E5%AE%9E%E9%99%85%E4%B8%8A%E6%98%AF%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="toc-number">3.2.</span> <span class="toc-text">
+           部分特化（实际上是函数模板的重载）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E4%B8%BE%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90_1"><span class="toc-number">3.2.1.</span> <span class="toc-text">
+           再举一个例子_1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E4%B8%BE%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90_2"><span class="toc-number">3.2.2.</span> <span class="toc-text">
+           再举一个例子_2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="toc-number">4.</span> <span class="toc-text">
+           类模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BE%BF%E7%9A%84%E5%86%99%E6%B3%95-2"><span class="toc-number">4.1.</span> <span class="toc-text">
+           简便的写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%83%A8%E5%88%86%E7%89%B9%E5%8C%96%E5%81%8F%E7%89%B9%E5%8C%96"><span class="toc-number">4.2.</span> <span class="toc-text">
+           类的部分特化（偏特化）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%85%A8%E7%89%B9%E5%8C%96"><span class="toc-number">4.3.</span> <span class="toc-text">
+           类的全特化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">4.3.1.</span> <span class="toc-text">
+           再来个例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#traits"><span class="toc-number">5.</span> <span class="toc-text">
+           Traits</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#addtraits"><span class="toc-number">5.1.</span> <span class="toc-text">
+           AddTraits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%89%B9%E5%8C%96%E5%AE%9E%E7%8E%B0addtraits"><span class="toc-number">5.2.</span> <span class="toc-text">
+           通过类模板的特化实现AddTraits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8addtraits%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%BC%96%E5%86%99add%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">5.3.</span> <span class="toc-text">
+           用AddTraits类模板编写Add函数模板</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#policy"><span class="toc-number">6.</span> <span class="toc-text">
+           Policy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85addpolicy"><span class="toc-number">6.1.</span> <span class="toc-text">
+           封装AddPolicy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85multiplypolicy"><span class="toc-number">6.2.</span> <span class="toc-text">
+           封装MultiplyPolicy</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%81%E8%A3%85traits%E5%92%8Cpolicy%E4%B8%BAoperate%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">7.</span> <span class="toc-text">
+           封装Traits和Policy为Operate函数模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85addoperate"><span class="toc-number">7.1.</span> <span class="toc-text">
+           封装AddOperate</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96"><span class="toc-number">7.1.1.</span> <span class="toc-text">
+           优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E6%8A%BD%E8%B1%A1operate"><span class="toc-number">7.2.</span> <span class="toc-text">
+           封装抽象Operate</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E4%BB%A3%E7%A0%81"><span class="toc-number">8.</span> <span class="toc-text">
+           最终代码</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

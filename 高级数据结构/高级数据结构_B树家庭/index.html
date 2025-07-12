@@ -1,0 +1,674 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="B        B树是由Rudolf Bayer和Edward M. McCreight在波音研究实验室工作时发明的，目的是有效地管理大型随机访问文件的索引页面。基本假设是索引会非常庞大，以至于只有树的小块可以放入主内存中。 Bayer和McCreight从未解释过&quot;B&quot;代表什么, 如果可能的话, 可能会是：Boeing、balanc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级数据结构_B树家庭">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="B        B树是由Rudolf Bayer和Edward M. McCreight在波音研究实验室工作时发明的，目的是有效地管理大型随机访问文件的索引页面。基本假设是索引会非常庞大，以至于只有树的小块可以放入主内存中。 Bayer和McCreight从未解释过&quot;B&quot;代表什么, 如果可能的话, 可能会是：Boeing、balanc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-2.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-3.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-4.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-5.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-6.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-7.svg">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/image-20250305071843256.png">
+<meta property="article:published_time" content="2025-03-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.879Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-2.svg"><title>高级数据结构_B树家庭 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">高级数据结构_B树家庭</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-03-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/" data-flag-title="高级数据结构_B树家庭"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="b"   >
+          <a href="#b" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b"></a> B</h1>
+      
+<p>B树是由Rudolf Bayer和Edward M. McCreight在波音研究实验室工作时发明的，目的是有效地<strong>管理大型随机访问文件的索引页面</strong>。基本假设是索引会非常庞大，以至于只有树的小块可以放入主内存中。</p>
+<p>Bayer和McCreight从未解释过&quot;B&quot;代表什么, 如果可能的话, 可能会是：Boeing、balanced、broad、busy和Bayer。McCreight曾说过“你对B树中的’B’的含义思考得越多，你对B树的理解就越好。”</p>
+<p>不管&quot;B&quot;代表的什么含义, 总之肯定不是&quot;Binary&quot;, 因为B树不是二叉树; 那么, 我们暂且就把B Tree中的&quot;B&quot;当做是&quot;Balanced&quot;吧!</p>
+
+        <h1 id="m阶平衡树"   >
+          <a href="#m阶平衡树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#m阶平衡树"></a> m阶平衡树</h1>
+      
+<p>m阶, 这个&quot;阶&quot;对于树来说怎么解释?</p>
+<p>拿例子说话吧!</p>
+<p>AVL树, 就是一个2阶平衡树, 所谓2阶, 指的是, 1个节点有2个指针域指向2个孩子, 和1个数据域;</p>
+<p>那么, m阶的意思就是: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个节点最多有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>个指针域指向<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>个孩子, 和最多有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个数据域;</p>
+<p>B树的特点是和AVL如出一辙的, 甚至比AVL还要道高一尺, AVL只能保证左右子树高度差不超过1, 而B树的性质保证了所有叶节点同时在同一层, 由此可以看出, B树是比AVL更平衡的树;</p>
+<p>由此可见, B树只不过是一个2阶平衡树(AVL)的一个横向变种罢了! 本质上还是AVL的灵魂;</p>
+<blockquote>
+<p>形式上都是平衡的, 但, 与AVL最大的不同是, B树没有节点的旋转操作, 而是涉及到分裂/合并;</p>
+</blockquote>
+
+        <h1 id="b树的性质"   >
+          <a href="#b树的性质" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树的性质"></a> B树的性质</h1>
+      
+<p>根据Knuth的定义，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>阶B树是满足以下性质的树：</p>
+<ol>
+<li>每个节点最多有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span>个子节点。</li>
+<li>每个内部节点至少有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><mi>m</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">⌉</mo></mrow><annotation encoding="application/x-tex">\lceil m/2 \rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mord mathnormal">m</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">⌉</span></span></span></span>个子节点。</li>
+<li>每个非叶节点至少有2个孩子。</li>
+<li>所有叶子都出现在同一层次上并且不携带任何信息。</li>
+<li>具有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>个子节点的非叶节点包含<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个键。</li>
+</ol>
+<p>每个内部节点的键充当分割其子树的分隔值。例如，如果一个内部节点有3个子节点（或子树），那么它必须有2个键：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">a_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">a_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。 最左子树中的所有值都小于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">a_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，中间子树中的所有值都在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">a_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">a_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>之间，最右子树中的所有值都大于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">a_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+
+        <h1 id="b树-avl-红黑树-bst这些搜索树的对比"   >
+          <a href="#b树-avl-红黑树-bst这些搜索树的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树-avl-红黑树-bst这些搜索树的对比"></a> B树、AVL、红黑树、BST这些搜索树的对比</h1>
+      
+<p>B树即平衡树，m阶平衡树。符合搜索树的性质（中序遍历有序）。</p>
+<p>4阶平衡树即2-3-4树，指树的节点最多有3个关键码，4个分支。2-3-4树实际上就是4阶B树。即: 每个节点, 最多有三个数据, 4个孩子节点</p>
+<p>2阶平衡树即AVL树。一个节点有2个分支。</p>
+<p>但BST不是2阶平衡树，因为BST中的B指的不是Balanced，而是Binary，因此BST没有平衡性质。</p>
+<p>AVL树节点的左右子树高度差不超过1。</p>
+<p>B树相比AVL更平衡，因为所有叶子节点都在同一层。适用于文件索引系统。</p>
+<p>B树、AVL树、红黑树、BST本质上都是一棵搜索树，只不过B树是m阶的。AVL、红黑树、BST是2阶的。B树完全平衡，AVL树高度平衡，红黑树近乎平衡，BST不平衡。</p>
+
+        <h1 id="b树的行为"   >
+          <a href="#b树的行为" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树的行为"></a> B树的行为</h1>
+      
+
+        <h2 id="插入"   >
+          <a href="#插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入"></a> 插入</h2>
+      
+<p>特点是，如果节点内的关键码达到了m个，将会分裂。把m个关键码中的中间值往上推一层。被上移的节点左右指向剩下的两半。</p>
+
+        <h2 id="删除"   >
+          <a href="#删除" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除"></a> 删除</h2>
+      
+<p>有两种常用的删除策略：</p>
+<ol>
+<li>定位并删除元素，然后调整树使它满足约束条件。</li>
+<li>从上到下处理这棵树，在进入一个节点之前，调整树使得之后一旦遇到了要删除的元素，它可以被直接删除而不需要再进行调整。
+<ol>
+<li>这种策略就类似于，红黑树的删除操作前，先让所有的2-型节点扩张为3-型或4-型节点，再去直接删除。见“C语言_树”</li>
+</ol>
+</li>
+</ol>
+<p>以下讨论的是第1种策略。</p>
+<ol>
+<li>有没有孩子
+<ol>
+<li>如果删除的关键码没有孩子，可以直接删除。</li>
+<li>如果删除的关键码有孩子，需要从左孩子节点中找最右值或右孩子找最左值，将其上移补位。等于是把孩子中的一个关键码删去了。</li>
+</ol>
+</li>
+<li>删除后
+<ol>
+<li>如果删除后，节点的关键码数小于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>m</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mtext>上取整</mtext><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(m/2)(上取整)-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">取</span><span class="mord cjk_fallback">整</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。（比如，5阶B树，删除后节点关键码数目小于2（即1个）；4阶B树（2-3-4树）中删除后节点关键码数目小于1（即0个））。这叫做“<strong>不丰满</strong>”。</li>
+<li>如果节点的关键码数大于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>m</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mtext>上取整</mtext><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(m/2)(上取整)-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">取</span><span class="mord cjk_fallback">整</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，叫做“<strong>丰满</strong>”。</li>
+<li>若等于，则类似于“<strong>刚刚脱贫</strong>”。此时如果删去一个元素，就会“不丰满”。</li>
+<li>兄弟丰满，<strong>借</strong>：如果删除后“不丰满”，则把父节点元素下移补充，而父节点需要向该删除后的节点相邻的丰满的兄弟节点中借一个元素。</li>
+<li>兄弟太穷，<strong>并</strong>：如果相邻的兄弟节点都是“刚刚脱贫”的，就要靠父节点下移一个元素，补充到这个删除的位置，然后与相邻的一个兄弟节点进行“合并”成为一个节点。</li>
+</ol>
+</li>
+</ol>
+<p>5阶B树为例，删除：<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-2.svg" alt="" /><br />
+如图所示，接下来要依次删除 8，20，18，5。</p>
+<p>首先要删除元素 8。先查找到元素 8 在叶子节点中，删除 8 后叶子节点的元素个数为 2，符合 B 树的规则。然后需要把元素 11 和 12 都向前移动一位。完成后如图所示。<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-3.svg" alt="" /><br />
+下一步，删除 20，因为 20 没有在叶子节点中，而是在中间节点中找到，可以发现 20 的继承者是 23（字母升序的下个元素），然后需要将 23 上移到 20 的位置，之后将孩子节点中的 23 进行删除。</p>
+<p>删除后检查一下，该孩子节点中元素个数大于 2，无需进行合并操作。</p>
+<p>所以这一步之后，B 树如下图所示。<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-4.svg" alt="" /><br />
+下一步删除 18，18 在叶子节点中，但是该节点中元素数目为 2，删除导致只有 1 个元素，已经小于最小元素数目 2。</p>
+<p>而由前面已经知道：如果其某个相邻兄弟节点中比较丰满（元素个数大于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mn>5</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false">⌉</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lceil \dfrac{5}{2} \rceil - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mopen">⌈</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">⌉</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>），则可以向父节点借一个元素，然后将最丰满的相邻兄弟节点中上移最后或最前一个元素到父节点中。</p>
+<p>在这个实例中，右相邻兄弟节点中比较丰满（3 个元素大于 2），所以先向父节点借一个元素 23 下移到该叶子节点中，代替原来 19 的位置。19 前移。</p>
+<p>然后 24 在相邻右兄弟节点中，需要上移到父节点中。最后在相邻右兄弟节点中删除 24，后面的元素前移。</p>
+<p>这一步之后，B 树如下图所示。<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-5.svg" alt="" /><br />
+最后一步需要删除元素 5，但是删除后会导致很多问题。因为 5 所在的节点数目刚好达标也就是刚好满足最小元素个数 2。</p>
+<p>而相邻的兄弟节点也是同样的情况，删除一个元素都不能满足条件，所以需要该节点先借父节点一个元素，再与某相邻兄弟节点进行合并操作；首先移动父节点中的元素（该元素在两个需要合并的两个节点元素之间）下移到其子节点中。</p>
+<p>然后将这两个节点进行合并成一个节点。所以在该实例中，首先将父节点中的元素 4 下移到已经删除 5 而只有 6 的节点中，然后将含有 4 和 6 的节点和含有 1，3 的相邻兄弟节点进行合并成一个节点。</p>
+<p>这一步之后，B 树如下图所示。<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-6.svg" alt="" /><br />
+但是这里观察到父节点只包含了一个元素 7，这就没有达标（因为非根节点包括叶子节点的元素数量 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" title="K" /> 必须满足于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>K</mi><mo>≤</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">2\le K\le 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>)，而此处的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>）。</p>
+<p>如果这个问题节点的相邻兄弟比较丰满，则可以向父节点借一个元素。而此时兄弟节点元素刚好为 2，刚刚满足，只能进行合并，而根节点中的唯一元素 13 下移到子节点。这样，树的高度减少一层。</p>
+<p>所以最终的效果如下图。<br />
+<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/b-tree-7.svg" alt="" /></p>
+
+        <h1 id="b树的应用场景-文件索引数据库索引"   >
+          <a href="#b树的应用场景-文件索引数据库索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树的应用场景-文件索引数据库索引"></a> B树的应用场景 - 文件索引(数据库索引)</h1>
+      
+<p>B树本质上还是一棵搜索树，只不过是m阶的。</p>
+<p>如果系统所管理的数据量很大，需要用磁盘、硬盘、外存存储，那么为了提高效率，会给数据创建索引。为了索引查询的高效，需要给索引排序。</p>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<p>文件索引管理最主要的 2 个问题：</p>
+<ol>
+<li>更快的搜索算法（索引的关键码）
+<ol>
+<li>对于搜索算法倒是没什么差异，AVL树和B树同样都是二分查找的分治策略, 时间复杂度都为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</li>
+</ol>
+</li>
+<li>更少的磁盘IO、更低的内存缺页率
+<ol>
+<li>对于树的层数来说，AVL树和B树是有很大差异的。</li>
+<li><strong>若索引太庞大，必须每次从磁盘中读取</strong>：<strong>树的层高</strong>，会直接影响到在最差情况下的<strong>磁盘I/O次数</strong>。
+<ol>
+<li>因为每次访问一个节点时，都需要将磁盘块（Block）加载到内存中。</li>
+<li>300阶B树刚好把一个最大节点的大小接近4KB即页大小。一个节点对应着1页，若索引相邻，则利用局部性原理提效。</li>
+</ol>
+</li>
+<li><strong>若索引可以从磁盘一次性加载到内存中</strong>：
+<ol>
+<li>一个节点能容纳的索引数量，决定了索引在内存中的分散度。如果节点内存地址太分散（像红黑树，只能存3个索引），可能会面临更高的内存缺页中断率。<strong>间接影响了磁盘I/O次数</strong>。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>总之，无论索引能不能一次性载入内存，B树都占有优势，集合了层低、节点容量大的优势。</li>
+</ol>
+
+        <h2 id="操作系统原理"   >
+          <a href="#操作系统原理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#操作系统原理"></a> 操作系统原理</h2>
+      
+<p>操作系统中</p>
+<ol>
+<li>内存，按页面(page)为最小单位分配、管理，默认每一页4K。
+<ol>
+<li>所以代码上看似我们只占用了几字节，但是实际上可能占用了1页。</li>
+<li>某些场景会使用大页（Huge Pages，如 2MB 或 1GB）以优化性能，但这需要显式配置，并非默认行为。</li>
+</ol>
+</li>
+<li>磁盘，按块(block)为最小单位分配、管理。大多数文件系统（如 ext4、NTFS）默认使用 ​4KB 的块大小，与内存页对齐以提高效率。
+<ol>
+<li>所以操作系统在读取文件时，并不是只读取了几个字节，而是整个块大小。</li>
+<li><strong>可配置性</strong>：块大小可以按需调整（如 1KB、8KB、16KB 等），通常用于特定场景（如处理超大文件或数据库优化）。</li>
+<li><strong>物理扇区与逻辑块</strong>：磁盘的物理扇区大小可能为 512B 或 4KB，但文件系统的逻辑块（Block）会组合多个扇区，形成更大的逻辑单元，16KB 的块就是由 32 个 512B 扇区组成的。</li>
+</ol>
+</li>
+</ol>
+
+        <h3 id="b树的设计目标优化磁盘io"   >
+          <a href="#b树的设计目标优化磁盘io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树的设计目标优化磁盘io"></a> B树的设计目标：优化磁盘I/O</h3>
+      
+<ul>
+<li>
+<p>​树高更低，减少I/O次数：B树通过多路分支显著降低树的高度。</p>
+<ul>
+<li>301阶B树存储1千万索引，仅需3层（根节点→中间节点→叶子节点）。</li>
+<li>而AVL树需要24层，红黑树更高。</li>
+<li>树高直接决定最坏情况下的磁盘I/O次数，尤其是在索引部分存储在磁盘时，B树的优势更明显。</li>
+</ul>
+</li>
+<li>
+<p>节点大小匹配磁盘块</p>
+<ul>
+<li>B树的每个节点可以存储 ​<strong>多个键值</strong>​（例如，301阶B树的节点可存300个键），其节点大小通常设计为接近 ​<strong>磁盘块大小</strong>​（如4KB）。这使得每次磁盘I/O能读取更多有效数据，<strong>充分利用磁盘块的空间</strong>。</li>
+<li>反观红黑树或AVL树：作为二叉平衡树，每个节点仅存1个键，导致树的高度极高（例如，1千万索引的AVL树高达24层）。即使索引部分在内存中，若树节点分散存储，可能会因为内存缺页中断，仍需多次磁盘I/O。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="局部性原理与顺序访问优化范围查询的优势"   >
+          <a href="#局部性原理与顺序访问优化范围查询的优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局部性原理与顺序访问优化范围查询的优势"></a> 局部性原理与顺序访问优化（范围查询的优势）</h3>
+      
+<ul>
+<li>​顺序访问的高效性
+<ul>
+<li>对比红黑树/AVL树：范围查询需要多次中序遍历，产生大量随机I/O。</li>
+</ul>
+</li>
+<li>​磁盘预读机制的利用
+<ul>
+<li>磁盘每次读取数据时会预读相邻块（局部性原理）。B树的节点内键值有序且密集存储，<strong>顺序扫描时能充分利用预读数据</strong>；而二叉树的分散存储导致随机I/O，无法利用预读。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="分析和方案"   >
+          <a href="#分析和方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分析和方案"></a> 分析和方案</h3>
+      
+<p>如果我们有1千万份简历文件，每份简历文件为10M，则粗略计算其有9000G。<br />
+如何对所有简历文件的内容进行查询？<br />
+我们的内存是有限的，按照数组的方式进行查询，一次只能加载一部分。如果可用的内存大小只有1G，有可能需要加载9000次，太慢了。</p>
+<p>如果简历以身份证号为关键码，我们只需要在内存中加载它们的身份证号和其简历对应的文件指针即可。这就是文件索引。</p>
+<p>再结合搜索算法，如果要高效地搜索，如二分查找，则需要对关键码进行排序。</p>
+<p>文件在磁盘中可以不按身份证号排序。</p>
+<p>如果想要创建新的简历，那么关键码需要插入已有的关键码中。<br />
+这时候关键码的数据结构就会影响到效率。<br />
+如果是用数组存储，虽然读取上很搞效，但插入、删除时间复杂度为O(n)。<br />
+如果是用链表存储，虽然插入、删除很高效，但读取上就很慢。<br />
+这种静态的存储方式不行。<br />
+如果是树形存储，如红黑树存储，虽然可以较好地平衡查询、修改的时间复杂度，但是每一个节点都是malloc申请的堆上内存，根据计算机的存储体系结构，会导致其节点地址在内存结构中呈碎片化，不利于缓存的命中，效率依然不够高。<strong>节点在内存中碎片化的影响是会触发内存的缺页中断，需要换页，换页会触发读取磁盘IO，消耗时间</strong>。</p>
+<p>可以考虑两种方案：</p>
+<ol>
+<li>哈希表。</li>
+<li>300阶B树。红黑树本质上是一个4阶B树，其每一个节点最多存储3个索引。而300阶B树则可以让节点存储更多连续的数据。尽量让这个数据块的大小正好是内存的页大小（4KB）。提高了内存、缓存命中率。</li>
+</ol>
+
+        <h2 id="avl树和b树存储索引的对比"   >
+          <a href="#avl树和b树存储索引的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#avl树和b树存储索引的对比"></a> AVL树和B树存储索引的对比</h2>
+      
+<p>假如, 目前有1千万个索引要从磁盘中进行读取并且进行搜索。<br />
+对于AVL树，每一个节点只能对应 1 个索引元素（关键码）。<br />
+对于B树，每一个节点可以容纳<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个索引元素（关键码）。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>AVL的高度</th>
+<th>300阶B树的高度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10,000,000个索引元素(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">n=1\times10^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span>)</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>n</mi><mo stretchy="false">⌉</mo><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">\lceil\log_2 n\rceil = 24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">⌉</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌈</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>300</mn></msub><mi>n</mi><mo stretchy="false">⌉</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\lceil\log_{300} n\rceil = 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌈</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">⌉</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></td>
+</tr>
+<tr>
+<td>对于读取操作，无所谓。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>但是对于修改操作，那么如果插入、删除一条数据记录，就会让树结构进行调整。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="如果索引全部加载到内存中"   >
+          <a href="#如果索引全部加载到内存中" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如果索引全部加载到内存中"></a> 如果索引全部加载到内存中</h3>
+      
+<ol>
+<li>​<strong>索引的搜索过程在内存中完成</strong>：<br />
+无论是AVL树还是B树，查找目标索引的路径（从根节点到叶子节点）全部在内存中进行，<strong>不涉及磁盘IO</strong>。只有最后根据文件指针读取实际文件时才会触发磁盘IO。</li>
+<li>​<strong>文件读取的磁盘IO次数</strong>：<br />
+找到目标索引后，需通过文件指针从磁盘读取对应的实际文件。无论索引结构层数多少，<strong>仅需1次磁盘IO</strong>​（读取目标文件）。</li>
+</ol>
+
+        <h3 id="实际数据库中索引可能远大于内存容量"   >
+          <a href="#实际数据库中索引可能远大于内存容量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实际数据库中索引可能远大于内存容量"></a> 实际数据库中，索引可能远大于内存容量</h3>
+      
+<ul>
+<li>​大规模数据索引无法完全放入内存
+<ul>
+<li>实际数据库中，索引可能远大于内存容量。B树通过多级节点将热点数据保留在内存（如根节点常驻内存），冷数据存储在磁盘，<strong>减少内存压力</strong>。</li>
+<li>红黑树/AVL树：若索引无法全放入内存，每次访问深层节点都可能触发磁盘I/O，性能急剧下降。</li>
+</ul>
+</li>
+<li>​写操作的磁盘友好性​
+<ul>
+<li>B树的节点分裂/合并操作是 ​<strong>局部性修改</strong>​（仅影响相邻节点），适合批量写入磁盘；</li>
+<li>而红黑树/AVL树的旋转操作可能导致 ​<strong>全局结构调整</strong>，产生更多随机I/O。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="b树b树的改进"   >
+          <a href="#b树b树的改进" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树b树的改进"></a> B+树，B树的改进</h1>
+      
+<p>B+树可以看作是B树的优化，比 B 树更适合实际应用中的索引。目前现代关系型数据库最广泛的支持索引结构就是 B+ 树。</p>
+<p>总之：B+树明确分出leaf/internal节点, 让internal 只存key，只有leaf存全部的索引信息 （ <code>B∗</code>树则是节点满的时候先不拆分而是尽可能合并到邻居节点）</p>
+<p><img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/image-20250305071843256.png" alt="" /></p>
+<p>B+树与B树差异的点，主要是以下这几点：</p>
+<ol>
+<li>非叶子节点只会存放关键码，不存储实际数据。</li>
+<li>叶子节点才会存放实际数据。</li>
+<li>全部的信息都会在叶子节点出现。</li>
+<li>非叶子节点存储的关键码是每个子节点中的最小值。</li>
+<li>叶子节点之间构成一个有序链表。</li>
+</ol>
+
+        <h2 id="相比b树的优势"   >
+          <a href="#相比b树的优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相比b树的优势"></a> 相比B树的优势</h2>
+      
+<ol>
+<li>数据量相同的情况下，B+树的非叶子节点数据密度更大，存储效率高。B+树的非叶子节点可以存放更多的关键码，因此B+树可以比B树更「矮胖」，查询底层节点的磁盘IO次数会更少。</li>
+<li>查询更稳定，由于非叶结点并不是最终指向文件内容的结点，任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。</li>
+<li>B+树的叶子节点通过指针形成有序链表，<strong>范围查询（如<code>WHERE id BETWEEN 100 AND 200</code>）只需遍历叶子节点</strong>，避免了回溯到上层节点。</li>
+</ol>
+<p>例子：假设磁盘中的一个盘块可容纳 16 B，而一个关键字大小 2 B。一个关键字具体信息指针大小 2 B。<br />
+一棵9阶B树（一个结点最多 8 个关键字）的内部结点需要 2 个盘块。而B+树内部结点只需要 1 个盘块。当需要把内部结点读入内存中的时候，B树就比B+树多一次盘块查找时间（在磁盘中就是盘片旋转的时间）。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/">https://xing-cg.github.io/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_B%E6%A0%91%E5%AE%B6%E5%BA%AD/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E7%AE%97%E6%B3%95/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%9F%A5%E9%87%8D/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">大数据查重</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/"><span class="paginator-prev__text">量化交易</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#b"><span class="toc-number">1.</span> <span class="toc-text">
+           B</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#m%E9%98%B6%E5%B9%B3%E8%A1%A1%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">
+           m阶平衡树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b%E6%A0%91%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">3.</span> <span class="toc-text">
+           B树的性质</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b%E6%A0%91-avl-%E7%BA%A2%E9%BB%91%E6%A0%91-bst%E8%BF%99%E4%BA%9B%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">4.</span> <span class="toc-text">
+           B树、AVL、红黑树、BST这些搜索树的对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b%E6%A0%91%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-number">5.</span> <span class="toc-text">
+           B树的行为</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">5.1.</span> <span class="toc-text">
+           插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-number">5.2.</span> <span class="toc-text">
+           删除</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b%E6%A0%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95"><span class="toc-number">6.</span> <span class="toc-text">
+           B树的应用场景 - 文件索引(数据库索引)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.1.</span> <span class="toc-text">
+           总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86"><span class="toc-number">6.2.</span> <span class="toc-text">
+           操作系统原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E6%A0%91%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E4%BC%98%E5%8C%96%E7%A3%81%E7%9B%98io"><span class="toc-number">6.2.1.</span> <span class="toc-text">
+           B树的设计目标：优化磁盘I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86%E4%B8%8E%E9%A1%BA%E5%BA%8F%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">6.2.2.</span> <span class="toc-text">
+           局部性原理与顺序访问优化（范围查询的优势）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E6%96%B9%E6%A1%88"><span class="toc-number">6.2.3.</span> <span class="toc-text">
+           分析和方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#avl%E6%A0%91%E5%92%8Cb%E6%A0%91%E5%AD%98%E5%82%A8%E7%B4%A2%E5%BC%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">6.3.</span> <span class="toc-text">
+           AVL树和B树存储索引的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E7%B4%A2%E5%BC%95%E5%85%A8%E9%83%A8%E5%8A%A0%E8%BD%BD%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD"><span class="toc-number">6.3.1.</span> <span class="toc-text">
+           如果索引全部加载到内存中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%8F%AF%E8%83%BD%E8%BF%9C%E5%A4%A7%E4%BA%8E%E5%86%85%E5%AD%98%E5%AE%B9%E9%87%8F"><span class="toc-number">6.3.2.</span> <span class="toc-text">
+           实际数据库中，索引可能远大于内存容量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b%E6%A0%91b%E6%A0%91%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">7.</span> <span class="toc-text">
+           B+树，B树的改进</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E6%AF%94b%E6%A0%91%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">7.1.</span> <span class="toc-text">
+           相比B树的优势</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

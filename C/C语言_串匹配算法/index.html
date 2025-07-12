@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="串的匹配        串的匹配就是从大的字符串中找到字串，并且返回第一个字串的位置。 C语言库函数有一个strstr，是朴素的串匹配算法，也叫BF算法。 1234567891011121314151617181920212223int BF(string source, string pattern)&#123;    int i &#x3D; 0;    int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言_串匹配算法">
+<meta property="og:url" content="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="串的匹配        串的匹配就是从大的字符串中找到字串，并且返回第一个字串的位置。 C语言库函数有一个strstr，是朴素的串匹配算法，也叫BF算法。 1234567891011121314151617181920212223int BF(string source, string pattern)&#123;    int i &#x3D; 0;    int">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/image-20240320015452152.png">
+<meta property="article:published_time" content="2024-02-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-18T16:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/image-20240320015452152.png"><title>C语言_串匹配算法 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_串匹配算法</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-02-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-02-19</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/" data-flag-title="C语言_串匹配算法"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="串的匹配"   >
+          <a href="#串的匹配" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#串的匹配"></a> 串的匹配</h1>
+      
+<p>串的匹配就是从大的字符串中找到字串，并且返回第一个字串的位置。</p>
+<p>C语言库函数有一个<code>strstr</code>，是朴素的串匹配算法，也叫BF算法。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">BF</span><span class="params">(<span class="built_in">string</span> source, <span class="built_in">string</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; source.size() &amp;&amp; j &lt; pattern.size())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            i = i - j + <span class="number">1</span>;<span class="comment">//后退j个字符，再进1</span></span><br><span class="line">            j = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j == pattern.size())<span class="comment">//如果pattern的j走到了最后，则说明已经全部匹配</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="kmp算法"   >
+          <a href="#kmp算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#kmp算法"></a> KMP算法</h1>
+      
+<p>是一个升级版的串匹配算法，名字取自三个人名（Knuth-Morris-Pratt）。</p>
+<p>总地来说，KMP的核心效果就是让原串的指示器不用退回。如何达到这个效果？就是考虑和模式串已经匹配的部分。这一部分模式串的<strong>子串</strong>，如果后缀有和前缀相重复的部分，则就可以跳过这些部分，即跳过前缀，在前缀的后一个字符开始再次比对（实际操作中，原串指示器不动，而是模式串的指示器回退到当时<strong>子串</strong>前缀的后一个字符位置）。</p>
+<p>于是，整个问题的核心，就从关注原串变到关注模式串本身了。需要找到模式串的不同长度（起点一致，不能从中间分割）下子串的前缀后缀相等的前缀（后缀）最大长度，从而建立一个所谓的next数组。</p>
+<p>这个next数组，教科书的求法是：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * <span class="title function_">getNext</span><span class="params">(<span class="built_in">string</span> str)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * next = new <span class="type">int</span>[str.size()];</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;   <span class="comment">// j 用来遍历子串</span></span><br><span class="line">    <span class="type">int</span> k = <span class="number">-1</span>;   <span class="comment">// k 用来表示公共前后缀的长度</span></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>; <span class="comment">// 表示，当第0个字符都已经匹配失败了，则原串前进1，模式串位置给-1，前进1后自然地（巧妙处理）到0位置。</span></span><br><span class="line">    <span class="keyword">while</span>(j &lt; str.size() - <span class="number">1</span>)<span class="comment">//size不包括\0，即不处理最后一位字符位置</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">-1</span> == k || str[j] == str[k])</span><br><span class="line">        &#123;</span><br><span class="line">            ++j;</span><br><span class="line">            ++k;</span><br><span class="line">            next[j] = k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            k = next[k];     <span class="comment">//如果在找相同的后缀失配，同样也可以使用KMP的思想，在已匹配的这部分字符串中找相同的前后缀部分，从而去回溯k！比如：如果没有相同前后缀，则k为0</span></span><br><span class="line">            <span class="comment">// 这里巧妙地复用了next数组，因为在推进k的过程中，观察的也是这个模式串的一部分，所以可以使用此next作为前缀的next！</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">KMP</span><span class="params">(<span class="built_in">string</span> source, <span class="built_in">string</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> * next = getNext(pattern);<span class="comment">//add</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt; source.size() &amp;&amp; j &lt; pattern.size())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">// modify</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = next[j];   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j == pattern.size())<span class="comment">//如果pattern的j走到了最后，则说明已经全部匹配</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>上面这个求next数组的代码虽然看起来很简洁，但要彻底理解，还是比较难的，因为代码的细节处理得很巧妙，其中<code>k = next[k]</code>更是复用了KMP的next数组思想。<br />
+这个求<code>getNext</code>的函数可以优化，避免模式串中重复的字段：见ShiLei算法180节<br />
+比如：<code>abcabc</code>的next数组如果没有优化，则会成为<code>-1 0 0 0 1 2</code>，而经过优化以后：<code>-1 0 0 -1 0 0</code></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * <span class="title function_">getNext</span><span class="params">(<span class="built_in">string</span> str)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> * next = new <span class="type">int</span>[str.size()];</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;   <span class="comment">// j 用来遍历子串</span></span><br><span class="line">    <span class="type">int</span> k = <span class="number">-1</span>;   <span class="comment">// k 用来表示公共前后缀的长度</span></span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>; <span class="comment">// 表示，当第0个字符都已经匹配失败了，则原串前进1，模式串位置给-1，前进1后自然地（巧妙处理）到0位置。</span></span><br><span class="line">    <span class="keyword">while</span>(j &lt; str.size() - <span class="number">1</span>)<span class="comment">//size不包括\0，即不处理最后一位字符位置</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">-1</span> == k || str[j] == str[k])</span><br><span class="line">        &#123;</span><br><span class="line">            ++j;</span><br><span class="line">            ++k;</span><br><span class="line">            <span class="comment">// 优化：如果发现此时k的位置字符和j的字符一样，则说明遇到了重复的字段，则继续进行回退，就省去了在kmp处理中多余的回退。</span></span><br><span class="line">            <span class="keyword">if</span>(str[k] == str[j])</span><br><span class="line">            &#123;</span><br><span class="line">                next[j] = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                next[j] = k;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            k = next[k];     <span class="comment">//如果在找相同的后缀失配，同样也可以使用KMP的思想，在已匹配的这部分字符串中找相同的前后缀部分，从而去回溯k！比如：如果没有相同前后缀，则k为0</span></span><br><span class="line">            <span class="comment">// 这里巧妙地复用了next数组，因为在推进k的过程中，观察的也是这个模式串的一部分，所以可以使用此next作为前缀的next！</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>还有一个更直白的找模式串子串的前后缀最大长度的方法如下：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> PMT[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">void</span> <span class="title function_">init_pmt</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="type">char</span> sub[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= len; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">strncpy</span>(sub, pattern, i);</span><br><span class="line">        sub[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="type">char</span> prefix[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">        <span class="type">char</span> suffix[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i - <span class="number">1</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">strncpy</span>(prefix, sub, j);</span><br><span class="line">            prefix[j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">            <span class="built_in">strcpy</span>(suffix, sub + i - j);</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(prefix, suffix) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                PMT[i - <span class="number">1</span>] = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">kmp</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * source, <span class="type">char</span> <span class="type">const</span> * pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//i 指示 原串，j指示模式串</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(source[i] &amp;&amp; pattern[j])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(source[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//仅仅是这里与BF不一样。</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 首位不相等，i进1</span></span><br><span class="line">            <span class="keyword">if</span>(j == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ++i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span><span class="comment">// 除了首位不相等j归0外，其他情况为回退j，回退多少？查表</span></span><br><span class="line">            &#123;</span><br><span class="line">                j = PMT[j - <span class="number">1</span>];<span class="comment">// j - 1是已匹配了的最后位置</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pattern[j] == <span class="string">&#x27;\0&#x27;</span>)<span class="comment">//如果j移到了最后，说明已经匹配到</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;<span class="comment">//返回的是原串中 匹配到的模式串的起始位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_20240214_20240219_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/image-20240320015452152.png" alt="image-20240320015452152" /></p>
+
+        <h1 id="bayer-moore"   >
+          <a href="#bayer-moore" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bayer-moore"></a> Bayer Moore</h1>
+      
+
+        <h2 id="坏字符"   >
+          <a href="#坏字符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#坏字符"></a> 坏字符</h2>
+      
+<p>每次把目标字符串和原字符串从后往前比较，如果某位置对应不上，则原字符串的这个字符称为“坏（bad）”字符。需要在目标字符串从后往前<strong>继续寻找</strong>（已经在之前匹配上的字符跳过）与这个bad字符相等的字符，然后按照这个相等字符的位置与原字符串的坏字符位置对齐（后移目标字符串）；如果在目标字符串中没找到坏字符，则把目标字符串整体后移到坏字符位置的下一个位置。对齐之后，重新把目标字符串和原字符串从后往前比较。</p>
+<p>找匹配串中下一个坏字符，需要告诉：当前坏字符是什么（原串中的字符），当前坏字符位置在哪（模式串中的下标值），以及目标串指针。即从匹配串中的坏字符的位置的前一个位置开始找下一个相同的字符。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">next_bad</span><span class="params">(<span class="type">char</span> bad, <span class="type">char</span> <span class="type">const</span> * pattern, <span class="type">int</span> wherebad)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// pattern串中从后往前找与原串的坏字符相同的字符，从哪里坏的位置的前一个开始</span></span><br><span class="line">    <span class="comment">// 若未找到字符则i = -1自然退出</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = wherebad - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pattern[i] == bad)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="好后缀"   >
+          <a href="#好后缀" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#好后缀"></a> 好后缀</h2>
+      
+<p>在模式字符串从后往前与原串一一匹配的过程中，遇到了坏字符，那么坏字符之后的，即已经匹配上了的在后面的部分串称之为好后缀。那么，我们可以去寻找模式字符串中还是否存在好后缀。如果存在，则可以让模式字符串的下一个好后缀与原串的当前位置的好后缀对齐，从而达到让模式串快速前进。</p>
+<p><strong>好后缀的思想很类似于KMP算法，即找公共前后缀，让重复的前缀对齐原串的后缀位置。但是区别就在于，BM算法是从后往前去匹配的，找到好后缀的同时，顺带着也找到了坏字符的位置。</strong></p>
+<p>下一个坏字符与原串当前坏字符对齐，或者下一个好后缀与原串当前好后缀对齐，模式字符串前进的步数会不一样，那么，就可以去对比哪个可以前进得更多。</p>
+<p>那么，类似于KMP地，去聚焦于模式字符串本身，不同点在于，每次寻找后缀都是从右向左寻找最近的下一个好后缀。（如果找的不是最近的而是靠左的下下个好后缀的话，那么模式字符串在BM算法前进过程中就会步子迈大了，跳过了可能完全成功匹配的机会）</p>
+<p>去建立一个<code>SUFFIX_TB</code>表格，下标值<code>i</code>代表<strong>此位置</strong>开始的后缀字符串，内容值<code>SUFFIX_TB[i]</code>代表<strong>左边下一个最近的好后缀的下标位置</strong>。<br />
+<code>SUFFIX_TB</code>表格起初把全部值初始化为<code>-1</code>。表示当前<code>i</code>位置时没找到下一个好后缀。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> SUFFIX_TB[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">void</span> <span class="title function_">init_suffix</span><span class="params">(<span class="type">char</span> <span class="type">const</span> * <span class="type">const</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> pattern_len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="type">char</span> sub[<span class="number">50</span>] = &#123;<span class="string">&#x27;\0&#x27;</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        SUFFIX_TB[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// i指示的是后缀的起始位置，从第1个下标位置开始找</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; pattern_len; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 当前要找的好后缀为 i下标位置开始到最后 </span></span><br><span class="line">        <span class="built_in">strcpy</span>(sub, pattern + i);</span><br><span class="line">        <span class="comment">// 从好后缀开始的位置（i下标）的上一个开始，从右向左比较，因为要找最近的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// sub是要找的好后缀。pattern + j是要对比的字符串的起始位置，他们的长度都应为pattern_len - i</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strncmp</span>(sub, pattern + j, pattern_len - i) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 找到从右往左的最近的下一个好后缀，更新表格。i代表此位置开始的后缀字符串。j代表下一个好后缀的起始位置。</span></span><br><span class="line">                SUFFIX_TB[i] = j;</span><br><span class="line">                <span class="comment">// 不要忘记break！如果不break继续找的话，左边可能有另一个完全匹配的好后缀，会覆盖掉</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>封装到<code>next_good</code>函数，参数只需要一个wherebad，即坏字符的位置（模式串中的下标值），那么就可以确定好后缀的位置了（即坏字符的下一个位置）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">next_good</span><span class="params">(<span class="type">int</span> wherebad)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> SUFFIX_TB[wherebad+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="实现bm算法"   >
+          <a href="#实现bm算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现bm算法"></a> 实现BM算法</h2>
+      
+<p>每次比较选择坏字符和好后缀哪个可以让模式字符串走的更远。参数一个原串指针，一个模式串指针。返回值为匹配成功后，原串中目标子串的起始下标值。如果没找到则返回<code>-1</code>。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">boyer_moore</span><span class="params">(<span class="type">char</span> <span class="type">const</span>* <span class="type">const</span> source, <span class="type">char</span> <span class="type">const</span>* <span class="type">const</span> pattern)</span></span><br><span class="line">&#123;</span><br><span class="line">    init_suffix(pattern);</span><br><span class="line">    <span class="type">int</span> src_len = <span class="built_in">strlen</span>(source), pattern_len = <span class="built_in">strlen</span>(pattern);</span><br><span class="line">    <span class="comment">// 因为BM是从后往前比对的，因此，初始值都是 模式串 最后位置的下标值-1</span></span><br><span class="line">    <span class="type">int</span> i = pattern_len - <span class="number">1</span>, j = pattern_len - <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 循环寻找目标串的条件是 原串i 没到结尾</span></span><br><span class="line">    <span class="comment">// 这个循环处理的是i，即只要遇到失配的情况，则i前进，j重新对齐下一个位置进行再次一一匹配。</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; src_len)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 这个循环处理的是j。只要模式串j和原串i位置的字符相等，则j和i同时左移1。同时j的值需要大于等于0。</span></span><br><span class="line">        <span class="keyword">while</span> (source[i] == pattern[j] &amp;&amp; j &gt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            --i;</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果退出了小while循环，则有两种情况</span></span><br><span class="line">        <span class="comment">//情况1： j &lt; 0, 说明模式串j走到最左，则完全匹配。此时i位置处在目标子串开始的前一个位置。则结果应返回i+1</span></span><br><span class="line">        <span class="keyword">if</span> (j &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//情况2： 此时出现失配，即原串的i位置字符失配。</span></span><br><span class="line">            <span class="comment">// 参数：当前坏字符是什么（原串中的字符）；目标串指针；当前坏字符位置在哪（模式串中的下标值）</span></span><br><span class="line">        <span class="type">int</span> next_bad_index = next_bad(source[i], pattern, j);</span><br><span class="line">        <span class="type">int</span> next_good_index = next_good(j);</span><br><span class="line">        <span class="comment">// 对比这两个值。选择哪个？</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果坏字符、好后缀都没找到      0  0 模式串起始点重新对齐到i的下一个位置，i再挪到最后</span></span><br><span class="line">        <span class="comment">// 如果没找到坏字符，找到了好后缀  0  1 由于没找到坏字符，则有好后缀也没意义了，所以与0 0一样：模式串起始点重新对齐到i的下一个位置，i再挪到最后</span></span><br><span class="line">        <span class="comment">// 如果找到了坏字符，没找到好后缀  1  0 虽然好后缀是-1，看起来可以跳过很多，但是！由于存在坏字符，不能一下略过去，所以不能选择好后缀。要选择坏字符位置值</span></span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">        <span class="comment">// 总结：只要有一个没找到，则二者最小值为 -1。模式串起始点都是重新对齐到i的下一个位置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果找到了坏字符，找到了好后缀   1  1</span></span><br><span class="line">            <span class="comment">// 再次分情况：看next_good和next_bad谁值小，选谁。</span></span><br><span class="line">        <span class="comment">//总结：取二者最小值。</span></span><br><span class="line">            <span class="comment">//如果是好后缀则将相当于可以把模式串后移j - next_good + 1。</span></span><br><span class="line">            <span class="comment">//如果是坏字符则将相当于可以把模式串后移j -  next_bad。</span></span><br><span class="line">                <span class="comment">//如果两个都是最小值。即相等，则优先选择好后缀，因为对齐时，好后缀比坏字符更能多进1位。</span></span><br><span class="line">                <span class="comment">//如果最小值为-1，则模式串起始点重新对齐到i的下一个位置</span></span><br><span class="line">        <span class="keyword">if</span> (next_bad_index == <span class="number">-1</span> || next_good_index == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (next_bad_index == <span class="number">-1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                i += j + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(next_good_index == <span class="number">-1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                i += pattern_len - <span class="number">1</span> - next_bad_index;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (next_bad_index &lt; next_good_index)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//i += pattern_len - 1 - j + j - next_bad_index;</span></span><br><span class="line">            i += pattern_len - <span class="number">1</span> - next_bad_index;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (next_good_index &lt;= next_bad_index)</span><br><span class="line">        &#123;</span><br><span class="line">            i += pattern_len - <span class="number">1</span> - next_good_index + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        j = pattern_len - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>测试</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> res = boyer_moore(<span class="string">&quot;GATTGCTAGATTAACTATACTAA&quot;</span>, <span class="string">&quot;CTATACTA&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果：14</span></span><br></pre></td></tr></table></div></figure>
+<p>总结来说，</p>
+<ol>
+<li>如果坏字符、好后缀都找到了。那么取最小值作为下一个的对齐点。
+<ol>
+<li>如果二者相等，则优先取好后缀。因为模式字符串重新对齐时，好后缀比坏字符更能多进1位。</li>
+</ol>
+</li>
+<li>如果至少有一个没找到：
+<ol>
+<li>BM算法最大的易错点：<strong>如果找到了坏字符而没找到好后缀，则必须去对齐坏字符。因为好后缀有时候找不到是很正常的。如果跳过了这个坏字符，那么就会忽略中间的情况！</strong></li>
+<li>如果找到了好后缀而没找到坏字符，则忽略这个好后缀。因为模式串中根本就没有下一个坏字符，你去对齐好后缀是没意义的！所以，没找到坏字符就相当于二者都没找到！见2.3。</li>
+<li>如果都没找到，则模式串起始点重新对齐到当前原串指示位置<code>i</code>的下一个位置（实际上是调整<code>i</code>的值来做到对齐），j再挪到模式串的最后，重新从后向前一一匹配！</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="实际的场景"   >
+          <a href="#实际的场景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实际的场景"></a> 实际的场景</h1>
+      
+<p>线上项目涉及到数据搜索、字符串匹配，如果数据量很大时，应用最多的其实是字典树、倒排索引的数据结构。例子：百度搜索、开源的Lucene、ElasticSearch（ElasticSearch是一个基于Lucene构建的开源项目）</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lucene 和 Elasticsearch（ES）都主要基于倒排索引（Inverted Index）进行高效率搜索。</span><br><span class="line"></span><br><span class="line">倒排索引是一种数据结构，用于快速查找包含特定词条（term）的文档。它将文档中的每个词条映射到包含该词条的文档列表，这样的索引结构使得搜索过程能够快速定位到包含特定词条的文档，而无需扫描整个文档集合。</span><br><span class="line"></span><br><span class="line">在倒排索引中，每个词条都关联着一个包含该词条的文档列表（称为倒排列表），并且可以附加一些额外的信息，如词频、位置等。这使得搜索引擎可以快速定位到满足查询条件的文档，并根据相关度进行排序。</span><br><span class="line"></span><br><span class="line">Lucene 是基于 Java 编写的搜索引擎库，提供了倒排索引的实现和管理功能，开发人员可以使用 Lucene 来构建自己的搜索引擎或搜索功能。而 Elasticsearch 是一个基于 Lucene 构建的分布式搜索和分析引擎，它使用 Lucene 的倒排索引作为核心数据结构，同时提供了分布式存储、查询和分析等功能，使得用户可以轻松地构建和管理大规模的搜索应用。</span><br><span class="line"></span><br><span class="line">因此，倒排索引是 Lucene 和 Elasticsearch 实现高效率搜索的关键数据结构之一。</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="字典树"   >
+          <a href="#字典树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字典树"></a> 字典树</h2>
+      
+<p>字典树是指基于树的一种数据结构，用于以一种能够高效搜索、插入和删除操作的方式存储一组键（通常是字符串）。Trie树（又称prefix tree）和三叉搜索树（Ternary Search Tree，又称T-tree、T树）是字典树的具体实现，各自具有其特点和优势。</p>
+<ol>
+<li>Trie树（前缀树）特别适用于需要进行前缀匹配和检索的任务，例如字典实现和自动完成系统。</li>
+<li>T树（三叉搜索树）在空间效率和快速字符串搜索操作之间提供了平衡。它们也适用于字典实现以及拼写检查和近似字符串匹配等任务。</li>
+</ol>
+<p>总之，虽然Trie树和三叉搜索树是不同的实现，但它们都属于字典树类别，用于高效存储和检索键-值对，尤其是字符串。</p>
+
+        <h2 id="其他树"   >
+          <a href="#其他树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#其他树"></a> 其他树</h2>
+      
+
+        <h3 id="b树"   >
+          <a href="#b树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树"></a> B树</h3>
+      
+<p>B树的全名是“Bayer–McCreight B树”。这是一种由Rudolf Bayer和Edward M. McCreight于1972年引入的数据结构。B树的名称来自于这两位作者姓氏的首字母。B树被广泛应用于数据库和文件系统中，用于高效地存储和检索数据，尤其是在处理大型数据集和基于磁盘的存储时。</p>
+
+        <h3 id="t树"   >
+          <a href="#t树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#t树"></a> <code>T*</code>树</h3>
+      
+<p><code>T*</code>树是B树数据结构的一种变体，旨在提高范围查询的性能，例如查找在给定范围内的所有值，与传统的B树相比。</p>
+<p>在<code>T*</code>树中，每个节点可以有不同数量的子节点，通常范围在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>d</mi></msqrt><mtext>​到</mtext><mn>2</mn><mi>d</mi></mrow><annotation encoding="application/x-tex">\sqrt d​到2d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.10777999999999999em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.93222em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="padding-left:0.833em;">d</span></span><span style="top:-2.89222em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.10777999999999999em;"><span></span></span></span></span></span><span class="mord">​</span><span class="mord cjk_fallback">到</span><span class="mord">2</span><span class="mord mathnormal">d</span></span></span></span>之间，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">d</span></span></span></span>是树的最大度数。这允许更灵活地平衡树，并且可以使得树的高度相比传统的B树更浅，尤其是对于大型数据集而言。</p>
+<p><code>T*树</code>通过在其内部节点中存储额外的摘要信息来实现高效的范围查询性能，例如存储在其子树中的键的聚合值或范围。这样在范围查询期间可以更快地遍历和修剪不必要的子树。</p>
+<p>总的来说，<code>T*</code>树旨在在保持B树的优点，如高效的插入、删除和搜索操作的同时，提供改进的范围查询性能。它们在数据库系统和其他需要高效范围查询的应用中被广泛使用。</p>
+
+        <h3 id="b树-2"   >
+          <a href="#b树-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#b树-2"></a> <code>B*</code>树</h3>
+      
+<p><code>B*</code>树是B树的一种改进版本，旨在减少节点的分裂和合并操作，从而减少树的高度，提高查询性能。<br />
+与普通的B树不同，<code>B*</code>树在节点填满时不会立即进行分裂，而是等到达到阈值时才分裂，这样可以减少分裂的频率，减小树的高度。</p>
+<p><code>B*</code>树还通过在非叶节点中保留更多的键来减少合并操作的频率，从而进一步减小树的高度。</p>
+<p>虽然<code>B*</code>树和<code>T*</code>树都是B树的变体，但它们的设计目标和实现方式略有不同。<code>B*</code>树的重点是减少树的高度，而<code>T*</code>树的重点是提高范围查询的性能。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/">https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">动态规划_C语言实现</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E6%A0%91/"><span class="paginator-prev__text">C语言_树</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%B2%E7%9A%84%E5%8C%B9%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text">
+           串的匹配</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kmp%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">
+           KMP算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bayer-moore"><span class="toc-number">3.</span> <span class="toc-text">
+           Bayer Moore</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%8F%E5%AD%97%E7%AC%A6"><span class="toc-number">3.1.</span> <span class="toc-text">
+           坏字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%BD%E5%90%8E%E7%BC%80"><span class="toc-number">3.2.</span> <span class="toc-text">
+           好后缀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0bm%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">
+           实现BM算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">
+           实际的场景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E6%A0%91"><span class="toc-number">4.1.</span> <span class="toc-text">
+           字典树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%A0%91"><span class="toc-number">4.2.</span> <span class="toc-text">
+           其他树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E6%A0%91"><span class="toc-number">4.2.1.</span> <span class="toc-text">
+           B树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#t%E6%A0%91"><span class="toc-number">4.2.2.</span> <span class="toc-text">
+           T*树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E6%A0%91-2"><span class="toc-number">4.2.3.</span> <span class="toc-text">
+           B*树</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

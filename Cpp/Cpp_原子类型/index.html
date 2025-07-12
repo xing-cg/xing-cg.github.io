@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         线程安全问题                       线程安全问题        123int count &#x3D; 0;count++;count--;	&#x2F;* 是线程不安全的 *&#x2F; 后置++有多个动作：  取出count的值为tmp 计算count + 1 count + 1的结果赋给count 返回tmp  对应于多条指令。 传统地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_原子类型">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         线程安全问题                       线程安全问题        123int count &#x3D; 0;count++;count--;	&#x2F;* 是线程不安全的 *&#x2F; 后置++有多个动作：  取出count的值为tmp 计算count + 1 count + 1的结果赋给count 返回tmp  对应于多条指令。 传统地">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-23T16:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Cpp_原子类型 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_原子类型</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-07-24</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B/" data-flag-title="Cpp_原子类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>线程安全问题</li>
+</ol>
+
+        <h1 id="线程安全问题"   >
+          <a href="#线程安全问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">count++;</span><br><span class="line">count--;	<span class="comment">/* 是线程不安全的 */</span></span><br></pre></td></tr></table></div></figure>
+<p>后置<code>++</code>有多个动作：</p>
+<ol>
+<li>取出count的值为tmp</li>
+<li>计算<code>count + 1</code></li>
+<li><code>count + 1</code>的结果赋给count</li>
+<li>返回tmp</li>
+</ol>
+<p>对应于多条指令。</p>
+<p>传统地解决，可以用加锁的方式</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="function">lock_guard&lt;std::mutex&gt; <span class="title">guard</span><span class="params">(mtx)</span></span>;</span><br><span class="line">	count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是，互斥锁是比较耗费资源的，如果临界区的代码比较轻量级，那么传统mutex锁相对而言就比较小题大做了。</p>
+<p>现在有新机制解决：指令级并发。</p>
+<p>如果想让这么多动作在一条指令内做完的话，需要让处理器支持这样的操作，而不用锁机制，因此这种叫做非锁结构。</p>
+
+        <h1 id="原子类型"   >
+          <a href="#原子类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#原子类型"></a> 原子类型</h1>
+      
+<p>定义于<code>&lt;atomic&gt;</code><br />
+原子类型，封装了一个值，保证其的访问不会导致数据竞争，并且可用于同步不同线程之间的内存访问。</p>
+
+        <h2 id="atomic_flag"   >
+          <a href="#atomic_flag" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#atomic_flag"></a> atomic_flag</h2>
+      
+<p>初始化可以赋值为<code>ATOMIC_FLAG_INIT</code>，意为无状态，对应false。<br />
+<code>test_and_set()</code>：置位为有状态，对应true，并返回调用之前的状态。这是一个原子操作，不会被其他线程干扰。</p>
+<p>以下就是一个用atomic_flag做忙等待的例子：</p>
+<ol>
+<li>初始flag为无状态</li>
+<li>调用一次<code>test_and_set()</code>置位flag为有状态</li>
+<li>while中一直调用<code>test_and_set()</code>，测试它的状态，直到为无状态时，退出循环，结束程序。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atomic&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::atomic_flag flag = ATOMIC_FLAG_INIT;</span><br><span class="line">    flag.<span class="built_in">test_and_set</span>();</span><br><span class="line">    <span class="keyword">while</span> (flag.<span class="built_in">test_and_set</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">continue</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>给定一个<code>atomic_flag</code>，初始为无状态，同时启动10个线程，操作之前，调用<code>test_and_set</code>，如果测试为无状态，说明没有其他线程在操作，就可以进行操作。操作完毕后，clear重置flag为无状态。下一个线程就可以探测到无状态，开始它的操作。<br />
+此时，atomic_flag就相当于自旋锁的作用。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">std::atomic_flag lock_output = ATOMIC_FLAG_INIT;</span><br><span class="line">std::counting_semaphore&lt;<span class="number">10</span>&gt; sema&#123; <span class="number">0</span> &#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">worker</span><span class="params">(<span class="type">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (lock_output.<span class="built_in">test_and_set</span>())</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;thread #&quot;</span> &lt;&lt; v &lt;&lt; std::endl;</span><br><span class="line">    lock_output.<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::jthread t[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        t[i] = std::<span class="built_in">jthread</span>(&amp;worker, i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sema.<span class="built_in">release</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals;</span><br><span class="line">    std::this_thread::<span class="built_in">sleep_for</span>(<span class="number">5</span>s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">thread #1</span><br><span class="line">thread #5</span><br><span class="line">thread #4</span><br><span class="line">thread #7</span><br><span class="line">thread #2</span><br><span class="line">thread #10</span><br><span class="line">thread #6</span><br><span class="line">thread #3</span><br><span class="line">thread #9</span><br><span class="line">thread #8</span><br></pre></td></tr></table></div></figure>
+<p>每个线程有序输出，没乱。</p>
+
+        <h2 id="atomic"   >
+          <a href="#atomic" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#atomic"></a> atomic</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt; <span class="keyword">struct</span> <span class="title class_">atomic</span>;</span><br></pre></td></tr></table></div></figure>
+<p>原子对象的主要特征是，从不同线程访问值不会导致数据竞争（即，这样做是明确定义的行为，访问顺序正确）。通常，对于所有其他对象，如果同时访问同一对象而导致数据争用，则该操作将被视为未定义行为。</p>
+<p>原子对象能够通过指定不同的内存顺序来同步对其线程中其他非原子对象的访问。</p>
+
+        <h1 id="内存顺序"   >
+          <a href="#内存顺序" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内存顺序"></a> 内存顺序</h1>
+      
+<p>原子操作只是提供了不同线程读写的同步。<br />
+但是没有提供操作顺序的同步。<br />
+比如：线程1修改原子值a，线程2读取原子值a。<br />
+两个线程各自的读写操作，确实是保证了不会有脏值。但是线程1、线程2的顺序没有做控制，如果线程2想要读出旧值，但是线程1在线程2读值前进行写操作，还是会导致线程2读出脏值。因此需要提供内存顺序机制。</p>
+<p>如下程序，可能存在几个内存顺序问题：</p>
+<ol>
+<li>x、y的store顺序可能会被交换，但是不影响正确结果。</li>
+<li>consume在load y时，可能produce中的y还没store完毕，读取出false，则浪费了一次load操作，性能下降。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">std::atomic&lt;<span class="type">bool</span>&gt; x, y;</span><br><span class="line">std::atomic&lt;<span class="type">int</span>&gt; z;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">produce</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    x.<span class="built_in">store</span>(<span class="literal">true</span>);              <span class="comment">// step 1/2</span></span><br><span class="line">    y.<span class="built_in">store</span>(<span class="literal">true</span>);              <span class="comment">// step 1/2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">consume</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!y.<span class="built_in">load</span>())           <span class="comment">// step 3</span></span><br><span class="line">    &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> (x.<span class="built_in">load</span>())               <span class="comment">// step 4</span></span><br><span class="line">    &#123;</span><br><span class="line">        ++z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    x = <span class="literal">false</span>;</span><br><span class="line">    y = <span class="literal">false</span>;</span><br><span class="line">    z = <span class="number">0</span>;</span><br><span class="line">    <span class="function">std::thread <span class="title">t</span><span class="params">(&amp;consume)</span></span>;</span><br><span class="line">    <span class="function">std::thread <span class="title">t2</span><span class="params">(&amp;produce)</span></span>;</span><br><span class="line">    t.<span class="built_in">join</span>();</span><br><span class="line">    t<span class="number">2.</span><span class="built_in">join</span>();</span><br><span class="line">    std::cout &lt;&lt; z &lt;&lt; std::endl;  <span class="comment">// z : 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>relaxed</td>
+<td>CPU和编译器可以重新排序变量顺序。<br>这是一种松散的内存顺序，不保证不同线程中的内存访问对原子操作进行排序。</td>
+</tr>
+<tr>
+<td>consume</td>
+<td>针对某个原子变量的访问指令（store）重排到此指令（load）前。即自己load排到针对某个变量的release操作后。</td>
+</tr>
+<tr>
+<td>acquire</td>
+<td>所有访问指令（store）排到此指令（load）前。即自己load排到所有release操作后。</td>
+</tr>
+<tr>
+<td>release</td>
+<td>所有访问指令（load）排到此指令（store）之后。即自己store排到所有consume、acquire操作之前。<br>扮演了一个同步点（synchronization point）的角色。</td>
+</tr>
+<tr>
+<td>acq_rel</td>
+<td>The operation loads acquiring and stores releasing。<br>该操作可能扮演两种角色。<br>比如<code>std::atomic::exchange</code>操作，两个变量交换：<br>需要load值，可能需要等待release；<br>需要store值，即产生release，需要给其他acquire、consume通知。</td>
+</tr>
+<tr>
+<td>seq_cst</td>
+<td>sequentially consistent，意思是该操作以顺序一致的方式排序。一旦所有可能对其他线程产生可见副作用的内存访问已经发生，则所有操作使用此内存顺序。<br>这是最严格的内存顺序，保证了在非原子内存访问中线程交互之间的意外副作用最小。<br>对于consume和acquire的load，顺序一致的store操作被认为是release操作。</td>
+</tr>
+</tbody>
+</table></div>
+<p>限制内存顺序之后：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">std::atomic&lt;<span class="type">bool</span>&gt; x, y;</span><br><span class="line">std::atomic&lt;<span class="type">int</span>&gt; z;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">produce</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 两个store都是release，没有严格限制顺序</span></span><br><span class="line">    x.<span class="built_in">store</span>(<span class="literal">true</span>, std::memory_order_release); <span class="comment">// step 1/2</span></span><br><span class="line">    y.<span class="built_in">store</span>(<span class="literal">true</span>, std::memory_order_release); <span class="comment">// step 1/2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">consume</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// memory_order_consume表示必须排序在y的store之后</span></span><br><span class="line">    <span class="keyword">while</span> (!y.<span class="built_in">load</span>(std::memory_order_consume))<span class="comment">// step 3</span></span><br><span class="line">    &#123;&#125;</span><br><span class="line">    <span class="comment">// memory_order_acquire表示必须排序在x store、y store之后</span></span><br><span class="line">    <span class="keyword">if</span> (x.<span class="built_in">load</span>(std::memory_order_acquire))    <span class="comment">// step 4</span></span><br><span class="line">    &#123;</span><br><span class="line">        ++z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="lock_free测试"   >
+          <a href="#lock_free测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lock_free测试"></a> lock_free测试</h1>
+      
+<p>测试以确定原子模板包含的类型是否支持无锁。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::wcout &lt;&lt; std::boolalpha &lt;&lt; std::atomic&lt;<span class="type">int</span>&gt;&#123;&#125;.<span class="built_in">is_lock_free</span>() &lt;&lt; std::endl; <span class="comment">// true</span></span><br><span class="line">    std::wcout &lt;&lt; std::boolalpha &lt;&lt; std::atomic&lt;<span class="type">int</span>&gt;&#123;&#125;.is_always_lock_free &lt;&lt; std::endl; <span class="comment">// true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>经过测试后发现，不超过8字节（64位）的数据结构，并且没有虚函数表的数据结构，是支持无锁的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123;<span class="type">int</span> x, y; <span class="built_in">A</span>() &#123;&#125;&#125;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">B</span> &#123;<span class="type">int</span> a[<span class="number">2</span>];&#125;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">C</span> &#123;<span class="type">int</span> a[<span class="number">3</span>];&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::wcout &lt;&lt; std::boolalpha &lt;&lt; std::atomic&lt;A&gt;&#123;&#125;.<span class="built_in">is_lock_free</span>() &lt;&lt; std::endl; <span class="comment">// true</span></span><br><span class="line">    std::wcout &lt;&lt; std::boolalpha &lt;&lt; std::atomic&lt;B&gt;&#123;&#125;.<span class="built_in">is_lock_free</span>() &lt;&lt; std::endl; <span class="comment">// true</span></span><br><span class="line">    std::wcout &lt;&lt; std::boolalpha &lt;&lt; std::atomic&lt;C&gt;&#123;&#125;.<span class="built_in">is_lock_free</span>() &lt;&lt; std::endl; <span class="comment">// false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="cas"   >
+          <a href="#cas" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cas"></a> CAS</h1>
+      
+<p>可以用CAS来保证上面操作的原子特性就足够了，也称无锁操作。其实并不是不加锁，而是加锁解锁的操作不在软件层面。</p>
+<p>CPU和内存通信要通过系统总线进行，CAS即是通过exchange/swap指令完成的，相当于给总线加锁。当一个线程在做CPU和内存之间数据的交换时，比如CPU从内存读一个数据，CPU处理之后再写回内存。如果一个线程对总线的工作没有完成，是不允许其他线程进行操作的，这是CAS的基本思想。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B/">https://xing-cg.github.io/Cpp/Cpp_%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E9%A1%B9%E7%9B%AE/%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">集群服务器</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"><span class="paginator-prev__text">单例模式</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">
+           线程安全问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           原子类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#atomic_flag"><span class="toc-number">3.1.</span> <span class="toc-text">
+           atomic_flag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#atomic"><span class="toc-number">3.2.</span> <span class="toc-text">
+           atomic</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E9%A1%BA%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">
+           内存顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lock_free%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">
+           lock_free测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cas"><span class="toc-number">6.</span> <span class="toc-text">
+           CAS</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

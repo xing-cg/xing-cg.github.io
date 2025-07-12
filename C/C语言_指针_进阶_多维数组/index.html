@@ -1,0 +1,701 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="指针        指针是一种特殊的变量，存的是别的变量的内存的地址。提供了一种间接访问方法。                      指针的两大要素        有两大要素：1、存放的内容：变量的起始地址；2、指针的类型：指明长度                      引用（take reference）、解引用（dereference）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言__指针_进阶_多维数组">
+<meta property="og:url" content="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E8%BF%9B%E9%98%B6_%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="指针        指针是一种特殊的变量，存的是别的变量的内存的地址。提供了一种间接访问方法。                      指针的两大要素        有两大要素：1、存放的内容：变量的起始地址；2、指针的类型：指明长度                      引用（take reference）、解引用（dereference）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.774Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>C语言__指针_进阶_多维数组 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E8%BF%9B%E9%98%B6_%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言__指针_进阶_多维数组</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-01-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E8%BF%9B%E9%98%B6_%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/" data-flag-title="C语言__指针_进阶_多维数组"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="指针"   >
+          <a href="#指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针"></a> 指针</h1>
+      
+<p>指针是一种特殊的变量，存的是别的变量的内存的地址。提供了一种间接访问方法。</p>
+
+        <h2 id="指针的两大要素"   >
+          <a href="#指针的两大要素" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针的两大要素"></a> 指针的两大要素</h2>
+      
+<p>有两大要素：1、存放的内容：变量的起始地址；2、指针的类型：指明长度</p>
+
+        <h2 id="引用take-reference-解引用dereference"   >
+          <a href="#引用take-reference-解引用dereference" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#引用take-reference-解引用dereference"></a> 引用（take reference）、解引用（dereference）</h2>
+      
+<p>take reference 表示取变量的地址。这是一种间接引用。</p>
+<blockquote>
+<p>此处的引用是C语言中的，要和Cpp中的引用区分开。</p>
+</blockquote>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="comment">// take reference - 引用，取地址</span></span><br><span class="line">    <span class="type">int</span> * p = &amp;a;</span><br><span class="line">    <span class="comment">// derefernce - 解引用</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *p);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;<span class="comment">//12</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="指针的大小"   >
+          <a href="#指针的大小" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针的大小"></a> 指针的大小</h2>
+      
+<p>指针的大小是固定的，只和内存地址相关。32位的系统用的是32位的地址总线，那么指针则是32位大小；64位的系统，那么指针则是64位大小，但是实际上的硬件并不是64根地址总线，而是48根，因为目前基本用不到那么多。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="comment">// take reference - 取地址</span></span><br><span class="line">    <span class="type">int</span> * p = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, <span class="keyword">sizeof</span> p);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//64位：8</span></span><br><span class="line"><span class="comment">//32位：4</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="二级指针"   >
+          <a href="#二级指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二级指针"></a> 二级指针</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="comment">// take reference - 取地址</span></span><br><span class="line">    <span class="type">int</span> * p = &amp;a;</span><br><span class="line">    <span class="type">int</span> * pp = &amp;p;</span><br><span class="line">    <span class="comment">// derefernce - 解引用</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, **pp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//12</span></span><br></pre></td></tr></table></div></figure>
+<p>有<code>**</code>这种连解引用，但是没有<code>&amp;&amp;</code>这种连取地址！因为第一次取完地址之后得出的是一个值（临时值），不具名且没有固定的内存地址，因此无法连取地址。</p>
+<blockquote>
+<p>在Cpp中，右值引用是可以对临时变量“取地址”的，但不是这种连取地址的方式。</p>
+</blockquote>
+
+        <h2 id="万能指针void-masteruniversal-pointer"   >
+          <a href="#万能指针void-masteruniversal-pointer" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#万能指针void-masteruniversal-pointer"></a> 万能指针<code>void *</code>（master/universal pointer）</h2>
+      
+<p>master/universal pointer。只保留了指针的首地址，只在中间传输地址有用，无法直接解引用。记作<code>void *</code>。</p>
+<p>要解引用，必须以强制类型转换告知指针的具体的结尾位置在哪才行。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">void</span> * p = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *p);<span class="comment">//error, 报错：incomplete type is not allowed</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(<span class="type">int</span>*)p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="案例"   >
+          <a href="#案例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#案例"></a> 案例</h2>
+      
+<p>定义一个整型数</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br></pre></td></tr></table></div></figure>
+<p>定义一个指向整型数的指针</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * a;</span><br></pre></td></tr></table></div></figure>
+<p>定义一个指向指针的指针，它指向的指针是一个指向整型数指针</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ** a;</span><br></pre></td></tr></table></div></figure>
+<p>定义一个有10个整型数的数组</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">10</span>];</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="指针数组"   >
+          <a href="#指针数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针数组"></a> 指针数组</h3>
+      
+<p>定义一个有10个指针的数组，该指针是一个指向整型数的指针</p>
+<p>此时需要考虑<code>*</code>和<code>[]</code>的优先级关系，谁与a先结合？<br />
+<code>[]</code>是最高优先级，<code>*</code>次之。如题意，我们要定义a为数组，所以不用给<code>*</code>加<code>()</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* a[<span class="number">10</span>];</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="数组指针"   >
+          <a href="#数组指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数组指针"></a> 数组指针</h3>
+      
+<p>定义一个指向有10个整型数数组的指针</p>
+<p>如题意，我们要定义a为指针，所以需要给<code>*</code>加<code>()</code>。<br />
+但是如下写是错误的：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*) a[<span class="number">10</span>];</span><br></pre></td></tr></table></div></figure>
+<p>这才是正确的，需要让<code>*</code>和a包在一起。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*a) [<span class="number">10</span>];</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="函数指针"   >
+          <a href="#函数指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数指针"></a> 函数指针</h3>
+      
+<p>定义一个指向函数的指针，该函数有一个整型参数并返回整型数</p>
+<p>a是个指针，而a右边又需要小括号表示函数的参数类型，所以需要让<code>*a</code>加括号。再在最左边标志函数的返回类型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*a)(<span class="type">int</span>);</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="函数名的隐式转换cpp中到底要不要加"   >
+          <a href="#函数名的隐式转换cpp中到底要不要加" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数名的隐式转换cpp中到底要不要加"></a> 函数名的隐式转换，Cpp中到底要不要加<code>&amp;</code></h4>
+      
+<p>在C语言中，函数名bar和<code>&amp;函数名bar</code>的效果一样，都是取函数地址。</p>
+<blockquote>
+<p>函数名会被隐式转换为函数指针，因此<code>pfun = bar</code>和<code>pfun = &amp;bar</code>等价。</p>
+</blockquote>
+<p>在Cpp中，对于普通函数，隐式转换同样适用，但对于类成员函数则不是了，如果要取成员函数地址，必须显式加<code>&amp;</code>，即<code>&amp;类名::函数</code>。且调用时必须用<code>(obj.*p)()</code>的形式，来表示哪一个对象实例的调用。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">void</span> (MyClass::*p)() = &amp;MyClass::func;</span><br><span class="line">    MyClass obj;</span><br><span class="line">    (obj.*p)(); <span class="comment">// 成员函数指针调用</span></span><br><span class="line">    <span class="comment">//p();      // 非法!!!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果是静态成员函数，取地址时可以省略 <code>&amp;</code>。相应地，通过函数指针调用时，可以直接加小括号，不用解引用。</p>
+<blockquote>
+<p>为什么普通成员函数（不包括静态成员函数）取地址时必须显式使用 <code>&amp;</code>？</p>
+<p>当我们取一个成员函数的地址时，我们获取到的是一个“成员函数指针”，这个指针并不指向一个普通的函数地址，而是指向一个带有额外 <code>this</code> 指针的特殊函数。由于成员函数并不是普通的全局函数或静态函数，编译器需要明确知道你想要的是一个带 <code>this</code> 指针的成员函数地址，而不是一个普通的函数指针。</p>
+</blockquote>
+
+        <h4 id="两种等效的调用形式c-cpp均可"   >
+          <a href="#两种等效的调用形式c-cpp均可" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#两种等效的调用形式c-cpp均可"></a> 两种等效的调用形式（C、Cpp均可）</h4>
+      
+<ol>
+<li><strong>直接调用</strong>：<code>pfun();</code></li>
+<li><strong>解引用后调用</strong>：<code>(*pfun)();</code></li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pfun();      <span class="comment">// 直接调用</span></span><br><span class="line">(*pfun)();   <span class="comment">// 解引用后调用</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = &amp;bar; <span class="comment">// C语言中也可以用 = bar</span></span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">    (*pfun)();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>C语言和Cpp中，都可以直接拿函数指针名字来调用它指向的函数。即<strong>没必要解引用再调用</strong>。<br />
+因为本质上函数调用就是在地址后加<code>()</code>，即使是间接地址，也生效。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = &amp;bar; <span class="comment">// C语言中也可以用 = bar</span></span><br><span class="line">    <span class="built_in">bar</span>();</span><br><span class="line">    (*pfun)();</span><br><span class="line">    <span class="built_in">pfun</span>(); <span class="comment">// 等同于(*pfun)(); 等同于bar();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="c和cpp对于函数指针的注意事项"   >
+          <a href="#c和cpp对于函数指针的注意事项" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c和cpp对于函数指针的注意事项"></a> C和Cpp对于函数指针的注意事项</h4>
+      
+<p>对于普通全局函数，函数名都会被隐式转换为函数指针，因此<code>pfun = bar</code>和<code>pfun = &amp;bar</code>等价。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = bar;  <span class="comment">// C和C++均可</span></span><br><span class="line"><span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = &amp;bar; <span class="comment">// 更显式的写法</span></span><br></pre></td></tr></table></div></figure>
+<p>以上是函数签名完全一致的。C语言、Cpp都允许且正确。<br />
+但，如果想要把另外一个不同签名的函数赋给pfun，则C会警告，Cpp则不允许：<br />
+必须把foo强制转换为bar函数对应签名<code>(void(*)(void))</code>的函数指针类型才行。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span>)</span></span>;</span><br><span class="line"><span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = foo; <span class="comment">// C中允许（有警告），C++报错</span></span><br><span class="line"><span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = (<span class="built_in">void</span>(*)(<span class="type">void</span>))foo;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h4>
+      
+<ol>
+<li>类型检查
+<ol>
+<li>C中，函数指针可以不管函数签名类型，随意互传，可以编译通过，但是会有警告。</li>
+<li>Cpp中，函数指针互传时必须类型一致。不同类型的需要强转。</li>
+</ol>
+</li>
+<li>取函数地址
+<ol>
+<li>Cpp中，普通函数名字或者静态成员函数，与C一样，可以隐式转换为函数地址。不用加<code>&amp;</code>。</li>
+<li>Cpp中，普通成员函数，取其地址，必须用<code>&amp;类名::函数</code>的形式。</li>
+</ol>
+</li>
+<li>调用
+<ol>
+<li>普通函数、静态成员函数可以直接用函数指针加小括号调用。</li>
+<li>普通成员函数，必须绑定对象实例，无法直接调用。因此必须先解引用。如<code>(obj.*p)</code>。</li>
+</ol>
+</li>
+</ol>
+
+        <h4 id="函数指针类型的typedef"   >
+          <a href="#函数指针类型的typedef" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数指针类型的typedef"></a> 函数指针类型的typedef</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="built_in">void</span> (*pfun)(<span class="type">void</span>) = bar;   <span class="comment">// pfun是变量</span></span><br><span class="line"><span class="function">typdef <span class="title">void</span><span class="params">(*PFun)</span><span class="params">(<span class="type">void</span>)</span></span>;   <span class="comment">// PFun是类型</span></span><br><span class="line">PFun pfun = bar;            <span class="comment">// 等效于上面的pfun</span></span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="练习定义函数指针数组"   >
+          <a href="#练习定义函数指针数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习定义函数指针数组"></a> 练习：定义函数指针数组</h4>
+      
+<p>定义一个有10个指针的数组，该指针指向一个函数，该函数有一个整型参数并返回整型数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*a[<span class="number">10</span>])(<span class="type">int</span>);</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>首先是一个数组，则<code>p[10]</code>。</li>
+<li>其次，内容是指针，<code>*p[10]</code>，因为<code>[]</code>优先级比<code>*</code>高，则不用加小括号处理。</li>
+<li>指针是指向函数的，得在后面加小括号表示参数类型：<code>*p[10](int)</code>，但是<code>()</code>优先级比<code>*</code>高，则系统会误以为这是函数调用（比如<code>fun(123);</code>）如此一来，就得在前面整体加小括号，让<code>*p[10]</code>先处理：<code>(*p[10])(int)</code>。</li>
+<li>再加上返回类型，则：<code>int(*p[10])(int)</code>。</li>
+</ol>
+
+        <h4 id="函数指针函数的返回值是一个指针这个指针指向一个数组"   >
+          <a href="#函数指针函数的返回值是一个指针这个指针指向一个数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数指针函数的返回值是一个指针这个指针指向一个数组"></a> 函数指针：函数的返回值是一个指针，这个指针指向一个数组</h4>
+      
+<p>a是一个指针，指向一个函数，这个函数的参数为int型，<strong>函数的返回值是一个指针，这个指针指向一个数组</strong>，这个数组有10个元素，每个元素是一个<code>void *</code>型指针。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span>*(*(*a)(<span class="type">int</span>))[<span class="number">10</span>];</span><br></pre></td></tr></table></div></figure>
+<p>可以通过 <code>typedef</code> 分步定义类型，让声明更清晰：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">void</span>* ElementType;         <span class="comment">// 数组元素类型是 void*</span></span><br><span class="line"><span class="keyword">typedef</span> ElementType ArrayType[<span class="number">10</span>]; <span class="comment">// 数组类型：10个void*元素的数组</span></span><br><span class="line"><span class="keyword">typedef</span> ArrayType* ArrayPtr;       <span class="comment">// 指针，指向上述数组</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">ArrayPtr</span> <span class="params">(*FuncPtr)</span><span class="params">(<span class="type">int</span>)</span></span>;  <span class="comment">// 函数指针，接受int参数，返回ArrayPtr</span></span><br><span class="line"></span><br><span class="line">FuncPtr a;  <span class="comment">// 等价于 void*(*(*a)(int))[10]</span></span><br></pre></td></tr></table></div></figure>
+<p>在C语言中，理解复杂声明需要从变量名开始，逐步向外解析。对于声明 <code>void*(*(*a)(int))[10];</code>，我们可以分步拆解：</p>
+<ol>
+<li><strong>变量名 <code>a</code></strong><br />
+<code>a</code> 是一个指针（由 <code>*a</code> 可知）。</li>
+<li><strong><code>a</code> 指向一个函数</strong><br />
+<code>(*a)(int)</code> 表示 <code>a</code> 指向一个函数，该函数接受 <code>int</code> 类型的参数。</li>
+<li><strong>函数的返回值类型</strong><br />
+函数的返回值是 <code>*(...)</code>，即一个指针。<br />
+进一步分析 <code>*(*a)(int)</code>，说明返回值是一个指针。</li>
+<li><strong>指针指向一个数组</strong><br />
+<code>(*(*a)(int))[10]</code> 表示返回值指向一个包含10个元素的数组。</li>
+<li><strong>数组元素的类型</strong><br />
+数组的每个元素是 <code>void*</code> 类型（即 <code>void*</code> 指针）。</li>
+</ol>
+<p>为什么<code>[10]</code>要放在后面？<br />
+如果要声明一个指针，指向一个包含10个int元素的数组：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*ptr)[<span class="number">10</span>];  <span class="comment">// ptr是一个指针，指向int[10]的数组</span></span><br></pre></td></tr></table></div></figure>
+<ul>
+<li><code>ptr</code> 的类型是 <code>int(*)[10]</code>。</li>
+<li><strong>语法规则</strong>：<code>[10]</code> 必须放在指针标识符 <code>ptr</code> 后面，表示指针指向的是一个数组，而不是数组中的单个元素。</li>
+</ul>
+<p>如果函数返回一个指向数组的指针，声明如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*<span class="built_in">func</span>(<span class="type">int</span>))[<span class="number">10</span>];  <span class="comment">// func是一个函数，接受int参数，返回指向int[10]的指针</span></span><br></pre></td></tr></table></div></figure>
+<ul>
+<li><code>func(int)</code> 是一个函数，返回类型是 <code>int(*)[10]</code>。</li>
+<li><strong>语法规则</strong>：<code>[10]</code> 必须放在函数返回类型的后面，表示返回值是一个指向数组的指针。</li>
+</ul>
+<p>此函数的声明和定义为以下形式：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> (*<span class="built_in">func</span>(<span class="type">int</span>))[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">func</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">int</span> (*<span class="built_in">func</span>(<span class="type">int</span>))[<span class="number">10</span>]</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> (*arr)[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>以下这么写是错误的：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>(*)[<span class="number">10</span>] <span class="built_in">func</span>(<span class="type">int</span>); <span class="comment">// error</span></span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="函数指针指向的函数返回值是另一个函数指针"   >
+          <a href="#函数指针指向的函数返回值是另一个函数指针" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数指针指向的函数返回值是另一个函数指针"></a> 函数指针：指向的函数返回值是另一个函数指针</h4>
+      
+<p>a是一个指针，指向一个函数，这个函数的参数为3个int型，函数的返回值是一个指针，这个指针指向一个函数，这个函数的参数为int型，函数的返回值是float型。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> (*(*a)(<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>)) (<span class="type">int</span>);</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="函数指针指向的函数返回值是函数指针数组"   >
+          <a href="#函数指针指向的函数返回值是函数指针数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数指针指向的函数返回值是函数指针数组"></a> 函数指针：指向的函数返回值是函数指针数组</h4>
+      
+<p>a是一个指针，指向一个函数，这个函数的参数为空，函数的返回值是一个指针，这个指针指向一个数组，这个数组有10个元素，每个元素是一个指针，指向一个函数，这个函数的参数为空，函数的返回值是int型</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>(*(*(*a)(<span class="type">void</span>)) [<span class="number">10</span>])(<span class="type">void</span>);</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="指针与数组的关系"   >
+          <a href="#指针与数组的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针与数组的关系"></a> 指针与数组的关系</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span> * p = arr; <span class="comment">//此时arr当做数组的首位int元素的int指针赋给了p</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *p);<span class="comment">//1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="指针的运算"   >
+          <a href="#指针的运算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针的运算"></a> 指针的运算</h2>
+      
+<p>指针有加减运算。没有乘除运算。但是只能整数计算，不能小数计算。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span> * p = arr; <span class="comment">//此时arr当做数组的首位int元素(第0位置)的int指针赋给了p</span></span><br><span class="line">    p += <span class="number">2</span>;        <span class="comment">//移动2个int长度。即从0位置到2位置了。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *p);         <span class="comment">//3</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(p + <span class="number">1</span>));   <span class="comment">//4</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(arr + <span class="number">1</span>)); <span class="comment">//2   (arr + 1)即 移动到第1位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="指针减法的应用"   >
+          <a href="#指针减法的应用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#指针减法的应用"></a> 指针减法的应用</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span> * p = arr; <span class="comment">//此时arr当做数组的首位int元素(第0位置)的int指针赋给了p</span></span><br><span class="line">    p += <span class="number">2</span>;        <span class="comment">//移动2个int长度。即从0位置到2位置了。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p - arr); <span class="comment">//2  是两个指针的差值，差出来2个元素</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> * p2 = p + <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p2 - p); <span class="comment">//3  是两个指针的差值，差出来3个元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是要注意，指针类型要一致，如果类型不一致：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span> * p = arr; <span class="comment">//此时arr当做数组的首位int元素(第0位置)的int指针赋给了p</span></span><br><span class="line">    p += <span class="number">2</span>;        <span class="comment">//移动2个int长度。即从0位置到2位置了。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p - arr); <span class="comment">//2  是两个指针的差值，差出来2个int。</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> * p2 = p + <span class="number">3</span>;<span class="comment">//注意此处的指针类型是char*</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p2 - p); <span class="comment">//12  p的类型被转换为p2的类型了，差了12个char大小</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="语法糖"   >
+          <a href="#语法糖" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#语法糖"></a> 语法糖</h2>
+      
+<ol>
+<li>可以把上面的<code>*(p + 1)</code>直接用<code>p[1]</code>表示，那么<code>arr[1]</code>也就是<code>*(arr + 1)</code>，同理<code>arr[0]</code>也就是<code>*arr</code>。也就是说，数组的名字可以当做指向<strong>首元素</strong>的指针。可以作<code>arr + n</code>这种计算获得数组中后<code>n</code>的元素指针。</li>
+<li>但是，不能对<code>arr</code>本身进行<code>+=</code>、<code>++</code>。因为这修改了<code>arr</code>本身的值，而数组一旦定义完成是不可删除、移动的。本质上，数组名字是一个const类型的。</li>
+<li>sizeof：对于数组名字，sizeof计算出来的是整个数组的大小。而对于sizeof p，(<code>int * p = arr</code>)，计算出来的是一个元素的大小。</li>
+<li>除了上面两种特殊情况，数组名字arr和指针完全一样，可以替换使用。</li>
+<li>对数组名进行取地址：<code>&amp;arr</code>会是什么？是指向一维数组的指针。<code>int(*p)[8] = &amp;arr</code>。用p如何打印数组某一元素？首先得对数组指针解引用<code>*p</code>，再对解引用后的值进行加减<code>*p + 1</code>（<code>*</code>解引用优先级大于<code>+</code>，所以不用给<code>*p</code>加括号），然后对加减后的值第二次解引用<code>*(*p + 1)</code>。<strong>或者：第一次解引用之后，直接<code>(*p)[1]</code>。</strong></li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = &amp;arr;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(*p + <span class="number">1</span>)); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>但是要注意：虽然<code>int(*p)[8] = &amp;arr</code>把数组地址（不是首元素地址，虽然值一样）取出来了，即使值和首元素地址一样，但是它和数组首元素指针是有区别的，<code>&amp;arr</code>的全部实际意义指的是从0到7的整个范围。如何证明呢？可以用<code>p + 1</code>来说明：p+1后p指向了整个数组的末尾。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = &amp;arr;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(p + <span class="number">1</span>)); <span class="comment">//-85893460  - 打印出来一个未定义值，因为p+1后指向了整个数组的末尾。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果p+1后，要打印数组中的内容6，则得用<code>(*(p + 1))[-3]</code>来打印。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = &amp;arr;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, (*(p + <span class="number">1</span>))[<span class="number">-3</span>]); <span class="comment">//6 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>反过来讲，如果对p解引用：<code>*p</code>（<code>int(*p)[8] = &amp;arr</code>），虽然值没变，都是首地址。但是解引用后的<code>*p</code>对应的是单个元素的指针，就失去了数组大小的属性。</p>
+<p><strong>结论：一维数组arr名字相当于元素指针，对数组名字取地址，则取到整个数组的指针，是行指针。如果对行指针解引用，则得到了元素指针。针对元素指针，可以移动，再次解引用，去取任意位置的元素。</strong></p>
+
+        <h1 id="二维数组"   >
+          <a href="#二维数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二维数组"></a> 二维数组</h1>
+      
+<p>上面5讨论的是指针<code>*</code>形式的解引用。如果要用中括号来取元素呢？</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">8</span>] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = &amp;arr;</span><br><span class="line">    <span class="comment">//printf(&quot;%i\n&quot;, *(*p + 1)); //2</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p[<span class="number">0</span>][<span class="number">1</span>]);     <span class="comment">//2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>*(*p + 1)</code>等同于<code>p[0][1]</code>所以，实质上，指向一维数组的指针，是一种特殊的二维数组，即只有一行的二维数组。</p>
+
+        <h2 id="初始化"   >
+          <a href="#初始化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, a[i][j]);</span><br><span class="line">&#125;<span class="comment">// 1 2 3 4 5 6 7 8</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="comment">// 欲打印数组中值为6的元素，则需要取出（从0开始）第1行、第1列的元素</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, a[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 6</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="取二维数组的地址"   >
+          <a href="#取二维数组的地址" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#取二维数组的地址"></a> 取二维数组的地址</h2>
+      
+<p>打印6时，<code>[]</code>比<code>*</code>优先级高，因此<code>*p</code>需要加括号。如果不加括号，则先运算<code>p[1][1]</code>，再解引用，就完全不对了，<code>p[1]</code>指的是（从0开始）第1个二维数组，直接跨过了本身全部的数据。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">4</span>] = &amp;a;</span><br><span class="line">    <span class="comment">// 欲打印数组中值为6的元素，则需要取出（从0开始）第1行、第1列的元素</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, (*p)[<span class="number">1</span>][<span class="number">1</span>]); <span class="comment">// []比*优先级高，因此*p需要加括号。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 6</span></span><br></pre></td></tr></table></div></figure>
+<p>如何用纯指针方式打印6。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">4</span>] = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(*(*p + <span class="number">1</span>) + <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="二维数组的本质内存结构"   >
+          <a href="#二维数组的本质内存结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二维数组的本质内存结构"></a> 二维数组的本质内存结构</h2>
+      
+<p>内存只有1维结构。</p>
+<p>设arr是一维数组<code>arr[8]</code>，a是二维数组<code>a[2][4]</code>。则<code>a[1][1] =&gt; arr[4 * 1 + 1] =&gt; arr[5]</code></p>
+
+        <h3 id="用一维数组指针指向二维数组"   >
+          <a href="#用一维数组指针指向二维数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用一维数组指针指向二维数组"></a> 用一维数组指针指向二维数组</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = (<span class="type">int</span>(*)[<span class="number">8</span>])&amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, (*p)[<span class="number">5</span>]);</span><br><span class="line">&#125;<span class="comment">// 6</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="三维数组"   >
+          <a href="#三维数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#三维数组"></a> 三维数组</h1>
+      
+<p>用上面的二维数组指针p，只用中括号，打印6。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">4</span>] = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p[<span class="number">0</span>][<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>*(*(*p + 1) + 1)</code>等同于<code>p[0][1][1]</code>所以，实质上，指向二维数组的指针，是一种特殊的三维数组，即只有一个面的三维数组。</p>
+
+        <h2 id="初始化-2"   >
+          <a href="#初始化-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#初始化-2"></a> 初始化</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">2</span>][<span class="number">2</span>] = &#123; </span><br><span class="line">        &#123; &#123; <span class="number">1</span>, <span class="number">2</span> &#125;, &#123; <span class="number">3</span>, <span class="number">4</span> &#125; &#125;,   <span class="comment">// 面0</span></span><br><span class="line">        &#123; &#123; <span class="number">5</span>, <span class="number">6</span> &#125;, &#123; <span class="number">7</span>, <span class="number">8</span> &#125; &#125;    <span class="comment">// 面1 </span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="取三维数组的地址"   >
+          <a href="#取三维数组的地址" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#取三维数组的地址"></a> 取三维数组的地址</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">2</span>][<span class="number">2</span>] = &#123; </span><br><span class="line">        &#123; &#123; <span class="number">1</span>, <span class="number">2</span> &#125;, &#123; <span class="number">3</span>, <span class="number">4</span> &#125; &#125;,   <span class="comment">// 面0</span></span><br><span class="line">        &#123; &#123; <span class="number">5</span>, <span class="number">6</span> &#125;, &#123; <span class="number">7</span>, <span class="number">8</span> &#125; &#125;    <span class="comment">// 面1 </span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">2</span>][<span class="number">2</span>] = &amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, (*p)[<span class="number">1</span>][<span class="number">0</span>][<span class="number">1</span>]);     <span class="comment">//      第1面，第0行，第1列</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, *(**(*p + <span class="number">1</span>) + <span class="number">1</span>)); <span class="comment">// 第0体，第1面，第0行，第1列</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p[<span class="number">0</span>][<span class="number">1</span>][<span class="number">0</span>][<span class="number">1</span>]);     <span class="comment">// 第0体，第1面，第0行，第1列</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 6</span></span><br><span class="line"><span class="comment">// 6</span></span><br><span class="line"><span class="comment">// 6</span></span><br></pre></td></tr></table></div></figure>
+<p><code>*(**(*p + 1) + 1)</code>等同于<code>p[0][1][0][1]</code>所以，实质上，指向3维数组的指针，是一种特殊的4维数组，即只有一个体的3维数组。</p>
+
+        <h2 id="三维数组的应用"   >
+          <a href="#三维数组的应用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#三维数组的应用"></a> 三维数组的应用</h2>
+      
+<ol>
+<li>三维建模。面、地形、探测、体元素、医疗。</li>
+</ol>
+
+        <h1 id="关联性"   >
+          <a href="#关联性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联性"></a> 关联性</h1>
+      
+
+        <h2 id="降维"   >
+          <a href="#降维" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#降维"></a> 降维</h2>
+      
+<p><code>int a[2][4] = &#123; &#123; 1, 2, 3, 4 &#125;, &#123; 5, 6, 7, 8 &#125; &#125;;</code></p>
+<p>如何 让p 是一个 相当于 二维数组a的名字？</p>
+<p>首先分析，二维数组名字 相当于 行指针。一行有4个元素，因此是指向4个元素的数组指针</p>
+<blockquote>
+<ol>
+<li>一维数组的名字相当于列指针（元素指针）</li>
+<li>二维数组的名字相当于行指针（列数个元素的一维数组指针）</li>
+<li>三维数组的名字相当于面指针（行数个元素<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span>列数个元素的二维数组指针）</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">4</span>] = &#123; &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;, &#123; <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span> &#125; &#125;;</span><br><span class="line">    <span class="comment">// 数组a降维至0维，损失了行数、列数</span></span><br><span class="line">    <span class="type">int</span> * p = a;</span><br><span class="line">    <span class="comment">// 数组a变换维至1维</span></span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">8</span>] = (<span class="type">int</span>(*)[<span class="number">8</span>])&amp;a;</span><br><span class="line">    <span class="comment">// 数组a</span></span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">4</span>] = &amp;a;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如何 让p 是一个 相当于 二维数组名字？</span></span><br><span class="line">    <span class="comment">// 首先分析，二维数组名字 相当于 行指针。一行有4个元素，因此是指向4个元素的数组指针</span></span><br><span class="line">    <span class="comment">// 数组a降维至1维，损失了行数。</span></span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">4</span>] = a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如何 让p 是一个 相当于 3维数组名字？</span></span><br><span class="line">    <span class="comment">// 首先分析，3维数组名字 相当于 面指针。一面有2×2个元素，因此是指向2×2个元素的数组指针</span></span><br><span class="line">    <span class="comment">// 数组a降维至2维，损失了面数。</span></span><br><span class="line">    <span class="type">int</span>(*p)[<span class="number">2</span>][<span class="number">2</span>] = a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, p[<span class="number">1</span>][<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="计算数组行数-列数大小"   >
+          <a href="#计算数组行数-列数大小" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#计算数组行数-列数大小"></a> 计算数组行数、列数大小</h2>
+      
+<p>遍历三维数组打印</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">2</span>][<span class="number">2</span>][<span class="number">2</span>] = &#123; </span><br><span class="line">        &#123; &#123; <span class="number">1</span>, <span class="number">2</span> &#125;, &#123; <span class="number">3</span>, <span class="number">4</span> &#125; &#125;,   <span class="comment">// 面0</span></span><br><span class="line">        &#123; &#123; <span class="number">5</span>, <span class="number">6</span> &#125;, &#123; <span class="number">7</span>, <span class="number">8</span> &#125; &#125;    <span class="comment">// 面1 </span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span> a / <span class="keyword">sizeof</span> a[<span class="number">0</span>]; ++i)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="keyword">sizeof</span> a[<span class="number">0</span>] / <span class="keyword">sizeof</span> a[<span class="number">0</span>][<span class="number">0</span>]; ++j)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>; k &lt; <span class="keyword">sizeof</span> a[<span class="number">0</span>][<span class="number">0</span>] / <span class="keyword">sizeof</span> a[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]; ++k)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, a[i][j][k]);</span><br><span class="line">&#125;<span class="comment">// 1 2 3 4 5 6 7 8</span></span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E8%BF%9B%E9%98%B6_%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/">https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E6%8C%87%E9%92%88_%E8%BF%9B%E9%98%B6_%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/C/C%E8%AF%AD%E8%A8%80_%E5%87%BD%E6%95%B0_%E6%A0%88%E5%B8%A7_%E5%8F%82%E6%95%B0_%E9%80%92%E5%BD%92/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_函数_栈帧_参数_递归</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E6%95%B0%E7%BB%84_%E5%AD%97%E7%AC%A6%E4%B8%B2/"><span class="paginator-prev__text">C语言_数组_字符串</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-number">1.</span> <span class="toc-text">
+           指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E7%9A%84%E4%B8%A4%E5%A4%A7%E8%A6%81%E7%B4%A0"><span class="toc-number">1.1.</span> <span class="toc-text">
+           指针的两大要素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8take-reference-%E8%A7%A3%E5%BC%95%E7%94%A8dereference"><span class="toc-number">1.2.</span> <span class="toc-text">
+           引用（take reference）、解引用（dereference）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.3.</span> <span class="toc-text">
+           指针的大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88"><span class="toc-number">1.4.</span> <span class="toc-text">
+           二级指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%87%E8%83%BD%E6%8C%87%E9%92%88void-masteruniversal-pointer"><span class="toc-number">1.5.</span> <span class="toc-text">
+           万能指针void *（master&#x2F;universal pointer）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-number">1.6.</span> <span class="toc-text">
+           案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84"><span class="toc-number">1.6.1.</span> <span class="toc-text">
+           指针数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88"><span class="toc-number">1.6.2.</span> <span class="toc-text">
+           数组指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="toc-number">1.6.3.</span> <span class="toc-text">
+           函数指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2cpp%E4%B8%AD%E5%88%B0%E5%BA%95%E8%A6%81%E4%B8%8D%E8%A6%81%E5%8A%A0"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">
+           函数名的隐式转换，Cpp中到底要不要加&amp;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E7%AD%89%E6%95%88%E7%9A%84%E8%B0%83%E7%94%A8%E5%BD%A2%E5%BC%8Fc-cpp%E5%9D%87%E5%8F%AF"><span class="toc-number">1.6.3.2.</span> <span class="toc-text">
+           两种等效的调用形式（C、Cpp均可）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c%E5%92%8Ccpp%E5%AF%B9%E4%BA%8E%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.6.3.3.</span> <span class="toc-text">
+           C和Cpp对于函数指针的注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.3.4.</span> <span class="toc-text">
+           总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E7%9A%84typedef"><span class="toc-number">1.6.3.5.</span> <span class="toc-text">
+           函数指针类型的typedef</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84"><span class="toc-number">1.6.3.6.</span> <span class="toc-text">
+           练习：定义函数指针数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E8%BF%99%E4%B8%AA%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84"><span class="toc-number">1.6.3.7.</span> <span class="toc-text">
+           函数指针：函数的返回值是一个指针，这个指针指向一个数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E7%9A%84%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="toc-number">1.6.3.8.</span> <span class="toc-text">
+           函数指针：指向的函数返回值是另一个函数指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E7%9A%84%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84"><span class="toc-number">1.6.3.9.</span> <span class="toc-text">
+           函数指针：指向的函数返回值是函数指针数组</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E4%B8%8E%E6%95%B0%E7%BB%84%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.</span> <span class="toc-text">
+           指针与数组的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-number">2.1.</span> <span class="toc-text">
+           指针的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E5%87%8F%E6%B3%95%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">
+           指针减法的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E7%B3%96"><span class="toc-number">2.2.</span> <span class="toc-text">
+           语法糖</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">3.</span> <span class="toc-text">
+           二维数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">
+           初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="toc-number">3.2.</span> <span class="toc-text">
+           取二维数组的地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-number">3.3.</span> <span class="toc-text">
+           二维数组的本质内存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">3.3.1.</span> <span class="toc-text">
+           用一维数组指针指向二维数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">4.</span> <span class="toc-text">
+           三维数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-2"><span class="toc-number">4.1.</span> <span class="toc-text">
+           初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E4%B8%89%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="toc-number">4.2.</span> <span class="toc-text">
+           取三维数组的地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">
+           三维数组的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">
+           关联性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E7%BB%B4"><span class="toc-number">5.1.</span> <span class="toc-text">
+           降维</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%95%B0%E7%BB%84%E8%A1%8C%E6%95%B0-%E5%88%97%E6%95%B0%E5%A4%A7%E5%B0%8F"><span class="toc-number">5.2.</span> <span class="toc-text">
+           计算数组行数、列数大小</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

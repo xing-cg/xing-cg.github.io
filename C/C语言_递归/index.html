@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="递归内容         栈帧的理解 分治策略和递归                       复习函数                             编译链接和内存布局         根据不同的操作系统，一个进程可能被分配到不同的内存区域去执行。但是不管什么样的操作系统、什么样的计算机架构，进程使用的内存都可以按照功能大致分为以下4个部分：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言_递归">
+<meta property="og:url" content="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="递归内容         栈帧的理解 分治策略和递归                       复习函数                             编译链接和内存布局         根据不同的操作系统，一个进程可能被分配到不同的内存区域去执行。但是不管什么样的操作系统、什么样的计算机架构，进程使用的内存都可以按照功能大致分为以下4个部分：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814025249988.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814025448484.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032349532.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032439500.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032743926.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814033732211.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210815021627089.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816014510751.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814220256021.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814220321049.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816010631178.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816010852815.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816012051272.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816012904753.png">
+<meta property="article:published_time" content="2021-08-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.780Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814025249988.png"><title>C语言_递归 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_递归</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-08-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/" data-flag-title="C语言_递归"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="递归内容"   >
+          <a href="#递归内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归内容"></a> 递归内容</h1>
+      
+<ol>
+<li>栈帧的理解</li>
+<li>分治策略和递归</li>
+</ol>
+
+        <h1 id="复习函数"   >
+          <a href="#复习函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#复习函数"></a> 复习函数</h1>
+      
+
+        <h2 id="编译链接和内存布局"   >
+          <a href="#编译链接和内存布局" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编译链接和内存布局"></a> 编译链接和内存布局</h2>
+      
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814025249988.png" alt="image-20210814025249988" /></p>
+<p>根据不同的操作系统，一个进程可能被分配到不同的内存区域去执行。但是不管什么样的操作系统、什么样的计算机架构，进程使用的内存都可以按照功能大致分为以下4个部分：</p>
+<ol>
+<li>代码区：这个区域存储着被装入执行的二进制机器代码，处理器(CPU)会到这个区域取指并执行。</li>
+<li>数据区：用于存储全局变量, 静态全局变量，静态局部变量，字符串常量等。</li>
+<li>堆区：进程可以在堆区动态地请求一定大小的内存，并在用完之后归还给堆区。动态分配和回收是堆区的特点。</li>
+<li>栈区：函数被调时分配栈区，用于存放函数的参数值，局部变量等值；还要动态地存储函数之间的关系，以保证被调用函数在返回时恢复到被调用函数中继续执行。</li>
+</ol>
+
+        <h2 id="函数调用机制"   >
+          <a href="#函数调用机制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数调用机制"></a> 函数调用机制</h2>
+      
+<p>局部变量占用的内存是在程序执行过程中“动态”地建立和释放的。这种“动态”是通过栈由系统自动管理进行的。当任何一个函数调用发生时，系统都要作以下工作：</p>
+<ol>
+<li>建立栈帧空间；</li>
+<li>保护现场：主调函数运行状态和返回地址入栈；</li>
+<li>为被调函数传递数据（进行实参和形参的结合），同时形参获得存储空间；接着给局部变量分配空间；</li>
+<li>执行被调函数函数体；</li>
+<li>当被调函数执行完成，释放被调函数中局部变量占用的栈空间；</li>
+<li>恢复现场：取主调函数运行状态及返回地址，释放栈帧空间；</li>
+<li>继续主调函数后续语句。</li>
+</ol>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814025448484.png" alt="image-20210814025448484" /></p>
+<p>在进入main函数时，只创建了main函数的栈帧，在调用Add函数时才会建立Add函数的栈帧，当Add函数return时，栈帧收回。</p>
+
+        <h3 id="有启发的代码"   >
+          <a href="#有启发的代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#有启发的代码"></a> 有启发的代码</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* <span class="title function_">fun</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[<span class="number">10</span>]=&#123;<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span>,<span class="number">78</span>,<span class="number">89</span>,<span class="number">90</span>,<span class="number">100</span>&#125;;</span><br><span class="line">    <span class="keyword">return</span> ar;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span>* p = fun();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;<span class="number">10</span>;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,p[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>ar大小为10时，fun函数调用时还正常存在着ar数组的信息，而fun函数调用完后，再循环调用printf函数，致使冲掉了以前栈帧的信息，导致输出错误。</p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032349532.png" alt="image-20210814032349532" /></p>
+<p>而把fun函数中的ar大小改为1000时，运行结果就不一样了，输出的是正常的。</p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032439500.png" alt="image-20210814032439500" /></p>
+<p>因为，ar占用的栈帧很多，printf函数未能冲刷到之前ar的原有数据。但是本质上ar的信息还是失效了的。懂了这个例子，会对函数调用与栈帧分配的关系深入理解。</p>
+
+        <h1 id="分治策略与递归"   >
+          <a href="#分治策略与递归" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分治策略与递归"></a> 分治策略与递归</h1>
+      
+<p>分治策略：是将规模比较大的问题可分割成规模较小的相同问题。<strong>问题不变，规模变小</strong>。这自然导致递归过程的产生。分治与递归像一对孪生兄弟，经常同时应用在算法设计之中，并由此产生许多高效算法。</p>
+
+        <h2 id="分治法步骤"   >
+          <a href="#分治法步骤" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分治法步骤"></a> 分治法步骤</h2>
+      
+<p>在分治策略中递归地求解一个问题，在每层递归中应用如下三个步骤：</p>
+<ol>
+<li>分解：将问题划分成一些子问题，<strong>子问题的形式与原问题一样，只是规模更小</strong>。</li>
+<li>解决：递归地求解子问题。<strong>如果子问题的规模足够小，则停止递归，直接求解</strong>。</li>
+<li>合并：将小规模的解组合成原规模问题的解。</li>
+</ol>
+<p>递归函数的执行分为“递推”和“回归”两个过程，这两个过程由递归终止条件控制，即逐层递推，直至递归终止条件满足，终止递归，然后逐层回归。<br />
+　　递归调用同普通的函数调用一样，每当调用发生时，就要分配新的栈帧（形参数据，现场保护，局部变量）；而与普通的函数调用不同的是，由于递推的过程是一个逐层调用的过程，因此存在一个逐层连续的分配栈帧过程，直至遇到递归终止条件时，才开始回归，这时才逐层释放栈帧空间，返回到上一层，直至最后返回到主调函数。</p>
+
+        <h2 id="经典题目"   >
+          <a href="#经典题目" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#经典题目"></a> 经典题目</h2>
+      
+<p>我们对于递归要达到的初级水平是：可以把循环程序改为递归程序。</p>
+<p>最终的目标是：在递归的活动中，直接能捕获到某一步的运行情况。</p>
+
+        <h3 id="求解阶乘"   >
+          <a href="#求解阶乘" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#求解阶乘"></a> 求解阶乘</h3>
+      
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814032743926.png" alt="image-20210814032743926" /></p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n! = (n-1)!\*n</span><br><span class="line">(n-1)! = (n-2)!\*n-1</span><br><span class="line">(n-2)! = (n-3)!\*n-1</span><br><span class="line">...</span><br><span class="line">2! = 1! \* 2</span><br><span class="line">1! = 1</span><br></pre></td></tr></table></div></figure>
+<p>阶乘可递归的定义为：<br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814033732211.png" alt="image-20210814033732211" /></p>
+<p>可以看出是用阶乘定义阶乘，这种拿自己定义自己的方法称为递归定义。</p>
+<p>在写出递归程序前，我们先拿循环程序解决一下。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不考虑整型溢出</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">factorial</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        sum=sum*i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>递归的写法：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">factorial_recursion</span><span class="params">(<span class="type">int</span> n)</span><span class="comment">//factorial:阶乘 recursion:递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//n&gt;1</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> factorial_recursion(n<span class="number">-1</span>)*n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>可以把一切的循环改为递归，也可把一切的递归改为循环，两者本质上可以相通。</p>
+
+        <h3 id="整数倒序输出"   >
+          <a href="#整数倒序输出" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#整数倒序输出"></a> 整数倒序输出</h3>
+      
+<p>输入一个整数（无符号整型），用递归算法将整数倒序输出。</p>
+<p>循环法</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">reverse_print</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,n%<span class="number">10</span>);<span class="comment">//1234%10=4 ...</span></span><br><span class="line">        n=n/<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>递归法</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">reverse_print</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,n%<span class="number">10</span>);</span><br><span class="line">        reverse_print(n/<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>上述递归代码是正确的，即输出了&quot;4 3 2 1 &quot;。而如果调用函数和打印顺序颠倒，则结果会完全不一样。分析代码结构，打印函数是在调用reverse_print之前的，就是说我们是在递推的同时打印模10结果的，而回归时reverse_print函数后面没有语句，因此没有其他的操作。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        fun(n/<span class="number">10</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,n%<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>上述代码为先递归切割（每次都除10），最后则从1%10开始打印到1234%10，即&quot;1 2 3 4 &quot;。分析递归时，一定要明确各层函数在栈区中的结构和意义。那么我们分析，由于打印函数在fun函数之后，所以这个程序在从1234递推到1的过程中没有打印，而是在递推完毕回归时才打印（即执行fun函数之后的语句）。</p>
+
+        <h3 id="打印无序数组"   >
+          <a href="#打印无序数组" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#打印无序数组"></a> 打印无序数组</h3>
+      
+<p>有一个整型数组，数值无序，使用循环和递归完成打印和查询。</p>
+<p>循环方法：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Print_Ar</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    assert(ar!=<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,ar[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[]=&#123;<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>&#125;;</span><br><span class="line">    <span class="type">int</span> n = <span class="keyword">sizeof</span>(ar)/size(ar[<span class="number">0</span>]);</span><br><span class="line">    Print_Ar(ar,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>递归方法：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Print_recursion</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Print_recursion(ar,n<span class="number">-1</span>);<span class="comment">//n-1代表打印前n-1个元素</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,ar[n<span class="number">-1</span>]);<span class="comment">//n-1代表此时的第n下标值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Print_Ar</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    assert(ar!=<span class="literal">NULL</span>);</span><br><span class="line">    Print_recursion(ar, n)；</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[]=&#123;<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>&#125;;</span><br><span class="line">    <span class="type">int</span> n = <span class="keyword">sizeof</span>(ar)/size(ar[<span class="number">0</span>]);</span><br><span class="line">    Print_Ar(ar,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="思考1"   >
+          <a href="#思考1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#思考1"></a> 思考1</h4>
+      
+<p>如果把递归函数体中的<code>Print_recursion(ar,n-1);</code>中的<code>&quot;n-1&quot;</code>改为<code>&quot;n--&quot;</code>会发生什么现象？</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Print_recursion</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Print_recursion(ar,n--);<span class="comment">//n-1代表打印前n-1个元素</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,ar[n<span class="number">-1</span>]);<span class="comment">//n-1代表此时的第n下标值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Print_Ar</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    assert(ar!=<span class="literal">NULL</span>);</span><br><span class="line">    Print_recursion(ar, n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[]=&#123;<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>&#125;;</span><br><span class="line">    <span class="type">int</span> n = <span class="keyword">sizeof</span>(ar)/size(ar[<span class="number">0</span>]);</span><br><span class="line">    Print_Ar(ar,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>答案是运行时内存溢出了。因为<code>n--</code>是后置<code>--</code>，先取值运行函数，函数调用完才回写减一后的结果。开始时n是3，函数调用时传的值永远都是2。</p>
+
+        <h4 id="思考2"   >
+          <a href="#思考2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#思考2"></a> 思考2</h4>
+      
+<p>如果把递归函数体中的<code>Print_recursion(ar,n--);</code>中的<code>&quot;n--&quot;</code>改为<code>&quot;--n&quot;</code>会发生什么现象？</p>
+<p>答案是<code>&quot;随机值 12 23 &quot;</code>。因为<code>--n</code>是前置<code>--</code>，在运行函数前就把<code>n-1</code>并回写了，这导致一个问题，函数调用时，n已经减了1，那么打印<code>ar[n-1]</code>又会减1，则会导致<code>n=1</code>时调用<code>Print_recursion(ar, n);</code>时满足条件执行语句<code>--n</code>，此时n变0，接下来打印<code>ar[n-1]</code>即<code>ar[-1]</code>，就产生了越界。</p>
+
+        <h3 id="查询无序数组某值的下标"   >
+          <a href="#查询无序数组某值的下标" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查询无序数组某值的下标"></a> 查询无序数组某值的下标</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">FindValueIndex</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n, <span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span> (n &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (ar[n - <span class="number">1</span>] == val)</span><br><span class="line">		&#123;</span><br><span class="line">			pos = n - <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pos = FindValueIndex(ar, n - <span class="number">1</span>, val);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">findValue</span><span class="params">(<span class="type">const</span> <span class="type">int</span>*ar, <span class="type">int</span> n,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> FindValueIndex(ar, n, val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>老师的写法：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">FindValueIndex</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n, <span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">1</span> || ar[n<span class="number">-1</span>] == val)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> n<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FindValueIndex(ar, n<span class="number">-1</span>, val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">findValue</span><span class="params">(<span class="type">const</span> <span class="type">int</span>*ar, <span class="type">int</span> n,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> FindValueIndex(ar, n, val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="全排列子集问题树形结构组合树子集树"   >
+          <a href="#全排列子集问题树形结构组合树子集树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#全排列子集问题树形结构组合树子集树"></a> 全排列/子集问题：树形结构(组合树/子集树)</h3>
+      
+<p>现要求输出集合<code>&#123;1,2,3&#125;</code>的全部子集。</p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210815021627089.png" alt="image-20210815021627089" /><br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816014510751.png" alt="image-20210816014510751" /></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span>* ar,<span class="type">int</span>* br,<span class="type">int</span> i,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i==n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;i&lt;n;++k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(br[k]==<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,ar[k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        br[i]=<span class="number">1</span>;</span><br><span class="line">        fun(i+<span class="number">1</span>,n);</span><br><span class="line">        br[i]=<span class="number">0</span>;</span><br><span class="line">        fun(i+<span class="number">1</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> n = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> ar[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="type">int</span> br[]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    fun(ar,br,<span class="number">0</span>,n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>此类递归程序的时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，空间复杂度为树的高度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">S(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
+
+        <h2 id="图解递归过程"   >
+          <a href="#图解递归过程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#图解递归过程"></a> 图解递归过程</h2>
+      
+
+        <h3 id="代码的调动过程"   >
+          <a href="#代码的调动过程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码的调动过程"></a> 代码的调动过程</h3>
+      
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814220256021.png" alt="image-20210814220256021" /></p>
+
+        <h3 id="栈帧的动态调动过程"   >
+          <a href="#栈帧的动态调动过程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#栈帧的动态调动过程"></a> 栈帧的动态调动过程</h3>
+      
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210814220321049.png" alt="image-20210814220321049" /></p>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+      
+
+        <h2 id="关于分配栈帧"   >
+          <a href="#关于分配栈帧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关于分配栈帧"></a> 关于分配栈帧</h2>
+      
+<p>函数被调用，不管是自己调用自己，还是被其它函数调用，都将会给被调用函数分配栈帧。</p>
+
+        <h2 id="关于死循环"   >
+          <a href="#关于死循环" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关于死循环"></a> 关于死循环</h2>
+      
+<p>存在死循环，但不存在无穷递归。即递归函数必须要有一个是递归结束的出口（要有递归中止的条件语句）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">factorial</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; ;++i)<span class="comment">//中间语句缺省，意味着死循环。</span></span><br><span class="line">    &#123;</span><br><span class="line">        sum=sum*i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">factorial_recursion</span><span class="params">(<span class="type">int</span> n)</span><span class="comment">//factorial:阶乘 recursion:递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">false</span>)<span class="comment">//达不到原来的函数出口了</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> factorial_recursion(n<span class="number">-1</span>)*n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>死循环只是重复的在开辟的某一个空间里反复计算赋值，过程都是在一个内存空间完成的。即时间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，空间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">S(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。死循环只是全负荷的使用CPU的运算资源，但不会影响内存结构。</p>
+<p>而无穷递归是反复开辟新的栈帧，时间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，空间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">S(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，因为栈区的大小是有限的，默认为1M，如果一直递归下去，则会溢出栈区破坏内存结构，则不可能一直递归下去。所以问题的规模不要过大，递归过深，引起栈溢出。</p>
+
+        <h1 id="找数组某一值"   >
+          <a href="#找数组某一值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#找数组某一值"></a> 找数组某一值</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Find</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar,<span class="type">int</span> n,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&lt;<span class="number">1</span> || ar[n<span class="number">-1</span>]==val)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> n<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Find(ar,n<span class="number">-1</span>,val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Find</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar,<span class="type">int</span> n,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span> (n &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (ar[n - <span class="number">1</span>] == val)</span><br><span class="line">		&#123;</span><br><span class="line">			pos=n<span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pos = FindValueIndex(ar, n - <span class="number">1</span>, val);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="体会递归的分析"   >
+          <a href="#体会递归的分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#体会递归的分析"></a> 体会递归的分析</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Print</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Print(ar,n<span class="number">-1</span>);<span class="comment">//括号内的n-1改成n--和--n,结果都会不一样。</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,ar[n<span class="number">-1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Print_Ar</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    assert(ar!=nullptr);</span><br><span class="line">    Print(ar,n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[] = &#123; <span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span> &#125;;</span><br><span class="line">	<span class="type">int</span> n = <span class="keyword">sizeof</span>(ar) / <span class="keyword">sizeof</span>(ar[<span class="number">0</span>]);</span><br><span class="line">	Print_Ar(ar, n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="作业"   >
+          <a href="#作业" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#作业"></a> 作业</h1>
+      
+<ol>
+<li>斐波那契数列<br />
+循环法</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> a=<span class="number">1</span>,b=<span class="number">1</span>,c=<span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;++i)</span><br><span class="line">   &#123;</span><br><span class="line">       c=a+b;</span><br><span class="line">       b=a;</span><br><span class="line">       a=c;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>递归法（目标要达到时间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>）<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/solution/fei-bo-na-qi-shu-lie-wen-ti-de-si-chong-jie-fa-by-/" >https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/solution/fei-bo-na-qi-shu-lie-wen-ti-de-si-chong-jie-fa-by-/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Fibonacci</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Fibonacci(n - <span class="number">1</span>) + Fibonacci(n - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">Fibonacci_Ar</span><span class="params">(<span class="type">int</span>* ar,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (i; i &lt;= n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        ar[i] = ar[i - <span class="number">2</span>] + ar[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ar[n];</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ar[<span class="number">101</span>] = &#123; <span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span> &#125;;</span><br><span class="line">    <span class="type">int</span> fibo = Fibonacci_Ar(ar,<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, fibo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*记忆化递归解法</span></span><br><span class="line"><span class="comment">解题思路:</span></span><br><span class="line"><span class="comment">既然普通的递归解法产生大量的重复计算，如果已经计算过的f(x) 把结果保存不就减少了计算么？ 用一个数组记忆计算结果，如果f(x)已经计算过了，直接返回a[x]</span></span><br><span class="line"><span class="comment">时间复杂度:</span></span><br><span class="line"><span class="comment">O(n)， 由于计算过的记忆下了，只要n次</span></span><br><span class="line"><span class="comment">空间复杂度:</span></span><br><span class="line"><span class="comment">O(n)， 递归调用栈消耗了线性数量级，记忆数组使用了n的空间</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">#define N <span class="number">100</span> + <span class="number">1</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   <span class="type">int</span> arr[N] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, &#125; ;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (arr[n] || !n)</span><br><span class="line">           <span class="keyword">return</span> arr[n] ;</span><br><span class="line">       <span class="keyword">return</span> arr[n] = (fib(n-<span class="number">1</span>) + fib(n-<span class="number">2</span>))%<span class="number">1000000007</span> ;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<ol start="2">
+<li>二分查找递归法</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">binary_search</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> n, <span class="type">int</span> val, <span class="type">int</span> left, <span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> mid = (right+left)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">1</span> || ar[mid] == val)</span><br><span class="line">    &#123;</span><br><span class="line">        pos = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ar[mid]&gt;val)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> binary_search(ar, n/<span class="number">2</span>, val, left, right<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> binary_search(ar, n/<span class="number">2</span>, val, left+<span class="number">1</span>, right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">int FindValueIndex(const int* ar, int n, int val)</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">if (n &lt; 1 || ar[n-1] == val)</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    return n-1;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">   else</span></span><br><span class="line"><span class="comment">   &#123;</span></span><br><span class="line"><span class="comment">       return FindValueIndex(ar, n-1, val);</span></span><br><span class="line"><span class="comment">   &#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">findValue</span><span class="params">(<span class="type">const</span> <span class="type">int</span>*ar, <span class="type">int</span> n,<span class="type">int</span> val)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> binary_search(ar, n, val, <span class="number">0</span>, n<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li>思考以下代码<code>'#'</code>会输出几次？</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i==n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;# &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        fun(i+<span class="number">1</span>,n);</span><br><span class="line">        fun(i+<span class="number">1</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">3</span>;</span><br><span class="line">    fun(<span class="number">0</span>,n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>答案是输出8次。如果只写了一行<code>fun(i+1,n);</code>则只打印1次。思考为什么。<br />
+大体上分析用层次分析，具体调动是深度优先搜索分析。<br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816010631178.png" alt="image-20210816010631178" /><br />
+只调用一次的情况：<br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816010852815.png" alt="image-20210816010852815" /><br />
+只有一条路径，即只打印一次。</p>
+<p>调用两次的情况：<br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816012051272.png" alt="image-20210816012051272" /><br />
+规律：调用两次时，此类递归程序的时间复杂度为O(2^n)，空间复杂度为树的高度S(n)。</p>
+<p>层次分析：（一层一层看，而不是具体的实现步骤）<br />
+<img src="../../images/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/image-20210816012904753.png" alt="image-20210816012904753" /><br />
+由此题可以延伸出全排列/子集树(组合树)问题！</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/">https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E9%80%92%E5%BD%92/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_结构体</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88/"><span class="paginator-prev__text">C语言_二级指针</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           递归内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%8D%E4%B9%A0%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">
+           复习函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5%E5%92%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-number">2.1.</span> <span class="toc-text">
+           编译链接和内存布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">2.2.</span> <span class="toc-text">
+           函数调用机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%90%AF%E5%8F%91%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.1.</span> <span class="toc-text">
+           有启发的代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5%E4%B8%8E%E9%80%92%E5%BD%92"><span class="toc-number">3.</span> <span class="toc-text">
+           分治策略与递归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text">
+           分治法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE"><span class="toc-number">3.2.</span> <span class="toc-text">
+           经典题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E9%98%B6%E4%B9%98"><span class="toc-number">3.2.1.</span> <span class="toc-text">
+           求解阶乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%80%92%E5%BA%8F%E8%BE%93%E5%87%BA"><span class="toc-number">3.2.2.</span> <span class="toc-text">
+           整数倒序输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="toc-number">3.2.3.</span> <span class="toc-text">
+           打印无序数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%831"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">
+           思考1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%832"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">
+           思考2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%97%A0%E5%BA%8F%E6%95%B0%E7%BB%84%E6%9F%90%E5%80%BC%E7%9A%84%E4%B8%8B%E6%A0%87"><span class="toc-number">3.2.4.</span> <span class="toc-text">
+           查询无序数组某值的下标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E6%8E%92%E5%88%97%E5%AD%90%E9%9B%86%E9%97%AE%E9%A2%98%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E7%BB%84%E5%90%88%E6%A0%91%E5%AD%90%E9%9B%86%E6%A0%91"><span class="toc-number">3.2.5.</span> <span class="toc-text">
+           全排列&#x2F;子集问题：树形结构(组合树&#x2F;子集树)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%A7%A3%E9%80%92%E5%BD%92%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text">
+           图解递归过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%9A%84%E8%B0%83%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.1.</span> <span class="toc-text">
+           代码的调动过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%B8%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%B0%83%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.2.</span> <span class="toc-text">
+           栈帧的动态调动过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">
+           总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%88%86%E9%85%8D%E6%A0%88%E5%B8%A7"><span class="toc-number">4.1.</span> <span class="toc-text">
+           关于分配栈帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%AD%BB%E5%BE%AA%E7%8E%AF"><span class="toc-number">4.2.</span> <span class="toc-text">
+           关于死循环</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%BE%E6%95%B0%E7%BB%84%E6%9F%90%E4%B8%80%E5%80%BC"><span class="toc-number">5.</span> <span class="toc-text">
+           找数组某一值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%93%E4%BC%9A%E9%80%92%E5%BD%92%E7%9A%84%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">
+           体会递归的分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A"><span class="toc-number">7.</span> <span class="toc-text">
+           作业</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

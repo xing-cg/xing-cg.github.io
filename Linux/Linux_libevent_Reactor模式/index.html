@@ -1,0 +1,477 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         IO框架库 Reactor模式的IO框架库包含哪些组件 libevent是一个轻量级的I&#x2F;O框架库。                       I&#x2F;O框架库        I&#x2F;O框架库以库函数的形式，封装了较为底层的系统调用。 各种I&#x2F;O框架库的实现原理基本相似，要么以Reactor模式实现，要么以Proactor模式实现，要么同时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_libevent_Reactor模式">
+<meta property="og:url" content="https://xing-cg.github.io/Linux/Linux_libevent_Reactor%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="内容         IO框架库 Reactor模式的IO框架库包含哪些组件 libevent是一个轻量级的I&#x2F;O框架库。                       I&#x2F;O框架库        I&#x2F;O框架库以库函数的形式，封装了较为底层的系统调用。 各种I&#x2F;O框架库的实现原理基本相似，要么以Reactor模式实现，要么以Proactor模式实现，要么同时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_libevent/image-20220524104612105.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/Linux_libevent/image-20220423142048988.png">
+<meta property="article:published_time" content="2022-03-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.804Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/Linux_libevent/image-20220524104612105.png"><title>Linux_libevent_Reactor模式 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Linux/Linux_libevent_Reactor%E6%A8%A1%E5%BC%8F/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Linux_libevent_Reactor模式</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_libevent_Reactor%E6%A8%A1%E5%BC%8F/" data-flag-title="Linux_libevent_Reactor模式"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
+      
+<ol>
+<li>IO框架库</li>
+<li>Reactor模式的IO框架库包含哪些组件</li>
+<li>libevent是一个轻量级的I/O框架库。</li>
+</ol>
+
+        <h1 id="io框架库"   >
+          <a href="#io框架库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#io框架库"></a> I/O框架库</h1>
+      
+<p>I/O框架库以库函数的形式，封装了较为底层的系统调用。<br />
+各种I/O框架库的实现原理基本相似，要么以Reactor模式实现，要么以Proactor模式实现，要么同时两种模式实现。</p>
+
+        <h1 id="reactor模式"   >
+          <a href="#reactor模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#reactor模式"></a> Reactor模式</h1>
+      
+<p><code>Reactor模式</code>要求<strong>主线程（IO处理单元）只负责监听文件描述符上是否有事件发生</strong>，有的话就立即向工作线程（逻辑单元）通知该事件。除此之外，主线程不做其他实质性的工作。即读写数据、接受新的连接、处理客户请求均在工作线程中完成。</p>
+
+        <h2 id="工作流程"   >
+          <a href="#工作流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工作流程"></a> 工作流程</h2>
+      
+<p>使用同步I/O模型（以<code>epoll_wait</code>为例）实现的<code>Reactor模式</code>的工作流程是：</p>
+<ol>
+<li><strong>主线程往<code>epoll</code>内核事件表中注册<code>socket</code>上的读就绪事件</strong>。</li>
+<li>主线程调用<code>epoll_wait</code>等待<code>socket</code>上有数据可读。</li>
+<li>当<code>socket</code>上有数据可读时，<code>epoll_wait</code>通知主线程。<strong>主线程则将<code>socket</code>可读事件放入请求队列</strong>。</li>
+<li>睡眠在请求队列上的某个<strong>工作线程</strong>被唤醒，它从<code>socket</code>读取数据，并处理客户请求，然后<strong>工作线程往<code>epoll</code>内核事件表中注册该<code>socket</code>上的写就绪事件</strong>。</li>
+<li>主线程调用<code>epoll_wait</code>等待<code>socket</code>可写。</li>
+<li>当<code>socket</code>可写时，<code>epoll_wait</code>通知<strong>主线程</strong>。<strong>主线程将<code>socket</code>可写事件放入请求队列</strong>。</li>
+<li>睡眠在请求队列上的某个<strong>工作线程</strong>被唤醒，它往<code>socket</code>上写入服务器处理客户请求的结果。</li>
+</ol>
+<p>总结：主线程注册读事件，可读时，主线程放入请求队列；工作线程读数据，处理请求，工作线程注册写事件；可写时，主线程放入请求队列；工作线程写数据。</p>
+<p><img src="../../images/Linux_libevent/image-20220524104612105.png" alt="image-20220524104612105" /></p>
+
+        <h2 id="组件框架"   >
+          <a href="#组件框架" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#组件框架"></a> 组件框架</h2>
+      
+<p>基于Reactor模式的I/O框架库包含如下几个组件：</p>
+<ol>
+<li>句柄(Handle)</li>
+<li>事件多路分发器(Event Demultiplexer)</li>
+<li>事件处理器(Event Handler)和具体的事件处理器(Concrete EventHandler)</li>
+<li>Reactor。</li>
+</ol>
+<p>这些组件的关系如下图所示。</p>
+<p><img src="../../images/Linux_libevent/image-20220423142048988.png" alt="image-20220423142048988" /></p>
+<ul>
+<li>句柄
+<ul>
+<li>说白了就是文件描述符，句柄在windows上某个资源的id，因为libevent库是跨平台的，所以叫法容易混用。</li>
+</ul>
+</li>
+<li>事件多路分发器
+<ul>
+<li>事件的到来是随机的、异步的。比如我们无法预知程序何时收到一个客户连接请求，又亦或收到一个暂停信号，所以程序需要循环地等待判断有无事件产生，这就是<strong>事件循环</strong>。</li>
+<li>在事件循环中，等待事件一般使用I/O复用技术来实现。I/O框架库一般将系统支持的各种I/O复用系统调用封装成统一的接口，称为<strong>事件多路分发器</strong>。因此事件多路分发器可以理解为封装了IO复用，提供了一个更便于使用的接口。</li>
+<li>事件多路分发器的demultiplex方法是等待事件的核心函数，其内部调用的是select、poll、epoll_wait等函数。</li>
+<li>事件多路分发器还需要实现<code>register_event</code>和<code>remove_event</code>方法，以供调用者给事件多路分发器中添加事件和从中删除事件。</li>
+</ul>
+</li>
+<li>事件处理器和具体事件处理器
+<ul>
+<li>事件处理器执行事件对应的业务逻辑。它通常包含一个或多个<code>handle_event</code>回调函数，这些回调函数在事件循环中被执行。</li>
+<li>I/O框架库提供的事件处理器通常是一个接口，用户需要继承它来实现自己的事件处理器，即具体事件处理器。<strong>因此，事件处理器中的回调函数一般被声明为虚函数，以支持用户的扩展</strong>。</li>
+<li>此外，事件处理器一般还提供一个<code>get_handle</code>方法，它返回与该事件处理器关联的句柄。那么，事件处理器和句柄有什么关系？<strong>当事件多路分发器检测到有事件发生时，它是通过句柄来通知应用程序</strong>的。因此，我们必须将事件处理器和句柄绑定，才能在事件发生时获取到正确的事件处理器。</li>
+</ul>
+</li>
+<li>Reactor是I/O框架库的核心。它提供的几个主要方法是：
+<ul>
+<li><code>handle_events</code>，该方法执行<strong>事件循环</strong>。重复过程：等待事件，然后依次处理所有就绪事件对应的事件处理器。</li>
+<li><code>register_handler</code>，该方法调用事件多路分发器的<code>register_event</code>方法来给事件多路分发器中注册一个事件。</li>
+<li><code>remove_handler</code>，该方法调用事件多路分发器的<code>remove_event</code>方法来删除事件多路分发器中的一个事件。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="libevent"   >
+          <a href="#libevent" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#libevent"></a> libevent</h1>
+      
+<p>libevent支持的事件类型</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EV_TIMEOUT		0x01	<span class="comment">/* 定时事件 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EV_READ			0x02	<span class="comment">/* 可读事件 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EV_WRITE		0x04	<span class="comment">/* 可写事件 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EV_SIGNAL		0x08	<span class="comment">/* 信号事件 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EV_PERSIST		0x10	<span class="comment">/* 永久事件 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EV_ET			0x20   <span class="comment">/*边沿触发事件,需要IO复用系统调用支持,如epoll*/</span></span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="编程流程"   >
+          <a href="#编程流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编程流程"></a> 编程流程</h2>
+      
+<ol>
+<li>定义、创建框架示例</li>
+<li>向框架示例注册、注销事件：指定具体哪个<strong>base</strong>、哪个<strong>描述符</strong>，哪种<strong>事件</strong>，绑定<strong>回调函数</strong>和<strong>参数</strong>
+<ol>
+<li>有哪些事件：IO事件（<code>fd</code>、<code>EV_READ</code>、<code>fun_cb</code>）、信号事件（<code>sig</code>、<code>EV_SIGNAL</code>、<code>sig_cb</code>）、定时器事件（<code>-1</code>、<code>EV_TIMEOUT</code>、<code>tv_cb</code>）</li>
+</ol>
+</li>
+<li>开启事件循环，实际上就是框架底层调用<code>select/poll/epoll</code></li>
+<li>事件发生之后，调用回调函数如<code>fun_cb</code>。</li>
+</ol>
+
+        <h2 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/signal.h&gt;</span>	<span class="comment">//SIGINT</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;event.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">signal_cb</span><span class="params">(<span class="type">int</span> fd, <span class="type">short</span> event, <span class="type">void</span> * argc)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event_base</span>* <span class="title">base</span> =</span> (event_base*)argc;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">delay</span> =</span> &#123;<span class="number">2</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Caught an interrupt signal; exiting cleanly in 2 seconds...\n&quot;</span>);</span><br><span class="line">    event_base_loopexit(base, &amp;delay);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">timeout_cb</span><span class="params">(<span class="type">int</span> fd, <span class="type">short</span> event, <span class="type">void</span> * argc)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;timeout\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event_base</span>* <span class="title">base</span> =</span> event_init();</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event</span>* <span class="title">signal_event</span> =</span> evsignal_new(base, SIGINT, signal_cb, base);</span><br><span class="line">    event_add(signal_event, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    timeval tv = &#123;<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event</span>* <span class="title">timeout_event</span> =</span> evtimer_new(base, timeout_cb, <span class="literal">NULL</span>);</span><br><span class="line">    event_add(timeout_event, &amp;tv);</span><br><span class="line">    </span><br><span class="line">    event_base_dispatch(base);</span><br><span class="line">    </span><br><span class="line">    event_free(timeout_event);</span><br><span class="line">    event_free(signal_event);</span><br><span class="line">    event_base_free(base);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>上面的代码描述了使用Libevent库的主要逻辑：</p>
+<ol>
+<li>调用<code>event_init</code>函数创建<code>event_base</code>对象。一个<code>event_base</code>相当于一个Reactor实例。</li>
+<li>创建具体的事件处理器，并设置他们所从属的Reactor实例。本例中的**<code>evsignal_new</code><strong>用于创建信号事件处理器，</strong><code>evtimer_new</code>**用于创建定时事件处理器，<strong>它们是定义在<code>/include/event2/event.h</code>文件中的宏</strong>，代码如下。其中<code>evtimer_new</code>的原型<code>event_new</code>的第二个参数默认赋<code>-1</code>，第三个参数默认赋<code>0</code>。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> evsignal_new(b, x, cb, arg) \</span></span><br><span class="line"><span class="meta">event_new((b), (x), EV_SIGNAL|EV_PERSIST, (cb), (arg))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> evtimer_new(b, cb, arg) \</span></span><br><span class="line"><span class="meta">event_new((b), -1, 0, (cb), (arg))</span></span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li>回调函数的格式需要统一：<code>void fun_cb(int fd, short event, void* argc)</code></li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/signal.h&gt;</span>	<span class="comment">//SIGINT</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;event.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">sig_fun</span><span class="params">(<span class="type">int</span> fd, <span class="type">short</span> event, <span class="type">void</span> * argc)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sig=%d\n&quot;</span>, fd);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">timeout_fun</span><span class="params">(<span class="type">int</span> fd, <span class="type">short</span> event, <span class="type">void</span> * argc)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(ev &amp; EV_TIMEOUT)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;timeout\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event_base</span>* <span class="title">base</span> =</span> event_init();</span><br><span class="line">    assert(base != <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event</span>* <span class="title">sig_ev</span> =</span> evsignal_new(base, SIGINT, sig_fun, <span class="literal">NULL</span>);</span><br><span class="line">    event_add(sig_ev, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">tv</span> =</span> &#123;<span class="number">5</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">//定时器不需要fd描述符、也不需要信号代号。</span></span><br><span class="line">    <span class="comment">//所以，相应地:	evtimer_new对应的timeout_fun回调函数中的fd参数默认赋-1</span></span><br><span class="line">    <span class="comment">//				evtimer_new对应的event_new函数的信号代号参数默认赋-1 </span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">event</span>* <span class="title">timeout_ev</span> =</span> evtimer_new(base, timeout_fun, <span class="literal">NULL</span>);</span><br><span class="line">    event_add(timeout_ev, &amp;tv);</span><br><span class="line">    </span><br><span class="line">    event_base_dispatch(base);	<span class="comment">//开启事件循环</span></span><br><span class="line">    </span><br><span class="line">    event_free(sig_ev);</span><br><span class="line">    event_free(timeout_ev);</span><br><span class="line">    event_base_free(base);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>ctrl+c</code>终止进程的信号代号是2，但是信号事件并没有fd描述符，而是巧妙地复用了fd，写入信号代号。</p>
+
+        <h2 id="编译测试"   >
+          <a href="#编译测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编译测试"></a> 编译测试</h2>
+      
+<p><code>gcc</code>编译链接命令后需要加后缀<code>-levent</code>。</p>
+
+        <h1 id="mainserver"   >
+          <a href="#mainserver" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mainserver"></a> MainServer</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TcpServer</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ThreadPool</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Reactor</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainServer</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    TcpServer * m_server;</span><br><span class="line">    ThreadPool * m_pool;</span><br><span class="line">    Reactor * m_reactor;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MainServer</span>();</span><br><span class="line">    ~<span class="built_in">MainServer</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">ListenEventCallBack</span><span class="params">(<span class="type">int</span> fd, <span class="type">short</span> events, <span class="type">void</span> * arg)</span></span>;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;mainServer.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;tcpServer.h&quot;</span></span></span><br><span class="line">MainServer::<span class="built_in">Mainserver</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_server = <span class="keyword">new</span> TcpServer;</span><br><span class="line">&#125;</span><br><span class="line">MainServer::~<span class="built_in">MainServer</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_server = <span class="keyword">new</span> <span class="built_in">TcpServer</span>(IpAddressPort&#123;<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8000</span>&#125;);</span><br><span class="line">    m_pool = <span class="keyword">new</span> <span class="built_in">ThreadPool</span>(<span class="number">3</span>);</span><br><span class="line">    m_reactor = <span class="keyword">new</span> <span class="built_in">Reactor</span>();</span><br><span class="line">    m_reactor-&gt;<span class="built_in">AddEventAndHandler</span>(m_server-&gt;GetLfd, EV_READ | EV_PERSIST, MainServer::ListenEventCallBack)</span><br><span class="line">&#125;</span><br><span class="line">MainServer::<span class="built_in">ListenEventCallBack</span>(<span class="type">int</span> fd, <span class="type">short</span> events, <span class="type">void</span> * arg)</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Linux/Linux_libevent_Reactor%E6%A8%A1%E5%BC%8F/">https://xing-cg.github.io/Linux/Linux_libevent_Reactor%E6%A8%A1%E5%BC%8F/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Cpp/Cpp_functional/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Cpp_functional</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Linux/Linux_IO%E5%A4%8D%E7%94%A8_select&amp;poll/"><span class="paginator-prev__text">Linux_IO复用_select&amp;poll</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#io%E6%A1%86%E6%9E%B6%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">
+           I&#x2F;O框架库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">
+           Reactor模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">
+           工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%A1%86%E6%9E%B6"><span class="toc-number">3.2.</span> <span class="toc-text">
+           组件框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#libevent"><span class="toc-number">4.</span> <span class="toc-text">
+           libevent</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text">
+           编程流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.2.</span> <span class="toc-text">
+           示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%B5%8B%E8%AF%95"><span class="toc-number">4.3.</span> <span class="toc-text">
+           编译测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mainserver"><span class="toc-number">5.</span> <span class="toc-text">
+           MainServer</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

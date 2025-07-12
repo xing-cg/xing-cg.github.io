@@ -1,0 +1,479 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="结构体         关于;的问题：  一般来说，大括号&#123;&#125;结尾后不用再加;。但是结构体的定义中的大括号&#123;&#125;后面要加;。因为结构体的定义属于数据的定义，只是有了大括号的形式而已，而数据的定义后面都要加;，因此结构体的定义中的大括号&#123;&#125;后面要加;。 函数、if语句、for语句中的&#123;&amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言_结构体_sizeof_分段">
+<meta property="og:url" content="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93_sizeof_%E5%88%86%E6%AE%B5/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="结构体         关于;的问题：  一般来说，大括号&#123;&#125;结尾后不用再加;。但是结构体的定义中的大括号&#123;&#125;后面要加;。因为结构体的定义属于数据的定义，只是有了大括号的形式而已，而数据的定义后面都要加;，因此结构体的定义中的大括号&#123;&#125;后面要加;。 函数、if语句、for语句中的&#123;&amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-12T05:38:11.779Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>C语言_结构体_sizeof_分段 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93_sizeof_%E5%88%86%E6%AE%B5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">C语言_结构体_sizeof_分段</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-01-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93_sizeof_%E5%88%86%E6%AE%B5/" data-flag-title="C语言_结构体_sizeof_分段"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="结构体"   >
+          <a href="#结构体" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体"></a> 结构体</h1>
+      
+<blockquote>
+<p>关于<code>;</code>的问题：</p>
+<ol>
+<li>一般来说，大括号<code>&#123;&#125;</code>结尾后不用再加<code>;</code>。但是结构体的定义中的大括号<code>&#123;&#125;</code>后面要加<code>;</code>。因为结构体的定义属于数据的定义，只是有了大括号的形式而已，而数据的定义后面都要加<code>;</code>，因此结构体的定义中的大括号<code>&#123;&#125;</code>后面要加<code>;</code>。</li>
+<li>函数、if语句、for语句中的<code>&#123;&#125;</code>是语句的定义，则不用加<code>;</code>。</li>
+</ol>
+</blockquote>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> id;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> age;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">10</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>C语言中，<code>struct</code>和<code>结构体名字</code>是一体的，共同才能合成一个类型，不能只写<code>Stu</code>。</p>
+
+        <h1 id="结构体的定义"   >
+          <a href="#结构体的定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体的定义"></a> 结构体的定义</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Stu</span> <span class="title">stu</span>;</span></span><br><span class="line">    stu.age = <span class="number">17</span>;</span><br><span class="line">    stu.id = <span class="number">123456</span>;</span><br><span class="line">    <span class="built_in">strcpy</span>(stu.name, <span class="string">&quot;xcg&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Age: %u, ID: %u, Name: %s\n&quot;</span>, stu.age, stu.id, stu.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="结构体的大小"   >
+          <a href="#结构体的大小" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体的大小"></a> 结构体的大小</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a;          <span class="comment">// 4</span></span><br><span class="line">    <span class="type">char</span> b;         <span class="comment">// 1  --&gt; 实际: 4</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%u\n&quot;</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Test));</span><br><span class="line">&#125;<span class="comment">// 8</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="字节对齐"   >
+          <a href="#字节对齐" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字节对齐"></a> 字节对齐</h2>
+      
+<p>为了效率，即使char只占用一个字节，也会以结构体中大的数据类型为参考多占一些空间。如此在传输过程中就无需再去一个一个找分量，而是可以直接按照整体处理。一个时钟周期，64位数据都会一次性传输完成，所以说虽然浪费了一些空间，但换来了提高效率。</p>
+<ol>
+<li>每一个元素的偏移量（相对0），都是自身类型大小的整数倍（0也算）。</li>
+<li>结构体的整体大小，是内部最大的基础数据类型大小的整数倍。</li>
+<li>我们控制不了的：<strong>结构体的首地址，是体内最大基本数据类型大小的整数倍。</strong></li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a;          <span class="comment">// 4</span></span><br><span class="line">    <span class="type">char</span> b;         <span class="comment">// 1  --&gt; 实际: 2</span></span><br><span class="line">    <span class="type">short</span> c;        <span class="comment">// 2</span></span><br><span class="line">&#125;;<span class="comment">//8</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a;          <span class="comment">// 4</span></span><br><span class="line">    <span class="type">char</span> b;         <span class="comment">// 1  --&gt; 实际: 2</span></span><br><span class="line">    <span class="type">short</span> c;        <span class="comment">// 2</span></span><br><span class="line">    <span class="type">char</span> d;         <span class="comment">// 1  --&gt; 实际: 4</span></span><br><span class="line">&#125;;<span class="comment">//12</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a;          <span class="comment">// 4</span></span><br><span class="line">    <span class="type">char</span> b;         <span class="comment">// 1</span></span><br><span class="line">    <span class="type">char</span> d;         <span class="comment">// 1</span></span><br><span class="line">    <span class="type">short</span> c;        <span class="comment">// 2</span></span><br><span class="line">    <span class="type">short</span> e[<span class="number">10</span>];    <span class="comment">// 10 --&gt; 12</span></span><br><span class="line">&#125;;<span class="comment">//20</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>有办法关闭字节对齐特性：<code>#pragma comment package 1</code></p>
+</blockquote>
+
+        <h1 id="typedef"   >
+          <a href="#typedef" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#typedef"></a> typedef</h1>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> id;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> age;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">11</span>];</span><br><span class="line">&#125;Stu;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="结构体指针类型"   >
+          <a href="#结构体指针类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体指针类型"></a> 结构体指针类型</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> id;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> age;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">11</span>];</span><br><span class="line">&#125;*PStu;</span><br></pre></td></tr></table></div></figure>
+<p>如此定义，则效果为：<code>PStu</code>相当于<code>Stu*</code></p>
+<p><code>Stu* stu = (Stu*)malloc(sizeof(Stu));</code>就可以写为</p>
+<p><code>PStu stu = (PStu)malloc(sizeof(Stu));</code></p>
+
+        <h2 id="星号的结合问题"   >
+          <a href="#星号的结合问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#星号的结合问题"></a> 星号的结合问题</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> * PMyInt;</span><br></pre></td></tr></table></div></figure>
+<p>如此定义，<code>PMyInt</code>相当于<code>int*</code>，即是一个int指针类型。但是，实际上，<code>*</code>星号是跟着名字<code>PMyInt</code>结合的。<code>int*</code>这种写法只是大多数人的习惯而已。</p>
+<p>因此，<code>typedef int MyInt, *PMyInt;</code>才解释得通。如果<code>typedef int * MyInt, PMyInt</code>，则就变成了<code>MyInt</code>是指针类型，而<code>PMyInt</code>变成了int类型！</p>
+
+        <h1 id="堆创建结构体"   >
+          <a href="#堆创建结构体" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#堆创建结构体"></a> 堆创建结构体</h1>
+      
+
+        <h2 id="stdlib"   >
+          <a href="#stdlib" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stdlib"></a> stdlib</h2>
+      
+<p>C Standard General Utilities Library</p>
+
+        <h3 id="malloc"   >
+          <a href="#malloc" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h3>
+      
+<p>分配指定字节数的内存块，返回一个无类型指针，需要强制转换类型。此空间的伸缩不受限制，因此需要显式分配、释放。</p>
+<p>在小型设备上如果内存不够，则有可能会返回NULL。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Stu* stu = (Stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Stu));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="free"   >
+          <a href="#free" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#free"></a> free</h3>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Stu* stu = (Stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Stu));</span><br><span class="line">    <span class="built_in">free</span>(stu);</span><br><span class="line">    stu = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>为什么要置空？不成文的规定：指针是否有效？由指针是否为空决定。如果指针不空则认为是指向的内容有效。</p>
+<p>如果不置空，即在释放指向的内容后依旧保留此指针，就成为了无意义的乱指。称为“野指针”或“迷途指针”。</p>
+<blockquote>
+<p>如果反过来：空间内容有效，但指针值丢失，则叫做内存泄漏。</p>
+<p>怎么解决？</p>
+<ol>
+<li>小心编程</li>
+<li>关闭进程，让操作系统收回所有内存</li>
+</ol>
+</blockquote>
+
+        <h2 id="结构体指针访问成员"   >
+          <a href="#结构体指针访问成员" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构体指针访问成员"></a> 结构体指针访问成员</h2>
+      
+<ol>
+<li><code>(*stu).age</code> - <code>*</code>优先级是2，<code>.</code>优先级是1</li>
+<li><code>stu-&gt;age</code> - <code>arrow</code>运算符。</li>
+</ol>
+
+        <h1 id="分段"   >
+          <a href="#分段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分段"></a> 分段</h1>
+      
+<p>结构体不仅可以把小类型组合成大类型，还能把基本数据类型拆成小块。</p>
+<p>使用“位域”运算符（bit field operator）。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a : <span class="number">2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Test</span> <span class="title">test</span>;</span></span><br><span class="line">    test.a = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, test.a);</span><br><span class="line">&#125;<span class="comment">// 1</span></span><br></pre></td></tr></table></div></figure>
+<p>给<code>test.a</code>赋值1是可以的。但给<code>test.a</code>赋值2则会打印成<code>-2</code></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Test</span> <span class="title">test</span>;</span></span><br><span class="line">    test.a = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%i\n&quot;</span>, test.a);</span><br><span class="line">&#125;<span class="comment">// -2</span></span><br></pre></td></tr></table></div></figure>
+<p>因为：a是有符号int型，但只有2位的空间。除去符号位，则只有1位空间。那么，把2这个int字面常量给了a，就相当于：<code>(10)2</code>给了a。那么，a实际空间存的是(10)2，因为它是有符号int，而又因为当前符号位是1，所以实际表达的值为：<code>(10)2</code>的补码，算出无符号值后，再加个负号，即<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>01</mn><msub><mo stretchy="false">)</mo><mn>2</mn></msub><mo>+</mo><mn>1</mn><mo>=</mo><mo stretchy="false">(</mo><mn>10</mn><msub><mo stretchy="false">)</mo><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(01)_2+1=(10)_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">0</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>​得出2，再加个负号，即<code>-2</code>。</p>
+<p>此时的sizeof大小为多少呢？</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a : <span class="number">2</span>;</span><br><span class="line">&#125;;<span class="comment">// 4  --&gt;  整个int的大小</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a、b一起分了12个字节，还有20个没分配。因此还是1个int的大小</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a : <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> b : <span class="number">10</span>;</span><br><span class="line">&#125;;<span class="comment">// 4  --&gt;  1个int的大小</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="分隔符"   >
+          <a href="#分隔符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分隔符"></a> 分隔符</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a先分了2个字节，但是a剩下的空间不想再用，加个separator分隔符。</span></span><br><span class="line"><span class="comment">//在分隔符后定义b。此时是第2个int空间。</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a : <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> : <span class="number">0</span>;     <span class="comment">// separator  //无名</span></span><br><span class="line">    <span class="type">int</span> b : <span class="number">10</span>;</span><br><span class="line">&#125;;<span class="comment">// 8  --&gt;  2个int的大小</span></span><br></pre></td></tr></table></div></figure>
+<p>下面这个分隔符的意义在于，虽然实际有效的是int类型，但是long long分隔符的作用在于在第一个和第二个int之间划分了8字节的位置，即a实际被提升为8字节大小，b也被提升为8字节大小。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a先分了2个字节，但是a剩下的空间不想再用，加个separator分隔符。</span></span><br><span class="line"><span class="comment">//在分隔符后定义b。此时是第2个int空间。</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> a : <span class="number">2</span>;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> : <span class="number">0</span>;     <span class="comment">// separator  //无名</span></span><br><span class="line">    <span class="type">int</span> b : <span class="number">10</span>;</span><br><span class="line">&#125;;<span class="comment">// 16  --&gt;  2个long long的大小</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="实际用处"   >
+          <a href="#实际用处" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实际用处"></a> 实际用处</h2>
+      
+<ol>
+<li>如果小于8 bits，则用位域运算符。如果是8 bits，则直接用char。</li>
+<li>separator一般不用，直接占满上面的空位即可，然后紧接着定义下一个类型。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93_sizeof_%E5%88%86%E6%AE%B5/">https://xing-cg.github.io/C/C%E8%AF%AD%E8%A8%80_%E7%BB%93%E6%9E%84%E4%BD%93_sizeof_%E5%88%86%E6%AE%B5/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/C/C%E8%AF%AD%E8%A8%80_%E9%93%BE%E8%A1%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C语言_链表</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/C/C%E8%AF%AD%E8%A8%80_%E5%87%BD%E6%95%B0_%E6%A0%88%E5%B8%A7_%E5%8F%82%E6%95%B0_%E9%80%92%E5%BD%92/"><span class="paginator-prev__text">C语言_函数_栈帧_参数_递归</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">1.</span> <span class="toc-text">
+           结构体</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">
+           结构体的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">3.</span> <span class="toc-text">
+           结构体的大小</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90"><span class="toc-number">3.1.</span> <span class="toc-text">
+           字节对齐</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#typedef"><span class="toc-number">4.</span> <span class="toc-text">
+           typedef</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">
+           结构体指针类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%9F%E5%8F%B7%E7%9A%84%E7%BB%93%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.</span> <span class="toc-text">
+           星号的结合问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A0%86%E5%88%9B%E5%BB%BA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">5.</span> <span class="toc-text">
+           堆创建结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stdlib"><span class="toc-number">5.1.</span> <span class="toc-text">
+           stdlib</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc"><span class="toc-number">5.1.1.</span> <span class="toc-text">
+           malloc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free"><span class="toc-number">5.1.2.</span> <span class="toc-text">
+           free</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E6%88%90%E5%91%98"><span class="toc-number">5.2.</span> <span class="toc-text">
+           结构体指针访问成员</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%AE%B5"><span class="toc-number">6.</span> <span class="toc-text">
+           分段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">6.1.</span> <span class="toc-text">
+           分隔符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E7%94%A8%E5%A4%84"><span class="toc-number">6.2.</span> <span class="toc-text">
+           实际用处</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">281</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
