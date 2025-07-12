@@ -1,23 +1,21 @@
 ---
 title: 学习muduo库的思想
-typora-root-url: ../..
 categories:
-  - [项目, muduo]
-tags:
-  - null 
+  - - 项目
+    - muduo
+tags: 
 date: 2022/3/16
-update:
-comments:
+update: 
+comments: 
 published:
 ---
-
 # 内容
 
 1. 阻塞、非阻塞、同步、异步
 2. 五种IO模型
 3. 好的网路服务器设计思路
 4. Reactor模型
-5. select/poll/epoll、LT/ET模式对比
+5. `select`/`poll`/`epoll`、`LT/ET`模式对比
 6. muduo网络库编程环境配置
 7. muduo网络库的多线程模型
 8. 基于muduo的服务器程序实例
@@ -206,7 +204,164 @@ epoll通过在Linux内核中申请一个简易的文件系统，提升了效率�
     2. 在vscode上安装Remote Development插件，其依赖插件会自动安装
   * [VS环境创建远程linux跨平台项目](https://blog.csdn.net/QIANGWEIYUAN/article/details/89469717)
   * vscode在linux环境下直接开发
+## 安装流程
+1. muduo库是基于boost开发的，所以需要先在Linux平台上安装boost库。需要注意，boost库的编译需要安装gcc、make等基础工具才行。环境：Ubuntu 20.04.6，太新的Ubuntu由于无法兼容旧代码，不能安装。
+    1. `tar -xzvf boost_1_69_0.tar.gz`解压
+    2. 执行`./bootstrap.sh`：也可以在后面加`--prefix=/usr/local`指定安装目录（默认路径）
+    3. `./b2`安装（如果Linux系统没有安装g++编译器，需要先安装）
+    4. 最后，再把上面的boost库头文件和lib库文件安装在默认的Linux系统头文件和库文件的搜索路径下，运行下面命令（因为要给/usr目录下拷贝文件，需要先进入root用户）：`sudo ./b2 install`
+    5. sudo ldconfig​更新链接库缓存
+    6. 验证安装boost是否成功，通过下面的代码验证一下：
+       ```cpp
+#include <iostream>
+#include <boost/bind.hpp>
+#include <string>
+using namespace std;
 
+class Hello
+{
+public:
+	void say(string name) 
+	{ cout << name << " say: hello world!" << endl; }
+};
+
+int main()
+{
+	Hello h;
+	auto func = boost::bind(&Hello::say, &h, "zhang san");
+	func();
+	return 0;
+}//运行结果zhang san say: hello world!
+```
+2. `unzip muduo-master.zip`
+3. `cd muduo-master`
+4. muduo库源码编译会编译很多`unit_test`测试用例代码，编译耗时长，我们用不到，vim编辑上面源码目录里面的`CMakeLists.txt`文件，如下修改：   ![](../../images/学习muduo库的思想/image-20250712185725471.png)
+5. `./build.sh`源码编译构建程序，运行该程序（注意：muduo是用cmake来构建的，需要先安装cmake，ubuntu下`sudo apt-get install cmake`就可以，redhat或者centos可以从yum仓库安装）
+6. 编译完成后，输入`./build.sh install`命令进行muduo库安装。但这个`./build.sh install`实际上把muduo的头文件和lib库文件放到了`muduo-master`同级目录下的`build`目录下的`release-install-cpp11`文件夹下面了
+   ```bash
+root@tony-virtual-machine:/home/tony/package# ls
+build  muduo-master  muduo-master.zip
+root@tony-virtual-machine:/home/tony/package# cd build/
+root@tony-virtual-machine:/home/tony/package/build# ls
+release-cpp11  release-install-cpp11
+root@tony-virtual-machine:/home/tony/package/build# cd release-install-cpp11/
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11# ls
+include  lib
+   ```
+   所以上面的install命令并没有把它们拷贝到系统路径下，导致我们每次编译程序都需要指定muduo库的头文件和库文件路径，很麻烦，所以我们选择直接把inlcude（头文件）和lib（库文件）目录下的文件拷贝到系统目录下（需要sudo）：
+   ```bash
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11# ls
+include  lib
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11# cd include/
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/include# ls
+muduo
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/include# mv muduo/ /usr/include/
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/include# cd ..
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11# ls
+include  lib
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11# cd lib/
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/lib# ls
+libmuduo_base.a  libmuduo_http.a  libmuduo_inspect.a  libmuduo_net.a
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/lib# mv * /usr/local/lib/
+root@tony-virtual-machine:/home/tony/package/build/release-install-cpp11/lib# 
+   ```
+   拷贝完成以后使用muduo库编写`C++`网络程序，不用在指定头文件和lib库文件路径信息了，因为`g++`会自动从`/usr/include`和`/usr/local/lib`路径下寻找所需要的文件。
+## 测试代码
+测试muduo是否能够正常使用，编写一个简单的echo回显服务器，如下：
+```cpp
+#include <muduo/net/TcpServer.h>
+#include <muduo/base/Logging.h>
+#include <boost/bind.hpp>
+#include <muduo/net/EventLoop.h>
+
+// 使用muduo开发回显服务器
+class EchoServer
+{
+ public:
+  EchoServer(muduo::net::EventLoop* loop,
+             const muduo::net::InetAddress& listenAddr);
+
+  void start(); 
+
+ private:
+  void onConnection(const muduo::net::TcpConnectionPtr& conn);
+
+  void onMessage(const muduo::net::TcpConnectionPtr& conn,
+                 muduo::net::Buffer* buf,
+                 muduo::Timestamp time);
+
+  muduo::net::TcpServer server_;
+};
+
+EchoServer::EchoServer(muduo::net::EventLoop* loop,
+                       const muduo::net::InetAddress& listenAddr)
+  : server_(loop, listenAddr, "EchoServer")
+{
+  server_.setConnectionCallback(
+      boost::bind(&EchoServer::onConnection, this, _1));
+  server_.setMessageCallback(
+      boost::bind(&EchoServer::onMessage, this, _1, _2, _3));
+}
+
+void EchoServer::start()
+{
+  server_.start();
+}
+
+void EchoServer::onConnection(const muduo::net::TcpConnectionPtr& conn)
+{
+  LOG_INFO << "EchoServer - " << conn->peerAddress().toIpPort() << " -> "
+           << conn->localAddress().toIpPort() << " is "
+           << (conn->connected() ? "UP" : "DOWN");
+}
+
+void EchoServer::onMessage(const muduo::net::TcpConnectionPtr& conn,
+                           muduo::net::Buffer* buf,
+                           muduo::Timestamp time)
+{
+  // 接收到所有的消息，然后回显
+  muduo::string msg(buf->retrieveAllAsString());
+  LOG_INFO << conn->name() << " echo " << msg.size() << " bytes, "
+           << "data received at " << time.toString();
+  conn->send(msg);
+}
+
+
+int main()
+{
+  LOG_INFO << "pid = " << getpid();
+  muduo::net::EventLoop loop;
+  muduo::net::InetAddress listenAddr(8888);
+  EchoServer server(&loop, listenAddr);
+  server.start();
+  loop.loop();
+}
+```
+
+使用g++进行编译，注意链接muduo和pthread的库文件，编译命令如下：
+```bash
+g++ main.cpp -lmuduo_net -lmuduo_base -lpthread -std=c++11
+```
+编译链接完成，生成a.out可执行程序，上面的echo服务器监听8888端口，运行上面的a.out回显服务器如下：
+```bash
+root@tony-virtual-machine:/home/tony/code# ./a.out 
+20190404 08:00:15.254790Z 42660 INFO  pid = 42660 - main.cpp:61
+```
+等待客户端连接，可以打开一个新的shell命令行用netcat命令模拟客户端连接echo服务器进行功能测试，命令如下：
+```bash
+tony@tony-virtual-machine:~$ echo "hello world" | nc localhost 8888
+
+hello world #客户端数据回显
+```
+客户端数据回显正确，看看服务器接日志信息打印如下：
+```bash
+root@tony-virtual-machine:/home/tony/code# ./a.out 
+20190404 08:00:15.254790Z 42660 INFO  pid = 42660 - main.cpp:61
+20190404 08:00:59.438626Z 42660 INFO  TcpServer::newConnection [EchoServer] - new connection [EchoServer-0.0.0.0:8888#1] from 127.0.0.1:33480 - TcpServer.cc:80
+20190404 08:00:59.438707Z 42660 INFO  EchoServer - 127.0.0.1:33480 -> 127.0.0.1:8888 is UP - main.cpp:42
+20190404 08:00:59.438812Z 42660 INFO  EchoServer-0.0.0.0:8888#1 echo 12 bytes, data received at 1554364859.438723 - main.cpp:53
+```
+到此，muduo安装成功，能够正常进行C++网络程序开发！
 ## 配置链接库、头文件
 
 muduo库的使用需要链接`lib`库文件，一般为`.so`文件。一般`.so`文件都在`/usr/lib或/usr/local/lib`路径下。
