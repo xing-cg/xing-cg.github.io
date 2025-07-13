@@ -10,7 +10,7 @@ updated:
 comments: 
 published:
 ---
-# 图示
+# 以UI线程和工作线程之间的交互为切入点
 有两个线程，UI线程和文件下载线程（下面成为称为工作者线程）。UI线程点“接收文件”按钮后启动工作者线程，之后两线程异步执行。假设工作者线程每下载、传输文件的10%都要通知UI线程，以在UI界面进度条显示进度。
 由于两线程是异步、无关联的，那么就涉及到工作者线程怎么与UI线程交互的问题。工作者线程不能直接操作UI线程，否则会扰乱UI线程中的部件、内容等，而是要通过发送一个消息，指示UI线程自己去调整。
 可以考虑设置一个回调函数。
@@ -34,6 +34,7 @@ void worker(std::function<void(std::wstring const& str)> callback)
 int main()
 {
     std::wcout << L"UI: " << std::this_thread::get_id() << std::endl;
+    // 工作者线程
     std::jthread t(&worker, [](std::wstring const& str) -> void
         {
             std::wcout << str << L" in " << std::this_thread::get_id() << std::endl;
