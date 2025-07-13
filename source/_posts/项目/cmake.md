@@ -2,13 +2,12 @@
 title: cmake
 typora-root-url: ../..
 categories:
-  - [项目]
-  - [Linux]
-tags:
-  - null 
+  - - 项目
+  - - Linux
+tags: 
 date: 2022/4/10
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

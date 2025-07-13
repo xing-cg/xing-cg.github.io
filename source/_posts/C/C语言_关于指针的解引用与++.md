@@ -2,12 +2,11 @@
 typora-root-url: ../..
 title: C语言_关于指针的解引用与++
 categories:
-  - [C]
-tags:
-  - null 
+  - - C
+tags: 
 date: 2021/7/23
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # 运算符及其优先级

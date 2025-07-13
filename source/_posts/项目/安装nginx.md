@@ -2,12 +2,11 @@
 title: 安装Nginx
 typora-root-url: ../..
 categories:
-  - [项目]
-tags:
-  - null 
+  - - 项目
+tags: 
 date: 2022/5/19
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # 内容

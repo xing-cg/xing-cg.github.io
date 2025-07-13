@@ -5,7 +5,7 @@ categories:
     - rpc
 tags: 
 date: 2022/9/13
-update: 2025/7/13
+updated: 2025/7/13
 comments: 
 published:
 ---
@@ -442,7 +442,212 @@ std::string MprpcConfig::Load(const std::string& key)
     return it->second;
 }
 ```
-## 
+## 修改MprpcApplication
+向其中添加一个公有static方法`GetConfig()`以便RpcProvider获得config对象
+```cpp
+#pragma once
+#include "mprpcconfig.h"
+// mprpc 框架的基础类，用于初始化框架
+// 单例设计
+class MprpcApplication
+{
+public:
+    static void Init(int argc, char ** argv);
+    static MprpcApplication& GetInstance();
+    // 以便RpcProvider获得config对象
+    static MprpcConfig& GetConfig();
+private:
+    static MprpcConfig m_config;
+    MprpcApplication()
+    {
+
+    }
+    MprpcApplication(const MprpcApplication&) = delete;
+    MprpcApplication(MprpcApplication&&) = delete;
+};
+```
+## RpcProvider类
+根据[[#模拟rpc框架的使用，以分析框架需要什么东西]]，框架需要提供一个可以发布服务的RpcProvider。
+主要实现：
+1. NotifyService，是框架提供给外部使用的，可以发布Service
+2. Run，启动RPC服务节点
+3. Stop，停止服务
+
+需要集成一个TcpServer，和搭配一个Eventloop（相当于epoll）。
+但是经过考虑，TcpServer没有必要写为RpcProvider的成员变量，因为只在Run方法中使用。而且我们提供的是一个对外的框架，最好不要把TcpServer的配置、复杂的参数暴露给用户，尽量让用户简单易用。
+而EventLoop可能不仅Run使用，Stop还需要调用它的quit。所以定义为成员变量。
+```cpp
+#pragma once
+#include "google/protobuf/service.h"
+#include <muduo/net/TcpServer.h>
+#include <muduo/net/EventLoop.h>
+#include <muduo/net/InetAddress.h>
+// 框架提供的专门发布RPC服务的网络对象类
+class RpcProvider
+{
+public:
+    // 这里是框架提供给外部使用的，可以发布Service
+    void NotifyService(::google::protobuf::Service * service);
+    // 启动RPC服务节点
+    void Run();
+private:
+    muduo::net::EventLoop m_eventLoop;
+    // 新的socket连接回调
+    void onConnection(const muduo::net::TcpConnectionPtr&);
+    // 已建立连接的用户的读写事件回调
+    // std::function<void (const TcpConnectionPtr&, Buffer*, Timestamp)>
+    void onMessage(const muduo::net::TcpConnectionPtr&, muduo::net::Buffer*, muduo::Timestamp);
+};
+```
+### Run实现
+Run主要实现TcpServer的配置、启动。
+这属于RpcProvider的网络模块。
+```cpp
+#include "rpcprovider.h"
+#include "mprpcapplication.h"
+#include <functional>
+void RpcProvider::Run()
+{
+    std::string ip = MprpcApplication::GetInstance().GetConfig().Load("rpcserver_ip");
+    uint16_t port = atoi(MprpcApplication::GetInstance().GetConfig().Load("rpcserver_port").c_str());
+    muduo::net::InetAddress address(ip, port);
+    // 创建TcpServer对象
+    muduo::net::TcpServer server(&m_eventLoop, address, "RpcProvider");
+    // 绑定连接回调和消息读写回调方法 - 分离网络代码和业务代码
+    // 需要给TcpServer提供一个返回值为void，参数有TcpConnectionPtr的函数
+    // 这个函数我们在RpcProvider的成员方法提供
+    // 实际上，onConnection到时候由muduo库进行调用
+    // 调用的就是this对象，然后需要一个_1以预留TcpConnectionPtr& conn这个参数的位置
+    // std::function<void (const TcpConnectionPtr&)>
+    server.setConnectionCallback(std::bind(&RpcProvider::onConnection, this, std::placeholders::_1));
+    // std::function<void (const TcpConnectionPtr&, Buffer*, Timestamp)>
+    server.setMessageCallback(std::bind(&RpcProvider::onMessage, this, 
+        std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+
+    // 设置muduo库的线程数量
+    server.setThreadNum(4);
+
+    std::cout << "RpcProvider Start Service at IP: " << ip << ", port: " << port << std::endl;
+
+    // 启动网络服务
+    server.start();
+    // 启动epoll_wait，以阻塞的方式等待远程的连接。
+    // 如果有连接请求，则muduo库会回调onConnection
+    // 如果有收发数据请求，则muduo库会回调onMessage
+    m_eventLoop.loop();
+}
+```
+### NotifyService的实现
+发布Rpc服务。
+是`/example/callee/`下的如UserService程序调用的。
+（集成的muduo网络库实现了：不光能调用本地的RpcProvider，而是可以远程调用网络上的任意一个RpcProvider）
+
+怎么做到“发布”？“发布”的本质是什么？其实是记录在案，方便远端查询，并且定位某个方法。
+那么我们就要在RpcProvider类中增加：`m_serviceMap`，记录注册的每一个service名字和这个service对应的所有（n个）method。
+```cpp
+#pragma once
+#include "google/protobuf/service.h"
+#include <unordered_map>
+// 框架提供的专门发布RPC服务的网络对象类
+class RpcProvider
+{
+public:
+    // ...
+private:
+    struct ServiceInfo
+    {
+        google::protobuf::Service * m_service;
+        std::unordered_map<std::string, const google::protobuf::MethodDescriptor*> m_methodMap;
+    };
+    std::unordered_map<std::string, ServiceInfo> m_serviceMap;
+
+    // ...
+};
+```
+当远端一个Service服务器（比如UserService）调用RpcProvider的NotifyService时，便在里面记录信息，这就是注册，就是发布。
+我们可以：
+1. 通过远端传入的Service指针，`service->GetDescriptor()`获得服务描述符`ServiceDescriptor *`，
+2. 从而获得服务的名字`name()`和方法的数量`method_count()`、每一个方法的描述符`MethodDescriptor*`，
+3. 从而获得每一个方法的名字`name()`。
+
+* 把所有方法的名字、方法的描述符记录在`m_methodMap`中。
+* 把服务描述符和`m_methodMap`封装在`ServiceInfo`结构体中。
+* 之后，把服务的名字和这个`ServiceInfo`作为键值对插入到`m_serviceMap`中。
+
+```cpp
+#include "rpcprovider.h"
+#include "mprpcapplication.h"
+#include <functional>
+#include <google/protobuf/descriptor.h>
+void RpcProvider::NotifyService(::google::protobuf::Service * service)
+{
+    const google::protobuf::ServiceDescriptor * pserviceDesc = service->GetDescriptor();
+
+    ServiceInfo service_info;
+    service_info.m_service = service;
+    int methodCnt = pserviceDesc->method_count();
+    for(int i = 0; i < methodCnt; ++i)
+    {
+        // 该方法定义于ServiceDescriptor
+        // const MethodDescriptor* method(int index) const; 
+        // 返回的是一个MethodDescriptor*
+        // 获取了服务对象指定下标的rpc服务方法的描述
+        const google::protobuf::MethodDescriptor* pmethodDesc = pserviceDesc->method(i);
+        std::string method_name = pmethodDesc->name();
+        std::cout << i << ". method_name: " << method_name << std::endl;
+        service_info.m_methodMap.insert({method_name, pmethodDesc});
+    }
+    
+    std::string service_name = pserviceDesc->name();
+    std::cout << "service_name: " << service_name << std::endl;
+    m_serviceMap.insert({service_name, service_info});
+}
+```
+
+## 编译
+框架依赖muduo库，因此需要在src目录下的`CMakeLists.txt`添加：
+
+>如果忘记了库叫什么名字，可以在`/usr/lib`或`/usr/local/lib`下查找：
+
+```bash
+sudo find /usr -name "libmuduo*"
+```
+
+```bash
+/usr/local/lib/libmuduo_http.a
+/usr/local/lib/libmuduo_net.a
+/usr/local/lib/libmuduo_base.a
+/usr/local/lib/libmuduo_inspect.a
+```
+
+我们需要的muduo的库名：muduo_net、muduo_base
+```cmake
+# 当前文件夹中所有文件 别名 SRC_LIST
+aux_source_directory(. SRC_LIST)
+# 生成动态库
+add_library(mprpc SHARED ${SRC_LIST})
+# 依赖muduo库
+target_link_libraries(mprpc muduo_net muduo_base pthread)
+```
+由于我们在编译muduo时编译成了静态库，而我们现在CMake指定生成的是动态库（`add_library(mprpc SHARED ${SRC_LIST})`）。
+由于里面有静态库成分，所以编译链接时会报错，因此我们暂时先生成静态库。
+```cmake
+# 当前文件夹中所有文件 别名 SRC_LIST
+aux_source_directory(. SRC_LIST)
+# 生成静态库
+add_library(mprpc ${SRC_LIST})
+# 依赖muduo库
+target_link_libraries(mprpc muduo_net muduo_base pthread)
+```
+测试：
+```bash
+mrcan@ubuntu:~/mprpc/bin$ ./provider -i test.conf 
+rpcserver_ip: 127.0.0.1
+rpcserver_port: 8000
+zookeeper_ip: 127.0.0.1
+zookeeper_port: 5000
+RpcProvider Start Service at IP: 127.0.0.1, port: 8000
+```
 # 调试
 
 在顶级cmake写下：`set(CMAKE_BUILD_TYPE "Debug")`

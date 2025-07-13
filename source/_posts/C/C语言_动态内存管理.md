@@ -2,12 +2,11 @@
 typora-root-url: ../..
 title: C语言_动态内存管理
 categories:
-  - [C]
-tags:
-  - null 
+  - - C
+tags: 
 date: 2021/8/18
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

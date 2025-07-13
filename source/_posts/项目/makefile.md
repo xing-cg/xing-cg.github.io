@@ -2,13 +2,12 @@
 title: makefile
 typora-root-url: ../..
 categories:
-  - [项目]
-  - [Linux]
-tags:
-  - null 
+  - - 项目
+  - - Linux
+tags: 
 date: 2022/5/12
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

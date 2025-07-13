@@ -2,12 +2,11 @@
 typora: ../..
 title: C语言_动态内存分配
 categories:
-  - [C]
-tags:
-  - null 
+  - - C
+tags: 
 date: 2021/9/2
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # malloc
