@@ -1,13 +1,11 @@
 ---
 title: Linux_守护进程
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/7/24
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

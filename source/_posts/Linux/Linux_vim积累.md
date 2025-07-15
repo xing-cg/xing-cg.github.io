@@ -1,13 +1,12 @@
 ---
 title: Linux_vim积累_vim实用技巧笔记
-typora-root-url: ../..
 categories:
-  - [Linux, vim]
-tags:
-  - null 
+  - - Linux
+    - vim
+tags: 
 date: 2022/8/29
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

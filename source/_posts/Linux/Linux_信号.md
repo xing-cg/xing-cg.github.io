@@ -1,17 +1,15 @@
 ---
 title: Linux_信号
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统, 多线程]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+    - 多线程
+tags: 
 date: 2021/10/30
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
-
 # 信号
 
 也叫软中断。

@@ -1,13 +1,11 @@
 ---
 title: Linux_三剑客
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/7/25
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

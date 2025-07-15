@@ -1,14 +1,12 @@
 ---
 title: Linux_地址映射
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+tags: 
 date: 2022/8/28
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,13 +1,11 @@
 ---
 title: Linux_库
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/5/7
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # 内容

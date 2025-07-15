@@ -1,6 +1,5 @@
 ---
 title: Linux_线程
-typora-root-url: ../..
 categories:
   - - Linux
   - - 操作系统

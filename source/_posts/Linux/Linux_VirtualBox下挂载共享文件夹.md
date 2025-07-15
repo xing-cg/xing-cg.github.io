@@ -1,14 +1,12 @@
 ---
 title: Linux_VirtualBox下挂载共享文件夹
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [网络]
-tags:
-  - null 
+  - - Linux
+  - - 网络
+tags: 
 date: 2022/8/27
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,19 +1,34 @@
 ---
-title: Linux_设置启动级别
-typora-root-url: ../..
+title: Linux_设置系统运行级别
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2023/3/28
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
+# 切换系统运行级别
+* runlevel命令可查看系统运行级别
+* 可以用init命令动态切换0-6七个级别
+    1. 关机
+    2. 单用户模式
+    3. 多用户无网络服务
+    4. 完全的多用户文本界面
+    5. 未定义或自定义
+    6. 图形化界面
+    7. 重启
 
-参考：https://www.bbsmax.com/A/x9J2PYpEd6/
+```bash
+runlevel
+# 结果:
+	# 图形化模式时 -> N 5
+	# 命令行模式时 -> 5 3
+init 3 #切换到命令行模式
+```
 
 # 启动级别Runlevel
+参考：https://www.bbsmax.com/A/x9J2PYpEd6/
 
 首先来了解下启动级别(Runlevel)：
 

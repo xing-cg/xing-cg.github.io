@@ -1,14 +1,13 @@
 ---
 title: Linux_进程
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统, 多线程]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+    - 多线程
+tags: 
 date: 2021/9/26
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

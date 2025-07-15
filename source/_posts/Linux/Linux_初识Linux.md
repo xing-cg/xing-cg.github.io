@@ -4,7 +4,7 @@ categories:
   - - Linux
 tags: 
 date: 2021/7/30
-update: 
+updated: 
 comments: 
 published:
 ---

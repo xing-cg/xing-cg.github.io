@@ -1,13 +1,12 @@
 ---
 title: Linux_vim_"."命令
-typora-root-url: ../..
 categories:
-  - [Linux, vim]
-tags:
-  - null 
+  - - Linux
+    - vim
+tags: 
 date: 2022/9/8
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

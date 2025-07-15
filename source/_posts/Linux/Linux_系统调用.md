@@ -1,17 +1,14 @@
 ---
 title: Linux_系统调用
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+tags: 
 date: 2021/10/17
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
-
 # 文件操作
 
 打开，读或写，关闭

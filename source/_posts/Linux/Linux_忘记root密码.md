@@ -1,13 +1,11 @@
 ---
 title: Linux_忘记root密码
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/8/27
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

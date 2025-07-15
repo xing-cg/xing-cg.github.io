@@ -1,13 +1,11 @@
 ---
 title: Linux_升级工具软件以Cmake为例
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/10/26
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

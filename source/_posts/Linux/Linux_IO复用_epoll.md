@@ -1,14 +1,12 @@
 ---
 title: Linux_IO复用_epoll
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [网络]
-tags:
-  - null 
+  - - Linux
+  - - 网络
+tags: 
 date: 2022/5/23
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

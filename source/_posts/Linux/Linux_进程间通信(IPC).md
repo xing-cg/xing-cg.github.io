@@ -1,14 +1,13 @@
 ---
 title: Linux_进程间通信(IPC)
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统, 多线程]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+    - 多线程
+tags: 
 date: 2021/11/1
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

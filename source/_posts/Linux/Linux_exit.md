@@ -1,13 +1,11 @@
 ---
 title: Linux_exit
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/5/15
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

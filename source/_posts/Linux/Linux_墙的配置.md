@@ -1,13 +1,11 @@
 ---
 title: Linux_墙的配置
-typora-root-url: ../..
 categories:
-  - [Linux]
-tags:
-  - null 
+  - - Linux
+tags: 
 date: 2022/9/2
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

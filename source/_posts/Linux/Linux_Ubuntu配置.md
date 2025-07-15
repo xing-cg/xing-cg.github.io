@@ -1,14 +1,12 @@
 ---
 title: Linux_Ubuntu配置
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [操作系统]
-tags:
-  - null 
+  - - Linux
+  - - 操作系统
+tags: 
 date: 2023/5/9
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

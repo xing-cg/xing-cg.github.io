@@ -1,13 +1,12 @@
 ---
 title: Linux_vim_会话和viminfo
-typora-root-url: ../..
 categories:
-  - [Linux, vim]
-tags:
-  - null 
+  - - Linux
+    - vim
+tags: 
 date: 2022/8/27
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
