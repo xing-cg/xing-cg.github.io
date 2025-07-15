@@ -32,591 +32,237 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/">网络_配置网卡</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-03-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2024-08-23</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/" data-flag-title="网络_配置网卡"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="同时启用两个网卡时如何分流"   >
-          <a href="#同时启用两个网卡时如何分流" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同时启用两个网卡时如何分流"></a> 同时启用两个网卡时如何分流</h1>
-      
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Ethernet adapter K20 Pro:</span><br><span class="line"></span><br><span class="line">   Connection-specific DNS Suffix  . :</span><br><span class="line">   IPv6 Address. . . . . . . . . . . : 240e:404:b731:3135:295c:a44f:73e8:7ab8</span><br><span class="line">   Temporary IPv6 Address. . . . . . : 240e:404:b731:3135:d4b7:5350:f5c7:bc25</span><br><span class="line">   Link-local IPv6 Address . . . . . : fe80::687:6:df5d:ea58%28</span><br><span class="line">   IPv4 Address. . . . . . . . . . . : 192.168.173.153</span><br><span class="line">   Subnet Mask . . . . . . . . . . . : 255.255.255.0</span><br><span class="line">   Default Gateway . . . . . . . . . : fe80::18c8:bfff:fe13:c1c2%28</span><br><span class="line">                                       192.168.173.248</span><br><span class="line">Ethernet adapter School Net:</span><br><span class="line"></span><br><span class="line">   Connection-specific DNS Suffix  . : proxy.bjut.edu.cn</span><br><span class="line">   IPv6 Address. . . . . . . . . . . : 2001:da8:216:210f:954a:ccee:b328:8b0f</span><br><span class="line">   Temporary IPv6 Address. . . . . . : 2001:da8:216:210f:2989:37b0:8612:84fd</span><br><span class="line">   Link-local IPv6 Address . . . . . : fe80::46e4:b62a:f433:24cf%13</span><br><span class="line">   IPv4 Address. . . . . . . . . . . : 172.21.15.227</span><br><span class="line">   Subnet Mask . . . . . . . . . . . : 255.255.255.0</span><br><span class="line">   Default Gateway . . . . . . . . . : fe80::21b:53ff:fe4a:997f%13</span><br><span class="line">                                       172.21.15.254</span><br><span class="line">   DNS: 172.21.0.21 (Unencrypted) 172.21.201.22 (Unencrypted)</span><br></pre></td></tr></table></div></figure>
-<p>自己的网卡A的网关为192.168.175.219，校园网网卡B的网关为172.21.15.254</p>
-<ol>
-<li>输入<code>route print</code>我们能看到本机目前的路由表</li>
-<li>使用<code>route delete</code>删除所有0.0.0.0的路由,也就是默认设置，删除默认路由后无法上网。<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route delete 0.0.0.0</span><br><span class="line">route delete ::/0</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>添加路由表，指定使用网卡B访问特定的IP。设置完后因为我们把默认路由删了，所有就只能访问该地址。<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route -p add 172.30.201.2 mask 255.255.255.0 172.21.15.254 METRIC 1</span><br></pre></td></tr></table></div></figure>
-<ol>
-<li>-p 是为了设置为静态永久路由，防止重启时配置消失</li>
-<li>add 添加路由</li>
-<li>1.1.1.1 指定网卡访问的IP</li>
-<li>255.255.255.0是网关掩码</li>
-<li>172.21.15.254指定使用网卡B的网关访问该地址</li>
-<li>METRIC 跃点数，跃点数越小优先级越高，范围1~9999，默认就是1</li>
-</ol>
-</li>
-<li>设置默认路由，恢复上网
-<ol>
-<li>设置校园网卡B的默认路由，跃点数为200，指定IP走默认路由，才能上校园网<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route -p add 0.0.0.0 mask 0.0.0.0 172.21.15.254 METRIC 200</span><br><span class="line">route -p add ::/0 mask ::/0 fe80::21b:53ff:fe4a:997f METRIC 200</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>现在网卡B上不了非校园网，所以要设置网卡B的默认路由，跃点数为100，要比200小。因此默认使用网卡A上网，而不是网卡B。<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">route -p add 0.0.0.0 mask 0.0.0.0 192.168.173.248 METRIC 100</span><br><span class="line">route -p add ::/0 mask ::/0 fe80::f435:31ff:fe10:28af METRIC 100</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>此时网卡A和B同时使用时优先使用网卡A。</li>
-</ol>
-</li>
-<li>如果设置出问题了请用下面命令进行解决。<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NETSH INT IP RESET  （重置IP设置）</span><br><span class="line">NETSH WINSOCK RESET （重置网络设置）</span><br><span class="line">NETSH WINHTTP RESET PROXY  （重置代理设置）</span><br><span class="line">IPCONFIG /FLUSHDNS  （刷新DNS缓存）</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
-
-        <h1 id="校园网网址"   >
-          <a href="#校园网网址" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#校园网网址"></a> 校园网网址</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>网址</th>
-<th>IP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://lgn.bjut.edu.cn" >lgn.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
-<td>172.30.201.2</td>
-</tr>
-<tr>
-<td><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://lgn6.bjut.edu.cn" >lgn6.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
-<td>[2001:da8:216:30c9::a]</td>
-</tr>
-<tr>
-<td><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://my.bjut.edu.cn" >my.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></td>
-<td>172.21.94.12</td>
-</tr>
-</tbody>
-</table></div>
-
-        <h1 id="openwrt的配置"   >
-          <a href="#openwrt的配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#openwrt的配置"></a> OpenWrt的配置</h1>
-      
-<p>为了正确使用IPV6。</p>
-<p>参考文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://post.smzdm.com/p/awzodmpp/" >OpenWRT 路由器IPv6实战配置长篇教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>首先给迷你主机刷机，安装OpenWrt系统。<br />
-参考<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://space.bilibili.com/12562485/" >大河李斯特视频工作室</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>注意手边需要有一个显示器、有线键盘，用于进PE刷机、显操作终端界面。</p>
-<p>可以在刷机后进OpenWrt系统后：</p>
-<ol>
-<li>设置root管理员密码</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></div></figure>
-<ol start="2">
-<li>修改wan、lan接口号。建议把wan、wan6设置为eth0，lan设置为eth1。</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/config/network</span><br></pre></td></tr></table></div></figure>
-<ol start="3">
-<li>设置完后reboot。lan口网线插入主PC终端或者AP路由器即可在终端访问<code>192.168.5.1</code>以远程操作OpenWrt了。</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="网络-接口配置"   >
-          <a href="#网络-接口配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网络-接口配置"></a> 网络-接口配置</h2>
-      
-<p>WAN口配置如下：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823020934427.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823020949117.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021000464.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021007455.png" alt="" /></p>
-<p>WAN6口配置如下：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021025883.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021032265.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021037823.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021043740.png" alt="" /></p>
-<p>LAN口设置如下：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021109711.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021129468.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021136612.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021144590.png" alt="" /></p>
-<p>LAN口页面下面的DHCP服务配置：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021206064.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021210784.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021217626.png" alt="" /></p>
-
-        <h2 id="网络-dhcpdns配置"   >
-          <a href="#网络-dhcpdns配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网络-dhcpdns配置"></a> 网络-DHCP/DNS配置</h2>
-      
-<p>重点注意：由于校园网环境需要先在lgn网关进行用户登录，比如在一个172开头的内网进行，而要用的是lgn.bjut.edu.cn来访问，需要用到自动获取的校园网DNS来解析。</p>
-<p>在<code>DHCP/DNS</code>配置页面中（服务器设置-基本设置），有一项“重绑定保护”需要取消勾选！不然无法使用内网的DNS，无法访问内网地址。</p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021743551.png" alt="" /></p>
-<p>还有一项，如果要使用IPV6环境，务必把<code>高级设置</code>中的“禁止解析 IPV6 DNS 记录”取消勾选。否则无法访问IPV6网址（<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--lgn6-f96g.bjut.edu.cn" >如lgn6.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>）。<br />
-其他默认即可。</p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823021948491.png" alt="" /></p>
-
-        <h2 id="网络-防火墙配置"   >
-          <a href="#网络-防火墙配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网络-防火墙配置"></a> 网络-防火墙配置</h2>
-      
-<p>目前不确定校园网环境下使用OpenWrt时防火墙的默认配置是否有影响。</p>
-<p>默认下是这样的：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823022413512.png" alt="" /></p>
-<p>修改后是这样的，即把基本设置的“转发”改为接受。wan口的“入站”、“转发”也改为接受。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823022447143.png" alt="" /><br />
-除了基本设置以外，其他的都默认。</p>
-
-        <h1 id="ap路由器配置"   >
-          <a href="#ap路由器配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ap路由器配置"></a> AP路由器配置</h1>
-      
-<p>在开启有线中继时，总是会出现莫名其妙的Bug。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--lgn6-k84fui018akilhuk19vt4b1yr1mbuy6eu60bejax61n0k0b.bjut.edu.xn--cnlgn-qk2hl60a.bjut.edu.cn" >比如只有某一个电脑能正常访问lgn6.bjut.edu.cn以及lgn.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--lgn-5q9d13j81a96gc20hvfwawfav07i3sz.bjut.edu.cn" >其他电脑则只能访问lgn.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--IPV6lgn-4t3kgm83ftt1c0enfiy0iah3ao9ghkja472sytgwm4b08g44hja721s9w6bxpaw68eju2cma711cv46bzr0bna.bjut.edu.cn" >更有一种奇葩的现象是那个能正常访问IPV6的电脑有时会无法访问lgn.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>？</p>
-<p>所以干脆就开启正常的路由器模式吧！实测在BJUT的校园网环境下，不会造成多设备识别。网关后台的在网设备只显示了一条设备记录。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823023037664.png" alt="" /><br />
-路由器型号：Redmi路由器 AX6000<br />
-系统ROM版本：MiWiFi 稳定版 1.0.67</p>
-
-        <h2 id="设置"   >
-          <a href="#设置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设置"></a> 设置</h2>
-      
-<p>常用设置-上网设置中：<br />
-上网设置，默认是DHCP。保持不动。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823023212834.png" alt="" /><br />
-IPV6网络设置，需要打开，修改上网方式为NAT6。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823023226433.png" alt="" /><br />
-其他保持不变。</p>
-<p>正常状态下，上网信息如下显示：<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823023329342.png" alt="" /><br />
-至此，只要一个设备连接了此路由器，在lgn6.bjut.edu.cn进行IPV6、IPV4统一认证后，其他设备直接连接此路由器即可同样地按照统一的方式上网，并且无需再进行认证。</p>
-
-        <h1 id="openclash配置"   >
-          <a href="#openclash配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#openclash配置"></a> OpenClash配置</h1>
-      
-<p>通过以上的配置，达到了软路由+AP路由器可以多设备依赖AP路由器的IPV4、IPV6同时上网。<br />
-以下，来配置OpenClash，达到丝滑的代理上网效果。</p>
-
-        <h2 id="下载内核文件"   >
-          <a href="#下载内核文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#下载内核文件"></a> 下载内核文件</h2>
-      
-<p>在“服务-OpenClash”中，进入OpenClash页面。<br />
-首先要下载内核。<br />
-其自带的下载不好用，网络差时，需要手动下载。<br />
-在“插件设置-版本更新”页面，依次点击3个Clash内核对应的“下载到本地”。会从Github上下载3个tar.gz压缩包到你现在的终端机。比如Windows电脑。<br />
-我们可以把它解压后，通过OpenWrt中的“系统-文件传输”依次上传到<code>/tmp/upload</code>。<br />
-上传后，在Windows终端进行ssh远程连接OpenWrt。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.5.1</span><br></pre></td></tr></table></div></figure>
-<p>如果弹出了私钥相关的信息，初次访问的话，打一个yes即可。<br />
-（也可以在“系统-TTYD 终端”操控OpenWrt终端）<br />
-进入终端后，把刚才上传的文件移动到3个内核分别对应的位置。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823024534391.png" alt="" /></p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /tmp/upload/clash /etc/openclash/core/clash</span><br><span class="line"><span class="built_in">mv</span> /tmp/upload/clash_tun /etc/openclash/core/clash_tun</span><br><span class="line"><span class="built_in">mv</span> /tmp/upload/clash_meta /etc/openclash/core/clash_meta</span><br></pre></td></tr></table></div></figure>
-<p>移动完后，发现OpenClash不能识别、执行此文件，需要改变权限。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 clash</span><br><span class="line">chmod 777 clash_tun</span><br><span class="line">chmod 777 clash_meta</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="配置订阅"   >
-          <a href="#配置订阅" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置订阅"></a> 配置订阅</h2>
-      
-<p>系统-OpenClash-配置订阅<br />
-添加。配置文件名写一个好辨识的，订阅地址按实际的写。一般Clash能用的，都可以。<br />
-填完后，保存配置。<br />
-上面的自动更新，勾选，更新模式选择“循环”，间隔1440分钟。<br />
-填完后，保存配置。最后点更新配置。</p>
-
-        <h2 id="配置上网模式"   >
-          <a href="#配置上网模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置上网模式"></a> 配置上网模式</h2>
-      
-<p>Fake-IP在某些限制比较强的网站（如ChatGPT），可能表现得更好。</p>
-<p>点页面下面的“切换页面到Fake-IP模式”。</p>
-<p>Meta内核相比其他内核比较活跃，并且支持更多的特性。在模式设置中，勾选“使用Meta内核”。</p>
-<p>运行模式，选择Fake-IP（TUN）模式。（因为据说TUN访问网页的响应速度更快）</p>
-<p>网络栈类型，下面的小字说“请自行根据运行速度为 TUN 模式选择合适的网络栈”，当前软路由主机的芯片配置还算可以，x86体系的，因此可以选择&quot;Mixed&quot;先试试。</p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823025746861.png" alt="" /></p>
-<p>模式设置改完了。先点下面的保存配置，别太快地点应用配置。</p>
-
-        <h2 id="流量控制"   >
-          <a href="#流量控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#流量控制"></a> 流量控制</h2>
-      
-<p>取消勾选“禁用QUIC”，因为实测勾选此选项时无法访问Mac端的ChatGPT App。</p>
-<p>WAN接口名称、LAN接口名称应正确选择，目前系统的WAN接口是eth0，LAN接口是eth1。</p>
-<p>至于“绕过服务器地址”、“绕过大陆IP”，为了避免配置过于复杂，先不勾选。</p>
-<p>其他的默认不动。点击保存配置。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823030118691.png" alt="" /></p>
-
-        <h2 id="dns设置"   >
-          <a href="#dns设置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#dns设置"></a> DNS设置</h2>
-      
-<p>由于在校园网环境下使用，需要配置内网DNS。<br />
-在DNS设置页面中，勾选“启用第二DNS服务器”，指定服务器为172.21.201.21。（BJUT的DNS有两个，172.21.201.21和172.21.201.20）<br />
-下面的域名列表填入一行：<code>*.bjut.edu.cn</code>。<br />
-点击保存配置。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823030355957.png" alt="" /><br />
-OpenClash推荐使用Dnsmasq转发，但是易用性实在难以恭维，在校园网环境下，先这样凑合用吧！</p>
-
-        <h2 id="ipv6设置"   >
-          <a href="#ipv6设置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ipv6设置"></a> IPV6设置</h2>
-      
-<p>为了可以在代理上网的同时支持IPV6，需要勾选“IPv6流量代理”、“允许IPv6类型DNS解析”。<br />
-除此之外，为了支持更多网站，勾选“UDP流量转发”。<br />
-IPv6代理模式选择“Redirect模式”，具体原因忘记了。<br />
-其他默认不变，保存配置。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823030727179.png" alt="" /></p>
-
-        <h2 id="最后"   >
-          <a href="#最后" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#最后"></a> 最后</h2>
-      
-<p>别忘了点应用配置，看看启动效果、上网效果。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823030832728.png" alt="" /></p>
-<p>可以进3种控制面板选择节点。</p>
-
-        <h2 id="再次dns配置"   >
-          <a href="#再次dns配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#再次dns配置"></a> 再次DNS配置</h2>
-      
-<p>不幸的是，根据测试，即使启用了第二DNS，也无法正常访问内网，<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--lgn-eo8er22f.bjut.edu.cn" >比如lgn.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>、<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://my.bjut.edu.cn" >my.bjut.edu.cn</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。而如果输入IP地址却能访问，显然还是DNS的问题。</p>
-<p>那么只能停用“插件设置-DNS设置”中的“本地DNS劫持”了。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823032504633.png" alt="" /></p>
-<p>之后，在“覆写设置-DNS设置”中</p>
-<p>勾选“自定义上游DNS服务器”、“追加上游DNS”。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823032555109.png" alt="" /></p>
-<p>并在下面“设置自定义上游 DNS 服务器”添加一个自定义DNS。<br />
-<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823032622741.png" alt="" /></p>
-<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE/image-20240823032631949.png" alt="" /></p>
-<p>至此，保存配置、应用配置。<br />
-就可以访问内网了。</p>
-
-        <h1 id="成果"   >
-          <a href="#成果" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成果"></a> 成果</h1>
-      
-<p>可以多设备连接AP路由器愉快地网上冲浪了！<br />
-并且实测，按以上配置，可以不关闭OpenClash的情况下，直接搭配“下载CDN重定向IPV6工具包”正常使用！</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/Floyd%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/">Floyd图算法中的动态规划_C语言实现</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-03-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/Floyd%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/" data-flag-title="Floyd图算法中的动态规划_C语言实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="floyd"   >
-          <a href="#floyd" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#floyd"></a> Floyd</h1>
-      
-<p>Floyd是图的经典算法，可以使用动态规划方法解决。但是真正写图搜索算法时不要用Floyd算法，因为它比Dijkstra较慢。但是Floyd对于算法思想的启发很有研究价值。实用价值、研究价值要辩证看。</p>
-
-        <h1 id="图"   >
-          <a href="#图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#图"></a> 图</h1>
-      
-<p>和树一样，有好多节点，但没有树的规律。树是图的子集。</p>
-<ol>
-<li>
-<p>节点和节点之间可以是连通的也可以是不连通的。</p>
-</li>
-<li>
-<p>连通的线如果没有方向则称之为无向图，如果有方向则为有向图。</p>
-</li>
-<li>
-<p>如果有循环，则是有环图；如果没有循环则是无环图。</p>
-</li>
-<li>
-<p>节点的出度：离开这个节点的线的个数；</p>
-</li>
-<li>
-<p>节点的入度：进入这个节点的线的个数。</p>
-</li>
-</ol>
-<p>应用：地图算法，搜索、寻路；软件工程中Element Block利用有向无环图进行拓扑排序，根据依赖关系、前置关系进行排序。但是还是没有树的应用范围广。</p>
-<p>网络路由选择：OSPF（开放式最短路径优先）中就用到了Dijkstra算法。配置路由表。</p>
-
-        <h2 id="术语"   >
-          <a href="#术语" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E6%A6%82%E8%BF%B0/">Cpp_概述</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-03-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E6%A6%82%E8%BF%B0/" data-flag-title="Cpp_概述"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>逆时针：CCW (Counter Clock Wise)</li>
-<li>顺时针：CW (Clock Wise)</li>
+<li>Cpp是个什么语言，组成部分。</li>
 </ol>
 
-        <h2 id="计算机处理图实际的数据结构"   >
-          <a href="#计算机处理图实际的数据结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#计算机处理图实际的数据结构"></a> 计算机处理图实际的数据结构</h2>
+        <h1 id="cpp组成部分"   >
+          <a href="#cpp组成部分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cpp组成部分"></a> Cpp组成部分</h1>
       
-<p><img src="../../images/C%E8%AF%AD%E8%A8%80_20240313_/image-20240314012545833.png" alt="image-20240314012545833" /></p>
-
-        <h1 id="floyd-动态规划思想"   >
-          <a href="#floyd-动态规划思想" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#floyd-动态规划思想"></a> Floyd - 动态规划思想</h1>
-      
-<p>从某一点到某一点，选择通路，求最短的路径长度。</p>
-<p>第一个参数是始发节点，第二个参数是目的节点。第三个参数是可以参与的节点范围（如果是4，则表示1、2、3、4节点全都可以参与），如果是0的话，表示没有中间节点参与。</p>
-<p>比如说：<code>floyd(from, to, n)</code>表示：从节点from走到节点to，节点1到n可以参与。求最短路径长度。</p>
-<p>运用背包问题的思想。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">floyd(from, to, n)</span><br><span class="line">    不选择第n节点：floyd(from, to, n - <span class="number">1</span>)</span><br><span class="line">    选择第n节点：  floyd(from, n, n - <span class="number">1</span>) + floyd(n, to, n - <span class="number">1</span>)</span><br><span class="line">    最终结果：min &#123;不选择, 选择&#125;</span><br><span class="line">终止条件：</span><br><span class="line">    （<span class="number">1</span>）没有节点参与时，即n == <span class="number">0</span> - 结果值为权重表对应数值(某点直接到某点的距离)</span><br><span class="line">    （<span class="number">2</span>）from == to，到达自身。  - 结果值为<span class="number">0</span></span><br><span class="line">递归方法的时间复杂度：<span class="number">3</span>^n</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="递归法"   >
-          <a href="#递归法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#递归法"></a> 递归法</h2>
-      
-<p>如果不选择节点n，则<code>from</code>到<code>to</code>还需在剩下的<code>n-1</code>节点中走。<br />
-如果选择节点n，则问题分解成了<code>from</code>到节点<code>n</code>（确定走<code>n</code>，所以可以少走最后的一个节点，因此是<code>n-1</code>），加上剩下的<code>n</code>到<code>to</code>，需要在<code>n-1</code>个节点中走（因为已经到达了节点<code>n</code>，因此可以少走1个）（至于后半段的节点数为什么不是1？要正确理解参数3的意思，指的是可参与的节点，并不是说必须走n个（多于、少于n都可以））。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> path[<span class="number">5</span>][<span class="number">5</span>] = &#123;</span><br><span class="line">    &#123; <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>,   <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>,   <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>,   <span class="number">3</span>,   <span class="number">0</span>,  <span class="number">10</span>,   <span class="number">5</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>, <span class="number">100</span>,   <span class="number">9</span>,   <span class="number">0</span>, <span class="number">100</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>,   <span class="number">4</span>,   <span class="number">0</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> <span class="title function_">floyd_recur</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (from == to)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> path[from][to];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> no = floyd_recur(from, to, n - <span class="number">1</span>);</span><br><span class="line">    <span class="type">int</span> yes = floyd_recur(from, n, n - <span class="number">1</span>) + floyd_recur(n, to, n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> no &lt;= yes ? no : yes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="测试"   >
-          <a href="#测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试"></a> 测试</h3>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">floyd_recur</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> n)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> shortest = floyd_recur(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>); <span class="comment">// 8</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="复杂度分析"   >
-          <a href="#复杂度分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h3>
-      
-<p>递归方法的时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>3</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">3^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></p>
-
-        <h2 id="迭代法"   >
-          <a href="#迭代法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代法"></a> 迭代法</h2>
-      
-<p><img src="../../images/C%E8%AF%AD%E8%A8%80_20240313_/image-20240314024640598.png" alt="image-20240314024640598" /></p>
-<p>因为有三个参数，所以需要三维数组来进行迭代。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>的有效取值范围为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,4]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mclose">]</span></span></span></span>，0代表没有节点参与。而<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>r</mi><mi>o</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">from</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">o</span><span class="mord mathnormal">m</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>o</mi></mrow><annotation encoding="application/x-tex">to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span></span></span></span>的有效取值范围为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1,4]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mclose">]</span></span></span></span>，即0是多余的，数组给出多余的1行1列只是为了方便编程。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> shortpath[<span class="number">5</span>][<span class="number">5</span>][<span class="number">5</span>];</span><br><span class="line"><span class="type">int</span> <span class="title function_">floyd</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// n == 0 时</span></span><br><span class="line">    <span class="comment">// 把path表格复制到第0面</span></span><br><span class="line">    <span class="comment">// 行</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt;= n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            shortpath[<span class="number">0</span>][i][j] = path[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 每一面的from == to 时，等于0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            shortpath[k][i][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//根据第0面迭代</span></span><br><span class="line">    <span class="comment">// k为对应n的面  i为对应from的行 j为对应to的列</span></span><br><span class="line">    <span class="comment">// shortpath 第一个数为面 第二个数为from 第三个数为to</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> no = shortpath[k - <span class="number">1</span>][i][j];</span><br><span class="line">                <span class="type">int</span> yes = shortpath[k - <span class="number">1</span>][i][k] + shortpath[k - <span class="number">1</span>][k][j];</span><br><span class="line">                </span><br><span class="line">                shortpath[k][i][j] = no &lt;= yes ? no : yes;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> shortpath[n][from][to];</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> shortest = floyd(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>); <span class="comment">// 8</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="复杂度分析-2"   >
-          <a href="#复杂度分析-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#复杂度分析-2"></a> 复杂度分析</h3>
-      
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
-
-        <h1 id="各种图算法"   >
-          <a href="#各种图算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#各种图算法"></a> 各种图算法</h1>
-      
-<p>BFS、DFS、Dijkstra、Bellman-Ford（BF）、Floyd、Prim和Kruskal 等算法是图论和搜索领域中的核心算法，它们各有用途、适用场景和特性。在面试中，通常会从算法的<strong>原理</strong>、<strong>适用场景</strong>、<strong>时间复杂度</strong>、<strong>空间复杂度</strong>、以及一些<strong>优化细节</strong>来考查。因此，了解它们的关联与区别是非常重要的。</p>
+<p>根据<code>legacy.cplusplus.com</code>手册中Reference一栏。标准C++库包含以下部分（此网站2017年停止更新）：</p>
 <ol>
-<li>遍历算法
+<li>C库</li>
+<li>容器</li>
+<li>输入输出流</li>
+<li>原子和线程库（C++11之后）</li>
+<li>杂项（Miscellaneous headers）
 <ol>
-<li>DFS</li>
-<li>BFS</li>
+<li>算法库（algorithm）</li>
+<li>时间库（chrono）</li>
+<li>异常库（exception）</li>
+<li>函数对象（functional）</li>
+<li>迭代器（iterator）</li>
+<li>内存管理（memory）：尤其是智能指针</li>
+<li>随机（Random）
+<ol>
+<li>梅森旋转算法，使用的是分布律。随机性能很好。</li>
 </ol>
 </li>
-<li>最短路径算法
-<ol>
-<li>Dijkstra（好）</li>
-<li>Bellman-Ford（好、使用领域广泛，但是最坏性能差）</li>
-<li>Floyd（性能不好）</li>
-<li>拓扑排序</li>
-</ol>
-</li>
-<li>最小生成树算法（连通图的子图）
-<ol>
-<li>Prim（不好）</li>
-<li>Kruskal（好）</li>
+<li>工具（utility）：用的最多的是pair</li>
 </ol>
 </li>
 </ol>
 
-        <h2 id="1-广度bfs和深度优先搜索dfs"   >
-          <a href="#1-广度bfs和深度优先搜索dfs" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1-广度bfs和深度优先搜索dfs"></a> 1. 广度（BFS）和深度优先搜索（DFS）</h2>
+        <h1 id="名字空间"   >
+          <a href="#名字空间" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#名字空间"></a> 名字空间</h1>
       
+<p>这个不是C++的专利，所有的面向对象语言，都有名字空间的概念。</p>
+<p>以前在C语言中，随意定义全局变量可能会产生污染。此时只有“全局空间”一说。</p>
+<p>现在在C++中，可以自定义一个名字空间，在其中定义自己的东西。防止与他人冲突。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> xcg</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> m_age;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">age</span><span class="params">(<span class="type">void</span>)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">age</span><span class="params">(<span class="type">int</span> age)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> other</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> m_age;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">age</span><span class="params">(<span class="type">void</span>)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">age</span><span class="params">(<span class="type">int</span> age)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    xcg::Person person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="关联"   >
-          <a href="#关联" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联"></a> 关联</h3>
+        <h2 id="名字空间可以嵌套"   >
+          <a href="#名字空间可以嵌套" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#名字空间可以嵌套"></a> 名字空间可以嵌套</h2>
       
-<ul>
-<li>BFS和DFS都是<strong>图搜索算法</strong>，用于遍历或搜索图的节点。</li>
-<li>两者都可以用于无向图和有向图，能够找到<strong>可达性</strong>，即从一个节点到其他节点的路径。</li>
-</ul>
-
-        <h3 id="区别"   >
-          <a href="#区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别"></a> 区别</h3>
+<p>第一种写法：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> xcg::alpha</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>第二种写法：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> xcg</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">namespace</span> beta</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/">Cpp_流式IO处理</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2024-03-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/" data-flag-title="Cpp_流式IO处理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="内容"   >
+          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
-<ul>
-<li><strong>BFS</strong>：逐层扩展节点，适合寻找<strong>最短路径（无权图）</strong>。</li>
-<li><strong>DFS</strong>：沿路径深入搜索，适合找到<strong>所有路径</strong>或用于<strong>图的拓扑排序</strong>和<strong>强连通分量</strong>等应用。</li>
-</ul>
+<p>Cpp的基于流的IO系统</p>
+<ol>
+<li>ostream中<code>&lt;&lt;</code>运算符方法中的参数：pf控制符</li>
+</ol>
+<h1 id=""><a class="markdownIt-Anchor" href="#"></a> <code>&lt;&lt;</code></h1>
+<p><code>&lt;&lt;</code>叫做<strong>流插入</strong>运算符（insertion operator）。把后面跟随的内容插入到流中。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="关键点"   >
-          <a href="#关键点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键点"></a> 关键点</h3>
-      
-<ul>
-<li><strong>时间复杂度</strong>：O(V + E)，其中V是节点数，E是边数。</li>
-<li><strong>应用场景</strong>：BFS常用于无权最短路径、迷宫等问题；DFS常用于路径搜索、连通分量检测等。</li>
-</ul>
-
-        <h2 id="2-dijkstra算法"   >
-          <a href="#2-dijkstra算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2-dijkstra算法"></a> 2. Dijkstra算法</h2>
-      
-
-        <h3 id="关联-2"   >
-          <a href="#关联-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联-2"></a> 关联</h3>
-      
-<ul>
-<li><strong>Dijkstra</strong>是单源最短路径算法，与BFS类似，都用于路径搜索，但<strong>适用于带权图</strong>。</li>
-<li>与Bellman-Ford的区别在于它<strong>不能处理负权边</strong>。</li>
-</ul>
-
-        <h3 id="关键点-2"   >
-          <a href="#关键点-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键点-2"></a> 关键点</h3>
-      
-<ul>
-<li><strong>时间复杂度</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mi>V</mi><mo>+</mo><mi>E</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>V</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O((V + E) * log V)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span>（使用优先队列）。</li>
-<li><strong>适用场景</strong>：地图导航、网络路由（OSPF）、带权路径问题。</li>
-<li><strong>限制</strong>：不能处理负权边。面试中可能会询问原因，重点在于算法的贪心性质。</li>
-</ul>
-
-        <h3 id="与floyd算法相比"   >
-          <a href="#与floyd算法相比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与floyd算法相比"></a> 与Floyd算法相比</h3>
-      
-<p>当我们主要用于搜索图时（搜索单源路径），尽量用Dijkstra算法，因为Floyd太耗时了。</p>
-
-        <h2 id="3-bellman-ford算法"   >
-          <a href="#3-bellman-ford算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3-bellman-ford算法"></a> 3. Bellman-Ford算法</h2>
-      
-
-        <h3 id="关联-3"   >
-          <a href="#关联-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联-3"></a> 关联</h3>
-      
-<ul>
-<li>与Dijkstra一样，Bellman-Ford也用于单源最短路径。</li>
-<li>Bellman-Ford与Dijkstra的不同之处在于它<strong>可以处理负权边</strong>，且可以检测<strong>负权环</strong>。</li>
-</ul>
-
-        <h3 id="关键点-3"   >
-          <a href="#关键点-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键点-3"></a> 关键点</h3>
-      
-<ul>
-<li><strong>时间复杂度</strong>：O(V * E)。</li>
-<li><strong>适用场景</strong>：处理负权边的路径问题，如金融图表中的盈亏边。</li>
-<li><strong>特点</strong>：可以检测负权环。面试中可能会问到与Dijkstra的区别以及负权环检测方法。</li>
-</ul>
-
-        <h2 id="4-floyd算法"   >
-          <a href="#4-floyd算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#4-floyd算法"></a> 4. Floyd算法</h2>
-      
-
-        <h3 id="关联-4"   >
-          <a href="#关联-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联-4"></a> 关联</h3>
-      
-<ul>
-<li><strong>Floyd</strong>用于<strong>多源最短路径</strong>问题，与Bellman-Ford和Dijkstra不同，它直接求解图中<strong>任意两点间的最短路径</strong>。</li>
-<li>与Prim和Kruskal不同，它不用于生成树，而是直接在<strong>邻接矩阵</strong>上处理所有对路径的情况。</li>
-</ul>
-
-        <h3 id="关键点-4"   >
-          <a href="#关键点-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键点-4"></a> 关键点</h3>
-      
-<ul>
-<li><strong>时间复杂度</strong>：O(V^3)。</li>
-<li><strong>适用场景</strong>：计算稠密图中所有节点对的最短路径，尤其是对小规模图的处理。</li>
-<li><strong>优缺点</strong>：算法简单但复杂度较高；适用于小图。面试中可能会问到Floyd的实现及其适用范围。</li>
-</ul>
-
-        <h2 id="5-prim算法和kruskal算法"   >
-          <a href="#5-prim算法和kruskal算法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#5-prim算法和kruskal算法"></a> 5. Prim算法和Kruskal算法</h2>
-      
-
-        <h3 id="关联-5"   >
-          <a href="#关联-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关联-5"></a> 关联</h3>
-      
-<ul>
-<li>Prim和Kruskal都是最小生成树（MST）算法，通常用于无向图。</li>
-<li>它们都是贪心算法，通过不同的方法来构造最小生成树。</li>
-</ul>
-
-        <h3 id="区别-2"   >
-          <a href="#区别-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#区别-2"></a> 区别</h3>
-      
-<ul>
-<li><strong>Prim</strong>：逐步扩展生成树的节点，适合稠密图。</li>
-<li><strong>Kruskal</strong>：通过选择最小的边逐步合并生成树，适合稀疏图。</li>
-</ul>
-
-        <h3 id="关键点-5"   >
-          <a href="#关键点-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键点-5"></a> 关键点</h3>
-      
-<ul>
-<li><strong>时间复杂度</strong>：Prim为O(E log V)（堆优化），Kruskal为O(E log E)。</li>
-<li><strong>适用场景</strong>：网络设计、最小代价连接等。</li>
-<li><strong>优缺点</strong>：Prim对稠密图较好，Kruskal对稀疏图较好。面试中常问到如何实现Union-Find（用于Kruskal中的连通性检测）。</li>
-</ul>
-
-        <h2 id="总结与面试中的关键考查点"   >
-          <a href="#总结与面试中的关键考查点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结与面试中的关键考查点"></a> 总结与面试中的关键考查点</h2>
+        <h2 id="后面支持跟着哪些东西"   >
+          <a href="#后面支持跟着哪些东西" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#后面支持跟着哪些东西"></a> <code>&lt;&lt;</code>后面支持跟着哪些东西</h2>
       
 <ol>
-<li><strong>算法适用场景</strong>：每种算法都有特定的应用场景，面试中可能会考查候选人能否识别何时使用BFS、DFS、Dijkstra、Floyd或MST算法。</li>
-<li><strong>算法的优化和复杂度</strong>：了解时间和空间复杂度，尤其是如何优化（如Dijkstra的优先队列优化，Kruskal的Union-Find等），可以帮助在面试中展示优化思维。</li>
-<li><strong>差异点</strong>：
-<ul>
-<li>Dijkstra与Bellman-Ford的差异：特别在处理负权边的能力上。</li>
-<li>Prim与Kruskal：适用图密度的不同，考查对图结构的理解。</li>
-<li>多源最短路径（Floyd）与单源最短路径（Dijkstra、Bellman-Ford）的区别，考查对路径搜索的理解。</li>
-</ul>
-</li>
-<li><strong>细节实现和边界情况</strong>：面试中可能会问到实现细节和一些边界情况，比如：
-<ul>
-<li>Dijkstra的贪心限制，无法处理负权边。</li>
-<li>Bellman-Ford如何检测负权环。</li>
-<li>Union-Find在Kruskal中的应用及优化。</li>
-</ul>
-</li>
+<li>数字类型（arithmetic types）</li>
+<li>流缓冲（stream buffers）</li>
+<li>控制符（manipulators）</li>
 </ol>
 
-        <h1 id="union-find-并查集"   >
-          <a href="#union-find-并查集" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#union-find-并查集"></a> Union-Find 并查集</h1>
+        <h1 id="-2"   >
+          <a href="#-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#-2"></a> <code>&gt;&gt;</code></h1>
       
-<p><strong>Union-Find</strong>（联合-查找）是一种用于处理<strong>动态连通性</strong>问题的数据结构，通常用于图的连通性检测、最小生成树（如Kruskal算法中的使用）、网络连接问题等。</p>
+<p><code>&gt;&gt;</code>称作流析出运算符（extraction operator）。</p>
 
-        <h2 id="主要功能"   >
-          <a href="#主要功能" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主要功能"></a> 主要功能</h2>
+        <h1 id="控制符号"   >
+          <a href="#控制符号" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#控制符号"></a> 控制符号</h1>
       
-<p>Union-Find 数据结构主要提供两个操作：</p>
+
+        <h2 id="stdendl"   >
+          <a href="#stdendl" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stdendl"></a> <code>std::endl</code></h2>
+      
+<p>end of line</p>
+<p><code>std::endl</code>是定义在<code>ostream</code>中的<strong>函数</strong>。<br />
+<img src="../../images/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/image-20250308103912962.png" alt="" /><br />
+实际上就是输出了一个<code>\n</code>，并且刷新缓冲区。</p>
+
+        <h1 id="cout哪来的ostream"   >
+          <a href="#cout哪来的ostream" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cout哪来的ostream"></a> cout哪来的？ostream</h1>
+      
+<p>在<code>&lt;iostream&gt;</code>中，cout是这么定义的：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> ostream cout;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/image-20250308133737867.png" alt="" /><br />
+<code>iostream</code>是继承于ostream、iostream的。</p>
+<p>在<code>&lt;ostream&gt;</code>中，ostream是<code>basic_ostream&lt;char&gt;</code>的别名。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> basic_ostream&lt;<span class="type">char</span>&gt; ostream;</span><br></pre></td></tr></table></div></figure>
+<p>cout、cerr、clog是定义于<code>basic_ostream&lt;char&gt;</code>，即ostream的对象。<br />
+关于详细的：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://legacy.cplusplus.com/reference/ostream/ostream/" >ostream</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="ostream的方法"   >
+          <a href="#ostream的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ostream的方法"></a> ostream的方法</h1>
+      
+
+        <h2 id="width方法控制数字宽度"   >
+          <a href="#width方法控制数字宽度" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#width方法控制数字宽度"></a> width方法控制数字宽度</h2>
+      
+<p>cout本身有一些方法，比如width就是。通过<code>std::cout.width(n)</code>进行调用。<br />
+这个变量是继承于<code>std::ios_base</code>得来的。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/ios_base/width" >std::ios_base::width - cppreference.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> val = <span class="number">90</span>;</span><br><span class="line">    std::cout.<span class="built_in">width</span>(<span class="number">10</span>);</span><br><span class="line">    std::cout &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12345678</span><br><span class="line">        90</span><br></pre></td></tr></table></div></figure>
+<p>可以看到，width为10时，如果不足10个字符，则前面空出补位。</p>
+
+        <h2 id="precision方法控制浮点数的精度"   >
+          <a href="#precision方法控制浮点数的精度" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#precision方法控制浮点数的精度"></a> precision方法控制浮点数的精度</h2>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://legacy.cplusplus.com/ios_base::precision" >precision</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+和width一样，是cout的方法。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> f = <span class="number">3.14159</span>;</span><br><span class="line">    std::cout.<span class="built_in">precision</span>(<span class="number">5</span>);</span><br><span class="line">    std::cout &lt;&lt; f &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.1416</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="基于流插入的形式进行的字符控制"   >
+          <a href="#基于流插入的形式进行的字符控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于流插入的形式进行的字符控制"></a> 基于流插入的形式进行的字符控制</h1>
+      
+
+        <h2 id="ostream中的pf"   >
+          <a href="#ostream中的pf" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ostream中的pf"></a> ostream中的pf</h2>
+      
+<p>pf是<code>&lt;&lt;</code>方法中值得注意的参数。pf是一个函数指针。可以填入不同的操作符（manipulator）。<br />
+<img src="../../images/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/image-20250308142525262.png" alt="" /></p>
+
+        <h2 id="操作符manipulator"   >
+          <a href="#操作符manipulator" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#操作符manipulator"></a> 操作符（manipulator）</h2>
+      
+
+        <h3 id="endl"   >
+          <a href="#endl" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#endl"></a> endl</h3>
+      
+<p>其实我们最常见的<code>std::endl</code>就是一个。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Defined in header &lt;ostream&gt;</span></span><br><span class="line"><span class="function">ostream&amp; <span class="title">endl</span> <span class="params">(ostream&amp; os)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>可以看到，endl实际上是一个函数。作用是往cout写入一个<code>\n</code>，然后flush一下cout，最后再返回cout。</p>
+
+        <h3 id="boolalpha控制bool输出形式"   >
+          <a href="#boolalpha控制bool输出形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#boolalpha控制bool输出形式"></a> boolalpha控制bool输出形式</h3>
+      
+<p>除了endl这个manipulator，还有其他更专用的。如<code>boolalpha / noboolalpha</code>。（定义于标准库标头<code>&lt;ios&gt;</code>）<br />
+默认下的bool类型：false输出0，true输出1。插入boolalpha后，就会false输出false、true输出true。而且一旦插入了boolalpha，就会持续保持状态，因为cout是一个全局对象。如果要恢复原态需要再次插入noboolalpha。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">bool</span> d&#123; <span class="literal">false</span> &#125;;</span><br><span class="line">    <span class="comment">// 默认下的bool类型：false输出0，true输出1</span></span><br><span class="line">    std::cout &lt;&lt; d &lt;&lt; std::endl;</span><br><span class="line">    <span class="comment">// 插入boolalpha后，就会false输出false、true输出true。</span></span><br><span class="line">    std::cout &lt;&lt; std::boolalpha &lt;&lt; d &lt;&lt; std::endl;</span><br><span class="line">    <span class="comment">// 插入noboolalpha后，就会false输出0、true输出1。</span></span><br><span class="line">    std::cout &lt;&lt; std::noboolalpha &lt;&lt; d &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="setw"   >
+          <a href="#setw" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#setw"></a> setw</h3>
+      
+<p>在<code>&lt;iomanip&gt;</code>定义的<code>std::setw</code>也可以控制width：<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/manip/setw" >std::setw - cppreference.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<blockquote>
+<p>setw是一个扩展的manipulator。需要另外引入<code>&lt;iomanip&gt;</code></p>
+</blockquote>
+<p>它也可以控制宽度，但较于width，它是基于流插入的形式进行的。通过<code>std::setw(n)</code>进行。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">setw</span>(<span class="number">6</span>) &lt;&lt; std::right &lt;&lt; <span class="number">-77</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>output:</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">-77</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="left-right-internal"   >
+          <a href="#left-right-internal" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#left-right-internal"></a> left、right、internal</h3>
+      
+<p>可以配合internal、left、right进行对齐。（from <code>&lt;ios&gt;</code>）<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/manip/left" >std::left, std::right, std::internal - cppreference.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <ol>
-<li><strong>Find</strong>（查找）：用于查找某个元素所在的集合（也可以理解为查找某个元素的代表元素或根节点）。</li>
-<li><strong>Union</strong>（合并）：将两个元素所属的集合合并成一个集合。</li>
+<li>internal是符号左、数字右；</li>
+<li>left是符号和数字整体左；</li>
+<li>right是符号和数字整体右。</li>
 </ol>
-<p>这两个操作支持<strong>高效的动态连接操作</strong>，适用于处理图的连通性问题。例如，判断图中两个节点是否在同一连通分量中，或合并两个节点所属的连通分量。</p>
 
-        <h2 id="数据结构实现"   >
-          <a href="#数据结构实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据结构实现"></a> 数据结构实现</h2>
+        <h3 id="示例"   >
+          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
       
-<p>Union-Find 使用一棵<strong>树</strong>来表示每个集合的结构。每个节点指向一个父节点，根节点代表整个集合。通过路径压缩和按秩合并（按大小合并）这两种技术，可以使操作的时间复杂度接近常数时间（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>α</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(α(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，其中α是反阿克曼函数，是非常慢增长的）。</p>
+<p>经过测试，必须每次都事先设置width，才能有效果。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">-77</span>;</span><br><span class="line">    std::cout.<span class="built_in">width</span>(<span class="number">6</span>);</span><br><span class="line">    std::cout &lt;&lt; std::internal &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    std::cout.<span class="built_in">width</span>(<span class="number">6</span>);</span><br><span class="line">    std::cout &lt;&lt; std::left &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    std::cout.<span class="built_in">width</span>(<span class="number">6</span>);</span><br><span class="line">    std::cout &lt;&lt; std::right &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>output:</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-   <span class="number">77</span></span><br><span class="line"><span class="number">-77</span>   </span><br><span class="line">   <span class="number">-77</span></span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="find-操作"   >
-          <a href="#find-操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#find-操作"></a> Find 操作</h3>
+        <h3 id="setprecision"   >
+          <a href="#setprecision" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#setprecision"></a> setprecision</h3>
       
-<ul>
-<li><strong>目标</strong>：查找一个元素属于哪个集合。即找到该元素的根节点。</li>
-<li><strong>路径压缩</strong>：为了优化后续查询，我们将路径中的所有节点都直接连接到根节点上，使得树更平衡，从而提高效率。</li>
-</ul>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] != x)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">        <span class="comment">// 递归查找并压缩路径</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/manip/setprecision" >std::setprecision - cppreference.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+setprecision也是一个扩展的manipulator。（from <code>&lt;iomanip&gt;</code>）<br />
+和precision方法一样，可以用于控制数字的精度，但setprecision是基于插入形式的。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> f = <span class="number">3.14159</span>;</span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">setprecision</span>(<span class="number">5</span>) &lt;&lt; f &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">setprecision</span>(<span class="number">9</span>) &lt;&lt; f &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    std::cout &lt;&lt; std::fixed;</span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">setprecision</span>(<span class="number">5</span>) &lt;&lt; f &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    std::cout &lt;&lt; std::<span class="built_in">setprecision</span>(<span class="number">9</span>) &lt;&lt; f &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>output:</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.1416</span></span><br><span class="line"><span class="number">3.14159</span></span><br><span class="line"><span class="comment">// fixed</span></span><br><span class="line"><span class="number">3.14159</span></span><br><span class="line"><span class="number">3.141590000</span></span><br></pre></td></tr></table></div></figure>
 
-        <h3 id="union操作"   >
-          <a href="#union操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#union操作"></a> Union操作</h3>
+        <h3 id="控制数字类型的输出"   >
+          <a href="#控制数字类型的输出" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#控制数字类型的输出"></a> 控制数字类型的输出</h3>
       
-<ul>
-<li>
-<p><strong>目标</strong>：将两个元素合并到同一个集合中。</p>
-</li>
-<li>
-<p><strong>按秩合并（Union by Rank/Size）</strong>：将树小的根节点连接到大的根节点，保持树的平衡，避免树变得过高。</p>
-</li>
-</ul>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">union</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (rootX != rootY)</span><br><span class="line">    &#123;  <span class="comment">// 如果 x 和 y 不在同一集合</span></span><br><span class="line">        <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY])</span><br><span class="line">        &#123;</span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[rootX] &lt; rank[rootY])</span><br><span class="line">        &#123;</span><br><span class="line">            parent[rootX] = rootY;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;    </span><br><span class="line">            parent[rootY] = rootX;</span><br><span class="line">            rank[rootX]++;</span><br><span class="line">            <span class="comment">// 增加秩</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>还有showbase、showpoint、showpos、uppercase、<code>dec / hex / oct</code>等等（from <code>&lt;ios&gt;</code>）</p>
+<p><code>dec / hex / oct</code>的作用在于控制输出数字类型的进制。比如</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; std::hex &lt;&lt; <span class="number">10</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;   <span class="comment">// a</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>showbase的作用在于输出时不同进制数加前缀，比如开启了showbase后，输出16进制数：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">20</span>;</span><br><span class="line">    std::cout &lt;&lt; std::hex &lt;&lt; std::showbase &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;   <span class="comment">//0x14</span></span><br><span class="line">    std::cout &lt;&lt; std::hex &lt;&lt; std::noshowbase &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">//14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>uppercase的作用是输出<strong>数字类型</strong>时，区分大小写格式。比如开启uppercase后16进制数<code>0x4d</code>就会变为<code>0X4D</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; std::showbase &lt;&lt; std::hex;</span><br><span class="line">    std::cout &lt;&lt; std::uppercase &lt;&lt; <span class="number">77</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;   <span class="comment">//0X4D</span></span><br><span class="line">    std::cout &lt;&lt; std::nouppercase &lt;&lt; <span class="number">77</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>; <span class="comment">//0x4d</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h2 id="时间复杂度"   >
-          <a href="#时间复杂度" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#时间复杂度"></a> 时间复杂度</h2>
+        <h3 id="fixed"   >
+          <a href="#fixed" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fixed"></a> fixed</h3>
       
-<ul>
-<li><strong>Find</strong> 和 <strong>Union</strong> 的时间复杂度是接近 O(α(n))，其中 <strong>α(n)</strong> 是反阿克曼函数，它增长非常慢，实际上几乎可以认为是常数时间（对于实际应用，α(n) 小于 5 即可）。</li>
-<li>因此，Union-Find 数据结构非常高效，适用于处理大规模的连通性问题。</li>
-</ul>
+<p>当 floatfield 设置为 fixed 时，浮点值将使用<strong>定点表示法</strong>写入：该值的小数部分位数与精度字段( <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://legacy.cplusplus.com/ios_base::precision" >precision</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ) 指定的位数完全相同，并且没有指数部分。</p>
 
-        <h2 id="应用场景"   >
-          <a href="#应用场景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h2>
+        <h3 id="默认浮点表示法-定点表示法-科学计数法"   >
+          <a href="#默认浮点表示法-定点表示法-科学计数法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#默认浮点表示法-定点表示法-科学计数法"></a> 默认浮点表示法、定点表示法、科学计数法</h3>
       
+<p>默认浮点表示法和定点表示法以及科学计数法之间有所不同（请参阅 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://legacy.cplusplus.com/ios_base::precision" >precision</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ）。在默认浮点表示法中，精度字段指定小数点前后显示的是最大有意义位数，而在定点表示法和科学计数法中，精度字段精确指定小数点后显示多少位数字，即使这些数字是小数点后的零。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// modify floatfield</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>     <span class="comment">// std::cout, std::fixed, std::scientific</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">double</span> a = <span class="number">3.1415926534</span>;</span><br><span class="line">  <span class="type">double</span> b = <span class="number">2006.0</span>;</span><br><span class="line">  <span class="type">double</span> c = <span class="number">1.0e-10</span>;</span><br><span class="line"></span><br><span class="line">  std::cout.<span class="built_in">precision</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;default:\n&quot;</span>;</span><br><span class="line">  std::cout &lt;&lt; a &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; b &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; c &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;fixed:\n&quot;</span> &lt;&lt; std::fixed;</span><br><span class="line">  std::cout &lt;&lt; a &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; b &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; c &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;scientific:\n&quot;</span> &lt;&lt; std::scientific;</span><br><span class="line">  std::cout &lt;&lt; a &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; b &lt;&lt; <span class="string">&#x27;\n&#x27;</span> &lt;&lt; c &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">default:</span><br><span class="line">3.1416</span><br><span class="line">2006</span><br><span class="line">1e-010</span><br><span class="line"></span><br><span class="line">fixed:</span><br><span class="line">3.14159</span><br><span class="line">2006.00000</span><br><span class="line">0.00000</span><br><span class="line"></span><br><span class="line">scientific:</span><br><span class="line">3.14159e+000</span><br><span class="line">2.00600e+003</span><br><span class="line">1.00000e-010</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="基于流析出的形式"   >
+          <a href="#基于流析出的形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于流析出的形式"></a> 基于流析出的形式</h1>
+      
+<p><code>&gt;&gt;</code>称作流析出运算符（extraction operator）。</p>
+
+        <h2 id="istream中的pf"   >
+          <a href="#istream中的pf" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#istream中的pf"></a> istream中的pf</h2>
+      
+<p><img src="../../images/Cpp_%E6%B5%81%E5%BC%8FIO%E5%A4%84%E7%90%86/image-20250308193423855.png" alt="" /><br />
+可以看到，相比于ostream的pf，istream中的可选项少了一些。</p>
 <ol>
-<li><strong>判断两个元素是否在同一个集合中</strong>：比如判断图中的两个节点是否连通。</li>
-<li><strong>最小生成树</strong>：Kruskal 算法中用于判断两条边是否连接在同一个连通分量中，若是，则跳过；若不是，则合并两个分量。</li>
-<li><strong>网络连接问题</strong>：如社交网络中的朋友关系，或者计算机网络中设备的连通性。</li>
-<li><strong>动态连通性</strong>：例如实时地在网络中查询两个节点是否连通，并合并它们的连接。</li>
+<li>boolalpha，可以通过输入false、true字符串从而给bool变量写值的操作。</li>
+<li><code>dec/hex/oct</code>，可以通过输入十进制、十六进制、八进制数字进而给整型变量写值。</li>
 </ol>
-
-        <h2 id="例子"   >
-          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
-      
-<p>假设有一个图，节点为 0, 1, 2, 3，边为 (0,1), (1,2), (2,3)，我们可以用 Union-Find 来检测这些节点是否在同一个连通分量内，并且合并这些连通分量。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; rank;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UnionFind</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        parent.<span class="built_in">resize</span>(n);</span><br><span class="line">        rank.<span class="built_in">resize</span>(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            parent[i] = i;  <span class="comment">// 初始化每个元素的父节点为自身</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = <span class="built_in">find</span>(parent[x]);  <span class="comment">// 路径压缩</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">unionSets</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> rootX = <span class="built_in">find</span>(x);</span><br><span class="line">        <span class="type">int</span> rootY = <span class="built_in">find</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootX != rootY) &#123;</span><br><span class="line">            <span class="keyword">if</span> (rank[rootX] &gt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rank[rootX] &lt; rank[rootY]) &#123;</span><br><span class="line">                parent[rootX] = rootY;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                parent[rootY] = rootX;</span><br><span class="line">                rank[rootX]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">UnionFind <span class="title">uf</span><span class="params">(<span class="number">4</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 合并 (0, 1), (1, 2), (2, 3)</span></span><br><span class="line">    uf.<span class="built_in">unionSets</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    uf.<span class="built_in">unionSets</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    uf.<span class="built_in">unionSets</span>(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是否连通</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is 0 and 3 connected? &quot;</span> &lt;&lt; (uf.<span class="built_in">find</span>(<span class="number">0</span>) == uf.<span class="built_in">find</span>(<span class="number">3</span>)) &lt;&lt; std::endl;  <span class="comment">// 输出 1，表示连通</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is 0 and 2 connected? &quot;</span> &lt;&lt; (uf.<span class="built_in">find</span>(<span class="number">0</span>) == uf.<span class="built_in">find</span>(<span class="number">2</span>)) &lt;&lt; std::endl;  <span class="comment">// 输出 1，表示连通</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is 0 and 4 connected? &quot;</span> &lt;&lt; (uf.<span class="built_in">find</span>(<span class="number">0</span>) == uf.<span class="built_in">find</span>(<span class="number">4</span>)) &lt;&lt; std::endl;  <span class="comment">// 输出 0，表示不连通</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="关键特性"   >
-          <a href="#关键特性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键特性"></a> 关键特性</h2>
-      
-<ul>
-<li><strong>路径压缩</strong>：使得树更加扁平化，提高查询效率。</li>
-<li><strong>按秩合并</strong>：合并两个集合时，保持树的平衡，减少树的高度，进一步优化性能。</li>
-</ul>
-
-        <h2 id="面试中可能的考点"   >
-          <a href="#面试中可能的考点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#面试中可能的考点"></a> 面试中可能的考点</h2>
-      
-<ol>
-<li>Union-Find的基本原理，尤其是如何实现<code>Find</code>和<code>Union</code>操作。</li>
-<li><strong>路径压缩</strong>和<strong>按秩合并</strong>的优化思路及其时间复杂度。</li>
-<li>在图算法中（特别是Kruskal算法）如何利用Union-Find来解决连通性问题。</li>
-<li>处理<strong>动态连通性</strong>时的常见问题，如如何动态添加边、合并不同的子图等。</li>
-</ol>
-<p>总之，Union-Find 是一种非常高效的解决动态连通性问题的数据结构，是图论问题中不可或缺的工具之一，特别在处理大规模图的场景中表现尤为突出。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/27/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/142/">142</a><a class="extend next" rel="next" href="/page/29/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">284</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/27/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/29/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">287</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

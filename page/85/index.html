@@ -32,439 +32,151 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">MySQL_表设计原则</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" data-flag-title="MySQL_表设计原则"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">MySQL_完整性约束</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" data-flag-title="MySQL_完整性约束"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>给你一个场景，让你设计表。</li>
-<li>关系型数据库的范式设计。</li>
-<li>一对一/一对多实体关系的表设计原则</li>
-<li>多对多实体关系的表设计原则</li>
-<li>总结 - 表设计三要素</li>
+<li>主键约束</li>
+<li>自增键约束</li>
+<li>唯一键约束</li>
+<li>非空约束</li>
+<li>默认值约束</li>
+<li>外键约束</li>
 </ol>
 
-        <h1 id="表间的关系"   >
-          <a href="#表间的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表间的关系"></a> 表间的关系</h1>
+        <h1 id="主键约束"   >
+          <a href="#主键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#主键约束"></a> 主键约束</h1>
       
-<p>现实中，表与表之间的关系无非就三种：一对一、一对多、多对多。</p>
-<p>如何设计表之间的关联关系？</p>
+<p><code>PRIMARY KEY</code></p>
+<p>只能有一个主键。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table user(</span><br><span class="line">	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT comment &#x27;用户的主键id&#x27;,</span><br><span class="line">	username VARCHAR(50) UNIQUE NOT NULL COMMENT &#x27;用户名&#x27;,</span><br><span class="line">	age TINYINT UNSIGNED NOT NULL default 18,</span><br><span class="line">	sex ENUM(&#x27;male&#x27;,&#x27;demale&#x27;)</span><br><span class="line">);</span><br><span class="line"># commit + ’...‘ 可以对本属性进行备注注释说明</span><br></pre></td></tr></table></div></figure>
+<p>创建表后，可以通过<code>desc user\G</code>，或者<code>desc user;</code>来查看字段的详细信息。前者是展开列表形式，后者是二维表格形式。</p>
 
-        <h1 id="一对一"   >
-          <a href="#一对一" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一对一"></a> 一对一</h1>
+        <h1 id="自增键约束"   >
+          <a href="#自增键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#自增键约束"></a> 自增键约束</h1>
       
-<p>举个例子：用户User和身份信息Info的关系，一个用户对应一个身份信息。两张表是一对一的关系。</p>
-<ul>
-<li>用户User</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>uid(主键、自增)</th>
-<th>name</th>
-<th>age</th>
-<th>sex</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1000</td>
-<td>zhang</td>
-<td>20</td>
-<td>M</td>
-</tr>
-<tr>
-<td>1020</td>
-<td>liu</td>
-<td>21</td>
-<td>W</td>
-</tr>
-<tr>
-<td>2010</td>
-<td>wang</td>
-<td>22</td>
-<td>M</td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>身份信息Info</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>cardid</th>
-<th>addrinfo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>112233</td>
-<td>china</td>
-</tr>
-<tr>
-<td>334455</td>
-<td>japan</td>
-</tr>
-<tr>
-<td>556677</td>
-<td>canada</td>
-</tr>
-</tbody>
-</table></div>
-<p>目前来看，身份信息表和用户表完全对应不上。</p>
-<p><strong>需要在身份信息表加一个关联父表主键的字段uid，才能和用户表对应上</strong>。</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>uid</th>
-<th>cardid</th>
-<th>addrinfo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1000</td>
-<td>112233</td>
-<td>china</td>
-</tr>
-<tr>
-<td>1020</td>
-<td>334455</td>
-<td>japan</td>
-</tr>
-<tr>
-<td>2010</td>
-<td>556677</td>
-<td>canada</td>
-</tr>
-</tbody>
-</table></div>
-<p>现在，两个表之间的关联就是靠Info表的uid建立起来的，即<strong>Info表的uid字段关联了父表的主键</strong>，Info表的uid在逻辑上实际上就是<strong>外键</strong>，Info叫做<strong>子表</strong>，User叫做<strong>父表</strong>。子表的外键和父表的主键的数据类型必须一致，字段名无所谓。</p>
-<blockquote>
-<p>mysql的性能瓶颈主要集中在磁盘IO，出于对性能的优化考虑，我们现在不会在sql层明确指出这是一个外键，不会把外键的约束工作分配给mysql。而是把外键的处理我们放到应用层代码。以让sql处理更核心的业务。</p>
-</blockquote>
-<p>使表之间能够一对一关联起来的做法：在子表中<strong>增加一列</strong>，与父表的主键关联。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from info where uid=2010;	#如此就相当于间接查到“王”的身份信息</span><br></pre></td></tr></table></div></figure>
+<p><code>AUTO_INCREMENT</code></p>
 
-        <h1 id="一对多多对多"   >
-          <a href="#一对多多对多" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一对多多对多"></a> 一对多/多对多</h1>
+        <h1 id="唯一键约束"   >
+          <a href="#唯一键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#唯一键约束"></a> 唯一键约束</h1>
       
-<p>举个例子：电商平台。有三个实体：用户User、商品Product、订单Order。</p>
+<p><code>UNIQUE</code></p>
+<p>可以有多个唯一键，而且可以为空。</p>
 
-        <h2 id="分析"   >
-          <a href="#分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+        <h1 id="非空约束"   >
+          <a href="#非空约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非空约束"></a> 非空约束</h1>
       
-<ul>
-<li>用户 - 商品：在用户购买商品之前，它们之间没有直接的关联关系</li>
-<li>用户 - 订单：一对多的关系</li>
-<li>商品 - 订单：多对多的关系</li>
-</ul>
+<p><code>NOT NULL</code></p>
 
-        <h2 id="表设计"   >
-          <a href="#表设计" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表设计"></a> 表设计</h2>
+        <h1 id="默认值约束"   >
+          <a href="#默认值约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#默认值约束"></a> 默认值约束</h1>
       
-<ul>
-<li>用户User表</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>uid</th>
-<th>name</th>
-<th>age</th>
-<th>sex</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1000</td>
-<td>zhang</td>
-<td>20</td>
-<td>M</td>
-</tr>
-<tr>
-<td>1020</td>
-<td>liu</td>
-<td>21</td>
-<td>W</td>
-</tr>
-<tr>
-<td>2010</td>
-<td>wang</td>
-<td>22</td>
-<td>M</td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>商品Product表</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>pid</th>
-<th>pname</th>
-<th>price</th>
-<th>amount</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>phone</td>
-<td>600.0</td>
-<td>100</td>
-</tr>
-<tr>
-<td>2</td>
-<td>laptop</td>
-<td>2000.0</td>
-<td>50</td>
-</tr>
-<tr>
-<td>3</td>
-<td>battery</td>
-<td>10.0</td>
-<td>200</td>
-</tr>
-</tbody>
-</table></div>
-<ul>
-<li>订单Order表</li>
-</ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>orderid</th>
-<th>pid</th>
-<th>number</th>
-<th>money</th>
-<th>totalprice</th>
-<th>addrinfo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>O1000</td>
-<td>1</td>
-<td>1</td>
-<td>600.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>2</td>
-<td>2</td>
-<td>4000.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>3</td>
-<td>4</td>
-<td>40.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O2000</td>
-<td>2</td>
-<td>1</td>
-<td>2000.0</td>
-<td>2000.0</td>
-<td>陕西科技大学</td>
-</tr>
-</tbody>
-</table></div>
+<p><code>DEFAULT</code></p>
 
-        <h2 id="用户和订单-一对多"   >
-          <a href="#用户和订单-一对多" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用户和订单-一对多"></a> 用户和订单 - 一对多</h2>
+        <h1 id="外键约束"   >
+          <a href="#外键约束" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#外键约束"></a> 外键约束</h1>
       
-<p>订单中没有用户的信息，对应不上是哪个用户的订单。</p>
-<p>则需要给订单加一个用户id字段，需与主表的主键关联，类型必须一致。即可与用户对应。</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>orderid</th>
-<th>uid</th>
-<th>pid</th>
-<th>number</th>
-<th>money</th>
-<th>totalprice</th>
-<th>addrinfo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>O1000</td>
-<td>1000</td>
-<td>1</td>
-<td>1</td>
-<td>600.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>1000</td>
-<td>2</td>
-<td>2</td>
-<td>4000.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>1000</td>
-<td>3</td>
-<td>4</td>
-<td>40.0</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O2000</td>
-<td>2010</td>
-<td>2</td>
-<td>1</td>
-<td>2000.0</td>
-<td>2000.0</td>
-<td>陕西科技大学</td>
-</tr>
-</tbody>
-</table></div>
-
-        <h2 id="商品和订单-多对多"   >
-          <a href="#商品和订单-多对多" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#商品和订单-多对多"></a> 商品和订单 - 多对多</h2>
-      
-<p>目前的订单表的设计是有很多问题的，信息冗余过多。如果某用户在同一订单中购买了多种商品，则orderid、uid、totalprice和addrinfo都是一致的，为每一种商品都单列一条记录，冗余过多。</p>
-<p>冗余带来的问题有很多，其中最大的问题是，如果用户对订单进行增删改查，则有可能影响整个有关此订单的所有记录，修改代价高。</p>
-<p>如果订单(Order)表像下面这样，就很简洁了。这就不存在冗余了。如果需要更改订单，不用删除多行记录，只需修改一次。</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>orderid</th>
-<th>uid</th>
-<th>totalprice</th>
-<th>addrinfo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>O1000</td>
-<td>1000</td>
-<td>4640.0</td>
-<td>西安工业大学</td>
-</tr>
-<tr>
-<td>O2000</td>
-<td>2010</td>
-<td>2000.0</td>
-<td>陕西科技大学</td>
-</tr>
-</tbody>
-</table></div>
-<p>但是还要知道订单的内容，需要一个中间表 - 订单内容OrderList。</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>orderid</th>
-<th>pid</th>
-<th>number</th>
-<th>money</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>O1000</td>
-<td>1</td>
-<td>1</td>
-<td>600.0</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>2</td>
-<td>2</td>
-<td>4000.0</td>
-</tr>
-<tr>
-<td>O1000</td>
-<td>3</td>
-<td>4</td>
-<td>40.0</td>
-</tr>
-<tr>
-<td>O2000</td>
-<td>2</td>
-<td>1</td>
-<td>2000.0</td>
-</tr>
-</tbody>
-</table></div>
-<p>由此设计，商品表和订单表则不会出现数据冗余。</p>
-
-        <h1 id="总结"   >
-          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
-      
-<p>在进行表的设计时，考虑三个问题</p>
-<ol>
-<li>表字段数据类型的斟酌</li>
-<li>完整性约束条件的规范</li>
-<li>实体关系对应的表设计原则</li>
-</ol>
-<p>实体之间的关系，无非是一对一、一对多、多对多。</p>
-<p>一对一、一对多中，子表和父表的关联可由子表增加一列字段来关联父表的主键。</p>
-<p>而多对多关系中，除了增加一列字段来关联父表，还需要增加一个中间表来消除冗余。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%BF%90%E7%AE%97%E7%AC%A6/">MySQL_运算符</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%BF%90%E7%AE%97%E7%AC%A6/" data-flag-title="MySQL_运算符"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<p><code>FOREIGN KEY</code></p>
+<p>拿学生信息表、考试信息表来举例子。两张表中的信息是有关联的，不是独立的。</p>
+<p>学生信息表中有张三，那么考试信息表里就可能有依赖张三的信息。</p>
+<p>如果我们要删除张三，那么需要把另一个表中依赖张三的信息也删掉。否则就会出现无效冗余数据。</p>
+<p>外键、存储函数、存储过程、触发器，在现如今的后台开发中几乎不直接用在mysql端了。</p>
+<p>而是尽量把这个过程放在业务逻辑上提前处理好，让数据库持久层专于做增删改查，有利于提高效率。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">MySQL_数据类型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-flag-title="MySQL_数据类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>算数运算符</li>
-<li>逻辑运算符</li>
-<li>比较运算符</li>
+<li>数值类型</li>
+<li>字符串类型</li>
+<li>日期和时间类型</li>
+<li>enum和set</li>
 </ol>
 
-        <h1 id="算术运算符"   >
-          <a href="#算术运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#算术运算符"></a> 算术运算符</h1>
+        <h1 id="分层模型"   >
+          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
+      
+<p>业务层是工作在内存上的，速度很快。</p>
+<p>而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。</p>
+<p>所以我们定义数据表时，每一个字段的数据类型都要好好去斟酌。</p>
+<p>MySQL server虽然工作在内存上，但是它要读取数据、索引时，就要进行磁盘IO。磁盘IO次数越少，则性能越高，所以我们要尽力减少磁盘IO次数。</p>
+<p>MySQL数据类型定义了数据的大小范围，因此使用时选择合适的类型，不仅会降低表占用的磁盘空间，还能间接减少磁盘IO的次数，提高了表的访问效率；不仅如此，索引的效率也和数据类型息息相关。</p>
+
+        <h1 id="数值类型"   >
+          <a href="#数值类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数值类型"></a> 数值类型</h1>
       
 <div class="table-container"><table>
 <thead>
 <tr>
-<th>运算符</th>
-<th>作用</th>
+<th>整数类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>+</code></td>
-<td>加法</td>
+<td><code>TINYINT</code></td>
+<td>1</td>
+<td>有符号<code>-128</code>；无符号0</td>
+<td>有符号127；无符号255</td>
 </tr>
 <tr>
-<td><code>-</code></td>
-<td>减法</td>
+<td><code>SMALLINT</code></td>
+<td>2</td>
+<td>有符号<code>-32768</code>；无符号0</td>
+<td>有符号32767；无符号65535</td>
 </tr>
 <tr>
-<td><code>*</code></td>
-<td>乘法</td>
+<td><code>MEDIUMINT</code></td>
+<td>3</td>
+<td>有符号<code>-8388608</code>；无符号0</td>
+<td>有符号8388607；无符号1677215</td>
 </tr>
 <tr>
-<td><code>/</code>、<code>DIV</code></td>
-<td>除法，返回商</td>
+<td><code>INT</code>、<code>INTEGER</code></td>
+<td>4</td>
+<td>有符号<code>-2147483648</code>；无符号0</td>
+<td>有符号2147483647；无符号4294967295</td>
 </tr>
 <tr>
-<td><code>%</code>、<code>MOD</code></td>
-<td>除法，返回余数</td>
+<td><code>BIGINT</code></td>
+<td>8</td>
+<td>有符号<code>-9223372036854775808</code>；无符号0</td>
+<td>有符号9223372036854775807；无符号18446744073709551615</td>
 </tr>
 </tbody>
 </table></div>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>浮点数类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FLOAT</code></td>
+<td>4</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1.175494351</mn><mi>E</mi><mo>−</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 1.175494351E-38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">1</span><span class="mord">7</span><span class="mord">5</span><span class="mord">4</span><span class="mord">9</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>3.402823466</mn><mi>E</mi><mo>+</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">\pm 3.402823466E+38</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">3</span><span class="mord">.</span><span class="mord">4</span><span class="mord">0</span><span class="mord">2</span><span class="mord">8</span><span class="mord">2</span><span class="mord">3</span><span class="mord">4</span><span class="mord">6</span><span class="mord">6</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span></span></span></span></td>
+</tr>
+<tr>
+<td><code>DOUBLE</code></td>
+<td>8</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>2.2250738585072014</mn><mi>E</mi><mo>−</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 2.2250738585072014E-308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">2</span><span class="mord">.</span><span class="mord">2</span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">3</span><span class="mord">8</span><span class="mord">5</span><span class="mord">8</span><span class="mord">5</span><span class="mord">0</span><span class="mord">7</span><span class="mord">2</span><span class="mord">0</span><span class="mord">1</span><span class="mord">4</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1.7976931348623517</mn><mi>E</mi><mo>+</mo><mn>308</mn></mrow><annotation encoding="application/x-tex">\pm 1.7976931348623517E+308</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord">.</span><span class="mord">7</span><span class="mord">9</span><span class="mord">7</span><span class="mord">6</span><span class="mord">9</span><span class="mord">3</span><span class="mord">1</span><span class="mord">3</span><span class="mord">4</span><span class="mord">8</span><span class="mord">6</span><span class="mord">2</span><span class="mord">3</span><span class="mord">5</span><span class="mord">1</span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">0</span><span class="mord">8</span></span></span></span></td>
+</tr>
+</tbody>
+</table></div>
+<p>其中浮点类型推荐使用<code>decimal</code>类型（保存为字符串格式）。</p>
 <ul>
 <li>注意
 <ul>
-<li>计算时，需要注意当时的数据类型取值范围是否合适，以免越界导致业务出错</li>
+<li><code>age INT(9)</code>这不是意味着定义了一个长度为9字节的整型。对于占用内存的大小是固定的、和具体的类型是强相关的来说，括号内的数目只是代表整数显示的宽度。</li>
 </ul>
 </li>
 </ul>
@@ -472,118 +184,141 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="示例"   >
           <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set age=age+1;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table user(age TINYINT unsigned NOT NULL default 0)</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="逻辑运算符"   >
-          <a href="#逻辑运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑运算符"></a> 逻辑运算符</h1>
+        <h1 id="字符串类型"   >
+          <a href="#字符串类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符串类型"></a> 字符串类型</h1>
       
 <div class="table-container"><table>
 <thead>
 <tr>
-<th>运算符</th>
-<th>作用</th>
+<th>字符串类型</th>
+<th>字节</th>
+<th>描述及存储需求</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>NOT</code>或<code>!</code></td>
-<td>逻辑非</td>
+<td><code>CHAR(M)</code></td>
+<td>M</td>
+<td>M为<code>0~255</code>之间的整数</td>
 </tr>
 <tr>
-<td><code>AND</code>或<code>&amp;&amp;</code></td>
-<td>逻辑与</td>
-</tr>
-<tr>
-<td><code>OR</code>或`</td>
+<td><code>VARCHAR(M)</code></td>
 <td></td>
-</tr>
-</tbody>
-</table></div>
-
-        <h1 id="比较运算符"   >
-          <a href="#比较运算符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#比较运算符"></a> 比较运算符</h1>
-      
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>=</code></td>
-<td>等于</td>
+<td>M为<code>0~65535</code>之间的整数，值的长度+1个字节</td>
 </tr>
 <tr>
-<td><code>&lt;&gt;</code>或<code>!=</code></td>
-<td>不等于（<code>&lt;&gt;</code>在未来可能会被淘汰）</td>
+<td><code>TINYBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~255</code>字节，值的长度+1字节</td>
 </tr>
 <tr>
-<td><code>&lt;=&gt;</code></td>
-<td>NULL安全的等于(NULL-safe)</td>
+<td><code>BLOB</code></td>
+<td></td>
+<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
 </tr>
 <tr>
-<td>&lt;</td>
-<td>小于</td>
+<td><code>MEDIUMBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
 </tr>
 <tr>
-<td>&lt;=</td>
-<td>小于等于</td>
+<td><code>LONGBLOB</code></td>
+<td></td>
+<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
 </tr>
 <tr>
-<td>&gt;</td>
-<td>大于</td>
+<td><code>TINYTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~255</code>字节，值的长度+2字节</td>
 </tr>
 <tr>
-<td>&gt;=</td>
-<td>大于等于</td>
-</tr>
-</tbody>
-</table></div>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>BETWEEN</code></td>
-<td>存在于指定范围</td>
+<td><code>TEXT</code></td>
+<td></td>
+<td>允许长度<code>0~65535</code>字节，值的长度+2字节</td>
 </tr>
 <tr>
-<td><code>IN</code></td>
-<td>存在于指定集合</td>
+<td><code>MEDIUMTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~167772150</code>字节，值的长度+3字节</td>
 </tr>
 <tr>
-<td><code>IS NULL</code></td>
-<td>为NULL</td>
+<td><code>LONGTEXT</code></td>
+<td></td>
+<td>允许长度<code>0~4294967295</code>字节，值的长度+4字节</td>
 </tr>
 <tr>
-<td><code>IS NOT NULL</code></td>
-<td>不为NULL</td>
+<td><code>VARBINARY(M)</code></td>
+<td></td>
+<td>允许长度<code>0~M</code>个字节的变长字节字符串，值的长度+1字节</td>
 </tr>
 <tr>
-<td><code>LIKE</code></td>
-<td>通配符匹配</td>
-</tr>
-<tr>
-<td><code>REGEXP</code>或<code>RLIKE</code></td>
-<td>正则表达式匹配</td>
+<td><code>BINARY(M)</code></td>
+<td>M</td>
+<td>允许长度<code>0~M</code>个字节的定长字节字符串</td>
 </tr>
 </tbody>
 </table></div>
 <ul>
 <li>注意
 <ul>
-<li>判空不要写<code>=NULL</code>，而是要写<code>IS NOT NULL</code>或<code>IS NULL</code>；判空经常出现在左连接、右连接中的外键查询。</li>
-<li>通配符与索引的关系？
-<ul>
-<li><code>LIKE</code>通配符不一定会用到索引，需要看通配符加的地方，如果通配符在中间、末尾则能用到；但是如果加到最开始则不会用到。</li>
+<li><code>CHAR(12)</code>和<code>VARCHAR(12)</code>的区别在于，如果存储的字符串长度不够12，如果是<code>VARCHAR</code>则为实际的长度，而如果是<code>CHAR</code>则依旧是12；共同点：如果数据超过12则都会产生截断。</li>
+<li>SQL注入式攻击——字符串拼接导致的问题。</li>
 </ul>
 </li>
+</ul>
+
+        <h1 id="日期和时间类型"   >
+          <a href="#日期和时间类型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日期和时间类型"></a> 日期和时间类型</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>日期和时间类型</th>
+<th>字节</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATE</code></td>
+<td>4</td>
+<td><code>1000-01-01</code></td>
+<td><code>9999-12-31</code></td>
+</tr>
+<tr>
+<td><code>DATETIME</code></td>
+<td>8</td>
+<td><code>1000-01-01 00:00:00</code></td>
+<td><code>9999-12-31 23:59:59</code></td>
+</tr>
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td>4</td>
+<td><code>19700101080001</code></td>
+<td>2038年的某个时刻</td>
+</tr>
+<tr>
+<td><code>TIME</code></td>
+<td>3</td>
+<td><code>-838:59:59</code></td>
+<td><code>838:59:59</code></td>
+</tr>
+<tr>
+<td><code>YEAR</code></td>
+<td>1</td>
+<td><code>1901</code></td>
+<td><code>2155</code></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>注意
+<ul>
+<li>日期类型是做项目过程中经常使用的类型信息，尤其是<code>TIMESTAMP</code>和<code>DATETIME</code>两个类型；</li>
+<li>注意<code>TIMESTAMP</code>会自动更新时间，非常适合需要记录最新更新时间的场景，对应的函数是<code>unix_timestamp(now())</code>；而<code>DATETIME</code>需要手动更新。</li>
 </ul>
 </li>
 </ul>
@@ -591,16 +326,22 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="示例-2"   >
           <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where age between 20 and 22;</span><br><span class="line">select * from user where score in (99.0, 100.0);</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where score IS NOT NULL;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where name like &#x27;zhang%&#x27;;	#zhang开头的任何字符串</span><br><span class="line">select * from user where name like &#x27;zhang_&#x27;;	#下划线是占位通配符，只能匹配后面只有一个字符的</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select now();					# 2022-04-28 19:30:11</span><br><span class="line">select unix_timestamp(now());	# 1617683855</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="综合示例"   >
-          <a href="#综合示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#综合示例"></a> 综合示例</h1>
+        <h1 id="枚举和集合"   >
+          <a href="#枚举和集合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#枚举和集合"></a> 枚举和集合</h1>
       
-<p>下面这个查询语句用到了多个运算符：<code>sex='M'</code>、<code>and</code>、<code>score&gt;=90.0</code></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from where sex=&#x27;M&#x27; and score&gt;=90.0;</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/84/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/84/">84</a><span class="page-number current">85</span><a class="page-number" href="/page/86/">86</a><span class="space">&hellip;</span><a class="page-number" href="/page/142/">142</a><a class="extend next" rel="next" href="/page/86/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">284</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<ul>
+<li>这两种类型都是限制该字段只能取固定的某些值。比如性别——只能男或女。</li>
+<li>枚举字段只能取一个唯一的值。</li>
+<li>集合字段可以取任意个值。</li>
+</ul>
+
+        <h2 id="示例-3"   >
+          <a href="#示例-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sex enum(&#x27;M&#x27;,&#x27;W&#x27;) default &#x27;M&#x27;</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/84/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/84/">84</a><span class="page-number current">85</span><a class="page-number" href="/page/86/">86</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/86/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">287</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
