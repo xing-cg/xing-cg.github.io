@@ -4,7 +4,7 @@ categories:
   - - Linux
 tags: 
 date: 2022/2/15
-updated: 2025/7
+updated: 2025/7/15
 comments: 
 published:
 ---
@@ -69,27 +69,134 @@ str=`ls`	##把当前目录的文件信息字符串赋给str
 ## export
 在当前shell可以再启动一个shell。如果我们在之前的shell中定义了局部变量，比如`var=hello`，在新启动的shell是看不到的。如果要新shell看到，需要`export var`。
 其实新开的这个shell是在之前的shell新运行的一个程序。他俩是不同的进程。同理，如果想让其他进程也能看到之前shell的环境变量，此时就需要export。
+# 第一行注释
+第一行需要添加注释，指示使用哪个shell程序运行该脚本。
+```sh
+#! /bin/sh
+
+# ...
+```
+# C语言编程main函数的参数 - 结合环境变量
+```c
+// c.c
+#include <stdio.h>
+int main (int ac, char * av[])
+{
+    if (ac > 1)
+    {
+        printf("%s\n", av[1]);
+    }
+    return 0;
+}
+```
+运行结果：
+```sh
+mrcan@ubuntu:~$ ./c.out var
+var
+```
+如上，var是命令中的参数，程序输出了var这个参数名。
+```sh
+mrcan@ubuntu:~$ VAR=ThisIsMyVar
+mrcan@ubuntu:~$ ./c.out $VAR
+ThisIsMyVar
+```
+如上，也可以先定义环境变量VAR。然后再通过`$VAR`传到main函数。
+## 结合重定向 - 把另一个程序的结果作为参数传到main
+结合《Linux_重定向》一文中的知识。
+可以利用“命令代换”（形如`$(./a.out)`）。
+```sh
+mrcan@ubuntu:~$ ./a.out 
+C Program!  # 这是a.out的执行结果
+mrcan@ubuntu:~$ ./c.out $(./a.out)
+C           # 把a.out的输出传给了c.c的main函数
+```
+如上，把`a.out`的输出结果通过`$(a.out)`传到了`c.c`的main函数。
+![](../../images/Linux_Shell编程/image-20250716173158651.png)
+
+系统中的小程序，也可以作为命令代换的参数。
+```sh
+pwd # 输出结果 /home/mrcan
+ls $(pwd)
+```
+输出结果：
+```sh
+mrcan@ubuntu:~$ pwd
+/home/mrcan
+mrcan@ubuntu:~$ ls $(pwd)
+a.c    b.out  c.out    Documents  Music     Public     test.cpp
+a.out  build  c.sh     Downloads  packages  Templates  test_muduo.cpp
+b.c    c.c    Desktop  mprpc      Pictures  test       Videos
+```
+# Operator - 操作符
+## Equal Operator
+1. `=` string。注意，`=`前后必须有空格分隔。不然就成了环境变量赋值了。
+2. `!=` string
+3. `-eq` numeral
+4. `-ne` numeral
+
+```sh
+```
+## Logical Operator
+1. `-a`：and
+2. `-o`：or
+3. `!`：not
+
+## Relation Operator
+1. `-gt`：greater than
+2. `-ge`：greater equal
+3. `-lt`：less than
+4. `-le`：less equal
+# if语句
+```sh
+#! /bin/sh
+VAR1="COMPUTER"
+if [ $VAR! = "COM" ]
+then
+    echo "Y"
+else
+    echo "N"
+fi
+```
+注意点：
+1. `=`前后有无空格的行为是不一样的。
+2. 中括号的前后最好也留上空格，避免无法分辨。
+
+```sh
+#! /bin/sh
+VAR1="COMPUTER"
+ if [ $VAR1="COM" ]
+# if (test $VAR1="COM")
+then
+    echo "Y"
+else
+    echo "N"
+fi
+```
+以上程序输出Y，即使VAR1不是"COM"。就是因为`=`前后无空格。
+
+2. if后跟的`[ ... ]`相当于：`(test ...)`
+
 # 循环
 
 ## 要注意的是对计数变量的处理
 
 有2种方式：
 
-1. let
+1. `let`
 
 ```sh
 i=1
 let "i+=1"
 ```
 
-2. (( ))，双括号中是想要执行的命令/表达式，可以用$取表达式的值。
+2. `(( ))`，双括号中是想要执行的命令/表达式，可以用$取表达式的值。
 
 ```sh
 i=1
 a=$((i++))
 ```
 
-3. 反引号\`expr ...\`
+3. 反引号：\`expr ...\`
 
 ```sh
 i=1
@@ -97,7 +204,11 @@ a=`expr $i \* 2`	#*在脚本中有其他意义，需要加\转义为'*'，在此
 i=`expr $i + 1`		#此方式i自增的方法
 ```
 
+
+
+
 ## for
+![](../../images/Linux_Shell编程/image-20250716194411584.png)
 
 for循环的次数由in后面值的数目决定
 
@@ -113,8 +224,28 @@ do
 	echo "filename: $name"
 done
 ```
+### `$@`
+```sh
+#! /bin/sh
+for x in $@
+do
+    echo $x
+done
+```
 
+```sh
+./test.sh 1 2 3 4
+```
+输出结果
+```
+1
+2
+3
+4
+```
 ## while
+![](../../images/Linux_Shell编程/image-20250716203447090.png)
+
 
 判断条件，满足则循环执行。
 
@@ -147,6 +278,8 @@ done
 ```
 
 ## until
+![](../../images/Linux_Shell编程/image-20250716203453605.png)
+
 
 条件没满足时，循环执行；一旦条件满足则退出。
 
@@ -165,6 +298,8 @@ echo "find file.txt"
  read命令 -n(不换行) -p(提示语句) -n(字符个数)-t(等待时间) -s(不回显)
 
 # case
+![](../../images/Linux_Shell编程/image-20250716203511779.png)
+
 
 ```sh
 while true
