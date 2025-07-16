@@ -32,126 +32,254 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/">阻塞_非阻塞_同步_异步</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/" data-flag-title="阻塞_非阻塞_同步_异步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/32%E4%BD%8D%E5%92%8C64%E4%BD%8D%E5%8C%BA%E5%88%AB/">32位和64位区别</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-06-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/32%E4%BD%8D%E5%92%8C64%E4%BD%8D%E5%8C%BA%E5%88%AB/" data-flag-title="32位和64位区别"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="范彬"   >
+          <a href="#范彬" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#范彬"></a> 范彬</h1>
+      
+<p>链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/23408154/answer/24499675" >https://www.zhihu.com/question/23408154/answer/24499675</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>64bit软件和32bit软件最大的区别是64bit的软件可以同时操作大于4GB的内存。注意这里的内存指的是地址空间，而不是物理内存。比如现在有一个10GB的数据库需要进行排序。64bit的软件可以malloc一个10GB的空间把整个数据库“放进”内存然后使用任意经典排序算法，而32bit的软件在malloc时就会崩溃（out-of-memory）。所以32位软件的程序员只能使用复杂的算法显式的分块读入，局部排序，写回数据库，然后重复。这样不仅程序复杂难写，程序员swap内存和文件的算法效率可能也不如OS自动处理来的高效。</p>
+<p>另一方面，64bit软件巨大的内存空间也可能加速物理内存的消耗，增加寻址的开销，因此未必总是能够提高性能。</p>
+<p>当然最终系统的效率还是取决于物理内存的大小，64bit只是解决了地址空间的瓶颈。</p>
+
+        <h1 id="补佳林的回答"   >
+          <a href="#补佳林的回答" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#补佳林的回答"></a> 补佳林的回答</h1>
+      
+<p>64 位软件和 32 位有什么具体区别？ - 补佳林的回答 - 知乎 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/23408154/answer/24537270" >https://www.zhihu.com/question/23408154/answer/24537270</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>我来说个不好的地方，64位下指针变成8字节，很多c结构体占用空间加大，相当于cpu的缓存变小了。</p>
+
+        <h1 id="gggxxx"   >
+          <a href="#gggxxx" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#gggxxx"></a> gggxxx</h1>
+      
+<p>链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/23408154/answer/24527239" >https://www.zhihu.com/question/23408154/answer/24527239</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>除了内存访问更重要的还有64位指令集运算。理论上64位运算强于32位运算，但是这依赖于代码优化。</p>
+<p>对普通用户来说有2点。</p>
+<ol>
+<li>
+<p>现在主流的比较新的桌面操作系统都是同时兼容64位程序和32位程序，包括ios也是同时兼容32位和64位。也就是说，用户不管安装32位还是64位程序都没有问题。</p>
+</li>
+<li>
+<p>软件编译成64位后并不一定比32位程序运行速度快，很多时候64位程序都慢于32位程序。事实上很多开发者把程序从32位转化成64位，只是做兼容64位而已，根本没有针对64位特性做优化。</p>
+</li>
+</ol>
+<p>很多流行软件的32位版本其实更加稳定和速度快。</p>
+
+        <h1 id="匿名用户"   >
+          <a href="#匿名用户" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#匿名用户"></a> 匿名用户</h1>
+      
+<p>链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/23408154/answer/30793420" >https://www.zhihu.com/question/23408154/answer/30793420</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>多少位是指cpu的寄存器宽度不同，比如16位通用寄存器有一个叫ax，这意味着ax寄存器能存储16bit数据, 在32位中这个寄存器是eax，能存储32bit数据。64位中叫rax。</p>
+<p>寻址能力是指cpu寻址总线的宽度。比如16位的x86的u寻址能力是20位，因为寄存器只有16位，所以用seg x16 + offset的方式表示，这就是教科书上所说的逻辑地址。实际上逻辑地址可能产生21位的地址，但是因为寻址总线的宽度只有20所以溢出的一位都会被抛弃。在计算机开机的过程中，bootloader就会读写keyboard controller的60和64端口判断是否开启大于20位的寻址模式。</p>
+
+        <h1 id="周全"   >
+          <a href="#周全" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#周全"></a> 周全</h1>
+      
+<p>64 位软件和 32 位有什么具体区别？ - 周全的回答 - 知乎 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/23408154/answer/24542634" >https://www.zhihu.com/question/23408154/answer/24542634</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>1、对os来说，64位和32位指虚拟地址空间，32位最大4GB，64位理论上16TB，且目前有16TB的</p>
+<p>2、对硬件来说，64位和32位指数据宽度，64位一次取8字节，32取4字节</p>
+<p>3、对应用程序来说，指使用的指令宽度，基于OS和硬件</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/">MySQL数据库连接池</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-06-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" data-flag-title="MySQL数据库连接池"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
+<p>C++实现的小型项目, MySQL数据库连接池, 属于常用组件;</p>
+<p>约400到500行代码, 代码不多, 麻雀虽小, 五脏俱全:</p>
 <ol>
-<li>阻塞</li>
-<li>非阻塞</li>
-<li>同步</li>
-<li>异步</li>
+<li>涉及到数据库编程;</li>
+<li>单例模式</li>
+<li>queue队列容器</li>
+<li><code>C++11</code>多线程编程, 线程互斥, 线程同步通信, <code>unique_lock</code></li>
+<li>基于CAS的原子类型</li>
+<li>智能指针<code>shared_ptr</code></li>
+<li>lambda表达式</li>
+<li>生产者-消费者线程模型</li>
 </ol>
-<p>首先应该阐明的是：阻塞、非阻塞、同步、异步描述的都是IO的状态。然后从IO的两个阶段谈。</p>
-<ol start="5">
-<li>五种IO模型</li>
+
+        <h1 id="项目背景"   >
+          <a href="#项目背景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#项目背景"></a> 项目背景</h1>
+      
+<p>为了提高MySQL数据库（需要特别注意的, 它是基于C/S设计的）的访问瓶颈，除了在服务器端增加缓存服务器缓存常用的数据之外（例如Redis），还可以增加连接池，来提高MySQL Server的访问效率，在高并发情况下，大量的TCP三次握手、MySQL Server连接认证、MySQL Server关闭连接回收资源和TCP四次挥手所耗费的性能时间也是很明显的，增加连接池就是为了减少这一部分的性能损耗。</p>
+<p>在市场上比较流行的连接池包括阿里的druid，c3p0以及apache dbcp连接池，它们对于短时间内大量的数据库增删改查操作性能的提升是很明显的，但是它们全部由Java实现。那么本项目就是为了在<code>C/C++</code>语言下，提供MySQL Server的访问效率，实现基于<code>C++</code>代码的数据库连接池模块。</p>
+
+        <h1 id="连接池功能介绍"   >
+          <a href="#连接池功能介绍" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连接池功能介绍"></a> 连接池功能介绍</h1>
+      
+<p>该项目是基于C++语言实现的连接池，主要实现若干个通用基础功能。</p>
+<p>连接池一般包含了数据库连接所用的ip地址、port端口号、用户名和密码以及其它的性能参数，例如初<br />
+始连接量，最大连接量，最大空闲时间、连接超时时间等;</p>
+<ol>
+<li><strong>初始连接量(initSize)</strong>
+<ol>
+<li>表示连接池事先会和MySQL Server创建initSize个数的connection连接;</li>
+<li>当应用发起MySQL访问时，不用再创建和MySQL Server新的连接，直接从连接池中获取一个可用的连接就可以;</li>
+<li>使用完成后，并不去释放connection，而是把当前connection再归还到连接池当中。</li>
 </ol>
+</li>
+<li><strong>最大连接量(maxSize)</strong>
+<ol>
+<li>总的连接数量上限是maxSize;</li>
+<li>当并发访问MySQL Server的请求增多时，初始连接量已经不够使用了，此时会根据新的请求数量去创建更多的连接给应用去使用;</li>
+<li>但是，不能无限制的创建连接，因为每一个连接都会占用一个socket资源，一般连接池和服务器程序是部署在一台主机上的，如果连接池占用过多的socket资源，那么服务器就不能接收太多的客户端请求了;</li>
+<li>当这些连接使用完成后，再次归还到连接池当中来维护。</li>
+</ol>
+</li>
+<li><strong>最大空闲时间(maxIdleTime)</strong>
+<ol>
+<li>当访问MySQL的并发请求多了以后，连接池里面的连接数量会动态增加，上限是maxSize个;</li>
+<li>当这些连接用完再次归还到连接池当中;</li>
+<li>如果在指定的maxIdleTime里面，这些新增加的连接都没有被再次使用过，那么新增加的这些连接资源就要被回收掉，只需要保持初始连接量initSize个连接就可以了。</li>
+</ol>
+</li>
+<li><strong>连接超时时间(connectionTimeout)</strong>
+<ol>
+<li>当MySQL的并发请求量过大，连接池中的连接数量已经到达maxSize了，而此时没有空闲的连接可供使用，那么此时应用从连接池获取连接需要通过阻塞的方式获取连接;</li>
+<li>阻塞时间如果超过connectionTimeout时间，那么获取连接失败，无法访问数据库;</li>
+</ol>
+</li>
+</ol>
+<p>该项目主要实现上述的连接池四大功能，其余连接池更多的扩展功能，可以在该框架的基础上进行很好的拓展;</p>
 
-        <h1 id="典型io的两个阶段"   >
-          <a href="#典型io的两个阶段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#典型io的两个阶段"></a> 典型IO的两个阶段</h1>
-      
-<p>数据准备 - 数据读写</p>
-
-        <h2 id="例子"   >
-          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
-      
-<p>recv，传sockfd、buf、len。数据准备即观察接收缓冲区是否有数据可读。</p>
-<ul>
-<li>数据未就绪 - 阻塞、非阻塞</li>
-</ul>
-<p>当sockfd工作在阻塞模式下，调用recv，如果没有数据就绪，则会阻塞；若sockfd工作在非阻塞模式下，如果没有数据就绪，则立即返回。</p>
-<p>如何判断返回的原因？看返回值。以判断是否正常返回。</p>
-<ul>
-<li>数据就绪 - 同步、异步</li>
-</ul>
-<p>应用程序讲内核缓冲区中准备好的数据拷贝到用户空间中的buf缓存区。这个拷贝的过程是需要等待的，等待拷贝完毕应用程序才可以继续向下执行。</p>
-<p>异步和同步的方式不一样，需要调用linux提供的异步io接口，<code>aio_read</code>、<code>aio_write</code>。需要传递<code>sockfd</code>、<code>buf</code>、<code>sigio信号(通知方式)</code>。之后应用程序则立即往后执行其他业务，直到被通知buf的数据已经准备好了，则调用实现绑定的回调函数进行处理。</p>
-
-        <h1 id="同步异步"   >
-          <a href="#同步异步" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步异步"></a> 同步/异步</h1>
-      
-<p>在两个方面都涉及同步/异步。一个方面是<strong>IO同步/异步</strong>，属于上面谈到的。</p>
-<p>另一个方面是<strong>业务层面的同步/异步</strong>。</p>
-<p>两个方面，角度不同，但思路是一样的，同步是需要自己操心；异步是约定好处理方式，先去忙别的。</p>
-<p><strong>同步</strong>表示A（应用程序）向B（操作系统）请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），数据的读写都是由请求方A自己来完成的（不管是阻塞还是非阻塞（非阻塞的同步类似于忙等待））；<strong>异步</strong>表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），向B传入请求的事件以及事件发生时通知的方式，A就可以处理其它逻辑了，当B监听到事件处理完成后，会用事先约定好的通知方式，通知A处理结果。</p>
-
-        <h1 id="五种io模型"   >
-          <a href="#五种io模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#五种io模型"></a> 五种IO模型</h1>
-      
-<p>这里谈的IO是指网络IO。</p>
-
-        <h2 id="同步阻塞io"   >
-          <a href="#同步阻塞io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步阻塞io"></a> 同步阻塞IO</h2>
-      
-<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194427303.png" alt="image-20220522194427303" /></p>
-<p>阻塞指上半段等待准备好数据；同步指需要花费用户应用程序的时间去拷贝数据、处理数据。</p>
-
-        <h2 id="同步非阻塞io"   >
-          <a href="#同步非阻塞io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同步非阻塞io"></a> 同步非阻塞IO</h2>
-      
-<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522194949186.png" alt="image-20220522194949186" /></p>
-<p>非阻塞指上半段不管数据是否准备好，立即返回；同步指需要花费用户应用程序的时间去拷贝数据、处理数据。</p>
-
-        <h2 id="io复用"   >
-          <a href="#io复用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#io复用"></a> IO复用</h2>
-      
-<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522200137240.png" alt="image-20220522200137240" /></p>
-<p>三种接口都是同步阻塞IO。与上面的区别是，一个线程可以管理多个socket。</p>
-
-        <h2 id="信号驱动"   >
-          <a href="#信号驱动" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信号驱动"></a> 信号驱动</h2>
-      
-<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522201543844.png" alt="image-20220522201543844" /></p>
-<p>等待数据是异步的过程。在数据就绪前，用户应用程序执行其他逻辑；但是数据准备好后，还是得需要用户应用程序自己处理。仍是同步过程。</p>
-<p>优点是提供了消息通知机制，减少了系统调用的次数（相比于同步非阻塞的反复调用EAGAIN）</p>
-
-        <h2 id="异步io"   >
-          <a href="#异步io" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步io"></a> 异步IO</h2>
-      
-<p><img src="../../images/%E9%98%BB%E5%A1%9E_%E9%9D%9E%E9%98%BB%E5%A1%9E_%E5%90%8C%E6%AD%A5_%E5%BC%82%E6%AD%A5/image-20220522202459276.png" alt="image-20220522202459276" /></p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">aiocb</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> 			aio_fildes;</span><br><span class="line">    <span class="type">off_t</span> 			aio_offset;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">void</span> *	aio_buf;</span><br><span class="line">    <span class="type">size_t</span> 			aio_nbytes;</span><br><span class="line">    <span class="type">int</span> 			aio_reqprio;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> 			<span class="title">sigevent</span> <span class="title">aio_sigevent</span>;</span></span><br><span class="line">    <span class="type">int</span>				aio_lio_opcode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_BST/">高级数据结构_BST</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_BST/" data-flag-title="高级数据结构_BST"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="二叉树相关概念"   >
-          <a href="#二叉树相关概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二叉树相关概念"></a> 二叉树相关概念</h1>
+        <h1 id="设计思路"   >
+          <a href="#设计思路" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计思路"></a> 设计思路</h1>
       
 <ol>
-<li>根节点</li>
-<li>左孩子、右孩子</li>
-<li>双亲节点（父节点）</li>
-<li>祖先节点</li>
-<li>兄弟节点</li>
-<li>叔叔节点（祖先节点的另一个子节点）</li>
-<li>叶子节点</li>
-<li>左子树、右子树</li>
-<li>二叉树的高度/层数</li>
+<li>需要抽象出两个类
+<ol>
+<li>ConnectionPool - 连接池</li>
+<li>Connection - 封装数据库操作, 增删改查</li>
+</ol>
+</li>
+<li>连接池只需要一个实例, 则ConnectionPool设计为单例模式</li>
+<li>ConnectionPool需要提供获取MySQL连接Connection的接口</li>
+<li>空闲连接Connection全部维护在一个Connection队列中, 使用互斥锁保证队列的线程安全</li>
+<li>如果在获取连接时发现空闲连接队列空, 则需要动态创建新连接, 但是上限数量是maxSize, 在创建新连接的过程中, 消费者线程需要<strong>忙等待</strong>connectionTimeout时长, 直到队列中不空; 若时长一到仍获取未果则认定为连接失败; 可以使用带超时时间的mutex互斥锁来实现连接超时时间;</li>
+<li>使用量下降后, 如果队列中的空闲连接保持空闲超过maxIdleTime, 需要释放连接, 直到减少到initSize个连接; 这个释放的过程需要放在独立线程做 - <strong>定时线程</strong>, 清理队列多余的空闲连接;</li>
+<li>用户获取的连接用<code>shared_ptr</code>智能指针来管理，用lambda表达式定制连接释放的功能（不真正释放连接，而是把连接归还到连接池中）</li>
+<li>连接的生产和连接的消费采用<code>生产者-消费者</code>线程模型来设计，使用了线程间的同步通信机制条件变量和互斥锁;</li>
 </ol>
 
-        <h1 id="bst-二叉搜索树"   >
-          <a href="#bst-二叉搜索树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bst-二叉搜索树"></a> BST - 二叉搜索树</h1>
+        <h1 id="mysql数据库编程"   >
+          <a href="#mysql数据库编程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mysql数据库编程"></a> MySQL数据库编程</h1>
       
-<p>对于一棵二叉树，上的每一个节点如果满足<code>左孩子的值 &lt; 父节点的值 &lt; 右孩子的值</code>，则称作<code>BST(Binary Search/Sort Tree)</code>树，即二叉搜索树（二叉排序树）。</p>
 
-        <h1 id="二叉搜索树节点的结构"   >
-          <a href="#二叉搜索树节点的结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二叉搜索树节点的结构"></a> 二叉搜索树节点的结构</h1>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">BstNode</span></span><br><span class="line">&#123;</span><br><span class="line">    KeyType key;</span><br><span class="line">    BstNode * lchild;</span><br><span class="line">    BstNode * parent;	<span class="comment">//不必要, 但可以大大简化代码</span></span><br><span class="line">    BstNode * rchild;</span><br><span class="line">&#125;BstNode, * BSTree;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="二叉搜索树的插入"   >
-          <a href="#二叉搜索树的插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二叉搜索树的插入"></a> 二叉搜索树的插入</h1>
+        <h2 id="公共代码"   >
+          <a href="#公共代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#公共代码"></a> 公共代码</h2>
       
 <ol>
-<li>BST如果为空，建根。</li>
-<li>BST不为空，从根节点进行比较，找到合适位置，生成新节点，新节点的地址赋给父节点的<code>leftchild/rightchild</code>。</li>
+<li>简易日志工具 - 向标准输出设备输出<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LOG(str)                                            \</span></span><br><span class="line"><span class="meta">    do &#123;                                                    \</span></span><br><span class="line"><span class="meta">    std::cout &lt;&lt; __FILE__ &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="string">&quot;:&quot;</span>         \</span></span><br><span class="line"><span class="meta">              &lt;&lt; __TIMESTAMP__ &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; str &lt;&lt; std::endl;  \</span></span><br><span class="line"><span class="meta">    &#125; while(0)</span></span><br></pre></td></tr></table></div></figure>
+</li>
 </ol>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;functional&gt;</span>	<span class="comment">//less&lt;T&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Compare=less&lt;T&gt;&gt;</span><br><span class="line"><span class="keyword">class</span> BSTree</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//节点定义</span></span><br><span class="line">    <span class="keyword">struct</span> Node</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Node</span>(T data = <span class="built_in">T</span>())</span><br><span class="line">            : <span class="built_in">data_</span>(data), <span class="built_in">left_</span>(<span class="literal">nullptr</span>), <span class="built_in">right_</span>(<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;&#125;</span><br><span class="line">        T data_;		<span class="comment">//数据域</span></span><br><span class="line">        Node *left_;	<span class="comment">//左孩子域</span></span><br><span class="line">        Node *right_;	<span class="comment">//右孩子域</span></span><br><span class="line">    &#125;;</span><br><span class="line">    Node *root_;		<span class="comment">//指向BST树的根节点</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">BSTree</span>()</span><br><span class="line">        : <span class="built_in">root_</span>(<span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">BSTree</span>()</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//非递归插入操作</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">n_insert</span><span class="params">(<span class="type">const</span> T &amp;val)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root_ == <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            root_ = <span class="keyword">new</span> <span class="built_in">Node</span>(val);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Node * parent = <span class="literal">nullptr</span>;</span><br><span class="line">        Node * cur = root_;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(val &lt; cur-&gt;data_)</span><br><span class="line">            &#123;</span><br><span class="line">                parent = cur;</span><br><span class="line">                cur = cur-&gt;left_;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(val &gt; cur-&gt;data_)</span><br><span class="line">            &#123;</span><br><span class="line">                parent = cur;</span><br><span class="line">                cur = cur-&gt;right_;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//val == cur-&gt;data_</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//不插入值相同的元素</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把新节点插入到parent节点下</span></span><br><span class="line">        <span class="keyword">if</span>(val &lt; parent-&gt;data_)</span><br><span class="line">        &#123;</span><br><span class="line">            parent-&gt;left_ = <span class="keyword">new</span> <span class="built_in">Node</span>(val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            parent-&gt;right_ = <span class="keyword">new</span> <span class="built_in">Node</span>(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
-<p>测试</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ar[] = &#123;<span class="number">58</span>, <span class="number">24</span>, <span class="number">67</span>, <span class="number">0</span>, <span class="number">34</span>, <span class="number">62</span>, <span class="number">69</span>, <span class="number">5</span>, <span class="number">41</span>, <span class="number">64</span>, <span class="number">78</span>&#125;;</span><br><span class="line">    BSTree&lt;<span class="type">int</span>&gt; bst;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> val : ar)</span><br><span class="line">    &#123;</span><br><span class="line">        bst.<span class="built_in">n_insert</span>(val);</span><br><span class="line">    &#125;</span><br><span class="line">    bst.<span class="built_in">n_insert</span>(<span class="number">12</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h2 id="更简洁的写法"   >
-          <a href="#更简洁的写法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#更简洁的写法"></a> 更简洁的写法</h2>
+        <h2 id="mysqlconnection-封装mysql数据库操作"   >
+          <a href="#mysqlconnection-封装mysql数据库操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mysqlconnection-封装mysql数据库操作"></a> MySQLConnection - 封装MySQL数据库操作</h2>
       
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">Insert</span><span class="params">(AVLNode *&amp; tree, KeyType kx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        tree = <span class="built_in">MakeRoot</span>(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    AVLNode * pa = <span class="literal">nullptr</span>;</span><br><span class="line">    AVLNode * p = tree;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key != kx)</span><br><span class="line">    &#123;</span><br><span class="line">        pa = p;</span><br><span class="line">        p = kx &lt; p-&gt;key ? p-&gt;leftchild : p-&gt;rightchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p != <span class="literal">nullptr</span> &amp;&amp; p-&gt;key == kx) <span class="comment">//已存在重复值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//把新节点插入到pa下</span></span><br><span class="line">    <span class="keyword">if</span>(val &lt; pa-&gt;key)</span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;leftchild = <span class="keyword">new</span> <span class="built_in">Node</span>(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        pa-&gt;rightchild = <span class="keyword">new</span> <span class="built_in">Node</span>(val);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/75/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><span class="page-number current">76</span><a class="page-number" href="/page/77/">77</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/77/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">287</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+
+        <h3 id="成员变量"   >
+          <a href="#成员变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量"></a> 成员变量</h3>
+      
+<p><code>MYSQL *m_conn</code> - 记录MYSQL类型的指针, 以获取这个mysql连接</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    MYSQL *m_conn;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="成员函数"   >
+          <a href="#成员函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数"></a> 成员函数</h3>
+      
+<ol>
+<li>
+<p>构造/析构 - 初始化/释放数据库连接</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 初始化数据库连接 */</span></span><br><span class="line">    <span class="built_in">MySQLConnection</span>();</span><br><span class="line">    <span class="comment">/* 释放数据库连接资源 */</span></span><br><span class="line">    ~<span class="built_in">MySQLConnection</span>();</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>getConnection - 获取连接, 即获取成员<code>m_conn</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 获取连接 */</span></span><br><span class="line">    <span class="function">MYSQL * <span class="title">getConnection</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>connect - 连接数据库, 返回值为bool, 说明连接成功与否</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 连接数据库 */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">connect</span><span class="params">(std::string ip, <span class="type">unsigned</span> <span class="type">short</span> port,</span></span></span><br><span class="line"><span class="params"><span class="function">                 std::string user, std::string password, std::string dbname)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>query - 查询操作, 参数是string类型的sql语句, 返回值为<code>MYSQL_RES</code>, 即MySQL结果集类型</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 查询操作 */</span></span><br><span class="line">    <span class="function">MYSQL_RES * <span class="title">query</span><span class="params">(std::string sql)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>update - 更新操作, 参数是string类型的sql语句, 返回值为bool, 说明更新成功与否</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 更新操作 */</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">update</span><span class="params">(std::string sql)</span></span>;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h3 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h3>
+      
+<ol>
+<li>
+<p>构造 - 调用<code>mysql_init</code>, 实际上只是对mysql连接进行空间资源的开辟, 返回一个指针赋给<code>m_conn</code>成员, 没有真正连接, 因此传入nullptr</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 初始化数据库连接 */</span></span><br><span class="line">MySQLConnection::<span class="built_in">MySQLConnection</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_conn = <span class="built_in">mysql_init</span>(<span class="literal">nullptr</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>析构 - 调用<code>mysql_close(m_conn)</code>, 对MySQL连接资源进行释放</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 释放数据库连接资源 */</span></span><br><span class="line">MySQLConnection::~<span class="built_in">MySQLConnection</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(m_conn != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">mysql_close</span>(m_conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>connect - 连接数据库, 内部调用<code>mysql_real_connect</code>, 传入<code>m_conn</code>, 以及server ip地址, user号, 密码, 要连接的数据库name, 服务器端口;</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 连接数据库 */</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MySQLConnection::connect</span><span class="params">(std::string ip, <span class="type">unsigned</span> <span class="type">short</span> port,</span></span></span><br><span class="line"><span class="params"><span class="function">                              std::string user, std::string password,</span></span></span><br><span class="line"><span class="params"><span class="function">                              std::string dbname)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MYSQL *p = <span class="built_in">mysql_real_connect</span>(m_conn, ip.<span class="built_in">c_str</span>(), user.<span class="built_in">c_str</span>(),</span><br><span class="line">                                  password.<span class="built_in">c_str</span>(), dbname.<span class="built_in">c_str</span>(),</span><br><span class="line">                                  port, <span class="literal">nullptr</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(p != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * C/C++代码默认的编码字符是ASCII, </span></span><br><span class="line"><span class="comment">         * 如果不设置, 则从MySQL上拉下来的中文无法正常显示</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="built_in">mysql_query</span>(m_conn, <span class="string">&quot;set name gbk&quot;</span>);</span><br><span class="line">        <span class="built_in">LOG</span>(<span class="string">&quot;connect mysql success!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(<span class="string">&quot;connect mysql failed!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p != <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>query - 查询操作</p>
+<ol>
+<li>
+<p>内部调用<code>mysql_query</code>, 传入<code>m_conn</code>, <code>sql-string</code>的c风格字符串首址;</p>
+<blockquote>
+<p><code>mysql_query</code>的返回值:</p>
+<ol>
+<li>如果查询成功，返回0;</li>
+<li>如果出现错误，返回非0值。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>返回值需要调用<code>mysql_use_result(m_conn)</code>获取结果集, 再return;</p>
+</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 查询操作 */</span></span><br><span class="line"><span class="function">MYSQL_RES * <span class="title">MySQLConnection::query</span><span class="params">(std::string sql)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">mysql_query</span>(m_conn, sql.<span class="built_in">c_str</span>()) == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(<span class="string">&quot;select failed: &quot;</span> + sql);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">mysql_use_result</span>(m_conn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p>update - 更新操作</p>
+<ol>
+<li>内部调用<code>mysql_query</code>, 传入<code>m_conn</code>, <code>sql-string</code>的c风格字符串首址;</li>
+<li>判断<code>mysql_query</code>的返回值, 若为非0则更新失败; 若为0则更新成功;</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 更新操作 */</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MySQLConnection::update</span><span class="params">(std::string sql)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">mysql_query</span>(m_conn, sql.<span class="built_in">c_str</span>()) == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(<span class="string">&quot;update failed: &quot;</span> + sql);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h1 id="连接池"   >
+          <a href="#连接池" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连接池"></a> 连接池</h1>
+      
+
+        <h2 id="mysqlconnectionpool"   >
+          <a href="#mysqlconnectionpool" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mysqlconnectionpool"></a> MySQLConnectionPool</h2>
+      
+
+        <h3 id="成员变量-2"   >
+          <a href="#成员变量-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量-2"></a> 成员变量</h3>
+      
+
+        <h3 id="成员函数-2"   >
+          <a href="#成员函数-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-2"></a> 成员函数</h3>
+      
+<ol>
+<li>getConnection<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 获取连接 */</span></span><br><span class="line"><span class="function">MYSQL * <span class="title">MySQLConnection::getConnection</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m_conn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</li>
+</ol>
+
+        <h3 id="代码实现-2"   >
+          <a href="#代码实现-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现-2"></a> 代码实现</h3>
+      
+
+        <h1 id="压力测试"   >
+          <a href="#压力测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#压力测试"></a> 压力测试</h1>
+      
+<p>建个表</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user(</span><br><span class="line">    id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,</span><br><span class="line">    name VARCHAR(50) NOT NULL,</span><br><span class="line">    age TINYINT NOT NULL,</span><br><span class="line">    sex ENUM(&#x27;male&#x27;, &#x27;female&#x27;) NOT NULL</span><br><span class="line">)ENGINE=INNODB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></div></figure>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/75/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><span class="page-number current">76</span><a class="page-number" href="/page/77/">77</a><span class="space">&hellip;</span><a class="page-number" href="/page/147/">147</a><a class="extend next" rel="next" href="/page/77/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">293</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

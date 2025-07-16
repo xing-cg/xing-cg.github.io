@@ -32,95 +32,343 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/git/git_%E5%85%AC%E9%92%A5%E7%A7%81%E9%92%A5/">git_公钥私钥</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/git/git_%E5%85%AC%E9%92%A5%E7%A7%81%E9%92%A5/" data-flag-title="git_公钥私钥"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">usage: ssh-keygen [-q] [-a rounds] [-b bits] [-C comment] [-f output_keyfile]</span><br><span class="line">                  [-m format] [-N new_passphrase] [-O option]</span><br><span class="line">                  [-t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa]</span><br><span class="line">                  [-w provider] [-Z cipher]</span><br><span class="line">       ssh-keygen -p [-a rounds] [-f keyfile] [-m format] [-N new_passphrase]</span><br><span class="line">                   [-P old_passphrase] [-Z cipher]</span><br><span class="line">       ssh-keygen -i [-f input_keyfile] [-m key_format]</span><br><span class="line">       ssh-keygen -e [-f input_keyfile] [-m key_format]</span><br><span class="line">       ssh-keygen -y [-f input_keyfile]</span><br><span class="line">       ssh-keygen -c [-a rounds] [-C comment] [-f keyfile] [-P passphrase]</span><br><span class="line">       ssh-keygen -l [-v] [-E fingerprint_hash] [-f input_keyfile]</span><br><span class="line">       ssh-keygen -B [-f input_keyfile]</span><br><span class="line">       ssh-keygen -D pkcs11</span><br><span class="line">       ssh-keygen -F hostname [-lv] [-f known_hosts_file]</span><br><span class="line">       ssh-keygen -H [-f known_hosts_file]</span><br><span class="line">       ssh-keygen -K [-a rounds] [-w provider]</span><br><span class="line">       ssh-keygen -R hostname [-f known_hosts_file]</span><br><span class="line">       ssh-keygen -r hostname [-g] [-f input_keyfile]</span><br><span class="line">       ssh-keygen -M generate [-O option] output_file</span><br><span class="line">       ssh-keygen -M screen [-f input_file] [-O option] output_file</span><br><span class="line">       ssh-keygen -I certificate_identity -s ca_key [-hU] [-D pkcs11_provider]</span><br><span class="line">                  [-n principals] [-O option] [-V validity_interval]</span><br><span class="line">                  [-z serial_number] file ...</span><br><span class="line">       ssh-keygen -L [-f input_keyfile]</span><br><span class="line">       ssh-keygen -A [-a rounds] [-f prefix_path]</span><br><span class="line">       ssh-keygen -k -f krl_file [-u] [-s ca_public] [-z version_number]</span><br><span class="line">                  file ...</span><br><span class="line">       ssh-keygen -Q [-l] -f krl_file [file ...]</span><br><span class="line">       ssh-keygen -Y find-principals -s signature_file -f allowed_signers_file</span><br><span class="line">       ssh-keygen -Y match-principals -I signer_identity -f allowed_signers_file</span><br><span class="line">       ssh-keygen -Y check-novalidate -n namespace -s signature_file</span><br><span class="line">       ssh-keygen -Y sign -f key_file -n namespace file [-O option] ...</span><br><span class="line">       ssh-keygen -Y verify -f allowed_signers_file -I signer_identity</span><br><span class="line">                  -n namespace -s signature_file [-r krl_file] [-O option]</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="生成ssh-keys"   >
-          <a href="#生成ssh-keys" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#生成ssh-keys"></a> 生成SSH Keys</h1>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E5%90%AC%E5%8A%9B/">雅思听力</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-04-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E5%90%AC%E5%8A%9B/" data-flag-title="雅思听力"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="考试流程"   >
+          <a href="#考试流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#考试流程"></a> 考试流程</h1>
       
-<p>如果已经生存了ssh key，那就可以跳过这一步了。可以用以下命令查看：</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -l ~/.ssh</span><br></pre></td></tr></table></div></figure>
-<p>如果出现<code>id_rsa</code>和<code>id_rsa_pub</code>那就说明已经生成。</p>
-<p>如果没有，按以下步骤生成：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “your_email@example.com”</span><br></pre></td></tr></table></div></figure>
+<p>纸笔考试8点半前进场，9点发答题卡。</p>
 
-        <h2 id="示例"   >
-          <a href="#示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例"></a> 示例</h2>
+        <h1 id="雅思听力概况"   >
+          <a href="#雅思听力概况" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#雅思听力概况"></a> 雅思听力概况</h1>
       
-<p><code>ssh-keygen -t rsa -C &quot;xing-cg@qq.com&quot;</code></p>
-<p>其中，<code>-t</code>选项代表的是生成哪种密钥，<code>[-t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa]</code>，选择rsa。</p>
-<p><code>-C</code>选项代表注释，一般填写邮箱地址。</p>
+<p>只读一遍。时间：35分钟+10分钟（填答题卡，只有纸笔考试才有）。</p>
+<p>四个部分，每个部分10道题。</p>
+<p>第一部分，conversation，两个讲话人。social and semi-official context。通常是咨询，所以两者是不同的身份。要预判谁说出来。租房子、咨询考试、订酒店。</p>
+<p>第二部分，talk，单独讲话（但是不排除有两个讲话人，但是另外一个人只是抛砖引玉）。介绍实习生工作、旅游路线。</p>
+<p>第三部分，conversation or discussion。最多四个讲话人，实际上最多三个人，但是从剑10 之后基本上都只有两个人。话题是基于学术或与课程相关的。</p>
+<p>第四部分，大学风格的lecture or talk，时间较长，内容较专业。物理、心理、商业、健康、环境保护、历史、人文、建筑。</p>
+<p>1、4大多考填空、填表、填句子、简答，主要写单词。2、3大多考选择，单选、多选、匹配、地图、流程（匹配题的变形）。第三部分通常会出长选择、匹配，难度最大。</p>
 
-        <h1 id="拷贝现有的到新机器上"   >
-          <a href="#拷贝现有的到新机器上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#拷贝现有的到新机器上"></a> 拷贝现有的到新机器上</h1>
+        <h2 id="做题技巧"   >
+          <a href="#做题技巧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#做题技巧"></a> 做题技巧</h2>
       
-<p>clone github的项目时出问题，报以下错误。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Permission denied (publickey).</span><br><span class="line">  fatal: Could not read from remote repository.</span><br><span class="line">  Please make sure you have the correct access rights</span><br></pre></td></tr></table></div></figure>
+<ol>
+<li>所听即所答，不会改词性。</li>
+<li>注意重音，尤其是第三部分填空题</li>
+<li>纸笔考试时，誊抄答案时，全部写为大写字母。除非强调了all lower case（网址、密码）
+<ol>
+<li>避免遗忘大小写区分。</li>
+<li>对于检查拼写错误有帮助</li>
+</ol>
+</li>
+</ol>
 
-        <h2 id="解决方法"   >
-          <a href="#解决方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h2>
+        <h2 id="称谓"   >
+          <a href="#称谓" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#称谓"></a> 称谓</h2>
       
+<ol>
+<li>Full Name
+<ol>
+<li>first name = given name = forename</li>
+<li>last name = family name = surname</li>
+</ol>
+</li>
+<li>Title
+<ol>
+<li>Mr.</li>
+<li><code>Mrs.</code> - 尾音siz 已婚, <code>Miss</code> - 尾音s 未婚, <code>Ms.</code> - 尾音z 未知是否已婚。</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="地点"   >
+          <a href="#地点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#地点"></a> 地点</h2>
+      
+<ol>
+<li>注意Postcode、Zip code（eg: MK32 6KT）</li>
+<li>Room Number
+<ol>
+<li>15 &amp; 50</li>
+<li>40A &amp; 48</li>
+</ol>
+</li>
+<li>Street, Road, Avenue最常考，Lane, Drive, Square, Boulevard, Place, Bay, Highway, Plaza认识就好。</li>
+</ol>
+
+        <h2 id="日期"   >
+          <a href="#日期" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日期"></a> 日期</h2>
+      
+<ol>
+<li><code>DD/MM/YYYY</code> or <code>MM/DD/YYYY</code>均可</li>
+<li>日期写成基数词或序数词均可，基数词简单，比如March 31。听到的时候可以先写个草稿Mar 31，但是誊抄时要拼全为March！</li>
+</ol>
+
+        <h2 id="数字"   >
+          <a href="#数字" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数字"></a> 数字</h2>
+      
+<ol>
+<li>passport number</li>
+<li>driving license number</li>
+<li>license plate number</li>
+<li>student ID/number</li>
+<li>membership number</li>
+<li>medical card number</li>
+<li>flight number</li>
+<li>account number</li>
+<li>credit card number</li>
+<li>fax number</li>
+<li>telephone number</li>
+</ol>
+<p>passport、driving license、flight、credit card专门考过这四个词的填空。</p>
+
+        <h3 id="分数-小数-百分数"   >
+          <a href="#分数-小数-百分数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分数-小数-百分数"></a> 分数、小数、百分数</h3>
+      
+<ol>
+<li><code>2/3</code>: two thirds，<code>1/4</code>: one fourth，<code>3/4</code>: three fourths
+<ol>
+<li>over - <code>219/763</code>: two hundred and nineteen <strong>over</strong> seven hundred and sixty three</li>
+<li>in out of - <code>15/20</code>: fifteen <strong>in out of</strong> twenty</li>
+</ol>
+</li>
+<li><code>12.789</code>: twelve <strong>point</strong> seven eight nine
+<ol>
+<li><code>0.67</code>: <strong>point</strong> six seven; <strong>naught point</strong> six seven; <strong>zero point</strong> six seven</li>
+</ol>
+</li>
+<li><code>12.5%</code>: twelve point five percent; twelve and a half percent</li>
+</ol>
+
+        <h3 id="钱"   >
+          <a href="#钱" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#钱"></a> 钱</h3>
+      
+<p><code>￡1</code>: one pound, <code>￡2</code>: two pounds</p>
+<p><code>￡2.50</code>: 不应该说成two point five pounds，后面的50应该落在fifty 便士上。最好应该说成两磅五，two pounds fifty。</p>
+<p>关于美元：雅思没考过美刀，但是考过Canadian Dollars、Australian Dollars。</p>
+<p>美元有可能<code>$ 25.50</code>会省略中间的dollar，会念成: twenty-five fifty。但是英镑没这样念过。</p>
+
+        <h2 id="民族"   >
+          <a href="#民族" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#民族"></a> 民族</h2>
+      
+<ol>
+<li>-ish: <strong>British, English, Spanish, Swedish</strong>（瑞典，国名是Sweden）, Turkish（不常考）</li>
+<li>-an: American, Canadian, Australian, Russian, German, Italian</li>
+<li>-ese: Chinese, Japanese</li>
+<li>-i（不常考）: Iraqi, Kuwaiti, Pakistani</li>
+<li>-ic（不常考）: Icelandic, Arabic</li>
+<li>特殊: New Zealander, French, Swiss（瑞士，国名是Switzerland）, Greek, Dutch（荷兰，国名是Netherlands）, Thai</li>
+</ol>
+<p>有关民族的题一律都填形容词。</p>
+
+        <h2 id="计量单位"   >
+          <a href="#计量单位" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#计量单位"></a> 计量单位</h2>
+      
+<p>单位可以写缩写，但是缩写不能写成大写。缩写必须写成小写，且缩写后面不能加复数s。</p>
+<p>如果要和全部拼写大写保持一致的话，建议全拼出来，可以写成大写，比如KILOMETER，但是注意，如果是复数且是全拼，需要加S，KILOMETERS。</p>
+<ol>
+<li>长度：kilometer/km, meter/m, centimeter/cm, mile/ml(Br)/mi(Am)英里（考过）, feet(pl)/foot(s)/ft英尺, inch/in英寸。</li>
+<li>重量：kilogram/kg（考过）, gram/g, pound/lb, tonne/ton公吨/英吨</li>
+<li>面积：square meter/sq m, hectare/ha公顷（考过）, acre英亩</li>
+<li>液量：<strong>liter/l</strong>（考过）</li>
+<li>温度：Fahrenheit/F, centigrade/Celsius/C</li>
+<li>货币：1 dollar = 100 cents, 1 pound = 100 pence(p), Euro, Japanese Yen</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/">雅思阅读</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-04-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/" data-flag-title="雅思阅读"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="考试流程"   >
+          <a href="#考试流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#考试流程"></a> 考试流程</h1>
+      
+<p>纸笔考试阅读总共60分钟，但是没有单独填答题卡的时间，所以实际上只能做54分钟。写一篇，填一篇。</p>
+<p>三篇文章。40道题。</p>
+<p>四大类题型：（共13个小的类别）</p>
+<ol>
+<li>填空
+<ol>
+<li>简答、完成句子、无/有选项summary、表格题、图表标记、流程图</li>
+</ol>
+</li>
+<li>判断</li>
+<li>选择（单选、多选）</li>
+<li>匹配
+<ol>
+<li>特殊词匹配、首尾句匹配、段落信息匹配、小标题。</li>
+</ol>
+</li>
+</ol>
+<p>填空、判断难度稍低；选择、匹配难度稍高。</p>
+<p>27-29道题6.5分，30-32道7.0，33-34道7.5。平均一篇文章只能错2到3道题，才能保证7分以上。</p>
+<p>60%考察基础词汇、句法；20%考察阅读理解、定位技巧；20%文章逻辑关系、判断力。</p>
+<p>内容不固定，但是文章体裁只有两类，说明文 - 现象解释、议论文 - 问题解决。</p>
+
+        <h2 id="其他"   >
+          <a href="#其他" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
+      
+<p>在答题卡上不能只写t或f，不能写缩写，要全部都写完，not given你要写成not given。</p>
+
+        <h1 id="文章难度分析"   >
+          <a href="#文章难度分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文章难度分析"></a> 文章难度分析</h1>
+      
+<ol>
+<li>三篇难度随机</li>
+<li>第一篇难度大的比例有所提升</li>
+<li>第三篇一般比较简单</li>
+</ol>
+<p>难在哪里？</p>
 <ol>
 <li>
-<p>查看ssh-agent是否启用</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent -s</span><br></pre></td></tr></table></div></figure>
-<p>如果看到Agent pid xxxx说明已经启用。接下来把私钥添加到ssh-agent就可以了。</p>
+<p>文章内容偏离日常生活接触的知识</p>
+<ol>
+<li>咔嚓忽悠可的建筑群、古代的人</li>
+<li>地理类的Grand Canyon</li>
+<li>美国大峡谷的形成原因</li>
+<li>地理学的洋流</li>
+<li>心理学上情绪有关的大脑定量分析</li>
+<li>语言学上的口哨</li>
+</ol>
 </li>
 <li>
-<p>将<code>.Key</code>添加到<code>ssh-agent</code></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></div></figure>
-<p>可能会提示，<code>It is required that your private key files are NOT accessible by others</code>。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0664 for &#x27;/home/xcg/.ssh/id_rsa&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br></pre></td></tr></table></div></figure>
-<p>解决方法：<code>chmod 600 ~/.ssh/id_rsa ~/.ssh/id_rsa.pub</code></p>
-</li>
-<li>
-<p>将ssh的公钥添加到git上</p>
+<p>题目回到原文同义替换的比例增加</p>
 <ol>
-<li>查找公钥，一般在<code>~/.ssh</code>中的<code>id_rsa.pub</code>中</li>
-<li>打开github或gitlab，再依次进入settings、ssh keys、add ssh keys进行添加。</li>
-</ol>
-</li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_%E6%A6%82%E8%BF%B0/">协程_概述</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-10-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_%E6%A6%82%E8%BF%B0/" data-flag-title="协程_概述"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="多线程的缺陷"   >
-          <a href="#多线程的缺陷" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多线程的缺陷"></a> 多线程的缺陷</h1>
-      
-<ol>
-<li>多线程是微秒级别。</li>
-<li>线程数一多，CPU使用率会飙升。可扩展性比较差</li>
-<li>编写异步逻辑、非阻塞事件时，函数回调方式只有编写程序的程序员才知道规则。</li>
-</ol>
-
-        <h1 id="协程的目的"   >
-          <a href="#协程的目的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#协程的目的"></a> 协程的目的</h1>
-      
-<ol>
-<li>描述异步逻辑
-<ol>
-<li>比多线程更快</li>
-<li>比函数回调更美观</li>
+<li>以前你的题目和你的文章还能看到一些原文原词，但是现在就没有了，现在你在题目里看到这个词，你在文章中怎么都看不着这个词，往往都是同义词替换</li>
 </ol>
 </li>
 </ol>
 
-        <h1 id="协程的优势"   >
-          <a href="#协程的优势" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#协程的优势"></a> 协程的优势</h1>
+        <h2 id="优先选择容易题做"   >
+          <a href="#优先选择容易题做" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优先选择容易题做"></a> 优先选择容易题做</h2>
       
 <ol>
-<li>性能强劲
+<li>四大类题型：（共13个小的类别）填空、判断难度稍低；选择、匹配难度稍高。
 <ol>
-<li>协程切换实验 - 一次协程切换的开销可以达到2到3纳秒之间，单线程协程切换的时间可以达到7到8纳秒，跨线程的协程切换也只需37纳秒左右。这些时间大大快于线程切换的时间。线程切换至少需要2000个时钟周期。假设CPU为4GHz，则至少需要500ns，若考虑cache失效问题，协程效率相对于线程将会是10、100倍的数量级。</li>
+<li>填空
+<ol>
+<li>简答、完成句子、无/有选项summary、表格题、图表标记、流程图</li>
 </ol>
 </li>
-<li>语法优雅</li>
+<li>判断</li>
+<li>选择（单选、多选）</li>
+<li>匹配
+<ol>
+<li>特殊词匹配、首尾句匹配、段落信息匹配、小标题。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>如果题型看着差不多，就看文章的开头和topic。优先选择自己熟悉话题的文章。</li>
+<li>按阅读量
+<ol>
+<li>有的是不需要读太多的内容就能做得出来答案的</li>
+<li>有的题目要求阅读量比较高，它需要你可能读一整篇，或者是可能读一个段落才能做对这种情况。
+<ol>
+<li>像选择和匹配就属于难度比较高，也就是阅读量比较高的题目</li>
+<li>但并不是说所有的简单题型都一定简单，也并不是说所有的难的题型一直难</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>按照文章长度来看的话，先做短文章，短的就意味着你所需要看的内容少，所以先做短的，如果长度也都差不多，那去看文章生词大概瞄一眼哪些文章里面生词最少，先做。</li>
 </ol>
 
-        <h1 id="实验测量协程切换开销"   >
-          <a href="#实验测量协程切换开销" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实验测量协程切换开销"></a> 实验：测量协程切换开销</h1>
+        <h1 id="如何练习"   >
+          <a href="#如何练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何练习"></a> 如何练习</h1>
       
-<p>写两个协程，使其不断切换。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">uint32_t</span> total_switch = <span class="number">2e9</span>; <span class="comment">// 2 * 10^9</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">task&lt;&gt; <span class="built_in">f</span>(<span class="type">const</span> swtch &amp;to)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (count++ &lt; total_switch)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">co_await</span> to;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    swtch to[<span class="number">2</span>];</span><br><span class="line">    task&lt;&gt; tasks[<span class="number">2</span>] = &#123;<span class="built_in">f</span>(to[<span class="number">0</span>]), <span class="built_in">f</span>(to[<span class="number">1</span>])&#125;;</span><br><span class="line">    to[<span class="number">0</span>].target = task[<span class="number">1</span>].<span class="built_in">get_handle</span>();</span><br><span class="line">    to[<span class="number">1</span>].target = task[<span class="number">0</span>].<span class="built_in">get_handle</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> duration = <span class="built_in">hostTiming</span>([&amp;] &#123;task[<span class="number">0</span>].<span class="built_in">get_handle</span>().<span class="built_in">resume</span>(); &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>循环对计数器累加，每次都切换一次协程。</p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/42/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/44/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">287</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>每天打好基础语法和单词的就是练习。</p>
+
+        <h2 id="词汇"   >
+          <a href="#词汇" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#词汇"></a> 词汇</h2>
+      
+<p>在APP上背阅读词汇，一天背5组同义词替换（剑1<sub>剑9同义替换、剑10同义替换、剑11同义替换、剑13同义替换），然后再看每一本不同书的时候去背它的必备词汇（雅思阅读必备词汇C4</sub>C11），如果阅读分数想要在7.5分以上，单词量一定是在8000以上的，而且加上阅读技巧才能到7.5分以上，如果阅读技巧稍微弱一点的话，你就得到在10000、12000。</p>
+<p>但是阅读的单词有一个特点就是在于它不需要你对这个单词有非常深刻的认知，你只需要看到这个单词认识，知道它的大概中文意思就行了，一定不要太准确，如果阅读词汇你的中文意思背得太准确的话，其实也不好，因为你就不能快速的找到它的同义词。比如说有个例子说的是地方的水利灌溉系统的improving，给人们带来了足够的食物。那题目说的是 advanced application system给人们带来了足够的食物。如果你想advanced和improving这俩词儿，advanced是先进的，improving是进步。如果背得非常的准确，把单词背得非常的死的话，可能会觉得他俩说的意思不是特别的一致，但是其实他俩说的就是一模一样的意思，都是先进、进步、高阶、好，用一句话总结就是他俩说的都是好，水的灌溉系统的好，到使这里的人们可以生活得很好。所以对于阅读词汇来讲的话，我们一定是建议大概意思范围就行了，这是词汇。</p>
+
+        <h2 id="长难句不回读"   >
+          <a href="#长难句不回读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#长难句不回读"></a> 长难句不回读</h2>
+      
+<p>去找句子的主谓宾。因为在阅读里面，你时间比较长的一个非常重要的点，其实就是在于我题目看完回到原文，原文看完以后第一遍我没看出来，我要再看一遍到底说的是什么，要看好几遍来达到我知道这个答案是什么的目的。这种情况下，就会花费比较长的时间来做题，所以一定要有长难句的不回读训练。</p>
+<p>要做到看一遍就能够掌握到这句话里的主干是什么，修饰成分是什么，掌握到这句话的主要意思想表达的是什么，和题目里面的关系是什么。</p>
+
+        <h2 id="两种联系阅读的方法"   >
+          <a href="#两种联系阅读的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#两种联系阅读的方法"></a> 两种联系阅读的方法</h2>
+      
+
+        <h3 id="中英文对照阅读"   >
+          <a href="#中英文对照阅读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#中英文对照阅读"></a> 中英文对照阅读</h3>
+      
+<p>第一种，中英文对照阅读，一段话，先把它翻译成英文，翻译完以后和英文原版进行对照，有出入。对我们现在的语言水平来看的话，包括口语、写作是有好处的。如果按照中英文对照阅读的训练进行训练下去的话，你会发现你的翻译能力有大幅度的进步和提升，就意味着你的写作和你的口语都会有进步，这个方法确实会比较费时间。不建议坚持看一本书，比如哈利波特小王子什么的，那些就有点不太能够直接的跟我们的写作相对应。建议看什么？建议去看写作范文，哪些翻译软件非常的好用，直接把它翻译成中文，我发的肯定都是英文写作范文，然后你就把它翻译成中文，然后中文看完以后一句一句翻译，然后对照一下写作范文，哪些表达方式我们没有，我们把它积累出来，这样的话就会更加的直接的针对于我们的雅思学习。</p>
+
+        <h3 id="直接阅读"   >
+          <a href="#直接阅读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#直接阅读"></a> 直接阅读</h3>
+      
+<p>第二种，是直接阅读。直接阅读是什么？跟我们平时阅读中文书籍一样，我们直接阅读英文文章，直接阅读英文文章就是可以阅读。可以拿剑4及以后的的那些文章直接来阅读，以理解文章大概内容为目的。直接阅读一定要注意去读做过题目的文章。如果这篇文章题目还没有做，就不要去读它。因为一共我们剑桥真题就这么多，对吧？每一题按照考试的流程去练才是最好的。</p>
+<p>或者读机经。机经是什么？就是以往的考试的可能存在的文章，就是以读文章为目的去看。</p>
+<p>另外一个在读的时候要注意的一个点就是一定不要边查边读。所有的英语学习，包括口语，包括写作，包括听力，包括阅读，不要把所有的这些听说读写最终都练成考词汇。你可以从书中来判断陌生单词的意思，比如说写作的时候你想要写这个词，但是你不太会表达，你可以先尝试用其他的表达方式来把它替换出来，然后最后补充词汇，最后查一下这个单词和它的意思和你想象的一不一致。最后查一下这个表达方式——你想要用的，但是第一时间没有表达出来的，这就是补充词汇。</p>
+<ol>
+<li>读做过题目的文章</li>
+<li>读机经</li>
+<li>一定不要边查边读</li>
+<li>最后补充词汇</li>
+</ol>
+
+        <h1 id="考试技巧"   >
+          <a href="#考试技巧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#考试技巧"></a> 考试技巧</h1>
+      
+<p>雅思阅读就两个方面：一是定位题眼、同义替换。二是阅读理解、归纳总结。</p>
+<ol>
+<li>定位且理解细节信息的能力——同义替换。</li>
+<li>归纳文章或者段落主要信息的能力——阅读能力。</li>
+</ol>
+
+        <h2 id="定位题眼-同义替换"   >
+          <a href="#定位题眼-同义替换" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#定位题眼-同义替换"></a> 定位题眼、同义替换</h2>
+      
+<p>如果有明显题眼，做题的时候一定是先看题，再看文章。</p>
+<ol>
+<li>题目里面通常有题眼，要在文章里面找到题眼，就是所说的答案句，对比一下这两个说的是什么，然后选答案。</li>
+<li>对于那些结构性的题目，需要考察你的阅读能力，结构性的题目并不能在文章中找到非常明显的题眼，可能要看一段话或者是整篇文章来做这道题，比如说有的题目最后一篇，最后一题，他会问你这篇文章作者的意图是什么？这篇文章的开头是什么？这篇文章的主旨中心思想是什么？需要归纳文章或段落信息的能力，所以两个不同的能力对应的是我们不同的题目。</li>
+</ol>
+<p>阅读之前补充定位——选择什么样的词作为定位词。有一些我们常见的或常选的词，第一个叫特殊词：两种情况，一个是题目里面有特殊词，一个是题目里面没有特殊词。</p>
+<p>如果题目里面有特殊词最好，比如说一些大写名词，人名或者是地名，一些数字等等，大写的重要名词。这些比较好找，并且在文章中不会被替换。但是数字要注意，他可能会给你挖坑，他在题目里跟你说1890年，在文章里他可能会跟你说19世纪末。所以数字要警惕它的替换。大写数字或者是一些斜体或者是带符号等等的这些词，这些词儿相对来说，回归文章当中都比较好找，所以如果题目里有这些特殊词，就直接以它为定位词会文章找就可以了。</p>
+<p>如果题目里没有特殊词，全都是一些小写的，平常的词汇，要用多点定位法：要选择more than one定位词，以避免漏掉信息，或者扫读的时候忽略了。所以多点定位是在句子的不同成分里面选名词或者是名词词组。主语选一个，宾语选一个，定语选一个，状语选一个，一般选2~3个，这样的话抓住大概的主、谓、宾、定、状等等的这些，再去对应的找意思相符合的大致范围。</p>
+
+        <h2 id="同义替换"   >
+          <a href="#同义替换" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同义替换"></a> 同义替换</h2>
+      
+<p>同义替换就是填空句子完成或简答找定位，然后理解细节信息，阅读能力匹配，找小标题等等这些段落主要信息。但是这个适合先看文章再做题。</p>
+<p>所以我们的考试技巧先看文章再看题，还是先看题再看文章，都有自己的优缺点。如果我们先看文章的话，我们做题的准确率就会比较高，但是需要看的内容比较多，因为阅读量大；如果先看题，再看文章的话，阅读量比较小，但是有可能由于前后忽略了一个信息，导致做不对。所以我们要根据题目的特性选择不同的技巧，比如说细节信息题，一定是先看题，再看文章，如果是章篇结构体，可能先看文章再看题比较好，所以不同的题目我们选择不同的做题技巧。</p>
+
+        <h1 id="阅读方法"   >
+          <a href="#阅读方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#阅读方法"></a> 阅读方法</h1>
+      
+<p>扫读、略读、精读。</p>
+<p>扫读只是为了找到定位词而已，不需要了解和认识里面的某一个词汇或者是某一个短语，或者是它的文章意思等等，找到那个点就行了。扫读完了以后，我们就找到了定位词，接下来就要去略读。</p>
+<p>略读：去看一下定位词跟我的题目说的这个东西大概一不一致，方向一不一样，是不是我的题目范围，然后再精读。</p>
+<p>精读：一字一句的去认真读这篇文章里面的词汇是什么，句法是什么，然后根据题目找答案。</p>
+
+        <h2 id="扫读"   >
+          <a href="#扫读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#扫读"></a> 扫读</h2>
+      
+<p>扫读适合题目中有明显定位词，回到原文中找到定位词就可以解题了。那么在这种情况下来一定要注意，扫读不是逐字逐句阅读，用w阅读法。</p>
+<p>w阅读法是什么意思？不是横着看，而是横竖结合——斜着下斜着上，每次w阅读5行。视线范围内可以在同一时间最大限度的看到最多的内容。</p>
+
+        <h2 id="略读"   >
+          <a href="#略读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#略读"></a> 略读</h2>
+      
+<p>略读适合题目本身是概括总结性的话语，只需要看大致意思就可以了，只需要看文章主旨就行了。有选择性的阅读，跳过细节，抓取文章大概。</p>
+
+        <h2 id="精读"   >
+          <a href="#精读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#精读"></a> 精读</h2>
+      
+<p>精读要求就会比较高，主要就考练习了。</p>
+<p>第一就是找长难句。就是一套题中，选三篇文章里错题最多的那篇进行精读。精读是要把文章里面所有的长难句都找出来，把里面的生词整理出来，要求对文章背景有所了解，把文章的结构体系和逻辑关系都找出来。那么其中长难句找出来以后，按照我们长难句进行分析，看这个句子的主语是谁，谓语是谁。先看句子主句是谁，然后分句修饰成分是什么等等。</p>
+<p>第二，找里面的不认识的单词，包括一些重要名词，包括一些文章，特殊情况，比如文章讲的Marine mammals，海洋里面的哺乳动物，它里面肯定会讲到各种各样的名词，各种各样的哺乳动物的名字等等，这些也得整理出来，得了解。</p>
+<p>第三，了解文章的背景，除了这篇文章说的海洋的哺乳动物以外，它还可能有哪些方面。自己通过搜索引擎查找。</p>
+<p>第四个也是最重要的，即整理出文章的体系结构和逻辑关系，这些体系结构和逻辑关系可以帮助你理解与之相同类的文章的所有的体系结构和逻辑关系，还能帮助你进行写作的逻辑关系和体系结构的level up。但并不是翻译这篇文章，不是把这篇文章逐字逐句的翻译出来去理解它是什么，而是用你自己的话去总结它。比如说这篇文章说的是introduction to film sound，这篇文章的题目讲的就是电影声音，然后刚开始告诉你film sound很重要，它其中有三种表达方式，第一种是人声，就是我们所说的对白，第二种是音效，管乐和弦乐，第三种是音乐。即：先给你对于film sound上的一个introduction，然后再逐一去解释：对白的definition是什么；举例：真人和演员重合；举例：对话的数量和使用方式。体系结构其实是：看文章是从词看到句子，从句子看到意群，从意群看到章篇。</p>
+<p><img src="../../images/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/image-20230404203323026.png" alt="image-20230404203323026" /></p>
+
+        <h1 id="日常工作"   >
+          <a href="#日常工作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日常工作"></a> 日常工作</h1>
+      
+<p>同义词。</p>
+<p>长难句分析。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/42/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/147/">147</a><a class="extend next" rel="next" href="/page/44/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">293</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

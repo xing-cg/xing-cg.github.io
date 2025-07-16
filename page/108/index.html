@@ -32,133 +32,913 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/">Cpp_完美转发</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/" data-flag-title="Cpp_完美转发"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">网络_数据链路层</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-flag-title="网络_数据链路层"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="数据链路层"   >
+          <a href="#数据链路层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据链路层"></a> 数据链路层</h1>
+      
+<p>传输单位：帧</p>
+<ol>
+<li>点对点信道和广播信道的特点，及两种信道所使用的协议的特点(PPP和CSMA/DA)</li>
+<li>三个基本问题：
+<ol>
+<li>封装成帧</li>
+<li>透明传输</li>
+<li>差错检测</li>
+</ol>
+</li>
+<li>以太网MAC层的硬件地址</li>
+<li>适配器、转发器、集线器、网桥、以太网交换机的作用以及使用场合</li>
+</ol>
+
+        <h1 id="点对点信道"   >
+          <a href="#点对点信道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#点对点信道"></a> 点对点信道</h1>
+      
+<p>点对点信道的数据链路层的协议数据单元——帧。</p>
+<p>点对点信道的数据链路层在进行通信时的主要步骤如下：</p>
+<ol>
+<li>节点A的数据链路层把网络层交下来的IP数据报添加首部和尾部封装成帧。</li>
+<li>节点A把封装好的帧发送给节点B的数据链路层。</li>
+<li>若节点B的数据链路层收到的帧无差错，则从收到的帧中提取出IP数据报交给上面的网络层；否则丢弃这个帧。</li>
+</ol>
+
+        <h1 id="成帧"   >
+          <a href="#成帧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成帧"></a> 成帧</h1>
+      
+<p>什么是成帧？</p>
+<p>封装成帧(framing)就是<strong>发送方在一段数据的前后分别添加首部和尾部</strong>，这样就构成了一个帧。<strong>接收端在收到物理层上交的比特流后，就能根据首部和尾部的标记，从收到的比特流中识别帧的开始和结束</strong>。</p>
+<p>我们知道，分组交换的一个重要概念就是：所有在互联网上传送的数据都以分组（即IP 数据报）为传送单位。网络层的IP数据报传送到数据链路层就成为帧的数据部分。在帧的数据部分的前面和后面分别添加上首部和尾部，构成了一个完整的帧。这样的帧就是数据链路层的数据传送单元。</p>
+
+        <h2 id="帧定界"   >
+          <a href="#帧定界" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#帧定界"></a> 帧定界</h2>
+      
+<p>帧定界是：用于判断帧的边界，从哪开始到哪结束。要用特殊的字符串表示它的开始和特殊的字符串表示结束。</p>
+<p>一个帧的帧长等于帧的数据部分长度加上帧首部和帧尾部的长度。首部和尾部的一个重要作用就是进行<strong>帧定界</strong>（即确定帧的界限）。此外，首部和尾部还包括许多必要的控制信息。在发送帧时，是从帧首部开始发送的。各种数据链路层协议都对帧首部和帧尾部的格式有明确的规定。显然，为了提高帧的传输效率，应当使帧的数据部分长度尽可能地大于首部和尾部的长度。但是，每一种<strong>链路层协议都规定了所能传送的帧的数据部分长度上限</strong>——<strong>最大传送单元MTU</strong>(Maximum Transfer Unit)。给出了帧的首部和尾部的位置，以及帧的数据部分与MTU的关系。</p>
+<ul>
+<li>帧定界的几种方法
+<ul>
+<li>字符填充的首尾界符法</li>
+<li>比特位填充的首位界符法</li>
+<li>字符计数法</li>
+</ul>
+</li>
+</ul>
+<p>当数据在传输中出现差错时，帧定界符的作用更加明显。假定发送端在尚未发送完一个帧时突然出故障，中断了发送。但随后很快又恢复正常，于是重新从头开始发送刚才未发送完的帧。由于使用了帧定界符，接收端就知道前面收到的数据是个不完整的帧（只有首部开始符SOH而没有传输结束符EOT），必须丢弃。而后面收到的数据有明确的帧定界符（SOH和EOT），因此这是一个完整的帧，应当收下。</p>
+
+        <h2 id="透明传输"   >
+          <a href="#透明传输" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#透明传输"></a> 透明传输</h2>
+      
+<p>数据部分如果出现和头和尾一样的特殊的字符串或位串的内容，会干扰接收方的定界。</p>
+<p>当传送的帧是用文本文件组成的帧时（文本文件中的字符都是从键盘上输入的），其数据部分显然不会出现像SOH或EOT这样的帧定界控制字符。<strong>可见不管从键盘上输入什么字符都可以放在这样的帧中传输过去，因此这样的传输就是透明传输</strong>。</p>
+<p>但当数据部分是非ASCII码的文本文件时（如二进制代码的计算机程序或图像等），情况就不同了。如果数据中的某个字节的二进制代码恰好和SOH或EOT这种控制字符一样（如图3-6所示），数据链路层就会错误地“找到帧的边界”，把部分帧收下（误认为是个完整的帧），而把剩下的那部分数据丢弃（这部分找不到帧定界控制字符SOH）。这样的帧传输不是透明传输。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309194235539.png" alt="image-20220309194235539" /></p>
+<ul>
+<li>
+<p>理解透明传输</p>
+<ul>
+<li>“透明”表示：某一个实际存在的事物看起来却好像不存在一样（例如，你看不见在你前面有块100%透明的玻璃的存在）。</li>
+<li>“在数据链路层透明传送数据”——表示无论什么样的比特组合的数据，都<strong>能够按照原样没有差错地通过</strong>这个数据链路层。因此，对所传送的数据来说，这些数据就“看不见”数据链路层有什么妨碍数据传输的东西。或者说，数据链路层对这些数据来说是透明的。</li>
+</ul>
+</li>
+<li>
+<p>解决透明传输问题</p>
+<ul>
+<li>必须设法使数据中可能出现的控制字符“SOH”和“EOT”在接收端不被解释为控制字符。</li>
+<li>具体的方法是：发送端的数据链路层在<strong>数据中</strong>出现控制字符“SOH”或“EOT”的前面插入一个转义字符“ESC”(其十六进制编码是1B，二进制是00011011)。</li>
+<li>在接收端的数据链路层在把数据送往网络层之前删除这个插入的转义字符。</li>
+<li>如果转义字符“ESC“也出现在数据当中，那么解决方法仍然是在转义字符的前面插入一个转义字符。因此，当接收端收到连续的两个转义字符时，就删除其中前面的一个。</li>
+<li>这种方法称为字节填充(byte stuffing)或字符填充(character stuffing)。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309195841138.png" alt="image-20220309195841138" /></li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="差错控制循环冗余校验码计算"   >
+          <a href="#差错控制循环冗余校验码计算" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#差错控制循环冗余校验码计算"></a> 差错控制：循环冗余校验码计算</h2>
+      
+<p>被除数是谁？——原始数据+后面补若干个零（生成多项式的最高次幂）。</p>
+<p>除数是谁？——生成多项式对应的二进制序列。</p>
+<p>商和余数谁是冗余码？——余数。余数位数不够时要在前面补零（最后总位数为生成多项式的最高次幂）</p>
+<p>P77 简答题 6 7 8</p>
+
+        <h2 id="纠错机制-反馈重发机制传输层"   >
+          <a href="#纠错机制-反馈重发机制传输层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#纠错机制-反馈重发机制传输层"></a> 纠错机制-反馈重发机制[传输层]</h2>
+      
+<ul>
+<li>应当明确，“无比特差错”与“无传输差错”是不同的概念。
+<ul>
+<li>在数据链路层使用 CRC 检验，能够实现无比特差错的传输，但这还不是可靠传输。</li>
+<li>要做到“无差错传输”（即发送什么就收到什么）就必须再加上确认和重传机制。</li>
+<li>本章介绍的数据链路层协议都不是可靠传输的协议。</li>
+<li><strong>循环冗余校验码只是在数据链路层保证帧的比特位不出错</strong>，即<strong>无比特差错</strong>。但是复杂的情况如帧丢失、帧重复、帧失序这些复杂错误情况就需要更高层的协议来纠错。这里讨论的反馈重发机制是<strong>传输层的可靠传输的工作原理</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>根据上述，由于检错码不能自动纠正所发现帧乱序的错误，所以当接收方发现错误时，要给发送方反馈信息要求重发。</p>
+<p>又叫<strong>自动请求重传ARQ</strong>(Automatic Repeat-reQuest)，重传的请求是自动进行的，接收方不需要请求发送方重传某个出错的帧。</p>
+<ol>
+<li>停止-等待方式</li>
+<li>连续工作方式（连续ARQ协议）
+<ol>
+<li>拉回方式</li>
+<li>选择性重发方式</li>
+</ol>
+</li>
+</ol>
+
+        <h3 id="停止等待协议"   >
+          <a href="#停止等待协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#停止等待协议"></a> 停止等待协议</h3>
+      
+<ul>
+<li>
+<p>基本思想</p>
+<ul>
+<li>发送端在<strong>发出一帧后必须停下来等待接收端对所发送的确认帧</strong>进行确认。若确认对方正确收到，则发送方继续发送下一帧，否则，发送方就重发该帧。</li>
+</ul>
+</li>
+<li>
+<p>A向B发送帧：</p>
+<ul>
+<li>B成功接收到了，且检测后正常，则回传A一个确认帧，被A接收到后，A才继续发送下一个帧。</li>
+<li>B接收帧时<strong>检测出错误则丢弃该帧</strong>（或者<strong>帧在传输过程中丢失</strong>），B不会发送任何信息。则A必须重发该帧，直到B成功接收为止。
+<ul>
+<li>B等确认要等待多长时间？——A设置了一个<strong>超时计时器</strong>，如果到期之前收到了相应的确认则重置该计时器，继续发送下一个帧。</li>
+<li>若帧正确到达B，但B回送的确认丢失或延迟了，<strong>A未收到B的确认，会超时重发该帧</strong>。<strong>B可能会收到重复的帧</strong>。B如何知道收到了重复的帧，需要丢弃呢？——<strong>编号</strong>。
+<ul>
+<li>A为每一个发送的帧都进行编号。若B收到了编号相同的帧，则B认为收到了重复帧，B丢弃重复的帧，<strong>并且B回送确认</strong>。</li>
+<li>B为发送的确认也进行编号，指示该确认是对哪一个帧的确认。A根据确认帧及其编号，可以确定它是对哪一个帧的确认，避免重复发送，并且<strong>A可以根据此确认号传送下一个帧</strong>。若为重复的确认，则将其丢弃。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>确认帧的编号问题</p>
+<ul>
+<li>确认帧（ACKnowledgement, ACK）——正确接收后回传的帧被称为确认帧。</li>
+<li>习惯将确认序号n表示为ACKn，<strong>ACKn表示“第n–1号帧已经收到，现在期望接收第n号帧”</strong>。</li>
+</ul>
+</li>
+<li>
+<p>性能分析</p>
+<ul>
+<li>停止等待协议实现简单，但<strong>传输距离远时</strong>信道利用率低。</li>
+</ul>
+</li>
+<li>
+<p>改进</p>
+<ul>
+<li>采用<strong>流水线传输</strong>，就是发送方可连续发送多个帧，不必每发完一个帧就停顿下来等待对方的确认。这样可使信道上一直有数据不间断地传送。从而提高信道利用率。<strong>这是连续ARQ协议的基本思想</strong>。</li>
+</ul>
+</li>
+<li>
+<p>与ARQ的关系</p>
+<ul>
+<li>CRC检验器能够自动丢弃检测到的出错帧。实用的CRC检验器都是用硬件完成的。因此所谓的“丢弃出错帧”，对上层软件或用户来说都是感觉不到的。</li>
+<li>发送端对出错的数据帧进行重传是自动进行的，因而这种<strong>差错控制机制</strong>常简称为ARQ(Automatic Repeat reQuest)，直译是自动重传请求，但意思是自动请求重传。因此<strong>停等协议中包含着ARQ协议</strong>（是一种差错控制机制）</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="连续arq"   >
+          <a href="#连续arq" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连续arq"></a> 连续ARQ</h3>
+      
+<ul>
+<li>基本思想
+<ul>
+<li>发送方在发送一个帧后，<strong>不停下来等待确认帧到来</strong>。而是<strong>连续再发送多个帧</strong>，帧的个数取决于发送方的发送能力和接收端的接收能力。此方式中，必须为不同帧编上序列号作为帧标识。</li>
+<li>接收方一般采用<strong>累积确认</strong>的方式</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="拉回方式"   >
+          <a href="#拉回方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#拉回方式"></a> 拉回方式</h4>
+      
+<p>连续发了多个帧，某一个出错后，从出错的开始需要全部重发，因为要求是按序接收。换言之，一旦接收方发现第n帧出错，则丢弃第n帧及第n帧以后的所有帧。</p>
+<p>在等不到2号帧的确认而重传2号数据帧时，虽然结点A已经发完了5号帧，但仍必须向回走，将2号帧及其以后的各帧全部进行重传。连续 ARQ又称为Go-back-N ARQ，意思是当出现差错必须重传时，要向回走N个帧，然后再开始重传。</p>
+<ul>
+<li>代价：信道的带宽。</li>
+</ul>
+
+        <h4 id="选择重发方式"   >
+          <a href="#选择重发方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#选择重发方式"></a> 选择重发方式</h4>
+      
+<p>假定发送方连续发送了m帧，而接收方在对收到的数据进行校验后发现第n帧出错(n≤m)，于是<strong>接收方给发送方出错信息要求发送方重发第n帧</strong>。换言之，一旦接收方发现第n帧出错，则丢弃第n帧，但<strong>缓存第n帧以后的所有正确帧</strong>。</p>
+<p>选择重发方式与拉回方式比较，前者只重发出错的数据。效率高。</p>
+<ul>
+<li>代价：存储空间；实现比较复杂
+<ul>
+<li>接收端必须维持一个足够大的缓存以便存储出错帧之后收到的帧，直到出错帧被重传。</li>
+<li>而且它必须具有<strong>将收到的重传帧插入到正确位置</strong>的逻辑功能。发送端也要求更复杂的逻辑功能以便<strong>能够不按顺序发送一个帧</strong>。由于有这样的复杂性，选择重传ARQ远不如go-back-N ARQ用得广泛。</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="累积确认"   >
+          <a href="#累积确认" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#累积确认"></a> 累积确认</h4>
+      
+<p>即<strong>不必对收到的帧逐个发送确认</strong>，而是对按序到达的<strong>最后一个帧</strong>发送确认，这样就表示：到这个帧为止的所有帧都已正确收到了。</p>
+<p><strong>优点</strong>：容易实现，即使确认丢失也不必重传；<strong>缺点</strong>：不能向发送方反映出接收方已经正确收到的所有帧的信息。</p>
+
+        <h2 id="流量控制"   >
+          <a href="#流量控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#流量控制"></a> 流量控制</h2>
+      
+<p>滑动窗口协议</p>
+
+        <h2 id="习题"   >
+          <a href="#习题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#习题"></a> 习题</h2>
+      
+
+        <h1 id="使用广播信道的数据链路层"   >
+          <a href="#使用广播信道的数据链路层" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使用广播信道的数据链路层"></a> 使用广播信道的数据链路层</h1>
+      
+<p>广播信道可以进行一对多的通信。以太网和无线局域网都是广播链路层技术的例子。下面要讨论的局域网使用的就是广播信道。</p>
+
+        <h1 id="局域网技术"   >
+          <a href="#局域网技术" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网技术"></a> 局域网技术</h1>
+      
+<p>遵循IEEE 802系列标准。实际上局域网体系结构是<strong>物理层和数据链路层</strong>（细分成了MAC[Madium Access Control]子层、LLC[Logical Link Control]子层）。与介质相关的是MAC（与物理层接触），无关的是LLC（与网络层接触）。</p>
+
+        <h2 id="局域网的特点和分类"   >
+          <a href="#局域网的特点和分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网的特点和分类"></a> 局域网的特点和分类</h2>
+      
+<p>局域网最主要的特点是：网络为一个单位所拥有，且地理范围和站点<br />
+数目均有限。</p>
+<p>局域网可按网络拓扑进行分类。由于集线器(hub)的出现和双绞线大量用于局域网中，星形以太网以及多级星形结构的以太网获得了非常广泛的应用。下图为星形网。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309204233779.png" alt="image-20220309204233779" /></p>
+<p>下图为总线网，各站直接连在总线上。总线两端的匹配电阻吸收在总线上传播的电磁波信号的能量，避免在总线上产生有害的电磁波反射。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220309204450154.png" alt="image-20220309204450154" /></p>
+<p>总线网以传统以太网最为著名，但以太网后来又演变成了星形网。经过四十多年的发展，以太网的速率已大大提高。</p>
+
+        <h2 id="以太网"   >
+          <a href="#以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#以太网"></a> 以太网</h2>
+      
+<p>现在最常用的以太网的速率是1 Gbit/s（家庭或中小企业）、10 Gbit/s（数据中心）和100 Gbit/s（长距离传输），且其速率仍在继续提高。现在以太网已成为了局域网的同义词，因此谈论局域网可以看作是在谈论以太网。</p>
+<ul>
+<li>为了通信的简便，以太网的两种措施
+<ul>
+<li>第一，采用较为灵活的<strong>无连接的工作方式</strong>，即不必先建立连接就可以直接发送数据。适配器对发送的数据帧不进行编号，也不要求对方发回确认。这样做可以使以太网工作起来非常简单，而局域网信道的质量很好，因通信质量不好产生差错的概率是很小的。因此，以太网提供的服务是尽最大努力的交付，即<strong>不可靠的交付</strong>。当目的站收到有差错的数据帧时（例如，<strong>用CRC查出差错</strong>），就把帧丢弃，其他什么也不做。<strong>对有差错帧是否需要重传则由高层来决定</strong>。例如，如果高层使用TCP协议，那么TCP就会发现丢失了一些数据。于是经过一定的时间后，TCP就把这些数据重新传递给以太网进行重传。<strong>但以太网并不知道这是重传帧，而是当作新的数据帧来发送</strong>。</li>
+<li>第二，以太网发送的数据都使用<strong>曼彻斯特(Manchester)编码</strong>的信号。我们知道，二进制基带数字信号通常就是高、低电压交替出现的信号。使用这种信号的最大问题就是当出现一长串连续的1或连续的0时，接收端就无法从收到的比特流中提取位同步（即比特同步）信号。如图所示，<strong>曼彻斯特编码的编码方法是把每一个码元再分成两个相等的间隔</strong>。码元1是前一个间隔为低电压而后一个间隔为高电压。码元0则正好相反，从高电压变到低电压（也可采用相反的约定，即1是“前高后低”而0是“前低后高”）。<strong>这样就保证了在每一个比特的正中间出现一次电压的转换，而接收端就利用这种电压的转换很方便地把位同步信号提取出来</strong>。但是从曼彻斯特编码的波形图也不难看出，<strong>其缺点是它所占的频带宽度比原始的基带信号增加了一倍</strong>（因为每秒传送的码元数加倍了）。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="介质访问控制"   >
+          <a href="#介质访问控制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#介质访问控制"></a> 介质访问控制</h2>
+      
+<p>介质访问的控制都在MAC子层完成。</p>
+<p>最早的以太网是将许多计算机都连接到一根总线上。当初认为这种连接方法既简单又可靠，因为在那个时代普遍认为：“有源器件不可靠，而无源的电缆线才是最可靠的”。</p>
+<p>总线的特点是：当一台计算机发送数据时，总线上的所有计算机都能检测到这个数据。这种就是广播通信方式。</p>
+<ul>
+<li>为了在总线上实现不干扰他人的一对一的通信，需要采取一些技术措施
+<ul>
+<li>可以使每一台计算机的适配器都拥有一个与其他适配器都不同的地址。在<strong>发送数据帧时，在帧的首部写明接收站的地址</strong>。现在的电子技术可以很容易做到：<strong>仅当数据帧中的目的地址与适配器ROM中存放的硬件地址一致时，该适配器才能接收这个数据帧</strong>，不是发送给自己的数据帧就丢弃。这样，具有广播特性的总线上就实现了一对一的通信。</li>
+<li>除了给每个网络适配器一个单独的地址，还需要解决一个问题，因为<strong>有些节点可能在某一刻同时传输帧，那么所有节点会同时接到多个帧</strong>，这个现象叫做：传输的这些帧在所有的接收方处<strong>碰撞</strong>了。通常，在碰撞发生时，没有一个接收节点能够获得有效帧，因此，涉及此次碰撞的所有帧都消失了，相应的这段时间中广播信道大量带宽会被浪费掉。那么如何来规范广播网络(例如总线网)上的计算机在广播信道上的传输行为呢？这是一个<strong>多路访问问题</strong>。显然需要通过制定<strong>多路访问协议</strong>来解决。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="适配器的作用"   >
+          <a href="#适配器的作用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适配器的作用"></a> 适配器的作用</h3>
+      
+<ul>
+<li>重要功能
+<ul>
+<li>进行串行/并行转换</li>
+<li>对数据进行缓存</li>
+<li>在计算机的操作系统安装设备驱动程序</li>
+<li>实现以太网协议</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="媒体共享技术"   >
+          <a href="#媒体共享技术" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#媒体共享技术"></a> 媒体共享技术</h3>
+      
+<ul>
+<li>静态划分信道
+<ul>
+<li>频分复用</li>
+<li>时分复用</li>
+<li>波分复用</li>
+<li>码分复用</li>
+</ul>
+</li>
+<li>动态媒体接入控制（多点接入）
+<ul>
+<li>随机接入：所有的用户可随机地发送信息</li>
+<li>受控接入：用户必须服从一定的控制，如轮询(polling)</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="介质访问控制策略"   >
+          <a href="#介质访问控制策略" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#介质访问控制策略"></a> 介质访问控制策略</h3>
+      
+<p>在介质访问控制技术中，最关键的是控制地点和控制方法。</p>
+<ol>
+<li>
+<p>在什么地方对媒体访问进行控制</p>
+<ul>
+<li>集中式控制
+<ul>
+<li>指定一个单独的集中控制器或一个具有控制整个网络的能力的节点来管理网络的通信，其将拥有控制网络访问的权利。</li>
+<li>优点
+<ul>
+<li>能提供除了对媒体访问外的其他更高级的功能，如优先级控制、可靠性等。</li>
+<li>每个站点的访问控制逻辑简单</li>
+<li>避免进行分布合作可能带来的协调问题</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>如果控制点不能工作，则会导致整个网络瘫痪。</li>
+<li>由于所有访问要经过控制点的允许，可能会形成瓶颈，降低效率。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分布式控制
+<ul>
+<li>无集中控制节点，各节点均处于平等地位；由各个站点共同完成媒体访问控制功能，动态地确定站点的发送顺序；节点间的通信由各节点自身控制。</li>
+<li>分类
+<ul>
+<li>CSMA/CD</li>
+<li>令牌法</li>
+<li>时隙法(Time Slot)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>怎么对共享媒体进行控制访问</p>
+<ul>
+<li>
+<p>同步机制：如FDM、TDM等。</p>
+</li>
+<li>
+<p>异步机制：如时间片轮转（循环式）、预约式、竞争式等。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th></th>
+<th>总线拓扑</th>
+<th>环型拓扑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>循环式</td>
+<td>令牌总线(IEEE 802.4)</td>
+<td>令牌环(IEEE 802.5; FDDI)</td>
+</tr>
+<tr>
+<td>预约式</td>
+<td>DQDB(IEEE 802.6)</td>
+<td></td>
+</tr>
+<tr>
+<td>竞争式</td>
+<td>CSMA/CD(IEEE 802.3)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>时间片轮转（循环式）
+<ul>
+<li>每个站点按照一定的时间顺序得到传输时间。如果站点利用这个机会发送，则对其发送时间或发送的数据总量有一定限制，超过这个限制的数据只能在下一轮中发送。</li>
+<li>这种顺序控制可能是集中式的，也可能是分布式的。</li>
+<li>在一段时间内有多个节点要传输数据时，此方式是有效的。</li>
+<li>当要传输数据的节点较少时，时间开销就显得很大。</li>
+</ul>
+</li>
+<li>预约式
+<ul>
+<li>一般来说，这种技术<strong>把传输媒体的使用时间划分为一些时槽</strong>。一个节点要传输数据时，就可以预约一些时槽进行连续传输。</li>
+<li>适合于传输连续数据的情况。<strong>流式通信就是长时间连续传输</strong>，例如话音通信、遥测通信和长文件的传输等。</li>
+<li>可以是集中式的，也可以是分布式的。</li>
+</ul>
+</li>
+<li>竞争式
+<ul>
+<li>这种技术并不对各个工作站点的发送权限进行控制，而是由各个工作站点自由竞争发送机会。</li>
+<li>对突发性的数据传输，竞争是最常用的机制。突发式通信就是短时间的少量传输，例如终端和主机之间的通信就是这样的。</li>
+<li>在低负荷时，性能不错。</li>
+<li>是分布式的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+        <h3 id="多路访问协议"   >
+          <a href="#多路访问协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多路访问协议"></a> 多路访问协议</h3>
+      
+<p>有关多路访问协议方面的研究仍在活跃，所有的多路访问协议可分为三种类型之一：信道划分协议、随机接入协议、轮流协议。</p>
+
+        <h4 id="信道划分协议"   >
+          <a href="#信道划分协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#信道划分协议"></a> 信道划分协议</h4>
+      
+<ul>
+<li>时分多路复用(TDM)</li>
+<li>频分多路复用(FDM)</li>
+<li>码分多址(Code Division Multiple Access, CDMA)</li>
+</ul>
+
+        <h4 id="随机接入协议"   >
+          <a href="#随机接入协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#随机接入协议"></a> 随机接入协议</h4>
+      
+<p>在随机接入协议中，一个传输节点总是以信道的全部速率(即R bps)进行发送。当有碰撞时，涉及碰撞的每个节点反复地重发它的帧，直到无碰撞地通过为止。但是当一个节点经历一次碰撞时，他不必立刻重发该帧，而是在<strong>重发该帧之前等待一个随机时延</strong>。涉及碰撞的每个节点独立地选择随机时延。因为该随机时延是独立选择的，所以可能：这些节点之一所选择的时延充分小于其他碰撞节点的时延，因此能够无碰撞地将它的帧在信道中发出。</p>
+<p>最常用的随机接入协议有<strong>ALOHA协议</strong>和<strong>载波侦听多路访问(CSMA)协议</strong>。以太网是一种流行并广泛部署的CSMA协议。</p>
+<ul>
+<li>ALOHA协议
+<ul>
+<li>访问方式：不监听——随机重发，“发送——冲突——再发送”。</li>
+<li>信道利用率最多为18%</li>
+</ul>
+</li>
+<li>分槽ALOHA协议
+<ul>
+<li>各用户节点只能在下一时间片的起始时刻开始发送信息。</li>
+<li>信道利用率最多为37%</li>
+</ul>
+</li>
+<li>CSMA协议
+<ul>
+<li>载波侦听多路访问，Carrier Sense Multiple Access，是一种适合于总线结构的具有信道检测功能的分布式介质访问控制方法，其控制手段称之为“载波侦听”。</li>
+<li>该协议的一般描述非常简单。如果一个站点有一个帧要发送，它遵循下面的规则：1、侦听介质的活动。2、如果没有活动，则立即传送，否则等待。</li>
+<li>CSMA分为三种方式，非坚持和坚持CSMA，坚持CSMA又分为“1-坚持CSMA”和“p-坚持CSMA”
+<ul>
+<li>非坚持CSMA：一旦监听到信道忙，就不再监听；延迟一个随机时间后再次监听
+<ul>
+<li>优点：降低了冲突发生概率</li>
+<li>缺点：信道利用率降低</li>
+</ul>
+</li>
+<li>1-坚持CSMA：监听到信道忙时，仍继续监听，直到信道空闲立即传输。如果冲突，则等待一段随机的时间后重复第一步。
+<ul>
+<li>优点：有利于抢占信道，减少信道空闲时间</li>
+<li>缺点：冲突概率较大</li>
+</ul>
+</li>
+<li>p-坚持CSMA：1、若介质空闲，以概率p传输，以概率(1-p)延迟一个时间单位，该时间单位通常等于最大传播延迟的两倍；2、若介质忙，继续监听直到信道空闲，并重复第1步；3、若传输延迟了一个时间单位，则重复第1步。</li>
+<li>对比：非坚持CSMA协议中的站点是尊重别人的，而“1-坚持”方式是自私的。试图既能如非坚持算法那样减少冲突而又像“1-坚持”算法那样减少空闲时间的一种折衷方案是“p-坚持”协议。</li>
+</ul>
+</li>
+<li>CSMA的意义：在信道忙时不会有其他主机打乱正在进行的发送。由于采用了信道侦听，因此在一定程度上减少了冲突发生的次数，从而提高了信道的利用率和整个网络的吞吐量。</li>
+<li>CSMA不能完全避免冲突的原因：当主机A认为信道空闲时，主机B也可能认为信道空闲，因此，两台主机差不多同时发送数据，导致冲突发生。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="局域网实际常用的访问控制方式"   >
+          <a href="#局域网实际常用的访问控制方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#局域网实际常用的访问控制方式"></a> 局域网实际常用的访问控制方式</h3>
+      
+<ul>
+<li>目前，计算机局域网常用的访问控制方式有三种，分别用于不同的拓扑结构。
+<ul>
+<li>带有冲突检测的载波侦听多路访问法CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</li>
+<li>令牌环访问控制法(Token Ring)</li>
+<li>令牌总线访问控制法(Token Bus)</li>
+</ul>
+</li>
+</ul>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th></th>
+<th>总线拓扑</th>
+<th>环型拓扑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>循环式</td>
+<td><strong>令牌总线</strong>(IEEE 802.4)</td>
+<td><strong>令牌环</strong>(IEEE 802.5; FDDI)</td>
+</tr>
+<tr>
+<td>预约式</td>
+<td>DQDB(IEEE 802.6)</td>
+<td></td>
+</tr>
+<tr>
+<td>竞争式</td>
+<td><strong>CSMA/CD</strong>(IEEE 802.3)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>其中CSMA/CD是目前比较流行、应用最广泛的介质访问控制方法，以下重点介绍此访问方法。</p>
+
+        <h4 id="csmacd协议"   >
+          <a href="#csmacd协议" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#csmacd协议"></a> CSMA/CD协议</h4>
+      
+<p>CSMA/CD和它之前的ALOHA、CSMA技术都是随机访问和竞争发送协议。随机访问意味着任何节点都无法预计其发送的时刻；竞争发送是指所有发送的节点自由竞争信道的使用权。</p>
+<p>回到本原的问题——<strong>如何解决在广播网络中多个帧碰撞的问题</strong>？</p>
+<p>CSMA解决的问题只有监听，监听只能把信道冲突率降低。但不能完全避免冲突。关键是：CSMA只是在发送之前进行侦听有无其他占用信道，发送之后就不再侦听了，这样依旧可能会产生碰撞。所以需要发送后也要侦听才行——于是带上了后缀CD，CD指的是Collision Detecion，“带冲突检测”。</p>
+<blockquote>
+<ul>
+<li>数据在发送前监听到信道“空闲”，什么还会产生碰撞？
+<ul>
+<li>当某站监听到信道是空闲时，可能总线并非真正空闲。电磁波在总线上总是以有限的速率传播。电磁波在1km电缆的传播时延约为5μs。也就是说你听到的已经成为了过去式，不能代表现在进行时。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>CSMA/CD的工作流程
+<ol>
+<li>先听后发：每个站在发送数据之前先检测总线上是否空闲。如果信道是空闲的，立即抢占总线发送信息。如果信道忙，则退避一段时间再尝试。</li>
+<li>边听边发：当一个节点将开始发送数据后，在传送的过程中发送者要边发送边监听(listen while talking)</li>
+<li>冲突停止：如果监测到的信息与发出的不一致，说明发生了冲突，则停止发送，并发送一串阻塞信号以加强冲突。</li>
+<li>随机延迟后重发：延迟一个随机时间片再去侦听总线，延迟时间短的节点先抢占总线。</li>
+</ol>
+</li>
+</ul>
+
+        <h5 id="争用期"   >
+          <a href="#争用期" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#争用期"></a> 争用期</h5>
+      
+
+        <h5 id="最短帧长"   >
+          <a href="#最短帧长" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#最短帧长"></a> 最短帧长</h5>
+      
+<p>交换机的转发方式有两种：1、直通方式（直接转发）；2、存储转发</p>
+<p>直接转发有时只允许转发长度大于64字节的帧，为什么呢？</p>
+<p>电磁波在总线上总是以有限的速率传播的，是有时延的。如果总线上传输中的帧很短，可能电磁波侦听不到，就误以为信道是空闲的。</p>
+
+        <h1 id="交换局域网"   >
+          <a href="#交换局域网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换局域网"></a> 交换局域网</h1>
+      
+
+        <h2 id="在数据链路层扩展以太网"   >
+          <a href="#在数据链路层扩展以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在数据链路层扩展以太网"></a> 在数据链路层扩展以太网</h2>
+      
+
+        <h3 id="网桥"   >
+          <a href="#网桥" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网桥"></a> 网桥</h3>
+      
+<ul>
+<li>最初人们使用的是<strong>网桥</strong>，网桥对收到的帧根据其MAC帧的目的地址进行<strong>转发</strong>和<strong>过滤</strong>。当<strong>网桥收到一个帧时，并不是向所有的端口转发此帧，而是根据此帧的目的MAC地址，查找网桥中的地址表，然后确定将该帧转发到哪一个端口</strong>，或者是把它丢弃（即过滤）。</li>
+</ul>
+
+        <h3 id="交换式集线器"   >
+          <a href="#交换式集线器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换式集线器"></a> 交换式集线器</h3>
+      
+<ul>
+<li><strong>交换式集线器(switching hub)<strong>淘汰了网桥，常被称为以太网</strong>交换机(switch)<strong>或</strong>第二层交换机(L2 switch)</strong>，第二层的意思是强调这种交换机工作在数据链路层。以太网交换机的性能远远超过普通的集线器，而且价格也不贵，这就使工作在物理层的集线器逐渐地退出了市场。</li>
+<li>以太网交换机实质上就是一个<strong>多端口的网桥</strong>，通常都有十几个或更多的端口，和工作在物理层的转发器、集线器有很大的差别。</li>
+<li>以太网交换机的每个端口都直接与一个单台主机或另一个以太网交换机相连，一般都以全双工方式工作。</li>
+<li>具有并行性，即可以同时连通多对端口，使多对主机能够同时通信（即可以一次分析、转发多个帧）。</li>
+<li>相互通信的主机都独占传输媒体，<strong>无碰撞</strong>地传输数据。换句话说，<strong>每一个端口和连接到端口的主机构成了一个碰撞域，具有N个端口的以太网交换机的碰撞域共有N个</strong>。对于传统的10 Mbit/s 的共享式以太网，若共有10 个用户，则每个用户占有的平均带宽只有1 Mbit/s。
+<ul>
+<li>若使用以太网交换机来连接这些主机，虽然在每个端口到主机的带宽还是10Mbit/s，但由于一个用户在通信时是独占而不是和其他网络用户共享传输媒体的带宽，因此对于拥有10个端口的交换机的总容量则为100Mbit/s。这正是交换机的最大优点。</li>
+</ul>
+</li>
+<li>以太网交换机的输出接口设有缓冲存储器，非常类似于路由器接口的缓存。因此，如果连接在以太网交换机上的两台主机，同时向另一台主机发送帧，那么当这台主机的端口繁忙时，发送帧的这两台主机的端口会把收到的帧暂存一下，以后再发送出去。</li>
+</ul>
+
+        <h4 id="从总线以太网到星形以太网"   >
+          <a href="#从总线以太网到星形以太网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从总线以太网到星形以太网"></a> 从总线以太网到星形以太网</h4>
+      
+<p>传统的电话网是星形结构，其中心就是电话交换机。那么在20世纪70年代中期出现的局域网，为什么不采用这种星形结构呢？这是因为在当时的技术条件下，还很难用廉价的方法制造出高可靠性的以太网交换机。所以那时的以太网就采用无源的总线结构。这种总线式以太网一问世就受到广大用户的欢迎，并获得了很快的发展。</p>
+<p>然而随着以太网上站点数目的增多，使得总线结构以太网的可靠性下降。与此同时，大规模集成电路以及专用芯片的发展，使得星形结构的以太网交换机可以做得既便宜又可靠。在这种情况下，采用以太网交换机的星形结构就成为以太网的首选拓扑，而传统的总线以太网也很快从市场上消失了。</p>
+<p>总线以太网使用CSMA/CD协议，以半双工方式工作。但以太网交换机不使用共享总线，没有碰撞问题，因此不使用CSMA/CD协议，而是以全双工方式工作。</p>
+<p>既然连以太网的重要协议CSMA/CD都不使用了（相关的“争用期”也没有了），为什么还叫作以太网呢？原因就是<strong>它的帧结构未改变，仍然采用以太网的帧结构</strong>。这也就对应了：“交换机对于主机来说是透明的，主机总以为自己在总线上进行通信。”</p>
+
+        <h3 id="交换机的转发方式交换方式"   >
+          <a href="#交换机的转发方式交换方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换机的转发方式交换方式"></a> 交换机的转发方式（交换方式）</h3>
+      
+<p>虽然许多以太网交换机对收到的帧采用<strong>存储转发方式</strong>进行转发，但也有一些交换机采用<strong>直通(cut-through)的交换方式</strong>。</p>
+<p>直通交换不必把整个数据帧先缓存后再进行处理，而是在<strong>接收数据帧的同时</strong>就<strong>立即</strong>地<strong>按数据帧的目的MAC地址决定该帧的转发端口</strong>，因而提高了帧的转发速度。如果在这种交换机的内部采用基于硬件的交叉矩阵，交换时延就非常小。直通交换的一个缺点是它不检查差错就直接将帧转发出去，因此有可能也将一些无效帧转发给其他的站。</p>
+<p>在某些情况下，仍需要采用基于软件的存储转发方式进行交换，例如当需要进行线路速率匹配、协议转换或差错检测时。</p>
+<p>现在有的厂商已生产出能支持两种交换方式的以太网交换机。以太网交换机的发展与建筑物结构化布线系统的普及应用密切相关。在结构化布线系统中，广泛地使用了以太网交换机。</p>
+
+        <h3 id="交换机的地址表"   >
+          <a href="#交换机的地址表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#交换机的地址表"></a> 交换机的地址表</h3>
+      
+<p>以太网交换机是一种即插即用设备，其内部的帧<strong>交换表（又称为地址表）<strong>是通过</strong>自学习算法</strong>自动地逐渐建立起来的。实际上，这种交换表就是一个<strong>内容可寻址存储器CAM(Content Addressable Memory)</strong>。以太网交换机由于使用了专用的交换结构芯片，交换机的硬件转发帧的转发速率要比使用软件转发的网桥快很多。</p>
+<ul>
+<li>交换机的自学习功能
+<ul>
+<li>假定在图中的以太网交换机有4个端口，各连接一台计算机，其MAC地址分别是A, B, C和D。交换表最重要的就是两个字段：<strong>目的MAC地址</strong>和<strong>相应的转发端口</strong>。在一开始，以太网交换机里面的交换表是空的。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311154911596.png" alt="image-20220311154911596" /></li>
+<li>假定A先向B发送一帧，从端口1进入到交换机。交换机收到帧后，先查找交换表。现在表中没有B的地址。于是，<strong>交换机把此帧的源地址A和端口1写入交换表</strong>中，并<strong>向除端口1以外的所有端口广播这个帧</strong>。如此广播发送就可保证B收到这个帧，而<strong>其他端口</strong>C和D在收到帧后，<strong>因目的地址不匹配将丢弃此帧</strong>。这一过程也称为<strong>过滤</strong>。</li>
+<li>由于在交换表中写入了项目(A, 1)，因此以后不管从哪个端口收到帧，只要其目的地址是A，就把收到的帧从端口1转发出去送交A。</li>
+<li>接下来假定B通过端口3向A发送一帧。交换机查找交换表，发现交换表中的MAC地址有A，表明凡是发给A的帧（即目的地址为A的帧），都应从端口1转发给A。显然，<strong>现在应直接把收到的帧从端口1转发给A，而没有必要再广播收到的帧</strong>。交换表这时用源地址B写入一个项目(B, 3)，表明今后如有发送给B的帧，应从端口3转发给B。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311155521369.png" alt="image-20220311155521369" /></li>
+<li>经过一段时间后，只要主机C和D也向其他主机发送帧，以太网交换机中的交换表就会把转发到C或D应当经过的端口号（2或4）写入交换表中。这样，交换表中的项目就逐渐增多了。</li>
+<li>考虑到有时可能要在交换机的端口更换主机，或者主机要更换其网络适配器，这就需要及时<strong>更新</strong>交换表中的项目。为此，<strong>当交换表中写入一个项目时就记下当时的时间，只要超过预先设定的时间（例如300秒），该项目就自动被删除</strong>。用这样的方法保证交换表中的数据都符合当前网络的实际状况。这就是说，图中的交换表<strong>实际上是有三列，即MAC地址、端口和写入时间</strong>。</li>
+<li>以太网交换机的这种自学习方法使得以太网交换机能够即插即用，不必人工进行配置，因此非常方便。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="链路层寻址和arp"   >
+          <a href="#链路层寻址和arp" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#链路层寻址和arp"></a> 链路层寻址和ARP</h2>
+      
+
+        <h1 id="虚拟局域网"   >
+          <a href="#虚拟局域网" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟局域网"></a> 虚拟局域网</h1>
+      
+<p>以太网交换机的问世，加速了以太网的普及应用。一个以太网交换机可以非常方便地连接几十台计算机，构成一个星形以太网。但是，当一个以太网包含的计算机太多时，往往会带来两个缺点。</p>
+<p>首先，一个以太网是一个广播域。在以太网上经常会出现大量的广播帧。在交换机的交换表的建立过程中要使用许多广播帧。经常使用的ARP和DHCP 协议，也都要在以太网中传送很多的广播帧。在一个主机数量很大的以太网上传播广播帧，必然会消耗很多的网络资源。如果网络的配置出了些差错，就有可能发生广播帧在网络中无限制地兜圈子，形成了“广播风暴”，使整个的网络瘫痪。</p>
+<p>其次，一个单位的以太网往往为好几个下属部门所共享。但有些部门的信息是需要保密的（例如，财务部门或人事部门）。许多部门共享一个局域网对信息安全不利。</p>
+<p>如果使每一个小部门各拥有自己的较小的局域网，那么这不但可使局域网的广播域范围缩小，同时也提高了局域网的安全性。在以太网交换机出现后，我们可以很方便灵活地建立虚拟局域网VLAN (Virtual LAN)。这样就把一个较大的局域网，分割成为一些较小的局域网，而每一个局域网是一个较小的广播域。</p>
+<blockquote>
+<p>在IEEE 802.1Q 标准中，对虚拟局域网VLAN 是这样定义的：<br />
+虚拟局域网VLAN是<strong>由一些局域网网段构成的与物理位置无关的逻辑组</strong>，而这些网段具有某些共同的需求。每一个VLAN的帧都有一个明确的标识符，指明发送这个帧的计算机属于哪一个VLAN。</p>
+</blockquote>
+
+        <h2 id="虚拟局域网的以太网帧格式"   >
+          <a href="#虚拟局域网的以太网帧格式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟局域网的以太网帧格式"></a> 虚拟局域网的以太网帧格式</h2>
+      
+<p>1988年IEEE批准了802.3ac标准，这个标准定义了以太网的帧格式的扩展，以便支持虚拟局域网。虚拟局域网协议允许在以太网的帧格式中插入一个4字节的标识符，称为VLAN标签(tag)，用来指明发送该帧的计算机属于哪一个虚拟局域网。插入VLAN标签的帧称为802.1Q帧。所以虚拟局域网其实只是局域网给用户提供的一种拓展服务，而并不是一种新型局域网。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311162303692.png" alt="image-20220311162303692" /></p>
+<p>VLAN标签字段的长度是4字节，插入在以太网MAC帧的源地址字段和类型字段之间。VLAN标签的前两个字节总是设置为0x8100（即二进制的10000001 00000000），称为IEEE 802.1Q标签类型。</p>
+<p>VLAN标签的后两个字节中，前面4位实际上没有什么作用，这里不讨论。<strong>后面的12位是该虚拟局域网VLAN标识符VID (VLAN ID)</strong>，它唯一地标志了802.1Q帧属于哪一个VLAN。12位的VID可识别4096个不同的VLAN。</p>
+<p>插入VLAN标签后，802.1Q帧最后的帧检验序列FCS必须重新计算。</p>
+<p>当数据链路层检测到MAC帧的源地址字段后面的两个字节的值是0x8100时，就知道现在插入了4字节的VLAN标签。由于用于VLAN的以太网帧的首部增加了4个字节，因此以太网的最大帧长从原来的1518字节（1500字节的数据加上18字节的首部和尾部）变为1522字节。</p>
+
+        <h3 id="例子"   >
+          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h3>
+      
+<p>这样的802.1Q帧在什么地方使用呢？用简单例子来说明。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/image-20220311163430309.png" alt="image-20220311163430309" /></p>
+<p>交换机#1连接了7台计算机，组成了一个局域网（一个广播域）。现在把局域网划分为两个虚拟局域网VLAN-10和VLAN-20。这里的10和20是虚拟局域网的编号，即VID字段的值，由交换机管理人员设定。</p>
+<p>现在我们有了两个较小的广播域。每台计算机都是通过接入链路(access link)连接到以太网交换机的。管理人员划分虚拟局域网的方法有多种。例如，按交换机的端口划分，或按MAC地址划分。每台主机并不知道自己的VID值（但交换机必须知道这些信息）。这些主机通过接入链路发送到交换机的帧都是标准的以太网帧。</p>
+<blockquote>
+<p>在一个用多个交换机连接起来的较大的局域网中，可以灵活地划分虚拟局域网，不受地理位置的限制。一个虚拟局域网的范围可以跨越不同的交换机。当然，所使用的交换机必须要能够识别和处理虚拟局域网。在图中，在另外一层楼的交换机#2连接了5台计算机，并与交换机#1相连接。交换机#2中的两台计算机加入到VLAN-10，而另外3台加入到VLAN-20。这两个虚拟局域网虽然都跨越了两个交换机，但都各自是一个广播域，即VLAN-10是处于同一广播域，VLAN-20处于另一个广播域。</p>
+</blockquote>
+<ul>
+<li>A给B发（同一交换机，同一VLAN）</li>
+</ul>
+<p>现在假定A向B发送帧。由于交换机#1能够根据帧首部的目的MAC地址，识别B属于本交换机管理的VLAN-10，因此就像在普通以太网中那样直接进行帧的转发，不需要使用VLAN标签。这是最简单的情况。</p>
+<ul>
+<li>A给E发（同一VLAN，跨越交换机的情况）</li>
+</ul>
+<blockquote>
+<p>连接两个交换机端口之间的链路称为<strong>汇聚链路</strong>(trunk link)或干线链路。</p>
+</blockquote>
+<p>现在假定A向E发送帧。交换机#1查到E并没有连接到本交换机，因此必须从汇聚链路把帧转发到交换机#2，但在<strong>转发之前，要插入VLAN标签</strong>，如果不插入VLAN标签，交换机#2就不知道应把帧转发给哪一个VLAN。因此在有虚拟局域网的以太网中的汇聚链路（两个交换机之间）传送的帧是802.1Q帧。交换机#2在向E转发帧之前，要拿走已插入的VLAN标签，因此E收到的帧就是A发送的标准以太网帧，而不是802.1Q帧。上图说明了这种情况。</p>
+<blockquote>
+<p>所以，在有虚拟局域网的以太网中的交换机对于主机来说仍是透明的，交换机在转发给主机前已把VLAN的4字节标签处理。</p>
+</blockquote>
+<ul>
+<li>A给C发（同一交换机，跨越VLAN）</li>
+</ul>
+<p>如果A向C发送帧，情况又怎样呢？这种情况就复杂些了，因为这是在不同网络之间的通信。虽然A和C都连接到同一个交换机，但它们已经处在不同的网络中（VLAN-10和VLAN-20）。这问题是互连网络中的通信问题，已经超过了数据链路层的范围。这要由网络层中的路由器来解决。</p>
+<p>不过有的交换机中嵌入了一个用专用芯片构成的转发模块，用来在不同的VLAN之间转发帧。这样就可以不必再使用另外的路由器，而就在交换机中实现了第3层的转发功能（由于使用硬件转发，转发帧的速率提高了，比使用路由器要快）。这种转发功能被称为<strong>第3层交换</strong>，而<strong>这种交换机常称为L3/L2交换机</strong>。</p>
+<ul>
+<li>A给F发（跨越交换机，跨越VLAN）</li>
+</ul>
+<p>有了这种第3层交换机，甚至于：连接到不同交换机的A和F，都可以不需要经过另外的路由器而相互通信了。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_STL_%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/">Cpp_STL_关联容器</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_STL_%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" data-flag-title="Cpp_STL_关联容器"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>为何需要完美转发</li>
-<li>完美转发</li>
-</ol>
-
-        <h1 id="为何需要完美转发"   >
-          <a href="#为何需要完美转发" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为何需要完美转发"></a> 为何需要完美转发</h1>
-      
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(T a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 由于T类型有可能是内置类型(C子集)，也有可能是封装类型(C++子集)，所以对于模板来说，实现c子集和class子集上的统一的背后工作必定复杂。</span></span><br><span class="line"><span class="built_in">fun</span>&lt;<span class="type">int</span>&gt;(<span class="number">12</span>);</span><br><span class="line"><span class="built_in">fun</span>&lt;Object&gt;(obj);</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(int&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; a)</span><span class="comment">//const int&amp;是个万能引用，左右值都可以接收，但是如果fun有int &amp;&amp;的重载则优先被int &amp;&amp;接收（如右值10）；同样的道理，如果fun有int &amp;的重载则优先被int &amp;接收（如左值a）。</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(const int&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp;&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(int&amp;&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//void fun(int a)&#123;&#125; //与fun(int &amp;)冲突</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> b = <span class="number">20</span>;</span><br><span class="line">	<span class="built_in">fun</span>(a);		<span class="comment">//fun(int&amp; a)</span></span><br><span class="line">	<span class="built_in">fun</span>(b);		<span class="comment">//fun(const int&amp; a)</span></span><br><span class="line">	<span class="built_in">fun</span>(<span class="number">10</span>);	<span class="comment">//fun(int&amp;&amp; a) --&gt; 虽然10也可以被const int &amp;接收，但是C++11开始后，重载对值的类型、左右值进行了清晰的划分。以前只按类型重载，之后按左右值也可以重载。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="完美转发"   >
-          <a href="#完美转发" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#完美转发"></a> 完美转发</h1>
-      
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(int&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(const int&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(<span class="type">int</span>&amp;&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fun(int&amp;&amp; a)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fac</span><span class="params">(T&amp;&amp; tmp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//cout &lt;&lt; std::is_rvalue_reference&lt;T&gt; &lt;&lt; endl;</span></span><br><span class="line">    <span class="comment">//cout &lt;&lt; std::is_lvalue_reference&lt;T&gt; &lt;&lt; endl;</span></span><br><span class="line">    <span class="built_in">fun</span>(tmp);</span><br><span class="line">    <span class="comment">// 虽然在调用fac时，tmp传入此函数中前是一个右值，但是传参动作完成后tmp成为了一个具名变量，则又退化为了左值，导致只能调用fun(int&amp; a)。</span></span><br><span class="line">    <span class="comment">//所以我们需要一个机制，来保持变量的左右值属性。即完美转发</span></span><br><span class="line">    <span class="built_in">fun</span>(std::forward&lt;T&gt;(tmp)); <span class="comment">//依然保持tmp的右值属性，使其可以调用fun(int&amp;&amp; a)。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> b = <span class="number">20</span>;</span><br><span class="line">    <span class="built_in">fac</span>(a);</span><br><span class="line">    <span class="built_in">fac</span>(b);</span><br><span class="line">    <span class="built_in">fac</span>(<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 运行结果</span></span><br><span class="line"><span class="comment">    fun(int&amp; a)</span></span><br><span class="line"><span class="comment">    fun(int&amp; a)</span></span><br><span class="line"><span class="comment">    fun(const int&amp; a)</span></span><br><span class="line"><span class="comment">    fun(const int&amp; a)</span></span><br><span class="line"><span class="comment">    fun(int&amp; a)			--&gt;***完美转发之前</span></span><br><span class="line"><span class="comment">    fun(int&amp;&amp; a)		--&gt;***完美转发之后</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">工厂方法模式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" data-flag-title="工厂方法模式"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
+<li>无序关联容器 - unordered
 <ol>
-<li>工厂方法模式之前</li>
-<li>工厂方法模式</li>
+<li>链式哈希表：增删查O(1)。适用于处理海量数据查重复、去重复</li>
+<li><code>unordered_set</code>、<code>unordered_multiset</code></li>
+<li><code>unordered_map</code>、<code>unordered_multimap</code></li>
 </ol>
-
-        <h1 id="工厂方法模式之前"   >
-          <a href="#工厂方法模式之前" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工厂方法模式之前"></a> 工厂方法模式之前</h1>
-      
-<p>简单工厂模式虽然简单，但存在一个很严重的问题。**当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的产品，这必定要修改工厂类的源代码(增加if else)，将违背“开闭原则”，如何实现增加新产品而不影响已有代码？**工厂方法模式应运而生。</p>
-<p>案例分析-<strong>日志记录器的设计</strong>：</p>
-<p>某软件公司欲开发一个系统运行日志记录器(Logger)，该记录器可以通过多种途径保存系统的运行日志，如通过文件记录或数据库记录，用户可以通过<strong>修改配置文件</strong>灵活地更换日志记录方式。在设计各类日志记录器时，该公司的开发人员发现需要对日志记录器进行一些初始化工作，初始化参数的设置过程较为复杂，而且某些参数的设置有严格的先后次序，否则可能会发生记录失败。<strong>如何封装记录器的初始化过程并保证多种记录器切换的灵活性</strong>是该公司开发人员面临的一个难题。</p>
-<p>该公司的开发人员通过对该需求进行分析，发现该日志记录器有两个设计要点：</p>
-<ol>
-<li>需要封装日志记录器的初始化过程，这些初始化工作较为复杂，例如需要初始化其他相关的类，还有可能需要读取配置文件（例如连接数据库或创建文件），导致代码较长，如果将它们都写在构造函数中，会导致构造函数庞大，不利于代码的修改和维护；</li>
-<li>用户可能需要更换日志记录方式，在客户端代码中需要提供一种灵活的方式来选择日志记录器，尽量<strong>在不修改源代码的基础上更换或者增加日志记录方式</strong>。</li>
-</ol>
-<p>该公司开发人员最初使用简单工厂模式对日志记录器进行了设计，初始结构如图所示：</p>
-<p><img src="../../images/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/image-20220225130836527.png" alt="image-20220225130836527" /></p>
-<p>在上图中，LoggerFactory充当创建日志记录器的工厂，提供了工厂方法createLogger()用于创建日志记录器，Logger是抽象日志记录器接口，其子类为具体日志记录器。其中，工厂类LoggerFactory代码片段如下所示：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LoggerFactory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LoggerFactory</span>() &#123;&#125;</span><br><span class="line">    ~<span class="built_in">LoggerFactory</span>() &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">static</span> Logger* <span class="title">createLogger</span><span class="params">(<span class="type">const</span> string &amp; args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(args == <span class="string">&quot;db&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ... 连接数据库代码</span></span><br><span class="line">            Logger* logger = <span class="keyword">new</span> <span class="built_in">DatabaseLogger</span>();<span class="comment">//创建数据库日志记录器对象</span></span><br><span class="line">            <span class="comment">// ... 初始化数据库日志记录器代码</span></span><br><span class="line">            <span class="keyword">return</span> logger;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(args == <span class="string">&quot;file&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ... 创建日志文件</span></span><br><span class="line">            Logger* logger = <span class="keyword">new</span> <span class="built_in">DatabaseLogger</span>();<span class="comment">//创建文件日志记录器对象</span></span><br><span class="line">            <span class="comment">// ... 初始化文件日志记录器代码</span></span><br><span class="line">            <span class="keyword">return</span> logger;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>为了突出设计重点，上述代码省略了具体日志记录器类的初始化代码。在LoggerFactory类中提供了静态工厂方法createLogger()，用于根据所传入的参数创建各种不同类型的日志记录器。通过使用简单工厂模式，我们将日志记录器对象的创建和使用分离，客户端只需使用由工厂类创建的日志记录器对象即可，无须关心对象的创建过程，但是我们发现，虽然简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p>
-<ol>
-<li>工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；</li>
-<li>系统扩展不灵活，如果增加新类型的日志记录器，必须修改静态工厂方法的业务逻辑，违反了“开闭原则”。</li>
-</ol>
-<p>如何解决这两个问题，提供一种简单工厂模式的改进方案？这就是工厂方法模式的动机之一。</p>
-
-        <h1 id="工厂方法模式的思想"   >
-          <a href="#工厂方法模式的思想" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工厂方法模式的思想"></a> 工厂方法模式的思想</h1>
-      
-<p>在简单工厂模式中只提供一个工厂类，该工厂类处于对产品类进行实例化的中心位置，它需要知道每一个产品对象的创建细节，并决定何时实例化哪一个产品类。简单工厂模式最大的缺点是当有新产品要加入到系统中时，必须修改工厂类，需要在其中加入必要的业务逻辑，这违背了“开闭原则”。此外，在简单工厂模式中，所有的产品都由同一个工厂创建，工厂类职责较重，业务逻辑较为复杂，具体产品与工厂类之间的耦合度高，严重影响了系统的灵活性和扩展性，而工厂方法模式则可以很好地解决这一问题。</p>
-<p>在工厂方法模式中，我们<strong>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构</strong>。</p>
-
-        <h1 id="工厂方法模式的开始"   >
-          <a href="#工厂方法模式的开始" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工厂方法模式的开始"></a> 工厂方法模式的开始</h1>
-      
-
-        <h2 id="工厂方法模式的定义"   >
-          <a href="#工厂方法模式的定义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工厂方法模式的定义"></a> 工厂方法模式的定义</h2>
-      
-<p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
-<p>工厂方法模式<strong>提供一个抽象工厂接口来声明抽象工厂方法</strong>，而由其子类来具体实现工厂方法，创建具体的产品对象。工厂方法模式结构如图所示：</p>
-<p><img src="../../images/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/image-20220225132211587.png" alt="image-20220225132211587" /></p>
-<p>在工厂方法模式结构图中包含如下几个角色：</p>
-<ol>
-<li><strong>Factory（抽象工厂）</strong>
-<ul>
-<li>在抽象工厂类中，声明了工厂方法(Factory Method)，用于返回一个产品。</li>
-<li>抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li>
-</ul>
 </li>
-<li><strong>ConcreteFactory（具体工厂）</strong>
-<ul>
-<li>它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li>
-</ul>
+<li>有序关联容器
+<ol>
+<li>红黑树：增删查O(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>N</mi></mrow><annotation encoding="application/x-tex">log_2 N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>)</li>
+<li><code>set</code>、<code>multiset</code></li>
+<li><code>map</code>、<code>multimap</code></li>
+</ol>
 </li>
-<li><strong>Product（抽象产品）</strong>
-<ul>
-<li>它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li>
-</ul>
-</li>
-<li><strong>ConcreteProduct（具体产品角色）</strong>
-<ul>
-<li>它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li>
-</ul>
+<li>set和map的区别
+<ol>
+<li>set只有key。</li>
+<li>map每一个key都对应一个value。</li>
+</ol>
 </li>
 </ol>
-<p><strong>与简单工厂模式相比，工厂方法模式最重要的区别是引入了抽象工厂角色</strong>，抽象工厂可以是接口，也可以是抽象类或者具体类，其典型代码如下所示：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Factory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Factory</span>() &#123;cout &lt;&lt; <span class="string">&quot;Factory()&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Factory</span>() &#123;cout &lt;&lt; <span class="string">&quot;~Factory&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Product * <span class="title">factoryMethod</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>在抽象工厂中声明了工厂方法但并未实现工厂方法，具体产品对象的创建由其子类负责，客户端针对抽象工厂编程，可在运行时再指定具体工厂类，具体工厂类实现了工厂方法，不同的具体工厂可以创建不同的具体产品，其典型代码如下所示：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteFactoryA</span> : <span class="keyword">public</span> Factory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ConcreteFactoryA</span>() &#123;cout &lt;&lt; <span class="string">&quot;ConcreteFactoryA()&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    ~<span class="built_in">ConcreteFactoryA</span>() &#123;cout &lt;&lt; <span class="string">&quot;~ConcreteFactoryA()&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Product * <span class="title">factoryMethod</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">ConcreteProductA</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteFactoryB</span> : <span class="keyword">public</span> Factory</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ConcreteFactoryB</span>() &#123;cout &lt;&lt; <span class="string">&quot;ConcreteFactoryB()&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    ~<span class="built_in">ConcreteFactoryB</span>() &#123;cout &lt;&lt; <span class="string">&quot;~ConcreteFactoryB()&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Product * <span class="title">factoryMethod</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">ConcreteProductB</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>产品类（与简单工厂模式无异）</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Product</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Product</span>() &#123; cout &lt;&lt; <span class="string">&quot;Product()&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Product</span>() &#123; cout &lt;&lt; <span class="string">&quot;~Product&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">methodSame</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is Product&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="comment">//公共方法的实现</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">methodDiff</span><span class="params">()</span> </span>= <span class="number">0</span>;<span class="comment">//抽象业务方法</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteProductA</span> : <span class="keyword">public</span> Product</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ConcreteProductA</span>() &#123; cout &lt;&lt; <span class="string">&quot;ConcreteProductA()&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">ConcreteProductA</span>() &#123; cout &lt;&lt; <span class="string">&quot;~ConcreteProductA&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">methodDiff</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is A&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="comment">// 业务方法的覆盖实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConcreteProductB</span> : <span class="keyword">public</span> Product</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ConcreteProductB</span>() &#123; cout &lt;&lt; <span class="string">&quot;ConcreteProductB()&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">ConcreteProductB</span>() &#123; cout &lt;&lt; <span class="string">&quot;~ConcreteProductB&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">methodDiff</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is B&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="comment">// 业务方法的覆盖实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
-<p>在实际使用时，具体工厂类在实现工厂方法时除了创建具体产品对象之外，还可以负责产品对象的初始化工作以及一些资源和环境配置工作，例如连接数据库、创建文件等。</p>
-<p>在客户端代码中，只需关心工厂类即可，不同的具体工厂可以创建不同的产品，典型的客户端类代码片段如下所示：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Factory* factorya = <span class="keyword">new</span> <span class="built_in">ConcreteFactoryA</span>();</span><br><span class="line">    Factory* factoryb = <span class="keyword">new</span> <span class="built_in">ConcreteFactoryB</span>();</span><br><span class="line">    Product* producta = factorya-&gt;<span class="built_in">factoryMethod</span>();</span><br><span class="line">    Product* productb = factoryb-&gt;<span class="built_in">factoryMethod</span>();</span><br><span class="line">    <span class="keyword">delete</span> factorya;</span><br><span class="line">    <span class="keyword">delete</span> factoryb;</span><br><span class="line">    <span class="keyword">delete</span> producta;</span><br><span class="line">    <span class="keyword">delete</span> productb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 运行结果</span></span><br><span class="line"><span class="comment">        Factory()</span></span><br><span class="line"><span class="comment">        ConcreteFactoryA()</span></span><br><span class="line"><span class="comment">        Factory()</span></span><br><span class="line"><span class="comment">        ConcreteFactoryB()</span></span><br><span class="line"><span class="comment">        Product()</span></span><br><span class="line"><span class="comment">        ConcreteProductA()</span></span><br><span class="line"><span class="comment">        Product()</span></span><br><span class="line"><span class="comment">        ConcreteProductB()</span></span><br><span class="line"><span class="comment">        ~ConcreteFactoryA</span></span><br><span class="line"><span class="comment">        ~Factory</span></span><br><span class="line"><span class="comment">        ~ConcreteFactoryB</span></span><br><span class="line"><span class="comment">        ~Factory</span></span><br><span class="line"><span class="comment">        ~ConcreteProductA</span></span><br><span class="line"><span class="comment">        ~Product</span></span><br><span class="line"><span class="comment">        ~ConcreteProductB</span></span><br><span class="line"><span class="comment">        ~Product</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
-<p>可以通过配置文件来存储具体工厂类ConcreteFactory的类名，更换新的具体工厂时无须修改源代码，系统扩展更为方便。</p>
 
-        <h3 id="思考"   >
-          <a href="#思考" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#思考"></a> 思考</h3>
+        <h1 id="unordered_set"   >
+          <a href="#unordered_set" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#unordered_set"></a> unordered_set</h1>
       
-<p>工厂方法模式中的工厂方法能否为静态方法？为什么？</p>
+<ol>
+<li>插入：insert</li>
+<li>遍历：iterator</li>
+<li>删除：erase，可按key，也可按iterator<br />
+无序set、map的迭代器是forward类型，只能单向，不能双向。<br />
+插入速度快于红黑树，但可能浪费空间。如果hash效果不好，可能效率不高。</li>
+</ol>
 
-        <h2 id="完整解决方案"   >
-          <a href="#完整解决方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#完整解决方案"></a> 完整解决方案</h2>
+        <h2 id="插入"   >
+          <a href="#插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入"></a> 插入</h2>
       
-<p>该公司开发人员决定使用工厂方法模式来设计日志记录器。其基本结构如图所示：</p>
-<p><img src="../../images/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/image-20220225140347802.png" alt="image-20220225140347802" /></p>
-<p>在上图中，Logger接口充当抽象产品，其子类FileLogger和DatabaseLogger充当具体产品，LoggerFactory接口充当抽象工厂，其子类FileLoggerFactory和DatabaseLoggerFactory充当具体工厂。完整代码如下所示：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//日志记录器接口：抽象产品</span></span><br><span class="line">interface Logger &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">writeLog</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//数据库日志记录器：具体产品</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DatabaseLogger</span> implements Logger &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">writeLog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.<span class="built_in">println</span>(<span class="string">&quot;数据库日志记录。&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//文件日志记录器：具体产品</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FileLogger</span> implements Logger &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">writeLog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.<span class="built_in">println</span>(<span class="string">&quot;文件日志记录。&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//日志记录器工厂接口：抽象工厂</span></span><br><span class="line">interface LoggerFactory &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Logger <span class="title">createLogger</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//数据库日志记录器工厂类：具体工厂</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DatabaseLoggerFactory</span> implements LoggerFactory &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Logger <span class="title">createLogger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="comment">//连接数据库，代码省略</span></span><br><span class="line">			<span class="comment">//创建数据库日志记录器对象</span></span><br><span class="line">			Logger logger = <span class="keyword">new</span> <span class="built_in">DatabaseLogger</span>(); </span><br><span class="line">			<span class="comment">//初始化数据库日志记录器，代码省略</span></span><br><span class="line">			<span class="keyword">return</span> logger;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//文件日志记录器工厂类：具体工厂</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FileLoggerFactory</span> implements LoggerFactory &#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Logger <span class="title">createLogger</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">//创建文件日志记录器对象</span></span><br><span class="line">			Logger logger = <span class="keyword">new</span> <span class="built_in">FileLogger</span>(); </span><br><span class="line">			<span class="comment">//创建文件，代码省略</span></span><br><span class="line">			<span class="keyword">return</span> logger;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>编写如下客户端测试代码：</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LoggerFactory factory;</span><br><span class="line">    Logger logger;</span><br><span class="line">    factory = <span class="keyword">new</span> <span class="built_in">FileLoggerFactory</span>(); <span class="comment">//可引入配置文件实现</span></span><br><span class="line">    logger = factory.<span class="built_in">createLogger</span>();</span><br><span class="line">    logger.<span class="built_in">writeLog</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 运行结果</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    unordered_set&lt;<span class="type">int</span>&gt; set1;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        set<span class="number">1.</span><span class="built_in">insert</span>(<span class="built_in">rand</span>() % <span class="number">20</span> + <span class="number">1</span>)；</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; set<span class="number">1.</span><span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; set<span class="number">1.</span><span class="built_in">count</span>(<span class="number">15</span>) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//size是指set容器目前插入了的元素数，可能为小于等于50，因为插入已存在的话则不会重复</span></span><br><span class="line"><span class="comment">//count是指目标值在set容器中存在的数目，在unordered_set中只可能为1、0，不可能大于1。</span></span><br></pre></td></tr></table></div></figure>
+<p>要知道，vector、deque、list的插入都需要一个iterator才能插入，因为它们是顺序容器，没有其他的条件约束，因此要根据程序员的指令用迭代器找位置。</p>
+<p>而无序集合底层是红黑树，有严格的约束，要想插入到里面，数据结构本身就会在内部给该值找好位置，因此只需要提供要插入的东西即可。类似地，以哈希表为底层的map也是这样，插入时进行hash运算，已经无形之中确定好了要插入的位置了。因此不需要提供迭代器。</p>
 
-        <h2 id="与配置文件结合"   >
-          <a href="#与配置文件结合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与配置文件结合"></a> 与配置文件结合</h2>
+        <h2 id="遍历"   >
+          <a href="#遍历" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#遍历"></a> 遍历</h2>
       
-<p>为了让系统具有更好的灵活性和可扩展性，Sunny公司开发人员决定对日志记录器客户端代码进行重构，使得可以在不修改任何客户端代码的基础上更换或增加新的日志记录方式。</p>
-<p>在客户端代码中将不再使用new关键字来创建工厂对象，而是将具体工厂类的类名存储在配置文件（如XML文件）中，通过读取配置文件获取类名字符串，再使用Java的反射机制，根据类名字符串生成对象。在整个实现过程中需要用到两个技术：Java反射机制与配置文件读取。软件系统的配置文件通常为XML文件，我们可以使用DOM (Document Object Model)、SAX (Simple API for XML)、StAX (Streaming API for XML)等技术来处理XML文件。关于DOM、SAX、StAX等技术均可充当配置文件技术。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> it1 = set<span class="number">1.</span><span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">for</span>(; it1 != set<span class="number">1.</span><span class="built_in">end</span>(); ++it1)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; *it1 &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>for-each语句进行遍历输出：（实际上，for-each的底层就是用迭代器进行的）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> v : set1)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
-        <h1 id="参考文献"   >
-          <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h1>
+        <h2 id="删除"   >
+          <a href="#删除" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除"></a> 删除</h2>
       
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1] 刘伟. 设计模式.</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/107/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><span class="page-number current">108</span><a class="page-number" href="/page/109/">109</a><span class="space">&hellip;</span><a class="page-number" href="/page/144/">144</a><a class="extend next" rel="next" href="/page/109/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">287</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>删除某值的元素。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it1 = set<span class="number">1.</span><span class="built_in">begin</span>(); it1 != set<span class="number">1.</span><span class="built_in">end</span>(); ++it1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(*it1 == <span class="number">30</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 记得更新迭代器，因为如果不更新的话，it1将会失效</span></span><br><span class="line">            it1 = set<span class="number">1.</span><span class="built_in">erase</span>(it1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果是multiset，则有可能不止一个此值的元素，需要更新迭代器。千万要注意迭代器的<code>++</code>操作不再像之前一样无脑地在for的第三个位置<code>++</code>，而是下移到else的情况。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// set2 为 multiset</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it2 = set<span class="number">2.</span><span class="built_in">begin</span>(); it2 != set<span class="number">2.</span><span class="built_in">end</span>(); )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(*it2 == <span class="number">30</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 记得更新迭代器，因为如果不更新的话，it1将会失效</span></span><br><span class="line">            it2 = set<span class="number">2.</span><span class="built_in">erase</span>(it1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++it2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="find"   >
+          <a href="#find" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#find"></a> find</h2>
+      
+<p>去找指定值的元素，存在则返回其迭代器，不存在则返回<code>end()</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    it1 = set<span class="number">1.f</span>ind(<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(it1 != set<span class="number">1.</span><span class="built_in">end</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        set<span class="number">1.</span><span class="built_in">erase</span>(it1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="unordered_map"   >
+          <a href="#unordered_map" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#unordered_map"></a> unordered_map</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, string&gt; map1;</span><br><span class="line">    map<span class="number">1.</span><span class="built_in">insert</span>(<span class="number">1000</span>, <span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    map<span class="number">1.</span><span class="built_in">insert</span>(<span class="built_in">make_pair</span>(<span class="number">1001</span>, <span class="string">&quot;李四&quot;</span>));</span><br><span class="line">    <span class="comment">// C++11 的便捷方式：括号对</span></span><br><span class="line">    map<span class="number">1.</span><span class="built_in">insert</span>(&#123;<span class="number">1002</span>, <span class="string">&quot;王五&quot;</span>&#125;);</span><br><span class="line">    map<span class="number">1.</span><span class="built_in">insert</span>(&#123;<span class="number">1000</span>, <span class="string">&quot;老六&quot;</span>&#125;);</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; map<span class="number">1.</span><span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果为3，因为老六的1000号重复了</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="operator"   >
+          <a href="#operator" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#operator"></a> <code>operator[]</code></h2>
+      
+<p>访问或<strong>插入</strong>数据元素。返回一个对应键值对中的值的引用。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; map1[<span class="number">1000</span>] &lt;&lt; endl;</span><br><span class="line">    map1[<span class="number">1000</span>] = <span class="string">&quot;张四&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果访问一个不存在的key：<br />
+则创建一个键值对，key为访问的值，value用对应的数据结构的默认构造进行构造。同时，返回一个对应键值对中的值的引用。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; map<span class="number">1.</span><span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    map1[<span class="number">2000</span>];</span><br><span class="line">    cout &lt;&lt; map<span class="number">1.</span><span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 结果是[]访问2000后，size会在之前的基础上加1。</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="删除erase"   >
+          <a href="#删除erase" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除erase"></a> 删除：erase</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    map<span class="number">1.</span><span class="built_in">erase</span>(<span class="number">1002</span>); <span class="comment">// &#123;1002, &quot;王五&quot;&#125; 被删除</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="find-2"   >
+          <a href="#find-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#find-2"></a> find</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> it1 = map<span class="number">1.f</span>ind(<span class="number">1001</span>);</span><br><span class="line">    <span class="keyword">if</span>(it1 != map<span class="number">1.</span><span class="built_in">end</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 如果找到了，则返回的是一个pair对象</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;key: &quot;</span> &lt;&lt; it1-&gt;first &lt;&lt; <span class="string">&quot;, value: &quot;</span> &lt;&lt; it1-&gt;second &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="遍历-2"   >
+          <a href="#遍历-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#遍历-2"></a> 遍历</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(cosnt pair&lt;<span class="type">int</span>, string&gt; &amp;p : map1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>for-each方法：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> it = map<span class="number">1.</span><span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">for</span>(; it != map<span class="number">1.</span><span class="built_in">end</span>(); ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="体验无序关联容器哈希表的查重能力"   >
+          <a href="#体验无序关联容器哈希表的查重能力" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#体验无序关联容器哈希表的查重能力"></a> 体验无序关联容器（哈希表）的查重能力</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> ARR_LEN = <span class="number">100000</span>;</span><br><span class="line">    <span class="type">int</span> arr[ARR_LEN] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; ARR_LEN; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        arr[i] = <span class="built_in">rand</span>() % <span class="number">10000</span> + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; map1;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> key : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">auto</span> it = map<span class="number">1.f</span>ind(key);</span><br><span class="line">        <span class="keyword">if</span>(it == map<span class="number">1.</span><span class="built_in">end</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            map<span class="number">1.</span><span class="built_in">insert</span>(&#123;key, <span class="number">1</span>&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++it-&gt;second;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//其实以上这些东西可以用一句话来代替：</span></span><br><span class="line">        <span class="comment">//++map1[key];</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> pair&lt;<span class="type">int</span>, intg&gt; &amp;p : map1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p.second &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;key: &quot;</span> &lt;&lt; p.first &lt;&lt; <span class="string">&quot;重复&quot;</span> &lt;&lt; p.second &lt;&lt; <span class="string">&quot;次&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在上面的10万个整数中，统计哪些数字重复了，并且统计数字重复的次数。<br />
+用数组找效率是很低的。则用哈希表。</p>
+
+        <h2 id="去重-打印"   >
+          <a href="#去重-打印" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#去重-打印"></a> 去重、打印</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// arr是有重复数字的数组</span></span><br><span class="line">    unordered_set&lt;<span class="type">int</span>&gt; set;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> v : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        set.<span class="built_in">insert</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(itn v : set)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="set"   >
+          <a href="#set" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#set"></a> set</h1>
+      
+<p>有序的map、set的底层都是红黑树。<br />
+set相当于只有键，没有值的map。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::set&lt;<span class="type">int</span>&gt; my_set&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; v : my_set)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; v &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出1 2 3 4 5</p>
+
+        <h2 id="插入自定义对象"   >
+          <a href="#插入自定义对象" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入自定义对象"></a> 插入自定义对象</h2>
+      
+<p>由于是有序容器，所以类对象必须可以做到可比较。因此必须重载比较运算符。<br />
+而具体地，如果不重载运算符，直接插入，报错：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error C2676: 二进制“&lt;”:“const _Ty”不定义该运算符或到预定义运算符可接收的类型的转换</span><br></pre></td></tr></table></div></figure>
+<p>意味着，插入有序容器，必须要重载<code>&lt;</code>运算符，且只能是<code>&lt;</code>，经测试，只重载<code>&gt;</code>仍报错，所以至少要重载<code>&lt;</code>运算符。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Student</span>(<span class="type">int</span> id, string name)</span><br><span class="line">        :_id(id = <span class="number">0</span>), _name(name = <span class="string">&quot;&quot;</span>) &#123;&#125;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Student &amp;stu) <span class="type">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _id &lt; stu._id;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _id;</span><br><span class="line">    string _name;</span><br><span class="line">    <span class="keyword">friend</span> ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;out, <span class="type">const</span> Student &amp;stu);</span><br><span class="line">&#125;;</span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; out, <span class="type">const</span> Student&amp; stu)</span><br><span class="line">&#123;</span><br><span class="line">    out &lt;&lt; <span class="string">&quot;id: &quot;</span> &lt;&lt; stu._id &lt;&lt; <span class="string">&quot; name: &quot;</span> &lt;&lt; stu._name;</span><br><span class="line">    <span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    set&lt;Student&gt; set1;</span><br><span class="line">    set<span class="number">1.</span><span class="built_in">insert</span>(<span class="built_in">Student</span>(<span class="number">1000</span>, <span class="string">&quot;zhangsan&quot;</span>));</span><br><span class="line">    set<span class="number">1.</span><span class="built_in">insert</span>(<span class="built_in">Student</span>(<span class="number">1020</span>, <span class="string">&quot;lisi&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="遍历-3"   >
+          <a href="#遍历-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#遍历-3"></a> 遍历</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; set1;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        set<span class="number">1.</span><span class="built_in">insert</span>(<span class="built_in">rand</span>() % <span class="number">20</span> + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> v : set1)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将会按序从小到大输出内容：1 2 3 5 6 8 10 12 15 16 17 19</span></span><br></pre></td></tr></table></div></figure>
+<p>实际的过程是对该红黑树进行中序遍历。</p>
+
+        <h3 id="迭代器遍历"   >
+          <a href="#迭代器遍历" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迭代器遍历"></a> 迭代器遍历</h3>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it = set<span class="number">1.</span><span class="built_in">begin</span>(); it != set<span class="number">1.</span><span class="built_in">end</span>(); ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 元素的&lt;&lt;输出操作符已经被重载，所以可以直接写如此。</span></span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出结果：</span></span><br><span class="line"><span class="comment">//id: 1000 name: zhangsan</span></span><br><span class="line"><span class="comment">//id: 1020 name: lisi</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="map"   >
+          <a href="#map" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#map"></a> map</h1>
+      
+<p>存的是键值对，有序，所以也称为字典。<br />
+遍历时得到的是pair（对儿），定义于<code>&lt;utility&gt;</code>中。<br />
+底层结构是红黑树。</p>
+
+        <h2 id="insert-遍历"   >
+          <a href="#insert-遍历" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#insert-遍历"></a> insert、遍历</h2>
+      
+<p>insert只能接收pair或者<code>&#123; 4, 'd' &#125;</code>。然后系统需要临时构造对象后插入。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; my_map&#123;&#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    std::pair&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; pr;</span><br><span class="line">    pr.first = <span class="number">4</span>;</span><br><span class="line">    pr.second = <span class="string">&#x27;d&#x27;</span>;</span><br><span class="line">    my_map.<span class="built_in">insert</span>(pr);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = my_map.<span class="built_in">begin</span>(); it != my_map.<span class="built_in">end</span>(); ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; (*it).first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>ranged for让遍历更简洁：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; v : my_map)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; v.first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; v.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="结构化绑定"   >
+          <a href="#结构化绑定" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构化绑定"></a> 结构化绑定</h2>
+      
+<p><code>C++17</code>之后，甚至能把key和value分开提取：叫做结构化绑定（structured binding）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; [v, v2] : my_map)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; v2 &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">int</span> a2;</span><br><span class="line">    <span class="type">int</span> a3;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">A <span class="title">bar</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span>&amp;&amp; [a, b, c] = <span class="built_in">bar</span>();</span><br><span class="line">    std::cout &lt;&lt; a &lt;&lt; <span class="string">&#x27;,&#x27;</span> &lt;&lt; b &lt;&lt; <span class="string">&#x27;,&#x27;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A aa&#123; <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> &#125;;</span><br><span class="line"><span class="function">A&amp; <span class="title">foo</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> aa;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span>&amp;&amp; [a, b, c] = <span class="built_in">foo</span>();</span><br><span class="line">    std::cout &lt;&lt; a &lt;&lt; <span class="string">&#x27;,&#x27;</span> &lt;&lt; b &lt;&lt; <span class="string">&#x27;,&#x27;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">    a = <span class="number">9</span>; <span class="comment">// 外部aa中的第一个值也会变为9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="emplace插入"   >
+          <a href="#emplace插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#emplace插入"></a> emplace插入</h3>
+      
+<p>可以直接拿散装的参数合成pair，就地构造。不会造成多余的复制。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; my_map&#123;&#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    my_map.<span class="built_in">emplace</span>(<span class="number">5</span>, <span class="string">&#x27;e&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="在同一key重复插入"   >
+          <a href="#在同一key重复插入" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在同一key重复插入"></a> 在同一key重复插入</h3>
+      
+<ol>
+<li>如果在同一key重复插入其他的value值，不会改变原value值。应该会放弃插入。这种情况包含emplace和insert。（在<code>C++23</code>下测试）</li>
+<li>但是如果用<code>[]</code>来写入的话，是会被改的。</li>
+<li><code>insert_or_assign</code>是插入或修改。如果没有该key则插入，如果存在该key则改变。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; my_map&#123;&#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    my_map.<span class="built_in">emplace</span>(<span class="number">3</span>, <span class="string">&#x27;e&#x27;</span>);</span><br><span class="line">    my_map.<span class="built_in">emplace</span>(<span class="number">3</span>, <span class="string">&#x27;f&#x27;</span>);  <span class="comment">// 不会把e改为f</span></span><br><span class="line">    my_map.<span class="built_in">insert</span>(&#123;<span class="number">3</span>, <span class="string">&#x27;g&#x27;</span>&#125;); <span class="comment">// 不会改为g</span></span><br><span class="line">    my_map[<span class="number">3</span>] = <span class="string">&#x27;h&#x27;</span>;         <span class="comment">// 会改为h</span></span><br><span class="line">    my_map.<span class="built_in">insert_or_assign</span>(<span class="number">3</span>, <span class="string">&#x27;i&#x27;</span>); <span class="comment">// 会改为i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="查询"   >
+          <a href="#查询" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查询"></a> 查询</h2>
+      
+
+        <h3 id="stdfind"   >
+          <a href="#stdfind" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stdfind"></a> <code>std::find</code></h3>
+      
+<p>如果清楚key、value，则可以按照具体的pair进行find。pair必须写明键值类型，否则可能会产生二义性无法推断明确的类型。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; <span class="title">my_map</span><span class="params">( &#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;)</span></span>;</span><br><span class="line">    std::pair&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; pr = &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> it = std::<span class="built_in">find</span>(my_map.<span class="built_in">begin</span>(), my_map.<span class="built_in">end</span>(), pr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果不记得value值。用find_if。因为map的键是唯一的，只能对应一个值。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; <span class="title">my_map</span><span class="params">( &#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> it = std::<span class="built_in">find_if</span>(</span><br><span class="line">        my_map.<span class="built_in">begin</span>(),</span><br><span class="line">        my_map.<span class="built_in">end</span>(),</span><br><span class="line">        []() -&gt; <span class="type">bool</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> v.first == <span class="number">3</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="mapfind"   >
+          <a href="#mapfind" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mapfind"></a> <code>map::find</code></h3>
+      
+<p>这是map自带的find，效率更高，因为利用了自身红黑树的特性。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; <span class="title">my_map</span><span class="params">( &#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> it = my_map.<span class="built_in">find</span>(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">if</span> (it != my_map.<span class="built_in">end</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+<h3 id=""><a class="markdownIt-Anchor" href="#"></a> <code>[]</code></h3>
+<p>可用<code>[]</code>查询，但是有副作用，如果查询一个不存在的key会默认构造一个键值对。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">std::map&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; <span class="title">my_map</span><span class="params">( &#123;<span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>&#125;)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; my_map[<span class="number">30</span>] &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="插入需要基于compare"   >
+          <a href="#插入需要基于compare" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#插入需要基于compare"></a> 插入需要基于Compare</h2>
+      
+<p>map插入是需要对比key的大小关系的，对于有默认大小关系的可以自然插入。<br />
+但对于自定义类，就需要添加一个仿函数作为比较器了。仿函数中的<code>()</code>记得加上const修饰。只需要实现一个<code>&lt;</code>关系即可。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">A</span>(<span class="type">unsigned</span> val) : _val&#123; val &#125; &#123;&#125;</span><br><span class="line">    <span class="type">unsigned</span> _val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KeyComp</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span> <span class="params">(A <span class="type">const</span>&amp; left, A <span class="type">const</span>&amp; right)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> left._val &lt; right._val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;A, <span class="type">char</span>, KeyComp&gt; my_map&#123; &#123;&#123;<span class="number">1</span>&#125;, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;&#123;<span class="number">2</span>&#125;, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;&#123;<span class="number">3</span>&#125;, <span class="string">&#x27;c&#x27;</span>&#125; &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>除了使用仿函数作为比较器，也可以直接在自定义类中定义<code>&lt;</code>函数。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">A</span>(<span class="type">unsigned</span> val) : _val&#123; val &#125; &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(A <span class="type">const</span>&amp; other)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _val &lt; other._val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">unsigned</span> _val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;A, <span class="type">char</span>&gt; my_map&#123; &#123;&#123;<span class="number">1</span>&#125;, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;&#123;<span class="number">2</span>&#125;, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;&#123;<span class="number">3</span>&#125;, <span class="string">&#x27;c&#x27;</span>&#125; &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="multimap"   >
+          <a href="#multimap" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#multimap"></a> multimap</h1>
+      
+<p>一个键可以对应多个value。<br />
+如果我们使用的是普通map，可以用list作为值类型，嵌套的容器，来实现一键多值。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::map&lt;<span class="type">unsigned</span>, std::list&lt;<span class="type">char</span>&gt;&gt; my_container&#123;</span><br><span class="line">        &#123;<span class="number">1u</span>, &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;&#125;,</span><br><span class="line">        &#123;<span class="number">2u</span>, &#123;<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>&#125;&#125;,</span><br><span class="line">        &#123;<span class="number">3u</span>, &#123;<span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>&#125;&#125;,</span><br><span class="line">        &#123;<span class="number">4u</span>, &#123;<span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>&#125;&#125; &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; v : my_container)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Key: &quot;</span> &lt;&lt; v.first &lt;&lt; <span class="string">&quot; values: &quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp;&amp; v2 : v.second)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; v2 &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; stdd::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">key: 1 values: a b c</span><br><span class="line">key: 2 values: d e f</span><br><span class="line">key: 3 values: g h i</span><br><span class="line">key: 4 values: j k l</span><br></pre></td></tr></table></div></figure>
+<p>如果用multimap，将会更简单：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::multimap&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; multi_map&#123;</span><br><span class="line">        &#123;<span class="number">1u</span>, <span class="string">&#x27;a&#x27;</span>&#125;, &#123;<span class="number">1u</span>, <span class="string">&#x27;b&#x27;</span>&#125;, &#123;<span class="number">1u</span>, <span class="string">&#x27;c&#x27;</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2u</span>, <span class="string">&#x27;d&#x27;</span>&#125;, &#123;<span class="number">2u</span>, <span class="string">&#x27;e&#x27;</span>&#125;, &#123;<span class="number">2u</span>, <span class="string">&#x27;f&#x27;</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3u</span>, <span class="string">&#x27;g&#x27;</span>&#125;, &#123;<span class="number">3u</span>, <span class="string">&#x27;h&#x27;</span>&#125;, &#123;<span class="number">3u</span>, <span class="string">&#x27;i&#x27;</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4u</span>, <span class="string">&#x27;j&#x27;</span>&#125;, &#123;<span class="number">4u</span>, <span class="string">&#x27;k&#x27;</span>&#125;, &#123;<span class="number">4u</span>, <span class="string">&#x27;l&#x27;</span>&#125; &#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp;&amp; v : multi_map)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; v.first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; v.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="查询equal_range"   >
+          <a href="#查询equal_range" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查询equal_range"></a> 查询：equal_range</h2>
+      
+<p>会返回一个pair，pair的first是查询到的对应key的第一个键值对的迭代器，second是符合要求的键值对的end迭代器。<br />
+同一个key对应的多个键值对是按顺序的。所以可以用<code>++it</code>遍历。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::multimap&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; multi_map&#123; <span class="comment">/* ... */</span> &#125;;</span><br><span class="line">    <span class="keyword">auto</span> it_pair = multi_map.<span class="built_in">equal_range</span>(<span class="number">3u</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it = it_pair.first; it != it_pair.second; ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3 g</span><br><span class="line">3 h</span><br><span class="line">3 i</span><br></pre></td></tr></table></div></figure>
+<p>用structured binding：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::multimap&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; multi_map&#123; <span class="comment">/* ... */</span> &#125;;</span><br><span class="line">    <span class="keyword">auto</span> &amp;&amp; [it, end] = multi_map.<span class="built_in">equal_range</span>(<span class="number">3u</span>);</span><br><span class="line">    <span class="keyword">for</span>(; it != end; ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="lower_bound"   >
+          <a href="#lower_bound" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#lower_bound"></a> lower_bound</h2>
+      
+<p>返回的是参数key对应的键值对中位置最小的迭代器。比如查的是3u，则返回<code>&#123;3u, g&#125;</code>对应的迭代器。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::multimap&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; multi_map&#123; <span class="comment">/* ... */</span> &#125;;</span><br><span class="line">    <span class="keyword">auto</span> lower_it = multi_map.<span class="built_in">lower_bound</span>(<span class="number">3u</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = multi_map.<span class="built_in">begin</span>(); it != lower_it; ++it)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 a</span><br><span class="line">1 b</span><br><span class="line">1 c</span><br><span class="line">2 d</span><br><span class="line">2 e</span><br><span class="line">2 f</span><br></pre></td></tr></table></div></figure>
+<p>对应的还有upper_bound。比如查的是3u，则返回<code>&#123;4u, j&#125;</code>对应的迭代器。即3u所有键值对末尾的下一个迭代器。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::multimap&lt;<span class="type">unsigned</span>, <span class="type">char</span>&gt; multi_map&#123; <span class="comment">/* ... */</span> &#125;;</span><br><span class="line">    <span class="keyword">auto</span> upper_it = multi_map.<span class="built_in">upper_bound</span>(<span class="number">3u</span>);</span><br><span class="line">    <span class="comment">// 从</span></span><br><span class="line">    <span class="keyword">for</span> (; upper_it != multi_map.<span class="built_in">end</span>(); ++upper_it)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4 j</span><br><span class="line">4 k</span><br><span class="line">4 l</span><br></pre></td></tr></table></div></figure></div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/107/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><span class="page-number current">108</span><a class="page-number" href="/page/109/">109</a><span class="space">&hellip;</span><a class="page-number" href="/page/147/">147</a><a class="extend next" rel="next" href="/page/109/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">293</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
