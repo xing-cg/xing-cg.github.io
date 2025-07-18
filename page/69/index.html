@@ -32,224 +32,177 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Android/Android_%E5%BA%94%E7%94%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Android_应用基础知识</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Android/Android_%E5%BA%94%E7%94%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-flag-title="Android_应用基础知识"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="android应用"   >
-          <a href="#android应用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#android应用"></a> Android应用</h1>
-      
-<p>可以使用Kotlin、Java和<code>C++</code>语言编写Android应用。Android SDK工具会将代码连同任何数据和资源文件编译成一个APK（Android package, Android软件包），即带有<code>.apk</code>后缀的归档文件；或者Android App Bundle。</p>
-<ul>
-<li>一个APK文件包含Android应用在运行时的必需内容，它也是Android设备用来安装应用的文件。</li>
-<li>一个AAB文件包含一个Android应用程序项目，包括一些在运行时不需要的附加元数据。ABB是一种发布格式，是不可安装到Android设备上的，它推迟(defer)APK的生成、签名到更晚的阶段。在Google Play分发应用程序时，Google Play的服务器才生成优化后的APK，仅包含特定设备安装应用所需要的资源和代码。</li>
-</ul>
-<p>每个 Android 应用都处于各自的安全沙盒中，并受以下 Android 安全功能的保护：</p>
-<ul>
-<li>Android 操作系统是一种多用户 Linux 系统，其中每个应用都是一个不同的用户；</li>
-<li>默认情况下，系统会为每个应用分配一个唯一的 Linux 用户 ID（该 ID 仅由系统使用，应用并不知晓）。系统会为应用中的所有文件设置权限，使得只有被分配给该应用的用户id对应的用户才能访问这些文件；</li>
-<li>每个进程都拥有自己的虚拟机 (VM)，因此应用代码独立于其他应用而运行。</li>
-<li>默认情况下，每个应用都在其自己的 Linux 进程内运行。Android 系统会在需要执行任何应用组件时启动该进程，然后当不再需要该进程或系统必须为其他应用恢复内存时，其便会关闭该进程。</li>
-</ul>
-<p>Android系统实现了<strong>应用最少特权</strong>的原则。也就是说，默认情况下，每个应用程序只能访问其工作所需的组件，没有更多。这创造了一个非常安全的环境，在该环境中，应用程序无法访问未经许可的系统部分。但是，一个应用程序可以通过其他方法与其他应用程序共享数据，并且应用程序可以访问系统服务：</p>
-<ul>
-<li>可以安排两个app共享相同的Linux用户ID。在这种情况下，他们可以访问彼此的文件。为了节省系统资源，具有相同用户ID的app也可以安排在相同的Linux进程中运行并共享相同的VM。这些app还必须被签署相同的证书签名。</li>
-<li>一个app可以请求许可来访问设备数据，比如设备的定位、摄像头、蓝牙连接。用户必须明确地授予这些许可。</li>
-</ul>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95/">Cpp_创建目录</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-18</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95/" data-flag-title="Cpp_创建目录"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>参考文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/guotianqing/article/details/109823501" >https://blog.csdn.net/guotianqing/article/details/109823501</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 
-        <h1 id="应用程序组件app-components"   >
-          <a href="#应用程序组件app-components" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应用程序组件app-components"></a> 应用程序组件（App components）</h1>
+        <h1 id="system调用"   >
+          <a href="#system调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#system调用"></a> system调用</h1>
       
-<p>应用程序组件是Android应用程序的重要构件模块。系统或用户可以通过每个组件来进入app。有些组件依赖其他组件。</p>
-<p>有四大类应用程序组件：</p>
+<p>简单粗野，适用于Linux系统。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Usage: &quot;</span> &lt;&lt; argv[<span class="number">0</span>] &lt;&lt; <span class="string">&quot; dir&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">string <span class="title">path</span><span class="params">(argv[<span class="number">1</span>])</span></span>;</span><br><span class="line">    <span class="function">string <span class="title">cmd</span><span class="params">(<span class="string">&quot;mkdir -p &quot;</span> + path)</span></span>;</span><br><span class="line">    <span class="type">int</span> ret = <span class="built_in">system</span>(cmd.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="keyword">if</span>(ret)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;create dir error: &quot;</span> &lt;&lt; ret &lt;&lt; <span class="string">&quot;, :&quot;</span> &lt;&lt; <span class="built_in">stderror</span>(errno) &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;system cmd create dir ok: &quot;</span> &lt;&lt; argv[<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>此方式，直接使用系统命令执行Linux下mkdir命令创建目录，缺点是system系统调用时，要处理各种返回值情况。</p>
+
+        <h1 id="mkdir函数"   >
+          <a href="#mkdir函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mkdir函数"></a> mkdir函数</h1>
+      
+<p><code>C++</code>中提供了用于创建目录的函数，原型如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * path, <span class="type">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="comment">// The file permission bits of the new directory shall be initialized from mode</span></span><br><span class="line"><span class="comment">// If path names a symbolic link, mkdir() shall fail and set errno to [EEXIST].</span></span><br><span class="line"><span class="comment">// Upon successful completion, mkdir() shall return 0. Otherwise, -1 shall be returned, no directory shall be created, and errno shall be set to indicate the error.</span></span><br></pre></td></tr></table></div></figure>
+<p>可能的错误如下：</p>
+<ul>
+<li>EACCES - 访问错误
+<ul>
+<li>Search permission is denied on a component of the path prefix, or write permission is denied on the parent directory of the directory to be created.</li>
+</ul>
+</li>
+<li>EEXIST - 已存在
+<ul>
+<li>The named file exists.</li>
+</ul>
+</li>
+<li>ELOOP - 链接错误
+<ul>
+<li>A loop exists in symbolic links encountered during resolution of the path argument.</li>
+</ul>
+</li>
+<li>EMLINK - 链接达到上限
+<ul>
+<li>The link count of the parent directory would exceed <code>LINK_MAX</code>.</li>
+</ul>
+</li>
+<li>ENAMETOOLONG - 名字太长
+<ul>
+<li>The length of the path argument exceeds <code>PATH_MAX</code> or a pathname component is longer than <code>NAME_MAX</code>.</li>
+</ul>
+</li>
+<li>ENOENT - 目录前缀有部分不存在
+<ul>
+<li>A component of the path prefix specified by path does not name an existing directory or path is an empty string.</li>
+</ul>
+</li>
+<li>ENOSPC - 没有足够空间
+<ul>
+<li>The file system does not contain enough space to hold the contents of the new directory or to extend the parent directory of the new directory.</li>
+</ul>
+</li>
+<li>ENOTDIR - 目录前缀有一部分不是目录
+<ul>
+<li>A component of the path prefix is not a directory.</li>
+</ul>
+</li>
+<li>EROFS - 文件系统只读
+<ul>
+<li>The parent directory resides on a read-only file system.</li>
+</ul>
+</li>
+</ul>
+<p>目录的权限如下：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User:   S_IRUSR (read), S_IWUSR (write), S_IXUSR (execute)</span><br><span class="line">Group:  S_IRGRP (read), S_IWGRP (write), S_IXGRP (execute)</span><br><span class="line">Others: S_IROTH (read), S_IWOTH (write), S_IXOTH (execute)</span><br></pre></td></tr></table></div></figure>
+<p>它们组合在一起，形成了如下快捷方式：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Read + Write + Execute: S_IRWXU (User), S_IRWXG (Group), S_IRWXO (Others)</span><br><span class="line">DEFFILEMODE: Equivalent of 0666 = rw-rw-rw-</span><br><span class="line">ACCESSPERMS: Equivalent of 0777 = rwxrwxrwx</span><br></pre></td></tr></table></div></figure>
+<p>使用mkdir函数，替换上面程序中的核心代码：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ret = <span class="built_in">mkdir</span>(path.<span class="built_in">c_str</span>(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);</span><br><span class="line"><span class="keyword">if</span>(ret &amp;&amp; errno == EEXIST)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;dir: &quot;</span> &lt;&lt; path &lt;&lt; <span class="string">&quot; already exist&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(ret)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;create dir error: &quot;</span> &lt;&lt; ret &lt;&lt; <span class="string">&quot;, :&quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;mkdir create dir succ: &quot;</span> &lt;&lt; path &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="boost库create_directory"   >
+          <a href="#boost库create_directory" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#boost库create_directory"></a> boost库create_directory</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;boost/filesystem.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">if</span>(!boost::filesystem::<span class="built_in">is_directory</span>(path))</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;begin create path: &quot;</span> &lt;&lt; path &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">if</span>(!boost::filesystem::<span class="built_in">create_directory</span>(path))</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;create_directories failed: &quot;</span> &lt;&lt; path &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; path &lt;&lt; <span class="string">&quot; already exist&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>编译时增加<code>-lboost_system -lboost_filesystem</code>选项。</p>
+<p>注意，以上函数只能用于创建单个目录，不能创建多级目录，否则会抛异常</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">begin create signal_dir: ./c/d</span><br><span class="line">terminate called after throwing an instance of &#x27;boost::filesystem::filesystem_error&#x27;</span><br><span class="line">  what():  boost::filesystem::create_directory: No such file or directory: &quot;./c/d&quot;</span><br><span class="line">[1]    16669 abort (core dumped)  ./a.out ./c/d</span><br></pre></td></tr></table></div></figure>
+<p>如果需要一次创建多级目录，需要调用<code>create_directories</code></p>
+
+        <h1 id="c17库create_directory"   >
+          <a href="#c17库create_directory" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c17库create_directory"></a> C++17库create_directory</h1>
+      
+<p>原型如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以所有权限创建单个目录，父目录必须存在，如果目录已经存在，不会报错</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directory</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p)</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directory</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p, std::error_code&amp; ec)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="comment">// 与上面一样，只不过创建的目录的权限是从已经存在的目录属性拷贝过来的。这个特性依赖操作系统</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directory</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p, <span class="type">const</span> std::filesystem::path&amp; existing_p)</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directory</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p, <span class="type">const</span> std::filesystem::path&amp; existing_p, std::error_code&amp; ec)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="comment">// 创建层级目录，为每级不存在的目录调用第一个函数，如果目录已经存在，它什么也不做，且不会报错</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directories</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p)</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">create_directories</span><span class="params">(<span class="type">const</span> std::filesystem::path&amp; p, std::error_code&amp; ec)</span></span>;</span><br><span class="line"><span class="comment">// 创建成功返回true，否则false</span></span><br></pre></td></tr></table></div></figure>
+<p>使用与boost类似，示例代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"><span class="keyword">if</span> (std::filesystem::<span class="built_in">create_directories</span>(path))</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;fs create dir succ: &quot;</span> &lt;&lt; path &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Linux_环境配置</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" data-flag-title="Linux_环境配置"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="profile"   >
+          <a href="#profile" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#profile"></a> <code>.profile</code></h1>
+      
+<p><code>.profile</code> 文件在 Linux/Unix 系统中扮演着重要的角色，它是位于用户家目录 (<code>~/</code>) 下的一个​<strong>​隐藏文件​</strong>​（以点开头）。它主要用于在​<strong>​登录 shell​</strong>​ 的初始化过程中为特定用户设置​<strong>​环境变量​</strong>​和​<strong>​启动程序​</strong>​。</p>
+<p>以下是关于 <code>.profile</code> 文件的详细说明：</p>
 <ol>
-<li>Activity</li>
-<li>Service</li>
-<li>Broadcast receiver</li>
-<li>Content provider</li>
-</ol>
-<p>每种类型都有一个独特的目的，并且具有独特的生命周期，可以定义组件的创建和破坏方式。</p>
-
-        <h2 id="activity"   >
-          <a href="#activity" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#activity"></a> Activity</h2>
-      
-<p>Activity是与用户交互的切入点，代表着具有用户界面的一个屏幕。比如，一个邮箱app可能有一个activity，展示了一列新邮件，另一个activity用于撰写邮件，以及另一activity在阅读邮件。尽管这些activity共同工作去形成凝聚的用户体验，但每个activity独立于其他activity。例如，如果电子邮件app允许，其他的app可以从任意一个activity启动。比如，拍照app可以启动邮箱app的activity，以撰写一个新的邮件，由此允许用户来分享照片。</p>
-<p>Activity促进着系统和app之间的以下关键交互：</p>
+<li>
+<p>​<strong>​主要目的：用户环境定制​</strong>​</p>
 <ul>
-<li>持续跟踪用户当前关心什么（屏幕上有什么），来确保系统继续运行在托管着activity的进程。</li>
-<li>了解先前使用的进程包含用户可能返回的内容（已停止的activity），因此更优先地保持这些进程。</li>
-<li>帮助app处理终止其进程的情况，便于用户返回到已恢复其之前状态的activity。</li>
-<li>为app提供一种用户流交互的实现，并让系统协调这些流。（最经典的示例是共享）</li>
-</ul>
-<blockquote>
-<p>An <em>activity</em> is the entry point for interacting with the user. It represents a single screen with a user interface. For example, an email app might have one activity that shows a list of new emails, another activity to compose an email, and another activity for reading emails. Although the activities work together to form a cohesive user experience in the email app, each one is independent of the others. As such, a different app can start any one of these activities if the email app allows it. For example, a camera app can start the activity in the email app that composes new mail to allow the user to share a picture. An activity facilitates the following key interactions between system and app:</p>
+<li>​<strong>​设置环境变量：​</strong>​ 这是 <code>.profile</code> 最常见的用途。你可以在这里设置 <code>PATH</code>（决定系统去哪里查找可执行命令）、<code>EDITOR</code>（默认文本编辑器）、<code>LANG</code>（系统语言和区域设置）、<code>JAVA_HOME</code>、<code>PYTHONPATH</code> 等等。这些变量定义了你的工作环境。</li>
+<li>​<strong>​运行启动命令：​</strong>​ 你可以在登录时自动运行某些命令或小脚本。例如：
 <ul>
-<li>Keeping track of what the user currently cares about (what is on screen) to ensure that the system keeps running the process that is hosting the activity.</li>
-<li>Knowing that previously used processes contain things the user may return to (stopped activities), and thus more highly prioritize keeping those processes around.</li>
-<li>Helping the app handle having its process killed so the user can return to activities with their previous state restored.</li>
-<li>Providing a way for apps to implement user flows between each other, and for the system to coordinate these flows. (The most classic example here being share.)</li>
+<li>显示欢迎信息或系统状态 (<code>uptime</code>, <code>fortune</code>, <code>echo &quot;Welcome back, $USER&quot;</code>)</li>
+<li>设置命令别名 (<code>alias ll='ls -l'</code>)</li>
+<li>设置 shell 选项 (<code>set -o noclobber</code> - 防止覆盖文件)</li>
+<li>启动代理或后台服务（以前更常见，现在可能有更好的方法）</li>
 </ul>
-</blockquote>
-
-        <h1 id="异步消息intent启动组件"   >
-          <a href="#异步消息intent启动组件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步消息intent启动组件"></a> 异步消息Intent启动组件</h1>
-      
-<p>在四种组件类型中，有三种类型（Activity, Service, Broadcast Receiver）均通过<strong>异步消息Intent</strong>进行启动，Intent会在运行时对各个组件进行互相绑定。可以将Intent视为请求其他组件做出动作的信使，无论这个组件是属于你的app还是其他app。</p>
-<p>需要使用Intent对象创建Intent，该对象通过定义消息来启动特定组件（显式Intent）或特定的<strong>组件类型</strong>（隐式Intent）。</p>
-<p>对于Activity和服务，Intent 会定义要执行的操作（例如，<code>view</code>或<code>send</code>某内容），并且可指定待操作数据的<code>URI</code>，以及正在启动的组件可能需要了解的信息。例如，Intent可能会传达对Activity的请求，以便显示图像或打开网页。在某些情况下，可以通过启动Activity来接收结果，这样Activity还会返回<code>Intent</code>中的结果。例如，您可以发出一个Intent，让用户选取某位联系人并将其返回给您。返回的Intent包含指向所选联系人的URI。</p>
-<p>每种组件都有独特的启动方法：</p>
-<ol>
-<li>可以通过传递一个<code>Intent</code>调用<code>startActivity()</code>启动一个activity或给这个activity新的事情去做。（或者<code>startActivityForResult()</code>，当你想让activity返回一个结果时）</li>
-<li></li>
-</ol>
-
-        <h1 id="清单文件androidmanifestxml"   >
-          <a href="#清单文件androidmanifestxml" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#清单文件androidmanifestxml"></a> 清单文件（AndroidManifest.xml）</h1>
-      
-<p>在Android系统启动应用组件之前，系统必须通过读取应用的清单文件(<code>AndroidManifest.xml</code>)确认组件存在。应用必须在此文件中声明其所有组件，该文件必须<strong>位于应用项目目录的根目录</strong>中。</p>
-<p>除了声明应用的组件外，清单文件还有许多其他作用，如：</p>
+</li>
+</ul>
+</li>
+<li>
+<p>​<strong>​执行时机：登录时​</strong>​</p>
 <ul>
-<li>确定应用需要的任何用户权限，如互联网访问权限或对用户联系人的读取权限。</li>
-<li>根据应用使用的API，声明应用所需的最低<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels" >API级别</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</li>
-<li>声明应用使用或需要的硬件和软件功能，如相机、蓝牙服务或多点触摸屏幕。</li>
-<li>声明应用需要链接的API库（Android框架API除外），如<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://code.google.com/android/add-ons/google-apis/maps-overview.html" >Google地图库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</li>
-</ul>
-
-        <h2 id="声明组件"   >
-          <a href="#声明组件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明组件"></a> 声明组件</h2>
-      
-<p>清单文件的主要任务是告知系统应用组件的相关信息。例如，清单文件可按如下所示声明Activity：</p>
-<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:icon</span>=<span class="string">&quot;@drawable/app_icon.png&quot;</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;com.example.project.ExampleActivity&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">android:label</span>=<span class="string">&quot;@string/example_label&quot;</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
-<p>在<code>&lt;application&gt;</code>元素中，<code>android:icon</code>属性指向标识应用的图标所对应的资源。</p>
-<p>在<code>&lt;activity&gt;</code>元素中，<code>android:name</code>属性指定<code>Activity</code>子类的完全限定类名，<code>android:label</code>属性指定用作Activity的用户可见标签的字符串。</p>
-<p>您必须使用以下元素声明所有应用组件：</p>
+<li>当你通过​<strong>​登录 shell​</strong>​ 进入系统时，<code>.profile</code> 文件会被自动读取和执行。</li>
+<li>什么是登录 shell？
 <ul>
-<li>Activity的<code>&lt;activity&gt;</code>元素。</li>
-<li>服务的<code>&lt;service&gt;</code>元素。</li>
-<li>广播接收器的<code>&lt;receiver&gt;</code>元素。</li>
-<li>内容提供程序的<code>&lt;provider&gt;</code>元素。</li>
+<li>通过控制台（文本登录界面）登录。</li>
+<li>使用 <code>ssh username@hostname</code> 远程登录。</li>
+<li>使用 <code>su - username</code> 或 <code>sudo -i</code>（切换用户并模拟完整登录）。</li>
+<li>图形界面登录后启动的​<strong>​第一个​</strong>​终端（取决于桌面环境和终端模拟器的配置，有时是登录 shell，有时不是）。</li>
 </ul>
-<p>如果未在清单文件中声明源代码中包含的Activity、服务和内容提供程序，则这些组件对系统不可见，因此不会运行。不过，可以<code>BroadcastReceiver</code>对象的形式，在清单中声明或在代码中动态创建广播接收器；以及通过调用<code>registerReceiver()</code>，在系统中注册广播接收器。</p>
-
-        <h2 id="声明组件功能"   >
-          <a href="#声明组件功能" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明组件功能"></a> 声明组件功能</h2>
-      
-<p>如上文启动组件中所述，可以使用<code>Intent</code>来启动Activity、服务和广播接收器。您可以通过在Intent中显式命名目标组件（使用组件类名）来使用<code>Intent</code>。还可使用隐式Intent，通过它来描述要执行的操作类型和待操作数据（可选）。借助隐式 Intent，系统能够在设备上找到可执行该操作的组件，并启动该组件。如果有多个组件可以执行Intent所描述的操作，则<strong>由用户选择使用哪一个组件</strong>。</p>
-<blockquote>
-<p>注意：如果使用Intent来启动<code>Service</code>，需要使用显式Intent来确保应用的安全性。使用隐式Intent启动服务存在安全隐患，因为无法确定哪些服务将响应Intent，且用户无法看到哪些服务已启动。从Android 5.0（API级别21）开始，如果使用隐式Intent调用<code>bindService()</code>，系统会抛出异常。所以勿为服务声明Intent过滤器。</p>
-</blockquote>
-<p>通过将收到的Intent与设备上其他应用的清单文件中提供的<strong>Intent过滤器</strong>进行比较，系统便可识别能响应Intent的组件。</p>
-<p>在应用的清单文件中声明Activity时，您可以选择性地加入声明Activity功能的Intent过滤器，以便响应来自其他应用的 Intent。可以将<code>&lt;intent-filter&gt;</code>元素作为组件声明元素的子项进行添加，从而为组件声明Intent过滤器。</p>
-<p>例如，如果构建的电子邮件应用包含用于撰写新电子邮件的Activity，则可通过声明Intent过滤器来响应<code>“send”</code>Intent（目的是发送新电子邮件），如下方示例所示：</p>
-<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;com.example.project.ComposeEmailActivity&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.SEND&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:type</span>=<span class="string">&quot;*/*&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
-<p>如果另一个应用创建包含<code>ACTION_SEND</code>操作的Intent并将其传递到<code>startActivity()</code>，则系统可能会启动您的Activity，以便用户能够草拟并发送电子邮件。</p>
-
-        <h2 id="声明应用要求"   >
-          <a href="#声明应用要求" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明应用要求"></a> 声明应用要求</h2>
-      
-<p>Android设备多种多样，但并非所有设备都提供相同的特性和功能。以防将应用安装在缺少应用所需特性的设备上，必须通过在清单文件中声明设备和软件要求，为该应用支持的设备类型明确定义一个配置文件。其中的大多数声明只是为了提供信息，系统并不会读取它们，但Google Play等外部服务会读取它们，以便在用户通过其设备搜索应用时为用户提供过滤功能。</p>
-<p>例如，如果应用需要相机功能，并使用Android 2.1（API级别7）中引入的 API，必须在清单文件中声明以下要求，如下方示例所示：</p>
-<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">&quot;android.hardware.camera.any&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">android:required</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-sdk</span> <span class="attr">android:minSdkVersion</span>=<span class="string">&quot;7&quot;</span> <span class="attr">android:targetSdkVersion</span>=<span class="string">&quot;19&quot;</span> /&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
-<p>通过示例中所述的声明，没有相机且Android版本低于2.1的设备将无法从Google Play安装您的应用。不过，可以声明应用使用相机，但并不要求必须使用。在此情况下，<code>required</code>属性设置为<code>false</code>，并在运行时检查设备是否拥有相机，然后根据需要停用任何相机功能。</p>
-
-        <h1 id="应用资源"   >
-          <a href="#应用资源" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应用资源"></a> 应用资源</h1>
-      
-<p>Android应用并非仅包含代码，它还需要与源代码分离的资源，如图像、音频文件以及任何与应用的视觉呈现有关的内容。例如，可以通过XML文件定义Activity界面的动画、菜单、样式、颜色和布局。借助应用资源，无需修改代码即可轻松更新应用的各种特性。通过提供备用资源集，可以针对各种设备配置（如不同的语言和屏幕尺寸）优化应用。</p>
-<p>对于在Android项目中加入的每一项资源，SDK构建工具均会定义唯一的整型ID，可以利用此ID来引用资源，这些资源或来自应用代码，或来自XML中定义的其他资源。例如，如果您的应用包含名为<code>logo.png</code>的图像文件（保存在<code>res/drawable/</code>目录中），则SDK工具会生成名为<code>R.drawable.logo</code>的资源ID。此ID映射到应用特定的整型数，您可以利用它来引用该图像，并将其插入您的界面。</p>
-<p>如果提供与源代码分离的资源，则其中最重要的一个优点在于，可以提供适用于不同设备配置的备用资源。例如，通过在XML中定义界面字符串，可以将字符串翻译为其他语言，并将这些字符串保存在单独的文件中。然后，Android系统会根据向资源目录名称追加的语言限定符（如为法语字符串值追加<code>res/values-fr/</code>）和用户的语言设置，对界面应用相应的语言字符串。</p>
-<p>Android支持许多不同的备用资源限定符。限定符是资源目录名称中加入的短字符串，用于定义这些资源适用的设备配置。例如，您应根据设备的屏幕方向和尺寸为Activity创建不同的布局。当设备屏幕为纵向（长型）时，可能想要一种垂直排列按钮的布局；但当屏幕为横向（宽型）时，可以按水平方向排列按钮。如要根据方向更改布局，可以定义两种不同的布局，然后对每个布局的目录名称应用相应的限定符。然后，系统会根据当前设备方向自动应用相应的布局。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/">Linux_三剑客</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-16</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/" data-flag-title="Linux_三剑客"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>awk</li>
-<li>sed</li>
+</li>
+<li>​<strong>​重要：​</strong>​ 并非所有终端会话都是登录 shell。如果你只是打开一个新的终端窗口（标签页），它通常是​<strong>​非登录 shell​</strong>​，不会读取 <code>.profile</code>，而是读取 <code>.bashrc</code>（对于 bash）或类似的文件。</li>
+</ul>
+</li>
+<li>
+<p>​<strong>​与系统级配置的关系​</strong>​</p>
+<ul>
+<li>​<strong>​<code>/etc/profile</code>​</strong>​: 这是一个系统级别的全局配置文件，在用户登录时，​<strong>​最先​</strong>​被执行。</li>
+<li>​<strong>​<code>/etc/profile.d/*.sh</code>​</strong>​: <code>/etc/profile</code> 通常会调用执行这个目录下所有的 <code>.sh</code> 脚本文件，用于存放系统级别的额外配置。</li>
+<li>​<strong>​<code>~/.profile</code>​</strong>​: 在 <code>/etc/profile</code> 之后执行。它是用户​<strong>​定制自己登录环境​</strong>​的主要地方，可以覆盖或补充系统级别的设置。</li>
+<li>​<strong>​<code>~/.bash_profile</code> 或 <code>~/.bash_login</code> (bash 特有)​</strong>​: 如果 <code>.profile</code> 所在的 shell 是 bash，并且用户家目录下存在 <code>~/.bash_profile</code> 或 <code>~/.bash_login</code>，那么 bash 会​<strong>​优先执行它们​</strong>​，而​<strong>​跳过​</strong>​ <code>~/.profile</code>（除非这些文件显式地 <code>source ~/.profile</code>）。</li>
+<li>​<strong>​<code>~/.bashrc</code> (bash 特有)​</strong>​: 主要用于​<strong>​非登录的交互式 shell​</strong>​ (即大部分新打开的终端窗口)。在登录 shell 中，如果 <code>~/.bash_profile</code> 存在，它通常会去调用 <code>~/.bashrc</code>，这样登录 shell 也能获得其中的设置（别名、函数等）。</li>
+</ul>
+</li>
+<li>
+<p>​<strong>​文件命名与位置​</strong>​</p>
+<ul>
+<li>​<strong>​路径：​</strong>​ 位于用户的家目录下，即 <code>~/.profile</code> 或 <code>/home/username/.profile</code>。</li>
+<li>​<strong>​兼容性：​</strong>​ <code>.profile</code> 是一个比较通用的名字，被 Bourne Shell (<code>sh</code>)、Bash、Korn Shell (<code>ksh</code>) 等广泛支持。它为不同 shell 提供了一个公共的配置点。</li>
+<li>​<strong>​Shell 专属文件：​</strong>​ 许多用户（尤其是 bash 用户）更喜欢或习惯使用 <code>~/.bash_profile</code>（用于登录 bash）和 <code>~/.bashrc</code>（用于交互式非登录 bash），并将 <code>.profile</code> 用作备用或兼容配置。</li>
+</ul>
+</li>
+<li>
+<p>​<strong>​查看与编辑​</strong>​</p>
+<ul>
+<li>查看：<code>cat ~/.profile</code> 或 <code>less ~/.profile</code></li>
+<li>编辑：使用你喜欢的文本编辑器（如 <code>nano ~/.profile</code>, <code>vim ~/.profile</code>）。确保你编辑的是你自己的家目录下的文件。</li>
+</ul>
+</li>
+<li>
+<p>​<strong>​重要注意事项​</strong>​</p>
+<ul>
+<li>​<strong>​生效需要：​</strong>​ 修改 <code>.profile</code> 后，这些更改​<strong>​不会​</strong>​立即在当前已经打开的会话中生效（因为你修改时，登录过程已经完成）。要让修改生效，你需要：
+<ul>
+<li>​<strong>​方法一 (推荐)：​</strong>​ 重新登录（logout 后再 login）。</li>
+<li>​<strong>​方法二：​</strong>​ 在当前的登录 shell 中执行 <code>source ~/.profile</code> 或 <code>. ~/.profile</code> 命令来强制重新加载该文件。</li>
+</ul>
+</li>
+<li>​<strong>​谨慎修改：​</strong>​ 错误的语法（比如引号不匹配、错误的变量赋值）或执行有问题的命令可能导致你登录时出错，甚至无法登录。在修改重要文件前最好备份。</li>
+<li>​<strong>​<code>~/.bash_profile</code> vs <code>~/.profile</code> (bash 用户):​</strong>​ 如果 <code>~/.bash_profile</code> 存在，bash 会忽略 <code>~/.profile</code>。因此，很多系统默认创建的是 <code>.profile</code>，但如果用户创建了 <code>.bash_profile</code>，它就会接管。推荐做法是让 <code>~/.bash_profile</code> 里简单地包含 <code>source ~/.profile</code>，然后再包含 <code>source ~/.bashrc</code>，这样可以同时兼容登录配置和交互配置。</li>
+</ul>
+</li>
 </ol>
 
-        <h1 id="awk"   >
-          <a href="#awk" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#awk"></a> awk</h1>
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> ​总结​</h2>
       
-<p>是按{域,分隔符,域}生成报表的工具。</p>
-<p>经典应用有：把**（文本）文件**中浮点数的整数部分解析出来。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file.txt</span></span><br><span class="line">1.7</span><br><span class="line">12.89</span><br><span class="line">23.9</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> file.txt</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># 1</span></span><br><span class="line">	<span class="comment"># 12</span></span><br><span class="line">	<span class="comment"># 23</span></span><br></pre></td></tr></table></div></figure>
-<p>重定向：</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> file.txt &gt; newfile</span><br><span class="line"><span class="built_in">cat</span> newfile</span><br><span class="line"><span class="comment"># 执行结果(来自newfile)</span></span><br><span class="line">	<span class="comment"># 1</span></span><br><span class="line">	<span class="comment"># 12</span></span><br><span class="line">	<span class="comment"># 23</span></span><br></pre></td></tr></table></div></figure>
-<p>小改动：把**（文本）文件<strong>中浮点数的</strong>小数**部分解析出来。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">awk -F. <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> file.txt &gt; newfile</span><br><span class="line"><span class="built_in">cat</span> newfile</span><br><span class="line"><span class="comment"># 执行结果(来自newfile)</span></span><br><span class="line">	<span class="comment"># 7</span></span><br><span class="line">	<span class="comment"># 89</span></span><br><span class="line">	<span class="comment"># 9</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/passwd .</span><br><span class="line">awk -F: <span class="string">&#x27;&#123;print $1,$3&#125;&#x27;</span> passwd</span><br><span class="line">awk -F: <span class="string">&#x27;&#123;if($3 &gt;= 1000) print $1,$3&#125;&#x27;</span> passwd</span><br><span class="line">awk -F: <span class="string">&#x27;BEGIN&#123;print &quot;name\t uid&quot;&#125;&#123;print $1&quot;\t&quot;$3&#125;END&#123;print&quot;----end----&quot;&#125;&#x27;</span> passwd</span><br></pre></td></tr></table></div></figure>
+<p><code>.profile</code> 是个人 Linux/Unix 环境的核心配置文件之一。它在你通过登录 shell 进入系统时自动运行，其主要任务是为你定义个性化的环境变量（如 <code>PATH</code>, <code>EDITOR</code>）和登录时需要运行的命令或脚本。理解它与 <code>/etc/profile</code>、<code>~/.bash_profile</code>、<code>~/.bashrc</code> 等文件的关系和执行顺序，对于有效管理和定制你的 shell 环境至关重要。</p>
 
-        <h2 id="场景对命令执行输出的信息进行处理"   >
-          <a href="#场景对命令执行输出的信息进行处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#场景对命令执行输出的信息进行处理"></a> 场景–对命令执行输出的信息进行处理</h2>
+        <h1 id="linux配置相关"   >
+          <a href="#linux配置相关" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux配置相关"></a> Linux配置相关</h1>
       
-
-        <h3 id="编写脚本杀死全部当前正在睡眠的进程"   >
-          <a href="#编写脚本杀死全部当前正在睡眠的进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写脚本杀死全部当前正在睡眠的进程"></a> 编写脚本杀死全部当前正在睡眠的进程</h3>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># some shells are sleeping...</span></span><br><span class="line">ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span></span><br><span class="line"><span class="comment"># xcg	4168	4162	0	......</span></span><br><span class="line">ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> <span class="comment"># 4168</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line">PIDS=`ps -ef | grep <span class="built_in">sleep</span> | grep -v <span class="string">&quot;grep&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$PIDS</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;没有sleeping进程在运行&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">for</span> pid <span class="keyword">in</span> <span class="variable">$PIDS</span>		<span class="comment"># PIDS不要加双引号，如果加了，那么pid会一次接收整个PIDS。虽然也能(kill xxx xxx,而不是kill xxx,kill xxx)。但是echo只echo一次，输出出现问题。</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">kill</span> <span class="variable">$pid</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;进程:<span class="variable">$pid</span> 被杀死了&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="结合netstat-natp命令"   >
-          <a href="#结合netstat-natp命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合netstat-natp命令"></a> 结合netstat -natp命令</h3>
-      
-<p>获取端口、地址信息、状态信息去处理</p>
-
-        <h3 id="结合free命令"   >
-          <a href="#结合free命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合free命令"></a> 结合free命令</h3>
-      
-
-        <h1 id="sed"   >
-          <a href="#sed" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#sed"></a> sed</h1>
-      
-<p>是对文件进行编辑的工具。在某行增删内容。</p>
-<p>示例：对文件文本进行简单处理</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file.txt</span></span><br><span class="line">1.7</span><br><span class="line">12.89</span><br><span class="line">23.9</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2i\3.3&#x27;</span> file.txt &gt; newfile <span class="comment"># 在第二行之前插入3.3，之后的行下移一行、</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 3.3</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2a\3.3&#x27;</span> file.txt &gt; newfile <span class="comment"># 在第二行下面附加3.3，之后的行下移一行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 3.3</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;2,3d&#x27;</span> file.txt &gt; newfile <span class="comment"># 删除第2、3行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;1,2p&#x27;</span> file.txt <span class="comment"># 打印1~2行，但是默认会重复打印</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line">sed <span class="string">&#x27;1,3p&#x27;</span> file.txt <span class="comment"># 打印1~3行，但是默认会重复打印</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line"><span class="comment"># 23.9</span></span><br><span class="line">sed -n <span class="string">&#x27;1,2p&#x27;</span> file.txt <span class="comment"># 只打印1~2行</span></span><br><span class="line"><span class="comment"># 1.7</span></span><br><span class="line"><span class="comment"># 12.89</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="结合"   >
-          <a href="#结合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合"></a> 结合</h1>
-      
-<p>要灵活运用三剑客，应对两种结合方式：</p>
-<ol>
-<li>结合，对文件操作</li>
-<li>结合，对命令操作</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp			 <span class="comment"># 未过滤</span></span><br><span class="line">netstat -natp | grep tcp <span class="comment"># 注意，此时 &quot;|&quot; 这个管道只能用来 过滤 标准输出(1)的信息，如果前面的信息有标准错误输出stderr(2)则无法过滤。</span></span><br><span class="line">netstat -natp 2&gt;&amp;1 | grep tcp <span class="comment"># 此时已把标准错误输出2重定向到1,这时再过滤时将会一视同仁。</span></span><br></pre></td></tr></table></div></figure>
-<p>未过滤的结果：<br />
-<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015642539.png" alt="image-20220222015642539" /></p>
-<p>标准错误输出未重定向时：<br />
-<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015307603.png" alt="image-20220222015307603" /></p>
-<p>标准错误输出重定向后（过滤掉上面的提示信息做法1）：<br />
-<img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015341443.png" alt="image-20220222015341443" /></p>
-<p>sed剔除前n行后（过滤掉上面的提示信息做法2）：</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> <span class="comment"># 输出4行及之后的全部行</span></span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222015940913.png" alt="image-20220222015940913" /></p>
-<p>结合awk提取第4列（Local Address）：</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;print $4&#x27;</span></span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020120370.png" alt="image-20220222020120370" /></p>
-<p>接上一步，提取地址信息中的端口号。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -natp | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;print $4&#x27;</span> | awk -F: <span class="string">&#x27;&#123;print $2&#125;&#x27;</span></span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020238848.png" alt="image-20220222020238848" /></p>
-<p>但是出现问题，最后的&quot;:::22&quot;和&quot;::1:631&quot;被忽略了。需要另分一类特殊处理。</p>
-<p>然后，我们用上面这个命令，可以做以下工作：查询某个端口是否被打开？</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$#</span>&quot;</span> -ne 1 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;请输入查询的端口&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">test_port=<span class="variable">$1</span></span><br><span class="line"></span><br><span class="line">PORTS=`netstat -natp 2&gt;&amp;1 | sed -n <span class="string">&#x27;4,$p&#x27;</span> | awk <span class="string">&#x27;&#123;print $4&#125;&#x27;</span> | awk -F: <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$PORTS</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;没有打开的端口&quot;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">port=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$PORTS</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -eq <span class="string">&quot;<span class="variable">$test_port</span>&quot;</span> ]</span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		port=<span class="variable">$i</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$port</span>&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;端口:<span class="variable">$port</span> 是打开的&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;端口:<span class="variable">$port</span> 未打开&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220222020743625.png" alt="image-20220222020743625" /></p>
-
-        <h1 id="日积月累"   >
-          <a href="#日积月累" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日积月累"></a> 日积月累</h1>
-      
-
-        <h2 id="awk从指定列打印到最后一列"   >
-          <a href="#awk从指定列打印到最后一列" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#awk从指定列打印到最后一列"></a> awk从指定列打印到最后一列</h2>
-      
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1602035/how-to-print-third-column-to-last-column" >https://stackoverflow.com/questions/1602035/how-to-print-third-column-to-last-column</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103120355.png" alt="image-20220801103120355" /></p>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103359029.png" alt="image-20220801103359029" /></p>
-<p>其中，涉及了两个awk内置变量：NF和FS。</p>
-<p><img src="../../images/Linux_%E4%B8%89%E5%89%91%E5%AE%A2/image-20220801103601475.png" alt="image-20220801103601475" /></p>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/68/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/147/">147</a><a class="extend next" rel="next" href="/page/70/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">293</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.csdn.net/tags/MtTaEg0sMDg4NTIyLWJsb2cO0O0O.html" >bashrc source后长期有效</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/68/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><span class="page-number current">69</span><a class="page-number" href="/page/70/">70</a><span class="space">&hellip;</span><a class="page-number" href="/page/148/">148</a><a class="extend next" rel="next" href="/page/70/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">295</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">54</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
