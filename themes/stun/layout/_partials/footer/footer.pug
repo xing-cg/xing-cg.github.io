@@ -19,7 +19,8 @@ if footerCopyright || footerBeian
     if footerCopyright && footerBeian
       span.footer__devider= '|'
     if footerBeian
-      span!= footer.beian.icp
+      span
+        a(href=footer.beian.link, target="_blank")= footer.beian.icp
 
 -
   var footerPowered = footer.powered.enable

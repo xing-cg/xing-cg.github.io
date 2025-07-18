@@ -1,3 +1,62 @@
 // Custom styles by yourself.
 // You should always modify the style here, not in the source code.
 // Otherwise, when the theme is updated, the code you modified will be overwritten.
+/* 将备案号完全独立并居中显示 */
+.footer-inner > div:first-child {
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 15px !important;
+}
+
+/* 移除备案号与版权信息之间的分隔符 */
+.footer-inner > div:first-child .footer__devider {
+  display: none !important;
+}
+
+/* 将备案号单独放置在最底部 */
+.footer-inner > div:first-child > span:last-child {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-top: 15px !important;
+  order: 3 !important; /* 确保在最后 */
+}
+
+/* 版权信息区域保持在同一行 */
+.footer-copyright-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 8px;
+}
+
+/* 重新安排HTML结构 - 通过CSS创建容器 */
+.footer-inner > div:first-child > span:not(:last-child) {
+  display: inline-block;
+}
+
+/* 创建版权信息容器 */
+.footer-inner > div:first-child::before {
+  content: "";
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .footer-inner > div:first-child > span:last-child {
+    margin-top: 10px;
+  }
+  
+  .footer-copyright-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+}

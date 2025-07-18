@@ -82,3 +82,20 @@ mrcan@ubuntu:~$ ./testif.sh
 sum of 1 ... 50 is 505
 ```
 # 乘号需要转义
+```sh
+mrcan@ubuntu:~$ expr 56 * 9
+expr: syntax error: unexpected argument ‘a.c’
+mrcan@ubuntu:~$ echo $?
+2
+```
+在expr命令中，乘号不能直接写，而是要`\*`转义。
+```sh
+mrcan@ubuntu:~$ expr 56 \* 9
+504
+```
+
+除号不用转义。
+```sh
+mrcan@ubuntu:~$ expr 56 / 9
+6
+```

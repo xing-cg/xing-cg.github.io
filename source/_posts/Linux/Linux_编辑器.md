@@ -45,3 +45,9 @@ Ctrl加x、Ctrl加c是退出。
 之后，底行会问你，是否保存，按y即可保存。
 ![](../../images/Linux_编辑器/image-20250716185429960.png)
 
+# 修改映射
+默认配置下，Emacs没有退格键（Backspace）、删除键（Delete）的映射，在我们编辑文件时不方便删字符。我们在用户家目录下的`.emacs`中追加配置以下内容：
+```
+(global-set-key) "\C-h" 'backward-delete-char-untabify)
+(global-set-key) "\d" 'delete-char)
+```

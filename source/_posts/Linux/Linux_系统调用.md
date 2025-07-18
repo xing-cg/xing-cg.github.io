@@ -5,7 +5,7 @@ categories:
   - - 操作系统
 tags: 
 date: 2021/10/17
-updated: 
+updated: 2025/7/17
 comments: 
 published:
 ---
@@ -21,11 +21,7 @@ write
 
 close
 
-C语言中的打开文件函数：fopen，库函数，返回值为FILE \*，有stdin、stdout、stderr。
-
-# 1
-
-1. 子进程
+C语言中的打开文件函数：`fopen`，库函数，返回值为`FILE *`，有`stdin`、`stdout`、`stderr`。
 
 # mybash
 

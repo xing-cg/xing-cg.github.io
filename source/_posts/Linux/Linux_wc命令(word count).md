@@ -1,5 +1,5 @@
 ---
-title: Linux_wc命令（word count）
+title: Linux_wc命令(word count)
 categories:
   - - Linux
 tags: 

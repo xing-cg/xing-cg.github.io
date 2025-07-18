@@ -1,24 +1,29 @@
 ---
-title: Linux_gdb
+title: Linux_gcc_gdb
 categories:
   - - Linux
 tags: 
 date: 2022/5/12
-updated: 
+updated: 2025/7/17
 comments: 
 published:
 ---
-
 # 内容
 
-1. gdb
+1. gcc
+2. gdb
+# gcc的文件类型约定规则
+![](../../images/Linux_gcc_gdb/image-20250717221711701.png)
+# gcc常用选项
+![](../../images/Linux_gcc_gdb/image-20250717221742017.png)
+
 
 # gdb - 调试工具
 
 * 调试的对象：可执行程序
 * 编译时需要增加调试信息`-g`
 
-# 常用命令
+## 常用命令
 
 | 命令标识                   | 含义                     |
 | -------------------------- | ------------------------ |
@@ -33,4 +38,6 @@ published:
 | `s`、`step`                | 进入函数                 |
 | `f`、`finish`              | 跳出函数                 |
 | `continue`                 | 继续程序（到下一个断点） |
+
+![](../../images/Linux_gcc_gdb/image-20250717223939391.png)
 
