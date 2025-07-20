@@ -2,10 +2,12 @@
 title: SGI STL和Nginx内存池剖析
 categories:
   - - 项目
+    - 内存池
   - - Cpp
+    - STL
 tags: 
 date: 2022/4/8
-updated: 
+updated: 2025/7/20
 comments: 
 published:
 ---
@@ -76,6 +78,51 @@ struct ngx_pool_s
     ngx_pool_large_t *large;   // pool中指向大数据块的指针（大数据块是指size > max的数据）
 };
 ```
-`npx_pool_t`结构示意图（大小为1024的池）
+`struct ngx_pool_s`（别名`ngx_pool_t`）结构示意图（大小为1024的池）
 ![](../../images/SGI%20STL和Nginx内存池剖析/image-20250719235439957.png)
 
+## `npx_create_pool`创建内存池
+返回`npx_pool_t`。
+
+在`ngx_core.h`中，
+```c
+typedef struct ngx_pool_s ngx_pool_t;
+```
+即`npx_pool_t`是`struct ngx_pool_s`的别名。
+## 从创建好的内存池中申请内存
+3个接口。
+1. `ngx_palloc`和`ngx_pnalloc`的区别在于在申请小块内存时，前者考虑对齐，后者不考虑对齐
+2. `ngx_pcalloc`调用`ngx_palloc`，之后的额外操作是清零申请的区域。
+
+```c
+void * ngx_palloc(ngx_pool_t *pool, size_t size)
+{
+#if !(NGX_DEBUG_PALLOC)
+    if (size <= pool->max)
+    {
+        return ngx_palloc_small(pool, size, 1);
+    }
+#endif
+    return ngx_palloc_large(pool, size);
+}
+void * ngx_pnalloc(ngx_pool_t *pool, size_t size)
+{
+#if !(NGX_DEBUG_PALLOC)
+    if (size <= pool->max)
+    {
+        return ngx_palloc_small(pool, size, 0);
+    }
+#endif
+    return ngx_palloc_large(pool, size);
+}
+void * ngx_pcalloc(ngx_pool_t *pool, size_t size)
+{
+    void *p;
+    p = ngx_palloc(pool, size);
+    if (p)
+    {
+        ngx_memzero(p, size);    
+    }
+    return p;
+}
+```

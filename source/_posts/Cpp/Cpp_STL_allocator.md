@@ -1,14 +1,14 @@
 ---
 title: Cpp_STL_allocator
-typora-root-url: ../..
 categories:
-  - [Cpp, STL]
-  - [项目, 内存池]
-tags:
-  - null 
+  - - Cpp
+    - STL
+  - - 项目
+    - 内存池
+tags: 
 date: 2022/3/7
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
