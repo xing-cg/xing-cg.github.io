@@ -365,6 +365,7 @@ Shared mutexes are especially useful when shared data can be safely read by any 
 <li>如果暂时没拿到锁则阻塞，直到拿到锁后才能进行下一步。
 <ol>
 <li>但这是因抢锁而导致阻塞，和wait的等待队列是两码事！</li>
+<li>也就是说（再次强调）：wait是主动阻塞（wait之前拿到了锁，但是条件为假，主动放弃了锁）。而一旦条件为真，且被唤醒后，抢锁没抢到，则是被动阻塞。</li>
 </ol>
 </li>
 </ol>
