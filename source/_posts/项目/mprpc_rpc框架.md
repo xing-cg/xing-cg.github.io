@@ -60,7 +60,7 @@ service UserServiceRpc
 ```bash
 protoc user.proto --cpp_out=./
 ```
-接下来，就是使用user.pb.h。
+接下来，就是使用`user.pb.h`。
 ## 服务提供者继承UserServiceRpc，实现rpc虚方法，业务处理，响应
 ```cpp
 // userservice.cc
@@ -97,7 +97,63 @@ public:
     }
 };
 ```
-## 服务调用者继承UserServiceRpc_Stub，实现rpc虚方法
+这些重写了的虚函数，在哪里被调用呢？见[`google::protobuf::NewCallback<>`生成回调函数](#`google%20protobuf%20NewCallback<>`生成回调函数)
+## 服务调用方调用UserServiceRpc_Stub里protobuf给我们自动实现好的rpc方法
+比如，`UserServiceRpc_Stub`的`Login`方法，是位于`user.pb.h`中的。
+
+而Login的调用最终会落到`UserServiceRpc_Stub`的`channel_`成员所含的方法`CallMethod`。
+
+要实例化`UserServiceRpc_Stub`，需要一个`MprpcChannel`对象来给它构造，并且这个`MprpcChannel`要实现`CallMethod`。
+
+见[Mprpcchannel类](#Mprpcchannel类)。
+## 服务调用者主程序（如calluserservice.cc）
+定义要调用的某个方法的request（如LoginRequest），填写参数。
+
+定义要调用的某个方法的response（如LoginResponse），不填写参数。
+
+定义`UserServiceRpc_Stub`，通过`MprpcChannel()`实例化。
+
+之后通过stub发起远程调用`Login`。
+```cpp
+#include <iostream>
+#include "mprpcapplication.h"
+#include "user.pb.h"
+#include "mprpcchannel.h"
+int main(int argc, char ** argv)
+{
+    // 整个程序启动以后，想使用mprpc框架来享受rpc服务调用，一定需要先调用框架的初始化函数（只初始化一次）
+    MprpcApplication::Init(argc, argv);
+
+    // 填写rpc方法的请求参数
+    xcg::LoginRequest request;
+    request.set_name("zhang san");
+    request.set_pwd("123456");
+    // 定义rpc方法的响应
+    xcg::LoginResponse response;
+
+    // 底层转到RpcChannel->CallMethod来做所有rpc方法调用的参数序列化和网络发送
+    xcg::UserServiceRpc_Stub stub(new MprpcChannel());
+
+    // 发起rpc方法的调用。
+    stub.Login(nullptr, &request, &response, nullptr);
+    
+    // 一次rpc调用完成，读调用的结果
+    if (response.result().errcode() == 0)
+    {
+        // 成功
+        std::cout << "rpc login response success: " << response.success() << std::endl;
+    }
+    else
+    {
+        std::cout << "rpc login response error: " << response.result().errmsg() << std::endl;
+    }
+    return 0;
+}
+```
+## rpc服务框架的启动入口？
+rpc服务框架由各个服务节点（服务提供者）启动。比如`UserService`，类外实现一个main函数，main函数中调用`MprpcApplication::Init(argc, argv)`进行框架相关的启动，比如读配置文件。
+之后，各个服务节点（服务提供者）可以NotifyService发布自己节点上的服务名、方法名。
+之后，各个服务节点调用`Run`，启动服务节点。
 
 # 模拟rpc框架的使用，以分析框架需要什么东西
 1. 框架需要一个基础类，进行Init初始化，使用argc、argv参数。因为rpc服务器本身有ip地址、端口号，需要zookeeper的ip地址、端口号。从配置文件读。
@@ -574,6 +630,7 @@ private:
 * 把服务描述符和`m_methodMap`封装在`ServiceInfo`结构体中。
 * 之后，把服务的名字和这个`ServiceInfo`作为键值对插入到`m_serviceMap`中。
 
+需要引入`<google/protobuf/descriptor.h>`
 ```cpp
 #include "rpcprovider.h"
 #include "mprpcapplication.h"
@@ -603,7 +660,414 @@ void RpcProvider::NotifyService(::google::protobuf::Service * service)
     m_serviceMap.insert({service_name, service_info});
 }
 ```
+### OnConnection
+在有新的请求时，会触发OnConnection回调，用于处理连接后的操作。OnConnection的通知调用不是用户调用的，而是muduo库自动调用的。
+我们暂时不用处理什么工作。只是判断一下连接状态是否正常，如果断开了则主动close。
+```cpp
+// 新的socket连接回调
+void RpcProvider::onConnection(const muduo::net::TcpConnectionPtr& conn)
+{
+    if (!conn->connected())
+    {
+        conn->shutdown();
+    }
+}
+```
+rpc的连接是短连接，客户端请求、服务端响应之后，服务端就会主动关闭连接。
+### OnMessage
+消息是字节流的。
+```
+// 框架内部，RpcProvider和RpcConsumer协商好通信用的protobuf数据类型
+// 请求时需要提供 service_name method_name args
+// 需要处理包内的粘包问题，比如：UserService和Login以及args在一起，无法区分
+// 因此需要header_size + header_str + args，先把名字部分和参数部分区分开
+// 要注意需要区分args和下一个请求包的 包外粘包问题，需要在header_str中记录args_size
+// 可以通过protobuf定义这个RpcHeader的message类型，根据上述设计，包含了service_name、method_name、args_size
+// header_size指的是RpcHeader这个message包的字符串长度
+// header_size（uint32_t 大小个字节）
+```
+#### 定义rpcheader.proto
+在src下定义此文件（`rpcheader.proto`）
+```protobuf
+syntax = "proto3";
 
+package mprpc;
+
+message RpcHeader
+{
+    bytes service_name = 1;
+    bytes method_name = 2;
+    uint32 args_size = 3;
+}
+```
+之后在此目录下用protoc命令生成cc和h文件。
+```sh
+protoc rpcheader.proto --cpp_out=./
+```
+
+#### rpcprovider.cc引入rpcheader.pb.h，做读取、解析工作
+1. 解析接收到的字符流`recv_buf`中的内容。
+    1. 取出前4个字节（`sizeof uint32_t`），即`header_size`。（`header_size`指的是RpcHeader这个message包的字符串长度，包含了`service_name`、`method_name`、`args_size`信息）。响应端通过string的`copy`方法读出（相应的写入方法是insert方法，是请求端填写的）。
+    2. 获取了`header_size`之后，在`recv_buf`取出4字节之后的`header_size`长度的字符串，存入`rpc_header_str`。
+    3. 用protobuf生成的RpcHeader的ParseFromString方法即可解析`rpc_header_str`，填入了RpcHeader对象。再调用RpcHeader对象方法`service_name()`、`method_name()`、`args_size()`即可读出解析到的数据。
+    4. 之后，recv_buf的`4字节 + header_size`之后的`args_size`长度的字符串就是args的数据。可以同上述方法解析出内容。
+
+需要引入`"rpcheader.pb.h"`
+```cpp
+void RpcProvider::onMessage(const muduo::net::TcpConnectionPtr& conn, muduo::net::Buffer* buffer, muduo::Timestamp timestamp)
+{
+    // 接收到的rpc调用请求的字符流
+    // 包含了方法名、参数
+    std::string recv_buf = buffer->retrieveAllAsString();
+    // 从字符流中读取前4个字节的header_size（即按内存中原来的2进制读取）
+    // 有相应的string方法：insert、copy，是按2进制写入、读取固定字节的数据，而不是直接把数字存为长度不一的字符串。
+    uint32_t header_size = 0;
+    // 从recv_buf的 0 位置开始，读取uint32_t 大小个字节，存入header_size。
+    recv_buf.copy((char*)&header_size, sizeof(uint32_t), 0);
+    // 根据header_size读取数据头的原始字符流
+    // substr表示，略过recv_buf的前uint32_t 大小个字节，返回之后的header_size长度的字符串
+    // rpc_header_str 目前保存了service_name method_name args_size
+    std::string rpc_header_str = recv_buf.substr(sizeof(uint32_t), header_size);
+    // 用rpcheader.pb.h生成的rpcHeader中的ParseFromString反序列化rpc_header_str
+    mprpc::RpcHeader rpcHeader;
+    std::string service_name;
+    std::string method_name;
+    uint32_t args_size;
+    if (rpcHeader.ParseFromString(rpc_header_str))
+    {
+        // header反序列化成功
+        service_name = rpcHeader.service_name();
+        method_name = rpcHeader.method_name();
+        args_size = rpcHeader.args_size();
+    }
+    else
+    {
+        // header反序列化失败
+        std::cout << "rpc_header_str: " << rpc_header_str << "parse error!" << std::endl;
+        return;
+    }
+
+    // 获取rpc方法参数的字符流数据
+    std::string args_str = recv_buf.substr(sizeof(uint32_t) + header_size, args_size);
+
+    // 打印调试信息
+    std::cout << "==============================" << std::endl;
+    std::cout << "header_size: " << header_size << std::endl;
+    std::cout << "rpc_header_str: " << rpc_header_str << std::endl;
+    std::cout << "service_name: " << service_name << std::endl;
+    std::cout << "method_name: " << method_name << std::endl;
+    std::cout << "args_str: " << args_str << std::endl;
+    std::cout << "==============================" << std::endl;
+    // ...
+}
+```
+#### 查表获取service对象和method对象
+```cpp
+    // ...
+
+    auto service_it = m_serviceMap.find(service_name);
+    if (service_it == m_serviceMap.end())
+    {
+        std::cout << service_name << " not exist!" << std::endl;
+        return;
+    }
+    auto method_it = service_it->second.m_methodMap.find(method_name);
+    if (method_it == service_it->second.m_methodMap.end())
+    {
+        std::cout << method_name << " not exist in " << service_name << std::endl;
+        return;
+    }
+    
+    google::protobuf::Service *service = service_it->second.m_service;
+    const google::protobuf::MethodDescriptor *method = method_it->second;
+    // ...
+```
+#### `service->GetRequestPrototype(method).New()`生成request和response
+```cpp
+    // ...
+
+    // 生成rpc方法调用的请求request和响应response
+    google::protobuf::Message *request = service->GetRequestPrototype(method).New();
+    if (!request->ParseFromString(args_str))
+    {
+        std::cout << "request parse args_str error! args_str: " << args_str << std::endl;
+        return;
+    }
+    google::protobuf::Message *response = service->GetResponsePrototype(method).New();
+    // ...
+```
+#### `google::protobuf::NewCallback<>`生成回调函数
+```cpp
+    // ...
+    
+    // 给下面的method方法的调用，绑定一个Closure的回调函数
+    google::protobuf::Closure* done = google::protobuf::NewCallback
+        <RpcProvider, const muduo::net::TcpConnectionPtr&, google::protobuf::Message*>
+            (this, &RpcProvider::SendRpcResponse, conn, response);
+
+    // 在框架上根据远端rpc请求，调用当前rpc节点上发布的方法
+    service->CallMethod(method, nullptr, request, response, done);
+}
+```
+#### 编写`RpcProvider::SendRpcResponse()`
+```cpp
+void RpcProvider::SendRpcResponse(const muduo::net::TcpConnectionPtr& conn, google::protobuf::Message* response)
+{
+    std::string response_str;
+    // 将response序列化为字符流
+    if (response->SerializeToString(&response_str))
+    {
+        // 序列化成功后，通过网络把rpc方法执行的结果发送回rpc的调用方
+        conn->send(response_str);
+    }
+    else
+    {
+        std::cout << "Serialize response_str error!" << std::endl;
+    }
+    conn->shutdown(); // 短连接效果，由rpcprovider主动断开连接，让出服务器资源。
+}
+```
+## Mprpcchannel类
+```cpp
+#pragma once
+#include <google/protobuf/service.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/message.h>
+class MprpcChannel : public google::protobuf::RpcChannel
+{
+public:
+    // 所有通过stub代理对象调用的rpc方法，都走到这里了，统一做rpc方法调用的数据数据序列化和网络发送
+    void CallMethod(const google::protobuf::MethodDescriptor *method,
+                    google::protobuf::RpcController *controller, const google::protobuf::Message *request,
+                    google::protobuf::Message *response, google::protobuf::Closure *done);
+       
+};
+```
+在这个方法中，处理服务调用方的请求包。
+
+这个请求包只包含rpc调用的函数参数（args），不包含服务名、方法名。服务名、方法名可以用`method`参数查到。
+
+把请求包（只包含args）序列化，得到序列化之后的args字符流`args_str`长度`args_size`。
+
+填写 RpcHeader（`service_name`、`method_name`、`args_size`），序列化后得到 RpcHeader的字符流`rpc_header_str`长度`header_size`
+
+之后按照约定好的格式，把`header_size`、`rpc_header_str`、`args_str`格式化填充、拼接到`send_rpc_str`。
+
+之后便是TCP客户端编程，把`send_rpc_str`发送到配置文件中的远端ip、端口。
+
+等待远端响应的数据，解析响应数据。填入了response。
+
+CallMethod结束，Channel的使命结束，Stub的使命结束。
+
+调用栈就回到了服务调用方的主程序中，输出response。
+见[服务调用者主程序](#服务调用者主程序)
+
+>服务调用方是通过Channel得知远端服务提供方的ip、端口的。
+### 实现
+```cpp
+#include "mprpcchannel.h"
+#include "rpcheader.pb.h"
+#include "mprpcapplication.h"
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <error.h>
+// 约定好的包格式：（header_size)(service_name method_name args_size)(args)
+void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
+    google::protobuf::RpcController *controller, const google::protobuf::Message *request,
+    google::protobuf::Message *response, google::protobuf::Closure *done)
+{
+    const google::protobuf::ServiceDescriptor *sd = method->service();
+    std::string service_name = sd->name();
+    std::string method_name = method->name();
+    
+    // 序列化(args)，之后才能获取args的序列化字符串长度 args_size
+    uint32_t args_size = 0;
+    std::string args_str;
+    if (request->SerializeToString(&args_str))
+    {
+        args_size = args_str.size();
+    }
+    else
+    {
+        std::cout << "serialize request error!" << std::endl;
+        return;
+    }
+    // 填写rpc的请求header
+    mprpc::RpcHeader rpcHeader;
+    rpcHeader.set_service_name(service_name);
+    rpcHeader.set_method_name(method_name);
+    rpcHeader.set_args_size(args_size);
+    // 序列化（header_size)(service_name method_name args_size)
+    uint32_t header_size = 0;
+    std::string rpc_header_str;
+    if (rpcHeader.SerializeToString(&rpc_header_str))
+    {
+        header_size = rpc_header_str.size();
+    }
+    else
+    {
+        std::cout << "serialize request error!" << std::endl;
+        return;
+    }
+
+    std::string send_rpc_str;
+    send_rpc_str.insert(0, std::string((char*)&header_size, 4));
+    send_rpc_str += rpc_header_str;
+    send_rpc_str += args_str;
+
+    // 打印调试信息
+    std::cout << "==============================" << std::endl;
+    std::cout << "header_size: " << header_size << std::endl;
+    std::cout << "rpc_header_str: " << rpc_header_str << std::endl;
+    std::cout << "service_name: " << service_name << std::endl;
+    std::cout << "method_name: " << method_name << std::endl;
+    std::cout << "args_str: " << args_str << std::endl;
+    std::cout << "==============================" << std::endl;
+
+    // 使用tcp编程，完成rpc方法的远程调用
+    int cliendfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (-1 == cliendfd)
+    {
+        std::cout << "Create Socket Error: " << errno << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // 读取配置文件rpcserver的信息
+    std::string ip = MprpcApplication::GetInstance().GetConfig().Load("rpcserver_ip");
+    uint16_t port = atoi(MprpcApplication::GetInstance().GetConfig().Load("rpcserver_port").c_str());
+    struct sockaddr_in server_addr;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
+    if (-1 == inet_pton(AF_INET, ip.c_str(), &(server_addr.sin_addr.s_addr)))
+    {
+        std::cout << "inet_pton Error: " << errno << std::endl;
+        close(cliendfd);
+        exit(EXIT_FAILURE);
+    }
+    if (-1 == connect(cliendfd, (struct sockaddr*)&server_addr, sizeof(server_addr)))
+    {
+        std::cout << "connect Error: " << errno << std::endl;
+        close(cliendfd);
+        exit(EXIT_FAILURE);
+    }
+    if (-1 == send(cliendfd, send_rpc_str.c_str(), send_rpc_str.size(), 0))
+    {
+        std::cout << "send Error: " << errno << std::endl;
+        close(cliendfd);
+        exit(EXIT_FAILURE);
+    }
+    char recv_buff[1024] = {0};
+    int recv_size = 0;
+    if (-1 == (recv_size = recv(cliendfd, recv_buff, sizeof(recv_buff), 0)))
+    {
+        std::cout << "recv Error: " << errno << std::endl;
+        close(cliendfd);
+        exit(EXIT_FAILURE);
+    }
+    // 反序列化rpc调用的响应数据
+    // std::string response_str(recv_buff, 0, recv_size); // 如此构造有问题，如果recv_buff中存在\0则断开。
+    // if (!response->ParseFromString(response_str))
+    if (!response->ParseFromArray(recv_buff, recv_size))
+    {
+        std::cout << "parse response_str error! response_str: " << recv_buff << std::endl;
+        close(cliendfd);
+        return;
+    }
+    close(cliendfd);
+}
+```
+## MprpcController 的作用
+用于记录rpc调用过程中的状态信息。
+试想，如果请求过程中，或者响应过程中，某一环节除了问题，那么服务调用方就拿不到response任何内容了，那么它去看了个寂寞？也不清楚是哪个环节出错了。这时候可以在参数中传入`mprpccontroller`的指针，让对应的MprpcController对象在内部记录状态信息。
+```cpp
+#pragma once
+#include <google/protobuf/service.h>
+class MprpcController : public google::protobuf::RpcController
+{
+public:
+    MprpcController();
+    void Reset();
+    bool Failed() const;
+    std::string ErrorText() const;
+    void SetFailed(const std::string& reason);
+
+    // 暂时空实现
+    void StartCancel();
+    bool IsCanceled() const;
+    void NotifyOnCancel(google::protobuf::Closure *callback);
+private:
+    // RPC方法执行过程中的状态
+    bool m_failed;
+    // RPC方法执行过程中的错误信息
+    std::string m_errText;
+};
+```
+### 实现
+```cpp
+#include "mprpccontroller.h"
+MprpcController::MprpcController()
+{
+    m_failed = false;
+    m_errText = "";
+}
+void MprpcController::Reset()
+{
+    m_failed = false;
+    m_errText = "";
+}
+bool MprpcController::Failed() const
+{
+    return m_failed;
+}
+std::string MprpcController::ErrorText() const
+{
+    return m_errText;
+}
+void MprpcController::SetFailed(const std::string& reason)
+{
+    m_failed = true;
+    m_errText = reason;
+}
+void MprpcController::StartCancel(){}
+bool MprpcController::IsCanceled() const { return false; }
+void MprpcController::NotifyOnCancel(google::protobuf::Closure *callback){}
+```
+### 如何使用
+比如在`calluserservice.cc`下，可以：
+在stub调用某方法前，定义一个MprpcController对象，之后把其指针传到调用方法的函数参数内。
+在读取response前，先判断controller的状态信息。如果错误就不读了。
+
+```cpp
+#include "mprpccontroller.h"
+// ...
+    // 发起rpc方法的调用。
+    MprpcController controller;
+    stub.Login(&controller, &request, &response, nullptr);
+    
+    if (controller.Failed()) // rpc调用过程中有异常，response没有填入数据
+    {
+        std::cout << controller.ErrorText() << std::endl;
+    }
+    else // 一次rpc调用结束，返回了，读返回的response结果
+    {
+        if (response.result().errcode() == 0)
+        {
+            // 成功
+            std::cout << "rpc login response success: " << response.success() << std::endl;
+        }
+        else
+        {
+            std::cout << "rpc login response error: " << response.result().errmsg() << std::endl;
+        }
+    }
+    return 0;
+}
+```
+在`mprpcchannel.cc`中，有可能出现异常的地方，均用controller记录。
+
+别忘了在src下的CMakeLists中的`set(SRC_LIST ... )`后面添加上`mprpccontroller.cc`。
+## 日志类
 ## 编译
 框架依赖muduo库，因此需要在src目录下的`CMakeLists.txt`添加：
 
@@ -639,6 +1103,7 @@ add_library(mprpc ${SRC_LIST})
 # 依赖muduo库
 target_link_libraries(mprpc muduo_net muduo_base pthread)
 ```
+
 测试：
 ```bash
 mrcan@ubuntu:~/mprpc/bin$ ./provider -i test.conf 
@@ -648,6 +1113,33 @@ zookeeper_ip: 127.0.0.1
 zookeeper_port: 5000
 RpcProvider Start Service at IP: 127.0.0.1, port: 8000
 ```
+
+### `aux_source_directory`存在的问题
+`~/mprpc/src`下的`CMakeLists.txt`原本是如下定义的：
+```cmake
+# 当前文件夹中所有文件 别名 SRC_LIST
+aux_source_directory(. SRC_LIST)
+# 生成静态库
+add_library(mprpc ${SRC_LIST})
+# 依赖muduo库
+target_link_libraries(mprpc muduo_net muduo_base pthread)
+```
+
+`aux_source_directory(. SRC_LIST)`表示给当前文件夹下的所有内容起了别名`SRC_LIST`。
+一开始构建、编译没什么问题，但后面发现如果我们给src目录增加`.cc`文件后再进行编译则无法找到这些新增的文件。
+
+说明build只记录了当时`src`目录下的旧文件，而没有记录新增的文件。
+所以我们还是这么写吧：
+```cmake
+# 当前文件夹中所有文件 别名 SRC_LIST
+set(SRC_LIST mprpcapplication.cc mprpcconfig.cc rpcheader.cc rpcprovider.cc)
+
+# 生成静态库
+add_library(mprpc ${SRC_LIST})
+# 依赖muduo库
+target_link_libraries(mprpc muduo_net muduo_base pthread)
+```
+
 # 调试
 
 在顶级cmake写下：`set(CMAKE_BUILD_TYPE "Debug")`
@@ -678,3 +1170,5 @@ l
 p + 变量名，可以打印变量的值。
 ![](../../images/mprpc_rpc框架/image-20250713174949860.png)
 q退出调试
+# zookeeper
+channel一开始不知道服务节点的ip、port，需要先去查找。

@@ -1,6 +1,5 @@
 ---
 title: cmake
-typora-root-url: ../..
 categories:
   - - 项目
   - - Linux

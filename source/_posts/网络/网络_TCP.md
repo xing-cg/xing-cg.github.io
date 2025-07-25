@@ -4,13 +4,14 @@ categories:
   - - 网络
 tags: 
 date: 2022/3/25
-updated: 
+updated: 2025/7/22
 comments: 
 published:
 ---
-# 内容
-1. TCP的特点
-2. TCP的标志位
+# 四次挥手
+![](../../images/网络_TCP/image-20250722092657370.png)
+
+
 # TCP
 特点：
 
