@@ -1,6 +1,5 @@
 ---
 title: 网络_SMB共享文件
-typora-root-url: ../..
 categories:
   - - 网络
 tags: 
