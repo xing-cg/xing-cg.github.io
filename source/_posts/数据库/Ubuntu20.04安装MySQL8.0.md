@@ -1,13 +1,12 @@
 ---
 title: Ubuntu20.04安装MySQL8.0
-typora-root-url: ../..
 categories:
-  - [数据库, MySQL]
-tags:
-  - null 
+  - - 数据库
+    - MySQL
+tags: 
 date: 2022/7/25
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

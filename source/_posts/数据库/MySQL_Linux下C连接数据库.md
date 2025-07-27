@@ -1,14 +1,13 @@
 ---
-typora-root-url: ../..
 title: Linux_C连接数据库
 categories:
-  - [Linux]
-  - [数据库, MySQL]
-tags:
-  - null 
+  - - Linux
+  - - 数据库
+    - MySQL
+tags: 
 date: 2022/3/3
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,13 +1,12 @@
 ---
-typora-root-url: ../..
 title: MySQL_完整性约束
 categories:
-  - [数据库, MySQL]
-tags:
-  - null 
+  - - 数据库
+    - MySQL
+tags: 
 date: 2022/4/28
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,24 +1,23 @@
 ---
-typora-root-url: ../..
 title: MySQL_SQL
 categories:
-  - [数据库, MySQL]
-tags:
-  - null 
+  - - 数据库
+    - MySQL
+tags: 
 date: 2022/5/17
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
 # 内容
 
 1. SQL(Structure Query Language, 结构化查询语言)
-1. SQL划分为3个类别，DD(Definition)L、DM(Manipulation)L、DC(Control)L
-1. 库操作
-1. 表操作
-1. CRUD
-1. SQL语句和索引的关系
+2. SQL划分为3个类别，DD(Definition)L、DM(Manipulation)L、DC(Control)L
+3. 库操作
+4. 表操作
+5. CRUD
+6. SQL语句和索引的关系
 
 # SQL
 
@@ -89,6 +88,7 @@ show tables;
 
 ```mysql
 DESC user;
+describe user; # 全拼
 ```
 
 ![image-20220517103053213](../../images/MySQL_SQL/image-20220517103053213.png)

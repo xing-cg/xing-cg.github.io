@@ -1,13 +1,12 @@
 ---
-typora-root-url: ../..
 title: MySQL_查询专题
 categories:
-  - [数据库, MySQL]
-tags:
-  - null 
+  - - 数据库
+    - MySQL
+tags: 
 date: 2022/5/17
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
