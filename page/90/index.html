@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">MySQL_完整性约束</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" data-flag-title="MySQL_完整性约束"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/">MySQL_完整性约束</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F/" data-flag-title="MySQL_完整性约束"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -83,7 +83,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>如果我们要删除张三，那么需要把另一个表中依赖张三的信息也删掉。否则就会出现无效冗余数据。</p>
 <p>外键、存储函数、存储过程、触发器，在现如今的后台开发中几乎不直接用在mysql端了。</p>
 <p>而是尽量把这个过程放在业务逻辑上提前处理好，让数据库持久层专于做增删改查，有利于提高效率。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">MySQL_数据类型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-26</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-flag-title="MySQL_数据类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">MySQL_数据类型</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-flag-title="MySQL_数据类型"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -94,8 +94,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>enum和set</li>
 </ol>
 
-        <h1 id="分层模型"   >
-          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层模型"></a> 分层模型</h1>
+        <h1 id="设计数据类型的重要性"   >
+          <a href="#设计数据类型的重要性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计数据类型的重要性"></a> 设计数据类型的重要性</h1>
       
 <p>业务层是工作在内存上的，速度很快。</p>
 <p>而最先达到性能瓶颈的一般都是数据库，因为数据库涉及到磁盘IO。磁盘IO是很慢的。</p>
@@ -172,11 +172,11 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </tr>
 </tbody>
 </table></div>
-<p>其中浮点类型推荐使用<code>decimal</code>类型（保存为字符串格式）。</p>
+<p>其中浮点类型推荐使用<code>decimal</code>类型（保存为字符串格式）。数据精度范围很大，约28位，而且计算时，越界、溢出会报错，而普通整数、浮点只是截断。</p>
 <ul>
 <li>注意
 <ul>
-<li><code>age INT(9)</code>这不是意味着定义了一个长度为9字节的整型。对于占用内存的大小是固定的、和具体的类型是强相关的来说，括号内的数目只是代表整数显示的宽度。</li>
+<li><code>age INT(9)</code>这不是意味着定义了一个长度为9字节的整型。数值类型占用内存的大小是固定的，和具体的类型是强相关的，括号内的数目只是代表它显示的宽度。</li>
 </ul>
 </li>
 </ul>
@@ -201,7 +201,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <tr>
 <td><code>CHAR(M)</code></td>
 <td>M</td>
-<td>M为<code>0~255</code>之间的整数</td>
+<td>M为<code>0~255</code>之间的整数。占用空间M字节。</td>
 </tr>
 <tr>
 <td><code>VARCHAR(M)</code></td>
@@ -261,12 +261,14 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </tbody>
 </table></div>
 <ul>
-<li>注意
-<ul>
-<li><code>CHAR(12)</code>和<code>VARCHAR(12)</code>的区别在于，如果存储的字符串长度不够12，如果是<code>VARCHAR</code>则为实际的长度，而如果是<code>CHAR</code>则依旧是12；共同点：如果数据超过12则都会产生截断。</li>
-<li>SQL注入式攻击——字符串拼接导致的问题。</li>
+<li><code>CHAR(12)</code>和<code>VARCHAR(12)</code>的区别在于，如果实际的字符串长度不够12，<code>VARCHAR</code>大小则为实际的长度，而<code>CHAR</code>的大小则依旧是12字节；共同点：如果数据超过12则都会产生截断。</li>
+<li>BLOB一般用于存储二进制格式的图片、音频。</li>
+<li>TEXT的应用：留言板，商品的备注说明，聊天信息的存储。一些大文本。</li>
 </ul>
-</li>
+<p>初期设计时，可能低估了将来的数据量，可能会超过设计的范围。</p>
+<p>数据库中字符串以单引号包裹。</p>
+<ul>
+<li>SQL注入式攻击——字符串拼接导致的问题。</li>
 </ul>
 
         <h1 id="日期和时间类型"   >
@@ -315,30 +317,28 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </tbody>
 </table></div>
 <ul>
-<li>注意
-<ul>
 <li>日期类型是做项目过程中经常使用的类型信息，尤其是<code>TIMESTAMP</code>和<code>DATETIME</code>两个类型；</li>
 <li>注意<code>TIMESTAMP</code>会自动更新时间，非常适合需要记录最新更新时间的场景，对应的函数是<code>unix_timestamp(now())</code>；而<code>DATETIME</code>需要手动更新。</li>
-</ul>
-</li>
+<li>这里虽然介绍了MySQL的时间类型，但是现代的后端开发，MySQL基本已经很少使用自身的存储过程、存储函数、触发器、外键设置了，尽量把复杂的业务在业务层处理。涉及的时间操作也是同理。应该让MySQL聚焦在核心的增删改查操作上。</li>
 </ul>
 
-        <h2 id="示例-2"   >
-          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
+        <h2 id="时间戳示例"   >
+          <a href="#时间戳示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#时间戳示例"></a> 时间戳示例</h2>
       
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select now();					# 2022-04-28 19:30:11</span><br><span class="line">select unix_timestamp(now());	# 1617683855</span><br></pre></td></tr></table></div></figure>
+<p><code>unix_timestamp(now());</code>用于生成UNIX的时间戳，数值含义是自1970年起的秒数。用整型存储。</p>
 
-        <h1 id="枚举和集合"   >
-          <a href="#枚举和集合" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#枚举和集合"></a> 枚举和集合</h1>
+        <h1 id="枚举和集合enum和set"   >
+          <a href="#枚举和集合enum和set" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#枚举和集合enum和set"></a> 枚举和集合（enum和set）</h1>
       
 <ul>
-<li>这两种类型都是限制该字段只能取固定的某些值。比如性别——只能男或女。</li>
+<li>这两种类型都是限制该字段只能取预定义的固定的某些值。比如性别——只能男或女。</li>
 <li>枚举字段只能取一个唯一的值。</li>
 <li>集合字段可以取任意个值。</li>
 </ul>
 
-        <h2 id="示例-3"   >
-          <a href="#示例-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h2>
+        <h2 id="示例-2"   >
+          <a href="#示例-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
       
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sex enum(&#x27;M&#x27;,&#x27;W&#x27;) default &#x27;M&#x27;</span><br></pre></td></tr></table></div></figure>
 </div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/89/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><span class="page-number current">90</span><a class="page-number" href="/page/91/">91</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/91/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">297</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
