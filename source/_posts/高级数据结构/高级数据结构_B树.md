@@ -1,19 +1,16 @@
 ---
-title: 高级数据结构_BTree
+title: 高级数据结构_B树
 categories:
   - - 高级数据结构
     - 树
 tags: 
 date: 2022/3/24
-update: 
+updated: 
 comments: 
 published:
 ---
-# 内容
-
-1. `B` Tree
-2. `B+` Tree
-3. `B*` Tree
+# B树
+B代表Balanced，所有叶子节点都在同一层。
 # B树代码示例
 
 ```cpp

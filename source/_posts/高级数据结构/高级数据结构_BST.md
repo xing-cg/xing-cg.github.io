@@ -1,13 +1,12 @@
 ---
 title: 高级数据结构_BST
-typora-root-url: ../..
 categories:
-  - [高级数据结构, 树]
-tags:
-  - null 
+  - - 高级数据结构
+    - 树
+tags: 
 date: 2022/5/20
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
