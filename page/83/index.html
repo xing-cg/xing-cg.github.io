@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/">MySQL_索引</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/" data-flag-title="MySQL_索引"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/">MySQL_索引</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/" data-flag-title="MySQL_索引"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -45,6 +45,12 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>explain分析相关SQL语句</li>
 <li>总结 - 使用索引时需要注意的</li>
 </ol>
+
+        <h1 id="数据库文件存在哪里"   >
+          <a href="#数据库文件存在哪里" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库文件存在哪里"></a> 数据库文件存在哪里？</h1>
+      
+<p>同一数据库的不同表，存放在不同的文件里。<br />
+详见《<a href="MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F">MySQL_存储引擎 - 数据的存储方式</a>》</p>
 
         <h1 id="为什么要有索引"   >
           <a href="#为什么要有索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么要有索引"></a> 为什么要有索引</h1>
@@ -66,8 +72,16 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#索引的分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的分类"></a> 索引的分类</h1>
       
 <p>从两个方面来看：物理上/逻辑上</p>
-<p>物理上又可分为：聚集索引、非聚集索引</p>
-<p>逻辑上又可分为：</p>
+
+        <h2 id="物理上"   >
+          <a href="#物理上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#物理上"></a> 物理上</h2>
+      
+<p>可分为：聚集索引、非聚集索引</p>
+
+        <h2 id="逻辑上"   >
+          <a href="#逻辑上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑上"></a> 逻辑上</h2>
+      
+<p>可分为：</p>
 <ol>
 <li>普通索引（又称为二级索引）
 <ol>
@@ -82,7 +96,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>使用UNIQUE修饰的字段，值不能重复，主键索引也属于唯一性索引。</li>
 </ol>
 </li>
-<li>主键索引
+<li><strong>主键索引（自动创建索引）</strong>
 <ol>
 <li>使用Primary Key修饰的字段会自动创建索引</li>
 <li>要注意主键和主键索引的区分，MyISAM存储引擎下，如果没有设置主键，也不会自动添加一列主键列。只有主动设置主键才会有主键存储。因为它的索引和数据是分开存放的；但在InnoDB存储引擎下，如果没有设置主键，会默认添加一列整型字段的列，作为主键。因为数据和索引是存在一个文件<code>.idb</code>中的，如果没有索引树，数据无处存放。</li>
@@ -111,12 +125,42 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="索引的创建与删除"   >
           <a href="#索引的创建与删除" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引的创建与删除"></a> 索引的创建与删除</h1>
       
-<p>创建表的时候指定索引字段</p>
+
+        <h2 id="创建表的时候指定索引字段"   >
+          <a href="#创建表的时候指定索引字段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建表的时候指定索引字段"></a> 创建表的时候指定索引字段</h2>
+      
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user(</span><br><span class="line">    id INT,</span><br><span class="line">    name VARCHAR(20),</span><br><span class="line">    sex ENUM(&#x27;male&#x27;, &#x27;female&#x27;),</span><br><span class="line">    INDEX(id)</span><br><span class="line">);</span><br></pre></td></tr></table></div></figure>
-<p>在已创建的表上添加索引</p>
+
+        <h2 id="在已创建的表上添加索引"   >
+          <a href="#在已创建的表上添加索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在已创建的表上添加索引"></a> 在已创建的表上添加索引</h2>
+      
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE [UNIQUE] INDEX [索引名]</span><br><span class="line">ON 表名 (字段名(长度) [ASC | DESC]);</span><br></pre></td></tr></table></div></figure>
-<p>删除索引</p>
+
+        <h2 id="删除索引"   >
+          <a href="#删除索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除索引"></a> 删除索引</h2>
+      
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX 索引名 ON 表名;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="一次select-where过滤条件查询所经历的事情"   >
+          <a href="#一次select-where过滤条件查询所经历的事情" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一次select-where过滤条件查询所经历的事情"></a> 一次select where过滤条件查询所经历的事情</h1>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from student WHERE uid = 5;</span><br></pre></td></tr></table></div></figure>
+<p>UID为主键，默认有索引。<br />
+查询一次的全流程：</p>
+<ol>
+<li>存储引擎启动</li>
+<li>kernel space</li>
+<li>磁盘IO（读取索引文件）</li>
+<li>内存上，用索引的数据构建B树</li>
+<li>查找数据，内存上二分找到索引节点，<strong>value为一行记录的文件指针或者一行记录的数据（根据不同存储引擎实现）</strong>。
+<ol>
+<li>MyISAM的索引文件和数据文件是分离的，因此索引节点的value为一行记录的文件指针，需要去磁盘中读取。</li>
+<li>InnoDB的索引文件和数据文件是一起的，因此以及把索引的数据提前读取到了内存中，所以value值直接是一行记录的数据。</li>
+</ol>
+</li>
+<li>kernel space</li>
+<li>磁盘IO返回内存。</li>
+</ol>
 
         <h1 id="实操探索索引"   >
           <a href="#实操探索索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实操探索索引"></a> 实操探索索引</h1>
@@ -124,50 +168,82 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>首先<code>su root</code> + <code>netstat -natp | grep mysqld</code>查看mysql守护进程是否正在运行，默认工作在3306端口。</p>
 <p>我们先拿小表来探索。</p>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519170152517.png" alt="image-20220519170152517" /></p>
+
+        <h2 id="查看表的结构-看主键索引"   >
+          <a href="#查看表的结构-看主键索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#查看表的结构-看主键索引"></a> 查看表的结构 - 看主键索引</h2>
+      
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE TABLE student\G #查看表的结构</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174256317.png" alt="image-20220519174256317" /></p>
 <p>发现此表只有一个uid主键索引。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE uid=3;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="explain命令查看select-where的性能分析"   >
+          <a href="#explain命令查看select-where的性能分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#explain命令查看select-where的性能分析"></a> explain命令查看select where的性能分析</h2>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE uid = 3;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174431412.png" alt="image-20220519174431412" /></p>
-<p>由于uid上有主键索引，所以不管此表中有多少数据，只要是按照uid过滤条件来查找，直接就可以找到，不收查找的数据的位置的影响（不会在后面就找得慢，在前面就找得快）。explain结果中type为const表示常量时间，<code>key_len</code>为4，对应了uid的int型的4字节大小。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE name=&#x27;linfeng&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p>由于uid上有主键索引，所以不管此表中有多少数据，只要是按照uid过滤条件来查找，直接就可以找到，不受查找的数据的位置的影响（不会在后面就找得慢，在前面就找得快）。</p>
+<p>explain结果中<strong>type为const表示常量时间</strong>，<code>key_len</code>为4，对应了uid的int型的4字节大小。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE name = &#x27;linfeng&#x27;;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174825252.png" alt="image-20220519174825252" /></p>
-<p>由于<code>name</code>没有索引，所以explain分析出的性能显示此次查找未能使用索引。而且通过name进行查找只能进行全表检索。效率较低。<code>type</code>字段为<code>ALL</code>。</p>
-<p>我们给name字段建立一个索引</p>
+<p>由于<code>name</code>没有索引，所以explain分析出的性能显示<code>type</code>字段为<code>ALL</code>。<br />
+通过name进行查找只能进行全表检索，效率较低。</p>
+
+        <h2 id="非主键字段创建索引前后区别"   >
+          <a href="#非主键字段创建索引前后区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非主键字段创建索引前后区别"></a> 非主键字段创建索引，前后区别</h2>
+      
+<p>我们给name字段建立一个索引。</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX nameidx ON student(name);</span><br><span class="line">SHOW CREATE TABLE student\G</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175233259.png" alt="image-20220519175233259" /></p>
-<p>发现，下面多了一个<code>KEY nameidx(name)</code>。但是，<strong>建立了索引之后，不一定会用到索引，MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表搜索的数目差不多的话，就不会使用索引</strong>，因为通过索引来检索也是需要消耗磁盘IO的，恐会适得其反。</p>
+<p>发现，下面多了一个<code>KEY nameidx(name)</code>。<br />
+但是，<strong>建立了索引之后，不一定会用到索引，<br />
+MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表搜索的数目差不多的话，就不会使用索引</strong>，<br />
+因为通过索引来检索也是需要消耗磁盘IO的，恐会适得其反。</p>
 <p>对name加完索引之后，再来分析按<code>name</code>搜索的性能：</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE name=&#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175732865.png" alt="image-20220519175732865" /></p>
-<p>这里我们看到，加了索引后，<code>type</code>的内容变为<code>ref</code>，<code>key</code>的内容是<code>nameidx</code>。还有一个可以优化的点，我们发现，<code>key_len</code>为152，这个值<strong>我们可以在创建索引时在字段后加一个<code>(长度)</code>，以限制索引的字长，通过控制索引的字长，避免索引长度过大，来提高搜索效率</strong>。通常对字符串索引进行控制。</p>
-<hr />
+<p>这里我们看到，加了索引后，<code>type</code>的内容变为<code>ref</code>。</p>
+<p>还有一个可以优化的点，我们发现，<code>key_len</code>为152，这个值是索引的字长。</p>
+<p>我们可以在创建索引时在字段后加一个<code>(长度)</code>，以限制索引的字长。<br />
+<strong>通过控制索引的字长，避免索引长度过大，来提高搜索效率</strong>。</p>
+<p>通常对字符串索引进行控制。</p>
+
+        <h2 id="测试innodb的数据缓存"   >
+          <a href="#测试innodb的数据缓存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试innodb的数据缓存"></a> 测试InnoDB的数据缓存</h2>
+      
 <p>现在来测试<code>t_user</code>表，此表中有2000000条数据。</p>
 <p>现在测试查找同一个password的用户。（注意，我们用的是整型的1000000）</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password = 1000000;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519194908928.png" alt="image-20220519194908928" /></p>
 <p>再运行一次相同的SQL。（测试InnoDB的数据缓存）</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password = 1000000;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195157521.png" alt="image-20220519195157521" /></p>
 <p>我们发现，由于两次相同的查找之间没有对数据库表进行修改、添加、删除操作，利用了存储引擎的缓存机制，比第一次查找出的时间快了，因为不用花费磁盘IO。</p>
+
+        <h2 id="测试有无索引的性能区别涉及到类型转换时索引失效的问题"   >
+          <a href="#测试有无索引的性能区别涉及到类型转换时索引失效的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试有无索引的性能区别涉及到类型转换时索引失效的问题"></a> 测试有无索引的性能区别（涉及到类型转换时索引失效的问题）</h2>
+      
 <p>现在给password字段添加个索引。</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX pwdidx ON t_user(password);</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195427490.png" alt="image-20220519195427490" /></p>
 <p>现在再来试试查password。（故意写成整型）</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password = 1000000;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195537622.png" alt="image-20220519195537622" /></p>
 <p>感觉性能并未大幅提升！这是为啥呢？</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password=1000000;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password = 1000000;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195807298.png" alt="image-20220519195807298" /></p>
-<p>Explain发现索引失效！</p>
-<p>原因是因为在查询过程的过滤过程中，涉及到了一个类型转换操作，如此就会让索引失效。</p>
+<p>Explain发现：<code>key</code>值为<code>NULL</code>，意思就是：在执行SELECT where过滤password字段时，索引失效！</p>
+<p>原因是因为在查询过程的过滤过程中，涉及到了一个<strong>类型转换操作</strong>。<br />
+（数据表原本设计password是字符串，而我们是用整型值传递的查询命令），如此就会让索引失效。</p>
 <p>我们把它写正确：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password=&#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_user WHERE password = &#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200232453.png" alt="image-20220519200232453" /></p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password=&#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM t_user WHERE password = &#x27;1000000&#x27;;</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200158653.png" alt="image-20220519200158653" /></p>
 <p>可以发现，如果没有类型强转，则一切恢复正常，索引发挥了它原有的功力——即使是在百万数据集中，也能瞬间找到要找的记录。</p>
-<hr />
+
+        <h2 id="测试删除索引"   >
+          <a href="#测试删除索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试删除索引"></a> 测试删除索引</h2>
+      
 <p>最后我们测试一下删除索引</p>
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX pwdidx ON t_user;</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200416678.png" alt="image-20220519200416678" /></p>
@@ -180,7 +256,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>针对字符串列创建索引时，尽量规定索引的长度，避免索引值的长度<code>key_len</code>过长</li>
 <li>索引字段涉及类型强转、mysql函数调用、表达式计算等，索引就失效了。</li>
 </ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/">安装Nginx</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/" data-flag-title="安装Nginx"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/">安装Nginx</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/" data-flag-title="安装Nginx"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       

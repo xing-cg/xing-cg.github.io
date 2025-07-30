@@ -32,7 +32,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1/">MySQL_范式设计</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1/" data-flag-title="MySQL_范式设计"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1/">MySQL_范式设计</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1/" data-flag-title="MySQL_范式设计"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -82,7 +82,12 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>属性完全依赖于主键 - 主要针对联合主键</p>
 </blockquote>
 <p>非主属性（不是主键的字段）必须完全依赖主关键字（包括联合主键的每一列），如果不是完全依赖主键，应该拆分成新的实体，设计成一对多的实体关系。</p>
-<p>例如教务系统中的选课：选课关系表为<code>SelectCourse(学号, 姓名, 年龄, 课程名称, 成绩, 学分)</code>。则<code>(学号, 课程名称)</code>是联合主键，但是学分字段只与课程名称有关，与学号无关，相当于只依赖联合主键的其中一个字段 - <code>课程名称</code>，不符合第二范式。其中，学分在此表中属于冗余存储。除此之外，<code>姓名</code>和<code>年龄</code>字段也属于冗余存储。</p>
+<p>例如教务系统中的选课：<br />
+选课关系表为<code>SelectCourse(学号, 姓名, 年龄, 课程名称, 成绩, 学分)</code>。<br />
+则<code>(学号, 课程名称)</code>是联合主键，<br />
+但是<strong>学分字段只与课程名称有关，与学号无关</strong>，相当于只依赖联合主键的其中一个字段 - <code>课程名称</code>，不符合第二范式。<br />
+姓名、年龄只和学号有关，与课程名称无关。只依赖联合主键的其中一个字段 - <code>学号</code>，不符合第二范式。</p>
+<p>总之，学分在此表中属于冗余存储。<code>姓名</code>和<code>年龄</code>字段也属于冗余存储。</p>
 <p>学生和课程之间，属于多对多的关系。</p>
 <p>学生表：</p>
 <div class="table-container"><table>
@@ -128,7 +133,12 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <p>一般的关系型数据库满足第三范式就足够了。</p>
 </blockquote>
 <p>要求一个数据表中不包含已在其他表中已包含的非主关键字信息。</p>
-<p>示例：学生关系表为<code>Student(学号, 姓名, 年龄, 所在学院, 学院地点, 学院电话)</code>，字段<code>学号</code>是主键。但是，字段<code>学院地点</code>、<code>学院电话</code>依赖于非主属性<code>所在学院</code>，并不依赖于主键<code>学号</code>。因此该设计不符合第三范式。应该把学院单独设计成一张表，学院和学生是一对多的关系。</p>
+<p>示例：<br />
+学生关系表为<code>Student(学号, 姓名, 年龄, 所在学院, 学院地点, 学院电话)</code>，<br />
+字段<code>学号</code>是主键。<br />
+但是，字段<code>学院地点</code>、<code>学院电话</code>依赖于非主属性<code>所在学院</code>，并不依赖于主键<code>学号</code>。<br />
+因此该设计不符合第三范式。<br />
+应该把学院单独设计成一张表，学院和学生是一对多的关系。</p>
 <hr />
 <p>再如Employee表中的问题，发现字段<code>jobDescription</code>并不依赖于主键<code>EmployeeID</code>，而是依赖非主属性<code>job</code>。不符合第三范式。因此把<code>job</code>有关的属性抽取出来单独作为<code>job</code>表。工作和雇员也是一对多的关系。</p>
 <p><img src="../../images/MySQL_%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1/image-20220517082159583.png" alt="image-20220517082159583" /></p>
@@ -191,24 +201,17 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
       
 <ul>
-<li>
-<p>范式含义</p>
-</li>
-<li>
-<p>好处</p>
-</li>
-</ul>
-<p>应用数据库范式可以带来许多好处,但是最重要的好处归结为三点：</p>
+<li>范式含义</li>
+<li>好处：应用数据库范式可以带来许多好处,但是最重要的好处归结为三点：
 <ol>
 <li>减少数据沉余(这是最主要的好处，其他好处都是由此而附带的)</li>
 <li>消除异常(插入异常、更新异常、删除异常</li>
 <li>让数据组织的更加和谐</li>
 </ol>
-<ul>
-<li>缺点</li>
+</li>
+<li>缺点：但是数据库范式绝对不是越高越好，范式越高，意味着表越多，多表联合查询的机率就越大，SQL的效率就变低。</li>
 </ul>
-<p>但是数据库范式绝对不是越高越好，范式越高，意味着表越多，多表联合查询的机率就越大，SQL的效率就变低。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_exit/">Linux_exit</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_exit/" data-flag-title="Linux_exit"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_exit/">Linux_exit</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_exit/" data-flag-title="Linux_exit"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
