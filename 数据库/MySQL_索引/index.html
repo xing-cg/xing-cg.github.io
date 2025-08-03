@@ -11,6 +11,7 @@
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519174825252.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175233259.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519175732865.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731001703762.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519194908928.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195157521.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519195427490.png">
@@ -19,6 +20,14 @@
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200232453.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200158653.png">
 <meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200416678.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731002838480.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003138392.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003209295.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003647042.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731004540466.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005319197.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005526111.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731011638213.png">
 <meta property="article:published_time" content="2022-05-19T00:00:00.000Z">
 <meta property="article:modified_time" content="2025-07-30T00:00:00.000Z">
 <meta property="article:author" content="Mr.Can">
@@ -69,7 +78,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#数据库文件存在哪里" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库文件存在哪里"></a> 数据库文件存在哪里？</h1>
       
 <p>同一数据库的不同表，存放在不同的文件里。<br />
-详见《<a href="MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F">MySQL_存储引擎 - 数据的存储方式</a>》</p>
+详见《<a href="MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F">MySQL_存储引擎 - 数据的存储方式</a>》</p>
 
         <h1 id="为什么要有索引"   >
           <a href="#为什么要有索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么要有索引"></a> 为什么要有索引</h1>
@@ -95,14 +104,14 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="物理上"   >
           <a href="#物理上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#物理上"></a> 物理上</h2>
       
-<p>可分为：聚集索引、非聚集索引</p>
+<p>可分为：聚集索引、非聚集索引（有的高大上的叫法也叫“聚簇”）</p>
 
         <h2 id="逻辑上"   >
           <a href="#逻辑上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑上"></a> 逻辑上</h2>
       
 <p>可分为：</p>
 <ol>
-<li>普通索引（又称为二级索引）
+<li>普通索引（又称为二级索引）：主动、手动创建的索引。
 <ol>
 <li>没有任何限制条件，可以给任何类型的字段创建普通索引。</li>
 <li>可在创建新表时指定建立索引，也可给已创建表指定建立索引</li>
@@ -126,10 +135,10 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>在一个字段上创建的索引</li>
 </ol>
 </li>
-<li>多列索引
+<li>多列索引（联合索引）
 <ol>
 <li>在表的多个字段上创建的索引，常出现于联合主键上。</li>
-<li>多列索引必须先使用到第一个主键字段，才可能用到多列索引，否则失效。</li>
+<li>也可以用在普通字段。</li>
 </ol>
 </li>
 <li>全文索引
@@ -226,6 +235,15 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
 <strong>通过控制索引的字长，避免索引长度过大，来提高搜索效率</strong>。</p>
 <p>通常对字符串索引进行控制。</p>
 
+        <h3 id="非主键索引普通索引二级索引的结构-回表"   >
+          <a href="#非主键索引普通索引二级索引的结构-回表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非主键索引普通索引二级索引的结构-回表"></a> 非主键索引（普通索引/二级索引）的结构 - 回表</h3>
+      
+<p>以下讨论的是InnoDB存储引擎的情况。</p>
+<p>创建普通字段索引的实现原理是，普通字段（如name）充当key，value变成uid。</p>
+<p>回表是指，查到name索引树中linfeng对应的uid后，去主键索引树再找uid对应的一整行记录。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731001703762.png" alt="" /><br />
+涉及到回表时，磁盘IO会增加，效率降低。</p>
+
         <h2 id="测试innodb的数据缓存"   >
           <a href="#测试innodb的数据缓存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试innodb的数据缓存"></a> 测试InnoDB的数据缓存</h2>
       
@@ -267,6 +285,71 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX pwdidx ON t_user;</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200416678.png" alt="image-20220519200416678" /></p>
 
+        <h1 id="多列索引联合索引"   >
+          <a href="#多列索引联合索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多列索引联合索引"></a> 多列索引（联合索引）</h1>
+      
+<p>一次SQL查询中，一张表只能使用一次索引。否则使用多个索引会耗费成倍的磁盘IO。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from student where age = 20 order by name;</span><br></pre></td></tr></table></div></figure>
+<p>创建多列索引，用在这种场景：过滤条件为非主键，排序条件为非主键。<br />
+如果只建立了两个独立的单列age、name索引，那么：<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731002838480.png" alt="" /><br />
+虽然用到了age索引，但是依然会出现using filesort，这是由于name索引失效的问题。<br />
+我们可以创建age、name的联合索引。实际的实现原理是，索引节点的key是age，value域一起绑定了name、uid。<br />
+那么，最终的效果就是：先按age排序，再按name排序；age相同，按name排序。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index name_age_idx on student(age, name);</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003138392.png" alt="" /><br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003209295.png" alt="" /></p>
+<p>但是，如果只有age、name的联合索引，当我们用name过滤条件查询时，age、name的联合索引会失效。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003647042.png" alt="" /><br />
+这是因为age排在age、name的前面，age充当索引的key。</p>
+
+        <h1 id="聚集索引聚簇索引"   >
+          <a href="#聚集索引聚簇索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#聚集索引聚簇索引"></a> 聚集索引（聚簇索引）</h1>
+      
+<p>聚集索引指的是，索引和数据在一起。（比如InnoDB）<br />
+非聚集索引指的是，索引和数据是分开的，索引的value保存的是数据的文件地址。（比如MyISAM）</p>
+<p>因此，MyISAM二级索引树，查询其他非索引字段时，不用进行回表操作，因为可以直接访问数据地址。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731004540466.png" alt="" /></p>
+
+        <h1 id="创建索引时指定索引结构"   >
+          <a href="#创建索引时指定索引结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建索引时指定索引结构"></a> 创建索引时指定索引结构</h1>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index nameidx on student(name) using hash;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005319197.png" alt="" /><br />
+虽然指定了使用哈希索引，并且表结构也显示USING HASH，但实际上用的什么索引结构是不确定的。<br />
+需要查看：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show indexes drom student;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005526111.png" alt="" /></p>
+<p>可以看到，实际上，刚才创建的nameidx依然为BTREE索引结构。</p>
+
+        <h1 id="哈希索引"   >
+          <a href="#哈希索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#哈希索引"></a> 哈希索引</h1>
+      
+<p>memory存储引擎支持哈希索引。<br />
+memory存储引擎是基于内存的，掉电数据会丢失。</p>
+<p>虽然查询的效率很高，为<code>O(1)</code>，但是：哈希表中的元素没有任何顺序可言，只适合等值比较。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where name = &#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p>如果一旦涉及：范围查找，或者前缀查找，或者order by排序，则效率不高，只能遍历搜索哈希表了。<br />
+zhangsan、zhangyang、zhangcheng，大概率不在一个桶中。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where name like &#x27;zhang%&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p>而且，哈希表的结构很分散，无法利用计算机存储结构的局部性原理。磁盘IO会很频繁。</p>
+<p>因此哈希索引的场景：只适合把索引和数据全部加载到内存上。并且只做等值比较查询。</p>
+
+        <h2 id="innodb自适应哈希索引"   >
+          <a href="#innodb自适应哈希索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#innodb自适应哈希索引"></a> InnoDB自适应哈希索引</h2>
+      
+<p>InnoDB存储引擎会监测：如果同样的二级索引不断被使用，那么它会根据这个二级索引，在内存上根据二级索引树（B+树）上的二级索引值，在内存上构建一个哈希索引，来加索搜索。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731011638213.png" alt="" /></p>
+<p>自适应哈希索引本身的数据维护也是要耗费性能的，并不是说自适应哈希索引在任何情况下都会提升二级索引的查询性能。<br />
+需要根据参数指标，来具体分析是否打开或者关闭自适应哈希索引。</p>
+<p>以下命令能看到两个比较重要的信息：</p>
+<ol>
+<li>RW-latch等待的线程数量（自适应哈希索引默认分配了8个分区），</li>
+<li>走自适应哈希索引搜索的频率（低）和二级索引树搜索的频率（高）</li>
+</ol>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engine innodb status\G </span><br></pre></td></tr></table></div></figure>
+<p>如果观察到同一个分区等待的线程数量过多，走哈希索引搜索频率低、二级索引树频率高，则最好关掉自适应哈希索引。</p>
+
         <h1 id="总结-索引要注意的点"   >
           <a href="#总结-索引要注意的点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-索引要注意的点"></a> 总结 - 索引要注意的点</h1>
       
@@ -292,11 +375,17 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
            实操探索索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84-%E7%9C%8B%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="toc-number">9.1.</span> <span class="toc-text">
            查看表的结构 - 看主键索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#explain%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bselect-where%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">9.2.</span> <span class="toc-text">
            explain命令查看select where的性能分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E4%B8%BB%E9%94%AE%E5%AD%97%E6%AE%B5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%89%8D%E5%90%8E%E5%8C%BA%E5%88%AB"><span class="toc-number">9.3.</span> <span class="toc-text">
-           非主键字段创建索引，前后区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95innodb%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98"><span class="toc-number">9.4.</span> <span class="toc-text">
+           非主键字段创建索引，前后区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E7%9A%84%E7%BB%93%E6%9E%84-%E5%9B%9E%E8%A1%A8"><span class="toc-number">9.3.1.</span> <span class="toc-text">
+           非主键索引（普通索引&#x2F;二级索引）的结构 - 回表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95innodb%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98"><span class="toc-number">9.4.</span> <span class="toc-text">
            测试InnoDB的数据缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9C%89%E6%97%A0%E7%B4%A2%E5%BC%95%E7%9A%84%E6%80%A7%E8%83%BD%E5%8C%BA%E5%88%AB%E6%B6%89%E5%8F%8A%E5%88%B0%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%97%B6%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">9.5.</span> <span class="toc-text">
            测试有无索引的性能区别（涉及到类型转换时索引失效的问题）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="toc-number">9.6.</span> <span class="toc-text">
-           测试删除索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-%E7%B4%A2%E5%BC%95%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-number">10.</span> <span class="toc-text">
-           总结 - 索引要注意的点</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">297</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+           测试删除索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="toc-number">10.</span> <span class="toc-text">
+           多列索引（联合索引）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="toc-number">11.</span> <span class="toc-text">
+           聚集索引（聚簇索引）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E6%97%B6%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84"><span class="toc-number">12.</span> <span class="toc-text">
+           创建索引时指定索引结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95"><span class="toc-number">13.</span> <span class="toc-text">
+           哈希索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#innodb%E8%87%AA%E9%80%82%E5%BA%94%E5%93%88%E5%B8%8C%E7%B4%A2%E5%BC%95"><span class="toc-number">13.1.</span> <span class="toc-text">
+           InnoDB自适应哈希索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-%E7%B4%A2%E5%BC%95%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-number">14.</span> <span class="toc-text">
+           总结 - 索引要注意的点</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">298</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

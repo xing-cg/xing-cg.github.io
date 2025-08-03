@@ -32,7 +32,161 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/">MySQL_索引</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/" data-flag-title="MySQL_索引"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySQL_存储引擎</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-flag-title="MySQL_存储引擎"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="存储引擎"   >
+          <a href="#存储引擎" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#存储引擎"></a> 存储引擎</h1>
+      
+<p>MySQL的一大特点就是支持插件式的存储引擎，即其存储引擎是可更换的，支持不同的存储引擎。</p>
+<p>那么，存储引擎代表的是什么呢？</p>
+<p>在创建/使用表时，有三大部分需要管理：</p>
+<ol>
+<li>表的结构（有几个字段，字段的类型，约束条件）</li>
+<li>数据</li>
+<li>索引（有利于加速表的查询）</li>
+</ol>
+<p>存储引擎直接影响以上三大部分内容的存储方式。即，不同的存储引擎，对应的数据及其结构的存储方式是不一样的。</p>
+
+        <h1 id="配置文件"   >
+          <a href="#配置文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h1>
+      
+<p>windows下是<code>my.ini</code></p>
+<p>Linux下是<code>my.cnf</code>，在<code>/etc</code>下。</p>
+
+        <h1 id="数据库-表对应的文件"   >
+          <a href="#数据库-表对应的文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库-表对应的文件"></a> 数据库、表对应的文件</h1>
+      
+<p>都存到了<code>/var/lib/mysql</code>下。</p>
+<p>对该目录进行读取时需要进入root用户模式。</p>
+<ol>
+<li><code>ls</code>后发现，每个数据库都会有一个同名的文件夹，里面存放着库中的表。</li>
+<li>进一个文件夹，发现里面每一张表都对应有多种后缀名不同的文件。
+<ol>
+<li><code>.frm</code>表示表的框架信息，即frame。MyISAM和InnoDB存储引擎都要用。</li>
+<li><code>.MYD</code>、<code>.MYI</code>是MyISAM存储引擎下的数据表的文件。
+<ol>
+<li><code>.MYD</code>表示使用MyISAM引擎的表的数据信息，即MyISAM Data。</li>
+<li><code>.MYI</code>表示使用MyISAM引擎的表的索引信息，即MyISAM Index。</li>
+</ol>
+</li>
+<li><code>.ibd</code>是InnoDB存储引擎下的数据表的文件，同时存储了表的数据信息和索引信息。</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>可以从表的数据文件的存储方式 - 延伸到索引上</p>
+</blockquote>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<ol>
+<li>InnoDB的底层文件存储是<code>.frm</code>+<code>.ibd</code>，其中<code>.frm</code>存储的是表的结构，<code>.ibd</code>存储的是数据+索引；</li>
+<li>MyISAM的底层文件，表结构、表数据、表索引，各有一个对应的文件。</li>
+</ol>
+
+        <h1 id="相关命令"   >
+          <a href="#相关命令" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相关命令"></a> 相关命令</h1>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW engines;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/image-20220519140553878.png" alt="image-20220519140553878" /><br />
+MyISAM不支持事务。<br />
+InnoDB支持事务。<br />
+如果仅作查询，则MyISAM比InnoDB轻量级。</p>
+
+        <h1 id="各存储引擎区别"   >
+          <a href="#各存储引擎区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#各存储引擎区别"></a> 各存储引擎区别</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>存储引擎</th>
+<th>锁机制</th>
+<th>B树索引</th>
+<th>哈希索引</th>
+<th>外键</th>
+<th>事务</th>
+<th>索引缓存</th>
+<th>数据缓存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MyISAM</td>
+<td>表锁</td>
+<td>支持</td>
+<td>不支持</td>
+<td><strong>不支持</strong></td>
+<td><strong>不支持</strong></td>
+<td>支持</td>
+<td><strong>不支持</strong></td>
+</tr>
+<tr>
+<td>InnoDB</td>
+<td>行锁</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>表锁</td>
+<td>支持</td>
+<td><strong>支持</strong></td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>锁机制</strong>：表示数据库在并发请求访问的时候，多个事务在操作时，并发操作的粒度。</p>
+<p><strong>B树索引、哈希索引</strong>：加速SQL的查询速度。</p>
+<p><strong>外键</strong>：子表的字段依赖父表的主键，设置了两张表的依赖关系。</p>
+<p><strong>事务</strong>：多个SQL语句，保证它们共同执行的原子操作，要么全部成功，要么失败。不能只成功一部分，失败后需要回滚事务。</p>
+<p><strong>索引缓存和数据缓存</strong>：和MySQL Server的查询缓存相关，在没有对数据和索引做修改之前，重复查询可以不用进行磁盘IO，读取上一次内存中查询的缓存就可以了，提升数据库的性能。</p>
+
+        <h2 id="总结-2"   >
+          <a href="#总结-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h2>
+      
+<p>MyISAM不支持事务、也不支持外键。</p>
+
+        <h1 id="数据的存储方式"   >
+          <a href="#数据的存储方式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据的存储方式"></a> 数据的存储方式</h1>
+      
+
+        <h2 id="myisam"   >
+          <a href="#myisam" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#myisam"></a> MyISAM</h2>
+      
+<p>MyISAM索引采用<strong>非聚集索引</strong>，其优势是访问的速度快，对事务完整性没有要求，以<code>SELECT</code>、<code>INSERT</code>为主的应用基本上都可以使用这个存储引擎来创建表。</p>
+<p><strong>MyISAM</strong>的表在磁盘上存储成 3 个文件，其文件名都和表名相同，扩展名分别是：<br />
+<code>.frm</code>（存储表定义）<br />
+<code>.MYD</code>（MYData，存储数据）<br />
+<code>.MYI</code>（MYIndex，存储索引）</p>
+
+        <h2 id="innodb"   >
+          <a href="#innodb" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#innodb"></a> InnoDB</h2>
+      
+<p><strong>InnoDB</strong>存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全，支持自动增长列，外键等功能，索引采用<strong>聚集索引</strong>，索引和数据存储在同一个文件，所以InnoDB的表在磁盘上有两个文件，其文件名都和表名相同，扩展名分别是：<br />
+<code>.frm</code>（存储表的定义）<br />
+<code>.ibd</code>（存储数据和索引）<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250730200406795.png" alt="" /><br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250730200415545.png" alt="" /></p>
+
+        <h2 id="memory"   >
+          <a href="#memory" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#memory"></a> MEMORY</h2>
+      
+<p><strong>MEMORY</strong>存储引擎使用存在内存中的内容来创建表。<br />
+每个MEMORY表实际<strong>只对应一个磁盘文件，格式是.frm</strong>（表结构定义）。<br />
+MEMORY类型的表访问非常快，因为它的数据是放在内存中的，并且默认使用<strong>HASH索引</strong>（不适合做范围查询），但是一旦服务关闭，表中的数据就会丢失掉。</p>
+
+        <h2 id="索引文件和数据文件是否分离造成的结果"   >
+          <a href="#索引文件和数据文件是否分离造成的结果" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#索引文件和数据文件是否分离造成的结果"></a> 索引文件和数据文件是否分离造成的结果</h2>
+      
+<p>见<a href="MySQL_%E7%B4%A2%E5%BC%95.md#%E4%B8%80%E6%AC%A1select%20where%E8%BF%87%E6%BB%A4%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E6%89%80%E7%BB%8F%E5%8E%86%E7%9A%84%E4%BA%8B%E6%83%85">MySQL_索引.md - 一次select where过滤条件查询所经历的事情</a>。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/">MySQL_索引</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL_%E7%B4%A2%E5%BC%95/" data-flag-title="MySQL_索引"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
@@ -50,7 +204,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#数据库文件存在哪里" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库文件存在哪里"></a> 数据库文件存在哪里？</h1>
       
 <p>同一数据库的不同表，存放在不同的文件里。<br />
-详见《<a href="MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.md#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F">MySQL_存储引擎 - 数据的存储方式</a>》</p>
+详见《<a href="MySQL_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F">MySQL_存储引擎 - 数据的存储方式</a>》</p>
 
         <h1 id="为什么要有索引"   >
           <a href="#为什么要有索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么要有索引"></a> 为什么要有索引</h1>
@@ -76,14 +230,14 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="物理上"   >
           <a href="#物理上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#物理上"></a> 物理上</h2>
       
-<p>可分为：聚集索引、非聚集索引</p>
+<p>可分为：聚集索引、非聚集索引（有的高大上的叫法也叫“聚簇”）</p>
 
         <h2 id="逻辑上"   >
           <a href="#逻辑上" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑上"></a> 逻辑上</h2>
       
 <p>可分为：</p>
 <ol>
-<li>普通索引（又称为二级索引）
+<li>普通索引（又称为二级索引）：主动、手动创建的索引。
 <ol>
 <li>没有任何限制条件，可以给任何类型的字段创建普通索引。</li>
 <li>可在创建新表时指定建立索引，也可给已创建表指定建立索引</li>
@@ -107,10 +261,10 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>在一个字段上创建的索引</li>
 </ol>
 </li>
-<li>多列索引
+<li>多列索引（联合索引）
 <ol>
 <li>在表的多个字段上创建的索引，常出现于联合主键上。</li>
-<li>多列索引必须先使用到第一个主键字段，才可能用到多列索引，否则失效。</li>
+<li>也可以用在普通字段。</li>
 </ol>
 </li>
 <li>全文索引
@@ -207,6 +361,15 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
 <strong>通过控制索引的字长，避免索引长度过大，来提高搜索效率</strong>。</p>
 <p>通常对字符串索引进行控制。</p>
 
+        <h3 id="非主键索引普通索引二级索引的结构-回表"   >
+          <a href="#非主键索引普通索引二级索引的结构-回表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非主键索引普通索引二级索引的结构-回表"></a> 非主键索引（普通索引/二级索引）的结构 - 回表</h3>
+      
+<p>以下讨论的是InnoDB存储引擎的情况。</p>
+<p>创建普通字段索引的实现原理是，普通字段（如name）充当key，value变成uid。</p>
+<p>回表是指，查到name索引树中linfeng对应的uid后，去主键索引树再找uid对应的一整行记录。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731001703762.png" alt="" /><br />
+涉及到回表时，磁盘IO会增加，效率降低。</p>
+
         <h2 id="测试innodb的数据缓存"   >
           <a href="#测试innodb的数据缓存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试innodb的数据缓存"></a> 测试InnoDB的数据缓存</h2>
       
@@ -248,6 +411,71 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
 <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX pwdidx ON t_user;</span><br><span class="line">SHOW CREATE TABLE t_user\G</span><br></pre></td></tr></table></div></figure>
 <p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20220519200416678.png" alt="image-20220519200416678" /></p>
 
+        <h1 id="多列索引联合索引"   >
+          <a href="#多列索引联合索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多列索引联合索引"></a> 多列索引（联合索引）</h1>
+      
+<p>一次SQL查询中，一张表只能使用一次索引。否则使用多个索引会耗费成倍的磁盘IO。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from student where age = 20 order by name;</span><br></pre></td></tr></table></div></figure>
+<p>创建多列索引，用在这种场景：过滤条件为非主键，排序条件为非主键。<br />
+如果只建立了两个独立的单列age、name索引，那么：<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731002838480.png" alt="" /><br />
+虽然用到了age索引，但是依然会出现using filesort，这是由于name索引失效的问题。<br />
+我们可以创建age、name的联合索引。实际的实现原理是，索引节点的key是age，value域一起绑定了name、uid。<br />
+那么，最终的效果就是：先按age排序，再按name排序；age相同，按name排序。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index name_age_idx on student(age, name);</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003138392.png" alt="" /><br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003209295.png" alt="" /></p>
+<p>但是，如果只有age、name的联合索引，当我们用name过滤条件查询时，age、name的联合索引会失效。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731003647042.png" alt="" /><br />
+这是因为age排在age、name的前面，age充当索引的key。</p>
+
+        <h1 id="聚集索引聚簇索引"   >
+          <a href="#聚集索引聚簇索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#聚集索引聚簇索引"></a> 聚集索引（聚簇索引）</h1>
+      
+<p>聚集索引指的是，索引和数据在一起。（比如InnoDB）<br />
+非聚集索引指的是，索引和数据是分开的，索引的value保存的是数据的文件地址。（比如MyISAM）</p>
+<p>因此，MyISAM二级索引树，查询其他非索引字段时，不用进行回表操作，因为可以直接访问数据地址。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731004540466.png" alt="" /></p>
+
+        <h1 id="创建索引时指定索引结构"   >
+          <a href="#创建索引时指定索引结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建索引时指定索引结构"></a> 创建索引时指定索引结构</h1>
+      
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index nameidx on student(name) using hash;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005319197.png" alt="" /><br />
+虽然指定了使用哈希索引，并且表结构也显示USING HASH，但实际上用的什么索引结构是不确定的。<br />
+需要查看：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show indexes drom student;</span><br></pre></td></tr></table></div></figure>
+<p><img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731005526111.png" alt="" /></p>
+<p>可以看到，实际上，刚才创建的nameidx依然为BTREE索引结构。</p>
+
+        <h1 id="哈希索引"   >
+          <a href="#哈希索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#哈希索引"></a> 哈希索引</h1>
+      
+<p>memory存储引擎支持哈希索引。<br />
+memory存储引擎是基于内存的，掉电数据会丢失。</p>
+<p>虽然查询的效率很高，为<code>O(1)</code>，但是：哈希表中的元素没有任何顺序可言，只适合等值比较。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where name = &#x27;zhangsan&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p>如果一旦涉及：范围查找，或者前缀查找，或者order by排序，则效率不高，只能遍历搜索哈希表了。<br />
+zhangsan、zhangyang、zhangcheng，大概率不在一个桶中。</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where name like &#x27;zhang%&#x27;;</span><br></pre></td></tr></table></div></figure>
+<p>而且，哈希表的结构很分散，无法利用计算机存储结构的局部性原理。磁盘IO会很频繁。</p>
+<p>因此哈希索引的场景：只适合把索引和数据全部加载到内存上。并且只做等值比较查询。</p>
+
+        <h2 id="innodb自适应哈希索引"   >
+          <a href="#innodb自适应哈希索引" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#innodb自适应哈希索引"></a> InnoDB自适应哈希索引</h2>
+      
+<p>InnoDB存储引擎会监测：如果同样的二级索引不断被使用，那么它会根据这个二级索引，在内存上根据二级索引树（B+树）上的二级索引值，在内存上构建一个哈希索引，来加索搜索。<br />
+<img src="../../images/MySQL_%E7%B4%A2%E5%BC%95/image-20250731011638213.png" alt="" /></p>
+<p>自适应哈希索引本身的数据维护也是要耗费性能的，并不是说自适应哈希索引在任何情况下都会提升二级索引的查询性能。<br />
+需要根据参数指标，来具体分析是否打开或者关闭自适应哈希索引。</p>
+<p>以下命令能看到两个比较重要的信息：</p>
+<ol>
+<li>RW-latch等待的线程数量（自适应哈希索引默认分配了8个分区），</li>
+<li>走自适应哈希索引搜索的频率（低）和二级索引树搜索的频率（高）</li>
+</ol>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engine innodb status\G </span><br></pre></td></tr></table></div></figure>
+<p>如果观察到同一个分区等待的线程数量过多，走哈希索引搜索频率低、二级索引树频率高，则最好关掉自适应哈希索引。</p>
+
         <h1 id="总结-索引要注意的点"   >
           <a href="#总结-索引要注意的点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-索引要注意的点"></a> 总结 - 索引要注意的点</h1>
       
@@ -256,39 +484,7 @@ MySQL会进行性能分析，如果使用索引后需要搜索的数目和整表
 <li>针对字符串列创建索引时，尽量规定索引的长度，避免索引值的长度<code>key_len</code>过长</li>
 <li>索引字段涉及类型强转、mysql函数调用、表达式计算等，索引就失效了。</li>
 </ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/">安装Nginx</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-19</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-30</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%AE%89%E8%A3%85nginx/" data-flag-title="安装Nginx"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<p>安装nginx及其依赖。</p>
-<p>可能需要的命令：</p>
-<ol>
-<li>Linux下<code>\*.tar.gz</code>文件解压缩命令：<code>tar -zxvf 压缩文件名.tar.gz</code></li>
-<li><code>chown -R</code> : 处理指定目录以及其子目录下的所有文件</li>
-</ol>
-<p>参考文章</p>
-<ol>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1945550" >Hexo部署至服务器（Ubuntu 20.04）</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/8af24b0adaf6" >ubuntu nginx源代码安装</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/387379400" >Ubuntu20.04安装openssl-1.1.1k</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/liangtianmeng/article/details/86736761" >linux中ln -s 命令详解</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48033662/article/details/122004967" >解决：Linux8整合Nginx过程中报错：src/os/unix/ngx_user.c: 在函数‘ngx_libc_crypt’中: src/os/unix/ngx_user.c:36:7</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/beagreatprogrammer/article/details/78369638" >OpenSSL library is not used</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://t.zoukankan.com/hoaprox-p-12416624.html" >设置Nginx在linux服务器（Ubuntu）开机启动</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/hancc_824/article/details/109181317" >Unable to locate package sysv-rc-conf</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45837693/article/details/107675339" >https://blog.csdn.net/weixin_45837693/article/details/107675339</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-</ol>
-
-        <h1 id="安装其依赖"   >
-          <a href="#安装其依赖" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#安装其依赖"></a> 安装其依赖</h1>
-      
-<p>nginx依赖pcre、openssl、zlib</p>
-<p>安装pcre</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install libpcre3 libpcre3-dev</span><br></pre></td></tr></table></div></figure>
-<p>安装zlib</p>
-<p>下载地址:<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.zlib.net" >http://www.zlib.net</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf zlib-&lt;version&gt;.tar.gz </span><br><span class="line"><span class="built_in">cd</span> zlib-&lt;version&gt;/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/82/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/82/">82</a><span class="page-number current">83</span><a class="page-number" href="/page/84/">84</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/84/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">297</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/82/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/82/">82</a><span class="page-number current">83</span><a class="page-number" href="/page/84/">84</a><span class="space">&hellip;</span><a class="page-number" href="/page/149/">149</a><a class="extend next" rel="next" href="/page/84/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">298</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
