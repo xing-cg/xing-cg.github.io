@@ -32,27 +32,147 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/C/C%E8%AF%AD%E8%A8%80_volatile&amp;const/">C语言_volatile&amp;const</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-03</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_volatile&amp;const/" data-flag-title="C语言_volatile&amp;const"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="演示"   >
-          <a href="#演示" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#演示"></a> 演示</h1>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/C/C%E8%AF%AD%E8%A8%80_const%E4%B8%8Evolatile%E5%92%8Cmutable/">C语言_const与volatile和mutable</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-07</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/C/C%E8%AF%AD%E8%A8%80_const%E4%B8%8Evolatile%E5%92%8Cmutable/" data-flag-title="C语言_const与volatile和mutable"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="一句话结论"   >
+          <a href="#一句话结论" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一句话结论"></a> 一句话结论</h1>
+      
+<p>volatile是要求读值时，必须每次从内存中读取。不能优化缓存到寄存器中，因为这个变量实际的值可能被修改，从寄存器中读取缓存可能出现脏值。</p>
+<p><strong>典型用途​</strong>​：硬件寄存器和多线程共享的只读状态。</p>
+<p>在嵌入式编程中，硬件寄存器可能被映射到固定地址。这个寄存器可能是只读的（比如状态寄存器），<strong>但它的值会随着硬件状态改变</strong>。所以我们既需要<code>const</code>（因为程序不能写它）又需要<code>volatile</code>（因为值会变，编译器不能优化读取）。</p>
+<p>volatile 与程序所做的更改完全无关。这意味着<strong>内存可能会因为编译器无法控制的原因而改变</strong>，因此编译器每次都必须读取或写入内存地址，并且不能将内容缓存在寄存器中。</p>
+<p>而const只是给程序员的指导性建议，实际可以强制修改const变量。而且const只限制了程序内部行为，它修饰的变量仍然可能被外部修改。</p>
+
+        <h1 id="const和volatile结合的汇编区别"   >
+          <a href="#const和volatile结合的汇编区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#const和volatile结合的汇编区别"></a> const和volatile结合的汇编区别</h1>
       
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">volatile</span> <span class="type">const</span> <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> b = a;</span><br><span class="line">	<span class="type">int</span>* p = (<span class="type">int</span>*)&amp;a;</span><br><span class="line">	*p = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926094934967.png" alt="image-20210926094934967" /></p>
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926094934967.png" alt="image-20210926094934967" /><br />
+区别在于：<code>int b = a;</code>：去取了内存中 a 的地址中实际的值到寄存器，寄存器给 b 赋值。</p>
 <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> b = a;</span><br><span class="line">	<span class="type">int</span>* p = (<span class="type">int</span>*)&amp;a;</span><br><span class="line">	*p = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p><img src="../../images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926095031711.png" alt="image-20210926095031711" /></p>
-<p>如果变量被volatile修饰，则是在给编译器说明：该变量可能随时被改写。所以编译器就不会轻易地去优化代码结构。</p>
-<p>const：本程序段中不能对此变量作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心。但const修饰的变量不允许这里修改不代表不允许别处修改，比如：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* p = &amp;i;</span><br><span class="line">*p = <span class="number">6</span>; <span class="comment">// 不可以；</span></span><br><span class="line">i = <span class="number">7</span>; <span class="comment">// 完全可以，而且那个“const”的“*p”也跟着变成了7。</span></span><br></pre></td></tr></table></div></figure>
-<p><strong>const和volatile放在一起的意义在于：</strong></p>
-<p>（1）本程序段中不能对a作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心；</p>
-<p>（2）另一个程序段则完全有可能修改，因此编译器最好不要做太激进的优化。</p>
-<p>**“const”**含义是“请做为常量使用”，而并非“放心吧，那肯定是个常量”。<br />
-**“volatile”**的含义是“请不要做没谱的优化，这个值可能变掉的”，而并非“你可以修改这个值”。<br />
-因此，它们本来就不是矛盾的。</p>
-<p>const volatile int i=10;这行代码有没有问题?如果没有，那 i 到底是什么属性?</p>
-<p>回答一：没有问题，例如只读的状态寄存器。它是volatile，因为它可能被意想不到地改变;它是const，因为程序不应该试图去修改它。volatile和const并不矛盾，只是控制的范围不一样，一个在程序本身之外，另一个是程序本身。</p>
-<p>回答二：没问题，const和volatile这两个类型限定符不矛盾。const表示(运行时)常量语义：被const修饰的对象在所在的作用域无法进行修改操作，编译器对于试图直接修改const对象的表达式会产生编译错误。volatile表示“易变的”，即在运行期对象可能在当前程序上下文的控制流以外被修改(例如多线程中被其它线程修改;对象所在的存储器可能被多个硬件设备随机修改等情况)：被volatile修饰的对象，编译器不会对这个对象的操作进行优化。一个对象可以同时被const和volatile修饰，表明这个对象体现常量语义，但同时可能被当前对象所在程序上下文意外的情况修改。另外，LS错误，const可以修饰左值，修饰的对象本身也可以作为左值(例如数组)。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E8%BF%9B%E7%A8%8B/">Linux_进程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-03</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E8%BF%9B%E7%A8%8B/" data-flag-title="Linux_进程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<p><img src="../../images/C%E8%AF%AD%E8%A8%80_volatile&amp;const/image-20210926095031711.png" alt="image-20210926095031711" /><br />
+区别在于：<code>int b = a;</code>：没有去取内存中 a 的地址中实际的值，而是经过了优化，直接给 b 填了 0 。</p>
+<p>如果变量被volatile修饰，则是在给编译器说明：该变量可能随时被改写。<br />
+所以编译器就不会轻易地去优化代码结构。</p>
+<p>const：本程序段中不能对此变量作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心。<br />
+但const修饰了的变量不允许被修改，<strong>不代表不允许通过别名的方式修改</strong>，比如：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* p = &amp;i;</span><br><span class="line">*p = <span class="number">6</span>; <span class="comment">// 不可以；</span></span><br><span class="line">i = <span class="number">7</span>;  <span class="comment">// 完全可以，而且那个“const”的“*p”也跟着变成了7。</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="const和volatile放在一起的意义"   >
+          <a href="#const和volatile放在一起的意义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#const和volatile放在一起的意义"></a> const和volatile放在一起的意义</h1>
+      
+<p>const和volatile放在一起的意义在于：<br />
+（1）本程序段中不能对a作修改，任何修改都是不通过的，或者至少是粗心，编译器应该报错，防止这种粗心；<br />
+（2）另一个程序段则完全有可能修改，因此编译器最好不要做太激进的优化。</p>
+<p>“const”含义是“请作为常量使用”，<strong>但不是</strong>：“放心吧，那肯定是个常量”。<br />
+“volatile”的含义是“请不要做没谱的优化，这个值可能变掉的”，<strong>但不是</strong>“你可以修改这个值”。<br />
+因此，它们不是矛盾的。</p>
+
+        <h2 id="例子"   >
+          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+      
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="keyword">volatile</span> <span class="type">int</span> i = <span class="number">10</span>;</span><br></pre></td></tr></table></div></figure>
+<p>这行代码有没有问题？如果没有，那 <code>i</code> 到底是什么属性?</p>
+<p>回答一：</p>
+<ol>
+<li>没有问题。</li>
+<li>例如只读的状态寄存器。它是volatile，因为它可能被意想不到地改变。</li>
+<li>它是const，因为程序不应该试图去修改它。</li>
+<li>volatile和const并不矛盾，只是控制的范围不一样，一个在程序本身之外，另一个是程序本身。</li>
+</ol>
+<p>回答二：</p>
+<ol>
+<li>没问题，const和volatile这两个类型限定符不矛盾。</li>
+<li>const表示（运行时）常量语义：被const修饰的对象在所在的作用域无法进行修改操作，编译器对于试图直接修改const对象的表达式会产生编译错误。</li>
+<li>volatile表示“易变的”，即在运行期对象可能在当前程序上下文的控制流以外被修改（例如多线程中被其它线程修改；对象所在的存储器可能被多个硬件设备随机修改等情况）：被volatile修饰的对象，编译器不会对这个对象的操作进行优化。</li>
+<li>一个对象可以同时被const和volatile修饰，表明这个对象体现常量语义，但同时可能被当前对象所在程序上下文意外的情况修改。</li>
+</ol>
+
+        <h1 id="mutable和const的关系"   >
+          <a href="#mutable和const的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#mutable和const的关系"></a> mutable和const的关系</h1>
+      
+<ul>
+<li><strong>规则​</strong>​：<code>mutable</code>​<strong>​不能​</strong>​直接与<code>const</code>或<code>volatile</code>组合修饰变量（如<code>mutable const</code>非法）。</li>
+<li>​<strong>​语义​</strong>​：
+<ul>
+<li><code>mutable</code>：专门用于类的成员变量，允许其在<code>const</code>成员函数中被修改。</li>
+<li><code>const</code>：在成员函数中禁止修改对象状态。</li>
+</ul>
+</li>
+<li>​<strong>​用途​</strong>​：突破<code>const</code>限制，修改与逻辑无关的内部状态（如缓存、互斥锁）。</li>
+</ul>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cache</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">mutable</span> <span class="type">int</span> cached_value; <span class="comment">// 允许const函数修改</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">expensive_calculation</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get_value</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!cache_valid)</span><br><span class="line">        &#123;</span><br><span class="line">            cached_value = <span class="built_in">expensive_calculation</span>(); <span class="comment">// mutable突破const限制</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cached_value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li>​<strong>​关键限制​</strong>​：
+<ul>
+<li><code>mutable</code>​<strong>​仅用于类的非静态数据成员​</strong>​。</li>
+<li>不可修饰类外的局部变量、函数参数或类中静态成员。</li>
+<li>不允许组合<code>mutable const int x;</code>❌（语法错误）。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="volatile-和-mutable可以组合吗"   >
+          <a href="#volatile-和-mutable可以组合吗" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#volatile-和-mutable可以组合吗"></a> volatile 和 mutable可以组合吗？</h1>
+      
+<p><code>C++</code>标准人为规定了：<code>volatile</code>和<code>mutable</code>​<strong>​不能组合​</strong>​（如<code>mutable volatile</code>非法）。<br />
+volatile的语义：告诉编译器，这个变量可能被外部修改，不能优化访问的方式<br />
+mutable的语义：告诉编译器，即使对象是const，也可以修改这个成员变量</p>
+<p>组合起来的语义是：我希望这个成员变量，即使const对象也可以修改其成员变量，而且每次访问都要从内存中读取，不能缓存。</p>
+<p>虽然语义是不冲突的，逻辑是通顺的，但是<code>C++</code>标准明确禁止了这种组合。<br />
+可能是碍于编译器实现的复杂度、实际需求太少。</p>
+<p>可以有替代方案：用<code>const_cast</code>突破。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Device</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">int</span> status_register;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reset</span><span class="params">()</span> <span class="type">const</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">const_cast</span>&lt;<span class="keyword">volatile</span> <span class="type">int</span>&amp;&gt;(status_register) = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>关键字组合</th>
+<th>是否允许</th>
+<th>用途场景</th>
+<th>关键限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>const volatile</code></td>
+<td>✅</td>
+<td>只读但可能被外部修改的变量</td>
+<td>程序自身不可写</td>
+</tr>
+<tr>
+<td><code>mutable</code></td>
+<td>✅</td>
+<td>类的成员（在const函数中可修改）</td>
+<td>仅限类的非静态成员</td>
+</tr>
+<tr>
+<td><code>const mutable</code></td>
+<td>❌</td>
+<td>无！</td>
+<td>语义冲突</td>
+</tr>
+<tr>
+<td><code>volatile mutable</code></td>
+<td>❌</td>
+<td>const对象也可以修改其成员变量，而且每次访问都要从内存中读取，不能缓存。</td>
+<td>语义上不冲突，但是人为规定禁止。可以用<code>const_cast</code>代替mutable的功能。</td>
+</tr>
+<tr>
+<td>核心区别</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><code>const volatile</code>→ ​<strong>​全局性限制​</strong>​（硬件/多线程只读数据）</li>
+<li><code>mutable</code>→ ​<strong>​局部性突破​</strong>​（针对类的const成员函数，修改特定状态）</li>
+</ul>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E8%BF%9B%E7%A8%8B/">Linux_进程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-07</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E8%BF%9B%E7%A8%8B/" data-flag-title="Linux_进程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
