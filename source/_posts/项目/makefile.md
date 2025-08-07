@@ -1,6 +1,5 @@
 ---
 title: makefile
-typora-root-url: ../..
 categories:
   - - 项目
   - - Linux
@@ -10,12 +9,10 @@ updated:
 comments: 
 published:
 ---
-
 # 内容
 
 1. makefile的编写
-1. 命令
-
+2. 命令
 # 示例
 
 示例所用到的代码内容：

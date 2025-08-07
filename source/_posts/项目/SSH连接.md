@@ -4,7 +4,7 @@ categories:
   - - 项目
 tags: 
 date: 2025/7/12
-updated: 
+updated: 2025/8/6
 comments: 
 published:
 ---
@@ -69,3 +69,61 @@ User指@前面的。
 保存文件之后，左边栏就会出现：
 ![](../../images/SSH连接/image-20250712225556409.png)
 
+# SSH远程连接虚拟机 怎么用公钥免除每次登录输入密码的烦恼
+## 生成密钥对（主机操作）
+
+打开终端（Windows 使用 PowerShell 或 CMD；Mac/Linux 用系统终端）
+生成密钥：
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"  # 推荐 ed25519
+# 或传统 RSA：ssh-keygen -t rsa -b 4096
+```
+
+按提示完成（默认保存位置 `~/.ssh/id_ed25519`）
+
+## 复制公钥到虚拟机
+方法一：自动复制（推荐）（主机操作）
+
+```sh
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@vm_ip
+# 输入虚拟机密码一次
+```
+
+方法二：手动复制
+
+```sh
+cat ~/.ssh/id_ed25519.pub # 查看主机上的公钥内容
+ssh user@vm_ip            # 登录虚拟机
+
+mkdir -p ~/.ssh
+echo "粘贴的公钥内容" >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+## 配置主机的VSCode
+按 `F1` > 选择 ​​`Remote-SSH: Connect to Host...​​`
+选择 ​​`Configure SSH Hosts...`​​ > 添加配置：（其实是帮你打开`~/.ssh/config`）
+
+```
+Host MyVM   # 自定义别名
+  HostName 192.168.1.100          # 虚拟机IP
+  User your_username
+  IdentityFile ~/.ssh/id_ed25519  # 私钥路径
+```
+
+保存配置文件（通常是 `~/.ssh/config`）
+## 常见问题解决
+1. ​**​权限错误​**​：
+    `chmod 600 ~/.ssh/config   # 确保本地 config 文件权限正确`
+2. ​**​服务端配置检查​**​：
+    - 确认虚拟机 `/etc/ssh/sshd_config` 包含：
+        `PubkeyAuthentication yes AuthorizedKeysFile .ssh/authorized_keys`
+    - 重启 SSH 服务：
+        `sudo systemctl restart sshd`
+3. ​**​调试连接​**​：
+    `ssh -Tv user@vm_ip   # -v 查看详细日志`
+
+
+> ✅ 成功标志：使用 `ssh user@vm_ip` 或 VSCode 连接时无需输入密码即可登录。
+> 遇到问题建议检查两边日志（本地终端 debug 信息或虚拟机 `/var/log/auth.log`）

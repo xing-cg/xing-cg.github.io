@@ -1,6 +1,5 @@
 ---
 title: 安装Nginx
-typora-root-url: ../..
 categories:
   - - 项目
 tags: 

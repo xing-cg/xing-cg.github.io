@@ -63,3 +63,10 @@ if a program allocates a file descriptor with the **open** system call, and then
 The semantics of fork turned out to be that you create a new process that's a copy of the current process, this file descriptor you opened is truly to be a copy, this file descriptor still has to be present and usable in the child. So that is the files, the opened file descriptors, interact with fork in this interesting way. 
 fork的语义是：创建一个进程，是当前进程的副本。
 刚才打开的文件描述符在子进程中仍然存在并可用。
+# Page Faults
+Plan：
+1. Implement Virtual Memory features using page faults
+    1. lazy allocation
+    2. copy on write fork
+    3. demand paging
+    4. memory mapped files

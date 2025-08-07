@@ -247,4 +247,306 @@ Reading finished on thread: 19036
 ```
 # Async的机制怎么实现
 Async换句话来说是让函数（或任务）的结果在“成功之后”返回（但实际上函数调用后当即返回了）。如果是在C语言下做，是函数返回一个标号，我们在外部轮询一个范围的标号，如果有某个标号上有消息，再去获取它。
-# 
+# 场景
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <functional>
+using namespace std::literals;
+void call_back();
+int main()
+{
+    std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+    std::jthread([](std::function<void(void)> cb) -> void
+        {
+            std::wcout << L"Thread Id: " << std::this_thread::get_id() << std::endl;
+            std::wcout << L"doing on worker..." << std::endl;
+            std::this_thread::sleep_for(5s);
+            cb();
+        }, call_back).join();
+    return 0;
+}
+void call_back()
+{
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+    std::wcout << L"finish update!" << std::endl;
+}
+```
+
+输出结果：
+```
+Main Thread Id: 39288           // Main Thread 是UI线程
+Thread Id: 24632                // Worker 线程
+doing on worker...
+update UI on Thread: 24632      // 更新不在UI线程上，这种的表现不好
+updating...
+finish update!
+
+```
+
+## 消息队列改进
+```cpp
+// main.cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <functional>
+#include "TaskQueue.h"
+using namespace std::literals;
+void call_back();
+TaskQueue queue;
+
+void run_on_main(std::function<void(void)> fn);
+int main()
+{
+    std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+    std::jthread([](std::function<void(void)> cb) -> void
+        {
+            std::wcout << L"Thread Id: " << std::this_thread::get_id() << std::endl;
+            std::wcout << L"doing on worker..." << std::endl;
+            std::this_thread::sleep_for(5s);
+            run_on_main(cb);
+        }, call_back).detach();
+    queue.run();
+    return 0;
+}
+void call_back()
+{
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+    std::wcout << L"finish update!" << std::endl;
+}
+void run_on_main(std::function<void(void)> fn)
+{
+    queue.add_task(fn);
+}
+
+```
+TaskQueue
+```cpp
+// TaskQueue.h
+#pragma once
+#include <list>
+#include <functional>
+#include <condition_variable>
+#include <mutex>
+using Task = std::function<void(void)>;
+class TaskQueue
+{
+public:
+    void add_task(Task task);
+    void run(void);
+private:
+    std::list<Task> _task_queue;
+    std::condition_variable _cv;
+    std::mutex _mx;
+};
+-----------------------------------
+// TaskQueue.cpp
+#include "TaskQueue.h"
+void TaskQueue::add_task(Task task)
+{
+    std::unique_lock lck{ _mx };
+    _task_queue.push_back(task);
+    _cv.notify_one();
+}
+void TaskQueue::run()
+{
+    std::list<Task> queue;
+    std::unique_lock lck{ _mx };
+    while (true)
+    {
+        _cv.wait(lck, [this]()->bool { return _task_queue.size() > 0; });
+        if (!_task_queue.empty())
+        {
+            _task_queue.swap(queue);
+        }
+        lck.unlock();
+        while (queue.size() > 0)
+        {
+            auto task = queue.front();
+            queue.pop_front();
+            task();
+        }
+        lck.lock();
+    }
+}
+```
+结果：
+```
+Main Thread Id: 41388         // Main Thread 是UI线程
+Thread Id: 45076              // Worker线程
+doing on worker...
+update UI on Thread: 41388    // 发现，工作在UI线程，成功。
+updating...
+finish update!
+
+```
+
+# UI和worker协同工作示例
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <functional>
+#include "TaskQueue.h"
+#include "../Agave/Agave.hpp"
+
+using namespace std::chrono_literals;
+
+void call_back(void);
+void run_on_main(std::function<void(void)> fn);
+TaskQueue queue;
+agave::AsyncAction DoWorkAsync(void);
+
+int main(void)
+{
+	agave::set_fg_entry([](std::function<void(void)> procedure)
+		{ queue.add_task(procedure); });
+
+	/*agave::set_bg_entry([](std::function<void(void)> procedure)
+		{ std::jthread{ procedure }.detach(); });*/
+
+	std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+
+	std::jthread{ []()
+		{
+			for (int i = 0; i < 20; ++i)
+            {
+                run_on_main([]()
+                    {
+                        std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
+                    });
+                std::this_thread::sleep_for(350ms);
+            }
+		} }.detach();
+	
+
+	/*std::jthread([](std::function<void(void)> cb) -> void
+		{
+			std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+			std::this_thread::sleep_for(5s);
+			run_on_main(cb);
+		}, call_back).detach();*/
+	DoWorkAsync();
+
+	queue.run();
+
+	return 0;
+}
+
+void call_back(void)
+{
+	std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+	std::wcout << L"updating..." << std::endl;
+	std::this_thread::sleep_for(3s);
+	std::wcout << L"finish update!" << std::endl;
+}
+
+void run_on_main(std::function<void(void)> fn)
+{
+	queue.add_task(fn);
+}
+
+agave::AsyncAction DoWorkAsync(void)
+{
+	co_await agave::resume_background();
+	for (int i = 0; i < 10; ++i)
+	{
+		std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+		std::this_thread::sleep_for(500ms);
+	}
+	//co_await 5s;
+	//std::wcout << L"doing on worker2: " << std::this_thread::get_id() << std::endl;
+	co_await agave::resume_foreground();
+	std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+	std::wcout << L"updating..." << std::endl;
+	std::this_thread::sleep_for(3s);
+	std::wcout << L"finish update!" << std::endl;
+
+	co_return;
+}
+
+```
+# 厂商模拟开发异步SDK示例
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <functional>
+#include "TaskQueue.h"
+#include "../Agave/Agave.hpp"
+#include "manufacturer.h"
+
+using namespace std::chrono_literals;
+
+void run_on_main(std::function<void(void)> fn);
+TaskQueue queue;
+agave::AsyncAction DoWorkAsync(void);
+agave::AsyncAction DoWorkAsync2(void);
+
+int main(void)
+{
+	agave::set_fg_entry([](std::function<void(void)> procedure)
+		{ queue.add_task(procedure); });
+
+	std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+
+	std::jthread{ []()
+		{
+			for (int i = 0; i < 20; ++i)
+	{
+		run_on_main([]()
+			{
+				std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
+			});
+		std::this_thread::sleep_for(350ms);
+	}
+		} }.detach();
+	
+	DoWorkAsync2();
+
+	queue.run();
+
+	return 0;
+}
+
+agave::AsyncAction DoWorkAsync2(void)
+{
+	int result = co_await ReadFileAsync(L"aa.txt");
+	co_await agave::resume_foreground();
+	std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+	std::wcout << L"got a result: " << result << std::endl;
+}
+
+void run_on_main(std::function<void(void)> fn)
+{
+	queue.add_task(fn);
+}
+
+agave::AsyncAction DoWorkAsync(void)
+{
+	co_await agave::resume_background();
+	for (int i = 0; i < 10; ++i)
+	{
+		std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+		std::this_thread::sleep_for(500ms);
+	}
+	//co_await 5s;
+	//std::wcout << L"doing on worker2: " << std::this_thread::get_id() << std::endl;
+	co_await agave::resume_foreground();
+	std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+	std::wcout << L"updating..." << std::endl;
+	std::this_thread::sleep_for(3s);
+	std::wcout << L"finish update!" << std::endl;
+
+	co_return;
+}
+
+
+
+```

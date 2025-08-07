@@ -9,11 +9,6 @@ updated:
 comments: 
 published:
 ---
-
-# 内容
-
-1. cmake
-
 # 概述
 
 是个编译构建工具，相当于对makefile以及其之下的g++/gcc包装了一层。makefile语法比较难记，而cmake比较容易，适合用来编译大型项目。
