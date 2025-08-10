@@ -1,16 +1,13 @@
 ---
-title: Cpp_泛型算法&函数对象
-typora-root-url: ../..
+title: Cpp_泛型算法_函数对象
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/11/25
-update:
-comments:
+update: 
+comments: 
 published:
 ---
-
 # 内容
 
 1. 泛型算法

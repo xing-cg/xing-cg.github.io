@@ -1,13 +1,11 @@
 ---
-typora-root-url: ../..
 title: Cpp_封装队/栈+单例模式
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/10/19
-update:
-comments:
+update: 
+comments: 
 published:
 ---
 

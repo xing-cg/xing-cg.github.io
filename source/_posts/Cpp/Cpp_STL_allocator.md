@@ -15,9 +15,9 @@ published:
 # 内容
 
 1. 一级配置器和二级配置器的关系
-1. 类型萃取
-1. allocator
-1. \_\_malloc\_alloc\_template静态成员的类外初始化，其中函数指针尤为麻烦
+2. 类型萃取
+3. allocator
+4. `__malloc_alloc_template`静态成员的类外初始化，其中函数指针尤为麻烦
 
 # 空间配置器
 

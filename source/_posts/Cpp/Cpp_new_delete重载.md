@@ -1,8 +1,7 @@
 ---
-title: Cpp_new&delete重载
-typora-root-url: ../..
+title: Cpp_new_delete重载
 categories:
-  - [Cpp]
+  - - Cpp
 tags: 
 date: 2021/10/28
 updated: 2024/5/26

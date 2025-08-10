@@ -1,5 +1,5 @@
 ---
-title: Cpp_流式IO处理
+title: Cpp_流式IO处理_字符控制_pf操作符
 categories:
   - - Cpp
 tags: 
@@ -87,6 +87,7 @@ output:
 ```
 # 基于流插入的形式进行的字符控制
 ## ostream中的pf
+https://legacy.cplusplus.com/reference/ostream/ostream/operator%3C%3C/
 pf是`<<`方法中值得注意的参数。pf是一个函数指针。可以填入不同的操作符（manipulator）。
 ![](../../images/Cpp_流式IO处理/image-20250308142525262.png)
 ## 操作符（manipulator）
