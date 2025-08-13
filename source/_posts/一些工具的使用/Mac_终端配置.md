@@ -184,3 +184,11 @@ hexo博客目录下只`npm install`还不够，还需要安装`hexo-cli`
 ```bash
 npm install -g hexo-cli
 ```
+# 远程连接云服务器
+```
+ssh-keyscan -H mrcan.work >> ~/.ssh/known_hosts
+```
+之后才能进行连接请求：
+```
+ssh root@mrcan.work
+```
