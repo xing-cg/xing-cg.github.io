@@ -171,3 +171,16 @@ Hi xing-cg! You've successfully authenticated, but GitHub does not provide shell
 git config --global user.email "myemail@xxx.com"
 ```
 现在就可以正常git管理repo了。
+# 安装npm
+macOS默认没有npm。
+可以用brew安装node.js。
+```bash
+brew install node
+node --version
+```
+之后，在有`package.json`的目录中，就可以直接`npm install`安装依赖了。
+## hexo博客依赖安装
+hexo博客目录下只`npm install`还不够，还需要安装`hexo-cli`
+```bash
+npm install -g hexo-cli
+```
