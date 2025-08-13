@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="选择        Mac的终端有很多选择。 推荐得比较多的：  iTerm2，是个老牌macOS终端，精巧。并且更新频繁。缺点是不跨平台。 warp。rust写的。GPU渲染，看起来很现代。诟病比较多的是有时太占内存，甚至有时能吃2G。但是集成的无缝AI交互体验很好。 Termius。是专门给多端使用的，主要用于管理SSH。用了用，感觉不太习惯。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac_终端配置">
+<meta property="og:url" content="https://xing-cg.github.io/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="选择        Mac的终端有很多选择。 推荐得比较多的：  iTerm2，是个老牌macOS终端，精巧。并且更新频繁。缺点是不跨平台。 warp。rust写的。GPU渲染，看起来很现代。诟病比较多的是有时太占内存，甚至有时能吃2G。但是集成的无缝AI交互体验很好。 Termius。是专门给多端使用的，主要用于管理SSH。用了用，感觉不太习惯。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-14T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Mac_终端配置 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Mac_终端配置</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-08-14</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-14</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/" data-flag-title="Mac_终端配置"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="选择"   >
+          <a href="#选择" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#选择"></a> 选择</h1>
+      
+<p>Mac的终端有很多选择。<br />
+推荐得比较多的：</p>
+<ol>
+<li>iTerm2，是个老牌macOS终端，精巧。并且更新频繁。缺点是不跨平台。</li>
+<li>warp。rust写的。GPU渲染，看起来很现代。诟病比较多的是有时太占内存，甚至有时能吃2G。但是集成的无缝AI交互体验很好。</li>
+<li>Termius。是专门给多端使用的，主要用于管理SSH。用了用，感觉不太习惯。</li>
+</ol>
+
+        <h1 id="终端配置"   >
+          <a href="#终端配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#终端配置"></a> 终端配置</h1>
+      
+<p>warp默认使用的是zsh配置文件。在<code>/Users/mrcan/.zshrc</code>。<br />
+但zsh配置文件在macOS默认是没有的，需要手动创建。</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Warp Terminal &amp; Zsh Configuration</span></span><br><span class="line"><span class="comment"># Colors for different file types in ls command</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable colors for ls on macOS</span></span><br><span class="line"><span class="built_in">export</span> CLICOLOR=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># macOS BSD ls colors (LSCOLORS format)</span></span><br><span class="line"><span class="comment"># Format: directory:symlink:socket:pipe:executable:block:character:setuid:setgid:dir_w_sticky:dir_wo_sticky</span></span><br><span class="line"><span class="built_in">export</span> LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd</span><br><span class="line"></span><br><span class="line"><span class="comment"># If you have GNU coreutils installed (brew install coreutils), uncomment these:</span></span><br><span class="line"><span class="comment"># alias ls=&#x27;gls --color=auto&#x27;</span></span><br><span class="line"><span class="comment"># export LS_COLORS=&#x27;di=1;34:ln=1;36:so=1;35:pi=1;33:ex=1;32:bd=1;34:cd=1;34:su=0;41:sg=0;46:tw=0;42:ow=0;43:mi=1;37;41:*.tar=1;31:*.tgz=1;31:*.zip=1;31:*.gz=1;31:*.bz2=1;31:*.xz=1;31:*.jpg=1;35:*.jpeg=1;35:*.png=1;35:*.gif=1;35:*.mp3=1;33:*.mp4=1;33:*.avi=1;33:*.mov=1;33:*.pdf=1;31:*.doc=1;31:*.txt=0;37:*.md=1;37:*.json=1;33:*.xml=1;33:*.yml=1;33:*.yaml=1;33:*.js=1;32:*.ts=1;32:*.py=1;32:*.go=1;32:*.rs=1;32:*.cpp=1;32:*.c=1;32:*.h=1;32&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Useful aliases for colorful output</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">&#x27;ls -la&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> la=<span class="string">&#x27;ls -A&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> l=<span class="string">&#x27;ls -CF&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable color support for grep</span></span><br><span class="line"><span class="built_in">alias</span> grep=<span class="string">&#x27;grep --color=auto&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> fgrep=<span class="string">&#x27;fgrep --color=auto&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> egrep=<span class="string">&#x27;egrep --color=auto&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Git colors (if you use git)</span></span><br><span class="line"><span class="built_in">alias</span> git=<span class="string">&#x27;git --no-pager&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Warp works great with these modern alternatives (install via brew if desired):</span></span><br><span class="line"><span class="comment"># brew install exa &amp;&amp; alias ls=&#x27;exa --color=always --icons&#x27;</span></span><br><span class="line"><span class="comment"># brew install lsd &amp;&amp; alias ls=&#x27;lsd --color=always&#x27;</span></span><br><span class="line"><span class="comment"># brew install bat &amp;&amp; alias cat=&#x27;bat --style=auto&#x27;</span></span><br></pre></td></tr></table></div></figure>
+<p>以上配置文件的效果：<br />
+What’s now working:<br />
+•  Colored directories - Blue folders<br />
+•  Colored file types - Different colors for executables, links, etc.<br />
+•  Useful aliases - ll, la, l for different listing views<br />
+•  Colored grep - Search results will be highlighted</p>
+<p>写入配置文件后，还需要<code>source ~/.zshrc</code>使这个配置文件立即生效。</p>
+
+        <h1 id="macos使用brew安装开发工具以安装git为例"   >
+          <a href="#macos使用brew安装开发工具以安装git为例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#macos使用brew安装开发工具以安装git为例"></a> macOS使用brew安装开发工具，以安装git为例</h1>
+      
+<p>通常在macOS上有两种常用的安装方式：brew install或者xcode-select --install<br />
+xcode-select and brew, which is better? what are the difference of them</p>
+
+        <h2 id="两者的对比"   >
+          <a href="#两者的对比" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#两者的对比"></a> 两者的对比</h2>
+      
+<p>Here are the key differences between installing Git via <code>xcode-select</code> and Homebrew:</p>
+
+        <h3 id="xcode-command-line-tools-xcode-select-install"   >
+          <a href="#xcode-command-line-tools-xcode-select-install" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#xcode-command-line-tools-xcode-select-install"></a> Xcode Command Line Tools (<code>xcode-select --install</code>)</h3>
+      
+<p><strong>Pros:</strong></p>
+<ul>
+<li><strong>Apple-maintained</strong>: Official Apple distribution, well-integrated with macOS</li>
+<li><strong>Comes with essential dev tools</strong>: Includes GCC, make, and other development utilities</li>
+<li><strong>System-level installation</strong>: Installed in <code>/usr/bin/git</code></li>
+<li><strong>No additional dependencies</strong>: Built into macOS</li>
+<li><strong>Required for many dev tasks anyway</strong>: Needed for compiling software from source</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li><strong>Slower updates</strong>: Git version updates only come with macOS/Xcode updates</li>
+<li><strong>Older versions</strong>: Often ships with older Git versions</li>
+<li><strong>Less control</strong>: Can’t easily switch versions or customize installation</li>
+</ul>
+
+        <h3 id="homebrew-brew-install-git"   >
+          <a href="#homebrew-brew-install-git" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#homebrew-brew-install-git"></a> Homebrew (<code>brew install git</code>)</h3>
+      
+<p><strong>Pros:</strong></p>
+<ul>
+<li><strong>Latest versions</strong>: Usually has the most recent Git releases</li>
+<li><strong>Easy updates</strong>: <code>brew upgrade git</code> keeps you current</li>
+<li><strong>Version management</strong>: Can install multiple versions if needed</li>
+<li><strong>Package ecosystem</strong>: Access to thousands of other developer tools</li>
+<li><strong>Customizable</strong>: Various installation options and configurations</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li><strong>Additional dependency</strong>: Requires Homebrew to be installed first</li>
+<li><strong>PATH management</strong>: Need to ensure Homebrew’s path comes before system paths</li>
+<li><strong>User-space installation</strong>: Installed in <code>/opt/homebrew/bin/git</code> (Apple Silicon) or <code>/usr/local/bin/git</code> (Intel)</li>
+</ul>
+
+        <h3 id="which-is-better"   >
+          <a href="#which-is-better" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#which-is-better"></a> Which is Better?</h3>
+      
+<p><strong>For most developers, Homebrew is better</strong> because:</p>
+<ol>
+<li>You get newer Git features and security fixes faster</li>
+<li>You’ll likely want Homebrew for other development tools anyway</li>
+<li>Easy to keep everything updated</li>
+</ol>
+<p><strong>Use Xcode Command Line Tools if:</strong></p>
+<ul>
+<li>You prefer minimal system modifications</li>
+<li>You don’t need the latest Git features</li>
+<li>You’re doing iOS/Mac development (you’ll need Xcode tools anyway)</li>
+</ul>
+<p><strong>Recommendation</strong>: Install Xcode Command Line Tools first (many things depend on it), then install Git via Homebrew for the best of both worlds.</p>
+
+        <h2 id="brew的安装"   >
+          <a href="#brew的安装" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#brew的安装"></a> brew的安装</h2>
+      
+<p>默认macOS是没有brew的。需要先安装。而安装brew还需要安装xcode command line tools（在安装brew时如果检测到没有这个，会自动帮你装）。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>安装完之后，它会提示你，加入PATH：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run these commands in your terminal to add Homebrew to your PATH:</span></span><br><span class="line"><span class="built_in">echo</span> &gt;&gt; /Users/mrcan/.zprofile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/mrcan/.zprofile</span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(/opt/homebrew/bin/brew shellenv)</span>&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>之后，就可以<code>brew help</code>测试了。</p>
+<blockquote>
+<p>但是，这里有个坑，就是第二句，实际最后<code>.zprofile</code>文件中保存成了<code>eval \&quot;$(/opt/homebrew/bin/brew shellenv)\&quot;</code>。<br />
+导致下一次打开终端报错：</p>
+</blockquote>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(eval):1: no such file or directory: export HOMEBREW_PREFIX=/opt/homebrew; export HOMEBREW_CELLAR=/opt/homebrew/Cellar; export HOMEBREW_REPOSITORY=/opt/homebrew; fpath[1,0]=/opt/homebrew/share/zsh/site-functions; PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin; export PATH; [ -z  ] || export MANPATH=:; export INFOPATH=/opt/homebrew/share/info:;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>应该存成<code>eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;</code>才对。<br />
+修改之后，<code>source ~/.zprofile</code>即可生效。<br />
+The issue was in your .zprofile file where the quotes around the eval command were escaped (with backslashes), which caused the shell to interpret them incorrectly.<br />
+This command properly sets up your Homebrew environment variables (like HOMEBREW_PREFIX, PATH, etc.) that you saw in the error message. The error occurred because the shell couldn’t properly execute the command due to the escaped quotes.<br />
+Your shell should now work properly without that error. You can restart your terminal or run source <code>~/.zprofile</code> to apply the changes.</p>
+</blockquote>
+
+        <h2 id="brew安装git"   >
+          <a href="#brew安装git" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#brew安装git"></a> brew安装git</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install git</span><br><span class="line">git --version</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="git配置"   >
+          <a href="#git配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#git配置"></a> git配置</h1>
+      
+
+        <h2 id="生成公钥"   >
+          <a href="#生成公钥" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#生成公钥"></a> 生成公钥</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>默认生成到了<code>~/.ssh/id_rsa</code>or<code>~/.ssh/id_ed25519</code></p>
+<p>实际测试，默认保存到了<code>/Users/mrcan/.ssh/id_ed25519</code>，这是私钥，公钥保存到了<code>/Users/mrcan/.ssh/id_ed25519.pub</code></p>
+<p>之后，把公钥上传到GitHub即可。</p>
+
+        <h2 id="发现不能读取repo"   >
+          <a href="#发现不能读取repo" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#发现不能读取repo"></a> 发现不能读取repo</h2>
+      
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></div></figure>
+<p>这是通用的检测方法。发现不行。<br />
+原因是我们没有把github.com添加到可信名单中。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -H github.com &gt;&gt; ~/.ssh/known_hosts</span><br></pre></td></tr></table></div></figure>
+<p>现在，再次</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></div></figure>
+<p>回复：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xing-cg! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></div></figure>
+<p>现在还需要在本地配置自己的user.email</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;myemail@xxx.com&quot;</span></span><br></pre></td></tr></table></div></figure>
+<p>现在就可以正常git管理repo了。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/">https://xing-cg.github.io/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/Mac_%E7%99%BB%E5%BD%95%E9%A1%B9%E4%B8%8E%E6%89%A9%E5%B1%95%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"><span class="paginator-prev__text">Mac_登录项与扩展项目管理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9"><span class="toc-number">1.</span> <span class="toc-text">
+           选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">
+           终端配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#macos%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%AE%89%E8%A3%85git%E4%B8%BA%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">
+           macOS使用brew安装开发工具，以安装git为例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E8%80%85%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">3.1.</span> <span class="toc-text">
+           两者的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xcode-command-line-tools-xcode-select-install"><span class="toc-number">3.1.1.</span> <span class="toc-text">
+           Xcode Command Line Tools (xcode-select --install)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew-brew-install-git"><span class="toc-number">3.1.2.</span> <span class="toc-text">
+           Homebrew (brew install git)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#which-is-better"><span class="toc-number">3.1.3.</span> <span class="toc-text">
+           Which is Better?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#brew%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">
+           brew的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#brew%E5%AE%89%E8%A3%85git"><span class="toc-number">3.3.</span> <span class="toc-text">
+           brew安装git</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">
+           git配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5"><span class="toc-number">4.1.</span> <span class="toc-text">
+           生成公钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0%E4%B8%8D%E8%83%BD%E8%AF%BB%E5%8F%96repo"><span class="toc-number">4.2.</span> <span class="toc-text">
+           发现不能读取repo</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">300</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
