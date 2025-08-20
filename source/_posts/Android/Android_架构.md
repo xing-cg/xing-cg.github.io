@@ -1,13 +1,11 @@
 ---
 title: Android_架构
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/14
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
@@ -15,8 +13,7 @@ published:
 
 Android大致可以分为四层架构：Linux内核层、系统运行库层、应用框架层和应用层。
 
-![img](https://source.android.com/static/devices/images/ape_fwk_all.png)
-
+![](../../images/Android_架构/image-20250820060459795.png)
 1. 应用层。系统内置的应用程序以及非系统级的应用程序都属于应用层，负责与用户进行直接交互，通常都是用Java开发。
 
 2. 应用框架层。这一层是由Java代码编写的，可以称为Java API Framework。这一层主要提供了构建应用程序时可能用到的各种API，Android自带的一些核心应用就是使用这些API完成的，开发者也可以通过这些API来构建自己的应用程序。开发者API可以直接映射到底层HAL接口，并可提供与实现驱动程序相关的实用信息。这一层所提供的主要组件有：

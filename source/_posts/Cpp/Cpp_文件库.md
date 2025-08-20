@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: Cpp_文件库
 categories:
   - - Cpp

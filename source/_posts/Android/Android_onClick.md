@@ -1,13 +1,11 @@
 ---
 title: Android_onClick
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/20
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
@@ -84,6 +82,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 ```
 
-```java
-```
 

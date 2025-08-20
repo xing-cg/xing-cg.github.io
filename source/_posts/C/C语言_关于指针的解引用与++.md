@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: C语言_关于指针的解引用与++
 categories:
   - - C

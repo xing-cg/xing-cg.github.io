@@ -1,6 +1,5 @@
 ---
 title: Cpp_仿函数_lambda表达式
-typora-root-url: ../..
 categories:
   - - Cpp
 tags: 

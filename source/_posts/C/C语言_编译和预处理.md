@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: C语言_编译和预处理
 categories:
   - - C

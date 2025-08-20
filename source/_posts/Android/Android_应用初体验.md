@@ -1,13 +1,11 @@
 ---
 title: Android_应用初体验
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/14
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

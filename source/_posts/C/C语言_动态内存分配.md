@@ -1,5 +1,4 @@
 ---
-typora: ../..
 title: C语言_动态内存分配
 categories:
   - - C

@@ -1,12 +1,11 @@
 ---
 title: Cpp_C和C++区别
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/9/27
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # C++体系内容

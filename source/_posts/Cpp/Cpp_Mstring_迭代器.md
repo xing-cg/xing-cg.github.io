@@ -1,20 +1,13 @@
 ---
-title: Cpp_Mstring&迭代器
-typora-root-url: ../..
+title: Cpp_Mstring_迭代器
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/10/28
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
-
-# 内容
-
-
-
 # 迭代器
 
 可以理解为，指向容器内部数据的一个指针。本质是对象。
@@ -36,7 +29,7 @@ int main()
 }
 ```
 
-# 
+# Mstring_iterator
 
 ```cpp
 //mstring_iterator.h
@@ -115,7 +108,7 @@ private:
 }
 ```
 
-
+# Mstring
 
 ```cpp
 //mstring.h

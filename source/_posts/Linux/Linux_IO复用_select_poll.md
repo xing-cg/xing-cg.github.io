@@ -1,5 +1,5 @@
 ---
-title: Linux_IO复用_select&poll
+title: Linux_IO复用_select_poll
 categories:
   - - Linux
   - - 网络

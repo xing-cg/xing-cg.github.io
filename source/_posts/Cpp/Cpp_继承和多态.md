@@ -1,13 +1,11 @@
 ---
 title: Cpp_继承和多态
-typora-root-url: ../..
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/11/9
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

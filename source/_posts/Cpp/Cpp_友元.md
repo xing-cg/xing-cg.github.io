@@ -1,13 +1,11 @@
 ---
-typora-root-url: ../..
 title: Cpp_友元
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2022/1/20
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

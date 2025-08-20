@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: Cpp_引用
 categories:
   - - Cpp

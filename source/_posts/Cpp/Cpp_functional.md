@@ -1,13 +1,11 @@
 ---
 title: Cpp_functional
-typora-root-url: ../..
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2022/3/29
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

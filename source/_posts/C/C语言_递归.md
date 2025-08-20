@@ -1,8 +1,7 @@
 ---
-typora-root-url: ../..
 title: C语言_递归
 categories:
-  - C
+  - - C
 tags: 
 date: 2021/8/14
 updated: 

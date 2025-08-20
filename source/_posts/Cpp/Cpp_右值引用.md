@@ -1,13 +1,12 @@
 ---
 title: Cpp_右值引用
-typora-root-url: ../..
 categories:
-  - [Cpp, 右值引用]
-tags:
-  - null 
+  - - Cpp
+    - 右值引用
+tags: 
 date: 2022/3/13
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 # 内容

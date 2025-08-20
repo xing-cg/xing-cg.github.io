@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: Cpp_模板_Traits_Policy
 categories:
   - - Cpp

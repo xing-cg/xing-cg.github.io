@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: C语言_动态内存管理
 categories:
   - - C

@@ -1,13 +1,11 @@
 ---
-typora-root-url: ../..
 title: Cpp_名字粉碎技术
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2022/1/5
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

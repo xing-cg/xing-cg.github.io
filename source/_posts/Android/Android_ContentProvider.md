@@ -1,13 +1,11 @@
 ---
 title: Android_ContentProvider
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/5
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

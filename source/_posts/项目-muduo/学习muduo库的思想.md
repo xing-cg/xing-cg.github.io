@@ -28,11 +28,11 @@ published:
 网络IO阶段分为两个：数据准备和数据读写
 
 * 数据准备--根据系统IO操作的就绪状态
-  * 阻塞：调用IO方法的线程进入阻塞状态
-  * 非阻塞：不会改变线程的状态，通过返回值判断
+    * 阻塞：调用IO方法的线程进入阻塞状态
+    * 非阻塞：不会改变线程的状态，通过返回值判断
 * 数据读写（IO层面的同步和异步）--根据应用程序和内核的交互方式
-  * 同步：用户的recv完成了所有的动作，而且因此阻塞或者空转等待。数据是用户从TCP的接收缓冲区搬移的。
-  * 异步：应用程序把任务交给操作系统，自己去做别的事情，操作系统处理完后，通知用户层“buf的数据已经准备好了”。可以通过sigio通知或者实现约定的回调方式通知
+    * 同步：用户的recv完成了所有的动作，而且因此阻塞或者空转等待。数据是用户从TCP的接收缓冲区搬移的。
+    * 异步：应用程序把任务交给操作系统，自己去做别的事情，操作系统处理完后，通知用户层“buf的数据已经准备好了”。可以通过sigio通知或者实现约定的回调方式通知
 
 ```c
 ssize_t recv(int sockfd, void* buf, size_t len, int flags);
@@ -53,8 +53,8 @@ int size = recv(sockfd, buf, 1024, 0);	//recv阻塞至sockfd上有数据准备�
 即使epoll也是同步的IO，返回发生事件的event，读的时候需要调用recv，所以是同步IO。
 
 * 业务层面的一个逻辑处理是同步还是异步？
-  * 同步：A操作等待B操作完毕，得到返回值，继续处理
-  * 异步：A操作告诉B操作它感兴趣的事件及通知方式，A操作继续执行自己的业务逻辑了，等B监听到相应。
+    * 同步：A操作等待B操作完毕，得到返回值，继续处理
+    * 异步：A操作告诉B操作它感兴趣的事件及通知方式，A操作继续执行自己的业务逻辑了，等B监听到相应。
 
 ## 总结
 
@@ -80,10 +80,10 @@ int size = recv(sockfd, buf, 1024, 0);	//recv阻塞至sockfd上有数据准备�
 在这个多核时代，服务端网络编程如何选择线程模型？libevent作者的观点：**one loop(事件循环, 一般用IO复用作为事件分发器) per thread** is usually a good model. 多线程服务端编程的问题就转换为如何设计一个高效且易用的event loop，然后每个线程run一个event loop就行了【即muduo库的思想】（当然线程间的同步、互斥少不了，还有其他的耗时事件需要起另外的线程来做）。
 
 * event loop是non-blocking网络编程的核心，在现实生活中，non-blocking几乎总是和IO-multiplexing一起使用，原因有二：
-  * **不要单独使用非阻塞IO**：没有人真的会用轮询(busy-polling)来检查某个non-blocking IO操作是否完成，太浪费CPU资源
-  * **不要单独使用IO复用**（比如阻塞的IO复用）：IO multiplexing一般不能和blocking IO用在一起，因为blocking IO中read()/write()/accept()/connect()都有可能阻塞当前线程，这样线程就没办法处理其他socket上的IO操作了
-  * 所以当我们提到non-blocking的时候，实际上指的是non-blocking + IO multiplexing，单用其中任何一个都没有办法很好地实现功能。
-  * 结论：epoll + 非阻塞IO + 线程池(线程的数目一般对应电脑的CPU核数)
+    * **不要单独使用非阻塞IO**：没有人真的会用轮询(busy-polling)来检查某个non-blocking IO操作是否完成，太浪费CPU资源
+    * **不要单独使用IO复用**（比如阻塞的IO复用）：IO multiplexing一般不能和blocking IO用在一起，因为blocking IO中read()/write()/accept()/connect()都有可能阻塞当前线程，这样线程就没办法处理其他socket上的IO操作了
+    * 所以当我们提到non-blocking的时候，实际上指的是non-blocking + IO multiplexing，单用其中任何一个都没有办法很好地实现功能。
+    * 结论：epoll + 非阻塞IO + 线程池(线程的数目一般对应电脑的CPU核数)
 
 > nginx使用的是epoll + fork，是不是不如epoll + pthread？
 
@@ -132,12 +132,12 @@ sequenceDiagram
 ## select和poll的缺点
 
 * select的缺点：
-  * 单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：`#define __FD_SETSIZE 1024`），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。
-  * 内核/用户空间内存拷贝问题，select需要复制大量的句柄数据结构，产生巨大的开销
-  * select返回的是含有整个句柄的数组，应用程序需要遍历整个数组才能发现哪些句柄发生了事件
-  * select的触发方式是水平触发，应用程序如果没有完成对一个已经就绪的文件描述符进行IO操作，那么之后每次select调用还是会将这些文件描述符通知进程（意思就是一件事情处理得太拖沓，拖延好几次才完成，影响效率）。其实epoll的LT模式也是这样。但是ET模式效率不一定比LT好。
+    * 单个进程能够监视的文件描述符的数量存在最大限制，通常是1024（可更改：`#define __FD_SETSIZE 1024`），但由于select采用轮询的方式扫描文件描述符，则文件描述符数量越多，性能就越差。
+    * 内核/用户空间内存拷贝问题，select需要复制大量的句柄数据结构，产生巨大的开销
+    * select返回的是含有整个句柄的数组，应用程序需要遍历整个数组才能发现哪些句柄发生了事件
+    * select的触发方式是水平触发，应用程序如果没有完成对一个已经就绪的文件描述符进行IO操作，那么之后每次select调用还是会将这些文件描述符通知进程（意思就是一件事情处理得太拖沓，拖延好几次才完成，影响效率）。其实epoll的LT模式也是这样。但是ET模式效率不一定比LT好。
 * poll
-  * 相比select模型，poll使用链表保存文件描述符，因此没有了监视文件数量的限制，但其他三个缺点依然存在。
+    * 相比select模型，poll使用链表保存文件描述符，因此没有了监视文件数量的限制，但其他三个缺点依然存在。
 
 >以select模型为例，假设我们的服务器需要支持100万的并发连接，则在__FD_SETSIZE 为1024的情况下，则我们至少需要开辟1k个进程才能实现100万的并发连接。除了进程间上下文切换的时间消耗外，从内核/用户空间大量的句柄结构内存拷贝、数组轮询等，是系统难以承受的。因此，基于select模型的服务器程序，要达到100万级别的并发访问，是一个很难完成的任务。
 
@@ -176,15 +176,15 @@ epoll通过在Linux内核中申请一个简易的文件系统，提升了效率�
 > 如此一来，要实现上面说的场景，只需在进程启动时建立一个`epoll对象`，然后在需要时像这个`epoll对象`中添加或者删除事件。同时`epoll_wait`时，并没有向操作系统复制这100万个连接的句柄数据，内核也不需要去遍历全部的事件。
 
 * LT模式，muduo采用的是LT模式
-  * 特点：内核数据没被读完，就会一直上报数据
-  * 不会丢失数据或者消息
-    * 应用没有读取完数据，内核会不断上报
-  * 低延迟处理
-    * 每次读数据只需要一次系统调用，照顾了多个连接的公平性，不会因为某个连接上的数据量过大而影响其他连接处理消息
-  * 跨平台处理
-    * 像select一样可以跨平台使用
+    * 特点：内核数据没被读完，就会一直上报数据
+    * 不会丢失数据或者消息
+        * 应用没有读取完数据，内核会不断上报
+    * 低延迟处理
+        * 每次读数据只需要一次系统调用，照顾了多个连接的公平性，不会因为某个连接上的数据量过大而影响其他连接处理消息
+    * 跨平台处理
+        * 像select一样可以跨平台使用
 * ET模式
-  * 特点：内核数据只上报一次，效率相对较高
+    * 特点：内核数据只上报一次，效率相对较高
 
 # muduo网络库编程准备
 
@@ -212,6 +212,7 @@ epoll通过在Linux内核中申请一个简易的文件系统，提升了效率�
     4. 最后，再把上面的boost库头文件和lib库文件安装在默认的Linux系统头文件和库文件的搜索路径下，运行下面命令（因为要给/usr目录下拷贝文件，需要先进入root用户）：`sudo ./b2 install`
     5. sudo ldconfig​更新链接库缓存
     6. 验证安装boost是否成功，通过下面的代码验证一下：
+
        ```cpp
 #include <iostream>
 #include <boost/bind.hpp>
@@ -235,9 +236,12 @@ int main()
 ```
 2. `unzip muduo-master.zip`
 3. `cd muduo-master`
-4. muduo库源码编译会编译很多`unit_test`测试用例代码，编译耗时长，我们用不到，vim编辑上面源码目录里面的`CMakeLists.txt`文件，如下修改：   ![](../../images/学习muduo库的思想/image-20250712185725471.png)
-5. `./build.sh`源码编译构建程序，运行该程序（注意：muduo是用cmake来构建的，需要先安装cmake，ubuntu下`sudo apt-get install cmake`就可以，redhat或者centos可以从yum仓库安装）
-6. 编译完成后，输入`./build.sh install`命令进行muduo库安装。但这个`./build.sh install`实际上把muduo的头文件和lib库文件放到了`muduo-master`同级目录下的`build`目录下的`release-install-cpp11`文件夹下面了
+4. muduo库源码编译会编译很多`unit_test`测试用例代码，编译耗时长，我们用不到，vim编辑上面源码目录里面的`CMakeLists.txt`文件，如下修改：
+
+![](../../images/学习muduo库的思想/image-20250712185725471.png)
+7. `./build.sh`源码编译构建程序，运行该程序（注意：muduo是用cmake来构建的，需要先安装cmake，ubuntu下`sudo apt-get install cmake`就可以，redhat或者centos可以从yum仓库安装）
+8. 编译完成后，输入`./build.sh install`命令进行muduo库安装。但这个`./build.sh install`实际上把muduo的头文件和lib库文件放到了`muduo-master`同级目录下的`build`目录下的`release-install-cpp11`文件夹下面了
+
    ```bash
 root@tony-virtual-machine:/home/tony/package# ls
 build  muduo-master  muduo-master.zip
@@ -454,12 +458,11 @@ build构建项目的快捷键是`ctrl+shift+B`键，但若你没有配置过buil
 # muduo网络库的多线程模型
 
 * 网络服务器编程常用模型
-  1. accept + read/write : 不是并发服务器
-  2. accpet + fork (process-pre-connection) : 适合并发连接数不大，计算任务工作量大于fork的开销
-  3. accept + thread (thread-pre-connection) : 比方案2的开销小了一点，但是并发造成线程堆积过多
-  4. reactors in threads (one loop per thread) : 是muduo的网络设计。有一个main reactor负载accept连接，然后把连接分发到某个sub reactor(采用round-robin的方式来选择sub reactor)，该连接的操作都在sub reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。
-  5. reactors in process  (one loop pre process) : 是nginx服务器的网络模块设计，基于进程设计，采用多个Reactors充当I/O进程和工作进程，通过一把accept锁完美解决多个Reactors的“惊群现象”。
-
+    1. accept + read/write : 不是并发服务器
+    2. accpet + fork (process-pre-connection) : 适合并发连接数不大，计算任务工作量大于fork的开销
+    3. accept + thread (thread-pre-connection) : 比方案2的开销小了一点，但是并发造成线程堆积过多
+    4. reactors in threads (one loop per thread) : 是muduo的网络设计。有一个main reactor负载accept连接，然后把连接分发到某个sub reactor(采用round-robin的方式来选择sub reactor)，该连接的操作都在sub reactor所处的线程中完成。多个连接可能被分派到多个线程中，以充分利用CPU。
+    5. reactors in process  (one loop pre process) : 是nginx服务器的网络模块设计，基于进程设计，采用多个Reactors充当I/O进程和工作进程，通过一把accept锁完美解决多个Reactors的“惊群现象”。
 * muduo底层的模型
 
 muduo的网络设计：reactors in threads - one loop per thread.

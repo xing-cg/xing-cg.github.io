@@ -1,13 +1,11 @@
 ---
 title: Android_Fragment
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/19
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

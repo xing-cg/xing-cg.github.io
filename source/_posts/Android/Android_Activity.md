@@ -1,13 +1,11 @@
 ---
 title: Android_Activity
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/7/18
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

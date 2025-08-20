@@ -1,6 +1,5 @@
 ---
 title: Cpp_STL_算法_ranges
-typora-root-url: ../..
 categories:
   - - Cpp
     - STL

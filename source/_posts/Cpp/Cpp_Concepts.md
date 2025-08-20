@@ -1,6 +1,5 @@
 ---
-title: Cpp_concept
-typora-root-url: ../..
+title: Cpp_Concepts
 categories:
   - - Cpp
     - Modern
@@ -10,9 +9,9 @@ updated:
 comments: 
 published:
 ---
-# concept
+# Concepts
 意为概念，用于限定类型是哪些子类型。
-# concept中的requires约束
+# Concepts中的requires约束
 
 ```cpp
 #include<iostream>
@@ -50,6 +49,7 @@ int main()
 > 报错：
 > no instance of function template "add" matches the argument list
 > argument types are: (double, double)
+
 ```cpp
 int main()
 {
@@ -158,6 +158,7 @@ int main()
 > 报错：
 > no instance of function template "show" matches the argument list
 > argument types are: (Test)
+
 ```cpp
 template<typename T>
 concept my_concept = requires(T t)
@@ -218,6 +219,7 @@ int main()
 2. T类型有名为read的方法，且参数必须是u的类型`std::string const &`。没有规定返回值类型
 3. T类型必须有名为val的成员变量
     1. 发现如果定义val为private（甚至static private）是不可以通过的，必须是可以从外部访问的。
+
 ```cpp
 template <typename T>
 concept my_concept = requires(T t, std::string const& u)
@@ -267,6 +269,7 @@ concept my_concept = requires(T t)
 2. 再加到`find_if`这个模板函数后限定：
     1. “模板参数1 UnaryPredicate”符合`UnaryPredicateConcept`中T的要求。（T有`t(*u)`且返回bool的方法）
 3. 注意，`t(*u)`中u前必须有`*`，不然`t()`的参数将被限定为InputIterator。那么`bool operator () (int const& v)`由于参数是int将无法通过。
+
 ```cpp
 template <typename T, typename U>
 concept UnaryPredicateConcept = requires(T t, U u)

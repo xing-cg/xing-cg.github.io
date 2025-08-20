@@ -6,7 +6,7 @@ tags:
 date: 2022/8/31
 updated: 
 comments: 
-published:
+published: false
 ---
 
 # 背景
@@ -22,7 +22,7 @@ public class SettingsHomepageActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String password = getIntent().getStringExtra("password");
-        if(password != null && password.equals("xbs002841")) {
+        if(password != null && password.equals(".........")) {
             Log.w(TAG, "Origin Action");
             setContentView(R.layout.settings_homepage_container);
             final View root = findViewById(R.id.settings_homepage_container);
@@ -47,9 +47,9 @@ public class SettingsHomepageActivity extends FragmentActivity {
             ((FrameLayout) findViewById(R.id.main_content))
                     .getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         } else {
-            Log.w(TAG, "seewo's Action");
+            Log.w(TAG, "s..wo's Action");
             Intent intent = new Intent();
-            intent.setClassName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity");
+            intent.setClassName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity");
             startActivity(intent);
             finish();
         }
@@ -60,19 +60,19 @@ public class SettingsHomepageActivity extends FragmentActivity {
 
 经跳转逻辑修改后，正确进入activity的方式：
 
-| 参数     | 值        |
+| 参数       | 值         |
 | -------- | --------- |
-| password | xbs002841 |
+| password | ......... |
 
 ```java
 Intent intent = new Intent("android.settings.SETTINGS");
-intent.putExtra("password", "xbs002841");
+intent.putExtra("password", ".........");
 startActivity(intent);
 ```
 
 ```
-android-app://com.seewo.eclass.settings
+android-app://com.s..wo.eclass.settings
 android-app://com.example.intenttosetting
-android-app://com.seewo.studystation.launcher
+android-app://com.s..wo.studystation.launcher
 ```
 

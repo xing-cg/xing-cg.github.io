@@ -1,14 +1,13 @@
 ---
 title: Android_多线程和异步编程
-typora-root-url: ../..
 categories:
-  - [Android]
-  - [操作系统, 多线程]
-tags:
-  - null 
+  - - Android
+  - - 操作系统
+    - 多线程
+tags: 
 date: 2022/8/10
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

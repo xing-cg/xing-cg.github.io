@@ -1,5 +1,4 @@
 ---
-typora-root-url: ../..
 title: C语言_结构体
 categories:
   - - C

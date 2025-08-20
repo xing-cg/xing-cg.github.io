@@ -1,13 +1,11 @@
 ---
 title: Android_Intent
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/7/29
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
@@ -26,6 +24,7 @@ Intent主要解决活动之间的相互跳转。
 1. 右击`app/src/main/res`目录，新建一个目录，名为`layout`，对着`layout`目录右键新建一个Layout resource file，会弹出一个新建布局资源文件的窗口，将此布局文件命名为`first_layout.xml`，根元素写成LinearLayout。
 
 2. 编辑`first_layout.xml`。
+
    ```xml
    <?xml version="1.0" encoding="utf-8"?>
    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,6 +51,7 @@ Intent主要解决活动之间的相互跳转。
    ```
 
 3. 重新回到FirstActivity,java，在onCreate方法中加入一行代码
+
    ```java
    public class FirstActivity extends AppCompatActivity {
        @Override
@@ -70,6 +70,7 @@ Intent主要解决活动之间的相互跳转。
    ```
 
 4. 所有的活动都要在AndroidManifest.xml文件中注册才能生效。在`application`标签内通过添加`activity`标签来对活动进行注册。但是仅仅注册活动还是不够的，因为还没为程序配置主活动。也就是说程序运行起来后不知道首先要启动哪个活动。配置主活动的方法就是在`<activity>`标签的内部加入`<intent-filter>`标签，并在此标签里添加`<action android:name="android.intnet.action.MAIN" />`和`<category android:name="android.intent.category.LAUNCHER" />`这两句声明即可。
+
    ```xml
    <?xml version="1.0" encoding="utf-8"?>
    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -110,6 +111,7 @@ Intent主要解决活动之间的相互跳转。
 1. 如何销毁一个活动？最简单的方法是按一下Back键就可以销毁当前的活动。如果不想通过按键的方式，而是希望在程序中通过代码来销毁活动，则调用Activity类提供的finish方法，就可以销毁当前活动了。
 
 2. 修改按钮监听器中的代码：
+
    ```java
    button1.setOnClickListener(new View.OnClickListener() {
        @Override

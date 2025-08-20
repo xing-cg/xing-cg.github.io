@@ -140,11 +140,11 @@ screen_brightness=204
 screen_brightness_for_vr=86
 screen_brightness_mode=0
 screen_off_timeout=600000
-seewo_close_voice_call=1
+s..wo_close_voice_call=1
 show_password=0
 sound_effects_enabled=1
-stu_fingerprint=249eccbb54954b5c8dd41fe482d89c2a
-system_seewo_sensor_value_report=1
+stu_fingerprint=.........
+system_s..wo_sensor_value_report=1
 system_user_login_state=1
 time_12_24=24
 tty_mode=0
@@ -475,7 +475,7 @@ public class SettingsHomepageActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String password = getIntent().getStringExtra("password");
-        if(password != null && password.equals("xbs002841")) {
+        if(password != null && password.equals(".........")) {
             Log.w(TAG, "Origin Action");
             setContentView(R.layout.settings_homepage_container);
             final View root = findViewById(R.id.settings_homepage_container);
@@ -500,9 +500,9 @@ public class SettingsHomepageActivity extends FragmentActivity {
             ((FrameLayout) findViewById(R.id.main_content))
                     .getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         } else {
-            Log.w(TAG, "seewo's Action");
+            Log.w(TAG, "s..wo's Action");
             Intent intent = new Intent();
-            intent.setClassName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity");
+            intent.setClassName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity");
             startActivity(intent);
             finish();
         }
@@ -697,7 +697,7 @@ import android.util.Log;
 -            // Only allow contextual feature on high ram devices.
 -            showFragment(new ContextualCardsFragment(), R.id.contextual_cards_content);
 +        String password = getIntent().getStringExtra("password");
-+        if(password != null && password.equals("xbs002841")) {
++        if(password != null && password.equals(".........")) {
 +            Log.w(TAG, "Origin Action");
 +            setContentView(R.layout.settings_homepage_container);
 +            final View root = findViewById(R.id.settings_homepage_container);
@@ -722,9 +722,9 @@ import android.util.Log;
 +            ((FrameLayout) findViewById(R.id.main_content))
 +                    .getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 +        } else {
-+            Log.w(TAG, "seewo's Action");
++            Log.w(TAG, "s..wo's Action");
 +            Intent intent = new Intent();
-+            intent.setClassName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity");
++            intent.setClassName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity");
 +            startActivity(intent);
 +            finish();
          }
@@ -1253,19 +1253,19 @@ vendor/mediatek/proprietary/packages/apps/MtkSettings/tests/unit/src/com/android
 
 ```
 xurui@ubuntu:~/myProject/DT15/alps$
-rg 'com.seewo.eclass.settings' . -j56
+rg 'com.s..wo.eclass.settings' . -j56
 ./external/flatbuffers/.gitignore: line 114: error parsing glob '.corpus**': invalid use of **; must be one path component
 ./external/flatbuffers/.gitignore: line 115: error parsing glob '.seed**': invalid use of **; must be one path component
 frameworks/base/services/core/java/com/android/server/pm/permission/DefaultPermissionGrantPolicy.java
-624:                                      "com.seewo.eclass.settings",
+624:                                      "com.s..wo.eclass.settings",
 
 vendor/mediatek/proprietary/packages/apps/SystemUI/src/com/android/systemui/statusbar/custom/UtilsAc.java
-37:                new ComponentName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity"));
-49:                new ComponentName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity"));
-61:                new ComponentName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity"));
-88:                new ComponentName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity"));
-98:                new ComponentName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity"));
-161:            intent.setClassName("com.seewo.eclass.settings", "com.seewo.eclass.settings.SettingsActivity");
+37:                new ComponentName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity"));
+49:                new ComponentName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity"));
+61:                new ComponentName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity"));
+88:                new ComponentName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity"));
+98:                new ComponentName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity"));
+161:            intent.setClassName("com.s..wo.eclass.settings", "com.s..wo.eclass.settings.SettingsActivity");
 
 ```
 

@@ -1,13 +1,12 @@
 ---
 title: Cpp_STL_vector
-typora-root-url: ../..
 categories:
-  - [Cpp, STL]
-tags:
-  - null 
+  - - Cpp
+    - STL
+tags: 
 date: 2022/2/26
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,13 +1,11 @@
 ---
 title: Android_应用基础知识
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/7/25
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

@@ -1,14 +1,14 @@
 ---
 title: Cpp_完美转发
-typora-root-url: ../..
 categories:
-  - [Cpp, 右值引用]
-  - [Cpp, Modern]
-tags:
-  - null 
+  - - Cpp
+    - 右值引用
+  - - Cpp
+    - Modern
+tags: 
 date: 2022/2/25
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

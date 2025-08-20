@@ -1,13 +1,11 @@
 ---
 title: Android_UI
-typora-root-url: ../..
 categories:
-  - [Android]
-tags:
-  - null 
+  - - Android
+tags: 
 date: 2022/8/15
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 

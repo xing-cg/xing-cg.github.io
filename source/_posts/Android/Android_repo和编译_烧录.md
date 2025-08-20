@@ -4,11 +4,10 @@ categories:
   - - Android
 tags: 
 date: 2022/8/12
-updatec: 
+updated: 
 comments: 
 published:
 ---
-
 # git
 
 参考文章：[Git三大特色之Stage](https://blog.csdn.net/qq_32452623/article/details/78417609)
@@ -79,7 +78,7 @@ See 'repo help --all' for a complete list of recognized commands.
 
 ## repo init
 
-`repo init -u git@gitlab.gz.cvte.cn:tc02_mtk_android10_0/manifest.git -m mtk8788_seewo_tc02a_sys828.xml -b develop_dt15`
+`repo init -u git@gitlab.gz.cvte.cn:tc02_mtk_android10_0/manifest.git -m mtk8788_s..wo_tc02a_sys828.xml -b develop_dt15`
 
 repo init：Initialize a repo client checkout in the current directory，选项：（可通过`repo help init`查看）
 
@@ -462,9 +461,9 @@ Lunch menu... pick a combo:
         ...
      
 Which would you like? [aosp_arm-eng] full_tb8788p1_64_wifi-userdebug
-Enter customer product(default: seewo):
-not specific SEEWO_CUSTOMER_PRODUCT, reset to seewo.
-device/mediateksample/tb8788p1_64_wifi/device.mk:196: warning: "---------Including seewo apps---------"
+Enter customer product(default: s..wo):
+not specific S..WO_CUSTOMER_PRODUCT, reset to s..wo.
+device/mediateksample/tb8788p1_64_wifi/device.mk:196: warning: "---------Including s..wo apps---------"
 ```
 
 lunch提示你做选择，可以直接回车，可以输入序号，也可以输入序号后的字符串。
@@ -527,7 +526,7 @@ Environment options:
 - ANDROID_QUIET_BUILD: set to 'true' to display only the essential messages.
 
 Look at the source to view more functions. The complete list is:
-addcompletions add_lunch_combo allmod build_build_var_cache cgrep check_product check_type check_variant choosecombo chooseproduct choosetype choosevariant _complete_android_module_names core coredump_enable coredump_setup cproj croot _croot destroy_build_var_cache enable_zsh_completion findmakefile get_abs_build_var getbugreports get_build_var getlastscreenshot get_make_command getprebuilt getscreenshotpath getsdcardpath gettargetarch gettop ggrep godir gomod hmm is isviewserverstarted jgrep key_back key_home key_menu lunch _lunch m make mangrep mgrep mm mma mmm mmma pathmod pez printconfig print_lunch_menu provision qpid rcgrep refreshmod resgrep runhat runtest sepgrep setpaths set_sequence_number set_stuff_for_environment sgrep should_add_completion smoketest source_seewo_setup source_vendorsetup startviewserver stopviewserver systemstack tapas tracedmdump treegrep validate_current_shell _wrap_build
+addcompletions add_lunch_combo allmod build_build_var_cache cgrep check_product check_type check_variant choosecombo chooseproduct choosetype choosevariant _complete_android_module_names core coredump_enable coredump_setup cproj croot _croot destroy_build_var_cache enable_zsh_completion findmakefile get_abs_build_var getbugreports get_build_var getlastscreenshot get_make_command getprebuilt getscreenshotpath getsdcardpath gettargetarch gettop ggrep godir gomod hmm is isviewserverstarted jgrep key_back key_home key_menu lunch _lunch m make mangrep mgrep mm mma mmm mmma pathmod pez printconfig print_lunch_menu provision qpid rcgrep refreshmod resgrep runhat runtest sepgrep setpaths set_sequence_number set_stuff_for_environment sgrep should_add_completion smoketest source_s..wo_setup source_vendorsetup startviewserver stopviewserver systemstack tapas tracedmdump treegrep validate_current_shell _wrap_build
 
 ```
 
@@ -605,7 +604,7 @@ remount failed
                                                                                                                                                                                                  ✓
 
   11/08/2022   11:06.07   /drives/q/myProject/DT15/alps/out/target/product/tb8788p1_64_wifi  fastboot devices
-SEEWOS202110120008      fastboot
+S..WOS202110120008      fastboot
                                                                                                                                                                                                  ✓
 
   11/08/2022   11:06.26   /drives/q/myProject/DT15/alps/out/target/product/tb8788p1_64_wifi  fastboot flashing unlock

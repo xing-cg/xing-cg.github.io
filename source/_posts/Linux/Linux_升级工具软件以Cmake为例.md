@@ -1,5 +1,5 @@
 ---
-title: Linux_升级工具软件以Cmake为例
+title: Linux_升级工具软件以CMake为例
 categories:
   - - Linux
 tags: 

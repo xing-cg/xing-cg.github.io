@@ -1,13 +1,11 @@
 ---
 title: Cpp_封装BigNum实现大数加减
-typora-root-url: ../..
 categories:
-  - [Cpp]
-tags:
-  - null 
+  - - Cpp
+tags: 
 date: 2021/10/20
-update:
-comments:
+updated: 
+comments: 
 published:
 ---
 
