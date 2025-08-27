@@ -3,9 +3,10 @@ title: Cpp_Concepts
 categories:
   - - Cpp
     - Modern
+    - 模板
 tags: 
 date: 2024/4/24
-updated: 
+updated: 2024/4/24
 comments: 
 published:
 ---
@@ -122,7 +123,7 @@ requires不仅可以直接使用concept，也可以用于定义新的concept。
 如：`template<typename T> concept my_concept = requires(T t) { // ... }`
 或`template<typename T> concept my_concept = requires(bool参数)`
 第一种是使用一些类型参数，大括号内会去匹配你规定的形式，这些形式需要遵循官方规定的写法。
-## 限制类必须有限定函数
+## 限制 类必须有 某个限定函数
 
 如下定义，表达的是：t是否有名为`get_v`、无参数的方法，并且返回的是不是`bool`类型。
 ```cpp

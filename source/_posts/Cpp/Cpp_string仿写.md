@@ -1,5 +1,5 @@
 ---
-title: Cpp_string仿写_compare库_引入右值引用
+title: Cpp_string仿写
 categories:
   - - Cpp
     - 右值引用
@@ -13,10 +13,10 @@ published:
 
 1. 分析string的设计、实现
 2. 由at方法引出的`C++`异常机制（有单独详细的文章）
-3. 由字符串对象的比较引出的`<compare>`库、比较机制
+3. 由字符串对象的比较引出的`<compare>`库、**比较机制（三路比较）**
 4. `cout`输出流机制，以及引出的友元
 5. `cin`输入流机制
-6. 右值引用拷贝、赋值
+6. 引入**右值引用**拷贝、赋值
 # String的历史
 在`C++`手册中的`<string>`header中，Class instantiations（类实例）有：string、u16string、u32string、wstring（宽字符）。
 string 是 ANSI 规范的普通字符。
@@ -291,6 +291,7 @@ int main()
 {
     double a = 4.0;
     double b = std::numeric_limits<double>::quiet_NaN(); //得出double类型的NaN
+    auto c = a <=> b; //c的类型：std::partial_ordering
     if(c < 0)
         std::cout << "less" << std::endl;
     else if(c > 0)
@@ -333,7 +334,7 @@ int main()
 }
 ```
 ### string中的实现
-以下回到MyString中的`<=>`比较运算符。我们定义其返回`weak_ordering`。即不管大小写混合与否，都是等价关系。
+以下回到MyString中的`<=>`比较运算符。我们定义其返回`weak_ordering`。即不管大小写混合与否，都是等价关系。总的来说，我们在大小写不敏感的情况下返回`weak_ordering`。
 
 1. 统一大小写，再比对，一样则返回等价，不一样则返回大、小
 
@@ -359,6 +360,9 @@ public:
             return std::weak_ordering::less;
     }
 }
+```
+类中只要定义了`<=>`这个运算符（参数是一个const 同类引用），那么，外部的比较运算符就转向运行该函数进行比较。
+```cpp
 int main()
 {
     MyString str{ "Hello" };

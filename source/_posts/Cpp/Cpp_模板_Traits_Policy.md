@@ -5,7 +5,7 @@ categories:
     - 模板
 tags: 
 date: 2024/4/20
-updated: 
+updated: 2025/8/22
 comments: 
 published:
 ---
@@ -45,6 +45,7 @@ float add(float a, float b)
 1. 需要函数重载
 2. 虽然是函数重载，但是这些函数的结构相似，具体的操作、行为都一样。
 3. 区别仅在于操作的对象的数据类型不同。
+
 在这种情况下，可以不用反复重载，而是利用模板，让编译器为我们自动生成。当然，编译器不会一下子全部把所有情况都生成，而是我们当时的代码具体用哪个，就在编译期特别地生成哪个。这就叫做模板编程。
 # 模板编程
 
@@ -415,7 +416,7 @@ Traits是特质、特性的意思，主要用来区分不同类型。在Modern C
 比如拿Addition加和函数举例：整型有整型的策略，浮点型有浮点型的策略。更具体地，整型中也有不同的整型：int有int的策略，long有long的策略……
 1. int数和另一个int数相加，可能会溢出，这时就需要转为long数加和并返回。
 2. long数和另一个long数相加，可能会溢出，这时就需要转为long long数加和并返回。
-
+## 在没有用到Traits时的解决方案
 如果只是通过两个模板参数来解决这个问题，可以采用如下方案：
 ```cpp
 template<typename R, typename T>
@@ -434,7 +435,7 @@ int main()
     long long e = add<long long, long>(c, d);
 }
 ```
-
+## 用到Traits，让调用更爽
 Traits就是为了解决这个问题。通过提前约束不同类型的行为，从而让调用更简便。这让模板函数在使用上更自动化了。
 
 要写这样的Addition模板群，就要先声明一个主模板：
@@ -448,7 +449,7 @@ class AddTraits;
 
 Traits是利用特化来实现的。通过类模板的特化，来区分不同类型的加和。
 
-拿unsigned short的加和类模板举例：
+拿unsigned short的"加和"类模板举例：
 ```cpp
 template < >
 class AddTraits<unsigned short>
@@ -466,7 +467,8 @@ int main()
     typename AddTraits<unsigned short>::R r = 9;
 }
 ```
-更多地：unsigned int的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。
+更多地：
+**unsigned int**的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。
 ```cpp
 template < >
 class AddTraits<unsigned int>
@@ -475,7 +477,8 @@ public:
     typedef unsigned long long R;
 };
 ```
-unsigned long的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。
+更多地：
+**unsigned long**的加和类模板，规定了目标类型R（即加和的返回类型）为unsigned long long。
 ```cpp
 template < >
 class AddTraits<unsigned long>
@@ -500,6 +503,7 @@ typename AddTraits<T>::R add(T a, T b)
  ```
 
 > 以上函数形式也可以如下写。即在模板参数中就通过缺省值的形式指明R是什么的别名，就可以用在返回值类型的简化了。
+
 ```cpp
 template <typename T, typename R = AddTraits<T>::R>
 R add(T a, T b)
@@ -523,7 +527,9 @@ int main()
 ```
 # Policy
 
-Traits是关于类型的封装。而Policy——策略，是关于行为的封装。比如把加法、减法、乘法、除法都封装成一样的行为，就是Policy。再如，日志系统，有的要写到文件中，有的则要写到服务器中，或者直接控制台输出。
+上面谈到的Traits是关于类型的封装。
+
+而Policy——策略，是关于行为的封装。比如把加法、减法、乘法、除法都封装成一样的行为，就是Policy。再如，日志系统，有的要写到文件中，有的则要写到服务器中，或者直接控制台输出。
 ## 封装AddPolicy
 
 比如要把加法封装为Policy，就是要封装上面的`R add(T a, T b)`：
@@ -535,7 +541,8 @@ Traits是关于类型的封装。而Policy——策略，是关于行为的封�
 3. 会返回一个值，类型为R。
 
 > 我们只是利用类的外壳，实际有用的是静态方法。
-> 再利用Traits，通过具体T指明R将返回什么。`R = AddTraits<T>::R
+> 再利用Traits，通过具体T指明R将返回什么。`R = AddTraits<T>::R`
+
 ```cpp
 // T是操作数类型，R是返回类型
 template <typename T, typename R = AddTraits<T>::R>
@@ -562,15 +569,15 @@ public:
     }
 };
 ```
-# 封装Traits和Policy为Operate函数模板
+# 封装 Traits 和 Policy 为 Operate 函数模板
 
-设计一个函数模板，把数据特性Traits和行为抽象Policy封装。
+设计一个函数模板，把数据特性 Traits 和行为抽象 Policy 封装。
 
-其中，T是原始数据类型，U是一个Policy如AddPolicy。
+其中，T 是原始数据类型，U 是一个 Policy，如 AddPolicy。
 ## 封装AddOperate
 
-首先可以尝试封装一个具体的Policy如AddPolicy。
-这个函数返回AddPolicy的calculate的计算结果，即返回数据类型是`AddTraits<T>::R`。
+首先可以尝试封装一个具体的 Policy 如 AddPolicy 。
+这个函数返回 AddPolicy 的 calculate 的计算结果，即返回数据类型是`AddTraits<T>::R`。
 ```cpp
 // T是操作数类型，U是Policy
 template<typename T, typename U = AddPolicy<T> >
@@ -588,7 +595,8 @@ int main()
 ```
 ### 优化
 
-opt函数的返回类型书写太冗长，考虑可以用个简化的别名。可以利用`AddTraits<T>::R`在AddPolicy中存在、使用这个特点，则可以在AddPolicy中另起模板参数R的别名为RTNTYPE（除了R，其他名字都行）。好处在于：类中另起的RTNTYPE和模板参数的R相比，前者可以在类外部直接使用，而后者不可以。
+AddOperate 函数的返回类型书写太冗长，考虑可以用个简化的别名。可以利用`AddTraits<T>::R`在 AddPolicy 中存在、使用这个特点，则可以在 AddPolicy 中另起模板参数R的别名为RTNTYPE（除了R，其他名字都行）。
+好处在于：类中另起的 RTNTYPE 和模板参数的 R 相比，前者可以在类外部直接使用，而后者不可以。
 ```cpp
 // T是操作数类型，R是返回类型
 template <typename T, typename R = AddTraits<T>::R>
@@ -604,6 +612,7 @@ public:
 ```
 
 > T为操作数类型；U为Policy；R为返回值类型。
+
 ```cpp
 template <typename T, U = AddPolicy<T> >
 U::RTNTYPE AddOperate(T a, T b)
@@ -654,6 +663,7 @@ Policy<T, Policy::RTNTYPE>::RTNTYPE Operate(T a, T b)
 但是以上代码肯定编译不过，因为出现了无限递归解析：Policy不是一个具体类，因此无法通过Policy指明具体RTNTYPE，于是就得加第三个模板参数Traits。
 
 > 注意，`Policy<T, typename Traits::R>`中的`Traits::R`前面应该加typename。以明确区分传入的是类型而不是常量值（因为模板参数可以传入常量值）
+
 ```cpp
 template <template<typename, typename> class Policy, typename Traits, typename T>
 Traits::R Operate(T a, T b)
@@ -674,7 +684,9 @@ int main()
 
 这样的话，还是得在AddTraits后加一个`decltype(a)`才行，能不能彻底消灭呢？类比指明Policy是个类模板的经验，把Traits也指明为一个类模板，即可：
 ```cpp
-template <template<typename, typename> class Policy, template<typename> class Traits, typename T>
+template <template<typename, typename> class Policy,
+            template<typename> class Traits,
+            typename T>
 Traits<T>::R Operate(T a, T b)
 {
     return Policy<T, typename Traits<T>::R>::calculate(a, b);
@@ -722,7 +734,7 @@ public:
     typedef unsigned long long R;
 };
 
-template <typename T, typename R = AddTraits<T>::R>
+template <typename T, typename R = typename AddTraits<T>::R>
 class AddPolicy
 {
 public:
@@ -733,7 +745,7 @@ public:
     }
 };
 
-template <typename T, typename R = AddTraits<T>::R>
+template <typename T, typename R = typename AddTraits<T>::R>
 class MultiplyPolicy
 {
 public:
@@ -745,7 +757,7 @@ public:
 };
 
 template <template<typename, typename> class Policy, template<typename> class Traits, typename T>
-Traits<T>::R Operate(T a, T b)
+typename Traits<T>::R Operate(T a, T b)
 {
     return Policy<T, typename Traits<T>::R>::calculate(a, b);
 }
@@ -757,6 +769,73 @@ int main()
     auto c = Operate<AddPolicy, AddTraits>(a, b);
     std::cout << c << std::endl;
     c = Operate<MultiplyPolicy, AddTraits>(a, b);
+    std::cout << c << std::endl;
+}
+```
+# 更加简化
+升级AddTraits为`OperationTraits`
+```cpp
+#include<iostream>
+
+template <typename T>
+class OperationTraits;
+
+template < >
+class OperationTraits<unsigned short>
+{
+public:
+    using R = unsigned int;
+};
+
+template < >
+class OperationTraits<unsigned int>
+{
+public:
+    using R = unsigned long;
+};
+
+template < >
+class OperationTraits<unsigned long>
+{
+public:
+    using R = unsigned long long;
+};
+
+template <typename T>
+class AddPolicy
+{
+public:
+    using RTNTYPE = typename OperationTraits<T>::R;
+    static RTNTYPE calculate(T a, T b)
+    {
+        return static_cast<RTNTYPE>(a) + static_cast<RTNTYPE>(b);
+    }
+};
+
+template <typename T>
+class MultiplyPolicy
+{
+public:
+    using RTNTYPE = typename OperationTraits<T>::R;
+    static RTNTYPE calculate(T a, T b)
+    {
+        return static_cast<RTNTYPE>(a) * static_cast<RTNTYPE>(b);
+    }
+};
+
+template <template<typename> class Policy, typename T>
+typename Policy<T>::RTNTYPE Operate(T a, T b)
+{
+    return Policy<T>::calculate(a, b);
+}
+
+int main()
+{
+    unsigned short a = 3u;
+    unsigned short b = 7u;
+    auto c = Operate<AddPolicy>(a, b);
+    std::cout << c << std::endl;
+    c = Operate<MultiplyPolicy>(a, b);
     std::cout << c << std::endl;
 }
 ```

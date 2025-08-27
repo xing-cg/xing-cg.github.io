@@ -74,12 +74,15 @@ int main()
 }
 ```
 如果需要控制格式化输出（即后面有一些可变参数），大括号是必须要写。它是占位的，而大括号里面的内容有可选的内容，具体参考[std::format](https://en.cppreference.com/w/cpp/utility/format/format)中fmt参数的replacement fields：
-1. `{ arg-id (optional) }`：replacement field without a format specification
-2. `{ arg-id (optional) : format-specification }`：replacement field with a format specification
+1. `{ arg-id (optional) }`
+    1. replacement field without a format specification
+2. `{ arg-id (optional) : format-specification }`
+    1. replacement field with a format specification
 
 `arg-id`: specifies the index of the argument in `args` whose value is to be used for formatting; if it is omitted, the arguments are used in order. The arg-id ﻿s in a format string must all be present or all be omitted. Mixing manual and automatic indexing is an error.
 
 `format-spec`: the format specification defined by the `std::formatter` specialization for the corresponding argument. Cannot start with `}`.
+
 有很多format specification：
 ![](../../images/Cpp_拼接字符串的几种方法（format）/image-20240827042103155.png)
 这里重点看一下[standard format specification](https://en.cppreference.com/w/cpp/utility/format/spec "cpp/utility/format/spec")：
@@ -160,3 +163,16 @@ b1 = std::format("{:{}f}", pi, 10.0);     // throws: width is not of integral ty
 b2 = std::format("{:{}f}", pi, -10);      // throws: width is negative
 b3 = std::format("{:.{}f}", pi, 5.0);     // throws: precision is not of integral type
 ```
+# print println
+这是`C++23`引入的。
+不带流参数的，在`<print>`库中定义。
+带流参数的，在`<ostream>`库中定义。
+
+```cpp
+print("Hello, {}!\n", "world");
+// 等价于
+println("Hello, {}!", "world");
+print(stdout, "Hello, {}!\n", "world");
+println(stdout, "Hello, {}!", "world");
+```
+但是，截止2025年8月27日，print还不支持输出宽字符。

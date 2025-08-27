@@ -2,9 +2,11 @@
 title: Cpp_const家族_与模板的关系
 categories:
   - - Cpp
+    - Modern
+    - 模板
 tags: 
 date: 2024/4/24
-updated: 
+updated: 2024/4/24
 comments: 
 published:
 ---
@@ -13,7 +15,7 @@ published:
 1. const：运行期；只能修饰变量（即使能修饰成员函数，但是本质上修饰的是this变量）；常性
 2. constexpr：可能运行期、可能编译期；可修饰变量、可修饰函数；常性
     * if constexpr
-3. consteval：编译期；只能修饰函数；函数是一段代码，没有常性一说
+3. consteval：编译期；只能修饰函数；函数是一段代码，没有常性一说。比constexpr更严格
 4. 模板参数可以传入常量
     1. 传入某一类型的常量
     2. 传入auto常量
@@ -150,12 +152,12 @@ int main()
 ```
 > 其实a用const、constexpr修饰都已无所谓了，因为consteval已经可以严格限制`get_size(b)`的返回值是编译期确定的了，无需靠constexpr来约束，用const也行。
 # 总结constexpr和consteval
-
 1. constexpr修饰函数时，并不严格限制函数中的内容必须是编译期就确定的，分两种情况：
     1. 满足编译期就确定时，函数变为常量表达式，在调用点处替换
     2. 不满足时，如传入一个变量参数，则必须在运行期才能确定的，就退化为一个普通函数。
 2. consteval是加强版的constexpr，不能修饰变量，因为修饰变量没意义。主要是用于修饰函数。主要是看函数参数是否全支持编译期确定。
 3. 被constexpr、consteval修饰的函数体内可以是递归。比如递归求和：（此时把鼠标挪在a上面，发现直接计算出了结果，55）
+
 ```cpp
 consteval int sum(int n)
 {

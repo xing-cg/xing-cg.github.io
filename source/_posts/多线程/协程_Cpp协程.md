@@ -7,7 +7,7 @@ categories:
     - 多线程
 tags: 
 date: 2024/7/27
-updated: 
+updated: 2025/8/26
 comments: 
 published:
 ---
@@ -287,7 +287,49 @@ finish update!
 
 ```
 
-## 消息队列改进
+## 传统回调模式-工作线程自己执行cb
+```cpp
+// main.cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <functional>
+using namespace std::literals;
+void call_back();
+int main()
+{
+    std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+    std::jthread([](std::function<void(void)> cb) -> void
+    {
+        std::wcout << L"Thread Id: " << std::this_thread::get_id() << std::endl;
+        std::wcout << L"doing on worker..." << std::endl;
+        std::this_thread::sleep_for(5s);
+        cb();
+    }, call_back).join();
+    return 0;
+}
+void call_back()
+{
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+    std::wcout << L"finish update!" << std::endl;
+}
+```
+运行结果：
+```
+Main Thread Id: 23092
+Thread Id: 11032
+doing on worker...
+update UI on Thread: 11032
+updating...
+finish update!
+```
+发现，UI的改变是在工作者线程完成的，而不是UI线程。这是错误的。
+## 传统回调模式改进-消息队列-工作者线程传送cb函数对象到main
+现在，加一个消息任务队列，工作者线程可以添加cb函数对象到此队列。
+然后，主线程（UI线程）可以循环去任务队列拿。拿出一个cb函数对象，由UI线程亲自调用。
+这样就可以达到在UI线程上更改内容。
 ```cpp
 // main.cpp
 #include <iostream>
@@ -326,7 +368,7 @@ void run_on_main(std::function<void(void)> fn)
 }
 
 ```
-TaskQueue
+### TaskQueue
 ```cpp
 // TaskQueue.h
 #pragma once
@@ -376,7 +418,7 @@ void TaskQueue::run()
     }
 }
 ```
-结果：
+### 结果
 ```
 Main Thread Id: 41388         // Main Thread 是UI线程
 Thread Id: 45076              // Worker线程
@@ -384,7 +426,116 @@ doing on worker...
 update UI on Thread: 41388    // 发现，工作在UI线程，成功。
 updating...
 finish update!
+```
+## 使用协程-自动启动新线程
+```cpp
+int main()
+{
+    std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+    DoWorkAsync().get();
+    return 0;
+}
+agave::AsyncAction DoWorkAsync()
+{
+    std::wcout << L"DoWorkAsync started on thread: " << std::this_thread::get_id() << std::endl;
+    
+    // 切换到一个新线程，后台执行下面的语句
+    co_await agave::resume_background();
+    
+    std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+    std::this_thread::sleep_for(5s);
 
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+
+    std::wcout << L"finish update!" << std::endl;
+    
+}
+```
+结果
+```
+Main Thread Id: 1984
+doing on worker: 12268
+update UI on Thread: 12268
+updating...
+finish update!
+```
+以上程序由于在协程函数中，worker线程操作完成后，没有切换到前台UI线程。所以UI更新错误地在worker线程中执行。
+应该加一个切换到主线程。
+```cpp
+agave::AsyncAction DoWorkAsync()
+{
+    std::wcout << L"DoWorkAsync started on thread: " << std::this_thread::get_id() << std::endl;
+    
+    // 切换到一个新线程，后台执行下面的语句
+    co_await agave::resume_background();
+    
+    std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+    std::this_thread::sleep_for(5s);
+
+    co_await agave::resume_foreground();
+
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+
+    std::wcout << L"finish update!" << std::endl; 
+}
+```
+结果：
+```
+Main Thread Id: 8796
+doing on worker: 25564
+update UI on Thread: 25564
+updating...
+finish update!
+```
+现在，加了一句切换到前台，但是最终UI更新还是在worker线程上。
+这是因为，我们是以同步方式完成协程的：`DoWorkAsync().get();`。所以无法切换。
+### 结合消息队列
+去掉`DoWorkAsync()`后面的`get()`。异步形式执行。
+```cpp
+agave::AsyncAction DoWorkAsync();
+int main()
+{
+    agave::set_fg_entry([](std::function<void(void)> procedure)
+    {
+        queue.add_task(procedure);
+    });
+    std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
+    
+    DoWorkAsync();
+    queue.run();
+}
+agave::AsyncAction DoWorkAsync()
+{
+    std::wcout << L"DoWorkAsync started on thread: " << std::this_thread::get_id() << std::endl;
+    
+    // 切换到一个新线程，后台执行下面的语句
+    co_await agave::resume_background();
+    
+    std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+    std::this_thread::sleep_for(5s);
+
+    // main函数中，设置了前台fg入口，下面的内容就会打包成一个函数对象，传给前台。
+    co_await agave::resume_foreground();
+
+    std::wcout << L"update UI on Thread: " << std::this_thread::get_id() << std::endl;
+    std::wcout << L"updating..." << std::endl;
+    std::this_thread::sleep_for(3s);
+
+    std::wcout << L"finish update!" << std::endl; 
+}
+```
+
+结果：
+```
+Main Thread Id: 2936
+doing on worker: 10572
+update UI on Thread: 2936
+updating...
+finish update!
 ```
 
 # UI和worker协同工作示例
