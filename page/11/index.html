@@ -32,117 +32,134 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%B8%A9%E7%9A%84%E5%9D%91%E5%92%8C%E6%B3%A8%E6%84%8F%E7%82%B9/">学习项目中踩的坑和注意点</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE%E4%B8%AD%E8%B8%A9%E7%9A%84%E5%9D%91%E5%92%8C%E6%B3%A8%E6%84%8F%E7%82%B9/" data-flag-title="学习项目中踩的坑和注意点"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>有的项目课程是2020年左右的，当时使用的boost 1.69和gcc 4.6版本，放到现在（2025年）的Ubuntu 24版本下，不能很好地兼容。<br />
-此时为了尽快顺利进入到课程学习的轨道上，而不是为了想办法去兼容新Ubuntu，妥协的做法是安装一个降级的Ubuntu 20版本。</p>
-
-        <h1 id="记录安装muduo过程的配套工具的版本"   >
-          <a href="#记录安装muduo过程的配套工具的版本" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#记录安装muduo过程的配套工具的版本"></a> 记录安装muduo过程的配套工具的版本</h1>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%922025/">职业规划2025</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-07-13</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%922025/" data-flag-title="职业规划2025"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="语言"   >
+          <a href="#语言" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#语言"></a> 语言</h1>
       
-<p>以下环境能成功安装muduo老版本</p>
+
+        <h2 id="c"   >
+          <a href="#c" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c"></a> C++</h2>
+      
+<p>了解一些C<ins>新特性，比如concept、Policy、constexpr，对找高薪工作有帮助吗？jthread、ranged_for。<br />
+C</ins>20的协程。<br />
+C++26的反射。<br />
+有没有必要花时间在新标准上？</p>
+
+        <h2 id="go"   >
+          <a href="#go" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#go"></a> Go？</h2>
+      
+<p>有必要转Go吗？</p>
+
+        <h2 id="java"   >
+          <a href="#java" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#java"></a> Java？</h2>
+      
+<p>了解一些，后端是不是最好用Java做？岗位多。发展路径。</p>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<hr />
+
+        <h1 id="操作系统"   >
+          <a href="#操作系统" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#操作系统"></a> 操作系统</h1>
+      
+
+        <h2 id="linux"   >
+          <a href="#linux" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#linux"></a> Linux</h2>
+      
+<p>主要学的是Linux，gcc、CMake。<br />
+gdb只会简单的调试。</p>
+
+        <h2 id="windows"   >
+          <a href="#windows" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#windows"></a> Windows</h2>
+      
+<p>只了解很简单的窗口开发，看手册。</p>
+
+        <h2 id="多线程"   >
+          <a href="#多线程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#多线程"></a> 多线程</h2>
+      
+<p>掌握到什么程度？<br />
+之前学了不少相关知识，但都差不多忘记了。<br />
+如果让现场编、设计多线程程序，不熟练。</p>
+
+        <h2 id="总结-2"   >
+          <a href="#总结-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h2>
+      
+<hr />
+
+        <h1 id="网络"   >
+          <a href="#网络" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#网络"></a> 网络</h1>
+      
+<p>前段时间刚大概复习了一下4层模型。和TCP协议。<br />
+HTTP了解地不够细致，没有深入学。</p>
+
+        <h2 id="总结-3"   >
+          <a href="#总结-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-3"></a> 总结</h2>
+      
+<hr />
+
+        <h1 id="数据库"   >
+          <a href="#数据库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据库"></a> 数据库</h1>
+      
+<p>大多数都忘记了。掌握哪些知识？多深入？</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/RPC/01_%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8RPC%E5%88%86%E5%B8%83%E5%BC%8F/">01_为什么要用RPC分布式</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-12</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/RPC/01_%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8RPC%E5%88%86%E5%B8%83%E5%BC%8F/" data-flag-title="01_为什么要用RPC分布式"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="提高硬件上限"   >
+          <a href="#提高硬件上限" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#提高硬件上限"></a> 提高硬件上限</h1>
+      
+<p>受限于硬件条件，服务器所能承受的用户的并发量。</p>
+
+        <h1 id="解耦项目架构便于管理"   >
+          <a href="#解耦项目架构便于管理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#解耦项目架构便于管理"></a> 解耦项目架构，便于管理</h1>
+      
+<p>如果整个项目代码全部在一起，假设只修改一个单元模块的几行代码，则可能需要把整个项目重新编译、部署，耗时太长。</p>
+
+        <h1 id="各模块对硬件要求不一样"   >
+          <a href="#各模块对硬件要求不一样" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#各模块对硬件要求不一样"></a> 各模块对硬件要求不一样</h1>
+      
+<p>有些模块是CPU密集型，有些模块是I/O密集型。各模块对硬件资源的需求不一样。分模块，分布式，可以充分发挥每个服务器硬件的优势。<br />
+CPU密集型用于数据处理、计算。要求CPU性能。<br />
+I/O密集型用于处理请求、连接。要求网络带宽。</p>
+
+        <h1 id="单纯的集群"   >
+          <a href="#单纯的集群" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单纯的集群"></a> 单纯的集群</h1>
+      
 <ol>
-<li>Ubuntu 20.04.6</li>
-<li>gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0</li>
-<li>g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0</li>
-<li>cmake version 3.16.3</li>
-<li>make: GNU Make 4.2.1 Built for x86_64-pc-linux-gnu</li>
-</ol>
-<p>以上，都是Ubuntu此版本apt安装的默认的版本。</p>
-
-        <h1 id="ubuntu的跨虚拟机复制粘贴问题"   >
-          <a href="#ubuntu的跨虚拟机复制粘贴问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ubuntu的跨虚拟机复制粘贴问题"></a> Ubuntu的跨虚拟机复制粘贴问题</h1>
-      
-<p>VMware虚拟机Linux与主机Windows之间不能拖拽、跨端复制粘贴</p>
-
-        <h2 id="验证vmware-tools安装状态"   >
-          <a href="#验证vmware-tools安装状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#验证vmware-tools安装状态"></a> 验证VMware Tools安装状态</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查VMware服务状态</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status vmware-tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认open-vm-tools已安装</span></span><br><span class="line"><span class="built_in">sudo</span> apt list --installed | grep open-vm-tools  <span class="comment"># Debian/Ubuntu</span></span><br><span class="line">rpm -qa | grep open-vm-tools                  <span class="comment"># CentOS/RHEL</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="重启关键服务"   >
-          <a href="#重启关键服务" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#重启关键服务"></a> 重启关键服务</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart vmware-tools</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart vmtoolsd</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="如果vmware-toolsservice-could-not-be-found"   >
-          <a href="#如果vmware-toolsservice-could-not-be-found" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如果vmware-toolsservice-could-not-be-found"></a> 如果vmware-tools.service could not be found</h2>
-      
-<p>安装/重装 open-vm-tools</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Debian</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install --reinstall open-vm-tools open-vm-tools-desktop</span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS/RHEL</span></span><br><span class="line"><span class="built_in">sudo</span> yum reinstall open-vm-tools open-vm-tools-desktop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用服务（服务名是 vmtoolsd）</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now vmtoolsd</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="检查驱动加载状态"   >
-          <a href="#检查驱动加载状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#检查驱动加载状态"></a> 检查驱动加载状态</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep -E <span class="string">&#x27;vmw_vmci|vmw_vsock_vmci_transport&#x27;</span></span><br><span class="line"><span class="comment"># 应有类似输出：</span></span><br><span class="line"><span class="comment"># vmw_vmci               98304  1</span></span><br><span class="line"><span class="comment"># vmw_vsock_vmci_transport    45056  0</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="强制重装工具"   >
-          <a href="#强制重装工具" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#强制重装工具"></a> 强制重装工具</h2>
-      
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt purge open-vm-tools &amp;&amp; <span class="built_in">sudo</span> apt autoremove</span><br><span class="line"><span class="built_in">sudo</span> apt install open-vm-tools open-vm-tools-desktop</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="如果不稳定建议使用挂载点共享文件"   >
-          <a href="#如果不稳定建议使用挂载点共享文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如果不稳定建议使用挂载点共享文件"></a> 如果不稳定，建议使用挂载点共享文件</h2>
-      
-<p>目前确实可以复制粘贴文本、小文件了，但是大文件不行，很不稳定。</p>
-<p>虚拟机设置 → 选项 → 共享文件夹 → 添加主机目录</p>
-<p>会挂载到Linux的<code>/mnt/hgfs</code>下。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/01_%E6%95%B0%E7%BB%84_01_%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">01_数组_01_二分查找</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-03-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/01_%E6%95%B0%E7%BB%84_01_%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" data-flag-title="01_数组_01_二分查找"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/" >https://leetcode.cn/problems/binary-search/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<p>给定一个 <code>n</code> 个元素有序的（升序）整型数组 <code>nums</code> 和一个目标值 <code>target</code>  ，写一个函数搜索 <code>nums</code> 中的 <code>target</code>，如果目标值存在返回下标，否则返回 <code>-1</code>。</p>
-<p><strong>示例 1:</strong></p>
-<p><strong>输入:</strong> <code>nums</code> = <code>[-1,0,3,5,9,12]</code>, <code>target</code> = 9<br />
-<strong>输出:</strong> 4<br />
-<strong>解释:</strong> 9 出现在 <code>nums</code> 中并且下标为 4</p>
-<p><strong>示例 2:</strong></p>
-<p><strong>输入:</strong> <code>nums</code> = <code>[-1,0,3,5,9,12]</code>, <code>target</code> = 2<br />
-<strong>输出:</strong> -1<br />
-<strong>解释:</strong> 2 不存在 <code>nums</code> 中因此返回 -1</p>
-<p><strong>提示：</strong></p>
-<ol>
-<li>你可以假设 <code>nums</code> 中的所有元素是不重复的。</li>
-<li><code>n</code> 将在 <code>[1, 10000]</code>之间。</li>
-<li><code>nums</code> 的每个元素都将在 <code>[-9999, 9999]</code>之间。</li>
+<li>优点：集群只能解决提高硬件的上限。</li>
+<li>缺点：如果只做集群，不做分布式，在只修改几行代码后每个服务器都需要重新编译、部署全部代码。更头疼了。</li>
+<li>缺点：不能精细地控制硬件资源和模块的适配。</li>
 </ol>
 
-        <h1 id="代码线性探测重复值"   >
-          <a href="#代码线性探测重复值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码线性探测重复值"></a> 代码（线性探测重复值）</h1>
+        <h1 id="可以在分布式的基础上集群"   >
+          <a href="#可以在分布式的基础上集群" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#可以在分布式的基础上集群"></a> 可以在分布式的基础上集群</h1>
       
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = ((right - left) &gt;&gt; <span class="number">1</span>) + left;</span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid])</span><br><span class="line">            &#123;</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid])</span><br><span class="line">            &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">// ==</span></span><br><span class="line">            &#123;</span><br><span class="line">                pos = mid;</span><br><span class="line">                <span class="keyword">while</span> (pos &gt; left &amp;&amp; nums[pos - <span class="number">1</span>] == target)</span><br><span class="line">                &#123;</span><br><span class="line">                    --pos;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>根据节点对应的功能模块的并发要求，可以针对性地对某一模块进行集群部署。</p>
 
-        <h2 id="坑1"   >
-          <a href="#坑1" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#坑1"></a> 坑1</h2>
+        <h1 id="分布式虽好但要解决的问题"   >
+          <a href="#分布式虽好但要解决的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分布式虽好但要解决的问题"></a> 分布式虽好，但要解决的问题</h1>
       
-<p>我第一次在线性向前探测重复值的时候写错了 while 的判断条件，不应该是<code>pos &gt; 0</code>，而是<code>pos &gt; left</code></p>
 
-        <h2 id="坑2"   >
-          <a href="#坑2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#坑2"></a> 坑2</h2>
+        <h2 id="大系统的软件模块怎么划分"   >
+          <a href="#大系统的软件模块怎么划分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#大系统的软件模块怎么划分"></a> 大系统的软件模块怎么划分</h2>
       
-<p>第一次写的时候，把<code>&gt;&gt; 2</code>右移运算符写成了大于号<code>&gt; 2</code>，而且，不应该是<code>&gt;&gt; 2</code>，应该是<code>&gt;&gt; 1</code>右移1位，也就是对应着除以2。这是致命的错误。<br />
-<img src="../../images/%E5%88%B7%E9%A2%98_%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/image-20250326101058377.png" alt="" /><br />
-但是测试用例居然全都通过了！这可能是因为我用到了线性探测，让算法实际以遍历的形式找到了正确答案…</p>
+<p>各模块可能会实现大量重复的代码</p>
 
-        <h1 id="心得"   >
-          <a href="#心得" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#心得"></a> 心得</h1>
+        <h2 id="各模块之间怎么访问"   >
+          <a href="#各模块之间怎么访问" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#各模块之间怎么访问"></a> 各模块之间怎么访问</h2>
       
-<p>在做二分查找或者分治思想类的题目，最难、最重要的把握点是物理下标和逻辑下标的关系。<br />
-像这个题目中，<code>left</code>、<code>right</code>、<code>mid</code>都是物理下标。<br />
-物理下标应该实时更新。<br />
-不应该只出现逻辑下标。<br />
-就像线性探测时的 while 条件中判断<code>pos &gt; 0</code>就是错误使用了逻辑下标去充当条件。应当是<code>pos &gt; left + 0</code>，省略<code>+ 0</code>即为<code>pos &gt; left</code>。</p>
+<p>各模块都运行在不同的进程中。<br />
+（比如可以运行在docker虚拟化环境中，各个模块单独运行在一个环境中）<br />
+比如，用户管理是一个单独的模块，和好友管理模块运行在不同的环境、进程。<br />
+用户管理，可能某个用户需要调用user.GetUserFriendLists(userid)。<br />
+而这个接口/函数可能处于好友管理模块中。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 机器1</span></span><br><span class="line">user.<span class="built_in">GetUserFriendLists</span>(userid);</span><br><span class="line"><span class="comment">// 机器2</span></span><br><span class="line"><span class="function">list&lt;User&gt; <span class="title">GetUserFriendLists</span><span class="params">(<span class="type">int</span> userid)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>机器1上的模块怎么调用机器2上的模块的一个业务方法呢？？？<br />
+机器1上的一个模块进程1怎么调用机器1上的模块进程2里面的一个业务方法呢？？？</p>
 
-        <h1 id="优化代码继续二分探测"   >
-          <a href="#优化代码继续二分探测" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优化代码继续二分探测"></a> 优化代码（继续二分探测）</h1>
+        <h2 id="解决方案"   >
+          <a href="#解决方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h2>
       
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = ((right - left) &gt;&gt; <span class="number">1</span>) + left;</span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid])</span><br><span class="line">            &#123;</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid])</span><br><span class="line">            &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">// ==</span></span><br><span class="line">            &#123;</span><br><span class="line">                pos = mid;</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
-<p>这能让探测行为继续保持二分的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log {n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">n</span></span><span class="mclose">)</span></span></span></span>的复杂度进行。<br />
-从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>+</mo><mi>k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log {n} + k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">n</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>（k为重复次数）优化至 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log {n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">n</span></span><span class="mclose">)</span></span></span></span>，完全消除了线性探测的开销。</p>
-
-        <h1 id="总结"   >
-          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
-      
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/10/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/12/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">300</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>见《RPC通信原理》一篇。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/10/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/12/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">300</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

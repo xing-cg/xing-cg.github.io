@@ -32,615 +32,352 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">软件体系结构</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-06-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" data-flag-title="软件体系结构"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>参考书籍：张友生编著 - 软件体系结构原理、方法与实践（第2版）</p>
-
-        <h1 id="第1章-软件体系结构概论"   >
-          <a href="#第1章-软件体系结构概论" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第1章-软件体系结构概论"></a> 第1章 软件体系结构概论</h1>
-      
-
-        <h2 id="构件"   >
-          <a href="#构件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件"></a> 构件</h2>
-      
-<p>一般认为，构件是指语义完整、语法正确和有可重用价值的单位软件，是软件重用过程中可以明确辨识的系统；结构上，它是语义描述、通信接口和实现代码的复合体。</p>
-<p>有的可以独立工作，有的需要与其他配合工作；使用和开发生产无关，只要按照标准来生产；</p>
-
-        <h2 id="构件模型"   >
-          <a href="#构件模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件模型"></a> 构件模型</h2>
-      
-<p>构件模型是对构件本质的抽象描述，主要是为构件的制作与构件的重用提供依据。</p>
-
-        <h3 id="青鸟构件模型"   >
-          <a href="#青鸟构件模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#青鸟构件模型"></a> 青鸟构件模型</h3>
-      
-<p>青鸟构件模型由外部接口和内部结构两部分组成；</p>
-<p>外部接口说明了构件所提供的服务（消息、操作、变量）；</p>
-<p>内部结构分为内部成员以及内部成员之间的关系。其中内部成员包括具体成员与虚拟成员；而成员关系包括内部成员之间的互联，以及内部成员与外部接口之间的互联</p>
-
-        <h2 id="构件获取"   >
-          <a href="#构件获取" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件获取"></a> 构件获取</h2>
-      
-<ol>
-<li>从现有构件中获得符合要求的构件，直接使用或作适应性修改，得到可重用的构件。</li>
-<li>通过遗留工程，将具有潜在重用价值的构件提取出来，得到可重用的构件。</li>
-<li>从市场上购买现成的商业构件， 即COTS(Commercial Off-The-Shell)构件。</li>
-<li>开发新的符合要求的构件。</li>
-</ol>
-
-        <h2 id="构件管理"   >
-          <a href="#构件管理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件管理"></a> 构件管理</h2>
-      
-
-        <h3 id="构件描述"   >
-          <a href="#构件描述" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件描述"></a> 构件描述</h3>
-      
-<p>从管理角度出发，也需要对构件进行描述，例如：实现方式、实现体、注释、生产者、生产日期、大小、价格、版本和关联构件等信息，它们与构件模型共同组成了对构件的完整描述。</p>
-
-        <h3 id="构件分类与组织"   >
-          <a href="#构件分类与组织" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件分类与组织"></a> 构件分类与组织</h3>
-      
-<p>为了给用户在查询构件时提供方便，同时也为了更好地重用组件，必须对收集和开发的构件进行分类并置于构件库的适当位置。构件库的组织应方便构件的存储和检索；</p>
-<p>可重用技术对构件库组织方法的要求：</p>
-<ol>
-<li>支持构件库的各种维护动作，如增加、删除、修改构件，尽量不要影响构件库的结构。</li>
-<li>不仅支持精确匹配，还要支持相似构件的查找。</li>
-<li>不仅能进行简单的语法匹配，而且能够查找在功能或行为方面等价或相似的构件。</li>
-<li>对应用领域具有较强的描述能力和较好的描述精度。</li>
-<li>库管理员和用户容易使用。</li>
-</ol>
-
-        <h3 id="构件分类三大方法"   >
-          <a href="#构件分类三大方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构件分类三大方法"></a> 构件分类三大方法</h3>
-      
-<ol>
-<li>关键字分类法 - 分层逐次树状图</li>
-<li>刻面分类法 - 定义若干用于刻画构件特征的&quot;面&quot;</li>
-<li>超文本组织方法</li>
-</ol>
-
-        <h3 id="人员及权限管理"   >
-          <a href="#人员及权限管理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#人员及权限管理"></a> 人员及权限管理</h3>
-      
-<p>有必要对不同使用者的访问权限进行限制，保证数据安全；</p>
-<p>构件库系统可包括5类用户，即注册用户、公共用户、构件提交者、一般系统管理员、超级系统管理员。</p>
-
-        <h2 id="理解与评价构件"   >
-          <a href="#理解与评价构件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#理解与评价构件"></a> 理解与评价构件</h2>
-      
-<ol>
-<li>构件的功能与行为</li>
-<li>相关的领域知识</li>
-<li>可适应性约束条件与例外情形</li>
-<li>可以预见的修改部分及修改方法</li>
-</ol>
-<p>理解构件的另一种重要手段：逆向工程，试图通过对构件的分析，结合领域知识，半自动地生成相应的设计信息，然后借助设计信息完成对构件的理解和修改。</p>
-<p>对构件可重用的评价：是通过收集并分析构件的用户在实际重用该构件的历史过程中的各种反馈信息来完成的。这些信息包括：重用成功的次数，对构件的修改量，构件的健壮性度量，性能度量等等。</p>
-
-        <h2 id="软件体系结构含义"   >
-          <a href="#软件体系结构含义" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件体系结构含义"></a> 软件体系结构含义</h2>
-      
-<p>软件体系结构为软件系统提供了一个结构、行为和属性的高级抽象，由构成系统的元素的描述、这些元素的相互作用、指导元素集成的模式以及这些模式的约束组成。</p>
-<p>软件体系结构不仅指定了系统的组织结构和拓扑结构，并且显示了系统需求和构成系统的元素之间的对应关系，提供了一些设计决策的基本原理。</p>
-
-        <h2 id="软件体系结构设计的方法"   >
-          <a href="#软件体系结构设计的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件体系结构设计的方法"></a> 软件体系结构设计的方法</h2>
-      
-<p>两大类方法：过程驱动方法和问题列表驱动方法。</p>
-<p>过程驱动方法又分为：</p>
-<ol>
-<li>面向对象方法，与OOA/OOD相似，但更侧重接口与交互。</li>
-<li>“4+1”模型方法。</li>
-<li>基于场景的迭代方法。</li>
-</ol>
-<p>基于过程驱动的体系结构设计方法适用范围广, 易于裁剪, 具备动态特点, 通用性与实践性强。</p>
-<p>问题列表驱动法适用于特定领域, 是静态的, 可以实现量化体系结构设计空间。其基本思想是枚举设计空间, 并考虑设计维的相关性, 以此来选择体系结构的风格。</p>
-
-        <h2 id="软件体系结构发展史"   >
-          <a href="#软件体系结构发展史" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件体系结构发展史"></a> 软件体系结构发展史</h2>
-      
-<ol>
-<li>无体系结构设计阶段
-<ol>
-<li>以汇编语言进行小规模应用程序开发为特征</li>
-</ol>
-</li>
-<li>萌芽阶段
-<ol>
-<li>出现了程序结构设计主题，以控制流图和数据流图构成软件结构为特征</li>
-</ol>
-</li>
-<li>初期阶段
-<ol>
-<li>出现了从不同侧面描述系统的结构模型，以UML为典型代表。</li>
-</ol>
-</li>
-<li>高级阶段
-<ol>
-<li>以描述系统的高层抽象结构为中心，不关心具体的建模细节，划分了体系结构模型与传统软件结构的界限，该阶段以Kruchten提出的“4+1”模型为标志</li>
-</ol>
-</li>
-</ol>
-
-        <h1 id="第2章-软件体系结构建模"   >
-          <a href="#第2章-软件体系结构建模" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第2章-软件体系结构建模"></a> 第2章 软件体系结构建模</h1>
-      
-
-        <h2 id="41视图"   >
-          <a href="#41视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#41视图"></a> 4+1视图</h2>
-      
-<p>4指的是逻辑、开发、进程、物理视图，1指的是场景视图。每一个视图只关心系统的一个侧面，5个视图结合在一起才能反映系统的软件体系结构的全部内容。</p>
-<p><img src="../../images/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/4plus1.png" alt="2022-06-19_222151" /></p>
-
-        <h3 id="逻辑视图"   >
-          <a href="#逻辑视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#逻辑视图"></a> 逻辑视图</h3>
-      
-<p>逻辑视图：是从最终用户的角度来看的，关注点是功能需求；</p>
-<p>逻辑视图主要支持系统的功能需求，即系统提供给最终用户的服务。<br />
-在逻辑视图中，系统分解成一系列的功能抽象，这些抽象主要来自问题领域。这种分解不但可以用来进行功能分析，而且可用作标识在整个系统的各个不同部分的通用机制和设计元素。<br />
-在面向对象技术中，通过抽象、封装和继承，可以用对象模型来代表逻辑视图，用类图来描述逻辑视图。</p>
-
-        <h3 id="开发视图"   >
-          <a href="#开发视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#开发视图"></a> 开发视图</h3>
-      
-<p>开发视图（也叫模块视图）：是从程序员的角度来看的，主要侧重软件模块的组织和管理；</p>
-<p>开发视图也称模块视图，主要侧重于软件模块的组织和管理。<br />
-开发视图要考虑软件内部的需求，如软件开发的容易性、软件的重用和软件的通用性，要充分考虑由于具体开发工具的不同而带来的局限性。<br />
-开发视图通过系统输入输出关系的模型图和子系统图来描述。</p>
-
-        <h3 id="进程视图"   >
-          <a href="#进程视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进程视图"></a> 进程视图</h3>
-      
-<p>进程视图（也叫并发视图）：是从系统集成人员的角度来看的，主要侧重系统的运行特性（非功能型的），性能和可用性、吞吐量，性能可扩充性。</p>
-<p>进程视图侧重于系统的运行特性，主要关注一些非功能性的需求。<br />
-进程视图强调并发性、分布性、系统集成性和容错能力，以及从逻辑视图中的主要抽象如何适合进程结构。它也定义逻辑视图中的各个类的操作具体是在哪一个线程中被执行的。<br />
-进程视图可以描述成多层抽象，每个级别分别关注不同的方面。在最高层抽象中，进程结构可以看作是构成一个执行单元的一组任务。<br />
-它可看成一系列独立的，通过逻辑网络相互通信的程序。它们是分布的，通过总线或局域网、广域网等硬件资源连接起来。</p>
-
-        <h3 id="物理视图"   >
-          <a href="#物理视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#物理视图"></a> 物理视图</h3>
-      
-<p>物理视图：是从系统工程人员的角度来看的，主要考虑系统拓扑结构、设备安装、通信等</p>
-<p>物理视图主要考虑如何把软件映射到硬件上，它通常要考虑到系统性能、规模、可靠性等。解决系统拓扑结构、系统安装、通讯等问题。<br />
-当软件运行于不同的节点上时，各视图中的构件都直接或间接地对应于系统的不同节点上。因此，从软件到节点的映射要有较高的灵活性，当环境改变时，对系统其他视图的影响最小。</p>
-
-        <h3 id="场景视图"   >
-          <a href="#场景视图" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#场景视图"></a> 场景视图</h3>
-      
-<p>场景可以看作是那些重要系统活动的抽象，它使四个视图有机联系起来，从某种意义上说场景是最重要的需求抽象。在开发体系结构时，它可以帮助设计者找到体系结构的构件和它们之间的作用关系。<br />
-同时，也可以用场景来分析一个特定的视图，或描述不同视图构件间是如何相互作用的。<br />
-场景可以用文本表示，也可以用图形表示。</p>
-
-        <h2 id="软件体系结构的核心模型"   >
-          <a href="#软件体系结构的核心模型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件体系结构的核心模型"></a> 软件体系结构的核心模型</h2>
-      
-<p><img src="../../images/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/core-model.png" alt="2022-06-19_222211" /></p>
-<p>5个元素构成，配置、连接件、构件、端口、角色。</p>
-<p>其中，配置、构件、连接件是最基本的元素。</p>
-<p>构件是具有某种功能的可重用的软件模板单元，表示了系统中主要的计算元素和数据存储。构件有两种：复合构件和原子构件。复合构件由其他复合构件和原子构件通过连接组成。</p>
-<p>连接件表示了构件之间的交互，简单的连接件如管道、过程调用、事件广播等，更为复杂的交互如客户-服务器通信协议，数据库和应用之间的SQL连接等。</p>
-<p>配置表示构件和连接件的拓扑逻辑和约束；</p>
-<p>构件的接口由1组端口组成；每个端口表示了构件和外部环境的交互点。</p>
-<p>连接件作为建模软件体系结构的主要实体，同样也有接口，连接件的接口由1组角色构成；每一个角色定义了该连接件表示的交互的参与者。</p>
-
-        <h1 id="第3章-软件体系结构风格"   >
-          <a href="#第3章-软件体系结构风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第3章-软件体系结构风格"></a> 第3章 软件体系结构风格</h1>
-      
-<ol>
-<li>管道/过滤器</li>
-<li>面向对象风格（数据抽象）</li>
-<li>基于事件的系统</li>
-<li>分层系统（层次结构）</li>
-<li>黑板系统（仓库系统、知识库）</li>
-<li>C2系统</li>
-</ol>
-
-        <h2 id="管道过滤器"   >
-          <a href="#管道过滤器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#管道过滤器"></a> 管道/过滤器</h2>
-      
-
-        <h3 id="优点"   >
-          <a href="#优点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点"></a> 优点</h3>
-      
-<ol>
-<li>使得软构件具有良好的隐蔽性和高内聚、低耦合的特点；</li>
-<li>允许设计者将整个系统的输入/输出行为看成是多个过滤器的行为的简单合成；</li>
-<li>支持软件重用。只要提供适合在两个过滤器之间传送的数据，任何两个过滤器都可被连接起来</li>
-<li>系统维护和增强系统性能简单。新的过滤器可以添加到现有系统中来；旧的可以被改进的过滤器替换掉允许对一些如吞吐量、死锁等属性的分析；</li>
-<li>支持并行执行。每个过滤器是作为一个单独的任务完成，因此可与其它任务并行执行。</li>
-</ol>
-
-        <h3 id="缺点"   >
-          <a href="#缺点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h3>
-      
-<ol>
-<li>通常导致进程成为批处理的结构。这是因为虽然过滤器可增量式地处理数据，但它们是独立的，所以设计者必须将每个过滤器看成一个完整的从输入到输出的转换；</li>
-<li>不适合处理交互的应用。当需要增量地显示改变时，这个问题尤为严重；</li>
-<li>因为在数据传输上没有通用的标准，每个过滤器都增加了解析和合成数据的工作，这样就导致了系统性能下降，并增加了编写过滤器的复杂性。</li>
-</ol>
-
-        <h2 id="数据抽象和面向对象组织"   >
-          <a href="#数据抽象和面向对象组织" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#数据抽象和面向对象组织"></a> 数据抽象和面向对象组织</h2>
-      
-
-        <h3 id="优点-2"   >
-          <a href="#优点-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-2"></a> 优点</h3>
-      
-<ol>
-<li>因为对象对其它对象隐藏它的表示，所以可以改变一个对象的表示，而不影响其它的对象；</li>
-<li>设计者可将一些数据存取操作的问题分解成一些交互的代理程序的集合。</li>
-</ol>
-
-        <h3 id="缺点-2"   >
-          <a href="#缺点-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点-2"></a> 缺点</h3>
-      
-<ol>
-<li>为了使一个对象和另一个对象通过过程调用等进行交互,必须知道对象的标识。只要一个对象的标识改变了，就必须修改所有其他明确调用它的对象;</li>
-<li>必须修改所有显式调用它的其它对象，并消除由此带来的一些副作用。例如，如果A使用了对象B,C也使用了对象B,那么,C对B的使用所造成的对A的影响可能是料想不到的。</li>
-</ol>
-
-        <h2 id="基于事件的系统隐式调用风格"   >
-          <a href="#基于事件的系统隐式调用风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于事件的系统隐式调用风格"></a> 基于事件的系统（隐式调用风格）</h2>
-      
-<p>这种风格的主要特点是事件的触发者并不知道哪些构件会被哪些事件影响。</p>
-<p>这样不能假定构件的处理顺序，甚至不知道哪些过程会被调用，因此，许多隐式调用的系统也包含显式调用作为构件交互的补充形式。</p>
-
-        <h3 id="优点-3"   >
-          <a href="#优点-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-3"></a> 优点</h3>
-      
-<ol>
-<li>为软件重用提供了强大的支持。当需要将一个构件加入现存系统中时，只需将它注册到系统的事件中。</li>
-<li>为改进系统带来了方便。当用一个构件代替另一个构件时，不会影响到其它构件的接口。</li>
-</ol>
-
-        <h3 id="缺点-3"   >
-          <a href="#缺点-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点-3"></a> 缺点</h3>
-      
-<ol>
-<li>构件放弃了对系统计算的控制。一个构件触发一个事件时，不能确定其它构件是否会响应它。而且即使它知道事件注册了哪些构件的构成，它也不能保证这些过程被调用的顺序。</li>
-<li>数据交换的问题。有时数据可被一个事件传递，但另一些情况下基于事件的系统必须依靠一个共享的仓库进行交互。在这些情况下全局性能和资源管理便成了问题。</li>
-<li>既然过程的语义必须依赖于被触发事件的上下文约束，关于正确性的推理存在问题。</li>
-</ol>
-
-        <h2 id="分层系统"   >
-          <a href="#分层系统" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分层系统"></a> 分层系统</h2>
-      
-<p>什么是层？层是一个具有相同属性的集合；</p>
-<p>分层是理解问题的一种方法论，可以把复杂软件从大问题分为小问题，从视图的角度看可以降低问题复杂度。</p>
-
-        <h3 id="优点-4"   >
-          <a href="#优点-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-4"></a> 优点</h3>
-      
-<ol>
-<li>支持基于抽象程度递增的系统设计，使设计者可以把一个复杂系统按递增的步骤进行分解</li>
-<li>支持功能增强，因为每一层至多和相邻的上下层交互，因此功能的改变最多影响相邻的上下层；</li>
-<li>支持重用。只要提供的服务接口定义不变，同一层的不同实现可以交换使用。这样，就可以定义一组标准的接口，而允许各种不同的实现方法</li>
-</ol>
-
-        <h3 id="缺点-4"   >
-          <a href="#缺点-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点-4"></a> 缺点</h3>
-      
-<ol>
-<li>并不是每个系统都可以很容易地划分为分层的模式，甚至即使一个系统的逻辑结构是层次化的，出于对系统性能的考虑，系统设计师不得不把一些低级或高级的功能综合起来；</li>
-<li>很难找到一个合适的、正确的层次抽象方法。</li>
-</ol>
-
-        <h2 id="仓库系统及知识库"   >
-          <a href="#仓库系统及知识库" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#仓库系统及知识库"></a> 仓库系统及知识库</h2>
-      
-<p>在仓库（repository)风格中，有两种不同的构件：中央数据结构说明当前状态，独立构件在中央数据存储上执行，仓库与外构件间的相互作用在系统中会有大的变化。</p>
-<p>控制原则的选取产生两个主要的子类。若输入流中某类时间触发进程执行的选择，则仓库是一传统型数据库；另外，若中央数据结构的当前状态触发进程执行的选择，则仓库是一黑板系统。</p>
-<p>黑板系统的传统应用是信号处理领域，如语音和模式识别，另一应用是松藕合代理数据共享存取。</p>
-<p>黑板系统主要由三部分组成：</p>
-<ol>
-<li>知识源。知识源中包含独立的、与应用程序相关的知识，知识源之间不直接进行通信，它们之间的交互只通过黑板来完成。</li>
-<li>黑板数据结构。黑板数据是按照与应用程序相关的层次来组织的解决问题的数据，知识源通过不断地改变黑板数据来解决问题。</li>
-<li>控制。控制完全由黑板的状态驱动，黑板状态的改变决定使用的特定知识。</li>
-</ol>
-
-        <h2 id="c2风格"   >
-          <a href="#c2风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c2风格"></a> C2风格</h2>
-      
-<p>C2体系结构风格可以概括为：通过连接件绑定在一起的按照一组规则运作的并行构件网络。C2风格中的系统组织规则如下：</p>
-<ol>
-<li>系统中的构件和连接件都有一个顶部和一个底部。</li>
-<li>构件的顶部应连接到某连接件的底部，构件的底部则应连接到某连接件的顶部，而构件与构件之间的直接连接是不允许的。</li>
-<li>一个连接件可以和任意数目的其他构件和连接件连接。</li>
-<li>当两个连接件进行直接连接时，必须由其中一个的底部到另一个的顶部。</li>
-</ol>
-
-        <h3 id="特点"   >
-          <a href="#特点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
-      
-<ol>
-<li>系统中的构件可实现应用需求,并能将任意复杂度的功能封装在一起;</li>
-<li>所有构件之间的通讯是通过以连接件为中介的异步消息交换机制来实现的;</li>
-<li>构件相对独立,构件之间依赖性较少。系统中不存在某些构件将在同一地址空间内执行,或某些构件共享特定控制线程之类的相关性假设。</li>
-</ol>
-
-        <h1 id="二层cs-客户服务器风格"   >
-          <a href="#二层cs-客户服务器风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#二层cs-客户服务器风格"></a> 二层C/S - 客户/服务器风格</h1>
-      
-<p>C/S软件体系结构是基于资源不对等，且为实现共享而提出来的，是20世纪90年代成熟起来的技术，C/S体系结构定义了工作站如何与服务器相连，以实现数据和应用分布到多个处理机上。</p>
-<p>C/S体系结构有三个主要组成部分：数据库服务器、客户应用程序和网络。</p>
-<p>前台主要是数据的显示和分析，完成与用户的交互，后台主要是数据的管理。</p>
-
-        <h2 id="一般处理流程"   >
-          <a href="#一般处理流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一般处理流程"></a> 一般处理流程</h2>
-      
-<ol>
-<li>分为两部分，即一共两层，前台/后台；前台即为客户端，后台即为服务器端；</li>
-<li>前台：表示层，即界面，输入数据，提交请求，业务处理开始，数据存取请求发给后台；</li>
-<li>后台：后台的数据存取程序收到前台提交的请求，数据处理开始，对后台的数据层进行数据存取请求，SQL请求开始，DBMS执行SQL，SQL请求结束，数据处理结束，运行结果返回给前台；</li>
-<li>前台：接收到运行结果，业务处理结束，处理结果输出到界面</li>
-</ol>
-
-        <h2 id="客户端"   >
-          <a href="#客户端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h2>
-      
-<ol>
-<li>要有逻辑计算能力，即对客户端的硬件有要求，如果客户端效率低，会影响整体系统效率；</li>
-</ol>
-
-        <h2 id="服务器端"   >
-          <a href="#服务器端" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#服务器端"></a> 服务器端</h2>
-      
-<p>后台主要是数据的管理。要有数据库以及相应的操作；</p>
-
-        <h2 id="优点-5"   >
-          <a href="#优点-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-5"></a> 优点</h2>
-      
-<p>主要在于，客户应用程序和服务器构件分别运行在不同的计算机上，系统中每台服务器都可以适合各构件的要求，这对于硬件和软件的变化显示出极大的适应性和灵活性，而且易于对系统进行扩充和缩小。</p>
-<p>系统中的功能构件充分隔离，客户应用程序的开发集中于数据的显示和分析；而数据库服务器的开发则集中于数据的管理，不必在每一个新的应用程序都要对一个DBMS进行编码。将大的应用处理任务分布到许多通过网络连接的低成本计算机上，以节约大量费用。</p>
-
-        <h2 id="缺点-5"   >
-          <a href="#缺点-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点-5"></a> 缺点</h2>
-      
-<ol>
-<li>开发成本较高。对客户端软硬件配置要求较高，尤其是软件的不断升级，对硬件要求不断提高，增加了整个系统的成本，客户端变得臃肿。</li>
-<li>客户端程序设计复杂。</li>
-<li>信息内容和形式单一</li>
-<li>用户界面风格不一，使用繁杂，不利于推广使用；</li>
-<li>软件移植困难，不同平台互不兼容。</li>
-<li>软件维护和升级困难，每个客户机都需要升级、维护。</li>
-<li>新技术不能轻易应用。</li>
-</ol>
-
-        <h1 id="三层cs-客户服务器风格"   >
-          <a href="#三层cs-客户服务器风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#三层cs-客户服务器风格"></a> 三层C/S - 客户/服务器风格</h1>
-      
-<p>与二层的区别就是在中间加了一个应用服务器（功能层），而不是和数据库服务器直接相连；</p>
-<p>这样，降低了客户机的负担，把数据的计算任务交给了中间的功能层，现在，客户机的表示层只是作为数据的显示了。</p>
-<ol>
-<li>表示层
-<ol>
-<li>表示层是应用的用户接口部分,它担负着用户与应用间的对话功能。它用于检查用户从键盘等输入的数据,显示应用输出的数据。为使用户能直观地进行操作,一般要使用图形用户界面(Graphic User Interface,GUI),操作简单、易学易用。在变更用户界面时,只需改写显示控制和数据检查程序,而不影响其他两层。检查的内容也只限于数据的形式和取值的范围,不包括有关业务本身的处理逻辑</li>
-</ol>
-</li>
-<li>功能层
-<ol>
-<li>功能层相当于应用的本体,它是将具体的业务处理逻辑编人程序中。例如,在制作订购合同时要计算合同金额,按照定好的格式配置数据、打印订购合同,而处理所需的数据则要从表示层或数据层取得。表示层和功能层之间的数据交往要尽可能简捷。例如,用户检索数据时,要设法将有关检索要求的信息一次性地传送给功能层,而由功能层处理过的检索结果数据也一次性地传送给表示层。</li>
-<li>通常,在功能层中包含确认用户对应用和数据库存取权限的功能以及记录系统处理日志的功能。功能层的程序多半是用可视化编程工具开发的,也有使用COBOL和C语言的</li>
-</ol>
-</li>
-<li>数据层
-<ol>
-<li>数据层就是数据库管理系统,负责管理对数据库数据的读写。数据库管理系统必须能迅速执行大量数据的更新和检索。现在的主流是关系型数据库管理系统(RDBMS),因此,般从功能层传送到数据层的要求大都使用SQL。</li>
-<li>三层C/S的解决方案是:对这三层进行明确分割,并在逻辑上使其独立。原来的数据层作为数据库管理系统已经独立出来,所以,关键是要将表示层和功能层分离成各自独立的程序,并且还要使这两层间的接口简洁明了。</li>
-</ol>
-</li>
-</ol>
-
-        <h2 id="优点-6"   >
-          <a href="#优点-6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-6"></a> 优点</h2>
-      
-<p>根据三层C/S的概念及使用实例可以看出，与两层C/S结构相比，三层C/S结构具有以下优点：</p>
-<ol>
-<li>允许合理地划分三层结构的功能，使之在逻辑上保持相对独立性，从而使整个系统的逻辑结构更为清晰，能提高系统和软件的可维护性和可扩展性。</li>
-<li>允许更灵活有效地选用相应的平台和硬件系统，使之在处理负荷能力上与处理特性上分别适应于结构清晰的三层；并且这些平台和各个组成部分可以具有良好的可升级性和开放性。例如，最初用一台UNIX工作站作为服务器，将数据层和功能层都配置在这台服务器上。随着业务的发展，用户数和数据量逐渐增加，这时，就可以将UNIX工作站作为功能层的专用服务器，另外追加一台专用于数据层的服务器。若业务进一步扩大，用户数进一步增加，则可以继续增加功能层的服务器数目，用以分割数据库。清晰、合理地分割三层结构并使其独立，可以使系统构成的变更非常简单。因此，被分成三层的应用基本上不需要修正。</li>
-<li>三层C/S结构中，应用的各层可以并行开发，各层也可以选择各自最适合的开发语言。使之能并行地而且是高效地进行开发，达到较高的性能价格比；对每一层的处理逻辑的开发和维护也会更容易些。</li>
-<li>允许充分利用功能层有效地隔离开表示层与数据层，未授权的用户难以绕过功能层而利用数据库工具或黑客手段去非法地访问数据层，这就为严格的安全管理奠定了坚实的基础；整个系统的管理层次也更加合理和可控制。</li>
-</ol>
-
-        <h1 id="bs-浏览服务器风格"   >
-          <a href="#bs-浏览服务器风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#bs-浏览服务器风格"></a> B/S - 浏览/服务器风格</h1>
-      
-<p>是从三层C/S体系结构变化而来，但不是C/S的加强版，而是一种新的体系结构。</p>
-<p>组成：浏览器/Web服务器/数据库服务器</p>
-
-        <h2 id="优点-7"   >
-          <a href="#优点-7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-7"></a> 优点</h2>
-      
-<p>B/S体系结构主要是利用不断成熟的WWW浏览器技术，结合浏览器的多种脚本语言，用通用浏览器就实现了原来需要复杂的专用软件才能实现的强大功能，并节约了开发成本。从某种程度上来说，B/S结构是一种全新的软件体系结构。</p>
-<p>在B/S结构中， 除了数据库服务器外，应用程序以网页形式存放于Web服务器上，用户运行某个应用程序时只须在客户端上的浏览器中输人相应的网址，调用Web服务器上的应用程序并对数据库进行操作完成相应的数据处理工作，最后将结果通过浏览器显示给用户。可以说，在B/S模式的计算机应用系统中，应用(程序)在一定程度上具有集中特征基于B/S体系结构的软件，系统安装、修改和维护全在服务器端解决。用户在使用系统时，仅需要一个浏览器就可运行全部的模块，真正达到了“零客户端”的功能，很容易在运行时自动升级。B/S体系结构还提供了异种机、异种网、异种应用服务的联机、联网、统一服务的最现实的开放性基础。</p>
-
-        <h2 id="缺点-6"   >
-          <a href="#缺点-6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#缺点-6"></a> 缺点</h2>
-      
-<p>与C/S体系结构相比，B/S体系结构也有许多不足之处，例如：</p>
-<ol>
-<li>B/S体系结构缺乏对动态页面的支持能力，没有集成有效的数据库处理功能。</li>
-<li>B/S体系结构的系统扩展能力差，安全性难以控制。</li>
-<li>采用B/S体系结构的应用系统，在数据查询等响应速度上，要远远低于C/S体系结构</li>
-<li>B/S体系结构的数据提交一般以页面为单位，数据的动态交互性不强，不利于在线事务处理(OnLine Transaction Processing,OLTP)应用。</li>
-</ol>
-<p>因此，虽然B/S结构的计算机应用系统有如此多的优越性，但由于C/S结构的成熟性且C/S结构的计算机应用系统网络负载较小，因此，未来一段时间内，将是B/S结构和C/S结构共存的情况。但是，很显然，计算机应用系统计算模式的发展趋势是向B/S结构转变。</p>
-
-        <h1 id="正交软件体系结构"   >
-          <a href="#正交软件体系结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#正交软件体系结构"></a> 正交软件体系结构</h1>
-      
-<p>什么是正交？在线性代数中表示内积为0。在软件中表示的是两者独立性高，相互的影响最小。相比于低耦合的概念，更加低耦合，甚至于零耦合。</p>
-
-        <h2 id="概念"   >
-          <a href="#概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#概念"></a> 概念</h2>
-      
-<p>正交软件体系结构由组织层和线索的构件构成。层是由一组具有相同抽象级别的构件构成。线索是子系统的特例,它是由完成不同层次功能的构件组成(通过相互调用来关联),每一条线索完成整个系统中相对独立的一部分功能。每一条线索的实现与其他线索的实现无关或关联很少,在同一层中的构件之间是不存在相互调用的。</p>
-<p>如果线索是相互独立的,即不同线索中的构件之间没有相互调用,那么这个结构就是完全正交的。</p>
-
-        <h2 id="特征"   >
-          <a href="#特征" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特征"></a> 特征</h2>
-      
-<ol>
-<li>正交软件体系结构由完成不同功能的n(n&gt;1)个线索（子系统）组成；</li>
-<li>系统具有m(m&gt;1)个不同抽象级别的层；</li>
-<li>线索之间是相互独立的（正交的）;</li>
-<li>系统有一个公共驱动层（一般为最高层）和公共数据结构（一般为最低层）。</li>
-</ol>
-
-        <h2 id="优点-8"   >
-          <a href="#优点-8" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优点-8"></a> 优点</h2>
-      
-<ol>
-<li>结构清晰，易于理解</li>
-<li>易修改，可维护性强</li>
-<li>可移植性强，重用粒度大</li>
-</ol>
-
-        <h1 id="基于层次消息总线的体系结构风格hmb"   >
-          <a href="#基于层次消息总线的体系结构风格hmb" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#基于层次消息总线的体系结构风格hmb"></a> 基于层次消息总线的体系结构风格（HMB）</h1>
-      
-<p>是个复合体系结构，用到了前面的6种经典体系结构风格，进行了一个组合。</p>
-<p>首先，它是个<strong>分层系统</strong>。</p>
-<p>其次，它用到了<strong>C2风格</strong>。通过连接件把若干构件绑定在一起，按照一组规则运行，是一组并行的构件网络。</p>
-<p>系统里的构件和连接件，都有一个顶部和底部。构件和构件之间的直接连接是不允许的，只能是构件的顶部连接到连接件的底部，或构件的底部连接到连接件的顶部。连接件可以和任何数目的其他构件连接。</p>
-<p>第三，用到了<strong>数据抽象/面向对象</strong>。连接的构件都是通过接口去进行连接的，构件的内部对于外部是不可见的。外部只能看到接口而看不到内部。</p>
-
-        <h2 id="流程"   >
-          <a href="#流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#流程"></a> 流程</h2>
-      
-<ol>
-<li>HMB风格的构件接口是一种基于消息的互联接口，可以较好地支持体系结构设计。构件之间通过消息进行通讯，接口定义了构件发出和接收的消息集合。</li>
-<li>当某个事件发生后，系统或构件发出相应的消息，消息总线负责把该消息传递到此消息感兴趣的构件。</li>
-<li>按照响应方式的不同，消息可分为同步消息和异步消息。</li>
-</ol>
-
-        <h1 id="异构结构风格"   >
-          <a href="#异构结构风格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异构结构风格"></a> 异构结构风格</h1>
-      
-<p>一句话：多采用了不同体系风格的优点，淡化了这些体系风格的缺点。</p>
-<p>内外有别：外网使用B/S，内网使用C/S。外部提供给用户B/S，适合处理简单的显示输出、交互少场景，而且软件升级时直接在web服务器升级即可。在内部多是对数据库进行修改，直接用二层C/S执行速度快。</p>
-<p>查改有别：维护和修改 - C/S结构；查询和浏览 - B/S结构。</p>
-
-        <h1 id="第8章-基于服务的体系结构soa"   >
-          <a href="#第8章-基于服务的体系结构soa" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第8章-基于服务的体系结构soa"></a> 第8章 基于服务的体系结构（SOA）</h1>
-      
-<p>SOA是一种架构模型和一套设计方法学，其目的是最大限度地重用应用程序中立型的服务以提高IT适应性和效率。它可以根据需求通过网络对松散耦合的粗粒度应用组件(细粒度对应的是类、函数)进行分布式部署、组合和使用。</p>
-<p>服务层是SOA的基础，可以直接被应用调用，从而有效控制系统中与软件代理交互的人为依赖性。</p>
-<p>W3C将服务定义为: “服务提供者完成一组工作, 为服务使用者交付所需的最终结果。最终结果通常会使使用者的状态发生变化, 但也可能使提供者的状态改变, 或者双方都产生变化”。</p>
-<p>SOA不是一种语言, 也不是一种具体的技术而是种软件系统架构, 它尝试给出在特定环境下推荐采<br />
-用的一种架构, 从这个角度上来说, 它更像一种模式。</p>
-<p>SOA是面向服务的体系结构，他实际上是组件的模型，把应用程序不同的功能单元可称作服务，可以通过定义服务与服务之间良好的接口和契约，很好地把它们联系起来。因为是一种松耦合的理念，是一种可以替代传统的面向对象模型的模型。但不是说没有面向对象了，单个服务内部仍需要用面向对象来设计。</p>
-
-        <h2 id="soa的特征"   >
-          <a href="#soa的特征" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的特征"></a> SOA的特征</h2>
-      
-<ol>
-<li><strong>松散耦合</strong>，服务是位置透明的</li>
-<li><strong>粗粒度服务</strong></li>
-<li>服务是封装的，通过<strong>标准化接口</strong>交互，服务是自治的功能实体，自包含和模块化</li>
-<li>服务的重用</li>
-<li>服务的互操作性、兼容性</li>
-</ol>
-
-        <h2 id="soa的概念"   >
-          <a href="#soa的概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的概念"></a> SOA的概念</h2>
-      
-<p>W3C：SOA是一种应用程序体系结构，在这种体系结构中，所有功能都定义为独立的服务，这些服务带有定义明确的可调用接口，能够以定义好的顺序调用这些服务来形成业务流程。</p>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://Service-architecture.com" >Service-architecture.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>：服务是精确定义、封装完整、独立于其它服务所处环境和状态的函数。SO A本质上是服务的集合， 服务之间彼此通信，这种通信可能是简单的数据传送，也可能是两个或更多的服务协调进行某些活动。服务之间需要某些方法进行连接。</p>
-<p>Gartner：SOA是一种C/S体系结构的软件设计方法，应用由服务和服务使用者组成， SO A与大多数通用的C/S体系结构模型不同之处， 在于它着重强调构件的松散耦合，并使用独立的标准接口。</p>
-
-        <h2 id="soa的关键技术"   >
-          <a href="#soa的关键技术" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的关键技术"></a> SOA的关键技术</h2>
-      
-<p><img src="../../images/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/soa-key-tech.png" alt="2022-06-19_221030" /></p>
-
-        <h2 id="soa的实现方法1-webservice"   >
-          <a href="#soa的实现方法1-webservice" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的实现方法1-webservice"></a> SOA的实现方法1 -WebService</h2>
-      
-<p>能够在一个分布式的计算环境中动态地描述、发布、发现和调用服务Web上的对象访问技术。</p>
-<p>在WebService的解决方案中，一共有三种工作角色，其中服务提供者和服务请求者是必需的，服务注册中心是一个可选的角色。它们之间的交互和操作构成了SOA的一种实现体系结构。</p>
-<p><img src="../../images/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/webservice.png" alt="2022-06-19_221721" /></p>
-<ol>
-<li>服务提供者。服务提供者是服务的所有者，该角色负责定义并实现服务，使用WSDL对服务进行详细、准确、规范的描述，并将该描述发布到服务注册中心，供服务请求者查找并绑定使用。</li>
-<li>服务请求者。服务请求者是服务的使用者，虽然服务面向的是程序，但程序的最终使用者仍然是用户。从体系结构的角度看,服务请求者是查找、绑定并调用服务,或与服务进行交互的应用程序。服务请求者角色可以由浏览器来担当,由人或程序(例如,另外一个服务)来控制</li>
-<li>服务注册中心。服务注册中心是连接服务提供者和服务请求者的纽带,服务提供者在此发布他们的服务描述,而服务请求者在服务注册中心查找他们需要的服务。不过,在某些情况下,服务注册中心是整个模型中的可选角色。例如,如果使用静态绑定的服务,服务提供者则可以把描述直接发送给服务请求者。</li>
-</ol>
-<p>Web Service模型中的操作包括<strong>发布、查找和绑定</strong>，这些操作可以单次或反复出现。</p>
-<ol>
-<li>发布。为了使用户能够访问服务，服务提供者需要发布服务描述，以便服务请求者可以查找它。</li>
-<li>查找。在查找操作中,服务请求者直接检索服务描述或在服务注册中心查询所要求的服务类型。对服务请求者而言，可能会在生命周期的两个不同阶段中涉及查找操作,首先是在设计阶段，为了程序开发而查找服务的接口描述；其次是在运行阶段，为了调用而查找服务的位置描述。</li>
-<li>绑定。在绑定操作中，服务请求者使用服务描述中的绑定细节来定位、联系并调用服务，从而在运行时与服务进行交互。绑定可以分为动态绑定和静态绑定。在动态绑定中服务请求者通过服务注册中心查找服务描述，并动态地与服务交互；在静态绑定中，服务请求者已经与服务提供者达成默契,通过本地文件或其他方式直接与服务进行绑定。</li>
-</ol>
-<p>在采用Web Service作为SOA的实现技术时,应用系统大致可以分为6个层次，分别是底层传输层、服务通信协议层、服务描述层、服务层、业务流程层和服务注册层。</p>
-
-        <h2 id="soa的实现方法2-服务注册表"   >
-          <a href="#soa的实现方法2-服务注册表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的实现方法2-服务注册表"></a> SOA的实现方法2 - 服务注册表</h2>
-      
-<p>服务注册表（service registry）虽然也具有运行时的功能，但主要在SOA设计时使用。</p>
-<p>它提供一个策略执行点（Policy Enforcement Point，PEP)，在这个点上，服务可以在SOA中注册，从而可以被发现和使用。服务注册表可以包括有关服务和相关构件的配置、依从性和约束文件。从理论上来说，任何帮助服务注册、发现和查找服务合约、元数据和策略的信息库、数据库、目录或其他结点都可以被认为是一个注册表。大多数商用服务注册产品支持服务注册、服务位置和服务绑定功能。</p>
-
-        <h2 id="soa的实现方法3-企业服务总线esb"   >
-          <a href="#soa的实现方法3-企业服务总线esb" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#soa的实现方法3-企业服务总线esb"></a> SOA的实现方法3 - 企业服务总线（ESB）</h2>
-      
-<p>ESB的概念是从SOA发展而来的，它是一种为进行连接服务提供的标准化的通信基础结构，基于开放的标准，为应用提供了一个可靠的、可度量的和高度安全的环境，并可帮助企业对业务流程进行设计和模拟，对每个业务流程实施控制和跟踪、分析并改进流程和性能。</p>
-<p>企业服务总线（Enterprise Service Bus，ESB） 它使用许多可能的消息传递协议来负责适当的控制、流甚至还可能是服务之间所有消息的传输。</p>
-<p>ESB本身可以是单个引擎，甚至还可以是由许多同级和下级ESB组成分布式系统，这些ESB一起工作，以保持SOA系统的运行。</p>
-
-        <h2 id="服务描述语言-wsdl"   >
-          <a href="#服务描述语言-wsdl" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#服务描述语言-wsdl"></a> 服务描述语言 - WSDL</h2>
-      
-<p>WSDL是对服务进行描述的语言,它有一套基于XML的语法定义。WSDL描述的重点是服务, 它包含 Service Implementation Definition(服务实现定义)和 Service interface Definition(服务接口定义)</p>
-
-        <h2 id="统一描述-发现和集成协议uddi"   >
-          <a href="#统一描述-发现和集成协议uddi" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#统一描述-发现和集成协议uddi"></a> 统一描述、发现和集成协议（UDDI）</h2>
-      
-<p>UDDI是一种用于描述、发现、集成Web服务的技术，它是Web服务协议栈的一个重要部分。通过UDDI，企业可以根据自己的需要动态查找并使用Web服务，也可以将自己的Web服务动态地发布到UDDI注册中心，供其他用户使用。</p>
-
-        <h2 id="消息封装协议-简单对象访问协议-soap"   >
-          <a href="#消息封装协议-简单对象访问协议-soap" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#消息封装协议-简单对象访问协议-soap"></a> 消息封装协议 - 简单对象访问协议 - SOAP</h2>
-      
-<p>SOAP是在分散或分布环境中以XML形式提供的一个简单、轻量的<strong>交换结构化和类型信息</strong>的机制。</p>
-<p>SOAP本身并没有定义任何应用程序语义（如编程模型或特定语义的实现），实际上，它通过提供一个有标准构件的包模型和在模块中编码数据的机制，定义了一个简单的表示应用程序语义的机制。这使SOAP能够被用于从消息传递到RPC的各种系统。</p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_2-3-4%E6%A0%91/">高级数据结构_2-3-4树</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-06-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-13</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_2-3-4%E6%A0%91/" data-flag-title="高级数据结构_2-3-4树"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-
-        <h1 id="2-3-4树"   >
-          <a href="#2-3-4树" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2-3-4树"></a> 2-3-4树</h1>
-      
-<p>在计算机科学中，2-3-4 树（也称为 2-4 树）是一种可用于实现字典的自平衡数据结构。 这些数字(2/3/4)表示的是一棵树中: 每个有1个/2个/3个元素的节点分别有2个/3个/4个子节点：</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Cpp/Cpp_%E6%B5%85%E8%B0%88%E5%BD%A2%E5%8F%82%E4%B8%ADconst%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">Cpp_浅谈形参中const和引用的作用</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_%E6%B5%85%E8%B0%88%E5%BD%A2%E5%8F%82%E4%B8%ADconst%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8/" data-flag-title="Cpp_浅谈形参中const和引用的作用"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><p>1、可以确定的是，如果你想修改传入的引用对象，不可以加const修饰。不管是指针还是引用，前面加const之后，比如const A *或const A &amp;，都会导致A只可读、只能调用其常方法，常方法一般不可以修改其成员属性。<br />
+因此，针对于《流类对象》，99%的情况下不加const。<br />
+2、const的目的在于两方面，字面意思是修饰其不可修改，还有一个很重要的目的在于使可接收的对象属性范围更大。如果形参定义为const属性，既可接收“非const对象”，也可接收“const对象”。所以，如果在函数中不涉及到对传入的对象进行修改时，都尽量加const。<br />
+比如，形参是const string str。如果外部传入的是字符串常量&quot;aaa&quot;，照常接收，如果形参是string str，无法接收，实参的通用性收到限制。<br />
+3、接下来就是富含争议的引用修饰了。<br />
+在C<ins>中，语义上，引用是一个变量的别名；调用效果上，如果是按引用传递，则被调用者和调用者操作的是同一个对象。<br />
+在语法上，C</ins>的普通引用本质上是一个“指针指向的地址信息不可变，而指向的内容可变”。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Typename t;</span><br><span class="line">		 Typename &amp; p = t;</span><br><span class="line">    &lt;==&gt; Typename * <span class="type">const</span> p = &amp;t;</span><br></pre></td></tr></table></div></figure>
+<p>在程序中，编译器会自动处理对其进行解引用。</p>
+<p>用在参数传递中，如果要修改对象，可视为语法糖，隐含了指针的解引用操作。<br />
+如果用在参数传递中，却不涉及到修改对象，引用有时可视为对性能的优化，有时可以避免对象在传递过程中产生不必要的临时对象拷贝、析构。但是，在实际生产项目中，此举尚需要论证其必要性。因为有时即使你是按引用传递的，但是避免不了会出现隐式构造临时对象。比如字符串常量&quot;aaa&quot;传给一个const string &amp; str。</p>
+<p>要注意的是，传递引用是有风险的，程序员必须明确对象在程序中完整的生命周期，需要保证被引用的对象的生命期要长于函数的调用点。要明确对象在堆栈上的产生时机、析构时机，才能安全地传递引用。</p>
+<p>如果从代码规范上角度来考虑，尽量向安全、统一的形式靠拢，即统一的按值传递。这也是Java规范按值传递的一大优势，避免了C++程序设计的复杂性，但是某时会有一定的性能损耗。</p>
+<p>总之，函数接收参数的类型设计没有一个统一的方法论，要设计出一个优秀的代码程序，你必须清楚你整个程序的生命周期及其所存在的风险，要时刻搞清楚你的代码中传参的目的是什么。最后在此基础上，在代码规范和性能调优上做出平衡。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Android/Android_Activity/">Android_Activity</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-07-18</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Android/Android_Activity/" data-flag-title="Android_Activity"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="简介"   >
+          <a href="#简介" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+      
+<p><code>Activity</code>类是Android应用的关键组件，而Activity的启动和组合方式则是该平台应用模型的基本组成部分。在编程范式中，应用是通过<code>main()</code>方法启动的，而Android系统与此不同，它会调用与其生命周期特定阶段相对应的特定回调方法来启动<code>Activity</code>实例中的代码。</p>
+
+        <h1 id="activity的概念"   >
+          <a href="#activity的概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#activity的概念"></a> Activity的概念</h1>
+      
+<p>移动应用体验与桌面体验不同之处在于，用户与应用的互动并不总是在同一位置开始，而是经常以不确定的方式开始。例如，如果从主屏幕打开电子邮件应用，可能会看到电子邮件列表，如果通过社交媒体应用启动电子邮件应用，则可能会直接进入电子邮件应用的邮件撰写界面。</p>
+<p><code>Activity</code>类的目的就是促进这种范式的实现。当一个应用调用另一个应用时，调用方应用会调用另一个应用中的Activity，而不是整个应用。通过这种方式，Activity充当了应用与用户互动的入口点。可以将Activity实现为<code>Activity</code>类的子类。</p>
+<p>Activity提供窗口供应用在其中绘制界面。此窗口通常会填满屏幕，但也可能比屏幕小，并浮动在其他窗口上面。通常，一个Activity实现应用中的一个屏幕。例如，应用中的一个Activity实现“偏好设置”屏幕，而另一个Activity实现“选择照片”屏幕。</p>
+<p>大多数应用包含多个屏幕，这意味着它们包含多个Activity。通常，应用中的一个Activity会被指定为<strong>主Activity，这是用户启动应用时出现的第一个屏幕</strong>。然后，<strong>每个Activity可以启动另一个Activity，以执行不同的操作</strong>。例如，一个简单的电子邮件应用中的主Activity可能会提供显示电子邮件收件箱的屏幕。主Activity可能会从该屏幕启动其他Activity，以提供执行写邮件和打开邮件这类任务的屏幕。</p>
+<p>虽然应用中的各个Activity协同工作形成凝聚的用户体验，但每个Activity与其他Activity之间只存在松散的关联，应用内不同Activity之间的依赖关系通常很小。事实上，Activity经常会启动属于其他应用的Activity。例如，浏览器应用可能会启动社交媒体应用的“分享”Activity。</p>
+<p>要在应用中使用Activity，您必须在应用的清单中注册关于Activity的信息，并且必须适当地管理Activity的生命周期。</p>
+
+        <h1 id="配置清单"   >
+          <a href="#配置清单" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置清单"></a> 配置清单</h1>
+      
+<p>要使应用能够使用Activity，必须在清单中声明Activity及其特定属性。</p>
+
+        <h2 id="声明activity"   >
+          <a href="#声明activity" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明activity"></a> 声明Activity</h2>
+      
+<p>要声明Activity，请打开清单文件，并添加<code>&lt;activity&gt;</code>元素作为<code>&lt;application&gt;</code>元素的子元素。例如：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">application</span> <span class="attr">...</span> &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.ExampleActivity&quot;</span> /&gt;</span></span><br><span class="line">      ...</span><br><span class="line">  &lt;/application ... &gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/manifest &gt;</span><br></pre></td></tr></table></div></figure>
+<p>此元素唯一的必要属性是<code>android:name</code>，该属性用于指定Activity的类名称。除了name，还可以添加用于定义标签、图标或界面主题等Activity特征的属性。</p>
+<blockquote>
+<p>注意：发布应用后，就不应再更改 Activity 名称，否则可能会破坏某些功能，例如应用快捷方式。如需详细了解发布后应避免的更改，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://android-developers.blogspot.com/2011/06/things-that-cannot-change.html" >不可更改的内容</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+</blockquote>
+
+        <h2 id="声明intent过滤器"   >
+          <a href="#声明intent过滤器" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明intent过滤器"></a> 声明intent过滤器</h2>
+      
+<p>Intent过滤器是Android平台的一项非常强大的功能。借助这项功能，不但可以根据显式请求启动Activity，还可以根据隐式请求启动Activity。例如，显式请求可能会告诉系统“在Gmail应用中启动<code>发送电子邮件Activity</code>”；而隐式请求可能会告诉系统“在任何能够完成此工作的Activity中启动<code>发送电子邮件屏幕</code>”。当<strong>系统界面询问用户使用哪个应用来执行任务</strong>时，这就是intent过滤器在起作用。</p>
+<p>要使用此功能，需要在<code>&lt;activity&gt;</code>元素中声明<code>&lt;intent-filter&gt;</code>属性。此元素的定义包括<code>&lt;action&gt;</code>元素，以及可选的<code>&lt;category&gt;</code>元素和/或<code>&lt;data&gt;</code>元素。这些元素组合在一起，可以指定<code>Activity</code>能够响应的<code>intent</code>类型。例如，以下代码段展示了如何配置一个发送文本数据并接收其他Activity的文本数据发送请求的Activity：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.ExampleActivity&quot;</span> <span class="attr">android:icon</span>=<span class="string">&quot;@drawable/app_icon&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.SEND&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:mimeType</span>=<span class="string">&quot;text/plain&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>在此示例中，<code>&lt;action&gt;</code>元素指定该Activity会发送数据。将<code>&lt;category&gt;</code>元素声明为<code>DEFAULT</code>可使<code>Activity</code>能够接收启动请求。<code>&lt;data&gt;</code>元素指定此Activity可以发送的数据类型。以下代码段展示了如何调用上述<code>Activity</code>：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create the text message with a string</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">sendIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line">sendIntent.setAction(Intent.ACTION_SEND);</span><br><span class="line">sendIntent.setType(<span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);</span><br><span class="line"><span class="comment">// Start the activity</span></span><br><span class="line">startActivity(sendIntent);</span><br></pre></td></tr></table></div></figure>
+<p>如果打算构建一个独立的应用，不允许其他应用激活其Activity，则不需要任何其他intent过滤器。不想让其他应用访问的Activity不应包含intent过滤器，可以自己使用显式intent启动它们。</p>
+
+        <h2 id="声明权限"   >
+          <a href="#声明权限" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#声明权限"></a> 声明权限</h2>
+      
+<p>您可以使用清单的<code>&lt;activity&gt;</code>标记来控制哪些应用可以启动某个Activity。<strong>父Activity和子Activity必须在其清单中具有相同的权限，前者才能启动后者</strong>。如果您为父Activity声明了<code>&lt;uses-permission&gt;</code>元素，则每个子Activity都必须具有匹配的<code>&lt;uses-permission&gt;</code>元素。</p>
+<p>例如，假设您的应用想要使用一个名为<code>SocialApp</code>的应用在社交媒体上分享文章，则SocialApp本身必须定义调用它的应用所需具备的权限：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;....&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:permission</span>=<span class="string">”com.google.socialapp.permission.SHARE_POST”</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>然后，为了能够调用SocialApp，应用必须匹配SocialApp清单中设置的权限：</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;com.google.socialapp.permission.SHARE_POST&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="activity生命周期"   >
+          <a href="#activity生命周期" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#activity生命周期"></a> Activity生命周期</h1>
+      
+<p>一个Activity在其生命周期中会经历多种状态。可以使用一系列回调来处理状态之间的转换。下面将介绍这些回调。</p>
+<p><img src="https://developer.android.com/guide/components/images/activity_lifecycle.png" alt="Activity生命周期的简化图示" /></p>
+
+        <h2 id="返回栈"   >
+          <a href="#返回栈" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#返回栈"></a> 返回栈</h2>
+      
+<p>Android中的活动是可以层叠的。每启动一个新的活动，就会覆盖在原活动之上，点击Back键会销毁最上面的活动，下面的一个活动就会重新显示出来。</p>
+<p>其实Android是使用任务（Task）来管理活动的，一个任务就是一组存放在栈里的活动的集合，这个栈也被称作返回栈（Back Stack）。栈是一种后进先出的数据结构，在默认情况下，每当我们启动了一个新的活动，它会在返回栈中入栈，并处于栈顶的位置。而每当我们按下Back键或调用finish方法去销毁一个活动时，处于栈顶的活动会出栈，这时前一个入栈的活动就会重新处于栈顶的位置。系统总是会显示处于栈顶的活动给用户。</p>
+
+        <h2 id="oncreate"   >
+          <a href="#oncreate" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#oncreate"></a> onCreate()</h2>
+      
+<p>必须实现此回调，它会在系统创建Activity时触发。</p>
+<p>Activity会在创建后进入“<strong>已创建</strong>”状态。在<code>onCreate()</code>方法中，需执行基本应用启动逻辑，该逻辑在Activity的整个生命周期中只应发生一次。例如，<code>onCreate()</code>的实现可能会将数据绑定到列表，将Activity与ViewModel相关联，并实例化某些类作用域变量。此方法会接收<code>savedInstanceState</code>参数，后者是包含Activity先前保存状态的<code>Bundle</code>对象。如果Activity此前未曾存在，<code>Bundle</code>对象的值为null。</p>
+<p>如果有一个生命周期感知型组件与Activity生命周期相关联，该组件将收到<code>ON_CREATE</code>事件。系统将调用带有<code>@OnLifecycleEvent</code>注释的方法，以使生命周期感知型组件可以执行已创建状态所需的任何设置代码。</p>
+<p>应该初始化Activity的基本组件：例如，应用应该在此处创建视图并将数据绑定到列表。最重要的是，必须在此处调用<code>setContentView()</code>来定义Activity界面的布局。</p>
+<p><code>onCreate()</code>方法的以下示例显示执行Activity某些基本设置的一些代码，例如声明界面（在XML布局文件中定义）、定义成员变量，以及配置某些界面。在本示例中，系统通过将文件的资源ID<code>R.layout.main_activity</code>传递给<code>setContentView()</code>来指定XML布局文件。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">TextView textView;</span><br><span class="line"><span class="comment">// some transient state for the activity instance</span></span><br><span class="line">String gameState;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    <span class="comment">// call the super class onCreate to complete the creation of activity like</span></span><br><span class="line">    <span class="comment">// the view hierarchy</span></span><br><span class="line">    <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    <span class="comment">// recovering the instance state</span></span><br><span class="line">    <span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>) &#123;</span><br><span class="line">        gameState = savedInstanceState.getString(GAME_STATE_KEY);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// set the user interface layout for this activity</span></span><br><span class="line">    <span class="comment">// the layout file is defined in the project res/layout/main_activity.xml file</span></span><br><span class="line">    setContentView(R.layout.main_activity);</span><br><span class="line">    <span class="comment">// initialize member TextView so we can manipulate it later</span></span><br><span class="line">    textView = (TextView) findViewById(R.id.text_view);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This callback is called only when there is a saved instance that is previously saved by using</span></span><br><span class="line"><span class="comment">// onSaveInstanceState(). We restore some state in onCreate(), while we can optionally restore</span></span><br><span class="line"><span class="comment">// other state here, possibly usable after onStart() has completed.</span></span><br><span class="line"><span class="comment">// The savedInstanceState Bundle is same as the one used in onCreate().</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onRestoreInstanceState</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    textView.setText(savedInstanceState.getString(TEXT_VIEW_KEY));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// invoked when the activity may be temporarily destroyed, save the instance state here</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSaveInstanceState</span><span class="params">(Bundle outState)</span> &#123;</span><br><span class="line">    outState.putString(GAME_STATE_KEY, gameState);</span><br><span class="line">    outState.putString(TEXT_VIEW_KEY, textView.getText());</span><br><span class="line">    <span class="comment">// call superclass to save any view hierarchy</span></span><br><span class="line">    <span class="built_in">super</span>.onSaveInstanceState(outState);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>除了定义XML文件，然后将其传递给<code>setContentView()</code>，还可以在Activity代码中新建View对象，并将新建的View插入到<code>ViewGroup</code>中，以构建视图层次结构。然后，将根<code>ViewGroup</code>传递给<code>setContentView()</code>以使用该布局。</p>
+<p>Activity并未处于“已创建”状态。<code>onCreate()</code>方法完成执行后，Activity进入“<strong>已开始</strong>”状态，系统会相继调用<code>onStart()</code>和<code>onResume()</code>方法。</p>
+<p><code>onCreate()</code>完成后，下一个回调将是<code>onStart()</code>。</p>
+
+        <h2 id="onstart"   >
+          <a href="#onstart" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#onstart"></a> onStart()</h2>
+      
+<p><code>onCreate()</code>退出后，Activity将进入“<strong>已开始</strong>”状态（Started state），并对用户可见。此回调包含<strong>Activity进入前台与用户进行互动之前的最后准备工作</strong>。</p>
+<p>当Activity进入“<strong>已开始</strong>”状态时，系统会调用此回调。<code>onStart()</code>调用使Activity对用户可见，因为应用会为Activity进入前台并支持互动做准备。例如，应用通过此方法来初始化保持界面的代码。（initializes the code that maintains the UI.）</p>
+<p>当Activity进入已开始状态时，与Activity生命周期相关联的所有生命周期感知型组件都将收到<code>ON_START</code>事件。</p>
+<p><code>onStart()</code>方法会非常快速地完成。一旦此回调结束，Activity便会进入“<strong>已恢复</strong>”状态（Resumed state），系统将调用<code>onResume()</code>方法。</p>
+
+        <h2 id="onresume"   >
+          <a href="#onresume" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#onresume"></a> onResume()</h2>
+      
+<p>系统会在Activity开始与用户互动之前调用此回调。此时，该Activity位于Activity堆栈的顶部，并会<strong>捕获所有用户输入</strong>。应用的大部分核心功能都是在<code>onResume()</code>方法中实现的。</p>
+<p><code>onResume()</code>回调后面总是跟着<code>onPause()</code>回调。</p>
+<p>Activity会在进入“已恢复”状态时来到前台，然后系统调用<code>onResume()</code>回调。这是应用与用户互动的状态。应用会一直保持这种状态，直到某些事件导致焦点远离应用，此类事件包括接到来电、用户导航到另一个Activity，或设备屏幕关闭。</p>
+<p>当Activity进入已恢复状态时，与Activity生命周期相关联的所有生命周期感知型组件都将收到 <code>ON_RESUME</code>事件。这时，生命周期组件可以启用在组件可见且位于前台时需要运行的任何功能，例如启动相机预览。</p>
+<p>当发生中断事件时，Activity进入“<strong>已暂停</strong>”状态，系统调用<code>onPause()</code>回调。</p>
+<p>如果Activity从“已暂停”状态返回“已恢复”状态，系统将再次调用<code>onResume()</code>方法。因此，<code>onResume()</code>负责初始化在<code>onPause()</code>期间释放的组件，并执行每次Activity进入“已恢复”状态时必须完成的任何其他初始化操作。</p>
+<p>以下是生命周期感知型组件的示例，该组件在收到<code>ON_RESUME</code>事件时访问相机：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CameraComponent</span> <span class="keyword">implements</span> <span class="title class_">LifecycleObserver</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initializeCamera</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (camera == <span class="literal">null</span>) &#123;</span><br><span class="line">            getCamera();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><code>LifecycleObserver</code>收到<code>ON_RESUME</code>事件后，上述代码便会初始化相机。然而，在多窗口模式下，即使处于“已暂停”状态，Activity也可能完全可见。例如，当用户处于多窗口模式，并点按另一个不包含Activity的窗口时，Activity将进入“已暂停”状态。如果希望相机仅在应用处于“已恢复”（可见且在前台运行）状态时可用，应在收到上述<code>ON_RESUME</code>事件后初始化相机。如果希望在Activity 处于“已暂停”状态但可见时（例如在多窗口模式下）保持相机可用，应在收到<code>ON_START</code>事件后初始化相机。但注意，若要让相机在Activity处于“已暂停”状态时可用，可能会导致系统在多窗口模式下拒绝其他处于“已恢复”状态的应用访问相机。有时可能有必要让相机在Activity处于“已暂停”状态时保持可用，但这样做实际可能会降低整体用户体验。生命周期的哪个阶段更适合在多窗口环境下控制共享系统资源需要仔细考虑。</p>
+<p>无论选择在哪个构建事件中执行初始化操作，都务必使用相应的生命周期事件来释放资源。如果在收到<code>ON_START</code>事件后初始化某些内容，需在收到<code>ON_STOP</code>事件后释放或终止相应内容。如果在收到<code>ON_RESUME</code>事件后初始化某些内容，需在收到<code>ON_PAUSE</code>事件后将其释放。</p>
+<p>注意，上述代码段将相机初始化代码放置在生命周期感知型组件中。可以直接将此代码放入Activity生命周期回调（例如<code>onStart()</code>和<code>onStop()</code>），但不建议这样做。通过将此逻辑添加到独立的生命周期感知型组件中，可以对多个Activity重复使用该组件，而无需复制代码。</p>
+
+        <h2 id="onpause"   >
+          <a href="#onpause" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#onpause"></a> onPause()</h2>
+      
+<p>当Activity失去焦点并进入“<strong>已暂停</strong>”状态时，系统就会调用<code>onPause()</code>。例如，当用户点按“<code>返回</code>”或“<code>最近使用的应用</code>”按钮时，就会出现此状态。当系统为Activity调用<code>onPause()</code>时，从技术上来说，这意味着Activity仍然部分可见，但大多数情况下，这表明用户正在离开该Activity，该Activity很快将进入“<strong>已停止</strong>”或“<strong>已恢复</strong>”状态。</p>
+<p>如果用户希望界面继续更新，则处于“<strong>已暂停</strong>”状态的Activity也可以继续更新界面。例如，显示导航地图屏幕或播放媒体播放器的Activity就属于此类Activity。即使此类Activity失去了焦点，用户仍希望其界面继续更新。</p>
+<p>不应使用<code>onPause()</code>来保存应用或用户数据、进行网络呼叫或执行数据库事务。</p>
+<p><code>onPause()</code>执行完毕后，下一个回调为<code>onStop()</code>或<code>onResume()</code>，具体取决于Activity进入“<strong>已暂停</strong>”状态后发生的情况。</p>
+<hr />
+<p>系统将此方法视为用户将要离开Activity的第一个标志（尽管这并不总是意味着Activity会被销毁）；此方法表示Activity不再位于前台（尽管在用户处于多窗口模式时Activity仍然可见）。使用<code>onPause()</code>方法以暂停或调整当<code>Activity</code>处于“已暂停”状态时不应继续（或应有节制地继续）的操作，以及你希望很快恢复的操作。Activity进入此状态的原因有很多。例如：</p>
 <ul>
-<li>a 2-node has one data element, and if internal has two child nodes;<br />
-<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_2-3-4%E6%A0%91/2-3-4-tree-2-node.svg" alt="2-3-4-tree-2-node" /></li>
-<li>a 3-node has two data elements, and if internal has three child nodes;<br />
-<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_2-3-4%E6%A0%91/2-3-4-tree-3-node.svg" alt="2-3-4-tree-3-node" /></li>
-<li>a 4-node has three data elements, and if internal has four child nodes;<br />
-<img src="../../images/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84_2-3-4%E6%A0%91/2-3-4-tree-4-node.svg" alt="2-3-4-tree-4-node" /></li>
+<li>如<code>onResume()</code>部分所述，某个事件会中断应用执行。这是最常见的情况。</li>
+<li>在Android 7.0（API 级别 24）或更高版本中，有多个应用在多窗口模式下运行。无论何时，都只有一个应用（窗口）可以拥有焦点，因此系统会暂停所有其他应用。</li>
+<li>有新的半透明Activity（例如对话框）处于开启状态。只要Activity仍然部分可见但并未处于焦点之中，它便会一直暂停。</li>
 </ul>
+<p>当Activity进入已暂停状态时，与Activity生命周期相关联的所有生命周期感知型组件都将收到 <code>ON_PAUSE</code>事件。这时，生命周期组件可以停止在组件未位于前台时无需运行的任何功能，例如停止相机预览。</p>
+<p>还可以使用<code>onPause()</code>方法释放系统资源、传感器（例如GPS）手柄，或当Activity暂停且用户不需要它们时仍然可能影响电池续航时间的任何资源。然而，正如上文的onResume()部分所述，如果处于多窗口模式，“已暂停”的Activity仍完全可见。因此，应该考虑使用onStop()而非onPause()来完全释放或调整与界面相关的资源和操作，以便更好地支持多窗口模式。</p>
+<p>响应<code>ON_PAUSE</code>事件的以下<code>LifecycleObserver</code>示例与上述<code>ON_RESUME</code>事件示例相对应，会释放在收到<code>ON_RESUME</code>事件后初始化的相机：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaCameraComponent</span> <span class="keyword">implements</span> <span class="title class_">LifecycleObserver</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">releaseCamera</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (camera != <span class="literal">null</span>) &#123;</span><br><span class="line">            camera.release();</span><br><span class="line">            camera = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>请注意，上述代码段是在LifecycleObserver收到<code>ON_PAUSE</code>事件后释放相机。</p>
+<p><code>onPause()</code>的执行非常简短，不一定有足够的时间来执行保存操作。因此，不应使用 <code>onPause()</code>来保存应用或用户数据、进行网络调用或执行数据库事务。而应在<code>onStop()</code>期间执行高负载的关闭操作。</p>
+<p><code>onPause()</code>方法的完成<strong>并不意味着Activity离开“已暂停”状态。相反，Activity会保持此状态</strong>，直到其恢复或变成对用户完全不可见。如果Activity恢复，系统将再次调用<code>onResume()</code>回调。如果Activity从“已暂停”状态返回“已恢复”状态，系统会让Activity实例继续驻留在内存中，并会在系统调用<code>onResume()</code>时重新调用该实例。在这种情况下，无需重新初始化在任何回调方法导致Activity进入“已恢复”状态期间创建的组件。如果Activity变为完全不可见，系统会调用<code>onStop()</code>。</p>
 
-        <h2 id="与b树的关系"   >
-          <a href="#与b树的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与b树的关系"></a> 与B树的关系</h2>
+        <h2 id="onstop"   >
+          <a href="#onstop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#onstop"></a> onStop()</h2>
       
+<p>当Activity对用户不再可见时，系统会调用<code>onStop()</code>。出现这种情况的原因可能是Activity被销毁，新的Activity启动，或者现有的Activity正在进入“<strong>已恢复</strong>”状态并覆盖了已停止的Activity。在所有这些情况下，停止的Activity都将完全不再可见。</p>
+<p>系统调用的下一个回调将是<code>onRestart()</code>（如果Activity重新与用户互动）或者<code>onDestroy()</code>（如果Activity彻底终止）。</p>
+<hr />
+<p>如果Activity不再对用户可见，说明其已进入“已停止”状态，因此系统将调用<code>onStop()</code>回调。例如，当新启动的Activity覆盖整个屏幕时，可能会发生这种情况。系统也可能在Activity已结束运行并即将终止时调用<code>onStop()</code>。</p>
+<p>当Activity进入已停止状态时，与Activity生命周期相关联的所有生命周期感知型组件都将收到<code>ON_STOP</code>事件。这时，生命周期组件可以停止在组件未显示在屏幕上时无需运行的任何功能。</p>
+<p>在<code>onStop()</code>方法中，应用应释放或调整在应用对用户不可见时的无用资源。例如，应用可以暂停动画效果，或从精确位置更新切换到粗略位置更新。使用<code>onStop()</code>而非<code>onPause()</code>可确保与界面相关的工作继续进行，即使用户在多窗口模式下查看Activity也能如此。</p>
+<p>应使用<code>onStop()</code>执行CPU相对密集的关闭操作。例如，如果您无法找到更合适的时机来将信息保存到数据库，可以在<code>onStop()</code>期间执行此操作。以下示例展示了<code>onStop()</code>的实现，它将草稿笔记内容保存到持久性存储空间中：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onStop</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// call the superclass method first</span></span><br><span class="line">    <span class="built_in">super</span>.onStop();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// save the note&#x27;s current draft, because the activity is stopping</span></span><br><span class="line">    <span class="comment">// and we want to be sure the current note progress isn&#x27;t lost.</span></span><br><span class="line">    <span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();</span><br><span class="line">    values.put(NotePad.Notes.COLUMN_NAME_NOTE, getCurrentNoteText());</span><br><span class="line">    values.put(NotePad.Notes.COLUMN_NAME_TITLE, getCurrentNoteTitle());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// do this update in background on an AsyncQueryHandler or equivalent</span></span><br><span class="line">    asyncQueryHandler.startUpdate (</span><br><span class="line">            mToken,  <span class="comment">// int token to correlate calls</span></span><br><span class="line">            <span class="literal">null</span>,    <span class="comment">// cookie, not used here</span></span><br><span class="line">            uri,    <span class="comment">// The URI for the note to update.</span></span><br><span class="line">            values,  <span class="comment">// The map of column names and new values to apply to them.</span></span><br><span class="line">            <span class="literal">null</span>,    <span class="comment">// No SELECT criteria are used.</span></span><br><span class="line">            <span class="literal">null</span>     <span class="comment">// No WHERE columns are used.</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>注意，上述代码示例直接使用SQLite。但应该改用Room，这是一个通过SQLite提供抽象层的持久性库。</p>
+<p>当Activity进入“已停止”状态时，Activity对象会继续驻留在内存中：<strong>该对象将维护所有状态和成员信息，但不会附加到窗口管理器</strong>（It maintains all state and member information, but is not attached to the window manager.）。Activity恢复后，Activity会重新调用这些信息。无需重新初始化在任何导致Activity进入“已恢复”状态的回调方法中创建的组件。系统还会追踪布局中每个View对象的当前状态，比如用户在<code>EditText</code>微件中输入文本，系统将保留文本内容，因此无需保存和恢复文本。</p>
+<blockquote>
+<p>注意：Activity停止后，如果系统需要恢复一些内存，可能会销毁包含该Activity的进程。即使系统在Activity停止后销毁相应进程，系统仍会保留<code>Bundle</code>（键值对的blob）中View对象的状态，并在用户返回Activity时恢复这些对象。请参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/activities/activity-lifecycle#saras" >保存和恢复 Activity 状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+</blockquote>
+<p>进入“已停止”状态后，Activity要么返回与用户互动，要么结束运行并消失。如果Activity返回，系统将调用<code>onRestart()</code>；如果Activity结束运行，系统将调用<code>onDestroy()</code>。</p>
+
+        <h2 id="onrestart"   >
+          <a href="#onrestart" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#onrestart"></a> onRestart()</h2>
+      
+<p>当处于“<strong>已停止</strong>”状态的Activity即将重启时，系统就会调用此回调。<code>onRestart()</code>会从Activity停止时的状态恢复Activity。</p>
+<p>此回调后面总是跟着<code>onStart()</code>。</p>
+
+        <h2 id="ondestroy"   >
+          <a href="#ondestroy" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#ondestroy"></a> onDestroy()</h2>
+      
+<p>系统会在销毁Activity之前调用此回调。</p>
+<p>此回调是Activity接收的最后一个回调。通常，实现<code>onDestroy()</code>是为了确保在销毁Activity或包含该Activity的进程时释放该Activity的所有资源。</p>
+<hr />
+<p>销毁Activity之前，系统会先调用<code>onDestroy()</code>。系统调用此回调的原因有：</p>
 <ol>
-<li>2-3-4树是4阶的B树；</li>
-<li>和一般的B树一样，它们可以在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>时间内搜索、插入和删除。</li>
-<li>2-3-4树的一个特性是所有外部节点都处于相同的深度。</li>
+<li>Activity即将结束（由于用户彻底关闭Activity或由于系统为Activity调用<code>finish()</code>），或</li>
+<li>由于配置变更（例如设备旋转或多窗口模式），系统暂时销毁Activity。</li>
 </ol>
+<p>当Activity进入已销毁状态时，与Activity生命周期相关联的所有生命周期感知型组件都将收到<code>ON_DESTROY</code>事件。这时，生命周期组件可以在Activity被销毁之前清理所需的任何数据。</p>
+<p>应使用<code>ViewModel</code>对象来包含Activity的相关视图数据，而不是在Activity中加入逻辑来确定Activity被销毁的原因。如果因配置变更而重新创建Activity，ViewModel不必执行任何操作，因为系统将保留ViewModel并将其提供给下一个Activity实例。如果不重新创建Activity，ViewModel将调用<code>onCleared()</code>方法，以便在Activity被销毁前清除所需的任何数据。</p>
+<p>可以使用<code>isFinishing()</code>方法区分这两种情况。</p>
+<p>如果Activity即将结束，onDestroy()是Activity收到的最后一个生命周期回调。如果由于配置变更而调用onDestroy()，系统会立即新建Activity实例，然后在新配置中为新实例调用<code>onCreate()</code>。</p>
+<p><code>onDestroy()</code>回调应释放先前的回调，例如<code>onStop()</code>尚未释放的所有资源。</p>
 
-        <h2 id="与红黑树的关系"   >
-          <a href="#与红黑树的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与红黑树的关系"></a> 与红黑树的关系</h2>
+        <h1 id="activity状态和从内存中弹出ejection"   >
+          <a href="#activity状态和从内存中弹出ejection" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#activity状态和从内存中弹出ejection"></a> Activity状态和从内存中弹出(ejection)</h1>
       
-<p>2-3-4树与红黑树同构，这意味着它们是等效的数据结构。换言之，对于每棵2-3-4树，至少存在一棵数据元素顺序相同的红黑树。此外，对2-3-4树的插入和删除操作会导致节点扩展、拆分和合并，相当于红黑树中的颜色翻转和旋转。</p>
-<p>红黑树的介绍通常首先介绍2-3-4树，因为它们在概念上更简单。然而，2-3-4 树在大多数编程语言中可能难以实现，因为树上的操作涉及大量特殊情况。 红黑树更容易实现，因此倾向于使用。</p>
+<p>系统会在需要释放RAM时终止进程；系统终止给定进程的可能性取决于当时进程的状态，然而，<strong>进程状态取决于在进程中运行的Activity的状态</strong>。表1展示了进程状态、Activity状态以及系统终止进程的可能性之间的关系。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>系统终止进程的可能性</th>
+<th>进程状态</th>
+<th>Activity状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>较小</td>
+<td>前台（拥有或即将得到焦点）</td>
+<td>已创建、已开始、已恢复</td>
+</tr>
+<tr>
+<td>较大</td>
+<td>后台（失去焦点）</td>
+<td>已暂停</td>
+</tr>
+<tr>
+<td>最大</td>
+<td>后台（不可见）、空</td>
+<td>已停止、已销毁</td>
+</tr>
+</tbody>
+</table></div>
+<p>系统永远不会直接终止Activity以释放内存，而是会终止Activity所在的进程。系统不仅会销毁Activity，还会销毁在该进程中运行的所有其他内容。如需了解如何在系统启动的进程被终止时保留和恢复Activity的界面状态，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/activities/activity-lifecycle#saras" >保存和恢复Activity状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>用户还可以使用“设置”下的“应用管理器”来终止进程，以终止相应的应用。</p>
+<p>了解一般进程，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/processes-and-threads" >进程和线程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。如需详细了解进程生命周期如何与其中Activity的状态相关联，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/processes-and-threads#Lifecycle" >进程生命周期</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>部分。</p>
 
-        <h1 id="性质"   >
-          <a href="#性质" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#性质"></a> 性质</h1>
+        <h2 id="保存和恢复瞬时界面状态"   >
+          <a href="#保存和恢复瞬时界面状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#保存和恢复瞬时界面状态"></a> 保存和恢复瞬时界面状态</h2>
       
+<p>用户期望Activity的界面状态在整个配置变更（例如旋转或切换到多窗口模式）期间保持不变。但是，<strong>默认情况下，系统会在发生此类配置更改时销毁Activity，从而清除存储在Activity实例中的任何界面状态</strong>。同样，如果用户暂时从应用切换到其他应用，并在稍后返回应用，用户希望界面状态保持不变。但是，当用户离开应用且Activity停止时，系统可能会销毁该应用的进程。</p>
+<p>当Activity因系统限制而被销毁时，应组合使用<code>ViewModel</code>、<code>onSaveInstanceState()</code>和/或本地存储来保留用户的瞬时界面状态。可以在进一步详细了解用户期望与系统行为，以及如何在系统启动的Activity和进程被终止后最大程度地保留复杂的界面状态数据，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/saving-states" >保存界面状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>下面概述实例状态的定义，以及如何实现onSaveInstance()方法，该方法是Activity本身的回调。如果界面数据简单且轻量，例如原始数据类型或简单对象（比如String），可以单独使用onSaveInstanceState()使界面状态在配置更改和系统启动的进程被终止时保持不变。但在大多数情况下，应使用ViewModel和onSaveInstanceState()（如<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/saving-states" >保存界面状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>中所述），因为 onSaveInstanceState()会产生序列化/反序列化费用。</p>
+
+        <h2 id="实例状态"   >
+          <a href="#实例状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实例状态"></a> 实例状态</h2>
+      
+<p>在某些情况下，Activity会因正常的应用行为而被销毁，例如当用户按下返回按钮或Activity通过调用<code>finish()</code>方法发出销毁信号时，此时系统和用户对该Activity实例的概念将永远消失。在这些情况下，用户的期望与系统行为相匹配，无需完成任何额外工作。</p>
+<p>但是，如果系统因系统限制（例如配置变更或内存压力）而销毁Activity，虽然实际的Activity实例会消失，但系统会记住它曾经存在过。如果用户尝试回退到该Activity，系统将<strong>使用已保存的一组描述Activity销毁时状态的数据</strong>重建该Activity实例。</p>
+<p>系统用于恢复先前状态的已保存数据称为<strong>实例状态</strong>，是存储在<strong>Bundle对象中的键值对集合</strong>。默认情况下，系统使用<code>Bundle</code>实例状态来保存<strong>Activity布局中每个View对象的相关信息</strong>（例如在<code>EditText</code>微件中输入的文本值）。这样，如果Activity实例被销毁并重新创建，布局便会恢复为其先前的状态，且无需编写代码。但是，Activity可能包含你想要恢复的更多状态信息，例如追踪用户在Activity中的进程的成员变量。</p>
+<blockquote>
+<p>注意：为了使Android系统恢复Activity中视图的状态，每个视图必须具有<code>android:id</code>属性提供的唯一ID。</p>
+</blockquote>
+<p><code>Bundle</code>对象并不适合保留大量数据，因为它需要在主线程上进行序列化处理并占用系统进程内存。如需保存大量数据，应组合使用持久性本地存储、<code>onSaveInstanceState()</code>方法和<code>ViewModel</code>类来保存数据，正如<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/saving-states" >保存界面状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>中所述。</p>
+
+        <h2 id="使用onsaveinstancestate保存简单轻量的界面状态"   >
+          <a href="#使用onsaveinstancestate保存简单轻量的界面状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使用onsaveinstancestate保存简单轻量的界面状态"></a> 使用onSaveInstanceState()保存简单轻量的界面状态</h2>
+      
+<p>当Activity开始停止时，系统会调用<code>onSaveInstanceState()</code>方法，以便Activity可以将状态信息保存到实例状态Bundle中。此方法的默认实现保存有关Activity视图层次结构状态的瞬时信息，例如<code>EditText</code>微件中的文本或<code>ListView</code>微件的滚动位置。</p>
+<p>如需保存Activity的其他实例状态信息，必须替换<code>onSaveInstanceState()</code>，并将键值对添加到Activity意外销毁时事件中所保存的<code>Bundle</code>对象中。替换onSaveInstanceState()时，如果希望默认实现保存视图层次结构的状态，必须调用父类实现。例如：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STATE_SCORE</span> <span class="operator">=</span> <span class="string">&quot;playerScore&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">STATE_LEVEL</span> <span class="operator">=</span> <span class="string">&quot;playerLevel&quot;</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSaveInstanceState</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    <span class="comment">// Save the user&#x27;s current game state</span></span><br><span class="line">    savedInstanceState.putInt(STATE_SCORE, currentScore);</span><br><span class="line">    savedInstanceState.putInt(STATE_LEVEL, currentLevel);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Always call the superclass so it can save the view hierarchy state</span></span><br><span class="line">    <span class="built_in">super</span>.onSaveInstanceState(savedInstanceState);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>注意：当用户显式关闭Activity时，或者在其他情况下调用<code>finish()</code>时，系统不会调用onSaveInstanceState()。</p>
+</blockquote>
+<p>如需保存持久性数据（例如用户首选项或数据库中的数据），应在Activity位于前台时抓住合适机会。如果没有这样的时机，应在执行<code>onStop()</code>方法期间保存此类数据。</p>
+
+        <h2 id="使用保存的实例状态恢复activity界面状态"   >
+          <a href="#使用保存的实例状态恢复activity界面状态" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使用保存的实例状态恢复activity界面状态"></a> 使用保存的实例状态恢复Activity界面状态</h2>
+      
+<p>重建先前被销毁的Activity后，可以从系统传递给Activity的<code>Bundle</code>中恢复保存的实例状态。<code>onCreate()</code>和 <code>onRestoreInstanceState()</code>回调方法均会收到包含实例状态信息的相同<code>Bundle</code>。</p>
+<p>因为无论系统是新建Activity实例还是重新创建之前的实例，都会调用<code>onCreate()</code>方法，所以在尝试读取之前，必须检查状态Bundle是否为null。如果为null，系统将新建Activity实例，而不会恢复之前销毁的实例。</p>
+<p>例如，以下代码段显示如何在<code>onCreate()</code>中恢复某些状态数据：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>.onCreate(savedInstanceState); <span class="comment">// Always call the superclass first</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check whether we&#x27;re recreating a previously destroyed instance</span></span><br><span class="line">    <span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// Restore value of members from saved state</span></span><br><span class="line">        currentScore = savedInstanceState.getInt(STATE_SCORE);</span><br><span class="line">        currentLevel = savedInstanceState.getInt(STATE_LEVEL);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Probably initialize members with default values for a new instance</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>可以选择实现系统在<code>onStart()</code>方法之后调用的<code>onRestoreInstanceState()</code>，而不是在<code>onCreate()</code>期间恢复状态。仅当存在要恢复的已保存状态时，系统才会调用<code>onRestoreInstanceState()</code>，因此您无需检查<code>Bundle</code>是否为 null：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onRestoreInstanceState</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    <span class="comment">// Always call the superclass so it can restore the view hierarchy</span></span><br><span class="line">    <span class="built_in">super</span>.onRestoreInstanceState(savedInstanceState);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Restore state members from saved instance</span></span><br><span class="line">    currentScore = savedInstanceState.getInt(STATE_SCORE);</span><br><span class="line">    currentLevel = savedInstanceState.getInt(STATE_LEVEL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>注意：应始终调用<code>onRestoreInstanceState()</code>的父类实现，以便默认实现可以恢复视图层次结构的状态。</p>
+</blockquote>
+
+        <h1 id="处理activity状态更改"   >
+          <a href="#处理activity状态更改" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#处理activity状态更改"></a> 处理Activity状态更改</h1>
+      
+<p>用户触发和系统触发的不同事件会导致Activity从一个状态转换到另一个状态。下面介绍发生此类转换的一些常见情况，以及如何处理这些转换。</p>
+<p>有关Activity状态的详情，参阅Activity生命周期。要了解如何借助ViewModel类来管理Activity生命周期，参阅了解ViewModel类。</p>
+
+        <h2 id="配置发生了更改"   >
+          <a href="#配置发生了更改" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#配置发生了更改"></a> 配置发生了更改</h2>
+      
+<p>有很多事件会触发配置更改。最显著的例子或许是横屏和竖屏之间的屏幕方向变化。其他情况，如语言或输入设备的改变等，也可能导致配置更改。</p>
+<p>当配置发生更改时，Activity会被销毁并重新创建。原始Activity实例将触发<code>onPause()</code>、<code>onStop()</code>和<code>onDestroy()</code>回调。系统将创建新的Activity实例，并触发<code>onCreate()</code>、<code>onStart()</code>和<code>onResume()</code>回调。</p>
+<p>结合使用ViewModels、onSaveInstanceState()方法和/或持久性本地存储，可使Activity的界面状态在配置发生更改后保持不变。在决定这些选项的组合方式时，需要考虑界面数据的复杂程度、应用的用例以及检索速度与内存使用的权衡。有关保存Activity界面状态的详情，请参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/saving-states" >保存界面状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h2 id="处理多窗口模式的情况"   >
+          <a href="#处理多窗口模式的情况" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#处理多窗口模式的情况"></a> 处理多窗口模式的情况</h2>
+      
+<p>一旦应用进入多窗口模式（适用于Android 7.0（API级别24）及更高级别），系统会向当前运行的Activity发送配置更改通知，从而完成上述生命周期转换。如果已经处于多窗口模式的应用调整了大小，也会出现这种行为。Activity可以自行处理配置更改，也可以让系统销毁Activity并使用新维度重新创建。</p>
+<p>有关多窗口模式生命周期的详情，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/multi-window" >多窗口模式支持</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>页的<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/multi-window#lifecycle" >多窗口模式生命周期</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>部分。</p>
+<p>在多窗口模式下，虽然用户可以看到两个应用，但只有与用户交互的应用位于前台且具有焦点。该Activity处于“已恢复”状态，而另一个窗口中的应用则处于“已暂停”状态。</p>
+<p>当用户从应用A切换到应用B时，系统会对应用A调用<code>onPause()</code>，对应用B调用<code>onResume()</code>。每当用户在应用之间切换时，系统就会在这两种方法之间切换。</p>
+<p>有关多窗口模式的详情，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/multi-window" >多窗口模式支持</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h2 id="activity或对话框显示在前台"   >
+          <a href="#activity或对话框显示在前台" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#activity或对话框显示在前台"></a> Activity或对话框显示在前台</h2>
+      
+<p>如果有新的Activity或对话框出现在前台，并且<strong>局部覆盖</strong>了正在进行的Activity，则被覆盖的Activity会失去焦点并进入“已暂停”状态。然后，系统会调用<code>onPause()</code>。</p>
+<p>当被覆盖的Activity返回到前台并重新获得焦点时，会调用<code>onResume()</code>。</p>
+<p>如果有新的Activity或对话框出现在前台，夺取了焦点且<strong>完全覆盖</strong>了正在进行的Activity，则被覆盖的Activity会失去焦点并进入“已停止”状态。然后，系统会快速地接连调用<code>onPause()</code>和<code>onStop()</code>。</p>
+<p>当被覆盖的Activity的同一实例返回到前台时，系统会对该Activity调用<code>onRestart()</code>、<code>onStart()</code>和<code>onResume()</code>。如果被覆盖的Activity的新实例进入后台，则系统不会调用<code>onRestart()</code>，而只会调用<code>onStart()</code>和<code>onResume()</code>。</p>
+<blockquote>
+<p>注意：当用户点按“概览（Overview）”或主屏幕按钮时，系统的行为就好像当前Activity已被完全覆盖一样。</p>
+</blockquote>
+
+        <h2 id="用户点按返回按钮"   >
+          <a href="#用户点按返回按钮" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用户点按返回按钮"></a> 用户点按“返回”按钮</h2>
+      
+<p>如果Activity位于前台，并且用户点按了返回按钮，Activity将依次经历<code>onPause()</code>、<code>onStop()</code>和<code>onDestroy()</code>回调。活动不仅会被销毁，还会从返回堆栈中移除。</p>
+<p>需要注意的是，在这种情况下，默认不会触发<code>onSaveInstanceState()</code>回调。此行为基于的假设是，用户点按返回按钮时不期望返回Activity的同一实例。不过，可以通过替换<code>onBackPressed()</code>方法实现某种自定义行为，例如“confirm-quit”对话框。</p>
+<p>如果替换<code>onBackPressed()</code>方法，强烈建议从被替换的方法调用<code>super.onBackPressed()</code>。否则，返回按钮的行为可能会让用户感觉突兀。</p>
+
+        <h2 id="系统终止应用进程"   >
+          <a href="#系统终止应用进程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#系统终止应用进程"></a> 系统终止应用进程</h2>
+      
+<p>如果某个应用处于后台并且系统需要为前台应用释放额外的内存，则系统可能会终止后台应用以释放更多内存。要详细了解系统如何确定要销毁哪些进程，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/activities/activity-lifecycle#asem" >Activity状态和从内存中弹出</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>以及<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/activities/process-lifecycle" >进程和应用生命周期</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>要了解如何在系统终止应用进程时保存Activity界面状态，请参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/activities/activity-lifecycle#saras" >保存和恢复Activity 状态</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+
+        <h1 id="在activity之间导航"   >
+          <a href="#在activity之间导航" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在activity之间导航"></a> 在Activity之间导航</h1>
+      
+<p>在应用的生命周期中，应用很可能会多次进入和退出Activity。例如，用户可以点按设备的返回按钮，或者Activity可能需要启动不同的Activity。本部分介绍如何实现Activity转换，包括从另一个Activity启动Activity、保存Activity状态，以及恢复Activity状态。</p>
+
+        <h2 id="从一个activity启动另一个activity"   >
+          <a href="#从一个activity启动另一个activity" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从一个activity启动另一个activity"></a> 从一个Activity启动另一个Activity</h2>
+      
+<p>Activity通常需要在某个时刻启动另一个Activity。例如，当应用需要从当前屏幕移动到新屏幕时，就会出现这种需求。</p>
+<p>根据Activity是否希望从即将启动的新Activity中获取返回结果，可以使用<code>startActivity()</code>或<code>startActivityForResult()</code>方法启动新Activity。这两种方法都需要传入一个<code>Intent</code>对象。</p>
+<p><code>Intent</code>对象指定要启动的具体Activity，或描述要执行的操作类型（系统选择相应的Activity，该Activity甚至可以来自不同应用）。<code>Intent</code>对象还可以携带已启动的Activity的少量数据。如需详细了解<code>Intent</code>类，参阅<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://developer.android.com/guide/components/intents-filters" >Intent 和 Intent 过滤器</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<blockquote>
+<p>Intent对象的作用：</p>
 <ol>
-<li>叶节点, 每个子节点都是2节点、3节点或4节点，父节点分别保存一个、两个或三个数据元素。</li>
-<li>所有叶子都在相同的深度（底层）。</li>
-<li>所有数据都按排序顺序保存。</li>
+<li>指定要启动的具体Activity</li>
+<li>可以携带已启动的Activity的少量数据</li>
 </ol>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/77/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/77/">77</a><span class="page-number current">78</span><a class="page-number" href="/page/79/">79</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/79/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">300</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</blockquote>
+
+        <h2 id="startactivity"   >
+          <a href="#startactivity" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#startactivity"></a> startActivity()</h2>
+      
+<p>如果新启动的Activity不需要返回结果，当前Activity可以通过调用<code>startActivity()</code>方法来启动它。</p>
+<p>在自己的应用本身中工作时，通常只需启动已知Activity。例如，以下代码段显示如何启动一个名为<code>SignInActivity</code>的 Activity。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>, SignInActivity.class);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
+<p>应用可能还希望使用Activity中的数据执行某些操作，例如发送电子邮件、短信或状态更新。在这种情况下，应用自身可能不具有执行此类操作所需的Activity，因此可以改为利用设备上其他应用提供的Activity来执行这些操作，这便是intent的真正价值所在。可以创建一个intent，对想执行的操作进行描述，系统会从其他应用启动相应的Activity。如果有多个Activity可以处理intent，用户可以选择要使用哪一个。例如，如果想允许用户发送电子邮件，可以创建以下intent：</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_SEND);</span><br><span class="line">intent.putExtra(Intent.EXTRA_EMAIL, recipientArray);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></div></figure>
+<p>添加到intent中的<code>EXTRA_EMAIL</code>extra是一个字符串数组，其中包含电子邮件的收件人电子邮件地址。当电子邮件应用响应此intent时，该应用会读取extra中提供的字符串数组，并将该数组放入电子邮件撰写表单的“收件人”字段。在这种情况下，电子邮件应用的Activity会启动，并且当用户完成操作时，你的Activity会继续运行。</p>
+
+        <h2 id="startactivityforresult"   >
+          <a href="#startactivityforresult" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#startactivityforresult"></a> startActivityForResult()</h2>
+      
+<p>有时，希望在Activity结束时从Activity中获取返回结果。例如，可以启动一项Activity，让用户在联系人列表中选择收件人；当Activity结束时，系统将返回用户选择的收件人。为此，可以调用<code>startActivityForResult(Intent, int)</code>方法，其中整数参数会标识该调用。此标识符用于消除来自同一Activity的多次<code>startActivityForResult(Intent, int)</code>调用之间的歧义。这不是全局标识符，不存在与其他应用或Activity冲突的风险。结果通过<code>onActivityResult(int, int, Intent)</code>方法返回。</p>
+<p>当子级Activity退出时，它可以调用<code>setResult(int)</code>将数据返回到其父级。子级Activity必须始终提供结果代码，该结果代码可以是标准结果<code>RESULT_CANCELED</code>、<code>RESULT_OK</code>，也可以是从<code>RESULT_FIRST_USER</code>开始的任何自定义值。此外，子级Activity可以根据需要返回包含它所需的任何其他数据的<code>Intent</code>对象。父级Activity使用<code>onActivityResult(int, int, Intent)</code>方法，以及父级Activity最初提供的整数标识符来接收信息。</p>
+<p>如果子级Activity由于任何原因（例如崩溃）而失败，父级Activity将收到代码为<code>RESULT_CANCELED</code>的结果。</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyActivity</span> <span class="keyword">extends</span> <span class="title class_">Activity</span> &#123;</span><br><span class="line">     <span class="comment">// ...</span></span><br><span class="line">     <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PICK_CONTACT_REQUEST</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onKeyDown</span><span class="params">(<span class="type">int</span> keyCode, KeyEvent event)</span> &#123;</span><br><span class="line">         <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) &#123;</span><br><span class="line">             <span class="comment">// When the user center presses, let them pick a contact.</span></span><br><span class="line">             startActivityForResult(</span><br><span class="line">                 <span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_PICK,</span><br><span class="line">                 <span class="keyword">new</span> <span class="title class_">Uri</span>(<span class="string">&quot;content://contacts&quot;</span>)),</span><br><span class="line">                 PICK_CONTACT_REQUEST);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onActivityResult</span><span class="params">(<span class="type">int</span> requestCode, <span class="type">int</span> resultCode,</span></span><br><span class="line"><span class="params">             Intent data)</span> &#123;</span><br><span class="line">         <span class="keyword">if</span> (requestCode == PICK_CONTACT_REQUEST) &#123;</span><br><span class="line">             <span class="keyword">if</span> (resultCode == RESULT_OK) &#123;</span><br><span class="line">                 <span class="comment">// A contact was picked.  Here we will just display it</span></span><br><span class="line">                 <span class="comment">// to the user.</span></span><br><span class="line">                 startActivity(<span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_VIEW, data));</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="协调activity"   >
+          <a href="#协调activity" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#协调activity"></a> 协调Activity</h2>
+      
+<p>当一个Activity启动另一个Activity时，它们都会经历生命周期转换。第一个Activity停止运行并进入“已暂停”或“已停止”状态，同时创建另一个Activity。如果这些Activity共享保存到磁盘或其他位置的数据，必须要明确第一个Activity在创建第二个Activity之前并未完全停止。相反，启动第二个Activity的过程与停止第一个Activity的过程重叠。</p>
+<p>生命周期回调的顺序已有明确定义，特别是当两个Activity在同一个进程（应用）中，并且其中一个要启动另一个时。以下是Activity A启动Activity B时的操作发生顺序：</p>
+<ol>
+<li>Activity A的<code>onPause()</code>方法执行。</li>
+<li>Activity B的<code>onCreate()</code>、<code>onStart()</code>和<code>onResume()</code>方法依次执行（Activity B现在具有用户焦点）。</li>
+<li>然后，如果Activity A在屏幕上不再显示，其<code>onStop()</code>方法执行。</li>
+</ol>
+<p>可以利用这种可预测的生命周期回调顺序管理从一个Activity到另一个Activity的信息转换。</p>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/77/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/77/">77</a><span class="page-number current">78</span><a class="page-number" href="/page/79/">79</a><span class="space">&hellip;</span><a class="page-number" href="/page/150/">150</a><a class="extend next" rel="next" href="/page/79/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">300</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
