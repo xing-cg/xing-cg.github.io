@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="C++协程的样子        1234RTN_OBJ MyCoroutine()&#123;    co_await &#x2F; co_yield &#x2F; co_return;&#125;                      官方示例                              RTN_OBJ中有个promise_type        1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="协程_Agave设计原理">
+<meta property="og:url" content="https://xing-cg.github.io/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="C++协程的样子        1234RTN_OBJ MyCoroutine()&#123;    co_await &#x2F; co_yield &#x2F; co_return;&#125;                      官方示例                              RTN_OBJ中有个promise_type        1234">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/image-20250827191845939.png">
+<meta property="article:published_time" content="2025-08-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-27T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/image-20250827191845939.png"><title>协程_Agave设计原理 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">协程_Agave设计原理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/" data-flag-title="协程_Agave设计原理"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="c协程的样子"   >
+          <a href="#c协程的样子" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c协程的样子"></a> C++协程的样子</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">RTN_OBJ <span class="title">MyCoroutine</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">co_await</span> / <span class="keyword">co_yield</span> / <span class="keyword">co_return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="官方示例"   >
+          <a href="#官方示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#官方示例"></a> 官方示例</h1>
+      
+<p><img src="../../images/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/image-20250827191845939.png" alt="" /></p>
+
+        <h1 id="rtn_obj中有个promise_type"   >
+          <a href="#rtn_obj中有个promise_type" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rtn_obj中有个promise_type"></a> RTN_OBJ中有个promise_type</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RTN_OBJ</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">promise_type</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function">RTN_OBJ <span class="title">get_return_object</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function">std::suspend_never <span class="title">initial_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function">std::suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> &#123;&#125;; &#125;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">return_void</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">        <span class="comment">//int return_value(int v) &#123; return v; &#125;</span></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">unhandled_exception</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">RTN_OBJ <span class="title">MyCoroutine</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">co_return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> promise = <span class="keyword">new</span> RTN_OBJ::promise_type;</span><br><span class="line">    RTN_OBJ rtn_obj = promise-&gt;<span class="built_in">get_return_object</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>经过promise_type创建。RTN_OBJ的内容与promise绑定。promise的接口函数可以直接操作RTN_OBJ。</p>
+<p>RTN_OBJ是实例。<br />
+promise_type是在RTN_OBJ中的一个指针。</p>
+<p>promise_type是系统控制和协程内部交互的。就像是协程的总经理的地位，可以在<code>initial_suspend</code>、<code>final_suspend</code>函数体内写明要做的事务。<br />
+除了这两个接口，还要实现<code>return_void</code>或<code>return_value</code>，和<code>unhandled_exception</code>。<br />
+这样，C++才认为你是一个合格的经理。</p>
+<p>总的来说，记住，promise_type用于控制协程内部行为。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">promise_type</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">RTN_OBJ <span class="title">get_return_object</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> h = std::coroutine_handle&lt;promise_type&gt;::<span class="built_in">from_promise</span>(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>比如，可以在promise_type成员函数体中：通过<code>promise_type</code>作为模板参数，调用<code>from_promise(*this)</code>，获得此协程的内部句柄。<br />
+可以通过这个句柄，调用destroy等等，比如用来控制协程帧。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/coroutine/coroutine_handle.html" >std::coroutine_handle, std::noop_coroutine_handle - cppreference.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="awaiter"   >
+          <a href="#awaiter" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#awaiter"></a> Awaiter</h1>
+      
+<p>可以<code>co_await</code>的对象。<br />
+里面必须有接口：<code>bool await_ready</code>、<code>void await_suspend(coroutine_handle&lt;&gt;)</code>、<code>void await_resume()</code>（最后一个，返回值不一定是void，可以是其他）。</p>
+<p><code>await_suspend(std::coroutine_handle&lt;&gt; h)</code>中的h是外部传入的。用于和外界发送信号。<br />
+当外界<code>co_await</code>此<code>Awaiter</code>时，外部h传入，则<code>await_suspend</code>函数在执行过程中（比如读取文件完成）可以调用<code>h.resume</code>，唤醒外部。<br />
+如果<code>await_suspend</code>函数中起了一个新线程，那么这个线程可以异步IO（detach）。<code>await_suspend</code>可以返回了。<br />
+异步线程函数可以择机调用<code>h.resume</code>。则该Awaiter此时就要转向执行<code>await_resume()</code>，执行完后，外部的<code>co_await</code>就完毕，恢复执行下一步。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Awaiter</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="type">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* constexpr */</span> <span class="function"><span class="type">void</span> <span class="title">await_suspend</span><span class="params">(std::coroutine_handle&lt;&gt; h)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// create a new thread for IO operation...</span></span><br><span class="line">        <span class="function">std::thread <span class="title">t</span><span class="params">([h]() -&gt; <span class="type">void</span>)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="comment">// IO operation...</span></span><br><span class="line">            <span class="comment">// h.resume</span></span><br><span class="line">        &#125;);</span><br><span class="line">        t.<span class="built_in">detach</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">await_resume</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">RTN_OBJ <span class="title">MyCoroutine</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::<span class="built_in">println</span>(<span class="string">&quot;running MyCoroutine...&quot;</span>);</span><br><span class="line">    <span class="type">int</span> res = <span class="keyword">co_await</span> Awaiter&#123;&#125;; <span class="comment">// 可以接收await_resume()的返回值。</span></span><br><span class="line">    <span class="keyword">co_return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>实际上，Awaiter，是<code>ReadFileAsync</code>这样的异步操作对象的本质。</p>
+<p>我们要做的是，怎么包装这样的Awaiter，让用户用起来简单？</p>
+
+        <h2 id="suspend_always-suspend_never"   >
+          <a href="#suspend_always-suspend_never" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#suspend_always-suspend_never"></a> suspend_always / suspend_never</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">_EXPORT_STD <span class="keyword">struct</span> <span class="title class_">suspend_never</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">_NODISCARD <span class="keyword">constexpr</span> <span class="type">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="type">void</span> <span class="title">await_suspend</span><span class="params">(coroutine_handle&lt;&gt;)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="type">void</span> <span class="title">await_resume</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="测试"   >
+          <a href="#测试" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#测试"></a> 测试</h1>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;coroutine&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;print&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RTN_OBJ</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">promise_type</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function">RTN_OBJ <span class="title">get_return_object</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::<span class="built_in">println</span>(<span class="string">&quot;get_return_object()...&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">std::suspend_never <span class="title">initial_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::<span class="built_in">println</span>(<span class="string">&quot;initial_suspend()...&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">std::suspend_never <span class="title">final_suspend</span><span class="params">()</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::<span class="built_in">println</span>(<span class="string">&quot;final_suspend()...&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">return_void</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::<span class="built_in">println</span>(<span class="string">&quot;return_void()...&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">unhandled_exception</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            std::<span class="built_in">println</span>(<span class="string">&quot;unhandled_exception()...&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Awaiter</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*constexpr*/</span> <span class="function"><span class="type">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;await_ready()...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 往往开辟一个新线程，异步进行耗时的IO操作</span></span><br><span class="line">    <span class="comment">// 操作完毕后，调用h的resume</span></span><br><span class="line">    <span class="comment">/*constexpr*/</span> <span class="function"><span class="type">void</span> <span class="title">await_suspend</span><span class="params">(std::coroutine_handle&lt;&gt; h)</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;await_suspend()...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="function">std::thread <span class="title">t</span><span class="params">([h](<span class="type">int</span> &amp;m_res) -&gt; <span class="type">void</span> </span></span></span><br><span class="line"><span class="params"><span class="function">        &#123;</span></span></span><br><span class="line"><span class="params"><span class="function">            <span class="comment">// IO operation...</span></span></span></span><br><span class="line"><span class="params"><span class="function">            std::println(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::get_id(), <span class="string">&quot;sleep 5s...&quot;</span>);</span></span></span><br><span class="line"><span class="params"><span class="function">            std::this_thread::sleep_for(<span class="number">5</span>s);</span></span></span><br><span class="line"><span class="params"><span class="function">            m_res = <span class="number">100</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">            std::println(<span class="string">&quot;&#123;&#125; &#123;&#125; &#123;&#125;&#123;&#125;&quot;</span>, std::this_thread::get_id(), <span class="string">&quot;write m_res&quot;</span>, m_res, <span class="string">&quot;...&quot;</span>);</span></span></span><br><span class="line"><span class="params"><span class="function">        &#125;, std::ref(m_res))</span></span>;</span><br><span class="line">        t.<span class="built_in">join</span>();</span><br><span class="line">        h.<span class="built_in">resume</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*constexpr*/</span> <span class="function"><span class="type">int</span> <span class="title">await_resume</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;await_resume()...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> m_res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> m_res;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">RTN_OBJ <span class="title">MyCoroutine</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;Running MyCoroutine...&quot;</span>);</span><br><span class="line">    <span class="comment">// 进去先看await_ready()是否为true，是true则不会等待。</span></span><br><span class="line">    <span class="comment">// 是false则执行await_suspend()，</span></span><br><span class="line">    <span class="comment">// 执行完await_suspend()后，放弃运行权。交给caller</span></span><br><span class="line">    <span class="comment">// 直到h.resume()。获得执行权后，co_await结束，接着去执行await_resume()</span></span><br><span class="line">    <span class="comment">// 可以接收到await_resume()的返回值。</span></span><br><span class="line">    <span class="keyword">auto</span> res = <span class="keyword">co_await</span> Awaiter&#123;&#125;;</span><br><span class="line">    std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;After Awaiter get res:&quot;</span>, res);</span><br><span class="line">    <span class="keyword">co_return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;Create MyCoroutine&quot;</span>);</span><br><span class="line">    <span class="comment">// 返回一个RTN_OBJ对象</span></span><br><span class="line">    <span class="keyword">auto</span> rtn = <span class="built_in">MyCoroutine</span>();</span><br><span class="line">    std::<span class="built_in">println</span>(<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>, std::this_thread::<span class="built_in">get_id</span>(), <span class="string">&quot;Finish MyCoroutine&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>我们可以看到，主线程的操作：</p>
+<ol>
+<li>调用协程函数，一旦调用了协程函数，就会触发<code>promise_type</code>的成员函数，类似于构造的<code>await_ready()</code>。然后主线程继续调用协程函数的每一句。</li>
+<li>直到遇到了<code>co_await</code>，则就掉到了Awaiter对象内部的操作，如<code>await_ready()</code>、<code>await_suspend()</code>。</li>
+<li>新协程（Awaiter）内部，起线程。进行<code>await_suspend()</code>的内部操作。</li>
+<li>操作完后，主动<code>h.resume</code>，回到了主线程。执行<code>await_resume()</code>。</li>
+<li>之后，回到一开始的协程函数。<code>co_await</code>这一行结束。主线程继续执行<code>co_await</code>的下面的内容。</li>
+<li>主线程执行协程函数中的<code>co_return</code>。会触发协程内部<code>promise_type</code>的成员函数，<code>return_void()</code>，和类似于析构的<code>final_suspend()</code>。</li>
+</ol>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">100592 Create MyCoroutine</span><br><span class="line">get_return_object()...</span><br><span class="line">initial_suspend()...</span><br><span class="line">100592 Running MyCoroutine...</span><br><span class="line">100592 await_ready()...</span><br><span class="line">100592 await_suspend()...</span><br><span class="line">101320 sleep 5s...</span><br><span class="line">101320 write m_res 100...</span><br><span class="line">100592 await_resume()...</span><br><span class="line">100592 After Awaiter get res: 100</span><br><span class="line">return_void()...</span><br><span class="line">final_suspend()...</span><br><span class="line">100592 Finish MyCoroutine</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="如何包装简单易用的awaiter"   >
+          <a href="#如何包装简单易用的awaiter" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何包装简单易用的awaiter"></a> 如何包装简单易用的<code>Awaiter</code></h1>
+      
+<p>奇技淫巧：重载<code>operator co_await</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//  overload co_await for async action.</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> P&gt;</span><br><span class="line"><span class="keyword">inline</span></span><br><span class="line">agave::<span class="function">details::<span class="type">async_action_t</span>&lt;P&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">co_await</span><span class="params">(agave::details::<span class="type">async_action_base_t</span>&lt;P&gt; <span class="type">const</span>&amp; async)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> agave::details::<span class="type">async_action_t</span>&lt;P&gt;&#123; async &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//  overload co_await for async operation.</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> P&gt;</span><br><span class="line"><span class="keyword">inline</span></span><br><span class="line">agave::<span class="function">details::<span class="type">async_operation_t</span>&lt;T, P&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">co_await</span><span class="params">(agave::details::<span class="type">async_operation_base_t</span>&lt;T, P&gt; <span class="type">const</span>&amp; async)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> agave::details::<span class="type">async_operation_t</span>&lt;T, P&gt;&#123; async &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="asyncaction-asyncoperation"   >
+          <a href="#asyncaction-asyncoperation" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#asyncaction-asyncoperation"></a> AsyncAction / AsyncOperation</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//	*** for asynchronous function with no returned value ***</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Progress = <span class="type">void</span>, <span class="keyword">typename</span> Action = <span class="type">async_action_t</span>&lt;Progress&gt;&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="type">async_action_base_t</span> : <span class="keyword">public</span> <span class="type">async_progress_base_t</span>&lt;Progress&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//	implementations for async_action_base_t.</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Progress = <span class="type">void</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="type">async_action_t</span> : <span class="keyword">public</span> <span class="type">async_action_base_t</span>&lt;Progress, <span class="type">async_action_t</span>&lt;Progress&gt;&gt;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//  *** for asynchronous function with returned value of T ***</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Progress = <span class="type">void</span>, <span class="keyword">typename</span> Operation = <span class="type">async_operation_t</span>&lt;T, Progress&gt;&gt;</span><br><span class="line">    <span class="built_in">requires</span>(!std::is_void_v&lt;T&gt;)</span><br><span class="line"><span class="keyword">class</span> <span class="type">async_operation_base_t</span> : <span class="keyword">public</span> <span class="type">async_progress_base_t</span>&lt;Progress&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//	implementations for async_operation_base_t.</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Progress = <span class="type">void</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="type">async_operation_t</span> : </span><br><span class="line">    <span class="keyword">public</span> <span class="type">async_operation_base_t</span>&lt;T, Progress, <span class="type">async_operation_t</span>&lt;T, Progress&gt;&gt;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">//  specializations for async_progress_base_t class.</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">async_progress_base_t</span>&lt;<span class="type">void</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p>类<code>async_action_t</code>与<code>async_operation_t</code>。内部都定义了<code>await_ready()</code>、<code>await_suspend()</code>、<code>await_resume()</code>。是个Awaiter对象。</p>
+
+        <h2 id="用户接口"   >
+          <a href="#用户接口" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#用户接口"></a> 用户接口</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line">   <span class="comment">//	*** returned objects for asynchronous functions ***</span></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">using</span> AsyncAction = details::<span class="type">async_action_base_t</span>&lt;&gt;;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line">   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> P&gt;</span><br><span class="line">   <span class="keyword">using</span> AsyncActionWithProgress = details::<span class="type">async_action_base_t</span>&lt;P&gt;;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line">   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">   <span class="keyword">using</span> AsyncOperation = details::<span class="type">async_operation_base_t</span>&lt;T&gt;;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> P&gt;</span><br><span class="line"><span class="keyword">using</span> AsyncOperationWithProgress = details::<span class="type">async_operation_base_t</span>&lt;T, P&gt;;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/">https://xing-cg.github.io/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Agave%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/Linux/Linux_rg%E6%A3%80%E7%B4%A2/"><span class="paginator-prev__text">Linux_rg检索</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#c%E5%8D%8F%E7%A8%8B%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="toc-number">1.</span> <span class="toc-text">
+           C++协程的样子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">
+           官方示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rtn_obj%E4%B8%AD%E6%9C%89%E4%B8%AApromise_type"><span class="toc-number">3.</span> <span class="toc-text">
+           RTN_OBJ中有个promise_type</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awaiter"><span class="toc-number">4.</span> <span class="toc-text">
+           Awaiter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#suspend_always-suspend_never"><span class="toc-number">4.1.</span> <span class="toc-text">
+           suspend_always &#x2F; suspend_never</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">
+           测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8C%85%E8%A3%85%E7%AE%80%E5%8D%95%E6%98%93%E7%94%A8%E7%9A%84awaiter"><span class="toc-number">6.</span> <span class="toc-text">
+           如何包装简单易用的Awaiter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#asyncaction-asyncoperation"><span class="toc-number">6.1.</span> <span class="toc-text">
+           AsyncAction &#x2F; AsyncOperation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.2.</span> <span class="toc-text">
+           用户接口</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">301</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
