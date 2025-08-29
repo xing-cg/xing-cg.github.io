@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容          muduo库的主要板块  base - 公共的代码文件 net - 网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等 我们主要写网络模块    cmake                        编写目标        主要编写muduo库的网络模块代码，以及改进mud">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="内容         muduo库的主要板块  base：公共的代码文件 net：网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等  我们主要写网络模块                           目标        主要编写muduo库的网络模块代码，以及改进muduo库在使用上的不便。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重写muduo库">
 <meta property="og:url" content="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
-<meta property="og:description" content="内容          muduo库的主要板块  base - 公共的代码文件 net - 网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等 我们主要写网络模块    cmake                        编写目标        主要编写muduo库的网络模块代码，以及改进mud">
+<meta property="og:description" content="内容         muduo库的主要板块  base：公共的代码文件 net：网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等  我们主要写网络模块                           目标        主要编写muduo库的网络模块代码，以及改进muduo库在使用上的不便。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-28T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-27T14:40:26.087Z">
+<meta property="article:modified_time" content="2025-08-28T00:00:00.000Z">
 <meta property="article:author" content="Mr.Can">
 <meta name="twitter:card" content="summary"><title>重写muduo库 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
@@ -36,29 +36,134 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">重写muduo库</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-27</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">重写muduo库</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-05-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-08-28</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/" data-flag-title="重写muduo库"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>
-<p>muduo库的主要板块</p>
+<li>muduo库的主要板块
 <ol>
-<li>base - 公共的代码文件</li>
-<li>net - 网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等</li>
+<li>base：公共的代码文件</li>
+<li>net：网络相关的，如TcpServer、EventLoop、poller、protobuf、protorpc等等
+<ol>
 <li>我们主要写网络模块</li>
 </ol>
 </li>
-<li>
-<p>cmake</p>
+</ol>
 </li>
 </ol>
 
-        <h1 id="编写目标"   >
-          <a href="#编写目标" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写目标"></a> 编写目标</h1>
+        <h1 id="目标"   >
+          <a href="#目标" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#目标"></a> 目标</h1>
       
-<p>主要编写muduo库的网络模块代码，以及改进muduo库在使用上的不便。</p>
-<p>muduo库原本属于静态库，且需要依赖boost库。我们改进它，使他与原生C++标准库结合，并把它生成为<code>.so</code>动态库。</p>
+<p>主要编写muduo库的网络模块代码，以及改进muduo库在使用上的不便。<br />
+muduo库原本属于静态库，且需要依赖boost库。我们改进它，使他与原生C++标准库结合，并把它生成为<code>.so</code>动态库。</p>
+
+        <h1 id="muduo库核心组件职责与关系"   >
+          <a href="#muduo库核心组件职责与关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#muduo库核心组件职责与关系"></a> muduo库核心组件职责与关系</h1>
+      
+
+        <h2 id="reactor模式的核心"   >
+          <a href="#reactor模式的核心" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#reactor模式的核心"></a> Reactor模式的核心</h2>
+      
+<ol>
+<li>EventLoop事件循环
+<ol>
+<li>职责：每个线程一个EventLoop。不断地”询问 - 处理“事件</li>
+<li>关系：
+<ol>
+<li>拥有一个<code>Poller</code>：EventLoop通过Poller来获取当前活跃的事件</li>
+<li>拥有一个<code>Channel</code>：EventLoop管理所有在其上注册的Channel</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Poller：I/O多路复用接口
+<ol>
+<li>职责：阻塞地等待文件描述符上的事件，并将活跃的事件返回给EventLoop</li>
+<li>具体实现是<code>EPollPoller</code>。是Linux下基于epoll的具体实现。通过<code>epoll_wait</code>返回活跃的事件。</li>
+</ol>
+</li>
+<li>Channel：通道
+<ol>
+<li>职责：是事件分发器。每个Channel负责一个文件描述符。</li>
+<li>内部保存了该fd关注的事件，以及对应的回调函数</li>
+<li>关系：
+<ol>
+<li>是Poller和回调之间的桥梁。Poller返回一个事件，EventLoop找到对应的Channel，调用Channel的<code>handleEvent()</code>方法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="接受新连接acceptor"   >
+          <a href="#接受新连接acceptor" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#接受新连接acceptor"></a> 接受新连接：Acceptor</h2>
+      
+<ol>
+<li>职责：Acceptor是一个特殊的Channel。专门负责处理监听套接字（listening socket）上的可读事件，即新连接。</li>
+<li>关系：
+<ol>
+<li>继承自Channel。同样需要向EventLoop注册。</li>
+<li>被TcpServer拥有：TcpServer在初始化时会创建Acceptor</li>
+<li>持有newConnectionCallback：当有新连接到来时，最终会调用TcpServer预先设置好的回调函数</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="表示连接tcpconnection"   >
+          <a href="#表示连接tcpconnection" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#表示连接tcpconnection"></a> 表示连接：TcpConnection</h2>
+      
+<ol>
+<li>职责：代表了一个已建立的TCP连接。整个连接的生命周期（建立、断开、收发数据）都由该对象管理。</li>
+<li>关系：
+<ol>
+<li>每个TcpConnection对象都有一个自己的Channel。用于监控其描述符上的事件。</li>
+<li>被TcpServer管理：记录在TcpServer的map表中。</li>
+<li>持有各种用户回调：如连接建立回调<code>ConnectionCallback</code>，消息到达回调<code>MessageCallback</code>。这些是由用户通过<code>TcpServer</code>设置的。</li>
+<li>隶属于某个EventLoop。每个TcpConnection对象都只属于一个特定的<code>EventLoop</code>线程。其所有IO操作都在这个线程中进行。保证线程安全。</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="服务器门面tcpserver"   >
+          <a href="#服务器门面tcpserver" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#服务器门面tcpserver"></a> 服务器门面：TcpServer</h2>
+      
+<ol>
+<li>职责：提供给用户使用的、易于理解的<strong>服务器类</strong>。用户只需关注其提供的几个回调函数（如连接回调、消息回调）即可编写网络程序。</li>
+<li>关系：
+<ul>
+<li><strong>拥有一个 <code>Acceptor</code></strong>：用于接受新连接。</li>
+<li><strong>拥有一个 <code>TcpConnection</code> 的映射表</strong>：管理所有活跃的连接。</li>
+<li><strong>拥有一个 <code>EventLoopThreadPool</code></strong>：管理线程池。</li>
+<li><strong>设置回调</strong>：用户通过 <code>TcpServer</code> 设置的各种回调（<code>onConnection</code>, <code>onMessage</code>），最终会“传递”给每一个新创建的 <code>TcpConnection</code> 对象。</li>
+</ul>
+</li>
+</ol>
+
+        <h2 id="线程模型eventloopthread和eventloopthreadpool"   >
+          <a href="#线程模型eventloopthread和eventloopthreadpool" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#线程模型eventloopthread和eventloopthreadpool"></a> 线程模型：<code>EventLoopThread</code>和<code>EventLoopThreadPool</code></h2>
+      
+<ul>
+<li>**<code>EventLoopThread</code> (IO 线程)：
+<ul>
+<li><strong>职责</strong>：封装了一个线程（<code>std::thread</code>），该线程的<strong>唯一工作</strong>就是运行一个 <code>EventLoop::loop()</code>。<strong>“one loop per thread”</strong> 的理念在此体现。</li>
+<li><strong>关系</strong>：它<strong>创建并拥有</strong>一个 <code>EventLoop</code> 对象（在其内部线程中）。</li>
+</ul>
+</li>
+<li>**<code>EventLoopThreadPool</code> (线程池)：
+<ul>
+<li><strong>职责</strong>：管理多个 <code>EventLoopThread</code>，即管理一个 <code>EventLoop</code> 池子。它提供了一种轮询（round-robin）算法来为新的 <code>TcpConnection</code> 分配一个 <code>EventLoop</code>。</li>
+<li><strong>关系</strong>：
+<ul>
+<li><strong>被 <code>TcpServer</code> 所拥有</strong>：<code>TcpServer</code> 通过线程池来实现多线程 Reactor。</li>
+<li><strong>拥有多个 <code>EventLoopThread</code></strong>：管理着多个 IO 线程。</li>
+<li><strong>为 <code>Acceptor</code> 提供 <code>getNextLoop()</code></strong>：当 <code>Acceptor</code> 接受到一个新连接时，它会从线程池中取出下一个 <code>EventLoop</code>，将这个新连接分配给这个 <code>EventLoop</code> 来监控和处理。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
         <h1 id="cmake"   >
           <a href="#cmake" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cmake"></a> cmake</h1>
@@ -72,45 +177,45 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="noncopyable"   >
           <a href="#noncopyable" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#noncopyable"></a> noncopyable</h2>
       
-<p>noncopyable.h</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * noncopyable 被继承以后，</span></span><br><span class="line"><span class="comment"> * 派生类对象无法拷贝构造、相互赋值。</span></span><br><span class="line"><span class="comment"> * 无参构造、析构是默认处理。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">noncopyable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>(<span class="type">const</span> noncopyable&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    noncopyable &amp; <span class="keyword">operator</span>=(<span class="type">const</span> noncopyable &amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// noncopyable.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * noncopyable 被继承以后，</span></span><br><span class="line"><span class="comment"> * 派生类对象无法拷贝构造、相互赋值。</span></span><br><span class="line"><span class="comment"> * 无参构造、析构是默认处理。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">noncopyable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>(<span class="type">const</span> noncopyable&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    noncopyable &amp; <span class="keyword">operator</span>=(<span class="type">const</span> noncopyable &amp;) = <span class="keyword">delete</span>;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">noncopyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
 
         <h2 id="copyable"   >
           <a href="#copyable" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#copyable"></a> copyable</h2>
       
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">copyable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">copyable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">    ~<span class="built_in">copyable</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
 
         <h1 id="tcpserver概览"   >
           <a href="#tcpserver概览" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tcpserver概览"></a> TcpServer概览</h1>
       
 <p>需要封装以下属性：</p>
 <ol>
-<li>EventLoop对象指针 - 多路分发器，相当于epoll</li>
-<li>InetAddress - 打包IP地址和端口号</li>
+<li><code>EventLoop</code>对象指针：多路分发器，相当于epoll</li>
+<li><code>InetAddress</code>：打包IP地址和端口号</li>
 </ol>
 
         <h2 id="inetaddress"   >
           <a href="#inetaddress" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#inetaddress"></a> InetAddress</h2>
       
 <ol>
-<li>
-<p>允许拷贝</p>
-</li>
-<li>
-<p>成员变量是<code>sockaddr_in m_addr</code>，也可选择支持IPv6的<code>sockaddr_in6 m_addr6</code>。可用联合体表示。在本项目中，只使用IPv4的<code>m_addr</code>。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;netinet/in.h&gt;</span>		<span class="comment">//sockaddr_in / sockaddr_in6都在此文件下定义</span></span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span>  m_addr;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in6</span> m_addr6;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
-</li>
+<li>允许拷贝</li>
+<li>成员变量是<code>sockaddr_in m_addr</code>，也可选择支持IPv6的<code>sockaddr_in6 m_addr6</code>。可用联合体表示。在本项目中，只使用IPv4的<code>m_addr</code>。</li>
 </ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;netinet/in.h&gt;</span>		<span class="comment">//sockaddr_in / sockaddr_in6都在此文件下定义</span></span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span>  m_addr;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in6</span> m_addr6;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
 
         <h2 id="eventloop概览"   >
           <a href="#eventloop概览" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop概览"></a> EventLoop概览</h2>
       
 <ol>
 <li>不允许拷贝</li>
-<li>主要包含的成员之一：poller（相当于epoll），属性有sockfd及其上面绑定的事件</li>
-<li>另一个主要的成员是channel，属性有fd、events、revents等等</li>
+<li>主要包含的成员
+<ol>
+<li>poller（相当于epoll），存储了一个unorderedMap，有sockfd及其上面绑定的事件</li>
+<li>channel，属性有fd、events、revents等等</li>
 </ol>
-<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。</p>
+</li>
+</ol>
+<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。<br />
+这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。</p>
 <p>要写EventLoop就要理清楚EventLoop、Channel、Poller之间的关系。Reactor模型中，这三个组件整体对应着Demultiplex。</p>
 
         <h2 id="channel"   >
@@ -127,112 +232,109 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员函数"   >
           <a href="#成员函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数"></a> 成员函数</h3>
       
-<ol>
-<li>
-<p>构造/析构函数</p>
+
+        <h4 id="构造-析构函数"   >
+          <a href="#构造-析构函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造-析构函数"></a> 构造 / 析构函数</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Channel</span>(EventLoop * loop, <span class="type">int</span> fd);</span><br><span class="line">    ~<span class="built_in">Channel</span>();</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>handleEvent</code>：fd得到poller的通知后，处理事件</p>
+
+        <h4 id="handleevent"   >
+          <a href="#handleevent" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#handleevent"></a> <code>handleEvent</code></h4>
+      
+<p>fd得到poller的通知后，处理事件</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">handleEvent</span><span class="params">(Timestamp receiveTime)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>setXxxCallback(EventCallback cb)</code>：对外提供的设置回调函数对象的接口</p>
+
+        <h4 id="setxxxcallbackeventcallback-cb"   >
+          <a href="#setxxxcallbackeventcallback-cb" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#setxxxcallbackeventcallback-cb"></a> <code>setXxxCallback(EventCallback cb)</code></h4>
+      
+<p>对外提供的设置回调函数对象的接口</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setReadCallback</span><span class="params">(ReadEventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_readCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setWriteCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_writeCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setCloseCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_closeCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setErrorCallback</span><span class="params">(EventCallback cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_errorCallback = std::<span class="built_in">move</span>(cb);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>void tie(const std::shared_ptr&lt;void&gt;&amp;)</code>：防止channel被手动remove后，还在执行回调操作</p>
+
+        <h4 id="void-tieconst-stdshared_ptrvoid"   >
+          <a href="#void-tieconst-stdshared_ptrvoid" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#void-tieconst-stdshared_ptrvoid"></a> <code>void tie(const std::shared_ptr&lt;void&gt;&amp;)</code></h4>
+      
+<p>防止channel被手动remove后，还在执行回调操作</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">tie</span><span class="params">(<span class="type">const</span> std::shared_ptr&lt;<span class="type">void</span>&gt;&amp;)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>fd</code>、<code>events</code>、<code>revents</code>相关：</p>
+
+        <h4 id="fd-events-revents相关"   >
+          <a href="#fd-events-revents相关" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fd-events-revents相关"></a> <code>fd</code>、<code>events</code>、<code>revents</code>相关</h4>
+      
 <ol>
-<li>
-<p><code>int fd() const &#123;return m_fd;&#125;</code></p>
-</li>
-<li>
-<p><code>int events() const &#123;return m_events;&#125;</code></p>
-</li>
-<li>
-<p><code>void set_revents(int revt)</code>：向poller提供的设置revents的接口</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">set_revents</span><span class="params">(<span class="type">int</span> revt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_revents = revt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>判断函数：判断有没有注册事件等等</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isNoneEvent</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events == kNoneEvent;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isWriting</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kWriteEvent;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isReading</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kReadEvent;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>使能、使不能函数：设置fd相应的事件状态。对<code>m_events</code>进行位操作之后调用<code>update()</code>，即<code>epoll_ctl</code>。</p>
+<li><code>int fd()</code></li>
+<li><code>int events()</code></li>
+<li><code>void set_revents(int revt)</code>：向poller提供的设置revents的接口</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">fd</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_fd; &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">events</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> m_events; &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">set_revents</span><span class="params">(<span class="type">int</span> revt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_revents = revt;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="判断函数判断有没有注册事件等等"   >
+          <a href="#判断函数判断有没有注册事件等等" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#判断函数判断有没有注册事件等等"></a> 判断函数：判断有没有注册事件等等</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isNoneEvent</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events == kNoneEvent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isWriting</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kWriteEvent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isReading</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m_events &amp; kReadEvent;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="使能-使不能函数"   >
+          <a href="#使能-使不能函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#使能-使不能函数"></a> 使能、使不能函数</h4>
+      
+<p>设置fd相应的事件状态<br />
+对<code>m_events</code>进行位操作之后调用<code>update()</code>，即<code>epoll_ctl</code>。</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">enableReading</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events |= kReadEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">disableReading</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events &amp;= ~kReadEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">enableWriting</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events |= kWriteEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">disableWriting</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events &amp;= ~kWriteEvent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">disableAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_events = kNoneEvent;</span><br><span class="line">        <span class="built_in">update</span>();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
-</li>
-<li>
-<p>与EventLoop相关 - 获取所属的Loop</p>
+
+        <h4 id="与eventloop相关"   >
+          <a href="#与eventloop相关" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与eventloop相关"></a> 与EventLoop相关</h4>
+      
+<p>获取所属的Loop</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">EventLoop * <span class="title">ownerLoop</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_loop;&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>删除 - remove()</p>
+
+        <h4 id="删除remove"   >
+          <a href="#删除remove" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#删除remove"></a> 删除：remove()</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>update() - 相当于调用<code>epoll_ctl</code></p>
+
+        <h4 id="update相当于调用epoll_ctl"   >
+          <a href="#update相当于调用epoll_ctl" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#update相当于调用epoll_ctl"></a> update()：相当于调用<code>epoll_ctl</code></h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>handleEventWithGuard - 受保护地处理事件</p>
+
+        <h4 id="handleeventwithguard"   >
+          <a href="#handleeventwithguard" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#handleeventwithguard"></a> handleEventWithGuard</h4>
+      
+<p>受保护地处理事件</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">HandleEventWithGuard</span><span class="params">(Timestamp receiveTime)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>for poller的index</p>
-</li>
-</ol>
-   <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">index</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_index;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_index</span><span class="params">(<span class="type">int</span> idx)</span> </span>&#123;m_index = idx;&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="for-poller的index"   >
+          <a href="#for-poller的index" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#for-poller的index"></a> for poller的index</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">index</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_index;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_index</span><span class="params">(<span class="type">int</span> idx)</span> </span>&#123;m_index = idx;&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h3 id="成员变量"   >
           <a href="#成员变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量"></a> 成员变量</h3>
       
 <ol>
-<li>
-<p><code>kXxxEvent</code>：以下三个变量描述当前fd的状态，没有感兴趣的事件or对读事件感兴趣or对写事件感兴趣？</p>
+<li><code>kXxxEvent</code>：以下三个变量描述当前fd的状态，没有感兴趣的事件or对读事件感兴趣or对写事件感兴趣？</li>
+</ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> kNoneEvent;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> kReadEvent;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> kWriteEvent;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>m_xxxCallback</code>：四个函数对象，可以绑定外部传入的相关操作。因为channel知道发生了哪些事情（revents记录），所以channel负责调用具体事件的回调函数。</p>
+<ol start="2">
+<li><code>m_xxxCallback</code>：四个函数对象，可以绑定外部传入的相关操作。因为channel知道发生了哪些事情（revents记录），所以channel负责调用具体事件的回调函数。</li>
+</ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    ReadEventCallback m_readCallback;</span><br><span class="line">    EventCallback	  m_writeCallback;</span><br><span class="line">    EventCallback	  m_closeCallback;</span><br><span class="line">    EventCallback	  m_errorCallback;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>EventLoop *m_loop</code>：事件循环</p>
-</li>
-<li>
-<p><code>m_fd</code>：fd，即Poller监听的对象</p>
-</li>
-<li>
-<p><code>m_events</code>：fd感兴趣的事件注册信息</p>
-</li>
-<li>
-<p><code>m_revents</code>：Poller操作的fd上具体发生的事件</p>
-</li>
-<li>
-<p><code>m_index</code>：？</p>
-</li>
-<li>
-<p><code>std::weak_ptr&lt;void&gt; m_tie</code>：防止手动调用remove channel后仍使用此channel，用于监听跨线程的对象生存状态。</p>
-<blockquote>
-<p><code>shared_ptr</code>和<code>weak_ptr</code>配合使用可以发挥两个能力：</p>
+<ol start="3">
+<li><code>EventLoop *m_loop</code>：事件循环</li>
+<li><code>m_fd</code>：fd，即Poller监听的对象</li>
+<li><code>m_events</code>：fd感兴趣的事件注册信息</li>
+<li><code>m_revents</code>：Poller操作的fd上具体发生的事件</li>
+<li><code>m_index</code>：？</li>
+<li><code>std::weak_ptr&lt;void&gt; m_tie</code>：防止手动调用remove channel后仍使用此channel，用于监听跨线程的对象生存状态。
+<ol>
+<li><code>shared_ptr</code>和<code>weak_ptr</code>配合使用可以发挥两个能力：
 <ol>
 <li>解决shread_ptr循环引用问题</li>
 <li>weak_ptr在多线程程序中可监听资源的生存状态，方法是尝试提升为强指针，若提升成功，则可以访问；若提升失败说明则资源被释放掉了。</li>
 </ol>
-</blockquote>
-<blockquote>
-<p>tie的意思是绑定，那么m_tie要和谁绑定呢？——自己。</p>
-<p>绑定自己的工具还可以用另一个工具，<code>shared_from_this</code>，可以尝试得到当前对象的强智能指针。</p>
-</blockquote>
 </li>
-<li>
-<p><code>bool m_tied</code>：配合<code>m_tie</code>使用</p>
+<li>tie的意思是绑定，那么m_tie要和谁绑定呢？——自己。</li>
+<li>绑定自己的工具还可以用另一个工具，<code>shared_from_this</code>，可以尝试得到当前对象的强智能指针。</li>
+</ol>
 </li>
+<li><code>bool m_tied</code>：配合<code>m_tie</code>使用</li>
 </ol>
 
         <h2 id="poller"   >
@@ -253,31 +355,42 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员函数-2"   >
           <a href="#成员函数-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-2"></a> 成员函数</h3>
       
-<ol>
-<li>
-<p>构造/析构函数</p>
+
+        <h4 id="构造-析构函数-2"   >
+          <a href="#构造-析构函数-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造-析构函数-2"></a> 构造 / 析构函数</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Poller</span>(EventLoop *loop);</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Poller</span>() = <span class="keyword">default</span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>poll</code> - 提供给系统的统一的一个IO复用接口</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelList = std::vector&lt;Channel*&gt;;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Timestamp <span class="title">poll</span><span class="params">(<span class="type">int</span> timeoutMs, ChannelList * activeChannels)</span> </span>= <span class="number">0</span>;</span><br><span class="line">参数：</span><br><span class="line">    timeoutMs       - 超时时间，毫秒为单位</span><br><span class="line">    activeChannels  - 当前激活的、对事件注册好的channel列表</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>与事件的注册、注销有过的</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 当fd注册的事件有变更时, channel调用update, 函数内包含updateChannel(this) */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">updateChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/* 当fd注册的事件要注销时，channel调用remove，函数内包含removeChannel(this) */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">removeChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">参数 channel 均为 [外部channel传入的<span class="keyword">this</span>指针]</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>newDefaultPoller(EventLoop * loop)</code> - 提供给EventLoop的接口，以获取默认的IO复用具体实现。</p>
+
+        <h4 id="poll提供给系统的统一的一个io复用接口"   >
+          <a href="#poll提供给系统的统一的一个io复用接口" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#poll提供给系统的统一的一个io复用接口"></a> <code>poll</code>：提供给系统的统一的一个IO复用接口</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelList = std::vector&lt;Channel*&gt;;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Timestamp <span class="title">poll</span><span class="params">(<span class="type">int</span> timeoutMs, ChannelList * activeChannels)</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></div></figure>
+<p>参数：</p>
+<ol>
+<li>timeoutMs：超时时间，毫秒为单位</li>
+<li>activeChannels：当前激活的、对事件注册好的channel列表</li>
+</ol>
+
+        <h4 id="与事件的注册-注销有关的"   >
+          <a href="#与事件的注册-注销有关的" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#与事件的注册-注销有关的"></a> 与事件的注册、注销有关的</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 当fd注册的事件有变更时, channel调用update, 函数内包含updateChannel(this) */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">updateChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/* 当fd注册的事件要注销时，channel调用remove，函数内包含removeChannel(this) */</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">removeChannel</span><span class="params">(Channel * channel)</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></div></figure>
+<p>参数：channel 均为<code>外部channel传入的this指针</code></p>
+
+        <h4 id="newdefaultpollereventloop-loop"   >
+          <a href="#newdefaultpollereventloop-loop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#newdefaultpollereventloop-loop"></a> <code>newDefaultPoller(EventLoop * loop)</code></h4>
+      
+<p>提供给EventLoop的接口，以获取默认的IO复用具体实现。</p>
 <blockquote>
 <p>注意：我们最好不要实现到<code>poller.cc</code>文件中，不大妥当。因为<code>Poller</code>类是基类，而把获取具体实现写到抽象类文件实现中是不好的。可以单独把实现代码写到<code>defaultpoller.cc</code>中。</p>
 </blockquote>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> Poller* <span class="title">newDefaultPoller</span><span class="params">(EventLoop *loop)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>hasChannel</code> - 判断poller是否拥有某一channel</p>
+
+        <h4 id="haschannel"   >
+          <a href="#haschannel" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#haschannel"></a> <code>hasChannel</code></h4>
+      
+<p>判断poller是否拥有某一channel</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">bool</span> <span class="title">hasChannel</span><span class="params">(Channel * channel)</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h2 id="epollpoller"   >
           <a href="#epollpoller" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#epollpoller"></a> EpollPoller</h2>
@@ -287,86 +400,85 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员函数-3"   >
           <a href="#成员函数-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-3"></a> 成员函数</h3>
       
-<ol>
-<li>
-<p>构造/析构 - 构造相当于<code>epoll_create</code>，记录在<code>m_epollfd</code>成员变量中。析构时close该fd。</p>
+
+        <h4 id="构造析构"   >
+          <a href="#构造析构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造析构"></a> 构造/析构</h4>
+      
+<p>构造相当于<code>epoll_create</code>，记录在<code>m_epollfd</code>成员变量中。析构时close该fd。</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">EpollPoller</span>(EventLoop *loop);</span><br><span class="line">    ~<span class="built_in">EpollPoller</span>() <span class="keyword">override</span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>poll</code> - 重写Poller基类方法 - 相当于<code>epoll_wait</code></p>
+
+        <h4 id="poll重写poller基类方法相当于epoll_wait"   >
+          <a href="#poll重写poller基类方法相当于epoll_wait" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#poll重写poller基类方法相当于epoll_wait"></a> <code>poll</code>：重写Poller基类方法，相当于<code>epoll_wait</code></h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Timestamp <span class="title">poll</span><span class="params">(<span class="type">int</span> timeoutMs, ChannelList *activeChannels)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>update/removeChannel</code> - 重写Poller基类方法 - 相当于<code>epoll_ctl add/mod/del</code></p>
+
+        <h4 id="updateremovechannel重写poller基类方法相当于epoll_ctl-addmoddel"   >
+          <a href="#updateremovechannel重写poller基类方法相当于epoll_ctl-addmoddel" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#updateremovechannel重写poller基类方法相当于epoll_ctl-addmoddel"></a> <code>update/removeChannel</code>：重写Poller基类方法，相当于<code>epoll_ctl add/mod/del</code></h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">updateChannel</span><span class="params">(Channel *channel)</span> <span class="keyword">override</span></span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeChannel</span><span class="params">(Channel *channel)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>fillActiveChannels</code> - 填写活跃的channels连接</p>
+
+        <h4 id="fillactivechannels填写活跃的channels连接"   >
+          <a href="#fillactivechannels填写活跃的channels连接" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fillactivechannels填写活跃的channels连接"></a> <code>fillActiveChannels</code>：填写活跃的channels连接</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fillActiveChannels</span><span class="params">(<span class="type">int</span> numEvents, ChannelList *activeChannels)</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>update</code> - 更新channel通道</p>
+
+        <h4 id="update更新channel通道"   >
+          <a href="#update更新channel通道" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#update更新channel通道"></a> <code>update</code>：更新channel通道</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> operation, Channel * channel)</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h3 id="成员属性"   >
           <a href="#成员属性" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员属性"></a> 成员属性</h3>
       
 <ol>
-<li>
-<p><code>m_epollfd</code> - epoll相关的方法都需要用到fd，通过epoll_create来创建。映射的是epoll底层的文件系统红黑树。</p>
-</li>
-<li>
-<p><code>m_events</code> - 是一个<code>vector&lt;struct epoll_event</code>容器。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> m_epollfd;</span><br><span class="line">    <span class="keyword">using</span> std::vector&lt;<span class="keyword">struct</span> epoll_event&gt; EventList;</span><br><span class="line">    EventList m_events;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>kInitEventListSize</code> - <code>EventList</code>初始的长度。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">static</span> <span class="type">const</span> <span class="type">int</span> kInitEventListSize = <span class="number">16</span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>从Poller继承而来，拥有poller包含的<code>ChannelMap m_channels</code>。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Poller</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelMap = std::unordered_map&lt;<span class="type">int</span>, Channel*&gt;;</span><br><span class="line">    ChannelMap m_channels;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
+<li><code>m_epollfd</code> - epoll相关的方法都需要用到fd，通过epoll_create来创建。映射的是epoll底层的文件系统红黑树。</li>
+<li><code>m_events</code> - 是一个<code>vector&lt;struct epoll_event</code>容器。</li>
 </ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> m_epollfd;</span><br><span class="line">    <span class="keyword">using</span> std::vector&lt;<span class="keyword">struct</span> epoll_event&gt; EventList;</span><br><span class="line">    EventList m_events;</span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li><code>kInitEventListSize</code> - <code>EventList</code>初始的长度。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> kInitEventListSize = <span class="number">16</span>;</span><br></pre></td></tr></table></div></figure>
+<ol start="4">
+<li>从Poller继承而来，拥有poller包含的<code>ChannelMap m_channels</code>。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Poller</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">using</span> ChannelMap = std::unordered_map&lt;<span class="type">int</span>, Channel*&gt;;</span><br><span class="line">    ChannelMap m_channels;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h3 id="实现代码"   >
           <a href="#实现代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#实现代码"></a> 实现代码</h3>
       
 <p>首先声明了三个全局常量，表示channel的状态</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> kNew      = <span class="number">-1</span>;    <span class="comment">//从未添加到epoll的channel</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> kAdded    = <span class="number">1</span>;     <span class="comment">//已经添加到epoll的channel</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> kDeleted  = <span class="number">2</span>;     <span class="comment">//已把该channel从epoll中删除</span></span><br></pre></td></tr></table></div></figure>
-<ol>
-<li>
-<p>构造函数</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;logger.h&quot;</span>      <span class="comment">//LOG_FATAL</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;errno.h&gt;</span>       <span class="comment">//errno</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::<span class="built_in">EpollPoller</span>(EventLoop * loop)</span><br><span class="line">    : <span class="built_in">Poller</span>(loop),</span><br><span class="line">      <span class="built_in">m_epollfd</span>(<span class="built_in">epoll_create1</span>(EPOLL_CLOEXEC)),	<span class="comment">// epoll_create</span></span><br><span class="line">      <span class="built_in">m_events</span>(kInitEventListSize)  <span class="comment">// vector&lt;epoll_event&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(m_epollfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;epoll_create error: %d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>析构</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span>      <span class="comment">//close</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::~<span class="built_in">EpollPoller</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">close</span>(m_epollfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
-        <h2 id="currentthread-主要用于获取tid"   >
-          <a href="#currentthread-主要用于获取tid" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#currentthread-主要用于获取tid"></a> CurrentThread - 主要用于获取tid</h2>
+        <h4 id="构造函数"   >
+          <a href="#构造函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造函数"></a> 构造函数</h4>
       
-<p><code>__thread</code>相当于C++11标准中的<code>thread_local</code>修饰符。用于修饰全局变量。</p>
-<p>修饰之前，全局变量只能被若干线程共享。修饰之后，此全局变量变成每个线程专有的属性。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;logger.h&quot;</span>      <span class="comment">//LOG_FATAL</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;errno.h&gt;</span>       <span class="comment">//errno</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">EpollPoller::<span class="built_in">EpollPoller</span>(EventLoop * loop)</span><br><span class="line">  : <span class="built_in">Poller</span>(loop),</span><br><span class="line">    <span class="built_in">m_epollfd</span>(<span class="built_in">epoll_create1</span>(EPOLL_CLOEXEC)),	<span class="comment">// epoll_create</span></span><br><span class="line">    <span class="built_in">m_events</span>(kInitEventListSize)  <span class="comment">// vector&lt;epoll_event&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(m_epollfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;epoll_create error: %d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="析构"   >
+          <a href="#析构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#析构"></a> 析构</h4>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span>      <span class="comment">//close</span></span></span><br><span class="line">EpollPoller::~<span class="built_in">EpollPoller</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">close</span>(m_epollfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="currentthread主要用于获取tid"   >
+          <a href="#currentthread主要用于获取tid" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#currentthread主要用于获取tid"></a> CurrentThread：主要用于获取tid</h2>
+      
+<p><code>__thread</code>相当于C++11标准中的<code>thread_local</code>修饰符。用于修饰全局变量。<br />
+修饰之前，全局变量只能被若干线程共享。修饰之后，此全局变量变成每个线程专有的属性。</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span>          <span class="comment">//pid_t  syscall</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/syscall.h&gt;</span>     <span class="comment">//SYS_gettid</span></span></span><br><span class="line"><span class="keyword">namespace</span> CurrentThread</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @brief 此变量被__thread修饰, 相当于C++11标准中的thread_local修饰符, </span></span><br><span class="line"><span class="comment">     * 用于修饰全局变量。修饰之前, 全局变量只能被若干线程共享; </span></span><br><span class="line"><span class="comment">     * 修饰之后, 此全局变量变成每个线程专有的属性。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">extern</span> __thread <span class="type">int</span> t_cachedTid;</span><br><span class="line">    <span class="comment">/* 通过Linux系统调用SYS_gettid, 加载当前线程的tid值到t_cachedTid */</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">cacheTid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(t_cachedTid == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            t_cachedTid = <span class="built_in">static_cast</span>&lt;<span class="type">pid_t</span>&gt;(<span class="built_in">syscall</span>(SYS_gettid));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 返回当前线程的tid, 若加载过则直接返回存储过的值 */</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">tid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">/* 若t_cachedTid为0说明是第一次加载, 需要调用cacheTid */</span></span><br><span class="line">        <span class="keyword">if</span>(__builtin_expect(t_cachedTid == <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cacheTid</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> t_cachedTid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h1 id="eventloop"   >
           <a href="#eventloop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloop"></a> EventLoop</h1>
       
-<blockquote>
 <p>前面的EventLoop概览中提到：</p>
 <ol>
 <li>不允许拷贝</li>
 <li>主要包含的成员之一：poller（相当于epoll），属性有sockfd及其上面绑定的事件</li>
 <li>另一个主要的成员是channel，属性有fd、events、revents等等</li>
 </ol>
-<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。</p>
-<p>要写EventLoop就要理清楚EventLoop、Channel、Poller之间的关系。Reactor模型中，这三个组件整体对应着Demultiplex。</p>
-</blockquote>
+<p>EventLoop就是要完成事件循环，事件循环最重要的几个动作：epoll（<strong>由poller负责</strong>）、epoll监听的fd及感兴趣的事件、实际<code>epoll_wait</code>后发生的事件。<br />
+这些sockfd、感兴趣的事件、发生的事件都<strong>记录在channel中</strong>。<br />
+要写EventLoop就要理清楚EventLoop、Channel、Poller之间的关系。Reactor模型中，这三个组件整体对应着Demultiplex。</p>
 <p>由上述约束，在<code>.h</code>文件中，我们可以首先写出：</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;noncopyable.h&quot;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Channel</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Poller</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EventLoop</span> : noncopyable</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 <p>要用到函数对象。</p>
@@ -521,8 +633,8 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员变量-4"   >
           <a href="#成员变量-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量-4"></a> 成员变量</h3>
       
-<p>用C++线程库、智能指针。</p>
-<p>Thread对象刚创建不会执行线程函数，而是在成员函数<code>start()</code>被调用时，用智能指针创建C++ 11的thread线程才开始真正执行。</p>
+<p>用C<ins>线程库、智能指针。<br />
+Thread对象刚创建不会执行线程函数，而是在成员函数<code>start()</code>被调用时，用智能指针创建C</ins> 11的thread线程才开始真正执行。</p>
 <ol>
 <li><code>m_started</code> - 表示</li>
 <li><code>m_joined</code></li>
@@ -536,25 +648,31 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员方法"   >
           <a href="#成员方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员方法"></a> 成员方法</h3>
       
-<ol>
-<li>
-<p>setDefaultName - 构造函数中如果没有传入name则赋&quot;Thread %d &quot;，%d为已创建的线程对象数目。</p>
+
+        <h4 id="setdefaultname"   >
+          <a href="#setdefaultname" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#setdefaultname"></a> setDefaultName</h4>
+      
+<p>构造函数中如果没有传入name则赋&quot;Thread %d &quot;，%d为已创建的线程对象数目。</p>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setDefaultName</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>构造/析构函数</p>
+
+        <h4 id="构造-析构函数-3"   >
+          <a href="#构造-析构函数-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造-析构函数-3"></a> 构造 / 析构函数</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Thread</span><span class="params">(ThreadFunc, <span class="type">const</span> std::string &amp; name = std::string())</span></span>;</span><br><span class="line">    ~<span class="built_in">Thread</span>();</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>start</p>
+
+        <h4 id="start"   >
+          <a href="#start" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#start"></a> start</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>join</p>
+
+        <h4 id="join"   >
+          <a href="#join" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#join"></a> join</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>获取线程状态相关的标志、信息</p>
+
+        <h4 id="获取线程状态相关的标志-信息"   >
+          <a href="#获取线程状态相关的标志-信息" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#获取线程状态相关的标志-信息"></a> 获取线程状态相关的标志、信息</h4>
+      
 <ol>
 <li>started</li>
 <li>tid</li>
@@ -562,8 +680,6 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>numCreated</li>
 </ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">started</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_started;&#125;</span><br><span class="line">    <span class="function"><span class="type">pid_t</span> <span class="title">tid</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_tid;&#125;</span><br><span class="line">    <span class="function"><span class="type">const</span> std::string &amp; <span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_name;&#125;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">numCreated</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> m_numCreated;&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h3 id="代码实现"   >
           <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h3>
@@ -585,60 +701,56 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
           <a href="#成员变量-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员变量-5"></a> 成员变量</h3>
       
 <ol>
-<li>
-<p><code>m_loop</code> - 存储Eventloop对象指针</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    EventLoop * m_loop;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>m_thread</code> - 存储线程对象</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Thread m_thread;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>bool m_exiting</code> - 线程正在退出的标志</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">bool</span> m_exiting;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>ThreadInitCallback m_callback</code> - 线程初始化调用的回调操作，在EventLoopThread构造时在第1个参数传入，默认是一个空操作。</p>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    ThreadInitCallback m_callback;</span><br></pre></td></tr></table></div></figure>
-</li>
+<li><code>m_loop</code> - 存储Eventloop对象指针</li>
 </ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    EventLoop * m_loop;</span><br></pre></td></tr></table></div></figure>
+<ol start="2">
+<li><code>m_thread</code> - 存储线程对象</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Thread m_thread;</span><br></pre></td></tr></table></div></figure>
+<ol start="3">
+<li><code>bool m_exiting</code> - 线程正在退出的标志</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">bool</span> m_exiting;</span><br></pre></td></tr></table></div></figure>
+<ol start="4">
+<li><code>ThreadInitCallback m_callback</code> - 线程初始化调用的回调操作，在EventLoopThread构造时在第1个参数传入，默认是一个空操作。</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    ThreadInitCallback m_callback;</span><br></pre></td></tr></table></div></figure>
 
         <h3 id="成员函数-5"   >
           <a href="#成员函数-5" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-5"></a> 成员函数</h3>
       
-<ol>
-<li>
-<p>构造/析构函数</p>
-<ol>
-<li>构造函数参数：可以传入一个线程初始化回调函数对象；还有name。其中，回调函数对象默认构造为空操作。</li>
-</ol>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">EventLoopThread</span>(<span class="type">const</span> ThreadInitCallback &amp;cb = <span class="built_in">ThreadInitCallback</span>(),</span><br><span class="line">                    <span class="type">const</span> std::string &amp; name = std::<span class="built_in">string</span>());</span><br><span class="line">    ~<span class="built_in">EventLoopThread</span>();</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>startLoop - 开启循环</p>
+
+        <h4 id="构造-析构函数-4"   >
+          <a href="#构造-析构函数-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造-析构函数-4"></a> 构造 / 析构函数</h4>
+      
+<p>构造函数参数：可以传入一个线程初始化回调函数对象；还有name。其中，回调函数对象默认构造为空操作。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="built_in">EventLoopThread</span>(<span class="type">const</span> ThreadInitCallback &amp;cb = <span class="built_in">ThreadInitCallback</span>(),</span><br><span class="line">                <span class="type">const</span> std::string &amp; name = std::<span class="built_in">string</span>());</span><br><span class="line">~<span class="built_in">EventLoopThread</span>();</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="startloop-开启循环"   >
+          <a href="#startloop-开启循环" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#startloop-开启循环"></a> startLoop - 开启循环</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">EventLoop * <span class="title">startLoop</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>threadFunc - 线程函数</p>
+
+        <h4 id="threadfunc-线程函数"   >
+          <a href="#threadfunc-线程函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#threadfunc-线程函数"></a> threadFunc - 线程函数</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">threadFunc</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h3 id="代码实现-2"   >
           <a href="#代码实现-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现-2"></a> 代码实现</h3>
       
 <ol>
-<li>
-<p>构造函数</p>
+<li>构造函数
 <ol>
 <li>主要的工作就是构造EventLoopThread中的Thread对象即<code>m_thread</code>成员。Thread对象<code>m_thread</code>绑定的线程函数是用<code>std::bind</code>绑定的函数，用的是EventLoopThread类中的threadFunc函数，并且绑定了其this指针。EventLoopThread构造函数的第2个参数name将作为<code>m_thread</code>的名字。</li>
 <li>第1个参数指定的是<code>线程初始化时的回调函数</code>，<strong>与线程start后执行的线程函数无关</strong>。第1个参数的默认值和第2个参数的默认值在<code>.h</code>文件中已指出。<code>ThreadInitCallback()</code>是指创建一个默认函数对象，函数执行空操作。</li>
 <li>Thread对象构造完成后，不会立即执行<code>线程函数threadFunc</code>，因为Thread构造并不意味着C++11标准库的thread创建完毕。只有调用<code>m_thread.start()</code>才会真正执行<code>线程函数threadFunc</code>。</li>
 <li>构造函数还把传入的<code>线程初始化时回调函数cb</code>保存到了<code>m_callback</code>成员。</li>
 </ol>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;eventloopthread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;eventloop.h&quot;</span></span></span><br><span class="line">EventLoopThread::<span class="built_in">EventLoopThread</span>(<span class="type">const</span> ThreadInitCallback &amp;cb,</span><br><span class="line">                                 <span class="type">const</span> std::string &amp;name)</span><br><span class="line">    : <span class="built_in">m_loop</span>(<span class="literal">nullptr</span>), <span class="built_in">m_exiting</span>(<span class="literal">false</span>),</span><br><span class="line">      <span class="built_in">m_thread</span>(std::<span class="built_in">bind</span>(&amp;EventLoopThread::threadFunc, <span class="keyword">this</span>), name),</span><br><span class="line">      <span class="built_in">m_mutex</span>(), <span class="built_in">m_cond</span>(), <span class="built_in">m_callback</span>(cb)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">EventLoopThread::~<span class="built_in">EventLoopThread</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_exiting = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(m_loop != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        m_loop-&gt;<span class="built_in">quit</span>();</span><br><span class="line">        m_thread.<span class="built_in">join</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">EventLoop * <span class="title">EventLoopThread::startLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_thread.<span class="built_in">start</span>();   <span class="comment">//启动底层新线程，执行回调函数，</span></span><br><span class="line"></span><br><span class="line">    EventLoop * loop = <span class="literal">nullptr</span>;</span><br><span class="line">    &#123;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">    <span class="keyword">while</span>(m_loop == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        m_cond.<span class="built_in">wait</span>(lock);</span><br><span class="line">    &#125;</span><br><span class="line">    loop = m_loop;</span><br><span class="line">    &#125;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    <span class="keyword">return</span> loop;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief Thread对象实际执行的线程函数，在单独的子线程中执行</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EventLoopThread::threadFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    EventLoop loop; <span class="comment">//构造一个独立的eventloop, 和m_thread一对一, one loop per thread的证据</span></span><br><span class="line">    <span class="keyword">if</span>(m_callback)	<span class="comment">//如果m_callback(即ThreadInitCallback)不为空则执行此函数</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">m_callback</span>(&amp;loop);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">    m_loop = &amp;loop;</span><br><span class="line">    m_cond.<span class="built_in">notify_one</span>();	<span class="comment">//通知主线程的startLoop(), loop已经在子线程创建好了。</span></span><br><span class="line">    &#125;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    loop.<span class="built_in">loop</span>();    <span class="comment">//EventLoop loop =&gt; Poller.poll</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 执行到此处说明loop已经结束 退出循环 */</span></span><br><span class="line">    <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">    m_loop = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 </li>
 </ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;eventloopthread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;eventloop.h&quot;</span></span></span><br><span class="line">EventLoopThread::<span class="built_in">EventLoopThread</span>(<span class="type">const</span> ThreadInitCallback &amp;cb,</span><br><span class="line">                <span class="type">const</span> std::string &amp;name)</span><br><span class="line">  : <span class="built_in">m_loop</span>(<span class="literal">nullptr</span>), <span class="built_in">m_exiting</span>(<span class="literal">false</span>),</span><br><span class="line">    <span class="built_in">m_thread</span>(std::<span class="built_in">bind</span>(&amp;EventLoopThread::threadFunc, <span class="keyword">this</span>), name),</span><br><span class="line">    <span class="built_in">m_mutex</span>(), <span class="built_in">m_cond</span>(), <span class="built_in">m_callback</span>(cb)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">EventLoopThread::~<span class="built_in">EventLoopThread</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_exiting = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(m_loop != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        m_loop-&gt;<span class="built_in">quit</span>();</span><br><span class="line">        m_thread.<span class="built_in">join</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">EventLoop * <span class="title">EventLoopThread::startLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_thread.<span class="built_in">start</span>();   <span class="comment">//启动底层新线程，执行回调函数，</span></span><br><span class="line">    </span><br><span class="line">    EventLoop * loop = <span class="literal">nullptr</span>;</span><br><span class="line">    &#123;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">        <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">        <span class="keyword">while</span>(m_loop == <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            m_cond.<span class="built_in">wait</span>(lock);</span><br><span class="line">        &#125;</span><br><span class="line">        loop = m_loop;</span><br><span class="line">    &#125;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    <span class="keyword">return</span> loop;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @brief Thread对象实际执行的线程函数，在单独的子线程中执行</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">EventLoopThread::threadFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    EventLoop loop; <span class="comment">//构造一个独立的eventloop, 和m_thread一对一, one loop per thread的证据</span></span><br><span class="line">    <span class="keyword">if</span>(m_callback)	<span class="comment">//如果m_callback(即ThreadInitCallback)不为空则执行此函数</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">m_callback</span>(&amp;loop);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">        <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">        m_loop = &amp;loop;</span><br><span class="line">        m_cond.<span class="built_in">notify_one</span>();	<span class="comment">//通知主线程的startLoop(), loop已经在子线程创建好了。</span></span><br><span class="line">    &#125;<span class="comment">/* 临界区m_loop */</span></span><br><span class="line">    loop.<span class="built_in">loop</span>();    <span class="comment">//EventLoop loop =&gt; Poller.poll</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 执行到此处说明loop已经结束 退出循环 */</span></span><br><span class="line">    <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lock</span><span class="params">(m_mutex)</span></span>;</span><br><span class="line">    m_loop = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
 
         <h1 id="eventloopthreadpool"   >
           <a href="#eventloopthreadpool" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#eventloopthreadpool"></a> EventLoopThreadPool</h1>
@@ -670,36 +782,40 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h2 id="成员函数-6"   >
           <a href="#成员函数-6" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-6"></a> 成员函数</h2>
       
-<ol>
-<li>
-<p>构造/析构函数</p>
+
+        <h3 id="构造析构函数"   >
+          <a href="#构造析构函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造析构函数"></a> 构造/析构函数</h3>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">EventLoopThreadPool</span>(EventLoop * baseLoop, <span class="type">const</span> std::string &amp;nameArg);</span><br><span class="line">    ~<span class="built_in">EventLoopThreadPool</span>();</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>setThreadNum(int)</code> - 供TcpServer调用</p>
+
+        <h4 id="setthreadnumint-供tcpserver调用"   >
+          <a href="#setthreadnumint-供tcpserver调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#setthreadnumint-供tcpserver调用"></a> <code>setThreadNum(int)</code> - 供TcpServer调用</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setThreadNum</span><span class="params">(<span class="type">int</span> numThreads)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_numThreads = numThreads;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>start</code> - 开启事件循环线程</p>
+
+        <h4 id="start-开启事件循环线程"   >
+          <a href="#start-开启事件循环线程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#start-开启事件循环线程"></a> <code>start</code> - 开启事件循环线程</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">start</span><span class="params">(<span class="type">const</span> ThreadInitCallback &amp;cb = ThreadInitCallback())</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>getNextLoop</code> - 如果工作在多线程中，baseLoop默认以轮询的方式分配channel给subLoop</p>
+
+        <h4 id="getnextloop-如果工作在多线程中baseloop默认以轮询的方式分配channel给subloop"   >
+          <a href="#getnextloop-如果工作在多线程中baseloop默认以轮询的方式分配channel给subloop" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#getnextloop-如果工作在多线程中baseloop默认以轮询的方式分配channel给subloop"></a> <code>getNextLoop</code> - 如果工作在多线程中，baseLoop默认以轮询的方式分配channel给subLoop</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">EventLoop * <span class="title">getNextLoop</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p><code>getAllLoops</code> - 获取所有管理着的loop，存到vector中，相当于拷贝了<code>m_loops</code></p>
+
+        <h4 id="getallloops-获取所有管理着的loop存到vector中相当于拷贝了m_loops"   >
+          <a href="#getallloops-获取所有管理着的loop存到vector中相当于拷贝了m_loops" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#getallloops-获取所有管理着的loop存到vector中相当于拷贝了m_loops"></a> <code>getAllLoops</code> - 获取所有管理着的loop，存到vector中，相当于拷贝了<code>m_loops</code></h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">std::vector&lt;EventLoop*&gt; <span class="title">getAllLoops</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>获取各种状态、信息</p>
+
+        <h4 id="获取各种状态-信息"   >
+          <a href="#获取各种状态-信息" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#获取各种状态-信息"></a> 获取各种状态、信息</h4>
+      
 <ol>
 <li>started</li>
 <li>name</li>
 </ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">started</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_started;&#125;</span><br><span class="line">    <span class="function"><span class="type">const</span> std::string <span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_name;&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h2 id="代码实现-3"   >
           <a href="#代码实现-3" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现-3"></a> 代码实现</h2>
@@ -751,63 +867,69 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h3 id="成员函数-7"   >
           <a href="#成员函数-7" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#成员函数-7"></a> 成员函数</h3>
       
-<ol>
-<li>
-<p>构造/析构</p>
+
+        <h4 id="构造析构-2"   >
+          <a href="#构造析构-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造析构-2"></a> 构造/析构</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 此构造的三个参数本身也是TcpServer的三个参数 */</span></span><br><span class="line">    <span class="built_in">Acceptor</span>(EventLoop * loop, <span class="type">const</span> InetAddress &amp; listenAddr, <span class="type">bool</span> reusePort);</span><br><span class="line">    ~<span class="built_in">Acceptor</span>();</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>listen</p>
+
+        <h4 id="listen"   >
+          <a href="#listen" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#listen"></a> listen</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">listen</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>get/set</p>
+
+        <h4 id="getset"   >
+          <a href="#getset" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#getset"></a> get/set</h4>
+      
 <ol>
 <li>setNewConnectionCallback</li>
 <li>listening</li>
 </ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setNewConnectionCallback</span><span class="params">(<span class="type">const</span> NewConnectionCallback &amp;cb)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_newConnectionCallback = cb;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">listenning</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> m_listenning;&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>handleRead</p>
+
+        <h4 id="handleread"   >
+          <a href="#handleread" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#handleread"></a> handleRead</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">handleRead</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h3 id="代码实现-4"   >
           <a href="#代码实现-4" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码实现-4"></a> 代码实现</h3>
       
-<ol>
-<li>
-<p>构造</p>
+
+        <h4 id="构造"   >
+          <a href="#构造" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#构造"></a> 构造</h4>
+      
 <ol>
 <li>由传入的<code>loop</code>对<code>m_loop</code>初始化；创建一个NonBlock的Tcp socketfd并用于构造<code>m_acceptSocket</code>；把loop和刚才创建好的socketfd打包构造<code>m_acceptChannel</code>；设置各种标志。</li>
 <li>根据传入的第2个参数<code>listenAddr</code>，<code>bindAddress</code>绑定地址到socket上。</li>
 <li>TcpServer调用start()后，意味着acceptor要对listen sockfd进行listen。如果接收到了新用户的连接，需要执行一个回调（具体操作是把connfd-&gt;channel-&gt;subloop）。所以还要设置一个ReadCallback。</li>
 </ol>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">createNonblockingSocket</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sockfd = ::<span class="built_in">socket</span>(AF_INET, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, IPPROTO_TCP);</span><br><span class="line">    <span class="keyword">if</span>(sockfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;%s:%s:%d listen socketfd create err: %d\n&quot;</span>, __FILE__, __FUNCTION__, __LINE__, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sockfd;</span><br><span class="line">&#125;</span><br><span class="line">Acceptor::<span class="built_in">Acceptor</span>(EventLoop *loop, <span class="type">const</span> InetAddress &amp;listenAddr, <span class="type">bool</span> reusePort)</span><br><span class="line">    : <span class="built_in">m_loop</span>(loop),</span><br><span class="line">      <span class="built_in">m_acceptSocket</span>(<span class="built_in">createNonblockingSocket</span>()),    <span class="comment">//create socket</span></span><br><span class="line">      <span class="built_in">m_acceptChannel</span>(loop, m_acceptSocket.<span class="built_in">fd</span>()),</span><br><span class="line">      <span class="built_in">m_listenning</span>(<span class="literal">false</span>)</span><br><span class="line">&#123;</span><br><span class="line">    m_acceptSocket.<span class="built_in">setReuseAddr</span>(<span class="literal">true</span>);</span><br><span class="line">    m_acceptSocket.<span class="built_in">setReusePort</span>(<span class="literal">true</span>);</span><br><span class="line">    m_acceptSocket.<span class="built_in">bindAddress</span>(listenAddr);         <span class="comment">//bind addr to socket</span></span><br><span class="line">    <span class="comment">// TcpServer::start() Acceptor::listen(), 如果有新连接需要执行回调 connfd-&gt;channel-&gt;subloop</span></span><br><span class="line">    <span class="comment">//baseLoop -&gt; m_acceptChannel(listenfd) -&gt; </span></span><br><span class="line">    m_acceptChannel.<span class="built_in">setReadCallback</span>(std::<span class="built_in">bind</span>(&amp;Acceptor::handleRead, <span class="keyword">this</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>handleRead - listenfd有事件发生, 即有新用户链接时的回调操作</p>
-<ol>
-<li>accept一个connfd，把fd和peerAddr交给newConnectionCallback处理。newConnectionCallback是TcpServer中编写的。主要工作是<strong>轮询找到subLoop, 唤醒, 分配当前新客户端的channel</strong>。</li>
-</ol>
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* listenfd有事件发生, 即有新连接 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Acceptor::handleRead</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    InetAddress peerAddr;</span><br><span class="line">    <span class="type">int</span> connfd = m_acceptSocket.<span class="built_in">accept</span>(&amp;peerAddr);</span><br><span class="line">    <span class="keyword">if</span>(connfd &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(m_newConnectionCallback)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">/* 轮询找到subLoop, 唤醒, 分配当前新客户端的channel */</span></span><br><span class="line">            <span class="built_in">m_newConnectionCallback</span>(connfd, peerAddr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">close</span>(connfd);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;%s:%s:%d accept err: %d&quot;</span>, __FILE__, __FUNCTION__, __LINE__, errno);</span><br><span class="line">        <span class="keyword">if</span>(errno == EMFILE)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;(sockfd reached max limit)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>析构</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">createNonblockingSocket</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sockfd = ::<span class="built_in">socket</span>(AF_INET, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, IPPROTO_TCP);</span><br><span class="line">    <span class="keyword">if</span>(sockfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;%s:%s:%d listen socketfd create err: %d\n&quot;</span>, __FILE__, __FUNCTION__, __LINE__, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sockfd;</span><br><span class="line">&#125;</span><br><span class="line">Acceptor::<span class="built_in">Acceptor</span>(EventLoop *loop, <span class="type">const</span> InetAddress &amp;listenAddr, <span class="type">bool</span> reusePort)</span><br><span class="line">  : <span class="built_in">m_loop</span>(loop),</span><br><span class="line">    <span class="built_in">m_acceptSocket</span>(<span class="built_in">createNonblockingSocket</span>()),    <span class="comment">//create socket</span></span><br><span class="line">    <span class="built_in">m_acceptChannel</span>(loop, m_acceptSocket.<span class="built_in">fd</span>()),</span><br><span class="line">    <span class="built_in">m_listenning</span>(<span class="literal">false</span>)</span><br><span class="line">&#123;</span><br><span class="line">    m_acceptSocket.<span class="built_in">setReuseAddr</span>(<span class="literal">true</span>);</span><br><span class="line">    m_acceptSocket.<span class="built_in">setReusePort</span>(<span class="literal">true</span>);</span><br><span class="line">    m_acceptSocket.<span class="built_in">bindAddress</span>(listenAddr);         <span class="comment">//bind addr to socket</span></span><br><span class="line">    <span class="comment">// TcpServer::start() Acceptor::listen(), 如果有新连接需要执行回调 connfd-&gt;channel-&gt;subloop</span></span><br><span class="line">    <span class="comment">//baseLoop -&gt; m_acceptChannel(listenfd) -&gt; </span></span><br><span class="line">    m_acceptChannel.<span class="built_in">setReadCallback</span>(std::<span class="built_in">bind</span>(&amp;Acceptor::handleRead, <span class="keyword">this</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="handleread-listenfd有事件发生-即有新用户链接时的回调操作"   >
+          <a href="#handleread-listenfd有事件发生-即有新用户链接时的回调操作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#handleread-listenfd有事件发生-即有新用户链接时的回调操作"></a> handleRead - listenfd有事件发生, 即有新用户链接时的回调操作</h4>
+      
+
+        <h4 id="accept一个connfd"   >
+          <a href="#accept一个connfd" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#accept一个connfd"></a> accept一个connfd</h4>
+      
+<p>把fd和peerAddr交给newConnectionCallback处理。newConnectionCallback是TcpServer中编写的。主要工作是<strong>轮询找到subLoop, 唤醒, 分配当前新客户端的channel</strong>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* listenfd有事件发生, 即有新连接 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Acceptor::handleRead</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   InetAddress peerAddr;</span><br><span class="line">   <span class="type">int</span> connfd = m_acceptSocket.<span class="built_in">accept</span>(&amp;peerAddr);</span><br><span class="line">   <span class="keyword">if</span>(connfd &gt; <span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span>(m_newConnectionCallback)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="comment">/* 轮询找到subLoop, 唤醒, 分配当前新客户端的channel */</span></span><br><span class="line">           <span class="built_in">m_newConnectionCallback</span>(connfd, peerAddr);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">       &#123;</span><br><span class="line">           <span class="built_in">close</span>(connfd);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;%s:%s:%d accept err: %d&quot;</span>, __FILE__, __FUNCTION__, __LINE__, errno);</span><br><span class="line">       <span class="keyword">if</span>(errno == EMFILE)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;(sockfd reached max limit)&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="析构-2"   >
+          <a href="#析构-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#析构-2"></a> 析构</h4>
+      
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Acceptor::~<span class="built_in">Acceptor</span>()</span><br><span class="line">&#123;</span><br><span class="line">    m_acceptChannel.<span class="built_in">disableAll</span>();</span><br><span class="line">    m_acceptChannel.<span class="built_in">remove</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-<li>
-<p>listen</p>
+
+        <h4 id="listen-2"   >
+          <a href="#listen-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#listen-2"></a> listen</h4>
+      
 <ol>
 <li>设置listenning标志</li>
 <li>调用<code>m_acceptSocket</code>的listen</li>
 <li>调用<code>m_acceptChannel</code>的enableReading，即把<code>m_acceptChannel</code>注册到Poller中。</li>
 </ol>
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Acceptor::listen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_listenning = <span class="literal">true</span>;</span><br><span class="line">    m_acceptSocket.<span class="built_in">listen</span>();                        <span class="comment">//listen</span></span><br><span class="line">    m_acceptChannel.<span class="built_in">enableReading</span>();                <span class="comment">//m_acceptChannel -&gt; poller</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</li>
-</ol>
 
         <h1 id="tcpserver"   >
           <a href="#tcpserver" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#tcpserver"></a> TcpServer</h1>
@@ -868,7 +990,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">const</span> std::string m_IPport;</span><br></pre></td></tr></table></div></figure>
 </li>
 <li>
-<p><code>std::unique_ptr&lt;Acceptor m_acceptor</code> - 运行在mainLoop，任务是监听新连接事件。</p>
+<p><code>std::unique_ptr&lt;Acceptor&gt; m_acceptor</code> - 运行在mainLoop，任务是监听新连接事件。</p>
 </li>
 <li>
 <p><code>std::unique_ptr&lt;EventLoopThreadPool&gt; m_threadPool</code> -</p>
@@ -1275,76 +1397,129 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <li>mainLoop中的acceptor是一个特殊的socketfd, 它只有一个回调<code>ReadCallback</code>, 负责监听新用户的连接, 返回socket, 将这个socket打包成TcpConnection, 再注册相应的回调;</li>
 </ol>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/">https://xing-cg.github.io/%E9%A1%B9%E7%9B%AE-muduo/%E9%87%8D%E5%86%99muduo%E5%BA%93/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E9%A1%B9%E7%9B%AE/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">MySQL数据库连接池</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/CAS_%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C/"><span class="paginator-prev__text">CAS_原子操作</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">
-           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">
-           编写目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cmake"><span class="toc-number">3.</span> <span class="toc-text">
-           cmake</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">
-           辅助类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#noncopyable"><span class="toc-number">4.1.</span> <span class="toc-text">
-           noncopyable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copyable"><span class="toc-number">4.2.</span> <span class="toc-text">
-           copyable</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver%E6%A6%82%E8%A7%88"><span class="toc-number">5.</span> <span class="toc-text">
-           TcpServer概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#inetaddress"><span class="toc-number">5.1.</span> <span class="toc-text">
-           InetAddress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloop%E6%A6%82%E8%A7%88"><span class="toc-number">5.2.</span> <span class="toc-text">
-           EventLoop概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#channel"><span class="toc-number">5.3.</span> <span class="toc-text">
-           Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E5%88%AB%E5%90%8D"><span class="toc-number">5.3.1.</span> <span class="toc-text">
-           公有别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">5.3.2.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="toc-number">5.3.3.</span> <span class="toc-text">
-           成员变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poller"><span class="toc-number">5.4.</span> <span class="toc-text">
-           Poller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-2"><span class="toc-number">5.4.1.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-2"><span class="toc-number">5.4.2.</span> <span class="toc-text">
-           成员函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epollpoller"><span class="toc-number">5.5.</span> <span class="toc-text">
-           EpollPoller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-3"><span class="toc-number">5.5.1.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7"><span class="toc-number">5.5.2.</span> <span class="toc-text">
-           成员属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">5.5.3.</span> <span class="toc-text">
-           实现代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#currentthread-%E4%B8%BB%E8%A6%81%E7%94%A8%E4%BA%8E%E8%8E%B7%E5%8F%96tid"><span class="toc-number">5.6.</span> <span class="toc-text">
-           CurrentThread - 主要用于获取tid</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloop"><span class="toc-number">6.</span> <span class="toc-text">
-           EventLoop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-3"><span class="toc-number">6.1.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-4"><span class="toc-number">6.2.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81-2"><span class="toc-number">6.3.</span> <span class="toc-text">
-           实现代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">6.3.1.</span> <span class="toc-text">
-           全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0"><span class="toc-number">6.3.2.</span> <span class="toc-text">
-           全局函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloopthread"><span class="toc-number">7.</span> <span class="toc-text">
-           EventLoopThread</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#thread"><span class="toc-number">7.1.</span> <span class="toc-text">
-           Thread</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0"><span class="toc-number">7.1.1.</span> <span class="toc-text">
-           线程函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-4"><span class="toc-number">7.1.2.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="toc-number">7.1.3.</span> <span class="toc-text">
-           成员方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">7.1.4.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloopthread-2"><span class="toc-number">7.2.</span> <span class="toc-text">
-           EventLoopThread</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">7.2.1.</span> <span class="toc-text">
-           线程初始化时回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-5"><span class="toc-number">7.2.2.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-5"><span class="toc-number">7.2.3.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">7.2.4.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloopthreadpool"><span class="toc-number">8.</span> <span class="toc-text">
-           EventLoopThreadPool</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0-2"><span class="toc-number">8.1.</span> <span class="toc-text">
-           线程初始化时回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-6"><span class="toc-number">8.2.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-6"><span class="toc-number">8.3.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">8.4.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#acceptor"><span class="toc-number">9.</span> <span class="toc-text">
-           Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#socket"><span class="toc-number">9.1.</span> <span class="toc-text">
-           socket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#h%E6%96%87%E4%BB%B6"><span class="toc-number">9.1.1.</span> <span class="toc-text">
-           .h文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cc%E6%96%87%E4%BB%B6"><span class="toc-number">9.1.2.</span> <span class="toc-text">
-           .cc文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#acceptor-2"><span class="toc-number">9.2.</span> <span class="toc-text">
-           Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%88%B0%E6%96%B0%E8%BF%9E%E6%8E%A5%E6%97%B6%E7%9A%84%E5%9B%9E%E8%B0%83"><span class="toc-number">9.2.1.</span> <span class="toc-text">
-           收到新连接时的回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-7"><span class="toc-number">9.2.2.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-7"><span class="toc-number">9.2.3.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-4"><span class="toc-number">9.2.4.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver"><span class="toc-number">10.</span> <span class="toc-text">
-           TcpServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83"><span class="toc-number">10.1.</span> <span class="toc-text">
-           回调</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E7%9A%84%E5%9B%9E%E8%B0%83"><span class="toc-number">10.1.1.</span> <span class="toc-text">
-           线程初始化时的回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-%E8%AF%BB%E5%86%99%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%9B%9E%E8%B0%83-%E5%8D%95%E7%8B%AC%E5%86%99%E5%88%B0callbacksh%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-number">10.1.2.</span> <span class="toc-text">
-           连接、读写事件的回调 - 单独写到callbacks.h文件中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%A3%B0%E6%98%8E"><span class="toc-number">10.2.</span> <span class="toc-text">
-           枚举声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-8"><span class="toc-number">10.3.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-8"><span class="toc-number">10.4.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-5"><span class="toc-number">10.5.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpconnection"><span class="toc-number">11.</span> <span class="toc-text">
-           TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#buffer"><span class="toc-number">11.1.</span> <span class="toc-text">
-           Buffer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-9"><span class="toc-number">11.1.1.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-9"><span class="toc-number">11.1.2.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-6"><span class="toc-number">11.1.3.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpconnection-2"><span class="toc-number">11.2.</span> <span class="toc-text">
-           TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-10"><span class="toc-number">11.2.1.</span> <span class="toc-text">
-           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-10"><span class="toc-number">11.2.2.</span> <span class="toc-text">
-           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-7"><span class="toc-number">11.2.3.</span> <span class="toc-text">
-           代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver%E6%94%B6%E5%B0%BE"><span class="toc-number">12.</span> <span class="toc-text">
-           TcpServer收尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">13.</span> <span class="toc-text">
+           内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">
+           目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#muduo%E5%BA%93%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E8%81%8C%E8%B4%A3%E4%B8%8E%E5%85%B3%E7%B3%BB"><span class="toc-number">3.</span> <span class="toc-text">
+           muduo库核心组件职责与关系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#reactor%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%A0%B8%E5%BF%83"><span class="toc-number">3.1.</span> <span class="toc-text">
+           Reactor模式的核心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%97%E6%96%B0%E8%BF%9E%E6%8E%A5acceptor"><span class="toc-number">3.2.</span> <span class="toc-text">
+           接受新连接：Acceptor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E8%BF%9E%E6%8E%A5tcpconnection"><span class="toc-number">3.3.</span> <span class="toc-text">
+           表示连接：TcpConnection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%97%A8%E9%9D%A2tcpserver"><span class="toc-number">3.4.</span> <span class="toc-text">
+           服务器门面：TcpServer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8Beventloopthread%E5%92%8Ceventloopthreadpool"><span class="toc-number">3.5.</span> <span class="toc-text">
+           线程模型：EventLoopThread和EventLoopThreadPool</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cmake"><span class="toc-number">4.</span> <span class="toc-text">
+           cmake</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">
+           辅助类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#noncopyable"><span class="toc-number">5.1.</span> <span class="toc-text">
+           noncopyable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copyable"><span class="toc-number">5.2.</span> <span class="toc-text">
+           copyable</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver%E6%A6%82%E8%A7%88"><span class="toc-number">6.</span> <span class="toc-text">
+           TcpServer概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#inetaddress"><span class="toc-number">6.1.</span> <span class="toc-text">
+           InetAddress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloop%E6%A6%82%E8%A7%88"><span class="toc-number">6.2.</span> <span class="toc-text">
+           EventLoop概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#channel"><span class="toc-number">6.3.</span> <span class="toc-text">
+           Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E5%88%AB%E5%90%8D"><span class="toc-number">6.3.1.</span> <span class="toc-text">
+           公有别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">6.3.2.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">6.3.2.1.</span> <span class="toc-text">
+           构造 &#x2F; 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#handleevent"><span class="toc-number">6.3.2.2.</span> <span class="toc-text">
+           handleEvent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setxxxcallbackeventcallback-cb"><span class="toc-number">6.3.2.3.</span> <span class="toc-text">
+           setXxxCallback(EventCallback cb)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#void-tieconst-stdshared_ptrvoid"><span class="toc-number">6.3.2.4.</span> <span class="toc-text">
+           void tie(const std::shared_ptr&lt;void&gt;&amp;)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fd-events-revents%E7%9B%B8%E5%85%B3"><span class="toc-number">6.3.2.5.</span> <span class="toc-text">
+           fd、events、revents相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%87%BD%E6%95%B0%E5%88%A4%E6%96%AD%E6%9C%89%E6%B2%A1%E6%9C%89%E6%B3%A8%E5%86%8C%E4%BA%8B%E4%BB%B6%E7%AD%89%E7%AD%89"><span class="toc-number">6.3.2.6.</span> <span class="toc-text">
+           判断函数：判断有没有注册事件等等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E8%83%BD-%E4%BD%BF%E4%B8%8D%E8%83%BD%E5%87%BD%E6%95%B0"><span class="toc-number">6.3.2.7.</span> <span class="toc-text">
+           使能、使不能函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8Eeventloop%E7%9B%B8%E5%85%B3"><span class="toc-number">6.3.2.8.</span> <span class="toc-text">
+           与EventLoop相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4remove"><span class="toc-number">6.3.2.9.</span> <span class="toc-text">
+           删除：remove()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#update%E7%9B%B8%E5%BD%93%E4%BA%8E%E8%B0%83%E7%94%A8epoll_ctl"><span class="toc-number">6.3.2.10.</span> <span class="toc-text">
+           update()：相当于调用epoll_ctl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#handleeventwithguard"><span class="toc-number">6.3.2.11.</span> <span class="toc-text">
+           handleEventWithGuard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for-poller%E7%9A%84index"><span class="toc-number">6.3.2.12.</span> <span class="toc-text">
+           for poller的index</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="toc-number">6.3.3.</span> <span class="toc-text">
+           成员变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poller"><span class="toc-number">6.4.</span> <span class="toc-text">
+           Poller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-2"><span class="toc-number">6.4.1.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-2"><span class="toc-number">6.4.2.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0-2"><span class="toc-number">6.4.2.1.</span> <span class="toc-text">
+           构造 &#x2F; 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#poll%E6%8F%90%E4%BE%9B%E7%BB%99%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%9F%E4%B8%80%E7%9A%84%E4%B8%80%E4%B8%AAio%E5%A4%8D%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-number">6.4.2.2.</span> <span class="toc-text">
+           poll：提供给系统的统一的一个IO复用接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8E%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%B3%A8%E5%86%8C-%E6%B3%A8%E9%94%80%E6%9C%89%E5%85%B3%E7%9A%84"><span class="toc-number">6.4.2.3.</span> <span class="toc-text">
+           与事件的注册、注销有关的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#newdefaultpollereventloop-loop"><span class="toc-number">6.4.2.4.</span> <span class="toc-text">
+           newDefaultPoller(EventLoop * loop)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#haschannel"><span class="toc-number">6.4.2.5.</span> <span class="toc-text">
+           hasChannel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epollpoller"><span class="toc-number">6.5.</span> <span class="toc-text">
+           EpollPoller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-3"><span class="toc-number">6.5.1.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%9E%90%E6%9E%84"><span class="toc-number">6.5.1.1.</span> <span class="toc-text">
+           构造&#x2F;析构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#poll%E9%87%8D%E5%86%99poller%E5%9F%BA%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9B%B8%E5%BD%93%E4%BA%8Eepoll_wait"><span class="toc-number">6.5.1.2.</span> <span class="toc-text">
+           poll：重写Poller基类方法，相当于epoll_wait</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#updateremovechannel%E9%87%8D%E5%86%99poller%E5%9F%BA%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9B%B8%E5%BD%93%E4%BA%8Eepoll_ctl-addmoddel"><span class="toc-number">6.5.1.3.</span> <span class="toc-text">
+           update&#x2F;removeChannel：重写Poller基类方法，相当于epoll_ctl add&#x2F;mod&#x2F;del</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fillactivechannels%E5%A1%AB%E5%86%99%E6%B4%BB%E8%B7%83%E7%9A%84channels%E8%BF%9E%E6%8E%A5"><span class="toc-number">6.5.1.4.</span> <span class="toc-text">
+           fillActiveChannels：填写活跃的channels连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#update%E6%9B%B4%E6%96%B0channel%E9%80%9A%E9%81%93"><span class="toc-number">6.5.1.5.</span> <span class="toc-text">
+           update：更新channel通道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%B1%9E%E6%80%A7"><span class="toc-number">6.5.2.</span> <span class="toc-text">
+           成员属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">6.5.3.</span> <span class="toc-text">
+           实现代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">6.5.3.1.</span> <span class="toc-text">
+           构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%90%E6%9E%84"><span class="toc-number">6.5.3.2.</span> <span class="toc-text">
+           析构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#currentthread%E4%B8%BB%E8%A6%81%E7%94%A8%E4%BA%8E%E8%8E%B7%E5%8F%96tid"><span class="toc-number">6.6.</span> <span class="toc-text">
+           CurrentThread：主要用于获取tid</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloop"><span class="toc-number">7.</span> <span class="toc-text">
+           EventLoop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-3"><span class="toc-number">7.1.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-4"><span class="toc-number">7.2.</span> <span class="toc-text">
+           成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81-2"><span class="toc-number">7.3.</span> <span class="toc-text">
+           实现代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">7.3.1.</span> <span class="toc-text">
+           全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0"><span class="toc-number">7.3.2.</span> <span class="toc-text">
+           全局函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloopthread"><span class="toc-number">8.</span> <span class="toc-text">
+           EventLoopThread</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#thread"><span class="toc-number">8.1.</span> <span class="toc-text">
+           Thread</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0"><span class="toc-number">8.1.1.</span> <span class="toc-text">
+           线程函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-4"><span class="toc-number">8.1.2.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="toc-number">8.1.3.</span> <span class="toc-text">
+           成员方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#setdefaultname"><span class="toc-number">8.1.3.1.</span> <span class="toc-text">
+           setDefaultName</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0-3"><span class="toc-number">8.1.3.2.</span> <span class="toc-text">
+           构造 &#x2F; 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#start"><span class="toc-number">8.1.3.3.</span> <span class="toc-text">
+           start</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#join"><span class="toc-number">8.1.3.4.</span> <span class="toc-text">
+           join</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E5%BF%97-%E4%BF%A1%E6%81%AF"><span class="toc-number">8.1.3.5.</span> <span class="toc-text">
+           获取线程状态相关的标志、信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.1.4.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloopthread-2"><span class="toc-number">8.2.</span> <span class="toc-text">
+           EventLoopThread</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">8.2.1.</span> <span class="toc-text">
+           线程初始化时回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-5"><span class="toc-number">8.2.2.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-5"><span class="toc-number">8.2.3.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0-4"><span class="toc-number">8.2.3.1.</span> <span class="toc-text">
+           构造 &#x2F; 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#startloop-%E5%BC%80%E5%90%AF%E5%BE%AA%E7%8E%AF"><span class="toc-number">8.2.3.2.</span> <span class="toc-text">
+           startLoop - 开启循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#threadfunc-%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0"><span class="toc-number">8.2.3.3.</span> <span class="toc-text">
+           threadFunc - 线程函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">8.2.4.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#eventloopthreadpool"><span class="toc-number">9.</span> <span class="toc-text">
+           EventLoopThreadPool</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0-2"><span class="toc-number">9.1.</span> <span class="toc-text">
+           线程初始化时回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-6"><span class="toc-number">9.2.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-6"><span class="toc-number">9.3.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">9.3.1.</span> <span class="toc-text">
+           构造&#x2F;析构函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#setthreadnumint-%E4%BE%9Btcpserver%E8%B0%83%E7%94%A8"><span class="toc-number">9.3.1.1.</span> <span class="toc-text">
+           setThreadNum(int) - 供TcpServer调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#start-%E5%BC%80%E5%90%AF%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%BA%BF%E7%A8%8B"><span class="toc-number">9.3.1.2.</span> <span class="toc-text">
+           start - 开启事件循环线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getnextloop-%E5%A6%82%E6%9E%9C%E5%B7%A5%E4%BD%9C%E5%9C%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%ADbaseloop%E9%BB%98%E8%AE%A4%E4%BB%A5%E8%BD%AE%E8%AF%A2%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%86%E9%85%8Dchannel%E7%BB%99subloop"><span class="toc-number">9.3.1.3.</span> <span class="toc-text">
+           getNextLoop - 如果工作在多线程中，baseLoop默认以轮询的方式分配channel给subLoop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getallloops-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%AE%A1%E7%90%86%E7%9D%80%E7%9A%84loop%E5%AD%98%E5%88%B0vector%E4%B8%AD%E7%9B%B8%E5%BD%93%E4%BA%8E%E6%8B%B7%E8%B4%9D%E4%BA%86m_loops"><span class="toc-number">9.3.1.4.</span> <span class="toc-text">
+           getAllLoops - 获取所有管理着的loop，存到vector中，相当于拷贝了m_loops</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%90%84%E7%A7%8D%E7%8A%B6%E6%80%81-%E4%BF%A1%E6%81%AF"><span class="toc-number">9.3.1.5.</span> <span class="toc-text">
+           获取各种状态、信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">9.4.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#acceptor"><span class="toc-number">10.</span> <span class="toc-text">
+           Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#socket"><span class="toc-number">10.1.</span> <span class="toc-text">
+           socket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#h%E6%96%87%E4%BB%B6"><span class="toc-number">10.1.1.</span> <span class="toc-text">
+           .h文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cc%E6%96%87%E4%BB%B6"><span class="toc-number">10.1.2.</span> <span class="toc-text">
+           .cc文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#acceptor-2"><span class="toc-number">10.2.</span> <span class="toc-text">
+           Acceptor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%88%B0%E6%96%B0%E8%BF%9E%E6%8E%A5%E6%97%B6%E7%9A%84%E5%9B%9E%E8%B0%83"><span class="toc-number">10.2.1.</span> <span class="toc-text">
+           收到新连接时的回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-7"><span class="toc-number">10.2.2.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-7"><span class="toc-number">10.2.3.</span> <span class="toc-text">
+           成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%9E%90%E6%9E%84-2"><span class="toc-number">10.2.3.1.</span> <span class="toc-text">
+           构造&#x2F;析构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#listen"><span class="toc-number">10.2.3.2.</span> <span class="toc-text">
+           listen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getset"><span class="toc-number">10.2.3.3.</span> <span class="toc-text">
+           get&#x2F;set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#handleread"><span class="toc-number">10.2.3.4.</span> <span class="toc-text">
+           handleRead</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-4"><span class="toc-number">10.2.4.</span> <span class="toc-text">
+           代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0"><span class="toc-number">10.2.4.1.</span> <span class="toc-text">
+           构造</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#handleread-listenfd%E6%9C%89%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F-%E5%8D%B3%E6%9C%89%E6%96%B0%E7%94%A8%E6%88%B7%E9%93%BE%E6%8E%A5%E6%97%B6%E7%9A%84%E5%9B%9E%E8%B0%83%E6%93%8D%E4%BD%9C"><span class="toc-number">10.2.4.2.</span> <span class="toc-text">
+           handleRead - listenfd有事件发生, 即有新用户链接时的回调操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#accept%E4%B8%80%E4%B8%AAconnfd"><span class="toc-number">10.2.4.3.</span> <span class="toc-text">
+           accept一个connfd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%90%E6%9E%84-2"><span class="toc-number">10.2.4.4.</span> <span class="toc-text">
+           析构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#listen-2"><span class="toc-number">10.2.4.5.</span> <span class="toc-text">
+           listen</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver"><span class="toc-number">11.</span> <span class="toc-text">
+           TcpServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83"><span class="toc-number">11.1.</span> <span class="toc-text">
+           回调</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E7%9A%84%E5%9B%9E%E8%B0%83"><span class="toc-number">11.1.1.</span> <span class="toc-text">
+           线程初始化时的回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-%E8%AF%BB%E5%86%99%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%9B%9E%E8%B0%83-%E5%8D%95%E7%8B%AC%E5%86%99%E5%88%B0callbacksh%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-number">11.1.2.</span> <span class="toc-text">
+           连接、读写事件的回调 - 单独写到callbacks.h文件中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%A3%B0%E6%98%8E"><span class="toc-number">11.2.</span> <span class="toc-text">
+           枚举声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-8"><span class="toc-number">11.3.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-8"><span class="toc-number">11.4.</span> <span class="toc-text">
+           成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-5"><span class="toc-number">11.5.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpconnection"><span class="toc-number">12.</span> <span class="toc-text">
+           TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#buffer"><span class="toc-number">12.1.</span> <span class="toc-text">
+           Buffer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-9"><span class="toc-number">12.1.1.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-9"><span class="toc-number">12.1.2.</span> <span class="toc-text">
+           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-6"><span class="toc-number">12.1.3.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpconnection-2"><span class="toc-number">12.2.</span> <span class="toc-text">
+           TcpConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-10"><span class="toc-number">12.2.1.</span> <span class="toc-text">
+           成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-10"><span class="toc-number">12.2.2.</span> <span class="toc-text">
+           成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-7"><span class="toc-number">12.2.3.</span> <span class="toc-text">
+           代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpserver%E6%94%B6%E5%B0%BE"><span class="toc-number">13.</span> <span class="toc-text">
+           TcpServer收尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">14.</span> <span class="toc-text">
            流程</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">301</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
