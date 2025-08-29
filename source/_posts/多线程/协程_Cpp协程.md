@@ -24,7 +24,11 @@ published:
 ```cpp
 #include "Agave.hpp"
 #include <iostream>
-agave::IAsyncAction read_file_async(void)
+agave::AsyncAction read_file_async(void)
+{
+
+}
+agave::AsyncOperation<int> compute_async(void)
 {
 
 }
@@ -59,7 +63,7 @@ agave::IAsyncAction read_file_async(void)
 
 using namespace std::chrono_literals;
 
-agave::IAsyncAction read_file_async(void)
+agave::AsyncAction read_file_async(void)
 {
     std::cout << "Read File Coroutine started on thread: " << std::this_thread::get_id() << '\n';
     std::cout << "Reading..." << std::endl;
@@ -68,7 +72,7 @@ agave::IAsyncAction read_file_async(void)
     co_await 5s; // 等待5秒，模拟文件读取
     co_return; // 相当于callback
 }
-agave::IAsyncAction demo()
+agave::AsyncAction demo()
 {
     std::cout << "demo() on thread: " << std::this_thread::get_id() << '\n';
     co_await read_file_async();
@@ -122,7 +126,7 @@ demo协程在主线程6260启动，另一个read协程也在主线程6260启动�
 
 using namespace std::chrono_literals;
 
-agave::IAsyncAction read_file_async(void)
+agave::AsyncAction read_file_async(void)
 {
     co_await agave::resume_background(); // 另起线程
     std::cout << "Read File Coroutine started on thread: " << std::this_thread::get_id() << '\n';
@@ -132,7 +136,7 @@ agave::IAsyncAction read_file_async(void)
     
     co_return; // 相当于callback
 }
-agave::IAsyncAction demo()
+agave::AsyncAction demo()
 {
     std::cout << "demo() on thread: " << std::this_thread::get_id() << '\n';
     co_await read_file_async();
@@ -163,7 +167,7 @@ Reading finished on thread: 15800
 返回东西时，返回值类型写为`agave::IAsyncOperation<T>`。模板参数类型是要携带的值类型。
 对应地，`co_await`不能裸着用了，要用一个变量接收。
 ```cpp
-agave::IAsyncOperation<int> read_file_async(void)
+agave::AsyncOperation<int> read_file_async(void)
 {
     co_await agave::resume_background(); // 另起线程
     std::cout << "Read File Coroutine started on thread: " << std::this_thread::get_id() << '\n';
@@ -174,7 +178,7 @@ agave::IAsyncOperation<int> read_file_async(void)
     co_return 50; // callback + 携带值
 }
 
-agave::IAsyncAction demo()
+agave::AsyncAction demo()
 {
     std::cout << "demo() on thread: " << std::this_thread::get_id() << '\n';
     
@@ -193,7 +197,7 @@ agave::IAsyncAction demo()
 
 using namespace std::chrono_literals;
 
-agave::IAsyncAction read_file_async(void)
+agave::AsyncAction read_file_async(void)
 {
     co_await agave::resume_background(); // 另起线程
     auto can = co_await agave::get_cancellation_token();
@@ -214,7 +218,7 @@ agave::IAsyncAction read_file_async(void)
 
     co_return; // 相当于callback
 }
-agave::IAsyncAction demo()
+agave::AsyncAction demo()
 {
     std::cout << "demo() on thread: " << std::this_thread::get_id() << '\n';
     auto async_var = read_file_async();
@@ -565,24 +569,24 @@ int main(void)
 	std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
 
 	std::jthread{ []()
-		{
-			for (int i = 0; i < 20; ++i)
-            {
-                run_on_main([]()
-                    {
-                        std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
-                    });
-                std::this_thread::sleep_for(350ms);
-            }
-		} }.detach();
+    {
+        for (int i = 0; i < 20; ++i)
+        {
+            run_on_main([]()
+                {
+                    std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
+                });
+            std::this_thread::sleep_for(350ms);
+        }
+    } }.detach();
 	
 
 	/*std::jthread([](std::function<void(void)> cb) -> void
-		{
-			std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
-			std::this_thread::sleep_for(5s);
-			run_on_main(cb);
-		}, call_back).detach();*/
+    {
+        std::wcout << L"doing on worker: " << std::this_thread::get_id() << std::endl;
+        std::this_thread::sleep_for(5s);
+        run_on_main(cb);
+    }, call_back).detach();*/
 	DoWorkAsync();
 
 	queue.run();
@@ -648,16 +652,16 @@ int main(void)
 	std::wcout << L"Main Thread Id: " << std::this_thread::get_id() << std::endl;
 
 	std::jthread{ []()
-		{
-			for (int i = 0; i < 20; ++i)
-	{
-		run_on_main([]()
-			{
-				std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
-			});
-		std::this_thread::sleep_for(350ms);
-	}
-		} }.detach();
+    {
+        for (int i = 0; i < 20; ++i)
+        {
+            run_on_main([]()
+                {
+                    std::wcout << L"doing on UI Thread: " << std::this_thread::get_id() << std::endl;
+                });
+            std::this_thread::sleep_for(350ms);
+        }
+    } }.detach();
 	
 	DoWorkAsync2();
 
@@ -697,7 +701,4 @@ agave::AsyncAction DoWorkAsync(void)
 
 	co_return;
 }
-
-
-
 ```

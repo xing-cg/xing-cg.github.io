@@ -7,10 +7,23 @@ categories:
     - 多线程
 tags: 
 date: 2025/8/27
-updated: 2025/8/27
+updated: 2025/8/28
 comments: 
 published:
 ---
+# 项目介绍
+Agave(TM) `C++20`标准协程库框架
+1. 严格遵循C++20标准，并对其进行了深度设计、封装，性能优良，易用，适用于协程库开发厂商和终端用户使用
+2. 设计了通用协程类型返回对象：`AsyncAction`、`AsyncActionWithProgress`、`AsyncOperation`、`AsyncOperationWithProgress`，开发方式合二为一，无论库厂商还是最终用户，使用方式完全相同，并可再次`co_await`等待，轻松构成协程任务链
+3. 只使用co_await标准关键字几乎可以完成所有操作，如：进行环境切换、功能设置等等。
+    1. `co_await agave::resume_background();`进入后台线程环境
+    2. `co_await agave::resume_foreground();`进入前台线程环境
+    3. `co_await agave::get_cancellation_token();`获取停止token。
+4. 深度整合了`chrono`库，并设计了`BJobScheduler`并行协程调度器，支持便捷语法：`co_await 30ms;`暂停当前协程，并送入调度器待后续唤醒执行。
+5. 高度可扩展设计，所有执行环境均可配置，如前台、后台、时间调度等，均可以配置连接自定义的高效线程池
+6. 协程返回对象中均配置了`condition variable`对象，包含于`get`方法中，既可以使用异步功能又可兼容经典同步模型使用方法。
+7. 支持`progress`自定义进度类型，并通过`co_await`即可获得（内部使用`co_yield`实现，可多次`co_await`）
+8. 现有多个基于此框架的商业项目已运行至少 2 年：`DevilStation`、`TeXsh`等，性能稳定
 # C++协程的样子
 ```cpp
 RTN_OBJ MyCoroutine()
@@ -317,8 +330,6 @@ operator co_await(agave::details::async_operation_base_t<T, P> const& async)
 ```
 
 类`async_action_t`与`async_operation_t`。内部都定义了`await_ready()`、`await_suspend()`、`await_resume()`。是个Awaiter对象。
-
-
 ## 用户接口
 ```cpp
     //--------------------------------------------------------------------
