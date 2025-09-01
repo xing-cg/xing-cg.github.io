@@ -15,16 +15,16 @@ published:
 
 1. 线程的构造
 2. detach、join
-3. mutex、recursive_mutex、shared_mutex
-4. lock_guard、unique_lock、shared_lock
+3. `mutex`、`recursive_mutex`、`shared_mutex`
+4. `lock_guard`、`unique_lock`、`shared_lock`
 5. chrono
 6. `std::ref`
 7. jthread
     1. 线程取消
 8. 条件变量
-    1. wait、wait_for、wait_until
+    1. wait、`wait_for`、`wait_until`
 9. future、promise
-    1. packaged_task
+    1. `packaged_task`
     2. async
 10. 信号量
 11. 闩锁（latch）、屏障（Barrier）

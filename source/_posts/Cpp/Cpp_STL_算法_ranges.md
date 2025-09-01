@@ -3,6 +3,8 @@ title: Cpp_STL_算法_ranges
 categories:
   - - Cpp
     - STL
+  - - Cpp
+    - Modern
 tags: 
 date: 2024/5/12
 updated: 
@@ -14,6 +16,9 @@ published:
 1. 容器Container：装数据的
 2. 迭代器Iterator：不同容器的结构、算法行为不一样，用迭代器来屏蔽差异。Iterator有好多种，但是有通用的接口，在容器和算法中间，通过迭代器与另一者相互通信。
 3. 算法Algorithm：插入、修改、删除等
+
+>有的说法是六大组件组成：容器、迭代器、算法、仿函数、适配器、分配器
+
 ![](../../images/Cpp_20240512_STL/image-20240717000140107.png)
 
 # 以vector为例
@@ -56,6 +61,7 @@ int main()
 1. `push_back`的语义是把构造好的对象，或用封装的数据临时构造一个对象，再插入到容器的尾部。发生了拷贝构造、右值引用拷贝构造。
 2. `emplace_back`是把数据一个一个直接填充到容器尾部的空间上。
     1. 用到了完美转发
+
 ```cpp
 class Test
 {
@@ -97,6 +103,7 @@ int main()
     2. 支持和另一迭代器之间的不等比较 `a < b, a > b`
     3. 支持复合赋值运算 `a += n, a -= n`
     4. 支持偏移量（offset）解引用 `a[n]`
+
 ![](../../images/Cpp_20240512_STL/image-20240717010603321.png)
 
 ## 通过concepts约束迭代器类型
@@ -129,6 +136,7 @@ X的类型需要具有`push_back`成员函数（例如vector、Deque和List）�
 2. erase返回下一个有效的it，所以，删除后用此返回值赋给it。
 3. 其他情况正常`++`
 4. 如果只需要删1个，就在erase后`break`，否则后面条件匹配的全部会删除
+
 ```cpp
 #include<iostream>
 #include<vector>
@@ -190,6 +198,7 @@ InputIterator find_if(InputIterator first, InputIterator last, UnaryPredicate pr
 2. 先找一次，返回it
 3. 若不为end，打印后，继续循环找、打印
 4. 直到it返回end。
+
 ```cpp
 // 判断是否为奇数
 bool is_odd(int const& v)
@@ -251,6 +260,7 @@ int main()
 1. first和last是迭代器，需要先解引用才能使用pred去判断值。
 2. first到last左闭右开，first等于last时结束。
 3. 内部封装了pred的实际调用形式`pred(...)`。所以不管是函数、仿函数，只要支持`(...)`的调用形式就能使用。
+
 ```cpp
 template <class InputIterator, class UnaryPredicate>
 InputIterator find_if(InputIterator first, InputIterator last, UnaryPredicate pred)
@@ -305,6 +315,7 @@ ForwardIterator remove_if (ForwardIterator first, ForwardIterator last, UnaryPre
 1. 遍历时遇到要删的，first先往后面继续遍历，result不动；
 2. 遇到不匹配条件的（不删的），first的值就往前面与result的值交换，result后移。
 3. 最后，result的位置以及之后就是要删的所有数据。
+
 这样是为了防止批量删除时，数据频繁的前移。如此，可以只进行交换，后面一并删除。
 因此，`remove_if`不会帮我们删除数据，而是帮我们整理好容器内数据的排布后，再返回一个it迭代器，指示要删除的开始位置。
 ```
@@ -511,6 +522,7 @@ void shuffle (RandomAccessIterator first, RandomAccessIterator last, URNG&& g);
 3. 如果需要每次运行时的结果不一样，需要传入种子。
 ### is_permutation
 permutation表示一组数据可能的一种序列、排列。此函数用于检查两个序列是否是彼此的排列（即，两个序列中的元素相同，顺序可能不同）
+
 >permutation and combination   n. 排列组合
 
 |           |                                                                                                                                                                                                               |
@@ -524,6 +536,7 @@ permutation表示一组数据可能的一种序列、排列。此函数用于检
     2. 如果L1元素数目大于L2，则程序崩溃。
     3. L1长度如果小于L2，只和L2的前L1长度个元素进行对比。
     4. 所以如果要得到正确的结果，应该前提知道L1长度等于L2长度。
+
 以下为实现：
 ```cpp
 // 全程中，first1 和 first2、last2一旦确定就固定了。
@@ -611,6 +624,7 @@ int main()
         });
 }
 ```
+
 >这里发现一个问题：当`(auto const& v)`中`&`改为`&&`时就运行时报错。
 >而去掉`const`后，`(auto && v)`中`&&`就又没问题了。
 >看来如果以后想用转发引用`&&`，就不能和const共存。
@@ -862,7 +876,8 @@ void example()
 1. view是依赖vector的，内容来自vector，实际上view对容器的每个元素进行了一些连接
 2. view经过各种变换，如`filter`、`transform`，也将变为一个view
 3. view可以通过管道+`std::ranges::to`变为一个容器。
+
 惰性计算：
 1. view中没有任何实体元素，只是逻辑上的映射。
-3. 如果此时view要让元素6加2，则view是把元素6+2的这个操作内容、抽象逻辑传给下一步。在实际操作之前，一系列的操作内容可以积累到一起，到最后再一次性计算。实际的操作只有最后vector被读取、调用的时候才去从vector取元素。
-4. 中间的view只是把操作连接上，相当于函数套内部函数，逻辑行为套内部行为。就类似于lambda函数。这种都叫做惰性计算，是面向函数编程范式的特点，更关注于高阶的抽象、干什么逻辑，不关注具体操作。
+2. 如果此时view要让元素6加2，则view是把元素6+2的这个操作内容、抽象逻辑传给下一步。在实际操作之前，一系列的操作内容可以积累到一起，到最后再一次性计算。实际的操作只有最后vector被读取、调用的时候才去从vector取元素。
+3. 中间的view只是把操作连接上，相当于函数套内部函数，逻辑行为套内部行为。就类似于lambda函数。这种都叫做惰性计算，是面向函数编程范式的特点，更关注于高阶的抽象、干什么逻辑，不关注具体操作。

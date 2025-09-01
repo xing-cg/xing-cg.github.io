@@ -1,5 +1,5 @@
 ---
-title: Cpp_右值引用
+title: Cpp_右值引用_move的实现
 categories:
   - - Cpp
     - 右值引用

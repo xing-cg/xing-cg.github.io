@@ -1,11 +1,12 @@
 ---
-title: Cpp_兼容C和Cpp的思想
+title: Cpp_兼容C和Cpp的思想_完美转发
 categories:
   - - Cpp
+    - Modern
 tags:
   - tulun
 date: 2022/2/26
-updated: 2025/3/8
+updated: 2025/9/1
 comments: 
 published:
 ---
@@ -21,6 +22,7 @@ published:
 
 先小试牛刀，初次感受。
 
+下面的代码奇妙之处就是：使用了模板后，你并不清楚T是内置类型还是封装类型，所以要完成统一内置类型和封装类型的操作必定很麻烦。模板的强大背后都是心酸。
 ```c++
 template<class T>
 void fun(T a)
@@ -29,7 +31,6 @@ void fun(T a)
 }
 fun<int>(12);
 fun<Object>(obj);
-// 奇妙之处就是--使用了模板后，你并不清楚T是内置类型还是封装类型，所以要完成统一内置类型和封装类型的操作必定很麻烦。模板的强大背后都是心酸。
 ```
 
 在谈下一个知识“完美转发”之前，我们先来一段C++11之后，左值右值的重载情况：
@@ -41,7 +42,10 @@ void fun(int& a)
 {
 	cout << "fun(int& a)" << endl;
 }
-void fun(const int& a)//const int&是个万能引用，左右值都可以接收，但是如果fun有int &&的重载则优先被int &&接收（如右值10）；同样的道理，如果fun有int &的重载则优先被int &接收（如左值a）。
+// const int&是个万能引用，左右值都可以接收，
+// 但是如果fun有int &&的重载则int &&（如右值10）优先被其接收；
+// 同样的道理，如果fun有int &的重载则int &（如左值a）优先被其接收
+void fun(const int& a)
 {
 	cout << "fun(const int& a)" << endl;
 }
@@ -131,11 +135,11 @@ int main()
 {
     int a = 10;
     const int b = 20;
-    //test(a);				//参数是左值，是无法调用test(int&& a)的，因为编译器规定:无法将‘右值参数’--‘绑定到左值’。
-    //test(std::move(b));	//-->编译器提示：将"int &&”类型的引用绑定到"std:remove_reference_t<const int &>”类型的初始值设定项时，限定符被丢弃   --->意思是，警告我们不要这样做。这样会丢失b的const属性。
+    //test(a);				// 参数是左值，是无法调用test(int&& a)的，因为编译器规定:无法将‘右值参数’--‘绑定到左值’。
+    //test(std::move(b));	// 编译器提示：将"int &&”类型的引用绑定到"std:remove_reference_t<const int &>”类型的初始值设定项时，限定符被丢弃   --->意思是，警告我们不要这样做。这样会丢失b的const属性。
     
-    test(std::move(a));		//但是我们知道，在平时的书写中，int a = 10; int b = a;这种写法是很普遍的，也就是说，虽然右值不能放在左值的位置上，但是左值是可以充当右值使用的，只不过是编译器规定了我们不能在调用函数时与把左值和右值混淆。
-    						//因为不能直接test(a);说明问题所在，所以我们std::move(a)				
+    test(std::move(a));		// 但是我们知道，在平时的书写中，int a = 10; int b = a;这种写法是很普遍的，也就是说，虽然右值不能放在左值的位置上，但是左值是可以充当右值使用的，只不过是编译器规定了我们不能在调用函数时与把左值和右值混淆。
+    						// 因为不能直接test(a);说明问题所在，所以我们std::move(a)				
 }
 /* 运行结果
     fun(int& a)
@@ -146,10 +150,9 @@ int main()
 
 这个结果，与上一个代码中的结果（完美转发后运行的结果依旧是`fun(int& a)`、`fun(const int& a)`）一经对比，发现了问题：就是调用`fac(a);` `fac(b);`之前，由于`fac`是一个模板函数，而且参数类型很特殊！这是最关键的点，参数类型是`T && tmp`，这就要求，不管T是什么类型，不管要传入的实参是否是右值属性，我们都可以让其成功进入到此中，甚至他是一个左值（左值是可以充当右值使用的）。而模板机制中的T是会保留传入实参类型的所有信息的，包括const属性和左右值属性，比如`int a = 10;`的a是非常性左值，`const int b = 20;`的b是常性左值。所以，看上去tmp是一个右值，但是tmp的根源属性是外部a、b原来的属性。所以完美转发后的结果依旧是a的非常性左值`int &`，b的常性左值`const int &`。
 
-通过这个例子，可以得出，模板函数的`\<class T\> void fun(T && tmp)`并未丢弃T元素原本的的const信息、左右值属性。
+通过这个例子，可以得出，模板函数的`<class T> void fun(T && tmp)`并未丢弃T元素原本的的const信息、左右值属性。
 
 那么我们来小试牛刀一下：
-
 ```c++
 void fun(int& a)
 {
@@ -177,7 +180,7 @@ void fac_non_template(T && tmp)
 int main()
 {
     int a = 10;
-    fac_template(std::move(a));			//***注意此处区别，上上个代码中是fac(a),此处是fac(std::move(a))
+    fac_template(std::move(a));			// 注意此处区别，上上个代码中是fac(a),此处是fac(std::move(a))
     
     fac_non_template(std::move(a));
     return 0;
@@ -196,9 +199,7 @@ int main()
 */
 ```
 # 在cpp文件中调用c文件
-
 矛盾点：
-
 1. C++调用C
     1. C++产生函数符号-（函数名+参数类型列表），C语言产生函数符号-（函数名）
 2. C语言调用C++

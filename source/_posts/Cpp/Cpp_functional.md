@@ -8,12 +8,10 @@ updated:
 comments: 
 published:
 ---
-
 # 内容
 
 1. std::function
-1. std::bind
-
+2. std::bind
 # 可调用对象
 
 Cpp中，存在“可调用对象(Callable Objects)”这一概念。准确来说，可调用对象有如下几种定义：

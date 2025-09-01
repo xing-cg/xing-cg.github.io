@@ -8,7 +8,6 @@ updated:
 comments: 
 published:
 ---
-
 # node.h
 
 ```cpp
