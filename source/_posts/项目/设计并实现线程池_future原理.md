@@ -2023,6 +2023,5 @@ int main()
     cout << res2.get() << endl;
     cout << res3.get() << endl;
     cout << res4.get() << endl;
-    
 }
 ```

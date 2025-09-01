@@ -221,7 +221,8 @@ trpc-cpp/
 
 ### 4.1 新增广播接口（声明）
 
-```48:66:trpc/client/rpc_service_proxy.h
+```cpp
+//48:66:trpc/client/rpc_service_proxy.h
   /// @brief Broadcast unary 同步调用
   template <class Req, class Rsp>
   Status BroadcastUnaryInvoke(const ClientContextPtr& broadcast_ctx,
@@ -243,7 +244,8 @@ trpc-cpp/
 
 ### 4.2 同步广播核心实现（Fiber + Future 双模式）
 
-```280:337:trpc/client/rpc_service_proxy.h
+```cpp
+//280:337:trpc/client/rpc_service_proxy.h
 Status RpcServiceProxy::BroadcastUnaryInvoke(...) {
   MakeTrpcSelectorInfoForBroadcast(broadcast_ctx, selector);
   std::vector<TrpcEndpointInfo> endpoints;
@@ -274,7 +276,8 @@ Status RpcServiceProxy::BroadcastUnaryInvoke(...) {
 
 ### 4.3 异步广播实现（WhenAll 聚合）
 
-```566:619:trpc/client/rpc_service_proxy.h
+```cpp
+// 566:619:trpc/client/rpc_service_proxy.h
 Future<Status, VecTuple> RpcServiceProxy::AsyncBroadcastUnaryInvoke(...) {
   MakeTrpcSelectorInfoForBroadcast(broadcast_ctx, selector);
   return naming::AsyncSelectBatch(selector)
@@ -295,7 +298,8 @@ Future<Status, VecTuple> RpcServiceProxy::AsyncBroadcastUnaryInvoke(...) {
 
 ### 4.4 辅助函数实现（路由信息 + 子 Context）
 
-```838:871:trpc/client/service_proxy.cc
+```cpp
+// 838:871:trpc/client/service_proxy.cc
 void ServiceProxy::MakeTrpcSelectorInfoForBroadcast(...)
 {
   selector_info.name   = GetServiceName();
@@ -317,7 +321,8 @@ void ServiceProxy::SetClientContextForBroadcast(...)
 
 ### 4.5 BUILD 依赖补齐
 
-```148:156:trpc/client/BUILD
+```python
+# 148:156:trpc/client/BUILD
         "//trpc/common/future:future_utility",
         "//trpc/future:future_utility",
         "//trpc/naming:trpc_naming",
@@ -354,15 +359,17 @@ void ServiceProxy::SetClientContextForBroadcast(...)
 
 ## 7. 编译了哪些关键文件 & 配置改了什么
 
-1. **核心目标**  
-   ```bash
-   bazel build //trpc/client:rpc_service_proxy //trpc/client:service_proxy
-   ```
-2. **示例 / 自测**  
-   ```bash
-   bazel build //trpc/client:broadcast_test
-   ```
-3. **配置文件**  
+1. **核心目标**
+
+```bash
+bazel build //trpc/client:rpc_service_proxy //trpc/client:service_proxy
+```
+2. **示例 / 自测**
+
+```bash
+bazel build //trpc/client:broadcast_test
+```
+3. **配置文件**
    - `trpc/client/BUILD`：新增 4 条依赖  
    - 根目录 `BUILD`：`exports_files(["test_broadcast.cc"])`  
    - 新增测试源 `test_broadcast.cc`  
@@ -373,7 +380,8 @@ void ServiceProxy::SetClientContextForBroadcast(...)
 
 ### 8.1 示例代码
 
-```1:47:test_broadcast.cc
+```cpp
+// 1:47:test_broadcast.cc
 #include "trpc/client/rpc_service_proxy.h"
 ...
 void TestBroadcastCall() {

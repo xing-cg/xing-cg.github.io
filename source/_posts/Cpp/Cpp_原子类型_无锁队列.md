@@ -1,5 +1,5 @@
 ---
-title: Cpp_原子类型
+title: Cpp_原子类型_无锁队列
 categories:
   - - Cpp
     - Modern
@@ -7,7 +7,7 @@ categories:
     - 多线程
 tags: 
 date: 2022/4/10
-updated: 2024/7/24
+updated: 2025/9/1
 comments: 
 published:
 ---

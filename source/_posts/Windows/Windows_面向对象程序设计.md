@@ -182,6 +182,7 @@ constinit HINSTANCE afk::Window::_instance{ nullptr };
 1. 左键按下
 2. 左键抬起
 3. 画
+
 ```cpp
 class Window
 {

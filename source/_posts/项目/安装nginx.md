@@ -14,7 +14,7 @@ published:
 
 可能需要的命令：
 
-1. Linux下`\*.tar.gz`文件解压缩命令：`tar -zxvf 压缩文件名.tar.gz`
+1. Linux下`*.tar.gz`文件解压缩命令：`tar -zxvf 压缩文件名.tar.gz`
 2. `chown -R` : 处理指定目录以及其子目录下的所有文件
 
 参考文章

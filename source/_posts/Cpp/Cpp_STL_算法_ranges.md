@@ -687,7 +687,7 @@ int main()
 来自`<numeric>`
 把所有部分累积起来。`C++17`之后演化成了reduce。
 reduce可以用par，而accumulate不能。
-
+ 
 |        |                                                                                                                                                                  |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sum    | `template <class InputIterator, class T>`<br>`T accumulate (InputIterator first, InputIterator last, T init);`                                                   |
@@ -755,7 +755,7 @@ int main()
     // sum = 36
 }
 ```
-# ranges、面向过程（函数）编程
+# ranges、流水线（pipeline）、面向过程（函数）编程
 `C++20`
 ranges可以让计算进行流水线化。以下是案例：
 
@@ -786,7 +786,9 @@ int main()
 ```
 ## 与尾插迭代器结合
 `std::back_inserter(vec2)`只用执行一次，与vec2产生关联，生成一个输出迭代器。在算法发生输出时，就在尾部自动扩容并插入数据。
+
 >但`back_inserter`不适合与vector搭配，因为尾插会造成容量频繁改变。更适合与list搭配。
+
 ```cpp
 #include <iterator>
 int main()
@@ -820,6 +822,7 @@ int main()
     1. 用高阶函数（lambda函数对象）限定filter行为
     2. 用`back_inserter`做输出
 3. transform。
+
 这种数据流式（data flow）、流水线式的操作，是一种常见于大型软件的设计模式。这种就很适合用`C++20`中的ranges库来处理、简化。
 ## 示例
 一般的filter如`copy_if`的参数需要两个输入迭代器、一个输出迭代器和一个谓词，现在ranges搭配管道符号，参数只需要填写谓词即可。

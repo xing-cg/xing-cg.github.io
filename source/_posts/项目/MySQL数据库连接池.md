@@ -40,29 +40,29 @@ C++实现的小型项目, MySQL数据库连接池, 属于常用组件;
 始连接量，最大连接量，最大空闲时间、连接超时时间等;
 
 1. **初始连接量(initSize)**
-   1. 表示连接池事先会和MySQL Server创建initSize个数的connection连接;
-   2. 当应用发起MySQL访问时，不用再创建和MySQL Server新的连接，直接从连接池中获取一个可用的连接就可以;
-   3. 使用完成后，并不去释放connection，而是把当前connection再归还到连接池当中。
+    1. 表示连接池事先会和MySQL Server创建initSize个数的connection连接;
+    2. 当应用发起MySQL访问时，不用再创建和MySQL Server新的连接，直接从连接池中获取一个可用的连接就可以;
+    3. 使用完成后，并不去释放connection，而是把当前connection再归还到连接池当中。
 2. **最大连接量(maxSize)**
-   1. 总的连接数量上限是maxSize;
-   2. 当并发访问MySQL Server的请求增多时，初始连接量已经不够使用了，此时会根据新的请求数量去创建更多的连接给应用去使用;
-   3. 但是，不能无限制的创建连接，因为每一个连接都会占用一个socket资源，一般连接池和服务器程序是部署在一台主机上的，如果连接池占用过多的socket资源，那么服务器就不能接收太多的客户端请求了;
-   4. 当这些连接使用完成后，再次归还到连接池当中来维护。
+    1. 总的连接数量上限是maxSize;
+    2. 当并发访问MySQL Server的请求增多时，初始连接量已经不够使用了，此时会根据新的请求数量去创建更多的连接给应用去使用;
+    3. 但是，不能无限制的创建连接，因为每一个连接都会占用一个socket资源，一般连接池和服务器程序是部署在一台主机上的，如果连接池占用过多的socket资源，那么服务器就不能接收太多的客户端请求了;
+    4. 当这些连接使用完成后，再次归还到连接池当中来维护。
 3. **最大空闲时间(maxIdleTime)**
-   1. 当访问MySQL的并发请求多了以后，连接池里面的连接数量会动态增加，上限是maxSize个;
-   2. 当这些连接用完再次归还到连接池当中;
-   3. 如果在指定的maxIdleTime里面，这些新增加的连接都没有被再次使用过，那么新增加的这些连接资源就要被回收掉，只需要保持初始连接量initSize个连接就可以了。
+    1. 当访问MySQL的并发请求多了以后，连接池里面的连接数量会动态增加，上限是maxSize个;
+    2. 当这些连接用完再次归还到连接池当中;
+    3. 如果在指定的maxIdleTime里面，这些新增加的连接都没有被再次使用过，那么新增加的这些连接资源就要被回收掉，只需要保持初始连接量initSize个连接就可以了。
 4. **连接超时时间(connectionTimeout)**
-   1. 当MySQL的并发请求量过大，连接池中的连接数量已经到达maxSize了，而此时没有空闲的连接可供使用，那么此时应用从连接池获取连接需要通过阻塞的方式获取连接;
-   2. 阻塞时间如果超过connectionTimeout时间，那么获取连接失败，无法访问数据库;
+    1. 当MySQL的并发请求量过大，连接池中的连接数量已经到达maxSize了，而此时没有空闲的连接可供使用，那么此时应用从连接池获取连接需要通过阻塞的方式获取连接;
+    2. 阻塞时间如果超过connectionTimeout时间，那么获取连接失败，无法访问数据库;
 
 该项目主要实现上述的连接池四大功能，其余连接池更多的扩展功能，可以在该框架的基础上进行很好的拓展;
 
 # 设计思路
 
 1. 需要抽象出两个类
-   1. ConnectionPool - 连接池
-   2. Connection - 封装数据库操作, 增删改查
+    1. ConnectionPool - 连接池
+    2. Connection - 封装数据库操作, 增删改查
 2. 连接池只需要一个实例, 则ConnectionPool设计为单例模式
 3. ConnectionPool需要提供获取MySQL连接Connection的接口
 4. 空闲连接Connection全部维护在一个Connection队列中, 使用互斥锁保证队列的线程安全
@@ -74,16 +74,16 @@ C++实现的小型项目, MySQL数据库连接池, 属于常用组件;
 # MySQL数据库编程
 
 ## 公共代码
+简易日志工具 - 向标准输出设备输出
 
-1. 简易日志工具 - 向标准输出设备输出
-   ```cpp
-   #include<iostream>
-   #define LOG(str)                                            \
-       do {                                                    \
-       std::cout << __FILE__ << ":" << __LINE__ << ":"         \
-                 << __TIMESTAMP__ << ":" << str << std::endl;  \
-       } while(0)
-   ```
+```cpp
+#include<iostream>
+#define LOG(str)                                            \
+    do {                                                    \
+    std::cout << __FILE__ << ":" << __LINE__ << ":"         \
+              << __TIMESTAMP__ << ":" << str << std::endl;  \
+    } while(0)
+```
 
 ## MySQLConnection - 封装MySQL数据库操作
 
@@ -100,141 +100,136 @@ private:
 
 1. 构造/析构 - 初始化/释放数据库连接
 
-   ```cpp
-   public:
-       /* 初始化数据库连接 */
-       MySQLConnection();
-       /* 释放数据库连接资源 */
-       ~MySQLConnection();
-   ```
+```cpp
+public:
+    /* 初始化数据库连接 */
+    MySQLConnection();
+    /* 释放数据库连接资源 */
+    ~MySQLConnection();
+```
 
 2. getConnection - 获取连接, 即获取成员`m_conn`
 
-   ```cpp
-   public:
-       /* 获取连接 */
-       MYSQL * getConnection();
-   ```
+```cpp
+public:
+    /* 获取连接 */
+    MYSQL * getConnection();
+```
 
 3. connect - 连接数据库, 返回值为bool, 说明连接成功与否
 
-   ```cpp
-   public:
-       /* 连接数据库 */
-       bool connect(std::string ip, unsigned short port,
-                    std::string user, std::string password, std::string dbname);
-   ```
+```cpp
+public:
+    /* 连接数据库 */
+    bool connect(std::string ip, unsigned short port,
+                std::string user, std::string password, std::string dbname);
+```
 
 4. query - 查询操作, 参数是string类型的sql语句, 返回值为`MYSQL_RES`, 即MySQL结果集类型
 
-   ```cpp
-   public:
-       /* 查询操作 */
-       MYSQL_RES * query(std::string sql);
-   ```
+```cpp
+public:
+    /* 查询操作 */
+    MYSQL_RES * query(std::string sql);
+```
 
 5. update - 更新操作, 参数是string类型的sql语句, 返回值为bool, 说明更新成功与否
 
-   ```cpp
-   public:
-       /* 更新操作 */
-       bool update(std::string sql);
-   ```
+```cpp
+public:
+    /* 更新操作 */
+    bool update(std::string sql);
+```
 
 ### 代码实现
 
 1. 构造 - 调用`mysql_init`, 实际上只是对mysql连接进行空间资源的开辟, 返回一个指针赋给`m_conn`成员, 没有真正连接, 因此传入nullptr
 
-   ```cpp
-   /* 初始化数据库连接 */
-   MySQLConnection::MySQLConnection()
-   {
-       m_conn = mysql_init(nullptr);
-   }
-   ```
+```cpp
+/* 初始化数据库连接 */
+MySQLConnection::MySQLConnection()
+{
+    m_conn = mysql_init(nullptr);
+}
+```
 
 2. 析构 - 调用`mysql_close(m_conn)`, 对MySQL连接资源进行释放
 
-   ```cpp
-   /* 释放数据库连接资源 */
-   MySQLConnection::~MySQLConnection()
-   {
-       if(m_conn != nullptr)
-       {
-           mysql_close(m_conn);
-       }
-   }
-   ```
+```cpp
+/* 释放数据库连接资源 */
+MySQLConnection::~MySQLConnection()
+{
+    if(m_conn != nullptr)
+    {
+       mysql_close(m_conn);
+    }
+}
+```
 
 3. connect - 连接数据库, 内部调用`mysql_real_connect`, 传入`m_conn`, 以及server ip地址, user号, 密码, 要连接的数据库name, 服务器端口;
 
-   ```cpp
-   /* 连接数据库 */
-   bool MySQLConnection::connect(std::string ip, unsigned short port,
-                                 std::string user, std::string password,
-                                 std::string dbname)
-   {
-       MYSQL *p = mysql_real_connect(m_conn, ip.c_str(), user.c_str(),
-                                     password.c_str(), dbname.c_str(),
-                                     port, nullptr, 0);
-       if(p != nullptr)
-       {
-           /**
-            * C/C++代码默认的编码字符是ASCII, 
-            * 如果不设置, 则从MySQL上拉下来的中文无法正常显示
-            */
-           mysql_query(m_conn, "set name gbk");
-           LOG("connect mysql success!");
-       }
-       else
-       {
-           LOG("connect mysql failed!");
-       }
-       return p != nullptr;
-   }
-   ```
+```cpp
+/* 连接数据库 */
+bool MySQLConnection::connect(std::string ip, unsigned short port,
+                              std::string user, std::string password,
+                              std::string dbname)
+{
+    MYSQL *p = mysql_real_connect(m_conn, ip.c_str(), user.c_str(),
+                                  password.c_str(), dbname.c_str(),
+                                  port, nullptr, 0);
+    if(p != nullptr)
+    {
+        /**
+         * C/C++代码默认的编码字符是ASCII, 
+         * 如果不设置, 则从MySQL上拉下来的中文无法正常显示
+         */
+        mysql_query(m_conn, "set name gbk");
+        LOG("connect mysql success!");
+    }
+    else
+    {
+       LOG("connect mysql failed!");
+    }
+    return p != nullptr;
+}
+```
 
 4. query - 查询操作
+    1. 内部调用`mysql_query`, 传入`m_conn`, `sql-string`的C风格字符串首址;
+        1. `mysql_query`的返回值:
+            1. 如果查询成功，返回0;
+            2. 如果出现错误，返回非0值。
+    2. 返回值需要调用`mysql_use_result(m_conn)`获取结果集, 再return;
 
-   1. 内部调用`mysql_query`, 传入`m_conn`, `sql-string`的c风格字符串首址;
+```cpp
+/* 查询操作 */
+MYSQL_RES * MySQLConnection::query(std::string sql)
+{
+    if(mysql_query(m_conn, sql.c_str()) == 0)
+    {
+        LOG("select failed: " + sql);
+        return nullptr;
+    }
+    return mysql_use_result(m_conn);
+}
+```
 
-      > `mysql_query`的返回值: 
-      >
-      > 1. 如果查询成功，返回0;
-      > 2. 如果出现错误，返回非0值。
+7. update - 更新操作
+    1. 内部调用`mysql_query`, 传入`m_conn`, `sql-string`的c风格字符串首址;
+    2. 判断`mysql_query`的返回值, 若为非0则更新失败; 若为0则更新成功;
 
-   2. 返回值需要调用`mysql_use_result(m_conn)`获取结果集, 再return;
-
-   ```cpp
-   /* 查询操作 */
-   MYSQL_RES * MySQLConnection::query(std::string sql)
-   {
-       if(mysql_query(m_conn, sql.c_str()) == 0)
-       {
-           LOG("select failed: " + sql);
-           return nullptr;
-       }
-       return mysql_use_result(m_conn);
-   }
-   ```
-
-5. update - 更新操作
-
-   1. 内部调用`mysql_query`, 传入`m_conn`, `sql-string`的c风格字符串首址;
-   2. 判断`mysql_query`的返回值, 若为非0则更新失败; 若为0则更新成功;
-
-   ```cpp
-   /* 更新操作 */
-   bool MySQLConnection::update(std::string sql)
-   {
-       if(mysql_query(m_conn, sql.c_str()) == 0)
-       {
-           LOG("update failed: " + sql);
-           return false;
-       }
-       return true;
-   }
-   ```
+```cpp
+/* 更新操作 */
+bool MySQLConnection::update(std::string sql)
+{
+    if(mysql_query(m_conn, sql.c_str()) == 0)
+    {
+        LOG("update failed: " + sql);
+        return false;
+    }
+    return true;
+}
+```
 
 # 连接池
 
@@ -243,20 +238,15 @@ private:
 ### 成员变量
 
 ### 成员函数
-
-1. getConnection
-   ```cpp
-   /* 获取连接 */
-   MYSQL * MySQLConnection::getConnection()
-   {
-       return m_conn;
-   }
-   ```
-
-   
-
+getConnection
+```cpp
+/* 获取连接 */
+MYSQL * MySQLConnection::getConnection()
+{
+    return m_conn;
+}
+```
 ### 代码实现
-
 # 压力测试
 
 建个表
@@ -269,4 +259,3 @@ CREATE TABLE user(
     sex ENUM('male', 'female') NOT NULL
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 ```
-
