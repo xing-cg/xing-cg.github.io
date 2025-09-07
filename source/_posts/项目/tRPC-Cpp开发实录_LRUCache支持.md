@@ -34,3 +34,16 @@ published: false
     2. 多线程问题，有可能是线程环境，有可能是Fiber协程环境。所以如果有无锁的情况下，可能要把锁这个东西做一个模板。
 6. 业内常用的LRU实现，LevelDB、RocksDB、CacheLib，它们的接口做得非常周全，可以基于它们的思路做一些简化。因为我们只是做内存，序列化我们其实不需要。
 
+# 设计思路
+1. 参考 MyBatis 的 Cache 设计——实现一些基础的 Cache 类，通过装饰器模式增强功能
+    1. MyBatis 实现 LRUCache 的时候将 LRU 和底层的存储逻辑解耦
+2. 在 tRPC 里面有实现好的**无锁 Hash** 以及 **无锁队列**
+    1. 无锁 Hash：`trpc/util/concurrency/lightly_concurrent_hashmap.h`
+        1. 基本结构：分片锁管理 Slot（即**分片锁 Hash**），锁内保护 **无锁链表** 结构
+    2. **无锁队列**：`trpc/util/queue`
+    3. 总结下来，tRPC 目前可以复用的结构有：分片锁Hash、无锁链表、无锁队列
+3. LRUCache 需要管理的两个数据结构：Hash + 链表
+4. FIFOCache 需要管理的两个数据结构：Hash + 队列
+
+实现文件存放于：`trpc/util/cache/cache.h`、`trpc/util/cache/cache.h/decorators/lru_cache.h`
+# 
