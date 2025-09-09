@@ -1,0 +1,533 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="文章：https:&#x2F;&#x2F;google.github.io&#x2F;styleguide&#x2F;cppguide.html 源码：https:&#x2F;&#x2F;github.com&#x2F;google&#x2F;styleguide&#x2F;blob&#x2F;gh-pages&#x2F;cppguide.html                      #define守卫        符号名称的格式应是&lt;PROJECT&gt;_&lt;PATH&gt;_&amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp_Google代码规范">
+<meta property="og:url" content="https://xing-cg.github.io/Cpp/Cpp_Google%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="文章：https:&#x2F;&#x2F;google.github.io&#x2F;styleguide&#x2F;cppguide.html 源码：https:&#x2F;&#x2F;github.com&#x2F;google&#x2F;styleguide&#x2F;blob&#x2F;gh-pages&#x2F;cppguide.html                      #define守卫        符号名称的格式应是&lt;PROJECT&gt;_&lt;PATH&gt;_&amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-10T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>Cpp_Google代码规范 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/Cpp/Cpp_Google%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Cpp_Google代码规范</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Cpp/Cpp_Google%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-flag-title="Cpp_Google代码规范"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>文章：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://google.github.io/styleguide/cppguide.html" >https://google.github.io/styleguide/cppguide.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+源码：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/google/styleguide/blob/gh-pages/cppguide.html" >https://github.com/google/styleguide/blob/gh-pages/cppguide.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="define守卫"   >
+          <a href="#define守卫" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#define守卫"></a> <code>#define</code>守卫</h1>
+      
+<p>符号名称的格式应是<code>&lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_</code>。<br />
+为了保证唯一性，应该基于项目源代码树中的完整路径。例如，项目<code>foo</code>中的文件<code>foo/src/bar/baz.h</code>，应该这么写：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> FOO_BAR_BAZ_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOO_BAR_BAZ_H_</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  <span class="comment">// FOO_BAR_BAZ_H_</span></span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="不要依赖传递include"   >
+          <a href="#不要依赖传递include" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#不要依赖传递include"></a> 不要依赖传递<code>#include</code></h1>
+      
+<p>bar.h</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bar.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> BAR_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BAR_H</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bar</span> &#123;</span><br><span class="line">    <span class="comment">// ... Bar 的成员 ...</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// BAR_H</span></span></span><br></pre></td></tr></table></div></figure>
+<p>foo.h</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> FOO_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FOO_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bar.h&quot;</span> <span class="comment">// 当前 foo.h 需要 Bar 来声明 useBar 的参数</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">useBar</span><span class="params">(<span class="type">const</span> Bar&amp; b)</span></span>; <span class="comment">// 声明使用 Bar</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// FOO_H</span></span></span><br></pre></td></tr></table></div></figure>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://foo.cc" >foo.cc</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.cc (错误写法：依赖 foo.h 包含 bar.h)</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;foo.h&quot;</span> <span class="comment">// 指望 foo.h 已经包含了 bar.h</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">useBar</span><span class="params">(<span class="type">const</span> Bar&amp; b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ... 使用 b (Bar 对象) ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>导致的问题：如果将来<code>foo.h</code>中删除了<code>#include &quot;bar.h&quot;</code>，那么还需要在<code>foo.cc</code>添加<code>#include &quot;bar.h&quot;</code>，导致牵一发动全身。</p>
+<p>正确写法：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.cc (正确写法：显式包含 bar.h)</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bar.h&quot;</span> <span class="comment">// 显式包含，因为直接使用了 Bar</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">useBar</span><span class="params">(<span class="type">const</span> Bar&amp; b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ... 使用 b (Bar 对象) ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这保证了 <code>foo.h</code>的修改（清理不必要的 <code>#include</code>）不会意外破坏 <code>foo.cc</code>的编译。每个文件都清晰地声明了自己的直接依赖。</p>
+
+        <h1 id="前置声明"   >
+          <a href="#前置声明" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#前置声明"></a> 前置声明</h1>
+      
+<p>避免使用前置声明，而是 include 需要的头文件。</p>
+<p>​<strong>​核心观点：尽量避免使用前置声明，优先使用 <code>#include</code> 包含所需的头文件。​</strong>​</p>
+<p>​<strong>​什么是前置声明 (Forward Declaration)?​</strong>​</p>
+<ul>
+<li>
+<p>​<strong>​定义：​</strong>​ 前置声明是指在代码中​<strong>​声明​</strong>​某个实体（如类、函数、变量、模板等）的存在，但​<strong>​不提供其完整定义​</strong>​。</p>
+</li>
+<li>
+<p>​<strong>​目的：​</strong>​ 告诉编译器这个符号的名字和类型（对于函数和变量），但不需要知道其内部细节（如类的成员、函数的实现、变量的值等）。</p>
+</li>
+<li>
+<p>​<strong>​示例：​</strong>​</p>
+  <figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>;      <span class="comment">// 类的前置声明 (告诉编译器 MyClass 是一个类)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">()</span></span>;  <span class="comment">// 函数的前置声明</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> myVar;    <span class="comment">// 变量的前置声明 (通常用于全局变量)</span></span><br></pre></td></tr></table></div></figure>
+</li>
+</ul>
+
+        <h2 id="pros-优点好处-为什么有人想用前置声明"   >
+          <a href="#pros-优点好处-为什么有人想用前置声明" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pros-优点好处-为什么有人想用前置声明"></a> ​Pros (优点/好处 - 为什么有人想用前置声明)​​</h2>
+      
+<p>规范列举了使用前置声明可能带来的好处，但请注意，规范的整体立场是​<strong>​不推荐​</strong>​使用，所以这些优点更像是解释为什么开发者有时会倾向于使用它：</p>
+<ol>
+<li>​<strong>​节省编译时间：​</strong>​ <code>#include</code> 会让编译器打开并处理被包含文件的所有内容（可能又包含更多文件）。使用前置声明可以避免这些开销，特别是当包含的头文件很大或嵌套很深时。</li>
+<li>​<strong>​减少不必要的重新编译：​</strong>​ 如果一个头文件被修改了，所有直接或间接包含它的源文件都需要重新编译。如果一个头文件 <code>A.h</code> 包含了 <code>B.h</code>，那么修改 <code>B.h</code> 会导致包含 <code>A.h</code> 的所有文件都重编。如果 <code>A.h</code> 只用了 <code>B.h</code> 中的某个类指针或引用，并且改用前置声明 <code>class B;</code> 而不是 <code>#include &quot;B.h&quot;</code>，那么修改 <code>B.h</code> 的某些细节（比如 <code>B</code> 类的私有成员）可能​<strong>​不会​</strong>​触发 <code>A.h</code> 及其包含者的重编译。这可以加快增量编译速度。</li>
+</ol>
+
+        <h2 id="cons-缺点坏处-为什么-google-规范不推荐使用"   >
+          <a href="#cons-缺点坏处-为什么-google-规范不推荐使用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cons-缺点坏处-为什么-google-规范不推荐使用"></a> ​Cons (缺点/坏处 - 为什么 Google 规范不推荐使用)​</h2>
+      
+<p>规范详细列举了前置声明的诸多弊端，这也是其建议避免使用的主要原因：</p>
+<ol>
+<li>​<strong>​隐藏依赖关系：​</strong>​ 这是最核心的问题。前置声明使得代码的依赖关系变得不清晰。源文件 <code>foo.cc</code> 使用了 <code>class Bar</code>，但只通过前置声明 <code>class Bar;</code> 引入，而没有 <code>#include &quot;bar.h&quot;</code>。当 <code>bar.h</code> 发生改变（比如 <code>Bar</code> 类的大小、成员函数签名变化）时，编译器可能​<strong>​无法意识到​</strong>​ <code>foo.cc</code> 需要重新编译，导致链接错误或更糟糕的运行时错误。这破坏了构建系统的可靠性。</li>
+<li>​<strong>​阻碍自动化工具：​</strong>​ 代码分析工具、重构工具、IDE 的智能提示等，需要知道符号的完整定义才能正常工作。前置声明使得这些工具难以确定符号的实际定义位置。</li>
+<li>​<strong>​限制 API 的兼容性变更：​</strong>​ 库的维护者如果想做一些理论上兼容的修改，可能会因为用户代码使用了前置声明而受阻。例如：
+<ul>
+<li>加宽函数参数类型（如 <code>int</code> -&gt; <code>long</code>）。</li>
+<li>给模板添加一个有默认值的模板参数。</li>
+<li>将符号移动到新的命名空间。<br />
+这些修改对于包含完整头文件的用户代码是兼容的，但对于仅使用前置声明的用户代码，可能导致编译失败或行为改变，因为前置声明没有捕捉到这些变化。</li>
+</ul>
+</li>
+<li>​<strong>​<code>std::</code> 命名空间的前置声明导致未定义行为：​</strong>​ C++ 标准明确规定，不允许用户代码前置声明标准库 (<code>std::</code>) 中的模板或其他实体。这样做会导致​<strong>​未定义行为 (Undefined Behavior)​</strong>​，程序可能编译失败、运行崩溃或产生不可预测的结果。必须 <code>#include</code> 相应的标准库头文件（如 <code>&lt;vector&gt;</code>, <code>&lt;string&gt;</code>）。</li>
+<li>​<strong>​可能静默改变代码含义：​</strong>​ 这是一个非常微妙且危险的陷阱。规范中的代码示例清晰地展示了这一点：
+<ul>
+<li>在包含完整头文件 <code>b.h</code> 的情况下，<code>test(D*)</code> 调用 <code>f(B*)</code>，因为 <code>D*</code> 可以隐式转换为 <code>B*</code>。</li>
+<li>如果 <code>good_user.cc</code> 把 <code>#include &quot;b.h&quot;</code> 换成 <code>class B; class D;</code>（前置声明），那么 <code>test(D*)</code> 会调用 <code>f(void*)</code>！因为编译器只知道 <code>B</code> 和 <code>D</code> 是类类型，但不知道它们之间的继承关系，所以 <code>D*</code> 无法隐式转换为 <code>B*</code>，只能匹配 <code>f(void*)</code>。这种行为的改变是静默发生的，很难调试。</li>
+</ul>
+</li>
+<li>​<strong>​语法冗长：​</strong>​ 如果需要前置声明一个头文件中的多个符号，写一堆 <code>class X; void Y();</code> 可能比直接写一个 <code>#include &quot;that_header.h&quot;</code> 更冗长。</li>
+<li>​<strong>​可能导致次优设计：​</strong>​ 为了能够使用前置声明（例如，在头文件中只使用类指针或引用，避免使用对象成员），开发者可能会被迫采用特定的代码结构（如多用指针、使用 Pimpl 惯用法）。这些结构有时会使代码运行速度变慢（额外的间接访问、堆分配）或增加代码的复杂性（需要管理指针生命周期、实现 Pimpl）。</li>
+</ol>
+
+        <h2 id="decision-决策结论"   >
+          <a href="#decision-决策结论" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#decision-决策结论"></a> ​Decision (决策/结论)​​</h2>
+      
+<ul>
+<li>​<strong>​核心原则：​</strong>​ ​<strong>​尽可能避免使用前置声明。​</strong>​ 优先使用 <code>#include</code> 来包含定义了你所需符号的头文件。</li>
+<li>​<strong>​关键限制：​</strong>​ ​<strong>​尤其要避免对另一个项目中定义的实体使用前置声明。​</strong>​ 这里的“项目”可以理解为不同的库、模块或代码仓库。跨项目的前置声明极大地加剧了上述缺点（特别是隐藏依赖和限制 API 变更），因为项目间的协调和同步更困难。</li>
+<li>​<strong>​隐含建议：​</strong>​ 在同一个项目内部，如果经过仔细权衡（比如某个头文件改动极其频繁且影响巨大），并且能严格确保依赖清晰、不会引入第 3 点和第 5 点的问题，或许可以​<strong>​极其谨慎地​</strong>​在源文件（<code>.cc</code>）中使用前置声明来减少编译依赖。但这需要非常高的警惕性。规范的整体倾向仍然是 <code>#include</code> 更安全、更推荐。</li>
+</ul>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> ​总结​</h2>
+      
+<p>Google C++ 规范认为，虽然前置声明在理论上可以带来编译速度的提升，但其带来的风险（隐藏依赖、破坏构建可靠性、阻碍工具、限制库演化、潜在未定义行为、静默语义改变）远大于收益。因此，规范强烈建议开发者优先使用 <code>#include</code> 来明确表达依赖关系，保证代码的健壮性、可维护性和工具友好性，尤其是在跨项目协作时。</p>
+
+        <h1 id="在头文件中定义函数"   >
+          <a href="#在头文件中定义函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#在头文件中定义函数"></a> 在头文件中定义函数</h1>
+      
+<p>​<strong>​核心观点：​</strong>​ 尽量避免在头文件的 ​<strong>​公共 API 声明部分​</strong>​ 直接定义函数体。如果函数定义​<strong>​必须​</strong>​放在头文件中（例如短小的访问器、模板函数、<code>constexpr</code> 函数），应将其放在头文件的​<strong>​内部实现部分​</strong>​（如私有区、特定命名空间或注释标记之后），并确保其 ​<strong>​ODR-safe​</strong>​（通常通过 <code>inline</code> 关键字、模板或类内定义实现）。</p>
+
+        <h2 id="关键概念解释"   >
+          <a href="#关键概念解释" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#关键概念解释"></a> ​关键概念解释​</h2>
+      
+<ol>
+<li>​<strong>​文本内联 (Textually inline)：​</strong>​ 指函数的定义（实现代码）直接写在它的声明处。</li>
+<li>​<strong>​内联展开 (Inline expansion)：​</strong>​ 编译器优化技术，将函数调用处直接替换为函数体代码，避免函数调用的开销（压栈、跳转、返回）。这通常发生在函数体简单且被频繁调用时。</li>
+<li>​<strong>​ODR (One Definition Rule - 单一定义规则)：​</strong>​ C++ 核心规则，要求在整个程序中，任何变量、函数、类类型、枚举类型或模板，​<strong>​最多只能有一个定义​</strong>​（某些情况如 <code>inline</code> 函数/变量、模板、类类型定义等允许在多个翻译单元中存在定义，但必须完全相同）。</li>
+<li>​<strong>​ODR-safe：​</strong>​ 指在头文件中定义的实体（如函数、变量），通过使用 <code>inline</code> 关键字（或符合隐式 <code>inline</code> 的条件），使其在多个 <code>.cpp</code> 文件包含该头文件时，链接器不会因违反 ODR（出现多个相同定义）而报错。</li>
+</ol>
+
+        <h2 id="pros-优点好处-为什么有时需要在头文件中定义函数"   >
+          <a href="#pros-优点好处-为什么有时需要在头文件中定义函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pros-优点好处-为什么有时需要在头文件中定义函数"></a> ​​Pros (优点/好处 - 为什么有时需要在头文件中定义函数)​​</h2>
+      
+<p>规范承认在特定情况下，在头文件中定义函数有其合理性和优势：</p>
+<ol>
+<li>​<strong>​减少样板代码 (Reduce boilerplate)：​</strong>​ 对于非常简单的函数（如类的 <code>getter/setter</code>），直接在类声明中定义比在头文件声明、再到 <code>.cc</code> 文件定义要简洁得多。</li>
+<li>​<strong>​潜在的优化机会 (Potential optimization)：​</strong>​ 编译器更容易对在头文件中定义的小函数进行内联展开优化，可能生成更高效的代码（省去函数调用开销）。</li>
+<li>​<strong>​技术必要性 (Technical necessity)：​</strong>​ ​<strong>​函数模板​</strong>​和 ​<strong>​<code>constexpr</code> 函数​</strong>​ 通常​<strong>​必须​</strong>​在声明它们的头文件中定义（或者至少在同一个翻译单元中可见）。因为编译器在实例化模板或计算 <code>constexpr</code> 时需要看到完整的定义。这是语言特性决定的。</li>
+</ol>
+
+        <h2 id="cons-缺点坏处-为什么规范限制在公共部分定义函数"   >
+          <a href="#cons-缺点坏处-为什么规范限制在公共部分定义函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#cons-缺点坏处-为什么规范限制在公共部分定义函数"></a> ​​Cons (缺点/坏处 - 为什么规范限制在公共部分定义函数)​​</h2>
+      
+<p>规范强调了在公共 API 部分（即用户一眼就能看到的地方）定义函数的弊端：</p>
+<ol>
+<li>​<strong>​降低 API 可读性 (Reduced API readability)：​</strong>​ API 头文件的主要目的是清晰地展示接口（有哪些函数、参数、返回值）。将函数实现细节混杂其中，会增加阅读和理解 API 的难度和认知负担。函数越复杂，这种干扰越大。</li>
+<li>​<strong>​暴露实现细节 (Exposes implementation details)：​</strong>​ 将函数体放在公共头文件中，相当于把内部实现逻辑公开了。这些细节通常对 API 使用者来说是无关紧要的（“无害但多余”），甚至可能暴露你不想让用户依赖的内部机制。</li>
+</ol>
+
+        <h2 id="decision-决策规则"   >
+          <a href="#decision-决策规则" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#decision-决策规则"></a> ​​Decision (决策/规则)​​</h2>
+      
+<p>基于优缺点分析，规范制定了明确的规则：</p>
+<ol>
+<li>​<strong>​长度限制 (Length restriction)：​</strong>​
+<ul>
+<li>只有​<strong>​非常短​</strong>​的函数（规范建议大约 ​<strong>​10 行或更少​</strong>​），才允许直接在它的​<strong>​公共声明点​</strong>​（如在类定义的 <code>public:</code> 部分）定义。</li>
+<li>​<strong>​长函数体​</strong>​应该放在 <code>.cc</code> 文件中定义，除非有​<strong>​性能原因​</strong>​（编译器内联优化至关重要）或​<strong>​技术原因​</strong>​（如模板、<code>constexpr</code>）。</li>
+</ul>
+</li>
+<li>​<strong>​位置隔离 (Location isolation)：​</strong>​
+<ul>
+<li>即使函数定义​<strong>​必须​</strong>​放在头文件中（例如，它是一个模板成员函数），也​<strong>​不应该​</strong>​放在公共 API 部分（如 <code>public:</code> 或文件顶部）。</li>
+<li>应该将定义放在头文件的​<strong>​内部实现区域​</strong>​：
+<ul>
+<li>类的 <code>private:</code> 部分（即使函数本身是 <code>public</code> 的）。</li>
+<li>一个包含 <code>internal</code> 字样的命名空间内（例如 <code>namespace myproject_internal &#123; ... &#125;</code>）。</li>
+<li>在明确的注释标记之后（例如 <code>// Implementation details follow</code> 或 <code>// Implementation details only below here</code>）。</li>
+</ul>
+</li>
+<li>​<strong>​目的：​</strong>​ 将实现细节与公共接口​<strong>​物理分离​</strong>​，提高公共头文件的可读性和整洁度。</li>
+</ul>
+</li>
+<li>​<strong>​ODR 安全 (ODR safety)：​</strong>​
+<ul>
+<li>任何在头文件中定义的函数（或变量），​<strong>​必须​</strong>​确保它是 ​<strong>​ODR-safe​</strong>​ 的。这意味着当多个 <code>.cpp</code> 文件包含该头文件时，链接器不会报“多重定义”错误。</li>
+<li>实现 ODR-safe 的常用方法：
+<ul>
+<li>显式使用 <code>inline</code> 关键字修饰函数/变量定义。</li>
+<li>函数是​<strong>​函数模板​</strong>​。</li>
+<li>函数是​<strong>​类成员函数​</strong>​，并且是​<strong>​在类定义内部直接定义的​</strong>​（这是隐式 <code>inline</code> 的）。</li>
+<li>函数是 <code>constexpr</code> (C++11 起，<code>constexpr</code> 函数在头文件中定义默认是 <code>inline</code> 的)。</li>
+<li>变量是 <code>inline</code> 变量 (C++17 起) 或 <code>constexpr</code> 变量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+        <h2 id="代码示例解析"   >
+          <a href="#代码示例解析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码示例解析"></a> ​代码示例解析</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 短函数 (getter)，直接在公共声明点定义 -&gt; 允许 (短 + 隐式 inline)</span></span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> bar_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 长函数声明。定义不能放在这里污染公共接口。</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">MethodWithHugeBody</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="type">int</span> bar_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Implementation details only below here</span></span><br><span class="line"><span class="comment">// **************** 内部实现区域分隔线 ****************</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 长函数定义放在这里 (头文件内部实现区域)</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="type">void</span> Foo&lt;T&gt;::<span class="built_in">MethodWithHugeBody</span>() &#123;</span><br><span class="line">  ... <span class="comment">// 可能很长的实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<ul>
+<li><code>bar()</code>：是一个简单的 <code>getter</code> 函数，非常短（一行）。它直接在类定义的 <code>public:</code> 部分定义。这是允许的，因为它短小，并且作为类内定义的成员函数，它是​<strong>​隐式 <code>inline</code>​</strong>​ 的（满足 ODR-safe）。</li>
+<li><code>MethodWithHugeBody()</code>：声明在 <code>public:</code> 部分（它是公共接口）。但它的​<strong>​定义​</strong>​被移到了类定义之后、用注释明确标记的​<strong>​内部实现区域​</strong>​。这样保证了公共接口的清晰。因为它是一个​<strong>​模板成员函数​</strong>​，所以它的定义​<strong>​必须​</strong>​在头文件中（技术必要性），并且模板本身保证了 ODR-safe。</li>
+</ul>
+
+        <h2 id="总结-2"   >
+          <a href="#总结-2" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结-2"></a> ​​总结​</h2>
+      
+<p>Google C++ 规范主张保持头文件（尤其是公共 API 部分）的​<strong>​简洁和声明性​</strong>​。函数实现细节应尽量放在 <code>.cc</code> 文件中。如果必须在头文件中定义函数（短函数、模板、<code>constexpr</code>），应将其放在专门的内部区域，并确保其 ODR-safe。这样做的主要目的是​<strong>​提高代码的可读性、可维护性，并清晰地分离接口与实现​</strong>​。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/Cpp/Cpp_Google%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">https://xing-cg.github.io/Cpp/Cpp_Google%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/Cpp/Cpp_%E5%A5%87%E5%BC%82%E9%80%92%E5%BD%92%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F%EF%BC%88CRTP%EF%BC%89/"><span class="paginator-prev__text">Cpp_奇异递归模板模式（CRTP）</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#define%E5%AE%88%E5%8D%AB"><span class="toc-number">1.</span> <span class="toc-text">
+           #define守卫</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E8%A6%81%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92include"><span class="toc-number">2.</span> <span class="toc-text">
+           不要依赖传递#include</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%A3%B0%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">
+           前置声明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pros-%E4%BC%98%E7%82%B9%E5%A5%BD%E5%A4%84-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E4%BA%BA%E6%83%B3%E7%94%A8%E5%89%8D%E7%BD%AE%E5%A3%B0%E6%98%8E"><span class="toc-number">3.1.</span> <span class="toc-text">
+           ​Pros (优点&#x2F;好处 - 为什么有人想用前置声明)​​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cons-%E7%BC%BA%E7%82%B9%E5%9D%8F%E5%A4%84-%E4%B8%BA%E4%BB%80%E4%B9%88-google-%E8%A7%84%E8%8C%83%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">
+           ​Cons (缺点&#x2F;坏处 - 为什么 Google 规范不推荐使用)​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#decision-%E5%86%B3%E7%AD%96%E7%BB%93%E8%AE%BA"><span class="toc-number">3.3.</span> <span class="toc-text">
+           ​Decision (决策&#x2F;结论)​​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.4.</span> <span class="toc-text">
+           ​总结​</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">
+           在头文件中定义函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A"><span class="toc-number">4.1.</span> <span class="toc-text">
+           ​关键概念解释​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pros-%E4%BC%98%E7%82%B9%E5%A5%BD%E5%A4%84-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E9%9C%80%E8%A6%81%E5%9C%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">
+           ​​Pros (优点&#x2F;好处 - 为什么有时需要在头文件中定义函数)​​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cons-%E7%BC%BA%E7%82%B9%E5%9D%8F%E5%A4%84-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A7%84%E8%8C%83%E9%99%90%E5%88%B6%E5%9C%A8%E5%85%AC%E5%85%B1%E9%83%A8%E5%88%86%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text">
+           ​​Cons (缺点&#x2F;坏处 - 为什么规范限制在公共部分定义函数)​​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#decision-%E5%86%B3%E7%AD%96%E8%A7%84%E5%88%99"><span class="toc-number">4.4.</span> <span class="toc-text">
+           ​​Decision (决策&#x2F;规则)​​</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B%E8%A7%A3%E6%9E%90"><span class="toc-number">4.5.</span> <span class="toc-text">
+           ​代码示例解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.6.</span> <span class="toc-text">
+           ​​总结​</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">303</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
