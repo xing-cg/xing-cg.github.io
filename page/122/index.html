@@ -32,549 +32,424 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">排序_快速排序</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-09</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-flag-title="排序_快速排序"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/">设计模式概述</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-22</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0/" data-flag-title="设计模式概述"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="内容"   >
           <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
       
 <ol>
-<li>默认划分法</li>
-<li>非递归形式</li>
-<li>随机划分法</li>
-<li>三位取中法</li>
-<li>单向划分法</li>
-<li>单链表快排（单向划分法）</li>
+<li>模式是什么</li>
+<li>软件模式的由来</li>
+<li>软件模式的构成</li>
+<li>设计模式是什么</li>
+<li>设计模式用途分类，常用模式一览</li>
+<li>设计模式的价值</li>
+<li>如何学习设计模式</li>
 </ol>
 
-        <h1 id="原始代码"   >
-          <a href="#原始代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#原始代码"></a> 原始代码</h1>
+        <h1 id="模式是什么"   >
+          <a href="#模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#模式是什么"></a> 模式是什么</h1>
       
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//划分函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp = ar[left];</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; ar[right]&gt;tmp)--right;</span><br><span class="line">        <span class="keyword">if</span>(left &lt; right) ar[left] = ar[right];</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right) &amp;&amp; ar[left]&lt;=tmp)++left;</span><br><span class="line">        <span class="keyword">if</span>(left &lt; right) ar[right] = ar[left];</span><br><span class="line">    &#125;</span><br><span class="line">    ar[left] = tmp;<span class="comment">//left == right</span></span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PassQuick</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &lt; right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> pos = <span class="built_in">Partition</span>(ar, left, right);</span><br><span class="line">        <span class="built_in">PassQuick</span>(ar, left, pos<span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">PassQuick</span>(ar, pos<span class="number">+1</span>, right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || n&lt;=<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">PassQuick</span>(ar, <span class="number">0</span>, n<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>美国Christopher Alexander博士及其研究团队用了约20年的时间，对住宅和周边环境进行了大量的调查研究和资料收集工作，发现人们对舒适住宅和城市环境存在一些共同的认同规律，Christopher Alexander在著作A Pattern Language: Towns, Buildings, Construction中把这些认同规律归纳为253个模式，对每一个模式(Pattern)都从Context（前提条件）、Theme或Problem（目标问题）、 Solution（解决方案）三个方面进行了描述，并给出了从用户需求分析到建筑环境结构设计直至经典实例的过程模型。</p>
+<p>在Christopher Alexander的另一部经典著作《建筑的永恒之道》中，他给出了关于模式的定义：</p>
+<p>每个模式都描述了一个在我们的环境中不断出现的问题，然后描述了该问题的解决方案的核心，通过这种方式，我们可以无数次地重用那些已有的成功的解决方案，无须再重复相同的工作。</p>
+<p>这个定义可以简单地用一句话表示：</p>
+<p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案。</strong><br />
+A pattern is a successful or efficient <strong>solution to a recurring problem</strong> within a context.</p>
 
-        <h1 id="让函数不再任性-非递归"   >
-          <a href="#让函数不再任性-非递归" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#让函数不再任性-非递归"></a> 让函数不再任性-非递归</h1>
+        <h1 id="软件模式的由来23种"   >
+          <a href="#软件模式的由来23种" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的由来23种"></a> 软件模式的由来（23种）</h1>
       
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span>* ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp = ar[left];</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right &amp;&amp; br[right]&gt;tmp)--right;</span><br><span class="line">        <span class="keyword">if</span>(left &lt; right) br[left] = br[right];</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right) &amp;&amp; br[left]&lt;=tmp)++left;</span><br><span class="line">        <span class="keyword">if</span>(left &lt; right) br[right] = br[left];</span><br><span class="line">    &#125;</span><br><span class="line">    br[left] = tmp;<span class="comment">//left == right</span></span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span>* ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || n&lt;=<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; qu;</span><br><span class="line">    qu.<span class="built_in">push</span>(<span class="number">0</span>);</span><br><span class="line">    qu.<span class="built_in">push</span>(n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span>(!qu.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> left = qu.<span class="built_in">front</span>(); qu.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> right = qu.<span class="built_in">front</span>();qu.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> pos = <span class="built_in">Partition</span>(ar, left, right);</span><br><span class="line">        <span class="keyword">if</span>(left &lt; pos<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            qu.<span class="built_in">push</span>(left);</span><br><span class="line">            qu.<span class="built_in">push</span>(pos<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pos<span class="number">+1</span> &lt; right)</span><br><span class="line">        &#123;</span><br><span class="line">            qu.<span class="built_in">push</span>(pos<span class="number">+1</span>);</span><br><span class="line">            qu.<span class="built_in">push</span>(right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>使用别名之后, 程序更为简洁;</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || n&lt;=<span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">using</span> Pair = std::pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;;</span><br><span class="line">    queue&lt;Pair&gt; qu;</span><br><span class="line">    qu.<span class="built_in">push</span>(<span class="built_in">Pair</span>(<span class="number">0</span>, n<span class="number">-1</span>));</span><br><span class="line">    <span class="keyword">while</span>(!qu.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Pair pos = qu.<span class="built_in">front</span>();qu.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> mid = <span class="built_in">Partition</span>(ar, pos.first, pos.second);</span><br><span class="line">        <span class="keyword">if</span>(pos.first &lt; mid<span class="number">-1</span>)</span><br><span class="line">            qu.<span class="built_in">push</span>(<span class="built_in">Pair</span>(pos.first, mid<span class="number">-1</span>));</span><br><span class="line">        <span class="keyword">if</span>(mid<span class="number">+1</span> &gt; pos.second)</span><br><span class="line">            qu.<span class="built_in">push</span>(<span class="built_in">Pair</span>(mid<span class="number">+1</span>, pos.second));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>1990年，软件工程界开始关注Christopher Alexander等在这一住宅、公共建筑与城市规划领域的重大突破。最早将模式的思想引入软件工程方法学的是1991-1992年以“四人组”自称的四位著名软件工程学者。</p>
+<blockquote>
+<p>Gang of Four，简称<strong>GoF</strong>，分别是Erich Gamma, Richard Helm, Ralph Johnson和John Vlissides。<br />
+书名：Design Patterns: Elements of Reusable Object-Oriented Softwarec - 设计模式：可复用面向对象软件的基础</p>
+</blockquote>
+<p>他们在1994年归纳发表了23种在软件开发中使用频率较高的设计模式，旨在用模式来<strong>统一沟通面向对象方法在分析、设计和实现间的鸿沟</strong>。</p>
+<p>GoF将模式的概念引入软件工程领域，这标志着软件模式的诞生。软件模式是将模式的一般概念应用于软件开发领域，即<strong>软件开发的总体指导思路或参照样板</strong>。软件模式<strong>并非仅限于设计模式，还包括架构模式、分析模式和过程模式</strong>等，实际上，<strong>在软件开发生命周期的每一个阶段都存在着一些被认同的模式</strong>。</p>
 
-        <h1 id="从选取划分基准入手优化"   >
-          <a href="#从选取划分基准入手优化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从选取划分基准入手优化"></a> 从“选取划分基准”入手优化</h1>
+        <h1 id="软件模式的构成"   >
+          <a href="#软件模式的构成" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#软件模式的构成"></a> 软件模式的构成</h1>
       
+<p>软件模式是在软件开发中某些可重现问题的一些有效解决方法，软件模式的基础结构主要由四部分构成，包括问题描述（<strong>待解决的问题是什么</strong>）、前提条件（<strong>在何种环境或约束条件下使用</strong>）、解法（<strong>如何解决</strong>）和效果（<strong>有哪些优缺点</strong>）。</p>
 
-        <h2 id="随机划分"   >
-          <a href="#随机划分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#随机划分"></a> 随机划分</h2>
+        <h1 id="设计模式是什么"   >
+          <a href="#设计模式是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式是什么"></a> 设计模式是什么</h1>
       
-<p>这样做是为了让划分点无序, 以模拟数据的无序性, 防止数据有序情况下快排性能的退化;</p>
-<p>实现方法: 在Partition之外再封装一层随机选取一个位置, 把这个位置与<code>ar[left]</code>值交换, 然后再调用Partition; 这样的好处就是, 不用修改Partition函数;</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">RandPartition</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="type">int</span> pos = <span class="built_in">rand</span>() % (right-left<span class="number">+1</span>) + left;<span class="comment">//记得取模后+left，不加left是相对位置。</span></span><br><span class="line">    std::<span class="built_in">swap</span>(ar[left], ar[pos]);		<span class="comment">//偷梁换柱</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Partiton</span>(ar, left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>在软件模式中，设计模式是研究最为深入的分支，设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案，它<strong>融合了众多专家的设计经验</strong>，已经在成千上万的软件中得以应用。 1995年， GoF将收集和整理好的23种设计模式汇编成Design Patterns: Elements of Reusable Object-Oriented Software（《设计模式：可复用面向对象软件的基础》）一书，该书的出版也标志着设计模式正式成为面向对象软件工程的一个重要研究分支。</p>
+<p>设计模式的一般定义如下：</p>
+<p><strong>设计模式</strong>（Design Pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的<strong>总结</strong>，使用设计模式是为了可重用代码、让代码更容易被他人理解并且保证代码可靠性。</p>
 
-        <h2 id="三位取中法"   >
-          <a href="#三位取中法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#三位取中法"></a> 三位取中法</h2>
+        <h2 id="设计模式的要素"   >
+          <a href="#设计模式的要素" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的要素"></a> 设计模式的要素</h2>
       
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">MidPartition</span><span class="params">(<span class="type">int</span>* ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> midpos = (right - left)/<span class="number">2</span> + left;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">IndexNode</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> key;</span><br><span class="line">        <span class="type">int</span> index;</span><br><span class="line">        <span class="function"><span class="keyword">operator</span> <span class="title">int</span><span class="params">()</span> <span class="type">const</span> </span>&#123;<span class="keyword">return</span> key;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">IndexNode</span> kL = &#123;ar[left], left&#125;;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">IndexNode</span> kM = &#123;ar[midpos], midpos&#125;;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">IndexNode</span> kR = &#123;ar[right],right&#125;;</span><br><span class="line">	std::priority_queue&lt;IndexNode&gt; hp;</span><br><span class="line">    <span class="comment">//kL,kM,kR入堆时，由于IndexNode类型重载了int()强转运算符，所以入堆按其key大小排序。则堆中第二个元素为key第二小的。</span></span><br><span class="line">    hp.<span class="built_in">push</span>(kL); hp.<span class="built_in">push</span>(kM); hp.<span class="built_in">push</span>(kR);</span><br><span class="line">    hp.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">IndexNode</span> pos = hp.<span class="built_in">top</span>();</span><br><span class="line">    std::<span class="built_in">swap</span>(ar[kL.index], ar[pos.index]);	<span class="comment">//偷梁换柱</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Partition</span>(ar, left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="应对特殊数据结构-单向划分"   >
-          <a href="#应对特殊数据结构-单向划分" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#应对特殊数据结构-单向划分"></a> 应对特殊数据结构-单向划分</h1>
-      
-<p>可以处理单链表场景下的快排。</p>
-<p>先拿数组练。</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">ForwardPartition</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = left - <span class="number">1</span>;<span class="comment">//慢指针</span></span><br><span class="line">    <span class="type">int</span> i = left;    <span class="comment">//快指针</span></span><br><span class="line">    <span class="type">int</span> tmp = ar[i];</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ar[i] &lt;= tmp)</span><br><span class="line">        &#123;</span><br><span class="line">            ++j;</span><br><span class="line">            <span class="built_in">swap</span>(ar[j],ar[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">swap</span>(ar[left], ar[j]);  <span class="comment">//单向划分，以left为基准，过程中要保证left值不会变化。最后，找到j的位置(划分之后的中间位置)后，替换，返回。</span></span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="单链表的划分带头节点"   >
-          <a href="#单链表的划分带头节点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#单链表的划分带头节点"></a> 单链表的划分（带头节点）</h2>
-      
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">ListNode</span></span><br><span class="line">&#123;</span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">ListNode</span>* next;</span><br><span class="line">&#125;ListNode, *LinkList;</span><br><span class="line"><span class="comment">//head表示这个划分区间的第一个有效节点的前一个；end表示这个划分区间最后一个有效节点的后一个（有可能为NULL）。</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ForwoadListPartition</span><span class="params">(ListNode* head,ListNode *end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode* j = head;</span><br><span class="line">    ListNode* i = head-&gt;next;</span><br><span class="line">    ElemType tmp = i-&gt;data;</span><br><span class="line">    <span class="keyword">while</span>(i != end)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i-&gt;data &lt;= tmp)</span><br><span class="line">        &#123;</span><br><span class="line">            j = j-&gt;next;</span><br><span class="line">            <span class="built_in">swap</span>(j-&gt;data, i-&gt;data);</span><br><span class="line">        &#125;</span><br><span class="line">        i = i-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">swap</span>(head-&gt;next-&gt;data, j-&gt;data);</span><br><span class="line">    <span class="comment">//不再像数组那样，不用对中间位置进行mid-1,mid+1。因为此时的head,end已代表不同意义，j正好可以充当-1和+1。</span></span><br><span class="line">    <span class="built_in">ForwoadListPartition</span>(head, j);</span><br><span class="line">    <span class="built_in">ForwoadListPartition</span>(j, end);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="适用分治策略-划分思想的场景"   >
-          <a href="#适用分治策略-划分思想的场景" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适用分治策略-划分思想的场景"></a> 适用分治策略-“划分”思想的场景</h1>
-      
-
-        <h2 id="找到第k小大数"   >
-          <a href="#找到第k小大数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#找到第k小大数"></a> 找到第K小/大数</h2>
-      
-<p>不能有重复值。</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindK</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right, <span class="type">int</span> k)</span><span class="comment">//k是相对位置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left==right &amp;&amp; k==<span class="number">1</span>)<span class="keyword">return</span> ar[left];</span><br><span class="line">    <span class="type">int</span> pos = <span class="built_in">Partition</span>(ar, left, right);	<span class="comment">//返回的pos是绝对下标</span></span><br><span class="line">    <span class="type">int</span> j = pos - left + <span class="number">1</span>;					<span class="comment">//j和k一样，是相对left的位置</span></span><br><span class="line">    <span class="keyword">if</span>(k&lt;=j)<span class="keyword">return</span> <span class="built_in">FindK</span>(ar, left, pos, k);	 <span class="comment">//当k还在j之左时，在left~pos继续划分寻找第k小</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">Findk</span>(ar, pos<span class="number">+1</span>, right, k-j);<span class="comment">//当k在j之右时，在pos+1~right寻找第k-j小，因为换到右边时，&quot;k&quot;的值发生变化。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindK_Min</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n, <span class="type">int</span> k)</span><span class="comment">//第k小</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || k&lt;<span class="number">0</span> || k&gt;n)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">FindK</span>(ar, <span class="number">0</span>, n<span class="number">-1</span>, k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="无序数组中找两个差值最小"   >
-          <a href="#无序数组中找两个差值最小" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#无序数组中找两个差值最小"></a> 无序数组中找两个差值最小</h2>
-      
-<p>非负数。</p>
-<p>即找最接近点对，以一维为例。</p>
-<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindK_Min</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n, <span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || k&lt;<span class="number">0</span> || k&gt;n)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">FindK</span>(ar, <span class="number">0</span>, n<span class="number">-1</span>, k);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MaxS1</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ar[right];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MinS2</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> min = ar[left];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = left + <span class="number">1</span>; i&lt;=right; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(min &gt; ar[i])</span><br><span class="line">        &#123;</span><br><span class="line">            min = ar[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> min;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Min</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Min</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Min</span>(a, <span class="built_in">Min</span>(b, c));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Cpair</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>((right-left) &lt;= <span class="number">0</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">    <span class="type">int</span> mid = (right-left<span class="number">+1</span>)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">FindK</span>(ar, left, right, mid);<span class="comment">//mid为相对位置，正好是s1中最大的。</span></span><br><span class="line">    <span class="type">int</span> pos = left + mid - <span class="number">1</span>;<span class="comment">//pos为绝对下标。</span></span><br><span class="line">    <span class="type">int</span> d1 = <span class="built_in">Cpair</span>(ar, left, pos);	<span class="comment">//在左部分找到点对的最小差值</span></span><br><span class="line">    <span class="type">int</span> d2 = <span class="built_in">Cpair</span>(ar, pos<span class="number">+1</span>,right);<span class="comment">//在右部分找到点对的最小差值</span></span><br><span class="line">    <span class="type">int</span> maxs = <span class="built_in">MaxS1</span>(ar, left, pos);</span><br><span class="line">    <span class="type">int</span> mins = <span class="built_in">MinS2</span>(ar, pos<span class="number">+1</span>, right);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Min</span>(d1, d2, mins-maxs);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Cpair_Ar</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar==<span class="literal">NULL</span> || n&lt;<span class="number">1</span>)<span class="keyword">return</span> INT_MAX;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">Cpair</span>(ar, <span class="number">0</span>, n<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="不同场景下的对策"   >
-          <a href="#不同场景下的对策" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#不同场景下的对策"></a> 不同场景下的对策</h1>
-      
+<p>设计模式一般包含模式名称、问题、目的、解决方案、效果等组成要素，其中关键要素是模式名称、问题、解决方案和效果。</p>
 <ol>
-<li>数组相对有序：随机划分法。在每次划分之前在left和right之前rand计算一个pos，使该值与left对应的值交换，进而以其为基准进行划分。</li>
-<li></li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_Shell%E7%BC%96%E7%A8%8B/">Linux_Shell编程</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-07-15</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_Shell%E7%BC%96%E7%A8%8B/" data-flag-title="Linux_Shell编程"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="内容"   >
-          <a href="#内容" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#内容"></a> 内容</h1>
-      
-<ol>
-<li>编译型语言</li>
-<li>解释器</li>
-<li>变量：本地变量、环境变量、参数变量</li>
-<li>条件：字符串判断、算术、文件测试</li>
-<li>控制结构：循环、case</li>
-<li>函数</li>
-<li>脚本调用脚本，c语言调用脚本</li>
-<li>awk，sed</li>
+<li><strong>模式名称</strong>(Pattern Name)通过一两个词来描述模式的问题、解决方案和效果，以便更好地理解模式并方便开发人员之间的交流，绝大多数模式都是根据其功能或模式结构来命名的（GoF设计模式中没有一个模式用人名命名）</li>
+<li><strong>问题</strong>(Problem)描述了应该在何时使用模式，它包含了设计中存在的问题以及问题存在的原因</li>
+<li><strong>解决方案</strong>(Solution)描述了一个设计模式的组成成分，以及这些组成成分之间的相互关系，各自的职责和协作方式，通常解决方案通过UML类图和核心代码来进行描述</li>
+<li><strong>效果</strong>(Consequences)描述了模式的优缺点以及在使用模式时应权衡的问题。</li>
 </ol>
 
-        <h1 id="环境变量"   >
-          <a href="#环境变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#环境变量"></a> 环境变量</h1>
+        <h1 id="设计模式的用途分类"   >
+          <a href="#设计模式的用途分类" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的用途分类"></a> 设计模式的用途分类</h1>
       
+<p>虽然GoF设计模式只有23个，但是它们各具特色，每个模式都为某一个可重复的设计问题提供了一套解决方案。</p>
+<p>根据它们的用途，设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种。</p>
+<ol>
+<li><strong>创建型</strong>模式主要用于描述<strong>如何创建对象</strong>；</li>
+<li><strong>结构型</strong>模式主要用于描述<strong>如何实现类或对象的组合</strong>；</li>
+<li><strong>行为型</strong>模式主要用于描述<strong>类或对象怎样交互以及怎样分配职责</strong>。</li>
+</ol>
+<p>在GoF 23种设计模式中包含5种创建型设计模式、7种结构型设计模式和11种行为型设计模式。</p>
+<p>此外，根据某个模式主要是用于<strong>处理类之间的关系还是对象之间的关系</strong>，设计模式还可以分为<strong>类模式</strong>和<strong>对象模式</strong>。</p>
+<p>我们经常将两种分类方式结合使用，如单例模式是对象创建型模式，模板方法模式是类行为型模式。</p>
+
+        <h2 id="常用设计模式一览表"   >
+          <a href="#常用设计模式一览表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#常用设计模式一览表"></a> 常用设计模式一览表</h2>
+      
+<p>值得一提的是，有一个设计模式虽然不属于GoF 23种设计模式，但一般在介绍设计模式时都会对它进行说明，它就是<strong>简单工厂模式</strong>，也许是太“简单”了，GoF并没有把它写到那本经典著作中，不过现在大部分的设计模式书籍都会对它进行专门的介绍。</p>
+<p>（以下难度、频率统计结果来自刘伟）</p>
 <div class="table-container"><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>语法</th>
-<th>注意点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>赋值</td>
-<td><code>var=value</code></td>
-<td>不能有空格</td>
-</tr>
-<tr>
-<td>引用</td>
-<td><code>$var</code></td>
-<td>用双引号包裹是读var的值，用单引号包裹是<code>$var</code>这4个字符。</td>
-</tr>
-<tr>
-<td>删除</td>
-<td>unset var</td>
-<td>不要加<code>$</code>符</td>
-</tr>
-<tr>
-<td>输入</td>
-<td>read <code>var1</code> <code>var2</code> <code>...</code></td>
-<td>按顺序写入变量，类似于scanf，以回车或者空格分隔</td>
-</tr>
-<tr>
-<td>列出所有变量</td>
-<td>set</td>
-<td></td>
-</tr>
-<tr>
-<td>全局化变量</td>
-<td>export var</td>
-<td></td>
-</tr>
-</tbody>
+	<tr>
+	    <th>类型</th>
+	    <th>模式名称</th>
+	    <th>学习难度</th>
+        <th>使用频率</th>
+	</tr>
+	<tr>
+	    <td rowspan="6">创建型模式 Creational</td>
+	    <td>单例模式 Singleton</td>
+	    <td>★☆☆☆☆</td>
+        <td>★★★★☆</td>
+	</tr>
+	<tr>
+	    <td>简单工厂模式</td>
+	    <td>★★☆☆☆</td>
+        <td>★★★☆☆</td>
+	</tr>
+	<tr>
+	    <td>工厂方法模式 Factory Method</td>
+	    <td>★★☆☆☆</td>
+        <td>★★★★★</td>
+	</tr>
+	<tr>
+	    <td>抽象工厂模式 Abstract Factory</td>
+	    <td>★★★★☆</td>
+        <td>★★★★★</td>
+	</tr>
+    <tr>
+	    <td>原型模式 Prototype</td>
+	    <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+	</tr>
+    <tr>
+	    <td>建造者模式 Builder</td>
+	    <td>★★★★☆</td>
+        <td>★★☆☆☆</td>
+	</tr>
+    <tr>
+        <td rowspan="7">结构型模式 Structural</td>
+        <td>适配器模式 Adapter</td>
+        <td>★★☆☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>桥接模式 Bridge</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>组合模式 Composite</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>装饰模式 Decorator</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>外观模式 Facade</td>
+        <td>★☆☆☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>享元模式 Flyweight</td>
+        <td>★★★★☆</td>
+        <td>★☆☆☆☆</td>
+    </tr>
+    <tr>
+        <td>代理模式 Proxy</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td rowspan="11">行为型模式 Behavioral</td>
+        <td>职责链模式 Chain of Responsibility</td>
+        <td>★★★☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>命令模式 Command</td>
+        <td>★★★☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>解释器模式 Interpreter</td>
+        <td>★★★★★</td>
+        <td>★☆☆☆☆</td>
+    </tr>
+    <tr>
+        <td>迭代器模式 Iterator</td>
+        <td>★★★☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>中介者模式 Mediator</td>
+        <td>★★★☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>备忘录模式 Memento</td>
+        <td>★★☆☆☆</td>
+        <td>★★☆☆☆</td>
+    </tr>
+    <tr>
+        <td>观察者模式 Observer</td>
+        <td>★★★☆☆</td>
+        <td>★★★★★</td>
+    </tr>
+    <tr>
+        <td>状态模式 State</td>
+        <td>★★★☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>策略模式 Strategy</td>
+        <td>★☆☆☆☆</td>
+        <td>★★★★☆</td>
+    </tr>
+    <tr>
+        <td>模板方法模式 Template Method</td>
+        <td>★★☆☆☆</td>
+        <td>★★★☆☆</td>
+    </tr>
+    <tr>
+        <td>访问者模式 Visitor</td>
+        <td>★★★★☆</td>
+        <td>★☆☆☆☆</td>
+    </tr>
 </table></div>
 
-        <h2 id="特殊变量"   >
-          <a href="#特殊变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特殊变量"></a> 特殊变量</h2>
+        <h1 id="1句话描述23个设计模式"   >
+          <a href="#1句话描述23个设计模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#1句话描述23个设计模式"></a> 1句话描述23个设计模式</h1>
       
-<p>都需要搭配<code>$</code>使用</p>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>特殊变量</th>
-<th>定义</th>
-<th>注意点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>?</td>
-<td>前一命令的退出状态</td>
-<td>0代表成功、真；其他非0数代表失败、假的某一状态</td>
-</tr>
-<tr>
-<td>$</td>
-<td>当前Shell的进程ID</td>
-<td>echo <code>$$</code>才能输出</td>
-</tr>
-<tr>
-<td>!</td>
-<td>后台运行命令的进程ID</td>
-<td></td>
-</tr>
-<tr>
-<td><code>1 ~ 9</code></td>
-<td>当前脚本的第1到9个参数</td>
-<td></td>
-</tr>
-<tr>
-<td><code>_</code></td>
-<td>上一个命令的最后一个参数</td>
-<td>比如在命令行敲入<code>ls -a</code>，则echo <code>$_</code>输出<code>-a</code></td>
-</tr>
-<tr>
-<td>PS1</td>
-<td>Shell主提示符</td>
-<td></td>
-</tr>
-<tr>
-<td>PS2</td>
-<td>Shell次提示符</td>
-<td></td>
-</tr>
-</tbody>
-</table></div>
 
-        <h2 id="字符串处理"   >
-          <a href="#字符串处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#字符串处理"></a> 字符串处理</h2>
+        <h2 id="结构型"   >
+          <a href="#结构型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构型"></a> 结构型</h2>
       
 <ol>
-<li>注意双引号、单引号的功能，双引号引起主要是为了消除空格的影响，保留转义效果；而单引号是把所引的内容<strong>原封不动地</strong>保留。</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&quot;xcg&quot;</span></span><br><span class="line">str=<span class="string">&quot;<span class="variable">$a</span>&quot;</span>	<span class="comment">#把a的值赋给了str</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$str</span>&quot;</span> <span class="comment">#实际输出: xcg</span></span><br><span class="line"></span><br><span class="line">str=<span class="string">&#x27;$a&#x27;</span>	<span class="comment">#把&quot;$a&quot;这个 原本的字符串 赋给了str</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$str</span>&quot;</span>	<span class="comment">#实际输出: $a</span></span><br></pre></td></tr></table></div></figure>
-<ol start="2">
-<li>如果想把某一个命令的运行结果作为字符串返回给str，则有两种方式。
-<ol>
-<li>$( )</li>
-</ol>
+<li>
+<p><strong>适配器模式（Adapter）</strong>：将一个类的接口转换成客户希望的另一个接口。</p>
+<ul>
+<li>例子：电源适配器，将两孔插头适配成三孔插头。</li>
+</ul>
+</li>
+<li>
+<p><strong>桥接模式（Bridge）</strong>：将抽象部分与它的实现部分分离，使它们可以独立变化。</p>
+<ul>
+<li>例子：遥控器（抽象部分）和不同类型的电视机（实现部分）。</li>
+<li>苹果系统中OC和C语言之间的桥梁。</li>
+</ul>
+</li>
+<li>
+<p><strong>组合模式（Composite）</strong>：将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p>
+<ul>
+<li>例子：文件夹和文件的结构，一个文件夹可以包含文件或子文件夹。</li>
+</ul>
+</li>
+<li>
+<p><strong>装饰模式（Decorator）</strong>：动态地给对象添加一些额外的职责。</p>
+<ul>
+<li>例子：给圣诞树添加装饰品，每个装饰品增加新的特性。</li>
+</ul>
+</li>
+<li>
+<p><strong>外观模式（Facade）</strong>：为子系统中的一组接口提供一个一致的界面，使子系统更容易使用。</p>
+<ul>
+<li>例子：餐厅服务员，统一点菜、送菜和结账的接口。</li>
+</ul>
+</li>
+<li>
+<p><strong>享元模式（Flyweight，也叫轻量对象模式）</strong>：通过共享大量细粒度对象来节省内存。</p>
+<ul>
+<li>例子：围棋棋子，黑白棋子共享一个对象，节省内存。</li>
+</ul>
+</li>
+<li>
+<p><strong>代理模式（Proxy）</strong>：为其他对象提供一种代理，以控制对这个对象的访问。</p>
+<ul>
+<li>例子：明星的经纪人，代理处理事务和安排活动。</li>
+</ul>
 </li>
 </ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str=$(<span class="built_in">ls</span>)	<span class="comment">#把当前目录的文件信息字符串赋给str</span></span><br></pre></td></tr></table></div></figure>
-<pre><code>2. 反引号
-</code></pre>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str=`<span class="built_in">ls</span>`	<span class="comment">##把当前目录的文件信息字符串赋给str</span></span><br></pre></td></tr></table></div></figure>
 
-        <h2 id="export"   >
-          <a href="#export" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#export"></a> export</h2>
-      
-<p>在当前shell可以再启动一个shell。如果我们在之前的shell中定义了局部变量，比如<code>var=hello</code>，在新启动的shell是看不到的。如果要新shell看到，需要<code>export var</code>。<br />
-其实新开的这个shell是在之前的shell新运行的一个程序。他俩是不同的进程。同理，如果想让其他进程也能看到之前shell的环境变量，此时就需要export。</p>
-
-        <h1 id="第一行注释"   >
-          <a href="#第一行注释" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第一行注释"></a> 第一行注释</h1>
-      
-<p>第一行需要添加注释，指示使用哪个shell程序运行该脚本。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="c语言编程main函数的参数-结合环境变量"   >
-          <a href="#c语言编程main函数的参数-结合环境变量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c语言编程main函数的参数-结合环境变量"></a> C语言编程main函数的参数 - 结合环境变量</h1>
-      
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span> <span class="params">(<span class="type">int</span> ac, <span class="type">char</span> * av[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (ac &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, av[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>运行结果：</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mrcan@ubuntu:~$ ./c.out var</span><br><span class="line">var</span><br></pre></td></tr></table></div></figure>
-<p>如上，var是命令中的参数，程序输出了var这个参数名。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mrcan@ubuntu:~$ VAR=ThisIsMyVar</span><br><span class="line">mrcan@ubuntu:~$ ./c.out <span class="variable">$VAR</span></span><br><span class="line">ThisIsMyVar</span><br></pre></td></tr></table></div></figure>
-<p>如上，也可以先定义环境变量VAR。然后再通过<code>$VAR</code>传到main函数。</p>
-
-        <h2 id="结合重定向-把另一个程序的结果作为参数传到main"   >
-          <a href="#结合重定向-把另一个程序的结果作为参数传到main" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合重定向-把另一个程序的结果作为参数传到main"></a> 结合重定向 - 把另一个程序的结果作为参数传到main</h2>
-      
-<p>结合《Linux_重定向》一文中的知识。<br />
-可以利用“命令代换”（形如<code>$(./a.out)</code>）。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mrcan@ubuntu:~$ ./a.out </span><br><span class="line">C Program!  <span class="comment"># 这是a.out的执行结果</span></span><br><span class="line">mrcan@ubuntu:~$ ./c.out $(./a.out)</span><br><span class="line">C           <span class="comment"># 把a.out的输出传给了c.c的main函数</span></span><br></pre></td></tr></table></div></figure>
-<p>如上，把<code>a.out</code>的输出结果通过<code>$(a.out)</code>传到了<code>c.c</code>的main函数。<br />
-<img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250716173158651.png" alt="" /></p>
-<p>系统中的小程序，也可以作为命令代换的参数。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span> <span class="comment"># 输出结果 /home/mrcan</span></span><br><span class="line"><span class="built_in">ls</span> $(<span class="built_in">pwd</span>)</span><br></pre></td></tr></table></div></figure>
-<p>输出结果：</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mrcan@ubuntu:~$ <span class="built_in">pwd</span></span><br><span class="line">/home/mrcan</span><br><span class="line">mrcan@ubuntu:~$ <span class="built_in">ls</span> $(<span class="built_in">pwd</span>)</span><br><span class="line">a.c    b.out  c.out    Documents  Music     Public     test.cpp</span><br><span class="line">a.out  build  c.sh     Downloads  packages  Templates  test_muduo.cpp</span><br><span class="line">b.c    c.c    Desktop  mprpc      Pictures  <span class="built_in">test</span>       Videos</span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="operator-操作符"   >
-          <a href="#operator-操作符" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#operator-操作符"></a> Operator - 操作符</h1>
-      
-
-        <h2 id="equal-operator"   >
-          <a href="#equal-operator" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#equal-operator"></a> Equal Operator</h2>
+        <h2 id="行为型"   >
+          <a href="#行为型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#行为型"></a> 行为型</h2>
       
 <ol>
-<li><code>=</code> string。注意，<code>=</code>前后必须有空格分隔。不然就成了环境变量赋值了。</li>
-<li><code>!=</code> string</li>
-<li><code>-eq</code> numeral</li>
-<li><code>-ne</code> numeral</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"><span class="comment">## Logical Operator</span></span><br><span class="line">1. `-a`：and</span><br><span class="line">2. `-o`：or</span><br><span class="line">3. `!`：not</span><br><span class="line"></span><br><span class="line"><span class="comment">## Relation Operator</span></span><br><span class="line">1. `-gt`：greater than</span><br><span class="line">2. `-ge`：greater equal</span><br><span class="line">3. `-lt`：less than</span><br><span class="line">4. `-le`：less equal</span><br><span class="line"><span class="comment"># if语句</span></span><br><span class="line">```sh</span><br><span class="line"><span class="comment">#! /bin/sh</span></span><br><span class="line">VAR1=<span class="string">&quot;COMPUTER&quot;</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$VAR</span>! = <span class="string">&quot;COM&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Y&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;N&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></div></figure>
-<p>注意点：</p>
-<ol>
-<li><code>=</code>前后有无空格的行为是不一样的。</li>
-<li>中括号的前后最好也留上空格，避免无法分辨。</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line">VAR1=<span class="string">&quot;COMPUTER&quot;</span></span><br><span class="line"> <span class="keyword">if</span> [ <span class="variable">$VAR1</span>=<span class="string">&quot;COM&quot;</span> ]</span><br><span class="line"><span class="comment"># if (test $VAR1=&quot;COM&quot;)</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Y&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;N&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></div></figure>
-<p>以上程序输出Y，即使VAR1不是&quot;COM&quot;。就是因为<code>=</code>前后无空格。</p>
-<ol start="2">
-<li>if后跟的<code>[ ... ]</code>相当于：<code>(test ...)</code></li>
-</ol>
-
-        <h1 id="循环"   >
-          <a href="#循环" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#循环"></a> 循环</h1>
-      
-
-        <h2 id="要注意的是对计数变量的处理"   >
-          <a href="#要注意的是对计数变量的处理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#要注意的是对计数变量的处理"></a> 要注意的是对计数变量的处理</h2>
-      
-<p>有2种方式：</p>
-<ol>
-<li><code>let</code></li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line"><span class="built_in">let</span> <span class="string">&quot;i+=1&quot;</span></span><br></pre></td></tr></table></div></figure>
-<ol start="2">
-<li><code>(( ))</code>，双括号中是想要执行的命令/表达式，可以用$取表达式的值。</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">a=$((i++))</span><br></pre></td></tr></table></div></figure>
-<ol start="3">
-<li>反引号：`expr …`</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">a=`<span class="built_in">expr</span> <span class="variable">$i</span> \* 2`	<span class="comment">#*在脚本中有其他意义，需要加\转义为&#x27;*&#x27;，在此表示乘号</span></span><br><span class="line">i=`<span class="built_in">expr</span> <span class="variable">$i</span> + 1`		<span class="comment">#此方式i自增的方法</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="for"   >
-          <a href="#for" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#for"></a> for</h2>
-      
-<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250716194411584.png" alt="" /></p>
-<p>for循环的次数由in后面值的数目决定</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 1 2 3</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> i=<span class="variable">$i</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> $(<span class="built_in">ls</span>)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;filename: <span class="variable">$name</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-<h3 id=""><a class="markdownIt-Anchor" href="#"></a> <code>$@</code></h3>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="variable">$@</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$x</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./test.sh 1 2 3 4</span><br></pre></td></tr></table></div></figure>
-<p>输出结果</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="while"   >
-          <a href="#while" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#while"></a> while</h2>
-      
-<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250716203447090.png" alt="" /></p>
-<p>判断条件，满足则循环执行。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#死循环示例</span></span><br><span class="line"><span class="keyword">while</span> [ 1 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;run&quot;</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#死循环输出输入的内容，直到输入end</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;input&quot;</span></span><br><span class="line">	<span class="built_in">read</span> line</span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$line</span>&quot;</span> = end ]</span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		<span class="built_in">break</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;line=<span class="variable">$line</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#输出0-9</span></span><br><span class="line"><span class="keyword">while</span> [ <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -lt 10 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;i=<span class="variable">$i</span>&quot;</span></span><br><span class="line">	<span class="comment">#let &quot;i+=1&quot;</span></span><br><span class="line">	<span class="comment">#((++i))</span></span><br><span class="line">	i=`<span class="built_in">expr</span> <span class="variable">$i</span> + 1`</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="until"   >
-          <a href="#until" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#until"></a> until</h2>
-      
-<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250716203453605.png" alt="" /></p>
-<p>条件没满足时，循环执行；一旦条件满足则退出。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#本地找file.txt文件，隔一秒找一遍，直到找到，退出。</span></span><br><span class="line"><span class="keyword">until</span> [ -f file.txt ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;not find file.txt&quot;</span></span><br><span class="line">	<span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;find file.txt&quot;</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="read"   >
-          <a href="#read" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#read"></a> read</h1>
-      
-<p>read命令 -n(不换行) -p(提示语句) -n(字符个数)-t(等待时间) -s(不回显)</p>
-
-        <h1 id="case"   >
-          <a href="#case" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#case"></a> case</h1>
-      
-<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250716203511779.png" alt="" /></p>
-
-        <h2 id="结合正则表达式的示例"   >
-          <a href="#结合正则表达式的示例" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结合正则表达式的示例"></a> 结合正则表达式的示例</h2>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;input:&quot;</span></span><br><span class="line">    <span class="built_in">read</span> line</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">yes</span> | Y) 	<span class="built_in">echo</span> <span class="string">&quot;this is yes&quot;</span>;;</span><br><span class="line">        no	| N)	<span class="built_in">echo</span> <span class="string">&quot;this is no&quot;</span>;;</span><br><span class="line">        end)		<span class="built_in">break</span>;;</span><br><span class="line">        *)			<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#可以搭配正则表达式使用。</span></span><br><span class="line"><span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    [Yy][Ee][Ss] | [Yy])<span class="built_in">echo</span> <span class="string">&quot;this is yes&quot;</span>;;</span><br><span class="line">    [Nn][Oo] | [Nn])	<span class="built_in">echo</span> <span class="string">&quot;this is no&quot;</span>;;</span><br><span class="line">    end)				<span class="built_in">break</span>;;</span><br><span class="line">    *)					<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$line</span>&quot;</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="练习把多行ip地址转换为10进制"   >
-          <a href="#练习把多行ip地址转换为10进制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习把多行ip地址转换为10进制"></a> 练习：把多行IP地址转换为10进制</h1>
-      
-<ol>
-<li>先生成n行（192.168.0.1开始）</li>
-<li>对n个ip地址进行转换，转换后的数据放在<code>IPint.txt</code>文件内。</li>
-</ol>
-
-        <h2 id="生成n行ip"   >
-          <a href="#生成n行ip" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#生成n行ip"></a> 生成n行IP</h2>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"><span class="comment"># $1: nums of ip address</span></span><br><span class="line">FILE=<span class="string">&quot;IPs.txt&quot;</span></span><br><span class="line">I=1</span><br><span class="line"><span class="keyword">if</span> [ -e <span class="variable">$FILE</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> <span class="variable">$FILE</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$I</span> -le <span class="variable">$1</span> ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;192.168.0.<span class="variable">$I</span>&quot;</span> &gt;&gt; <span class="variable">$FILE</span></span><br><span class="line">    I=$(<span class="built_in">expr</span> <span class="variable">$I</span> + 1)</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mrcan@ubuntu:~$ ./generateIP.sh 10</span><br><span class="line">mrcan@ubuntu:~$ <span class="built_in">cat</span> IPs.txt </span><br><span class="line">192.168.0.1</span><br><span class="line">192.168.0.2</span><br><span class="line">192.168.0.3</span><br><span class="line">192.168.0.4</span><br><span class="line">192.168.0.5</span><br><span class="line">192.168.0.6</span><br><span class="line">192.168.0.7</span><br><span class="line">192.168.0.8</span><br><span class="line">192.168.0.9</span><br><span class="line">192.168.0.10</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="什么是ip地址的10进制"   >
-          <a href="#什么是ip地址的10进制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#什么是ip地址的10进制"></a> 什么是IP地址的10进制？</h2>
-      
-<p>不是简单的每个分段的10进制（<code>192/168/0/1</code>这些）<br />
-而是要一个32位无符号整型数十进制表示的：从32个0到32个1的这之间的某一个数。<br />
-其实可以直接把IP地址看作<strong>32位2进制数</strong>，来转换、计算为其十进制值。<br />
-但是过程不太美观。<br />
-<img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250717012003686.png" alt="" /><br />
-如以上过程，太复杂！</p>
-<p>有可读性更好的方法：把IP地址看作<strong>4位256进制数</strong>。来转换、计算为其十进制值。<br />
-IPv4地址每一个分段的数的大小范围：0到255，因此现在形式下的IPv4每位数属于256进制，是用<code>.</code>分开了。<br />
-<img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20250717012039244.png" alt="" /><br />
-如上，很香！</p>
-<p>那么我们平时说的“一百二十三”，这个3位数，就可以看作：1.2.3，每一个分段的大小范围是0到9，属于10进制。怎么计算其10进制数？power是10，</p>
-<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align at position 7: \begin{̲a̲l̲i̲g̲n̲}̲
-1 * 10 ^ 2 &amp;= …'>\begin{align}
-1 * 10 ^ 2 &amp;= 100 \\
-2 * 10 ^ 1 &amp;= 20 \\
-3 * 10 ^ 0 &amp;= 3 \\
-100 + 20 + 3 &amp;= 123
-\end{align}
-</p>
-<p>那么，4位256进制，转为10进制的算法：</p>
-<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align at position 7: \begin{̲a̲l̲i̲g̲n̲}̲
-192 * 256 ^ 3 …'>\begin{align}
-192 * 256 ^ 3 &amp;= a\\
-168 * 256 ^ 2 &amp;= b\\
-0 * 256 ^ 1   &amp;= c\\
-1 * 256 ^ 0   &amp;= d\\
-result &amp;= a + b + c + d
-\end{align}
-</p>
-
-        <h2 id="编写转换进制"   >
-          <a href="#编写转换进制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编写转换进制"></a> 编写转换进制</h2>
-      
-<p>需要切分IP地址的4段。<br />
-用到了cut：见《[[Linux_cut命令]]》</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line">INPUT=IPs.txt</span><br><span class="line">OUTPUT=IPint.txt</span><br><span class="line"></span><br><span class="line">SUM=0</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -e <span class="variable">$OUTPUT</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> <span class="variable">$OUTPUT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> <span class="variable">$INPUT</span> |           <span class="comment"># 精髓</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> IP</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    I=1</span><br><span class="line">    SUM=0</span><br><span class="line">    <span class="keyword">while</span> [ <span class="variable">$I</span> -le 4 ]</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        NUM=$(<span class="built_in">echo</span> <span class="variable">$IP</span> | <span class="built_in">cut</span> -d. -f<span class="variable">$I</span>)</span><br><span class="line">        <span class="keyword">case</span> <span class="variable">$I</span> <span class="keyword">in</span></span><br><span class="line">            1)</span><br><span class="line">            SUM=$(<span class="built_in">expr</span> <span class="variable">$NUM</span> \* 256 \* 256 \* 256)</span><br><span class="line">            ;;</span><br><span class="line">            2)</span><br><span class="line">            SUM=$(<span class="built_in">expr</span> <span class="variable">$SUM</span> + <span class="variable">$NUM</span> \* 256 \* 256)</span><br><span class="line">            ;;</span><br><span class="line">            3)</span><br><span class="line">            SUM=$(<span class="built_in">expr</span> <span class="variable">$SUM</span> + <span class="variable">$NUM</span> \* 256)</span><br><span class="line">            ;;</span><br><span class="line">            4)</span><br><span class="line">            SUM=$(<span class="built_in">expr</span> <span class="variable">$SUM</span> + <span class="variable">$NUM</span>)</span><br><span class="line">            ;;</span><br><span class="line">        <span class="keyword">esac</span></span><br><span class="line">        I=$(<span class="built_in">expr</span> <span class="variable">$I</span> + 1)</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$IP</span> <span class="variable">$SUM</span> &gt;&gt; <span class="variable">$OUTPUT</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
-<p>输出结果：</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">192.168.0.1 3232235521</span><br><span class="line">192.168.0.2 3232235522</span><br><span class="line">192.168.0.3 3232235523</span><br><span class="line">192.168.0.4 3232235524</span><br><span class="line">192.168.0.5 3232235525</span><br><span class="line">192.168.0.6 3232235526</span><br><span class="line">192.168.0.7 3232235527</span><br><span class="line">192.168.0.8 3232235528</span><br><span class="line">192.168.0.9 3232235529</span><br><span class="line">192.168.0.10 3232235530</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="注意点"   >
-          <a href="#注意点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#注意点"></a> 注意点</h2>
-      
-<ol>
-<li>没有<code>+=</code>这个形式</li>
-<li><code>expr</code> 的设计中没有包含幂运算符（如 <code>**</code> 或 <code>^</code>），因此只能用<code>num \* 256 \* 256 \* 256</code>这样连乘。</li>
-<li>case结束别忘记esac</li>
-</ol>
-
-        <h2 id="知识点"   >
-          <a href="#知识点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#知识点"></a> 知识点</h2>
-      
-<p>程序的精髓在于，怎么循环read读取一个文件中的每一行，我们用<code>cat $INPUT | </code>管道传入read，再给read加一层循环，这样，只要管道中还有内容，while循环就不会停止。</p>
-
-        <h1 id="函数"   >
-          <a href="#函数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#函数"></a> 函数</h1>
-      
-<p>三个问题：1、如何传参的问题；2、函数返回值如何获得；3、如何看待函数内定义的变量</p>
-
-        <h2 id="特点"   >
-          <a href="#特点" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#特点"></a> 特点</h2>
-      
-<ol>
-<li>shell脚本中的函数没有声明，需要直接定义在最前面。</li>
-<li>调用函数不用加圆括号，而是只有函数名</li>
-</ol>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fun</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun run&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">fun</span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="参数"   >
-          <a href="#参数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#参数"></a> 参数</h2>
-      
-<p>注意<code>$#/$1/$2</code>在函数中、函数外的区别：在函数中代表函数的参数；而在函数外代表此shell脚本的参数。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fun</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun run&quot;</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$#=<span class="variable">$#</span>&quot;</span>	<span class="comment"># &quot;$#&quot;代表参数个数</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$1=<span class="variable">$1</span>&quot;</span>	<span class="comment"># &quot;$1&quot;表示该函数的第一个参数</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;fun: \$2=<span class="variable">$2</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">fun hello 123</span><br><span class="line"><span class="comment">#此处就要注意与上面函数中$#/$1/$2的区别了，在函数中代表函数的参数；而在函数外代表此shell脚本的参数。</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$#=<span class="variable">$#</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$1=<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh: \$2=<span class="variable">$2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在外部执行脚本时：</span></span><br><span class="line"><span class="comment"># ./my.sh xcg test</span></span><br><span class="line">	<span class="comment"># 输出:</span></span><br><span class="line">        <span class="comment"># fun: $#=2</span></span><br><span class="line">        <span class="comment"># fun: $1=hello</span></span><br><span class="line">        <span class="comment"># fun: $2=123</span></span><br><span class="line">        <span class="comment"># my.sh: $#=2</span></span><br><span class="line">        <span class="comment"># my.sh: $1=xcg</span></span><br><span class="line">        <span class="comment"># my.sh: $2=test</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="返回值"   >
-          <a href="#返回值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#返回值"></a> 返回值</h2>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_add</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$#</span>&quot;</span> -ne 2 ]	<span class="comment"># -ne : not equal</span></span><br><span class="line">	<span class="keyword">then</span></span><br><span class="line">		<span class="built_in">echo</span> <span class="string">&quot;参数有误&quot;</span></span><br><span class="line">		<span class="built_in">return</span> 0</span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	res=`<span class="built_in">expr</span> <span class="variable">$1</span> + <span class="variable">$2</span>`</span><br><span class="line">	<span class="built_in">return</span> <span class="variable">$res</span></span><br><span class="line">&#125;</span><br><span class="line">res=my_add</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$res</span>&quot;</span></span><br><span class="line"><span class="comment"># 或者写为</span></span><br><span class="line">	<span class="comment"># my_add</span></span><br><span class="line">	<span class="comment"># echo &quot;$?&quot;</span></span><br><span class="line">		<span class="comment"># &quot;$?&quot;代表上一行语句执行的结果(返回值)。</span></span><br><span class="line"><span class="comment"># 如果想保存返回值，可以：</span></span><br><span class="line">	<span class="comment"># my_add 123 234</span></span><br><span class="line">	<span class="comment"># result=$?</span></span><br><span class="line">		<span class="comment"># 如果连续写两行&quot;$?&quot;，则第二行的结果是0，因为&quot;$?&quot;的执行结果是0，代表执行成功。</span></span><br></pre></td></tr></table></div></figure>
-
-        <h2 id="变量生存期问题"   >
-          <a href="#变量生存期问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#变量生存期问题"></a> 变量生存期问题</h2>
-      
-<p>函数中的变量可能污染到函数外</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=hello</span></span><br><span class="line"><span class="comment"># 由此可见，函数中的变量污染到了函数外。</span></span><br></pre></td></tr></table></div></figure>
-<p>此问题的原因：<br />
-脚本程序的概念并不存在作用域的概念。所以，函数中定义、赋值str语句<strong>执行</strong>后，不管是函数中，还是bash解释器，也就都存在str这个变量。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">test2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;test2:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">test2</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=hello</span></span><br><span class="line">	<span class="comment"># test2:str=hello</span></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">test2</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;test2:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">test2</span><br><span class="line">my_test</span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># str=</span></span><br><span class="line">	<span class="comment"># test2:str=</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line"><span class="comment"># 在执行my_test前，还没有str变量给出，所以，test2和函数外的str都打印为空</span></span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="解决变量污染的方法"   >
-          <a href="#解决变量污染的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#解决变量污染的方法"></a> 解决变量污染的方法</h3>
-      
-<blockquote>
-<p>1、可以通过unset在用完变量后，销毁之。</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=</span></span><br></pre></td></tr></table></div></figure>
-<blockquote>
-<p>2、可以在变量名前加local</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">local</span> str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=abcdef</span></span><br></pre></td></tr></table></div></figure>
-<blockquote>
-<p>注意事项：unset对于local变量，只会局部地销毁这个变量，不影响全局的同名变量。</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#################### 程序1</span></span><br><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">local</span> str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=abcdef</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################### 程序2</span></span><br><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="function"><span class="title">my_test</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">	str=hello</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;my_test:str=<span class="variable">$str</span>&quot;</span></span><br><span class="line">	<span class="built_in">unset</span> str</span><br><span class="line">&#125;</span><br><span class="line">my_test</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;str=<span class="variable">$str</span>&quot;</span></span><br><span class="line"><span class="comment"># 执行结果</span></span><br><span class="line">	<span class="comment"># my_test:str=hello</span></span><br><span class="line">	<span class="comment"># str=</span></span><br></pre></td></tr></table></div></figure>
-
-        <h1 id="脚本间的调用"   >
-          <a href="#脚本间的调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#脚本间的调用"></a> 脚本间的调用</h1>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5346</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5347</span></span><br></pre></td></tr></table></div></figure>
-
-        <h3 id="脚本间变量的传递问题"   >
-          <a href="#脚本间变量的传递问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#脚本间变量的传递问题"></a> 脚本间变量的传递问题</h3>
-      
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span>	<span class="comment"># &quot;$$&quot;代表本bash脚本的pid</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5368</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5369</span></span><br><span class="line">        <span class="comment"># d.sh mystr=</span></span><br><span class="line"><span class="comment"># 注意，此时d.sh没有打印出来b.sh中的mystr，说明两个脚本程序各自运行在不同的进程空间内，变量互不污染。</span></span><br></pre></td></tr></table></div></figure>
-<p>为了在脚本间可以传递变量，可有以下方式</p>
-<blockquote>
-<p>1、在一个sh中调用另一个sh时，后面加参数。但是只是能拿到值，变量名字不能通用，需要用“$1”来取出。</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh <span class="variable">$mystr</span>			<span class="comment">#!!! 后面加参数</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$1</span>&quot;</span>	<span class="comment">#!!! 需要用“$1”来取出</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5380</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5381</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
-<blockquote>
-<p>2、如果想要变量名字通用，可以export改变mystr为环境变量，因为环境变量可以被继承，所以让变量名字通用了。</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">export</span> mystr			<span class="comment">#export改变mystr为环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">./d.sh</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果:</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5380</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5381</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
-<blockquote>
-<p>3、通过source。source的作用是在调用另一个脚本时，不启动另外的sh，而是在自身的解释器中去运行另一个脚本的命令。相当于内联展开于此，所以原来的变量可以复用。但是问题的隐患很多，因为调用的脚本会对原来的脚本造就的环境造成影响。</p>
-</blockquote>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##################### b.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh run pid=$$&quot;</span></span><br><span class="line">mystr=hello</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;b.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line">. ./d.sh	<span class="comment"># 前面的“.+空格”中的“.”即代表source</span></span><br><span class="line"><span class="comment"># source ./d.sh</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### d.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh run pid=$$&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;d.sh mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"><span class="comment">###################### 外部执行: ./b.sh</span></span><br><span class="line"><span class="comment">###################### 执行结果: !!!发现pid一样！</span></span><br><span class="line">        <span class="comment"># b.sh run pid=5448</span></span><br><span class="line">        <span class="comment"># b.sh mystr=hello</span></span><br><span class="line">        <span class="comment"># d.sh run pid=5448</span></span><br><span class="line">        <span class="comment"># d.sh mystr=hello</span></span><br></pre></td></tr></table></div></figure>
-<p>source的作用：有时需要对当前的bash进行环境变量的初始化，可以用source(. ./xx.sh)来在本sh直接运行提前写好的配置脚本。</p>
-
-        <h1 id="c程序和脚本间的调用"   >
-          <a href="#c程序和脚本间的调用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#c程序和脚本间的调用"></a> C程序和脚本间的调用</h1>
-      
-<p>脚本调用C程序显而易见。</p>
-<p>我们讨论C程序调用脚本。</p>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;my.sh pid=$$&quot;</span></span><br><span class="line">mystr=<span class="string">&quot;hello^_^&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;mystr=<span class="variable">$mystr</span>&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;main pid=%d\n&quot;</span>,getpid());</span><br><span class="line">    execl(<span class="string">&quot;./my.sh&quot;</span>,<span class="string">&quot;my.sh&quot;</span>,(<span class="type">char</span>*)<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;execl err\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果</span></span><br><span class="line">	<span class="comment">// main pid=5607</span></span><br><span class="line">	<span class="comment">// my.sh pid=5607</span></span><br><span class="line">	<span class="comment">// mystr=hello^_^</span></span><br><span class="line"><span class="comment">// 为什么pid一样呢？因为在main函数中exec了自身。</span></span><br></pre></td></tr></table></div></figure>
-<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://xn--my-pv2cw5p35b8v2cg5x053a5f2a.sh" >表面上启动的是my.sh</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，实际上启动的是/usr/bin/bash。</p>
-
-        <h1 id="练习"   >
-          <a href="#练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#练习"></a> 练习</h1>
-      
+<li>
+<p><strong>责任链模式（Chain of Responsibility）</strong>：将请求消息沿着处理者链传递，直到有处理者处理它。</p>
 <ul>
-<li>从键盘读取一个成绩，0~100之外的不可以。把整数值转为等级A、B、C、D。</li>
+<li>例子：公司请假审批流程，依次由主管、经理、总监审批。</li>
 </ul>
-<div class="table-container"><table>
-<thead>
-<tr>
-<th>成绩</th>
-<th>等级</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&gt;= 90</td>
-<td>A</td>
-</tr>
-<tr>
-<td>&gt;= 80</td>
-<td>B</td>
-</tr>
-<tr>
-<td>&gt;= 70</td>
-<td>C</td>
-</tr>
-<tr>
-<td>&gt;= 60</td>
-<td>D</td>
-</tr>
-<tr>
-<td>&lt; 60</td>
-<td>E</td>
-</tr>
-</tbody>
-</table></div>
-<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> [ 1 ]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">&#x27;please input your score:&#x27;</span></span><br><span class="line">  <span class="built_in">read</span> score</span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$score</span> -ge 0 ] &amp;&amp; [ <span class="variable">$score</span> -le 100 ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    grade=$((<span class="variable">$score</span>/<span class="number">10</span>))</span><br><span class="line">    <span class="comment">#echo $grade</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&#x27;your grade is:&#x27;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$grade</span> <span class="keyword">in</span></span><br><span class="line">      9 | 10 ) <span class="built_in">echo</span> <span class="string">&quot;A&quot;</span>;;</span><br><span class="line">      8 ) <span class="built_in">echo</span> <span class="string">&quot;B&quot;</span>;;</span><br><span class="line">      7 ) <span class="built_in">echo</span> <span class="string">&quot;C&quot;</span>;;</span><br><span class="line">      6 ) <span class="built_in">echo</span> <span class="string">&quot;D&quot;</span>;;</span><br><span class="line">      * ) <span class="built_in">echo</span> <span class="string">&quot;E&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;error in your input!&quot;</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></div></figure>
-<p>测试结果：</p>
-<p><img src="../../images/Linux_Shell%E7%BC%96%E7%A8%8B/image-20220215130731237.png" alt="image-20220215130731237" /></p>
+</li>
+<li>
+<p><strong>命令模式（Command）</strong>：将请求封装成对象，使不同的请求、队列或日志参数化。</p>
 <ul>
-<li>第一题的优化</li>
+<li>例子：遥控器上的按钮，每个按钮封装一个命令。</li>
 </ul>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&#x27;输入你的成绩：&#x27;</span></span><br><span class="line"><span class="built_in">read</span> score</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">    [0-9] | [1-9][0-9] | 100)</span><br><span class="line">        grade=$((<span class="variable">$score</span>/<span class="number">10</span>))</span><br><span class="line">        <span class="comment">#echo $grade</span></span><br><span class="line">        <span class="built_in">printf</span> <span class="string">&quot;你的成绩是<span class="variable">$score</span>，等级：&quot;</span></span><br><span class="line">        <span class="keyword">case</span> <span class="variable">$grade</span> <span class="keyword">in</span></span><br><span class="line">            9 | 10 ) <span class="built_in">echo</span> <span class="string">&quot;优&quot;</span>;;</span><br><span class="line">            8 ) <span class="built_in">echo</span> <span class="string">&quot;良&quot;</span>;;</span><br><span class="line">            7 ) <span class="built_in">echo</span> <span class="string">&quot;中&quot;</span>;;</span><br><span class="line">            6 ) <span class="built_in">echo</span> <span class="string">&quot;及格&quot;</span>;;</span><br><span class="line">            * ) <span class="built_in">echo</span> <span class="string">&quot;不及格&quot;</span>;;</span><br><span class="line">        <span class="keyword">esac</span>;;</span><br><span class="line">    *) <span class="built_in">echo</span> <span class="string">&quot;error in your input!&quot;</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><strong>解释器模式（Interpreter）</strong>：给定一个语言，定义它的文法表示，并定义一个解释器来处理这些表示。</p>
 <ul>
-<li>循环接收用户输入的学生成绩（百分制），若成绩小于60，输出“不及格”；若成绩大于等于60，输出“及格”，按Q(q)键退出。</li>
+<li>例子：正则表达式解析器，解释和处理正则表达式。</li>
+<li>3D软件中通过脚本或命令按钮控制界面，或控制物体运动。</li>
 </ul>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">&quot;输入成绩：&quot;</span> score</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">        [Qq]) <span class="built_in">exit</span>;;</span><br><span class="line">        [0-9] | [1-5][0-9]) <span class="built_in">echo</span> <span class="string">&quot;不及格&quot;</span>;;</span><br><span class="line">        100 | [6-9][0-9])   <span class="built_in">echo</span> <span class="string">&quot;及格&quot;</span>;;</span><br><span class="line">        *)  <span class="built_in">echo</span> <span class="string">&quot;不合法，请输入0~100&quot;</span>;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><strong>迭代器模式（Iterator）</strong>：提供一种方法顺序访问一个聚合对象中的各个元素，而不暴露其内部表示。</p>
 <ul>
-<li>循环接收某门课程的成绩，计算用户已输入的最高分、最低分、平均分，按P(p)键输出计算结果，按Q(q)键退出。</li>
+<li>例子：图书馆的书架，使用迭代器遍历书籍。</li>
+<li>STL中容器和算法之间的桥梁。</li>
 </ul>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">min=100</span><br><span class="line">max=0</span><br><span class="line"><span class="built_in">sum</span>=0</span><br><span class="line">count=0</span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">&quot;输入分数：&quot;</span> score</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$score</span> <span class="keyword">in</span></span><br><span class="line">        [0-9] | [1-9][0-9] | 100)</span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$score</span> 已录入&quot;</span></span><br><span class="line">            <span class="built_in">sum</span>=$((<span class="variable">$sum</span>+<span class="variable">$score</span>))</span><br><span class="line">            count=$((<span class="variable">$count</span>+<span class="number">1</span>))</span><br><span class="line">            <span class="keyword">if</span> [ <span class="variable">$score</span> -gt <span class="variable">$max</span> ]</span><br><span class="line">            <span class="keyword">then</span> max=<span class="variable">$score</span></span><br><span class="line">            <span class="keyword">fi</span></span><br><span class="line">            <span class="keyword">if</span> [ <span class="variable">$score</span> -lt <span class="variable">$min</span> ]</span><br><span class="line">            <span class="keyword">then</span> min=<span class="variable">$score</span></span><br><span class="line">            <span class="keyword">fi</span>;;</span><br><span class="line">        [Pp])</span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;max = <span class="variable">$max</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;min = <span class="variable">$min</span>&quot;</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;avg = <span class="subst">$(($sum/$count)</span>)&quot;</span></span><br><span class="line">            <span class="built_in">continue</span>;;</span><br><span class="line">        [Qq])   <span class="built_in">exit</span>;;</span><br><span class="line">        *)      <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$score</span> 不合法，请重新输入。&quot;</span></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li>
+<p><strong>中介者模式（Mediator）</strong>：用一个中介对象来封装一系列对象的交互。</p>
+<ul>
+<li>例子：机场的塔台，调度和管理飞机的起降。</li>
+<li>游戏引擎中用的居多。</li>
+</ul>
+</li>
+<li>
+<p><strong>备忘录模式（Memento）</strong>：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。</p>
+<ul>
+<li>例子：电脑的系统还原点，记录系统状态以便将来恢复。</li>
+<li>Word编辑过程中的undo、redo。</li>
+</ul>
+</li>
+<li>
+<p><strong>观察者模式（Observer）</strong>：定义对象间的一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并被自动更新。</p>
+<ul>
+<li>例子：订阅报纸，当报纸有新内容时，通知所有订阅者。</li>
+</ul>
+</li>
+<li>
+<p><strong>状态模式（State）</strong>：允许对象在内部状态改变时改变它的行为。</p>
+<ul>
+<li>例子：电梯的状态，不同状态（上下楼、开关门）下电梯行为不同。</li>
+</ul>
+</li>
+<li>
+<p><strong>策略模式（Strategy）</strong>：定义一系列算法，将每个算法封装起来，并使它们可以互换。</p>
+<ul>
+<li>例子：旅游出行策略，根据情况选择不同的出行方式（开车、坐公交、骑自行车）。</li>
+<li>比如HDC，不同的设备对应不同的DC。</li>
+</ul>
+</li>
+<li>
+<p><strong>模板方法模式（Template Method）</strong>：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中，使得子类可以不改变算法的结构即可重定义该算法的某些步骤。</p>
+<ul>
+<li>例子：制作咖啡的步骤，具体的咖啡制作细节由不同种类的咖啡决定。</li>
+<li><a href="../Windows/Windows_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1.md">Windows_面向对象程序设计</a>中建立的Window框架就是模板方法模式。</li>
+</ul>
+</li>
+<li>
+<p><strong>访问者模式（Visitor）</strong>：表示一个作用于某对象结构中的各元素的操作，使得可以在不改变各元素类的前提下定义作用于这些元素的新操作。</p>
+<ul>
+<li>例子：博物馆导览员，不同导览员为游客讲解不同展品的信息。</li>
+</ul>
+</li>
+</ol>
 
-        <h1 id="注意"   >
-          <a href="#注意" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#注意"></a> 注意</h1>
+        <h2 id="创建型"   >
+          <a href="#创建型" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#创建型"></a> 创建型</h2>
       
-<p>例：输入一个正整数，判断其是否为质数。正确的程序如下：</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入一个正整数：&quot;</span> number</span><br><span class="line">[ <span class="variable">$number</span> -eq 1 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span> 不是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">seq</span> 2 $((<span class="variable">$number</span>-<span class="number">1</span>))`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    [ $[<span class="variable">$number</span> % <span class="variable">$i</span>] -eq 0 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>不是质数&quot;</span> $$ <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 正确的测试结果：</span></span><br><span class="line"><span class="comment"># 	输入 1</span></span><br><span class="line"><span class="comment"># 	输出 1不是质数</span></span><br><span class="line"><span class="comment"># 正确的测试结果：</span></span><br><span class="line"><span class="comment"># 	输入 7</span></span><br><span class="line"><span class="comment"># 	输出 7是质数</span></span><br></pre></td></tr></table></div></figure>
-<p>其中，判断语句如[ $number -eq 1 ]必须在首尾中括号之间有空格，不然找不到命令。如下是错误的。</p>
-<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入一个正整数：&quot;</span> number</span><br><span class="line">[<span class="variable">$number</span> -eq 1] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span> 不是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span>	<span class="comment">#错误</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">seq</span> 2 $((<span class="variable">$number</span>-<span class="number">1</span>))`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    [$[<span class="variable">$number</span> % <span class="variable">$i</span>] -eq 0] &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>不是质数&quot;</span> $$ <span class="built_in">exit</span> <span class="comment">#错误</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$number</span>是质数&quot;</span> &amp;&amp; <span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 测试：</span></span><br><span class="line"><span class="comment"># 	输入 1</span></span><br><span class="line"><span class="comment"># 	输出 ./zhishu.sh: line 4: [1: command not found</span></span><br><span class="line"><span class="comment"># 		 1是质数</span></span><br><span class="line"><span class="comment"># 测试：</span></span><br><span class="line"><span class="comment"># 	输入 7</span></span><br><span class="line"><span class="comment"># 	输出 ./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [3: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [2: command not found</span></span><br><span class="line"><span class="comment">#		./zhishu.sh: line 7: [1: command not found</span></span><br><span class="line"><span class="comment">#		7是质数</span></span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/121/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/121/">121</a><span class="page-number current">122</span><a class="page-number" href="/page/123/">123</a><span class="space">&hellip;</span><a class="page-number" href="/page/152/">152</a><a class="extend next" rel="next" href="/page/123/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">303</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<ol>
+<li>
+<p><strong>单例模式（Singleton）</strong>：确保一个类只有一个实例，并提供全局访问点。</p>
+<ul>
+<li>例子：总统办公室（全国只有一个总统）。</li>
+</ul>
+</li>
+<li>
+<p><strong>工厂方法模式（Factory Method）</strong>：定义一个创建对象的接口，但让子类决定实例化哪个类。</p>
+<ul>
+<li>例子：披萨店，根据订单制作不同类型的披萨。</li>
+</ul>
+</li>
+<li>
+<p><strong>抽象工厂模式（Abstract Factory）</strong>：提供一个接口，用于创建相关或依赖对象的家族，而无需指定具体类。</p>
+<ul>
+<li>例子：家具工厂，可以创建一整套风格一致的家具（如现代风格或古典风格）。</li>
+</ul>
+</li>
+<li>
+<p><strong>建造者模式（Builder）</strong>：将一个复杂对象的构建过程拆解，与其表示分离，使同样的构建过程可以创建不同的表示。</p>
+<ul>
+<li>例子：建筑工人，按照设计图纸建造不同的房屋。</li>
+</ul>
+</li>
+<li>
+<p><strong>原型模式（Prototype）</strong>：通过复制现有对象来创建新对象。</p>
+<ul>
+<li>例子：细胞分裂，通过复制自身产生新细胞。</li>
+</ul>
+</li>
+</ol>
+
+        <h1 id="设计模式的价值"   >
+          <a href="#设计模式的价值" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设计模式的价值"></a> 设计模式的价值</h1>
+      
+<p>大部分设计模式都兼顾了系统的可重用性和可扩展性，这使得我们可以更好地重用一些已有的设计方案、功能模块甚至一个完整的软件系统，避免我们经常做一些重复的设计、编写一些重复的代码。</p>
+<p>此外，随着软件规模日益增大，系统的可维护性和可扩展性也越来越重要，许多设计模式将有助于提高系统的灵活性和可扩展性，让我们在不修改或者少修改现有系统的基础上增加、删除或者替换功能模块。</p>
+
+        <h1 id="如何学习设计模式"   >
+          <a href="#如何学习设计模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何学习设计模式"></a> 如何学习设计模式</h1>
+      
+<ol>
+<li>在学习每一个设计模式时至少应该掌握如下几点：当你能够回答所有问题时，恭喜你，你了解一个设计模式了，至于掌握它，那就在开发中去使用吧，用多了你自然就掌握了。
+<ol>
+<li>这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；</li>
+<li>它是如何解决的，掌握它的结构图，记住它的关键代码；</li>
+<li>能够想到至少两个它的应用实例，一个生活中的，一个软件中的；</li>
+<li>这个模式的优缺点是什么，在使用时要注意什么。</li>
+</ol>
+</li>
+<li>“如果想体验一下运用模式的感觉，那么最好的方法就是运用它们。”正如在本章最开始所说的，设计模式是“内功心法”，它还是要与“实战招式”相结合才能够相得益彰。学习设计模式的目的在于应用，如果不懂如何使用一个设计模式，而只是学过，能够说出它的用途，绘制它的结构，充其量也只能说你了解这个模式，严格一点说：不会在开发中灵活运用一个模式基本上等于没学。所以一定要做到：少说多做。</li>
+<li>不要滥用模式，不要试图在一个系统中用上所有的模式。每个模式都有自己的适用场景，不能为了使用模式而使用模式。</li>
+<li>如果将设计模式比喻成“三十六计”，那么每一个模式都是一种计策，它为解决某一类问题而诞生，不管这个设计模式的难度如何，使用频率高不高，都应该好好学学，多学一个模式也就意味着你多了“一计”，说不定什么时候就用上了。</li>
+<li>设计模式的“上乘”境界：“手中无模式，心中有模式”。模式使用的最高境界是你已经不知道具体某个设计模式的定义和结构了，但你会灵活自如地选择一种设计方案（其实就是某个设计模式）来解决某个问题，设计模式已经成为你开发技能的一部分，能够手到擒来，“内功”与“招式”已浑然一体，要达到这个境界并不是看完某本书或者开发一两个项目就能够实现的，它需要不断沉淀与积累，所以，对模式的学习不要急于求成。</li>
+<li>GoF已故成员、软件工程大师之一John Vlissides的著作《设计模式沉思录》(Pattern Hatching Design Patterns Applied)：模式从不保证任何东西，它不能保证你一定能够做出可复用的软件，提高你的生产率，更不能保证世界和平；模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</li>
+</ol>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">归并排序</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-02-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F_%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" data-flag-title="归并排序"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="代码逻辑"   >
+          <a href="#代码逻辑" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码逻辑"></a> 代码逻辑</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span>* dest, <span class="type">int</span>* src, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>src表示源数据，dest表示目标空间。left表示源数据的最左位置，mid表示源数据的中间位置，right表示源数据的最右位置。其中，left到mid数据要满足有序，mid到right要满足同向有序。</p>
+<p>此函数欲将src中的数据归并到dest中，使整体有序。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Copy</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* dest, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        dest[left] = src[left];</span><br><span class="line">        ++left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* tmp, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = left, j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> k = left;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid &amp;&amp; j &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[i] &lt;= src[j] ? src[i++] : src[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp[k++] = src[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergePass</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* tmp, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left &lt; right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (right + left) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">MergePass</span>(src, tmp, left, mid);	     <span class="comment">//左部分</span></span><br><span class="line">        <span class="built_in">MergePass</span>(src, tmp, mid + <span class="number">1</span>, right); <span class="comment">//右部分</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">Merge</span>(src, tmp, left, mid, right);	 <span class="comment">//左右两部分比对合并，tmp临时存储</span></span><br><span class="line">        <span class="built_in">Copy</span>(tmp, src, left, right);         <span class="comment">//将tmp内容导到src，便于下次两部分均有序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergeSort</span><span class="params">(<span class="type">int</span>* br, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(br == <span class="literal">NULL</span> || n &lt;= <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span>* tmp = <span class="keyword">new</span> <span class="type">int</span>[n];</span><br><span class="line">    <span class="built_in">MergePass</span>(br, tmp, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">delete</span>[]tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="非递归形式"   >
+          <a href="#非递归形式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#非递归形式"></a> 非递归形式</h1>
+      
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">假设对0 1 2 3 4 5 6 7 8排序</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 0, 1)  --s=1</span></span><br><span class="line"><span class="comment">				 2	2  3</span></span><br><span class="line"><span class="comment">				 4  4  5</span></span><br><span class="line"><span class="comment">				 6  6  7</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 1, 3)  --s=2</span></span><br><span class="line"><span class="comment">				 4, 5, 7</span></span><br><span class="line"><span class="comment">Merge(src, dest, 0, 3, 7)  --s=4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(<span class="type">int</span> * src, <span class="type">int</span> * dest, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span>;</span><br><span class="line"><span class="comment">// s代表当前一轮归并的元素数（一半规模）</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergePass</span><span class="params">(<span class="type">int</span>* src, <span class="type">int</span>* dest, <span class="type">int</span> n, <span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// for的条件判断是看 剩下的元素数还够不够凑一个2 * s（s是要归并的半块）</span></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i + <span class="number">2</span> * s - <span class="number">1</span> &lt;= n - <span class="number">1</span>; i += <span class="number">2</span> * s)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Merge</span>(src, dest, i, i + s - <span class="number">1</span>, i + <span class="number">2</span> * s - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n - <span class="number">1</span> &gt; i + s - <span class="number">1</span>)<span class="comment">//对于[0 1]-[2 3] [4 5]-[6 7] [8 9]-[10]而言(11-1&gt;8+2-1)，即[8 9][10]还需要再合并：即此处处理的是剩下的两块，右部分的一块不整齐（10）</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">Merge</span>(src, dest, i, i + s - <span class="number">1</span>, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//[0 1 2 3]-[4 5 6 7] [8 9 10]而言(不满足if的11-1&gt;10+1-1)，也就是说，8 9 10落单了，没有下一组与它们合并，则原样复制</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = i; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            dest[j] = src[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergeSort</span><span class="params">(<span class="type">int</span> * ar, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ar == <span class="literal">NULL</span> || n &lt;= <span class="number">1</span>)<span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> * tmp = <span class="keyword">new</span>[n];</span><br><span class="line">    <span class="comment">// s代表当前一轮归并的元素数（一半规模）</span></span><br><span class="line">    <span class="type">int</span> s = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(s &lt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">MergePass</span>(ar, tmp, n, s);</span><br><span class="line">        s += s;</span><br><span class="line">        <span class="built_in">MergePass</span>(tmp, ar, n, s);</span><br><span class="line">        s += s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[]tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="适用思想的题"   >
+          <a href="#适用思想的题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#适用思想的题"></a> 适用思想的题</h1>
+      
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/121/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/121/">121</a><span class="page-number current">122</span><a class="page-number" href="/page/123/">123</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/123/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">305</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

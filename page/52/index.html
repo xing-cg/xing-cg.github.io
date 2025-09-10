@@ -32,100 +32,262 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_C%E8%AF%AD%E8%A8%80%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0/">协程_C语言协程实现</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-03-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-09</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_C%E8%AF%AD%E8%A8%80%E5%8D%8F%E7%A8%8B%E5%AE%9E%E7%8E%B0/" data-flag-title="协程_C语言协程实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="问题引入生产和消费"   >
-          <a href="#问题引入生产和消费" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#问题引入生产和消费"></a> 问题引入：生产和消费</h1>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/">雅思阅读</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-04-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%8B%B1%E8%AF%AD/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/" data-flag-title="雅思阅读"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="考试流程"   >
+          <a href="#考试流程" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#考试流程"></a> 考试流程</h1>
       
-<p>如果此时有一段代码生成数据，另一段代码使用数据，哪一段代码是调用者，哪一段是被调用者呢？</p>
-<p>有一段非常简洁的<code>run-length decompression code</code>，和一段同样简洁的解析器代码：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Decompression code */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    c = getchar();</span><br><span class="line">    <span class="keyword">if</span> (c == EOF)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="number">0xFF</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        len = getchar();</span><br><span class="line">        c = getchar();</span><br><span class="line">        <span class="keyword">while</span> (len--)</span><br><span class="line">            emit(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        emit(c);</span><br><span class="line">&#125;</span><br><span class="line">emit(EOF);</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Parser code */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">   &#123;</span><br><span class="line">       c = getchar();</span><br><span class="line">       	<span class="keyword">break</span>;</span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">isalpha</span>(c))</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">do</span></span><br><span class="line">           &#123;</span><br><span class="line">               add_to_token(c);</span><br><span class="line">               c = getchar();</span><br><span class="line">           &#125; <span class="keyword">while</span> (<span class="built_in">isalpha</span>(c));</span><br><span class="line">           got_token(WORD);</span><br><span class="line">       &#125;</span><br><span class="line">       add_to_token(c);</span><br><span class="line">       got_token(PUNCT);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></div></figure>
-<p>第一个片段每调用emit一次就生成一个字符；另一个片段每调用getchar一次就要使用一次字符。如果只能调用emit和getchar来相互传递数据，可以很简单地将两个片段连接在一起来达成目的，即解压器的输出直接传递到解析器。</p>
+<p>纸笔考试阅读总共60分钟，但是没有单独填答题卡的时间，所以实际上只能做54分钟。写一篇，填一篇。</p>
+<p>三篇文章。40道题。</p>
+<p>四大类题型：（共13个小的类别）</p>
+<ol>
+<li>填空
+<ol>
+<li>简答、完成句子、无/有选项summary、表格题、图表标记、流程图</li>
+</ol>
+</li>
+<li>判断</li>
+<li>选择（单选、多选）</li>
+<li>匹配
+<ol>
+<li>特殊词匹配、首尾句匹配、段落信息匹配、小标题。</li>
+</ol>
+</li>
+</ol>
+<p>填空、判断难度稍低；选择、匹配难度稍高。</p>
+<p>27-29道题6.5分，30-32道7.0，33-34道7.5。平均一篇文章只能错2到3道题，才能保证7分以上。</p>
+<p>60%考察基础词汇、句法；20%考察阅读理解、定位技巧；20%文章逻辑关系、判断力。</p>
+<p>内容不固定，但是文章体裁只有两类，说明文 - 现象解释、议论文 - 问题解决。</p>
 
-        <h1 id="连接两个片段的方案"   >
-          <a href="#连接两个片段的方案" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#连接两个片段的方案"></a> 连接两个片段的方案</h1>
+        <h2 id="其他"   >
+          <a href="#其他" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
       
-<p>在现代的操作系统中，可以使用两个进程或者线程之间的管道实现连接，解压器中的emit写入一个管道，解析器中的getchar从这个管道的另一端读取。简单、健壮，但是用线程来解决有点重量级、不够便携。 通常情况下，不需要为如此简单的任务将程序划分为多个线程。</p>
-<p>常规的答案(conventional answer)就是重写(rewrite)通信信道的末端中的一个，如此它就成了一个可被调用的函数。下面是对每个示例片段意味着什么的例子。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">decompressor</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> repchar;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> replen;</span><br><span class="line">    <span class="keyword">if</span> (replen &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        replen--;</span><br><span class="line">        <span class="keyword">return</span> repchar;</span><br><span class="line">    &#125;</span><br><span class="line">    c = getchar();</span><br><span class="line">    <span class="keyword">if</span> (c == EOF)</span><br><span class="line">        <span class="keyword">return</span> EOF;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="number">0xFF</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        replen = getchar();</span><br><span class="line">        repchar = getchar();</span><br><span class="line">        replen--;</span><br><span class="line">        <span class="keyword">return</span> repchar;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">parser</span><span class="params">(<span class="type">int</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="class"><span class="keyword">enum</span> &#123;</span> START, IN_WORD &#125; state;</span><br><span class="line">    <span class="keyword">switch</span> (state)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> IN_WORD:</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isalpha</span>(c))</span><br><span class="line">            &#123;</span><br><span class="line">                add_to_token(c);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            got_token(WORD);</span><br><span class="line">            state = START;</span><br><span class="line">            <span class="comment">/* fall through */</span></span><br><span class="line">        <span class="keyword">case</span> START:</span><br><span class="line">            add_to_token(c);</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isalpha</span>(c))</span><br><span class="line">                state = IN_WORD;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                got_token(PUNCT);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>当然，不必重写两个。如果重写解压缩器，以便每次被调用时返回一个字符，则原始解析器代码可以用decompressor替换getchar。相反，如果重写解析器，以便为每个输入的字符都调用一次，则原始解压缩代码可以调用parser而不是emit。如果你是一个贪吃惩罚的人，你只会想将这两个函数重写为被调用者。</p>
-<p>这就是重点。与原始函数相比，这两个重写的功能都非常丑陋。当作为调用者而不是被调用者编写时，这里发生的两个过程(process)都更容易阅读。试着去推导解析器能识别的语法，或者解压器能理解的压缩数据格式，仅仅通过阅读代码，你会发现原始的代码很清晰，重写的代码都不太清楚。 如果我们不必将任何一段代码从里到外重写，那就更好。</p>
+<p>在答题卡上不能只写t或f，不能写缩写，要全部都写完，not given你要写成not given。</p>
 
-        <h2 id="knuths-coroutines"   >
-          <a href="#knuths-coroutines" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#knuths-coroutines"></a> Knuth’s coroutines</h2>
+        <h1 id="文章难度分析"   >
+          <a href="#文章难度分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#文章难度分析"></a> 文章难度分析</h1>
       
-<p>在 The Art of Computer Programming 中，Donald Knuth 提出了解决此类问题的方法。他的回答是完全抛弃栈的概念。不要再将一个进程视为调用者，将另一个进程视为被调用者，而是开始将它们视为平等合作。</p>
-<p>实际操作上：用略有不同的原语(primitive: In programming, a fundamental element in a language that can be used to create larger procedures that do the work a programmer wants to do.)替换传统的“调用(call)”原语。 新的“调用”会将返回值保存在堆栈以外的其他位置，然后跳转到另一个保存的返回值中指定的位置。 因此，每次解压缩器发出另一个字符时，它都会保存其程序计数器并跳转到解析器中最后已知的位置 - 每次解析器需要另一个字符时，它都会保存自己的程序计数器并跳转到解压缩器保存的位置。 控制在两个例程(routines)之间来回穿梭(back and forth)。</p>
-<p>从理论上讲，这是非常好的，但是实际上只能以汇编语言进行操作，因为没有常用的高级语言支持协程调用的原语(coroutine call primitive)。像C这样的语言完全取决于其基于堆栈的结构，因此，每当控制从任何函数传递到任何其他函数时，都必须有一个是调用者，另一个必须是被调用者。因此，如果想编写便携式代码，则此技术至少与Unix Pipe解决方案一样不切实际。</p>
+<ol>
+<li>三篇难度随机</li>
+<li>第一篇难度大的比例有所提升</li>
+<li>第三篇一般比较简单</li>
+</ol>
+<p>难在哪里？</p>
+<ol>
+<li>
+<p>文章内容偏离日常生活接触的知识</p>
+<ol>
+<li>咔嚓忽悠可的建筑群、古代的人</li>
+<li>地理类的Grand Canyon</li>
+<li>美国大峡谷的形成原因</li>
+<li>地理学的洋流</li>
+<li>心理学上情绪有关的大脑定量分析</li>
+<li>语言学上的口哨</li>
+</ol>
+</li>
+<li>
+<p>题目回到原文同义替换的比例增加</p>
+<ol>
+<li>以前你的题目和你的文章还能看到一些原文原词，但是现在就没有了，现在你在题目里看到这个词，你在文章中怎么都看不着这个词，往往都是同义词替换</li>
+</ol>
+</li>
+</ol>
 
-        <h2 id="stack-based-coroutines"   >
-          <a href="#stack-based-coroutines" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stack-based-coroutines"></a> Stack-based coroutines</h2>
+        <h2 id="优先选择容易题做"   >
+          <a href="#优先选择容易题做" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优先选择容易题做"></a> 优先选择容易题做</h2>
       
-<p>所以我们真正想要的是在C中模仿 Knuth 的协程调用原语的能力。我们必须接受现实，在C级别，一个函数将是调用者，另一个将是被调用者。在调用者中，我们没有问题；我们对原始算法进行code，几乎完全按照编写的方式进行，并且每当它有（或需要）一个字符时，它就会调用另一个函数。</p>
-<p>被调用者有全部的难题需要解决。对于被调用者，我们想要一个具有“返回并继续”操作的函数：从函数返回，下次调用它时，从返回语句之后恢复控制。 例如，我们希望能够编写一个函数：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i; <span class="comment">/* won&#x27;t work, but wouldn&#x27;t it be nice */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>我们想要对函数进行十次连续调用，返回数字0到9。我们如何实现呢？ 可以使用goto语句将控制转移到函数中的任意点。 所以如果我们使用状态变量，我们可以这样做：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">function</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> i, state = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">switch</span> (state)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: <span class="keyword">goto</span> LABEL0;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">goto</span> LABEL1;</span><br><span class="line">    &#125;</span><br><span class="line">LABEL0: <span class="comment">/* start of function */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        state = <span class="number">1</span>; <span class="comment">/* so we will come back to LABEL1 */</span></span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">LABEL1:</span><br><span class="line">        ; <span class="comment">/* resume control straight after the return */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>这个方法有效。我们在可能需要恢复控制的点上有一组标签：一个在开始处，一个在每个 return 语句之后。我们有一个状态变量，在函数调用之间保存，它告诉我们下一个需要恢复控制的标签。在任何return之前，我们更新状态变量以指向正确的标签；在任何调用之后，我们都会对变量的值进行切换以找出跳转到的位置。</p>
-<p>不过，它仍然很难看。最糟糕的部分是标签集必须手动维护，并且必须在函数体和初始 switch 语句之间保持一致。每次我们添加一个新的返回语句，我们必须发明一个新的标签名称并将其添加到开关中的列表中；每次我们删除 return 语句时，我们都必须删除其对应的标签。 我们刚刚将维护工作量增加了两倍。</p>
+<ol>
+<li>四大类题型：（共13个小的类别）填空、判断难度稍低；选择、匹配难度稍高。
+<ol>
+<li>填空
+<ol>
+<li>简答、完成句子、无/有选项summary、表格题、图表标记、流程图</li>
+</ol>
+</li>
+<li>判断</li>
+<li>选择（单选、多选）</li>
+<li>匹配
+<ol>
+<li>特殊词匹配、首尾句匹配、段落信息匹配、小标题。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>如果题型看着差不多，就看文章的开头和topic。优先选择自己熟悉话题的文章。</li>
+<li>按阅读量
+<ol>
+<li>有的是不需要读太多的内容就能做得出来答案的</li>
+<li>有的题目要求阅读量比较高，它需要你可能读一整篇，或者是可能读一个段落才能做对这种情况。
+<ol>
+<li>像选择和匹配就属于难度比较高，也就是阅读量比较高的题目</li>
+<li>但并不是说所有的简单题型都一定简单，也并不是说所有的难的题型一直难</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>按照文章长度来看的话，先做短文章，短的就意味着你所需要看的内容少，所以先做短的，如果长度也都差不多，那去看文章生词大概瞄一眼哪些文章里面生词最少，先做。</li>
+</ol>
 
-        <h2 id="duffs-device"   >
-          <a href="#duffs-device" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#duffs-device"></a> Duff’s device</h2>
+        <h1 id="如何练习"   >
+          <a href="#如何练习" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如何练习"></a> 如何练习</h1>
       
-<p>C语言中著名的“达夫装置”利用了这样一个事实，即 case 语句在其匹配的 switch 语句的子块中仍然是合法的。 Tom Duff 使用它来优化输出循环：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (count % <span class="number">8</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>: <span class="keyword">do</span> &#123; *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:      *to = *from++;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:      *to = *from++;</span><br><span class="line">               &#125; <span class="keyword">while</span> ((count -= <span class="number">8</span>) &gt; <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>我们可以在协程技巧中将其用于稍微不同的用途。我们可以使用 switch 语句来执行跳转，而不是使用 switch 语句来决定执行哪个 goto 语句：</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">function</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> i, state = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">switch</span> (state)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>: <span class="comment">/* start of function */</span></span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                state = <span class="number">1</span>; <span class="comment">/* so we will come back to &quot;case 1&quot; */</span></span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                ; <span class="comment">/* resume control straight after the return */</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>现在这看起来很有希望。 我们现在要做的就是构建一些精心挑选的宏，我们可以将血淋淋的细节隐藏在看似合理的东西中：（使用<code>do ... while(0)</code>来确保<code>crReturn</code>直接出现在 if 和 else 之间时不需要大括号）</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> crBegin static int state=0; switch(state) &#123; case 0:</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> crReturn(i,x) do &#123; state=i; return x; case i:; &#125; while (0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> crFinish &#125;</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">function</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> i;</span><br><span class="line">    crBegin;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">        crReturn(<span class="number">1</span>, i);</span><br><span class="line">    crFinish;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>这几乎正是我们想要的。 我们可以使用<code>crReturn</code>以这种方式从函数返回，以便在返回后立即恢复下一次调用的控制。 当然，我们必须遵守一些基本规则（用<code>crBegin</code>和<code>crFinish</code>包围函数体；如果需要在<code>crReturn</code>中保留所有局部变量，则将它们声明为静态的；永远不要将<code>crReturn</code>放在显式的<code>switch</code>语句中）； 但这些并没有限制我们太多。</p>
-<p>剩下的唯一障碍是<code>crReturn</code>的第一个参数。 正如我们在上一节中发明新标签时必须避免它与现有标签名称冲突一样，现在我们必须确保<code>crReturn</code>的所有状态参数都是不同的。 结果将是相当良性的——编译器会捕获它并且不会让它在运行时做可怕的事情——但我们仍然需要避免这样做。</p>
-<p>ANSI C提供了特殊的宏名称<code>__LINE__</code>，它表示当前源代码行号。所以我们可以将<code>crReturn</code>重写为</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> crReturn(x) do &#123; state=__LINE__; return x; \</span></span><br><span class="line"><span class="meta">                         case __LINE__:; &#125; while (0)</span></span><br></pre></td></tr></table></div></figure>
-<p>如果我们遵守第四条基本规则（永远不要将两个<code>crReturn</code>语句放在同一行），那么我们根本就不必担心那些状态参数。</p>
+<p>每天打好基础语法和单词的就是练习。</p>
 
-        <h2 id="evaluation"   >
-          <a href="#evaluation" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#evaluation"></a> Evaluation</h2>
+        <h2 id="词汇"   >
+          <a href="#词汇" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#词汇"></a> 词汇</h2>
       
-<p>现在我们有了这个怪物，让我们用它重写我们原来的代码片段。</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">decompressor</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> c, len;</span><br><span class="line">    crBegin;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        c = getchar();</span><br><span class="line">        <span class="keyword">if</span> (c == EOF)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="number">0xFF</span>) &#123;</span><br><span class="line">            len = getchar();</span><br><span class="line">            c = getchar();</span><br><span class="line">            <span class="keyword">while</span> (len--)</span><br><span class="line">	        crReturn(c);</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">	    crReturn(c);</span><br><span class="line">    &#125;</span><br><span class="line">    crReturn(EOF);</span><br><span class="line">    crFinish;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">parser</span><span class="params">(<span class="type">int</span> c)</span> &#123;</span><br><span class="line">    crBegin;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">/* first char already in c */</span></span><br><span class="line">        <span class="keyword">if</span> (c == EOF)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isalpha</span>(c)) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                add_to_token(c);</span><br><span class="line">		crReturn( );</span><br><span class="line">            &#125; <span class="keyword">while</span> (<span class="built_in">isalpha</span>(c));</span><br><span class="line">            got_token(WORD);</span><br><span class="line">        &#125;</span><br><span class="line">        add_to_token(c);</span><br><span class="line">        got_token(PUNCT);</span><br><span class="line">	crReturn( );</span><br><span class="line">    &#125;</span><br><span class="line">    crFinish;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>我们已经将解压缩器和解析器都重写为被调用者，完全不需要我们上次这样做时必须进行的大规模重组。<strong>每个函数的结构完全反映了其原始形式的结构</strong>。读者可以推断出解析器识别的语法或解压缩器使用的压缩数据格式，<strong>这比阅读晦涩的状态机代码要容易得多</strong>。一旦您全神贯注于新格式，控制流程就很直观：当解压缩程序有一个字符时，它会使用<code>crReturn</code>将其传回给调用者，并等待在需要另一个字符时再次调用。当解析器需要另一个字符时，它使用<code>crReturn</code>返回，并等待用参数<code>c</code>中的新字符再次调用。</p>
-<p>对代码进行了一个小的结构更改：<code>parser</code>现在在循环的末尾而不是开始处有它的<code>getchar</code>（嗯，相应的<code>crReturn</code>），因为当函数运行时第一个字符已经在<code>c</code>中进入。我们可以接受这个结构上的小变化，或者如果我们真的对此有强烈的感觉，我们可以指定<code>parser</code>需要一个“初始化”调用，然后才能开始向它提供字符。</p>
-<p>当然，和以前一样，我们不必使用协程宏重写这两个例程。一个就够了；另一个可以是它的调用者。</p>
-<p>我们已经实现了我们打算实现的目标：一种可移植的ANSI C方法，可以在生产者和消费者之间传递数据，而无需将其重写为显式状态机。我们通过将C预处理器与switch语句的一个很少使用的功能相结合来创建隐式状态机(<em>implicit</em> state machine)来完成此操作。</p>
+<p>在APP上背阅读词汇，一天背5组同义词替换（剑1<sub>剑9同义替换、剑10同义替换、剑11同义替换、剑13同义替换），然后再看每一本不同书的时候去背它的必备词汇（雅思阅读必备词汇C4</sub>C11），如果阅读分数想要在7.5分以上，单词量一定是在8000以上的，而且加上阅读技巧才能到7.5分以上，如果阅读技巧稍微弱一点的话，你就得到在10000、12000。</p>
+<p>但是阅读的单词有一个特点就是在于它不需要你对这个单词有非常深刻的认知，你只需要看到这个单词认识，知道它的大概中文意思就行了，一定不要太准确，如果阅读词汇你的中文意思背得太准确的话，其实也不好，因为你就不能快速的找到它的同义词。比如说有个例子说的是地方的水利灌溉系统的improving，给人们带来了足够的食物。那题目说的是 advanced application system给人们带来了足够的食物。如果你想advanced和improving这俩词儿，advanced是先进的，improving是进步。如果背得非常的准确，把单词背得非常的死的话，可能会觉得他俩说的意思不是特别的一致，但是其实他俩说的就是一模一样的意思，都是先进、进步、高阶、好，用一句话总结就是他俩说的都是好，水的灌溉系统的好，到使这里的人们可以生活得很好。所以对于阅读词汇来讲的话，我们一定是建议大概意思范围就行了，这是词汇。</p>
 
-        <h2 id="编码标准问题"   >
-          <a href="#编码标准问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#编码标准问题"></a> 编码标准问题</h2>
+        <h2 id="长难句不回读"   >
+          <a href="#长难句不回读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#长难句不回读"></a> 长难句不回读</h2>
       
-<p>当然，这个技巧违反了书中的所有编码标准。尝试在您公司的代码中这样做，可能会受到严厉的批评！在宏中嵌入了不匹配的大括号，在子块中嵌入了用例，以及<code>crReturn</code>宏及其可怕的破坏性内容…如果没有因为这种不负责任的编码行为当场被解雇真是个奇迹。应该为自己感到羞耻。</p>
-<p>这里的编码标准确实有问题，需要声明。在本文中展示的示例不是很长，也不是很复杂，并且在重写为状态机时仍然可以理解。 但是随着函数越来越长，需要重写的程度越来越大，清晰度的损失也越来越严重。</p>
-<p>考虑。 由以下形式的小块构建的函数</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> STATE1:</span><br><span class="line"><span class="comment">/* perform some activity */</span></span><br><span class="line"><span class="keyword">if</span> (condition) state = STATE2; <span class="keyword">else</span> state = STATE3;</span><br></pre></td></tr></table></div></figure>
-<p>对于读者来说，与由以下形式的小块构建的函数没有太大区别</p>
-<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LABEL1:</span><br><span class="line"><span class="comment">/* perform some activity */</span></span><br><span class="line"><span class="keyword">if</span> (condition) <span class="keyword">goto</span> LABEL2; <span class="keyword">else</span> <span class="keyword">goto</span> LABEL3;</span><br></pre></td></tr></table></div></figure>
-<p>一个是调用者，另一个是被调用者，没错，但是函数的视觉结构是相同的，并且它们提供的对其底层算法的洞察力彼此一样小。 那些因为使用我的协程宏而解雇你的人也会因为你用 goto 语句连接的小块构建函数而大声解雇你！这一次他们是对的，因为布置这样的函数会可怕地掩盖算法的结构。</p>
-<p>编码标准旨在清晰。 通过将 switch、return 和 case 语句等重要内容隐藏在“混淆”宏中，编码标准会声称您已经模糊了程序的句法结构，并且违反了清晰度要求。但你这样做是为了揭示程序的算法结构，这更可能是读者想知道的！</p>
-<p>任何以牺牲算法清晰度为代价坚持句法清晰度的编码标准都应该被重写。 如果您的雇主因使用此技巧而解雇您，请在保安人员将您拖出大楼时反复告诉他们。</p>
+<p>去找句子的主谓宾。因为在阅读里面，你时间比较长的一个非常重要的点，其实就是在于我题目看完回到原文，原文看完以后第一遍我没看出来，我要再看一遍到底说的是什么，要看好几遍来达到我知道这个答案是什么的目的。这种情况下，就会花费比较长的时间来做题，所以一定要有长难句的不回读训练。</p>
+<p>要做到看一遍就能够掌握到这句话里的主干是什么，修饰成分是什么，掌握到这句话的主要意思想表达的是什么，和题目里面的关系是什么。</p>
 
-        <h1 id="refinements-and-code"   >
-          <a href="#refinements-and-code" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#refinements-and-code"></a> Refinements and Code</h1>
+        <h2 id="两种联系阅读的方法"   >
+          <a href="#两种联系阅读的方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#两种联系阅读的方法"></a> 两种联系阅读的方法</h2>
       
-<p>在一个严肃的应用程序中，这个玩具协程实现不太可能有用，因为它依赖于静态变量，因此它无法重入或多线程。 理想情况下，在实际应用程序中，您可能希望能够在多个不同的上下文中调用相同的函数，并且在给定上下文中的每次调用中，控制在同一上下文中的最后一次返回之后立即恢复。</p>
-<p>这很容易完成。 我们安排了一个额外的函数参数，它是一个指向上下文结构的指针； 我们将所有本地状态和协程状态变量声明为该结构的元素。</p>
-<p>这有点难看，因为突然间你不得不使用<code>ctx-&gt;i</code>作为循环计数器，而你以前只会使用<code>i</code>； 实际上，您所有的重要变量都成为协程上下文结构的元素。 但它消除了重入的问题，并且仍然没有影响例程的结构。</p>
-<p>（当然，如果 C 只有 Pascal 的 with 语句，我们可以安排宏来使这个间接层也真正透明。遗憾的是，至少 C++ 用户可以通过让他们的协程成为类成员来管理它， 并将其所有局部变量保留在类中，以便范围是隐式的。）</p>
-<p>这里包含一个 C 头文件，它将这个协程技巧实现为一组预定义的宏。 文件中定义了两组宏，前缀为 scr 和 ccr。 scr 宏是该技术的简单形式，当您可以使用静态变量时； ccr 宏提供高级可重入表单。 完整文档在头文件本身的注释中给出。</p>
-<p>请注意，<code>Visual C++</code>版本 6 不喜欢这种协程技巧，因为它的默认调试状态（用于编辑和继续的程序数据库）对<code>__LINE__</code>宏做了一些奇怪的事情。 要使用<code>VC++6</code>编译使用协程的程序，必须关闭“编辑并继续”。 （在项目设置中，转到“C/C++”选项卡，类别“常规”，设置“调试信息”。选择“用于编辑和继续的程序数据库”以外的任何选项。）</p>
-<hr />
-<p>参考文献：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html" >https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Go%E8%AF%AD%E8%A8%80%E5%8D%8F%E7%A8%8B/">协程_Go语言协程实现</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-03-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-09</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%8D%8F%E7%A8%8B_Go%E8%AF%AD%E8%A8%80%E5%8D%8F%E7%A8%8B/" data-flag-title="协程_Go语言协程实现"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="原理"   >
-          <a href="#原理" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1>
+
+        <h3 id="中英文对照阅读"   >
+          <a href="#中英文对照阅读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#中英文对照阅读"></a> 中英文对照阅读</h3>
       
-<figure class="highlight go"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">go</span> sayHello()</span><br><span class="line">    <span class="comment">// continue doing other things</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/51/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/152/">152</a><a class="extend next" rel="next" href="/page/53/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">303</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+<p>第一种，中英文对照阅读，一段话，先把它翻译成英文，翻译完以后和英文原版进行对照，有出入。对我们现在的语言水平来看的话，包括口语、写作是有好处的。如果按照中英文对照阅读的训练进行训练下去的话，你会发现你的翻译能力有大幅度的进步和提升，就意味着你的写作和你的口语都会有进步，这个方法确实会比较费时间。不建议坚持看一本书，比如哈利波特小王子什么的，那些就有点不太能够直接的跟我们的写作相对应。建议看什么？建议去看写作范文，哪些翻译软件非常的好用，直接把它翻译成中文，我发的肯定都是英文写作范文，然后你就把它翻译成中文，然后中文看完以后一句一句翻译，然后对照一下写作范文，哪些表达方式我们没有，我们把它积累出来，这样的话就会更加的直接的针对于我们的雅思学习。</p>
+
+        <h3 id="直接阅读"   >
+          <a href="#直接阅读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#直接阅读"></a> 直接阅读</h3>
+      
+<p>第二种，是直接阅读。直接阅读是什么？跟我们平时阅读中文书籍一样，我们直接阅读英文文章，直接阅读英文文章就是可以阅读。可以拿剑4及以后的的那些文章直接来阅读，以理解文章大概内容为目的。直接阅读一定要注意去读做过题目的文章。如果这篇文章题目还没有做，就不要去读它。因为一共我们剑桥真题就这么多，对吧？每一题按照考试的流程去练才是最好的。</p>
+<p>或者读机经。机经是什么？就是以往的考试的可能存在的文章，就是以读文章为目的去看。</p>
+<p>另外一个在读的时候要注意的一个点就是一定不要边查边读。所有的英语学习，包括口语，包括写作，包括听力，包括阅读，不要把所有的这些听说读写最终都练成考词汇。你可以从书中来判断陌生单词的意思，比如说写作的时候你想要写这个词，但是你不太会表达，你可以先尝试用其他的表达方式来把它替换出来，然后最后补充词汇，最后查一下这个单词和它的意思和你想象的一不一致。最后查一下这个表达方式——你想要用的，但是第一时间没有表达出来的，这就是补充词汇。</p>
+<ol>
+<li>读做过题目的文章</li>
+<li>读机经</li>
+<li>一定不要边查边读</li>
+<li>最后补充词汇</li>
+</ol>
+
+        <h1 id="考试技巧"   >
+          <a href="#考试技巧" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#考试技巧"></a> 考试技巧</h1>
+      
+<p>雅思阅读就两个方面：一是定位题眼、同义替换。二是阅读理解、归纳总结。</p>
+<ol>
+<li>定位且理解细节信息的能力——同义替换。</li>
+<li>归纳文章或者段落主要信息的能力——阅读能力。</li>
+</ol>
+
+        <h2 id="定位题眼-同义替换"   >
+          <a href="#定位题眼-同义替换" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#定位题眼-同义替换"></a> 定位题眼、同义替换</h2>
+      
+<p>如果有明显题眼，做题的时候一定是先看题，再看文章。</p>
+<ol>
+<li>题目里面通常有题眼，要在文章里面找到题眼，就是所说的答案句，对比一下这两个说的是什么，然后选答案。</li>
+<li>对于那些结构性的题目，需要考察你的阅读能力，结构性的题目并不能在文章中找到非常明显的题眼，可能要看一段话或者是整篇文章来做这道题，比如说有的题目最后一篇，最后一题，他会问你这篇文章作者的意图是什么？这篇文章的开头是什么？这篇文章的主旨中心思想是什么？需要归纳文章或段落信息的能力，所以两个不同的能力对应的是我们不同的题目。</li>
+</ol>
+<p>阅读之前补充定位——选择什么样的词作为定位词。有一些我们常见的或常选的词，第一个叫特殊词：两种情况，一个是题目里面有特殊词，一个是题目里面没有特殊词。</p>
+<p>如果题目里面有特殊词最好，比如说一些大写名词，人名或者是地名，一些数字等等，大写的重要名词。这些比较好找，并且在文章中不会被替换。但是数字要注意，他可能会给你挖坑，他在题目里跟你说1890年，在文章里他可能会跟你说19世纪末。所以数字要警惕它的替换。大写数字或者是一些斜体或者是带符号等等的这些词，这些词儿相对来说，回归文章当中都比较好找，所以如果题目里有这些特殊词，就直接以它为定位词会文章找就可以了。</p>
+<p>如果题目里没有特殊词，全都是一些小写的，平常的词汇，要用多点定位法：要选择more than one定位词，以避免漏掉信息，或者扫读的时候忽略了。所以多点定位是在句子的不同成分里面选名词或者是名词词组。主语选一个，宾语选一个，定语选一个，状语选一个，一般选2~3个，这样的话抓住大概的主、谓、宾、定、状等等的这些，再去对应的找意思相符合的大致范围。</p>
+
+        <h2 id="同义替换"   >
+          <a href="#同义替换" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#同义替换"></a> 同义替换</h2>
+      
+<p>同义替换就是填空句子完成或简答找定位，然后理解细节信息，阅读能力匹配，找小标题等等这些段落主要信息。但是这个适合先看文章再做题。</p>
+<p>所以我们的考试技巧先看文章再看题，还是先看题再看文章，都有自己的优缺点。如果我们先看文章的话，我们做题的准确率就会比较高，但是需要看的内容比较多，因为阅读量大；如果先看题，再看文章的话，阅读量比较小，但是有可能由于前后忽略了一个信息，导致做不对。所以我们要根据题目的特性选择不同的技巧，比如说细节信息题，一定是先看题，再看文章，如果是章篇结构体，可能先看文章再看题比较好，所以不同的题目我们选择不同的做题技巧。</p>
+
+        <h1 id="阅读方法"   >
+          <a href="#阅读方法" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#阅读方法"></a> 阅读方法</h1>
+      
+<p>扫读、略读、精读。</p>
+<p>扫读只是为了找到定位词而已，不需要了解和认识里面的某一个词汇或者是某一个短语，或者是它的文章意思等等，找到那个点就行了。扫读完了以后，我们就找到了定位词，接下来就要去略读。</p>
+<p>略读：去看一下定位词跟我的题目说的这个东西大概一不一致，方向一不一样，是不是我的题目范围，然后再精读。</p>
+<p>精读：一字一句的去认真读这篇文章里面的词汇是什么，句法是什么，然后根据题目找答案。</p>
+
+        <h2 id="扫读"   >
+          <a href="#扫读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#扫读"></a> 扫读</h2>
+      
+<p>扫读适合题目中有明显定位词，回到原文中找到定位词就可以解题了。那么在这种情况下来一定要注意，扫读不是逐字逐句阅读，用w阅读法。</p>
+<p>w阅读法是什么意思？不是横着看，而是横竖结合——斜着下斜着上，每次w阅读5行。视线范围内可以在同一时间最大限度的看到最多的内容。</p>
+
+        <h2 id="略读"   >
+          <a href="#略读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#略读"></a> 略读</h2>
+      
+<p>略读适合题目本身是概括总结性的话语，只需要看大致意思就可以了，只需要看文章主旨就行了。有选择性的阅读，跳过细节，抓取文章大概。</p>
+
+        <h2 id="精读"   >
+          <a href="#精读" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#精读"></a> 精读</h2>
+      
+<p>精读要求就会比较高，主要就考练习了。</p>
+<p>第一就是找长难句。就是一套题中，选三篇文章里错题最多的那篇进行精读。精读是要把文章里面所有的长难句都找出来，把里面的生词整理出来，要求对文章背景有所了解，把文章的结构体系和逻辑关系都找出来。那么其中长难句找出来以后，按照我们长难句进行分析，看这个句子的主语是谁，谓语是谁。先看句子主句是谁，然后分句修饰成分是什么等等。</p>
+<p>第二，找里面的不认识的单词，包括一些重要名词，包括一些文章，特殊情况，比如文章讲的Marine mammals，海洋里面的哺乳动物，它里面肯定会讲到各种各样的名词，各种各样的哺乳动物的名字等等，这些也得整理出来，得了解。</p>
+<p>第三，了解文章的背景，除了这篇文章说的海洋的哺乳动物以外，它还可能有哪些方面。自己通过搜索引擎查找。</p>
+<p>第四个也是最重要的，即整理出文章的体系结构和逻辑关系，这些体系结构和逻辑关系可以帮助你理解与之相同类的文章的所有的体系结构和逻辑关系，还能帮助你进行写作的逻辑关系和体系结构的level up。但并不是翻译这篇文章，不是把这篇文章逐字逐句的翻译出来去理解它是什么，而是用你自己的话去总结它。比如说这篇文章说的是introduction to film sound，这篇文章的题目讲的就是电影声音，然后刚开始告诉你film sound很重要，它其中有三种表达方式，第一种是人声，就是我们所说的对白，第二种是音效，管乐和弦乐，第三种是音乐。即：先给你对于film sound上的一个introduction，然后再逐一去解释：对白的definition是什么；举例：真人和演员重合；举例：对话的数量和使用方式。体系结构其实是：看文章是从词看到句子，从句子看到意群，从意群看到章篇。</p>
+<p><img src="../../images/%E9%9B%85%E6%80%9D%E9%98%85%E8%AF%BB/image-20230404203323026.png" alt="image-20230404203323026" /></p>
+
+        <h1 id="日常工作"   >
+          <a href="#日常工作" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#日常工作"></a> 日常工作</h1>
+      
+<p>同义词。</p>
+<p>长难句分析。</p>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB/">Linux_设置系统运行级别</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2023-03-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-09-10</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB/" data-flag-title="Linux_设置系统运行级别"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+        <h1 id="切换系统运行级别"   >
+          <a href="#切换系统运行级别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#切换系统运行级别"></a> 切换系统运行级别</h1>
+      
+<ul>
+<li>runlevel命令可查看系统运行级别</li>
+<li>可以用init命令动态切换0-6七个级别
+<ol>
+<li>关机</li>
+<li>单用户模式</li>
+<li>多用户无网络服务</li>
+<li>完全的多用户文本界面</li>
+<li>未定义或自定义</li>
+<li>图形化界面</li>
+<li>重启</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">runlevel</span><br><span class="line"><span class="comment"># 结果:</span></span><br><span class="line">	<span class="comment"># 图形化模式时 -&gt; N 5</span></span><br><span class="line">	<span class="comment"># 命令行模式时 -&gt; 5 3</span></span><br><span class="line">init 3 <span class="comment">#切换到命令行模式</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="启动级别runlevel"   >
+          <a href="#启动级别runlevel" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#启动级别runlevel"></a> 启动级别Runlevel</h1>
+      
+<p>参考：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.bbsmax.com/A/x9J2PYpEd6/" >https://www.bbsmax.com/A/x9J2PYpEd6/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>首先来了解下启动级别(Runlevel)：</p>
+<p>指Unix或类Unix操作系统下不同的运行模式，运行级别通常分为7级：</p>
+<ol start="0">
+<li>运行级别 0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动</li>
+<li>运行级别 1：单用户工作状态，root权限，用于系统维护，禁止远程登陆，无网络连接，不运行守护进程，不允许非超级用户登录。（如果忘记了root密码，可通过开机热键进入单用户模式进行重置，前提是要接触到主机）</li>
+<li>运行级别 2：多用户状态，无网络连接，不运行守护进程</li>
+<li>运行级别 3：完全的多用户状态(有NFS)，登陆后进入控制台命令行模式，正常登录状态</li>
+<li>运行级别 4：系统未使用，保留，用户自定义</li>
+<li>运行级别 5：X11控制台，登陆后进入图形GUI模式，就是常见的带有图形界面的模式</li>
+<li>运行级别 6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</li>
+</ol>
+
+        <h1 id="设置开机进入命令行模式"   >
+          <a href="#设置开机进入命令行模式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设置开机进入命令行模式"></a> 设置开机进入命令行模式</h1>
+      
+<p>在全新的Linux systemD中已经使用target代替Runlevel，如multi-user.target相当于init 3，graphical.target相当于init 5，但是SystemD仍然兼容运行级别(Runlevel)。</p>
+<p>当前绝大多数发行版已采用systemd代替UNIX System V。</p>
+<p>要设置开机进入无图形化界面的命令行模式，就是将默认的开机进入运行级别 5 更改为开机进入运行级别 3。</p>
+<p>步骤：</p>
+<ol>
+<li><code>sudo vim /etc/default/grub</code></li>
+<li>sudo update-grub</li>
+<li><code>systemctl set-default multi-user.target</code></li>
+<li>reboot</li>
+</ol>
+
+        <h1 id="设置开机进入图形界面"   >
+          <a href="#设置开机进入图形界面" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#设置开机进入图形界面"></a> 设置开机进入图形界面</h1>
+      
+<p>步骤：</p>
+<ol>
+<li><code>sudo vim /etc/default/grub</code></li>
+<li>sudo update-grub</li>
+<li><code>systemctl set-default graphical.target</code></li>
+<li>reboot</li>
+</ol>
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/51/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/153/">153</a><a class="extend next" rel="next" href="/page/53/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">305</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
