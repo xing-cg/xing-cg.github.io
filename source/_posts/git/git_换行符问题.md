@@ -1,13 +1,12 @@
 ---
 title: git_换行符问题
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [git]
+  - - Linux
+  - - git
 tags:
-  - null 
+  - 
 date: 2022/8/29
-update:
+updated:
 comments:
 published:
 ---

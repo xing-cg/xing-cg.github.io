@@ -1,13 +1,12 @@
 ---
 title: git_config
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [git]
+  - - Linux
+  - - git
 tags:
-  - null 
+  - 
 date: 2022/9/3
-update:
+updated:
 comments:
 published:
 ---

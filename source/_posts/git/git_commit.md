@@ -1,12 +1,11 @@
 ---
 title: git_commit
 categories:
-  - - Linux
   - - git
-tags: 
+tags:
 date: 2022/9/2
-update: 
-comments: 
+updated:
+comments:
 published:
 ---
 

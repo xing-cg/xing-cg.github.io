@@ -1,13 +1,11 @@
 ---
 title: git_各种切换分支_回退
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [git]
+  - - git
 tags:
-  - null 
+  - 
 date: 2022/8/15
-update:
+updated:
 comments:
 published:
 ---

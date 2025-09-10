@@ -46,4 +46,150 @@ published: false
 4. FIFOCache 需要管理的两个数据结构：Hash + 队列
 
 实现文件存放于：`trpc/util/cache/cache.h`、`trpc/util/cache/cache.h/decorators/lru_cache.h`
-# 
+# ShardedLRUCache 设计与实现 - xing-cg版
+
+基于[trpc-lru-group/trpc-cpp/tree/lru_cache_1_wu](https://github.com/trpc-lru-group/trpc-cpp/tree/lru_cache_1_wu)分支的 Cache 实现的 装饰器模式 的 分片 LRU Cache。
+[PR链接：https://github.com/trpc-lru-group/trpc-cpp/pull/3](https://github.com/trpc-lru-group/trpc-cpp/pull/3)
+## Motivation
+
+* 在高并发场景下，单实例 LRU 受限于**全局互斥**，在多线程/协程下出现明显锁争用，吞吐与延迟抖动明显。
+* 工业界的主流做法是 **Sharded LRU**：按 `hash(key)` 将 Key 均匀分散到多片，**片内严格 LRU**、**片间近似全局 LRU**，从而显著降低锁竞争、提升并发度。
+* 本 PR 落地 `ShardedLRUCache`，作为**分片编排层**，复用已有 `LRUCache` 的逻辑与单测，降低实现和维护风险，并为后续 Fiber 互斥、异步提升、性能基准打下基础。
+
+---
+
+## Design
+
+### 分片（Sharding）
+
+* **分片数**：`num_shards = 2^ShardBits`（编译期常量，默认 `ShardBits=4` → 16 片）。
+* **路由规则**：`shard_id = Hash(key) & (num_shards - 1)`（位与，要求分片数为 2 的幂）。
+* **容量切分**：总容量 `total` 等分到各片：
+
+  * `base = total / num_shards`，余数 `rem = total % num_shards`；
+  * 前 `rem` 个分片 `base+1`，其余 `base`；**每片至少 1**。
+* **全局 Size**：聚合各片 `Size()`（近似实时值）。
+
+### 片内策略（strict LRU per shard）
+
+* 每个分片内部复用 **`LRUCache<Key,Value,Mutex>`**（双向链表 + 哈希索引；命中提升到 MRU；容量满时淘汰队尾 LRU）。
+* 片内有且仅有一把互斥（模板参数 `Mutex`，默认 `std::mutex`；后续支持 `FiberMutex`）。
+
+### 并发模型
+
+* **片间无共享互斥**，并发度≈分片数；
+* **片内加锁**保护 LRU 元数据与底座存取；
+* 默认底座为 `BasicCache`（并发 HashMap）。若验证存在**双重加锁**的不可忽视开销，将切换为**无锁底座 MapCache**（仅 `unordered_map`，依赖 LRU 层互斥）。
+
+---
+
+## Public API
+
+```cpp
+template <
+  typename KeyType,
+  typename ValueType,
+  typename HashFn   = std::hash<KeyType>,
+  typename KeyEqual = std::equal_to<KeyType>,
+  typename Mutex    = std::mutex,
+  std::size_t ShardBits = 4
+>
+class ShardedLRUCache : public Cache<KeyType, ValueType, HashFn, KeyEqual> {
+ public:
+  using FactoryFn = std::function<std::unique_ptr<Cache<KeyType,ValueType,HashFn,KeyEqual>>()>;
+
+  explicit ShardedLRUCache(std::size_t capacity,
+                           FactoryFn factory = [] {
+                             return std::make_unique<BasicCache<KeyType,ValueType,HashFn,KeyEqual>>();
+                           });
+
+  bool Put(const KeyType& key, const ValueType& value) override;
+  bool Put(const KeyType& key, ValueType&& value) override;
+  std::optional<ValueType> Get(const KeyType& key) override;
+  bool Remove(const KeyType& key) override;
+  void Clear() override;
+  std::size_t Size() override;
+
+  static constexpr std::size_t NumShards();
+  std::size_t Capacity() const;
+};
+```
+
+### Usage example
+
+```cpp
+// 16-shard, total capacity = 1<<20
+ShardedLRUCache<std::string, std::string> cache(1 << 20);
+cache.Put("k", "v");
+auto v = cache.Get("k"); // -> "v"
+```
+
+---
+
+## Tests
+
+新增 `sharded_lru_cache_test.cc`，覆盖点：
+
+1. **Move 语义**：移动构造/赋值后数据一致、Size 正确。
+2. **Basic Put/Get/Size**：基本操作与容量计数。
+3. **Duplicate Key**：更新值不改变 Size（与底座 InsertOrAssign 语义对齐）。
+4. **Remove/Remove non-existing**：存在/不存在删除路径。
+5. **Clear**：清空所有分片。
+6. **Per-shard LRU**：构造可控哈希（IdentityHash），让插入集中到指定分片，验证**片内严格 LRU 淘汰**、**片间互不影响**。
+7. **Single shard 退化**：`ShardBits=0` 时行为等价于全局单片 LRU（与现有 `LRUCache` 用例对齐）。
+8. **并发 Put/Get**：8 线程高并发写入/读取，断言 `hits == Size()`、正确命中/未命中分布。
+
+> 本地已在 Debug/Release 下通过，支持 gtest 跑法与 CI 集成。建议在 TSan/ASan 下再跑一遍以兜底数据竞争与越界。
+
+---
+
+## 为什么要基于 LRUCache（装饰器）构建而不是在裸缓存上重新实现？
+
+**选择：Sharded 编排层 + 片内复用 `LRUCache`（现有装饰器）**。
+
+### 优势
+
+* **逻辑复用 & 行为一致**：LRU 细节（命中提升、溢出淘汰、边界 case）已经在单分片用例中验证；避免**重复实现**导致的行为漂移。
+* **测试负担小**：Sharded 层只关注“分片路由与容量切分”；LRU 行为由既有单测保障，组合起来更易维护。
+* **易于扩展**：后续若要接入 `Synchronized`/`Blocking`/`TTL` 等装饰器或替换为 `AsyncLRU`（异步提升），**分片层无需改动**。
+* **更清晰的模块边界**：Sharded 负责并发度与路由，LRU 负责策略；职责单一，易读易演进。
+
+### 代价 / 缺点
+
+* **潜在双重加锁**：若分片底座是并发容器（如 `BasicCache`），片内 LRU 已有互斥，再调用到底座的并发结构会**重复加锁**。
+
+  * **缓解方案**：提供/切换到底座 **无锁 `MapCache`**（仅 `unordered_map`），由 LRU 的互斥统一保护。
+* **轻微的虚调用/拼装开销**：LRU 作为装饰器包装底座，较“写死一体化实现”多一次间接，但在分片降低锁争用后，这点开销可忽略。
+* **近似全局 LRU**：Sharded 模式全局上是“近似” LRU（片内严格、片间独立），不保证严格全局次序（与 LevelDB/RocksDB 的工程折中一致）。
+
+> 结论：在**可维护性、扩展性、测试复用**与**可接受的性能折中**之间，基于 `LRUCache` 的分片编排是更稳妥的路径。
+
+---
+
+## Compatibility
+
+* 纯新增类型，不修改已有公共接口；与现有 `Cache`/`LRUCache` 并存。
+* 默认哈希 `std::hash<Key>`、比较器 `std::equal_to<Key>`；可自定义。
+* 默认互斥 `std::mutex`；未来 PR 将提供 `FiberMutex` 版本。
+
+---
+
+## Performance (plan)
+
+* micro-bench：`Put:Get = 1:9` 与 `5:5` 两种混合比；容量击穿与热点 Key 两种分布；对比：
+
+  1. `LRUCache (single shard)`
+  2. `ShardedLRUCache (ShardBits = 0/2/4/6)`
+  3. `BasicCache` 直存（无 LRU）
+* 指标：QPS、p99 延迟、锁争用（`perf lock`）、CPU 利用、cache line 失效；
+* 期望：随着 `ShardBits` 提升，**锁争用显著下降**、吞吐上升；在热点 Key 工况下收益最明显。
+
+---
+
+## Follow-ups
+
+* **FiberMutex 版本**：模板化互斥，针对协程运行时切换 `trpc::FiberMutex`。
+* **无锁/近无锁增强**：命中提升改为异步批处理（promote-queue + 批量 move-to-head），淘汰回调/大对象析构锁外执行。
+* **底座 `MapCache`**：提供无并发底座以避免双重加锁；必要时作为默认底座切换。
+* **Blocking/Singleflight**：装饰器抑制缓存击穿（miss 时 per-key 等待）。
+* **Benchmark & 文档**：补充完整基准与使用说明（examples/，设计文档 design.md）。

@@ -1,13 +1,11 @@
 ---
 title: git_stash
-typora-root-url: ../..
 categories:
-  - [Linux]
-  - [git]
+  - - git
 tags:
-  - null 
+  - 
 date: 2022/7/25
-update:
+updated:
 comments:
 published:
 ---
