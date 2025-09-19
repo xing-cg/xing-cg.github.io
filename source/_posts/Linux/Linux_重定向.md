@@ -39,6 +39,8 @@ C Program!
 C Program!
 C Program!
 ```
+
+>我们想在命令行把程序执行后的输出结果输出到文件中时，可以这样：`./cmpxz DCE 20250709 >log.txt 2>&1`
 # 标准输入重定向
 ```c
 #include <stdio.h>
