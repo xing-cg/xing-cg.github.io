@@ -83,7 +83,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"  # 推荐 ed25519
 
 按提示完成（默认保存位置 `~/.ssh/id_ed25519`）
 
-## 复制公钥到虚拟机
+## 复制公钥到虚拟机的authorized_keys
 方法一：自动复制（推荐）（主机操作）
 
 ```sh
