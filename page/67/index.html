@@ -32,7 +32,18 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E6%8C%82%E8%BD%BD/">Linux_挂载</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-10-21</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E6%8C%82%E8%BD%BD/" data-flag-title="Linux_挂载"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/">Linux_忘记root密码</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-10-23</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/" data-flag-title="Linux_忘记root密码"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt"><ol>
+<li>重启ubuntu系统，启动时持续点按ESC，直到进入GRUB界面，选择Advanced option for ubuntu，按下回车键。<br />
+<img src="../../images/Linux_%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81/image-20220826170207222.png" alt="image-20220826170207222" /></li>
+<li>选择recovery mode，按回车，进入Recovery Menu，选择&quot;Root Drop to root shell prompt&quot;）</li>
+<li>进入shell界面，使用<code>passwd</code>命令重新设定密码：<code>password root</code>，回车确认。</li>
+<li>输入新密码，两次。</li>
+<li>sudo reboot，重启系统进入GUI界面。</li>
+</ol>
+<blockquote>
+<p>可能会在其中很有可能会出现”Authentication token manipulation error“的错误。别先执行”<code>mount -rw -o remount /</code>“，然后再执行第3步就可以了。</p>
+</blockquote>
+</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/Linux/Linux_%E6%8C%82%E8%BD%BD/">Linux_挂载</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-10-23</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/Linux/Linux_%E6%8C%82%E8%BD%BD/" data-flag-title="Linux_挂载"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
         <h1 id="unix-挂载光盘"   >
           <a href="#unix-挂载光盘" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#unix-挂载光盘"></a> Unix 挂载光盘</h1>
       
@@ -68,167 +79,7 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
 </ol>
 </li>
 </ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2022_0827/">计算机知识体系2022_0827</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-08-27</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-10-21</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2022_0827/" data-flag-title="计算机知识体系2022_0827"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h1 id="一段代码"   >
-          <a href="#一段代码" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#一段代码"></a> 一段代码</h1>
-      
-<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> gdata1 = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> gdata2 = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> gdata3;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata4 = <span class="number">11</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata5 = <span class="number">0</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> gdata6;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> c;</span><br><span class="line">    </span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> d = <span class="number">13</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> e = <span class="number">0</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> f;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-<p>以上，有若干变量。</p>
-<p>有全局变量、静态全局变量，有局部变量、静态局部变量。</p>
-
-        <h1 id="代码和程序的关系"   >
-          <a href="#代码和程序的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#代码和程序的关系"></a> 代码和程序的关系</h1>
-      
-<ol>
-<li>任何语言代码产生的程序，无非是产生了两种东西。——指令、数据。程序员应该对自己写的代码了解清楚，哪些是数据，哪些是指令。</li>
-<li>指令和数据加载到内存之后，肯定要区分区域，怎么划分？</li>
-</ol>
-
-        <h2 id="计算机组成"   >
-          <a href="#计算机组成" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#计算机组成"></a> 计算机组成</h2>
-      
-<p>三大件：CPU、内存、I/O，每家厂商有每家独自的产品实现。</p>
-<p>为了在应用层屏蔽不同产品的差异：</p>
-<ol>
-<li>IO的屏蔽是VFS（虚拟文件系统）做的。</li>
-<li>内存和IO一起作为一个资源分配的单位，用虚拟存储器（虚拟内存）屏蔽。</li>
-<li>CPU、内存、IO一起作为一个资源调度的单位，用进程来屏蔽。</li>
-</ol>
-<p>因此，我们写的程序代码是不可能直接加载到物理内存上的。而是先加载到虚拟内存上。</p>
-
-        <h2 id="虚拟内存"   >
-          <a href="#虚拟内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟内存"></a> 虚拟内存</h2>
-      
-<p>虚拟的——不存在，却看得到。那么虚拟这个概念实际上是不存在的，只是逻辑层抽象出来的。</p>
-<p>每个程序进行运行时，系统都会给其分配虚拟内存。然后系统内部再去自动管理处理底层的物理内存。</p>
-<p>虚拟内存大小有多大？和系统的位数有关。也可以理解为和CPU的位数有关。CPU位数的含义是什么？</p>
-
-        <h3 id="系统的位数cpu的位数cpu位数地址总线位数"   >
-          <a href="#系统的位数cpu的位数cpu位数地址总线位数" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#系统的位数cpu的位数cpu位数地址总线位数"></a> 系统的位数/CPU的位数——CPU位数!=地址总线位数</h3>
-      
-<p>位数可以衡量一个CPU的计算能力。</p>
-<p>CPU主要是用来运算数据。一句话来说<strong>CPU的位数等于它一次性可以计算的数据的长度</strong>。所以，CPU的位数实际上指的是CPU中ALU（算术逻辑单元）的宽度。</p>
-<p>ALU运算的数据从何而来？从寄存器哪来，那么寄存器的数据从何而来？——数据总线。所以，CPU的位数=ALU宽度=数据总线的条数</p>
-<p>所以，CPU位数压根和地址总线没关系，比如说x86体系下的16位CPU，它的数据总线是16位，而地址总线是20位；8位CPU的数据总线是8位，地址总线是16位。</p>
-<p>虚拟内存有多大？和地址总线数有关，代表CPU的可寻址能力，假如CPU有32条地址总线，那么该CPU可寻址<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup></mrow><annotation encoding="application/x-tex">2^{32}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>bit即4G。每个程序都会有4G的虚拟地址空间。但是要注意，CPU位数不一定等于地址总线条数！比如8086，是16位CPU，但是地址总线有20条，所以可寻址能力是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>20</mn></msup><mo>=</mo><mn>1</mn><mi>M</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">2^{20}=1MB</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>。</p>
-<p>总结：</p>
-<ol>
-<li>CPU位数表示ALU宽度（数据总线条数）。所以要说CPU是多少位由ALU宽度（数据总线条数）决定。</li>
-<li>CPU可寻址能力由CPU芯片上的地址总线条数决定。</li>
-<li>CPU地址总线条数不等于CPU位数。</li>
-</ol>
-
-        <h3 id="程序虚拟地址空间的布局"   >
-          <a href="#程序虚拟地址空间的布局" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#程序虚拟地址空间的布局"></a> 程序虚拟地址空间的布局</h3>
-      
-<p>略，见“进程地址空间体系”一文。</p>
-
-        <h1 id="从编译到链接从obj到可执行文件"   >
-          <a href="#从编译到链接从obj到可执行文件" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#从编译到链接从obj到可执行文件"></a> 从编译到链接–从obj到可执行文件</h1>
-      
-<p>32位系统下，obj文件的地址是按4字节对齐的。</p>
-<p>可执行文件是按照页面对齐的，一页的默认大小是4096Byte，即4KB。</p>
-
-        <h2 id="第一步合并-调整"   >
-          <a href="#第一步合并-调整" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第一步合并-调整"></a> 第一步：合并、调整</h2>
-      
-
-        <h3 id="合并相同名字的段"   >
-          <a href="#合并相同名字的段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#合并相同名字的段"></a> 合并相同名字的段？</h3>
-      
-<p>多个obj文件在进行链接时，第一步，合并每一个obj文件相同的段。这样有利于充分利用每1页来存储信息。</p>
-<p>比如有3个obj文件，3个obj的text段合并在一起，若不超过4KB，则占1页。类似地，data段、bss段也合并并且各自占独立的页面。</p>
-<p>即，可执行文件的页面是按不同段来划分的，每一页上都有全部的obj的同一个段。</p>
-
-        <h3 id="优化合并相同权限属性的段"   >
-          <a href="#优化合并相同权限属性的段" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#优化合并相同权限属性的段"></a> 优化：合并相同权限属性的段</h3>
-      
-<p>其实，可以进一步优化，即按照相同的权限属性去划分页。比如只读数据、可读可写数据、可读可执行等等。</p>
-<p>只读数据比如说：常量字符串就存在于<code>.rodata</code>段；另外代码段也是只读的。所以可以把这两者存在同一页中。</p>
-<p>可读可写数据比如说：data段和bss段合并，这样就节省了一个页面的空间。</p>
-<p>因此，<strong>链接的第一步：所有相同属性的段进行合并，组织在同一个页面上</strong>。</p>
-
-        <h3 id="调整段表中每一个段的起始偏移量和段的大小"   >
-          <a href="#调整段表中每一个段的起始偏移量和段的大小" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#调整段表中每一个段的起始偏移量和段的大小"></a> 调整段表中每一个段的起始偏移量和段的大小</h3>
-      
-<p>因为段进行了合并，因此需要调整段的起始偏移量。</p>
-
-        <h3 id="合并符号表"   >
-          <a href="#合并符号表" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#合并符号表"></a> 合并符号表</h3>
-      
-<p>每一个obj文件都有符号表，符号表也要合并。</p>
-
-        <h3 id="进行符号解析"   >
-          <a href="#进行符号解析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#进行符号解析"></a> 进行符号解析</h3>
-      
-<p>所有obj符号表中对符号引用的地方都要找到该符号在哪里、哪个文件中定义？</p>
-<p>也是在此步，进行强弱符号、符号重定义的判别、决策。</p>
-
-        <h3 id="分配内存地址"   >
-          <a href="#分配内存地址" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#分配内存地址"></a> 分配内存地址</h3>
-      
-<p>之前obj符号表中对符号引用的地方的地址是空的，待填，现在要分配其地址。得到合法的虚拟空间的地址。</p>
-
-        <h2 id="第二步链接的核心符号的重定位"   >
-          <a href="#第二步链接的核心符号的重定位" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#第二步链接的核心符号的重定位"></a> 第二步：链接的核心——符号的重定位</h2>
-      
-<p>已经做好了符号解析、内存地址的分配，现在要更新之前符号地址错误、待填的地址信息。即<strong>在指令段里把没填的地址修改为正确的地址</strong>。</p>
-
-        <h1 id="可执行文件的格式"   >
-          <a href="#可执行文件的格式" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#可执行文件的格式"></a> 可执行文件的格式</h1>
-      
-<p>观察可执行文件其ELF Header，其中有一个Entry point address属性，存储了程序的入口地址，通常是main函数地址。</p>
-<p>其次，相比obj文件，其多了一个模块是program headers。</p>
-<p>而且program header有很多个，比如，这个可执行文件有3个program header。</p>
-<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># readelf -l &lt;可执行文件名&gt;</span><br><span class="line">Program Headers:</span><br><span class="line">  Type      Offset      VirtAddr    PhysAddr    FileSiz MemSiz  Flg Align</span><br><span class="line">  LOAD      0x000000    0x08048000  0x08048000  0x000e2 0x00028	R E	0x1000</span><br><span class="line">  LOAD      0x0000e4    0x080490e4  0x080490e4  0x00010 0x00028 RW  0x1000</span><br><span class="line">  GNU_STACK 0x000000    0x00000000  0x00000000  0x00000 0x00000 RW  0x4</span><br><span class="line">  </span><br><span class="line"> Section to Segment mapping:</span><br><span class="line">  Segment Sections...</span><br><span class="line">   00     .text</span><br><span class="line">   01     ,data .bss</span><br><span class="line">   02</span><br><span class="line">   </span><br></pre></td></tr></table></div></figure>
-<p>两个Load类型的header的Align是0x1000，说明其对齐方式是4KB，一页。</p>
-<p>没有这两个LOAD页操作系统将不知道这个可执行文件如何执行。</p>
-<p>下面的Section to Segment mapping说的是每一个header里面对应、包含着哪些段。</p>
-<p>我们可以看到，第一个说的是LOAD1，包含了.text段；第二个说的是LOAD2，包含了.data和.bss段；</p>
-<p>同时可以在Flg属性看到，第一个LOAD是RE，代表可读、可执行；第二个LOAD是RW，可读可写。也证实了，可执行文件的页面是按照之前obj文件中相同属性的段来合并到一页的。</p>
-<p>program headers包含的这两个LOAD页指示了操作系统，要把哪些东西加载到内存上。这是可执行文件和不可执行文件的本质区别。</p>
-
-        <h1 id="可执行文件加载映射到虚拟地址空间"   >
-          <a href="#可执行文件加载映射到虚拟地址空间" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#可执行文件加载映射到虚拟地址空间"></a> 可执行文件加载/映射到虚拟地址空间</h1>
-      
-<p>可执行文件中的LOAD页，虚拟地址空间都是按页划分的。</p>
-<p>可执行文件加载/映射到虚拟地址空间这个过程是mmap。深入理解计算机系统第9章。</p>
-
-        <h1 id="虚拟地址空间加载映射到物理内存"   >
-          <a href="#虚拟地址空间加载映射到物理内存" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#虚拟地址空间加载映射到物理内存"></a> 虚拟地址空间加载/映射到物理内存</h1>
-      
-<p>物理内存也是按页面划分的。</p>
-<p>虚拟地址空间加载/映射到物理内存——多级页表映射方式实现。</p>
-
-        <h1 id="程序的运行"   >
-          <a href="#程序的运行" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#程序的运行"></a> 程序的运行</h1>
-      
-<ol>
-<li>创建虚拟地址空间到物理内存的映射（创建内核地址映射结构体），创建页目录和页表。</li>
-<li>加载代码段和数据段。</li>
-<li>把可执行文件的入口地址写入CPU寄存器中。</li>
-</ol>
-<p>可以执行<code>strace &lt;可执行文件名&gt;</code>查看可执行文件运行后所做的动作。</p>
-<p><img src="../../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2022_0827/image-20220828091756955.png" alt="image-20220828091756955" /></p>
-<p>可以看到，执行了execve，可想而知和我们的常识相符，一个新的程序要执行，首先要fork，之后再exec替换进程地址空间。</p>
-<p>之后，进行若干次mmap。即完成可执行文件LOAD页加载到虚拟地址空间。</p>
-<p>再之后，最终程序肯定是要跑到物理内存上运行的，尚需完成虚拟地址空间到物理内存空间的映射。–请见“Linux_地址映射”一文。</p>
-
-        <h1 id="相关书籍"   >
-          <a href="#相关书籍" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#相关书籍"></a> 相关书籍</h1>
-      
-<ol>
-<li>程序员的自我修养1、2、3、4、6、10章；</li>
-<li>深入理解计算机系统5、6、7、8、9章。</li>
-<li>现代操作系统/操作系统精髓与设计原理</li>
-</ol>
-<ul>
-<li>虚拟内存</li>
-<li>进程管理以及通信</li>
-<li>网络</li>
-<li>虚拟文件系统</li>
-</ul>
-</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/66/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><span class="page-number current">67</span><a class="page-number" href="/page/68/">68</a><span class="space">&hellip;</span><a class="page-number" href="/page/154/">154</a><a class="extend next" rel="next" href="/page/68/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">308</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">56</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+</div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/page/66/"><i class="fas fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><span class="page-number current">67</span><a class="page-number" href="/page/68/">68</a><span class="space">&hellip;</span><a class="page-number" href="/page/155/">155</a><a class="extend next" rel="next" href="/page/68/"><i class="fas fa-angle-right"></i></a></div></nav></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><section class="sidebar-toc hide"></section><!-- ov = overview--><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">309</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
