@@ -1,14 +1,29 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="产品                             Happyn        基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。 开源性：客户端已开源。">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="产品         Happyn：基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。客户端已开源。                      方案及安全性分析                             方案 1｜Teleport（自建，合规最强）— 推荐        适用：团队多人、要审计&#x2F;审批、要零暴露。 优点：  节点与">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络_虚拟局域网">
 <meta property="og:url" content="https://xing-cg.github.io/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/index.html">
 <meta property="og:site_name" content="罐头先生的博客">
-<meta property="og:description" content="产品                             Happyn        基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。 开源性：客户端已开源。">
+<meta property="og:description" content="产品         Happyn：基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。客户端已开源。                      方案及安全性分析                             方案 1｜Teleport（自建，合规最强）— 推荐        适用：团队多人、要审计&#x2F;审批、要零暴露。 优点：  节点与">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027160750351.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170456457.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170533400.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170550256.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165039229.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170059088.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170214233.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170249085.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170306243.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165412121.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165546920.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165701537.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165837161.png">
+<meta property="og:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165852268.png">
 <meta property="article:published_time" content="2025-09-26T00:00:00.000Z">
 <meta property="article:modified_time" content="2025-09-26T00:00:00.000Z">
 <meta property="article:author" content="Mr.Can">
-<meta name="twitter:card" content="summary"><title>网络_虚拟局域网 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xing-cg.github.io/images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027160750351.png"><title>网络_虚拟局域网 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -40,16 +55,116 @@ window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
         <h1 id="产品"   >
           <a href="#产品" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#产品"></a> 产品</h1>
       
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027160750351.png" alt="" /></p>
+<p>Happyn：基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。客户端已开源。</p>
 
-        <h2 id="happyn"   >
-          <a href="#happyn" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#happyn"></a> Happyn</h2>
+        <h1 id="方案及安全性分析"   >
+          <a href="#方案及安全性分析" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#方案及安全性分析"></a> 方案及安全性分析</h1>
       
-<p>基于 N2N 的安全、易于使用的虚拟专用网络（VPN）解决方案。</p>
-<p>开源性：客户端已开源。</p>
-<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
+
+        <h2 id="方案-1teleport自建合规最强-推荐"   >
+          <a href="#方案-1teleport自建合规最强-推荐" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#方案-1teleport自建合规最强-推荐"></a> 方案 1｜Teleport（自建，合规最强）— 推荐</h2>
+      
+<p><strong>适用</strong>：团队多人、要审计/审批、要零暴露。<br />
+<strong>优点</strong>：</p>
+<ul>
+<li>节点与 A 服务器只<strong>出站</strong>到 Teleport Proxy；外部无法直连。</li>
+<li>登录用 <strong>临时 SSH 证书</strong>（几分钟/几小时自动过期），支持 <strong>SSO/MFA</strong>。</li>
+<li><strong>会话审计</strong>（命令、TTY、录屏）、<strong>按角色/标签授权</strong>、<strong>Just-in-Time</strong> 申请。<br />
+<strong>注意</strong>：自建 1～2 台 Proxy+Auth 做 HA；落地需要接公司 SSO/日志。</li>
+</ul>
+<p><strong>10 分钟 PoC 路线</strong></p>
+<ol>
+<li>起一台公开 Proxy（可云上），安装 teleport（开箱全免费功能够用）。</li>
+<li>在 A 上装 teleport agent，用一次性 token <strong>出站注册</strong>到 Proxy。</li>
+<li>你本机 <code>tsh login</code>（走 SSO/MFA）→ <code>tsh ssh A</code> 直连；在 Web 控制台能看到会话记录。</li>
+</ol>
+
+        <h2 id="方案-2headscalenetmakerwireguard-专网-openssh-证书全自建-轻量"   >
+          <a href="#方案-2headscalenetmakerwireguard-专网-openssh-证书全自建-轻量" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#方案-2headscalenetmakerwireguard-专网-openssh-证书全自建-轻量"></a> 方案 2｜Headscale/Netmaker（WireGuard 专网）+ OpenSSH 证书（全自建、轻量）</h2>
+      
+<p><strong>适用</strong>：不引入 SaaS，又想快速可控；审计要求适中。<br />
+<strong>做法</strong>：</p>
+<ul>
+<li>用 <strong>Headscale/Netmaker</strong> 给所有人机/服务器一个私网（不暴露公网端口）。</li>
+<li>服务端 <strong>OpenSSH 信任公司 SSH CA</strong>（<code>TrustedUserCAKeys</code>），给运维颁发<strong>短期用户证书</strong>（建议用 Smallstep <code>step-ca</code> 自动签发/轮换）。<br />
+<strong>优点</strong>：简单、性能好、完全私有化。<br />
+<strong>不足</strong>：审计/审批需要自建（集中化命令审计可用 <code>tlog/auditd</code> + 日志平台）。</li>
+</ul>
+
+        <h2 id="方案-3托管最快允许第三方时"   >
+          <a href="#方案-3托管最快允许第三方时" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#方案-3托管最快允许第三方时"></a> 方案 3｜托管最快（允许第三方时）</h2>
+      
+<ul>
+<li><strong>Cloudflare Access for SSH</strong>：A 只跑 <code>cloudflared</code> 出站连边缘；基于 SSO/MFA 的短期证书，<strong>审计完善</strong>，上线最快。</li>
+<li><strong>Tailscale SSH</strong>：身份化 ACL、NAT 穿透强；但依赖 Tailscale 控制面（若要自建则改用方案 2 + OpenSSH 证书）。</li>
+</ul>
+
+        <h2 id="选型快速判断"   >
+          <a href="#选型快速判断" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#选型快速判断"></a> 选型快速判断</h2>
+      
+<ul>
+<li><strong>强审计/审批、合规优先、零暴露</strong> → <strong>Teleport（自建）</strong>。</li>
+<li><strong>全自建、轻量可控</strong> → <strong>Headscale/Netmaker + OpenSSH 证书</strong>。</li>
+<li><strong>要立刻上线且允许第三方</strong> → <strong>Cloudflare Access</strong> 或 <strong>Tailscale SSH</strong>。</li>
+</ul>
+
+        <h2 id="不管选谁都请做这些底线配置"   >
+          <a href="#不管选谁都请做这些底线配置" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#不管选谁都请做这些底线配置"></a> 不管选谁，都请做这些“底线配置”</h2>
+      
+<ul>
+<li>禁用密码登录：<code>PasswordAuthentication no</code>；必要时 <code>PermitRootLogin no</code>。</li>
+<li>只监听专网接口（wg0/tailscale0/lo），<strong>公网网卡防火墙封死 22</strong>。</li>
+<li>用<strong>短期凭证</strong>（Teleport/SSH 证书），配<strong>定期轮换与一键吊销</strong>。</li>
+<li>开启<strong>命令审计</strong>与集中日志；关键操作走 <strong>MFA + 审批</strong>。</li>
+<li>分环境隔离（prod/stage/dev 用不同 CA/网段/策略）。</li>
+</ul>
+
+        <h1 id="物理防火墙"   >
+          <a href="#物理防火墙" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#物理防火墙"></a> 物理防火墙</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://e.huawei.com/cn/products/security" >https://e.huawei.com/cn/products/security</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br />
+HiSecEngine USG12000 系列 AI 防火墙</p>
+<p>HiSecEngine USG12000 系列防火墙（以下简称 USG12000 系列）是华为公司推出的首款T级AI防火墙，在网络边界实时防护已知与未知威胁，通常部署在云计算数据中心，大型企业及园区网出口，为数据中心、企业及园区网络提供领先的安全防护能力。USG12000系列采用先进的硬件架构设计，应用多种绿色节能创新技术，大幅降低设备能源消耗。提供全类型接口板，单槽位接口密度最高可达18x100GE，满足大流量需求。广泛应用于政府，金融，安平，教育，医疗，企业等行业。</p>
+<p>提供高达T级的业务处理性能，集成NAT、CGN、VPN、虚拟化以及内容安全等多种安全特性，应对新时代大流量、多业务威胁防御场景。</p>
+<p>具备完善的运营商级高可靠性架构和方案，支持双主控、双机热备、NSR、GR等多种可靠性机制。采用基于硬件的软件完整性校验，避免非法软件运行，打造安全基石。用户可以根据不同的网络需求进行灵活的选择。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170456457.png" alt="" /><br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170533400.png" alt="" /></p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170550256.png" alt="" /></p>
+<p>华为 HiSecEngine USG6700F 系列 AI 防火墙</p>
+<p>是华为面向下一代数据中心推出的高性能万兆AI防火墙，通过全新软硬件架构，打造具备智能防御、卓越性能、极简运维三大关键能力的新一代AI防火墙，有效应对挑战。USG6700F系列使用智能技术赋能边界防御，精准阻断已知和未知威胁；内置多个安全专用加速引擎有效提升IPv4/IPv6转发、内容安全检测、IPSec等关键业务处理性能；通过安全运维平台实现防火墙、入侵防御、抗DDoS等多类安全产品的统一管理和运维，降低安全运维OPEX。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165039229.png" alt="" /><br />
+HiSecEngine USG6600F 系列 AI 防火墙</p>
+<p>华为 HiSecEngine USG6600F 系列是华为面向下一代数据中心推出的万兆AI防火墙，HiSecEngine USG6600F系列基于最新软硬件平台，提供IPv4/IPv6共栈能力，业务性能大幅提升；使用智能技术有效检测高级威胁，增强边界防护能力。支持联动华为乾坤安全云服务，提供边界防护与响应服务，端云联动，立体防御。广泛适用于金融、政府、大企业等行业。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170059088.png" alt="" /></p>
+<p>HiSecEngine USG6500F 系列 AI 防火墙</p>
+<p>HiSecEngine USG6500F 系列 AI 防火墙是华为面向小型企业、行业分支、连锁商业机构设计开发的新一代AI防火墙，在提供NGFW能力的基础上，联动其他安全设备，增强边界检测能力，有效防御高级威胁。产品提供模式匹配以及加解密业务处理加速能力，使得防火墙处理内容安全检测、IPSec等业务的性能显著提升。支持联动华为乾坤安全云服务，提供边界防护与响应、漏洞扫描、日志审计等服务，端云联动，立体防御，广泛适用于教育、医疗、零售等行业。<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170214233.png" alt="" /></p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170249085.png" alt="" /></p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027170306243.png" alt="" /></p>
+<p>华为 HiSecEngine USG6000F-E 系列防火墙</p>
+<p>HiSecEngine USG6000F-E系列防火墙是华为面向中小型企业和多分支机构推出的高性能防火墙，适用于各类场景和网络安全建设需求。通过全新软硬件平台来实现功能全面、高性能、低时延的智能防火墙。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165412121.png" alt="" /></p>
+<p>华为 HiSecEngine USG6700E 系列 AI 防火墙</p>
+<p>华为HiSecEngine USG6700E系列AI防火墙（盒式）是面向下一代数据中心和和大型企业园区网推出的万兆AI防火墙，在提供NGFW能力的基础上，联动其他安全设备，主动防御网络威胁，增强边界检测能力，有效防御高级威胁，同时解决性能下降问题。NP引擎提供快速转发能力，防火墙性能显著提升。广泛适用于金融、政府、大企业等行业。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165546920.png" alt="" /></p>
+<p>HiSecEngine USG6600E 系列 AI 防火墙</p>
+<p>华为 HiSecEngine USG6600E 系列 AI 防火墙是面向下一代数据中心推出的万兆AI防火墙，在提供NGFW能力的基础上，联动其他安全设备，主动防御网络威胁，增强边界检测能力，有效防御高级威胁，同时解决性能下降问题。NP提供快速转发能力，防火墙性能显著提升。广泛适用于金融、政府、大企业等行业。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165701537.png" alt="" /></p>
+<p>HiSecEngine USG6500E 系列 AI 防火墙</p>
+<p>华为 HiSecEngine USG6500E 系列 AI 防火墙是面向中小企业和连锁机构推出的企业级AI防火墙，在提供NGFW能力的基础上，联动其他安全设备，主动积极防御网络威胁，增强边界检测能力，有效防御高级威胁，同时解决性能下降问题。产品提供模式匹配以及加解密业务处理加速能力，使得防火墙处理内容安全检测、IPSec等业务的性能显著提升。支持联动华为乾坤安全云服务，提供边界防护与响应、漏洞扫描、日志审计等服务，端云联动，立体防御。广泛适用于教育、医疗、零售等行业。</p>
+<p><img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165837161.png" alt="" /></p>
+<p>桌面款<br />
+<img src="../../images/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/image-20251027165852268.png" alt="" /></p>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/">https://xing-cg.github.io/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C_%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Linux/Linux_%E4%BA%92%E4%BC%A0%E6%96%87%E4%BB%B6/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Linux_互传文件</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_mio%E5%BA%93%E4%B8%8Ecsv%E5%BA%93/"><span class="paginator-prev__text">量化交易_mio库与csv库</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A7%E5%93%81"><span class="toc-number">1.</span> <span class="toc-text">
-           产品</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#happyn"><span class="toc-number">1.1.</span> <span class="toc-text">
-           Happyn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text"> </span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">309</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+           产品</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E5%8F%8A%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">
+           方案及安全性分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-1teleport%E8%87%AA%E5%BB%BA%E5%90%88%E8%A7%84%E6%9C%80%E5%BC%BA-%E6%8E%A8%E8%8D%90"><span class="toc-number">2.1.</span> <span class="toc-text">
+           方案 1｜Teleport（自建，合规最强）— 推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-2headscalenetmakerwireguard-%E4%B8%93%E7%BD%91-openssh-%E8%AF%81%E4%B9%A6%E5%85%A8%E8%87%AA%E5%BB%BA-%E8%BD%BB%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">
+           方案 2｜Headscale&#x2F;Netmaker（WireGuard 专网）+ OpenSSH 证书（全自建、轻量）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88-3%E6%89%98%E7%AE%A1%E6%9C%80%E5%BF%AB%E5%85%81%E8%AE%B8%E7%AC%AC%E4%B8%89%E6%96%B9%E6%97%B6"><span class="toc-number">2.3.</span> <span class="toc-text">
+           方案 3｜托管最快（允许第三方时）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E5%9E%8B%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD"><span class="toc-number">2.4.</span> <span class="toc-text">
+           选型快速判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%AE%A1%E9%80%89%E8%B0%81%E9%83%BD%E8%AF%B7%E5%81%9A%E8%BF%99%E4%BA%9B%E5%BA%95%E7%BA%BF%E9%85%8D%E7%BD%AE"><span class="toc-number">2.5.</span> <span class="toc-text">
+           不管选谁，都请做这些“底线配置”</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.</span> <span class="toc-text">
+           物理防火墙</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">310</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 

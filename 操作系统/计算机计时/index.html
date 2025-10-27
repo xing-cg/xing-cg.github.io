@@ -1,0 +1,616 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="https:&#x2F;&#x2F;fasttime.sourceforge.net&#x2F;doc&#x2F;internal.html                      3 种 板载时钟机制        当前的桌面计算机有三种板载时钟机制来确定时间：  1）电池供电的实时时钟即使在断电的情况下也能保持计时，其精确度堪比任何石英手表。获取此类时钟的时间成本相对较高，通常操作系统只会在启动过程中查询它。 2）操作系统会设置一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机计时">
+<meta property="og:url" content="https://xing-cg.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="https:&#x2F;&#x2F;fasttime.sourceforge.net&#x2F;doc&#x2F;internal.html                      3 种 板载时钟机制        当前的桌面计算机有三种板载时钟机制来确定时间：  1）电池供电的实时时钟即使在断电的情况下也能保持计时，其精确度堪比任何石英手表。获取此类时钟的时间成本相对较高，通常操作系统只会在启动过程中查询它。 2）操作系统会设置一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-24T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>计算机计时 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">计算机计时</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-10-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-10-24</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6/" data-flag-title="计算机计时"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://fasttime.sourceforge.net/doc/internal.html" >https://fasttime.sourceforge.net/doc/internal.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="3-种-板载时钟机制"   >
+          <a href="#3-种-板载时钟机制" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#3-种-板载时钟机制"></a> 3 种 板载时钟机制</h1>
+      
+<p>当前的桌面计算机有三种板载时钟机制来确定时间：</p>
+<ul>
+<li>1）电池供电的实时时钟即使在断电的情况下也能保持计时，其精确度堪比任何石英手表。获取此类时钟的时间成本相对较高，通常操作系统只会在启动过程中查询它。</li>
+<li>2）操作系统会设置一个定时器，以固定的时间间隔中断 CPU。每次中断时，内核都会增加一个计数器。Windows 和大多数 Linux 内核将此间隔设置为 10 毫秒。该时钟的频率漂移和抖动相对较低，但分辨率仅为 10 毫秒（取决于内核）。</li>
+<li>3）所有现代 CPU 都包含一个在每个时钟周期递增的寄存器（例如，如果您的处理器主频为 1.0 GHz，则每秒递增 10 亿次）。不同的架构赋予该寄存器不同的名称；在本文档中，我们将其称为 TSC 寄存器。
+<ul>
+<li>该时钟具有非常高的分辨率，但由于晶体不稳定、温度和功率波动（可能由系统负载变化引起）以及明确的电源管理（速度限制），频率漂移相对较高。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="来自-gettimeofday-的时间戳"   >
+          <a href="#来自-gettimeofday-的时间戳" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#来自-gettimeofday-的时间戳"></a> 来自 gettimeofday 的时间戳</h1>
+      
+<p>gettimeofday 系统调用能够提供精度高达 1 纳秒的时间戳。</p>
+<p>该时间由中断定时器的计数（在启动时初始化为实时时钟）获取。</p>
+<p>任何低于 10 毫秒的精度均通过对 TSC 寄存器进行插值获得；由于内核没有关于 TSC 频率的准确信息，因此通常在启动时进行简单的校准。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// startup calibration</span></span><br><span class="line">t1 = read_tsc();</span><br><span class="line">t2 = read_interrupt_count();</span><br><span class="line">sleep(<span class="number">1</span>);</span><br><span class="line">t3 = read_tsc();</span><br><span class="line">t4 = read_interrupt_count();</span><br><span class="line">tsc_rate = (t4 - t2) / (t3 - t1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// gettimeofday evaluating sub 10ms time</span></span><br><span class="line">time = read_tsc() * tsc_rate;</span><br></pre></td></tr></table></div></figure>
+<p>其结果是，尽管分辨率为 1 纳秒，但系统时间只能准确报告高达 10 毫秒分辨率的时间，并且任何较低的分辨率都基于 TSC 寄存器的启动时间校准。</p>
+<p>在许多操作系统中，gettimeofday 被实现为系统调用，需要先切换到内核，然后再切换回来才能读取时间。除了性能明显下降（在奔腾等上下文切换成本高昂的平台上尤其如此）之外，如果内核利用了这种切换，应用程序还可能丢失其时间片。例如，对于需要在发送数据包之前立即获取时间片的网络应用程序来说，这可能会带来问题。</p>
+
+        <h1 id="fasttime-的-原则"   >
+          <a href="#fasttime-的-原则" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#fasttime-的-原则"></a> fasttime 的 原则</h1>
+      
+<p>fasttime 实现基于 Network Time Protocol v4 的算法，以使用 TSC 寄存器提供准确的时间估计。</p>
+<ul>
+<li>用于将 TSC 计数转换为时间的校准会不断更新和完善，以解决频率漂移。</li>
+<li>这种重复校准不得受到系统负载的影响，并且应尽量减少系统负担。</li>
+<li>校准可以由守护进程完成，并且其最新的校准表可供实现 fasttime 库的所有用户进程使用。</li>
+<li>校准必须快速适应系统时间的变化；例如由 NTP 守护进程或手动用户干预带来的变化。</li>
+<li>该库应该在用户空间中运行，因此上下文切换时性能不会下降。</li>
+</ul>
+
+        <h1 id="derived-time-派生时间"   >
+          <a href="#derived-time-派生时间" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#derived-time-派生时间"></a> Derived Time 派生时间</h1>
+      
+<p>fasttime 将 TSC 值与当前时间之间的关系建模为线性函数。校准过程会保留一个截距（intercept）和梯度（gradient），并将其应用于 TSC 值以得出当前时间。最初，这些值是使用一个非常简单的校准循环计算的，该循环类似于操作系统使用的循环；然后使用锁相环（phase-locked loop）对其进行迭代调整。</p>
+<p>锁相环（PLL）算法将当前偏移量作为输入，并返回一个调整值，用于 fasttime 的梯度和截距。该实现大致基于 NTP4 的 PLL：</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align at position 7: \begin{̲a̲l̲i̲g̲n̲}̲
+prediction_k &amp;…'>\begin{align}
+prediction_k &amp;= offset_{k-1} + mu_k * (gradient_k - gradient_{k-1});\\
+correction_k &amp;= offset_k - prediction_k / 2;\\
+interceptk_k &amp;= correction_k;\\
+gradient_k &amp;= gain * correction_k / mu_k\\
+\end{align}
+</p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 是迭代次数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>a</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">gain</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span></span></span></span> 是某个常数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal">u</span></span></span></span> 是 TSC 值 与上一次迭代之间的差值。</p>
+<p>两个因素决定了 PLL 的行为：迭代间隔时间（称为环路延迟（loop delay））和增益值（gain）。</p>
+<p>较短的环路延迟允许派生时钟（derived clock）更快地收敛（converge）到系统时间，但更容易出现振荡（oscillation）和偏移测量误差。<br />
+较长的环路延迟通常可以提供更稳定的性能，但派生时钟中的任何误差都需要更长时间才能纠正。</p>
+<p>PLL 增益也起着类似的作用：较高的增益会导致振荡，而较低的增益则需要更长的时间来稳定。</p>
+<p>在 fasttime 中，当时钟稳定时，环路延迟会周期性地延长；当时钟不稳定时，环路延迟会缩短。</p>
+<p>控制延迟加大或减小多少以及 PLL 增益的可以通过 fasttimed 的命令行参数指定。</p>
+
+        <h1 id="clock-sampling-时钟采样"   >
+          <a href="#clock-sampling-时钟采样" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#clock-sampling-时钟采样"></a> Clock Sampling 时钟采样</h1>
+      
+<p>从 fasttime 调用 gettimeofday 到 计算出时间（when the time is evaluated）之间存在延迟，并且在调用返回之前再次存在延迟。估算 派生时钟 与 系统时间 之间偏移量的一种简单方法是 对系统调用中的派生时间进行平均：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t1 = get_derived_time();  </span><br><span class="line">t2 = gettimeofday();  </span><br><span class="line">t3 = get_derived_time();  </span><br><span class="line">offset = t2 - (t1 + t3) / <span class="number">2</span>;</span><br></pre></td></tr></table></div></figure>
+<p>如果 <code>(t2 - t1) == (t3 - t2)</code>，即延迟对称，则 offset 为 0 ，gettimeofday 结果准确。</p>
+<p>但有很多原因可能导致结果不准确，例如在上下文切换期间丢失了时间片（这种情况已在 Pentium 4 处理器上运行 Linux 时进行过测量，并确认至少会发生）。</p>
+<p><code>[Shalunov 2000]</code>描述了一种更好的方法，该方法只需假设延迟是随机对称分布的，即可进行多次采样并组合。该方法既在 fasttime 中实现，用于采样系统时间；也在演示应用程序中实现，用于测试 fasttime 的准确性。</p>
+
+        <h1 id="rate-change-amortisation-速率变动摊销"   >
+          <a href="#rate-change-amortisation-速率变动摊销" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#rate-change-amortisation-速率变动摊销"></a> Rate change amortisation 速率变动摊销</h1>
+      
+<p>获取当前时间的主要应用之一是测量某个进程的运行时间。对于这类应用来说，时间的绝对准确性并不那么重要，只要速率稳定且正确即可。fasttime 通过尽可能避免引入剧烈的速率变化来适应这些程序。</p>
+<p>当速率变化相对较小时（由于正常的 PLL 程序），变化会在几秒钟内逐渐完成。较大的误差仍会立即得到纠正（例如，系统时间的变化）。</p>
+
+        <h1 id="clock-filtering-时钟滤波"   >
+          <a href="#clock-filtering-时钟滤波" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#clock-filtering-时钟滤波"></a> Clock filtering 时钟滤波</h1>
+      
+<p>由于操作系统对系统时钟的校准不佳，其返回值偶尔会出现 30-100 微秒左右的抖动（glitches）。这种抖动（jitter）通常不会被大多数应用程序察觉，但对于 fasttime 来说却很显著，因为这导致引入时钟振荡（oscillation），而振荡需要一些时间来校正。</p>
+<p>为了解决这个问题以及预期的硬件抖动，在将偏移传递给 PLL 之前对偏移施加滤波器。该偏移量会与最近 10 个样本的中位数进行比较；如果偏移量超过该中位数一定量（例如 5 倍），则不会调整时钟。实际上，该样本会被丢弃，尽管它确实会对后续的滤波有所贡献，因此，当系统时间发生真正的变化时，它会在短时间内通过滤波器。</p>
+
+        <h1 id="shared-memory-protection-共享内存保护"   >
+          <a href="#shared-memory-protection-共享内存保护" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#shared-memory-protection-共享内存保护"></a> Shared memory protection 共享内存保护</h1>
+      
+<p>FastTime 在客户端/服务器模型中运行，其中校准表格（calibration table）在单独的进程或线程中不断更新到客户端应用程序。在 fasttime 处于单独进程（fasttimed 守护进程）的情况下，POSIX 共享内存用于允许客户端访问校准。</p>
+<p>保护共享内存的标准方法是使用互斥体、信号量或消息传递。在这种情况下，这些都不能应用，因为它需要客户端应用程序进行系统调用，这是不使用 gettimeofday 的主要动机之一。</p>
+<p>相反，fasttime 维护一个校准表格的循环数组，其中只有一个在任何时候处于活动状态（这意味着它用于计算客户端的派生时间）。守护进程或校准线程更新未使用的校准表，然后以原子方式更新指向活动表格（active table）的索引。这种原子更新是通过 CPU 指令而不是系统调用完成的。</p>
+
+        <h1 id="terminology-术语"   >
+          <a href="#terminology-术语" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#terminology-术语"></a> Terminology  术语</h1>
+      
+<ul>
+<li>System time  系统时间
+<ul>
+<li>The current time, as returned by gettimeofday  当前时间，由 gettimeofday 返回</li>
+</ul>
+</li>
+<li>Derived time  派生时间
+<ul>
+<li>Current time, calculated by fasttime  当前时间，由 fasttime 计算</li>
+</ul>
+</li>
+<li>Offset  偏移
+<ul>
+<li>The difference between system and derived time  系统时间与派生时间的差值</li>
+</ul>
+</li>
+<li>Rate  率
+<ul>
+<li>The frequency, or speed of a clock. For system time this is ideally 1 sec/sec, but may vary due to wander or NTP adjustment.  时钟的频率或速度。对于系统时间，理想情况下为 1 秒/秒，但可能会因漂移或 NTP 调整而变化</li>
+</ul>
+</li>
+<li>Loop delay  循环延迟
+<ul>
+<li>Time between iterations of the PLL  PLL 迭代之间的时间</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="references-引用"   >
+          <a href="#references-引用" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#references-引用"></a> References  引用</h1>
+      
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.eecis.udel.edu/~mills/database/reports/allan/secureb.pdf" >Clock Discipline Algorithms for the Network Time Protocol Version 4</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>, D. Mills 1997<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.eecis.udel.edu/~mills/database/reports/allan/secureb.pdf" >网络时间协议第 4 版的时钟规则算法</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，D. Mills 1997</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.eecis.udel.edu/~mills/database/papers/allan.pdf" >Adaptive Hybrid Clock Discipline Algorithm for the Network Time Protocol</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>, D. Mills 1998<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.eecis.udel.edu/~mills/database/papers/allan.pdf" >网络时间协议的自适应混合时钟规则算法</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，D. Mills 1998</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://parapet.ee.princeton.edu/~sigm2002/papers/p1-pasztor.pdf" >PC Based Precision Timing Without GPS</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>, A. Pasztor &amp; D. Veitch 2002<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://parapet.ee.princeton.edu/~sigm2002/papers/p1-pasztor.pdf" >基于 PC 的无 GPS 精确计时</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，A. Pasztor 和 D. Veitch 2002</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.internet2.edu/%7Eshalunov/ntp-min.pdf" >NTP Implementation and Assumptions about the Network</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>, S. Shalunov 2000<br />
+<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.internet2.edu/%7Eshalunov/ntp-min.pdf" >NTP 实施和关于网络的假设</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，S. Shalunov 2000</p>
+<p><span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ntp.isc.org/bin/view/Main/SoftwareDownloads" >Source code</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> for NTP4 is also an excellent reference as it differs from the descriptions above.<br />
+NTP4 的<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://ntp.isc.org/bin/view/Main/SoftwareDownloads" >源代码</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>也是一个很好的参考，因为它与上面的描述不同。</p>
+
+        <h1 id="benchmark"   >
+          <a href="#benchmark" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#benchmark"></a> benchmark</h1>
+      
+<p>fast差距</p>
+<p>标准库和</p>
+
+        <h1 id="获取纳秒的方式一览"   >
+          <a href="#获取纳秒的方式一览" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#获取纳秒的方式一览"></a> 获取纳秒的方式一览</h1>
+      
+<p>通用、够快：在现代 Linux 上，glibc 的 <code>clock_gettime</code> 通常通过 <strong>vDSO</strong> 在用户态完成，不走系统调用，已经非常快；<code>std::chrono</code> 常常就是对它的封装。<code>std::chrono::steady_clock</code>，等价于<code>clock_gettime(CLOCK_MONOTONIC)</code>。若想完全不受 NTP 微调影响，则用<code>CLOCK_MONOTONIC_RAW</code>。</p>
+<p>C++</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdint&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">uint64_t</span> <span class="title">now_ns</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono;</span><br><span class="line">    <span class="keyword">auto</span> t = steady_clock::<span class="built_in">now</span>(); <span class="comment">// 一般映射到 CLOCK_MONOTONIC</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">duration_cast</span>&lt;nanoseconds&gt;(t.<span class="built_in">time_since_epoch</span>()).<span class="built_in">count</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>POSIX（精细控制时钟源）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint64_t</span> <span class="title">clock_gettime_ns</span><span class="params">(<span class="type">clockid_t</span> clk)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timespec</span> ts;</span><br><span class="line">    <span class="built_in">clock_gettime</span>(clk, &amp;ts); <span class="comment">// glibc 多数情况走 vDSO</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="type">uint64_t</span>)ts.tv_sec * <span class="number">1000000000ull</span> + (<span class="type">uint64_t</span>)ts.tv_nsec;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 例子：稳定单调时钟: 一般业务/性能测试 CLOCK_MONOTONIC 就足够且更通用。</span></span><br><span class="line"><span class="type">uint64_t</span> t1 = <span class="built_in">clock_gettime_ns</span>(CLOCK_MONOTONIC);</span><br><span class="line"><span class="comment">// 例子：完全不受 NTP 微调影响: 做高精度基准、需要避免 NTP 频率微调时的轻微漂移。</span></span><br><span class="line"><span class="type">uint64_t</span> t2 = <span class="built_in">clock_gettime_ns</span>(CLOCK_MONOTONIC_RAW);</span><br></pre></td></tr></table></div></figure>
+<p>极限、低开销、最快：读 TSC（<code>RDTSC</code> / <code>RDTSCP</code>）。前提：<code>x86_64</code>且 <code>invariant TSC</code>，确认 CPU 支持 <em>constant_tsc/nonstop_tsc</em>（<code>/proc/cpuinfo</code>），尽量 <strong>绑核</strong>，对虚拟化/跨核迁移要谨慎。需要自己把“周期 到 纳秒”做一次标定。只用于同机短区间相对时间。</p>
+<p>读周期计数（RDTSCP，带序列化）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdint&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint64_t</span> <span class="title">rdtsc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> lo, hi;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> aux;</span><br><span class="line">    <span class="function"><span class="keyword">asm</span> <span class="title">volatile</span> <span class="params">(<span class="string">&quot;rdtscp&quot;</span> : <span class="string">&quot;=a&quot;</span>(lo), <span class="string">&quot;=d&quot;</span>(hi), <span class="string">&quot;=c&quot;</span>(aux) ::)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ((<span class="type">uint64_t</span>)hi &lt;&lt; <span class="number">32</span>) | lo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></div></figure>
+<p>把周期换算成纳秒（简单标定一次 TSC 频率）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">calibrate_tsc_ghz</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 用 MONOTONIC_RAW 做 100ms 的简易标定</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timespec</span> a,b;</span><br><span class="line">    <span class="type">uint64_t</span> c0 = <span class="built_in">rdtsc</span>();</span><br><span class="line">    <span class="built_in">clock_gettime</span>(CLOCK_MONOTONIC_RAW, &amp;a);</span><br><span class="line">    <span class="built_in">usleep</span>(<span class="number">100000</span>); <span class="comment">// 100ms</span></span><br><span class="line">    <span class="type">uint64_t</span> c1 = <span class="built_in">rdtsc</span>();</span><br><span class="line">    <span class="built_in">clock_gettime</span>(CLOCK_MONOTONIC_RAW, &amp;b);</span><br><span class="line">    <span class="type">double</span> dt_ns = (b.tv_sec - a.tv_sec)*<span class="number">1e9</span> + (b.tv_nsec - a.tv_nsec);</span><br><span class="line">    <span class="type">double</span> cycles = <span class="built_in">double</span>(c1 - c0);</span><br><span class="line">    <span class="keyword">return</span> cycles / dt_ns; <span class="comment">// GHz = cycles per ns</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">uint64_t</span> <span class="title">tsc_cycles_to_ns</span><span class="params">(<span class="type">uint64_t</span> cycles, <span class="type">double</span> tsc_ghz)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ns = cycles / (GHz)</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="type">uint64_t</span>)(cycles / tsc_ghz);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><strong>注意要点</strong></p>
+<ul>
+<li>读区间时，常用模式：<code>start=rdtsc(); … ; end=rdtsc();</code><br />
+若对序列化严格：<code>lfence; rdtsc;</code>……<code>rdtscp; lfence;</code></li>
+<li>线程<strong>绑核</strong>（<code>sched_setaffinity</code>）可避免跨核不同步导致的抖动。</li>
+<li>仅做<strong>相对时间</strong>，不要当作“系统时间”。</li>
+</ul>
+<p><strong>要“对点墙钟”的真实时间戳（日志、审计）</strong> ：用 <code>CLOCK_REALTIME</code>（受 NTP/chrony 调整）； 若机器跑了 <strong>PTP</strong> 且网卡有 <strong>PHC</strong>：读 <code>/dev/ptpX</code> 对应的 clock（最准的对时）。</p>
+<p>系统墙钟（受 NTP/chrony 校时）：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint64_t</span> realtime_ns = <span class="built_in">clock_gettime_ns</span>(CLOCK_REALTIME);</span><br></pre></td></tr></table></div></figure>
+<p>PTP 硬件时钟（更准，对时最强）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/timex.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/ptp_clock.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> fd = <span class="built_in">open</span>(<span class="string">&quot;/dev/ptp0&quot;</span>, O_RDONLY);</span><br><span class="line"><span class="type">clockid_t</span> clk = <span class="built_in">FD_TO_CLOCKID</span>(fd);</span><br><span class="line"><span class="type">uint64_t</span> phc_ns = <span class="built_in">clock_gettime_ns</span>(clk); <span class="comment">// 读取网卡 PHC</span></span><br><span class="line"><span class="built_in">close</span>(fd);</span><br></pre></td></tr></table></div></figure>
+<p>若系统跑了 <code>linuxptp</code>（<code>ptp4l</code>/<code>phc2sys</code>），PHC 与系统时钟会保持纳秒级一致。</p>
+
+        <h2 id="对点墙钟是什么"   >
+          <a href="#对点墙钟是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#对点墙钟是什么"></a> 对点墙钟是什么</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>传统挂钟</th>
+<th>智能对点墙钟</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>​<strong>​核心功能​</strong>​</td>
+<td>自行走时，依赖内部机芯（石英或机械）</td>
+<td>​<strong>​自动接收信号校准时间​</strong>​，消除累积误差</td>
+</tr>
+<tr>
+<td>​<strong>​对时方式​</strong>​</td>
+<td>手动调节</td>
+<td>自动（如GPS、NTP、电波）</td>
+</tr>
+<tr>
+<td>​<strong>​时间精度​</strong>​</td>
+<td>有机芯本身存在的误差，会累积</td>
+<td>​<strong>​极高​</strong>​，与标准时间源保持同步</td>
+</tr>
+<tr>
+<td>​<strong>​多钟同步​</strong>​</td>
+<td>难以实现，各钟显示时间可能存在差异</td>
+<td>​<strong>​轻松实现​</strong>​，所有时钟显示完全一致的时间</td>
+</tr>
+<tr>
+<td>​<strong>​典型应用​</strong>​</td>
+<td>家居、普通办公室</td>
+<td>​<strong>​学校、医院、车站、工厂、办公楼​</strong>​等需要统一时间的公共场所</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="纳秒时间戳怎么实现"   >
+          <a href="#纳秒时间戳怎么实现" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#纳秒时间戳怎么实现"></a> 纳秒时间戳怎么实现</h1>
+      
+<p>我们通过记录 TSC，最后批量换算 ns 即可。</p>
+<p><strong>单次真实“纳秒时间戳”调用 &lt;1 ns 不现实</strong>：</p>
+<ul>
+<li><code>clock_gettime</code>（vDSO）通常十几到数十 ns；</li>
+<li><code>RDTSC/RDTSCP</code> 也要 ~5–15 ns（视 CPU/栅栏而定）。</li>
+</ul>
+<p>解决：在<strong>热路径</strong>记录<strong>TSC</strong>（CPU 周期计数），把换算成 ns 的工作放到<strong>批量/后台</strong>。只要你的业务需要“本地单调时序”而不是“墙钟对时”，这就完美契合。</p>
+<p>读 TSC（建议 RDTSCP + 绑核）</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">inline</span> __attribute__((always_inline)) <span class="function"><span class="type">uint64_t</span> <span class="title">rdtsc_ordered</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(__x86_64__)</span></span><br><span class="line">    <span class="type">unsigned</span> aux, lo, hi;</span><br><span class="line">    <span class="function"><span class="keyword">asm</span> <span class="title">volatile</span><span class="params">(<span class="string">&quot;rdtscp&quot;</span> : <span class="string">&quot;=a&quot;</span>(lo), <span class="string">&quot;=d&quot;</span>(hi), <span class="string">&quot;=c&quot;</span>(aux) :: <span class="string">&quot;memory&quot;</span>)</span></span>;</span><br><span class="line">    <span class="comment">// RDTSCP 自带乱序屏障，读后不会被重排到指令前</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">uint64_t</span>(hi) &lt;&lt; <span class="number">32</span>) | lo;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#  <span class="keyword">error</span> <span class="string">&quot;Use aarch64 cntvct_el0 or platform-specific counter&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>运行前检查 CPU 有 <strong>invariant/constant_tsc</strong>；线程用 <code>sched_setaffinity</code> 绑核，避免跨核 TSC 偏差</p>
+<p>固定点比例换算（高效、无浮点除法）</p>
+<p>思路：<code>ns = base_ns + ((tsc - base_tsc) * mult) &gt;&gt; shift</code>。<br />
+在启动/定时校准时，用 <code>CLOCK_MONOTONIC_RAW</code> 标定 <code>mult/shift</code>。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atomic&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">TscCalib</span> &#123;</span><br><span class="line">    <span class="type">uint64_t</span> base_tsc;</span><br><span class="line">    <span class="type">uint64_t</span> base_ns;</span><br><span class="line">    <span class="type">uint32_t</span> mult;   <span class="comment">// cycles -&gt; ns 的乘子（放大后右移）</span></span><br><span class="line">    <span class="type">uint32_t</span> shift;  <span class="comment">// 右移位数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简易标定：100ms 窗口；生产里可做多次取中位数</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> TscCalib <span class="title">calibrate_tsc_fixedpoint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    timespec a&#123;&#125;, b&#123;&#125;;</span><br><span class="line">    <span class="comment">// 读起始</span></span><br><span class="line">    <span class="built_in">clock_gettime</span>(CLOCK_MONOTONIC_RAW, &amp;a);</span><br><span class="line">    <span class="type">uint64_t</span> t0 = <span class="built_in">rdtsc_ordered</span>();</span><br><span class="line">    <span class="comment">// 睡 100ms（或忙等更稳定）</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">timespec</span> req&#123;<span class="number">0</span>, <span class="number">100000000</span>&#125;;</span><br><span class="line">    <span class="built_in">nanosleep</span>(&amp;req, <span class="literal">nullptr</span>);</span><br><span class="line">    <span class="type">uint64_t</span> t1 = <span class="built_in">rdtsc_ordered</span>();</span><br><span class="line">    <span class="built_in">clock_gettime</span>(CLOCK_MONOTONIC_RAW, &amp;b);</span><br><span class="line"></span><br><span class="line">    <span class="type">uint64_t</span> dt_ns = <span class="built_in">uint64_t</span>(b.tv_sec - a.tv_sec) * <span class="number">1000000000ull</span></span><br><span class="line">                   + <span class="built_in">uint64_t</span>(b.tv_nsec - a.tv_nsec);</span><br><span class="line">    <span class="type">uint64_t</span> dt_cy = t1 - t0;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算 (ns/cycle) 的定点表示：找个 shift 使 mult 不溢出</span></span><br><span class="line">    <span class="comment">// 我们想要：ns ≈ (cycles * mult) &gt;&gt; shift</span></span><br><span class="line">    <span class="type">uint32_t</span> shift = <span class="number">24</span>; <span class="comment">// 经验值；可根据 dt_cy 调整</span></span><br><span class="line">    <span class="type">uint64_t</span> mult64 = ((dt_ns &lt;&lt; shift) + (dt_cy/<span class="number">2</span>)) / dt_cy;</span><br><span class="line"></span><br><span class="line">    TscCalib c&#123;&#125;;</span><br><span class="line">    c.base_tsc = t1;</span><br><span class="line">    c.base_ns  = <span class="built_in">uint64_t</span>(b.tv_sec) * <span class="number">1000000000ull</span> + b.tv_nsec;</span><br><span class="line">    c.mult = (<span class="type">uint32_t</span>)mult64;</span><br><span class="line">    c.shift = shift;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">uint64_t</span> <span class="title">tsc_to_ns</span><span class="params">(<span class="type">uint64_t</span> tsc, <span class="type">const</span> TscCalib&amp; c)</span> </span>&#123;</span><br><span class="line">    <span class="type">uint64_t</span> d = tsc - c.base_tsc;</span><br><span class="line">    <span class="comment">// 128bit 乘法更稳；GCC/Clang 下内建 __int128</span></span><br><span class="line">    <span class="type">__uint128_t</span> prod = (<span class="type">__uint128_t</span>)d * c.mult;</span><br><span class="line">    <span class="keyword">return</span> c.base_ns + (<span class="type">uint64_t</span>)(prod &gt;&gt; c.shift);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>热路径怎么存储：<br />
+只做<code>tsc = rdtsc_ordered();</code> 把 <code>tsc</code> 写入环形队列 / 结构体。</p>
+<p>大概 5 - 15 ns。</p>
+<p>可以不在每次操作时都真的读取 TSC，而是每 N 次 / 每一批读一次，写同一个批次的时间共用一个时间戳（或首尾时间戳 + 序号插值）。这样平均到每次调用就会 小于 1 ns 了。</p>
+<p>批量阶段：<br />
+取出<code>tsc</code>批量<code>tsc_to_ns()</code>，一次循环里用固定点乘法右移，吞吐很高（无 syscalls）。</p>
+<p>若必须每次都带 ns 值：就只能接受<code>~10</code> ns 级开销（TSC + 换算）或<code>~20-60</code> ns （vDSO <code>clock_gettime</code>），做不到 <code>&lt;1</code> ns。</p>
+
+        <h2 id="如果需要对时怎么办墙钟与行情时间对齐"   >
+          <a href="#如果需要对时怎么办墙钟与行情时间对齐" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#如果需要对时怎么办墙钟与行情时间对齐"></a> 如果需要“对时”怎么办（墙钟/与行情时间对齐）</h2>
+      
+<ul>
+<li>本机“墙钟”用 <code>CLOCK_REALTIME</code>；但开销 &gt; TSC。</li>
+<li>有 PTP 的交易网卡（X710/E810 等）可读 PHC（/dev/ptpX）做对时，再把 PHC 与 TSC 做一次线性拟合，得到<strong>TSC→UTC</strong> 的映射（同样固定点转换）。这样热路径仍旧只记 TSC，离线批量转 <strong>UTC 纳秒</strong>。</li>
+</ul>
+
+        <h2 id="工程化清单"   >
+          <a href="#工程化清单" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#工程化清单"></a> 工程化清单</h2>
+      
+<ul>
+<li>绑核 + 关闭频率波动（performance governor）、确认 <strong>invariant TSC</strong>。</li>
+<li>位图常驻：把位图和它的读写者放同核，避免跨核伪共享；读多写少时用<strong>双缓冲或 RCU</strong>，避免读到撕裂的 64 位。</li>
+<li>禁止异常、RTTI，开 LTO；必要时 <code>-fno-plt -fno-asynchronous-unwind-tables</code>。</li>
+<li>事件日志：用<strong>无锁环形队列</strong>，记录 <code>&#123;idx, result, tsc&#125;</code>；批量 flush 时统一换算。</li>
+<li>监控：定期重标定 TSC（如每几秒做一次短窗口），防极端漂移；记录校准参数版本号到事件中，确保可逆。</li>
+</ul>
+
+        <h2 id="迷你示例批量查位-批量打时间"   >
+          <a href="#迷你示例批量查位-批量打时间" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#迷你示例批量查位-批量打时间"></a> 迷你示例：批量查位 + 批量打时间</h2>
+      
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdint&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstddef&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">alignas</span>(<span class="number">64</span>) Bitset20000 &#123;</span><br><span class="line">    <span class="comment">// 20000 bits -&gt; 313 x u64 (199+1? 实际需要 (20000+63)/64 = 313)</span></span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">size_t</span> kWords = (<span class="number">20000</span> + <span class="number">63</span>) / <span class="number">64</span>;</span><br><span class="line">    <span class="type">uint64_t</span> w[kWords];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// __restrict__ + always_inline + noalias，帮助编译器矢量化/消掉别名顾虑</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> __attribute__((always_inline))</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bit_test</span><span class="params">(<span class="type">const</span> <span class="type">uint64_t</span>* __restrict bs64, <span class="type">size_t</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 无分支：一次加载 + 位移 + 与</span></span><br><span class="line">    <span class="keyword">return</span> (bs64[i &gt;&gt; <span class="number">6</span>] &gt;&gt; (i &amp; <span class="number">63</span>)) &amp; <span class="number">1u</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Event</span> &#123; <span class="type">uint32_t</span> idx; <span class="type">uint8_t</span> val; <span class="type">uint64_t</span> tsc; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">process_batch</span><span class="params">(<span class="type">const</span> Bitset20000&amp; bs, <span class="type">const</span> <span class="type">uint32_t</span>* idxs, <span class="type">size_t</span> n,</span></span></span><br><span class="line"><span class="params"><span class="function">                   Event* out, <span class="type">const</span> TscCalib&amp; calib)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 只在批首读一次 TSC（也可每K次读一次）</span></span><br><span class="line">    <span class="type">uint64_t</span> tsc0 = <span class="built_in">rdtsc_ordered</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="type">bool</span> v = <span class="built_in">bit_test</span>(bs.w, idxs[i]);</span><br><span class="line">        out[i] = &#123; idxs[i], (<span class="type">uint8_t</span>)v, tsc0 &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 批处理末尾再读一次，必要时你也能给范围时间</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量转 ns（离线/低频线程）</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">convert_to_ns</span><span class="params">(Event* evts, <span class="type">size_t</span> n, <span class="type">const</span> TscCalib&amp; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="type">uint64_t</span> ns = <span class="built_in">tsc_to_ns</span>(evts[i].tsc, c);</span><br><span class="line">        <span class="comment">// 写回或落盘…</span></span><br><span class="line">        (<span class="type">void</span>)ns;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p><strong>小结</strong></p>
+<ul>
+<li><strong>查位</strong>：上面那段无分支 bit-test + L1 热数据，<strong>单次 ~1 ns 级</strong>。</li>
+<li><strong>时间戳</strong>：想要纳秒值但<strong>平均 &lt;1 ns</strong>，只能<strong>热路径记 TSC，批量换算 ns</strong>；若必须每次拿 ns，就接受 10–60 ns 的现实（TSC+换算 或 vDSO）。</li>
+<li>如需与交易所/撮合时间对齐，用 <strong>PHC/PTP</strong> 做对时，再把 <strong>TSC→UTC</strong> 的映射用于批量转换。</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6/">https://xing-cg.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/Benchmark/Benchmark_bitset/"><span class="paginator-prev__text">Benchmark_bitset</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%A7%8D-%E6%9D%BF%E8%BD%BD%E6%97%B6%E9%92%9F%E6%9C%BA%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">
+           3 种 板载时钟机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%A5%E8%87%AA-gettimeofday-%E7%9A%84%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-number">2.</span> <span class="toc-text">
+           来自 gettimeofday 的时间戳</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fasttime-%E7%9A%84-%E5%8E%9F%E5%88%99"><span class="toc-number">3.</span> <span class="toc-text">
+           fasttime 的 原则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#derived-time-%E6%B4%BE%E7%94%9F%E6%97%B6%E9%97%B4"><span class="toc-number">4.</span> <span class="toc-text">
+           Derived Time 派生时间</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#clock-sampling-%E6%97%B6%E9%92%9F%E9%87%87%E6%A0%B7"><span class="toc-number">5.</span> <span class="toc-text">
+           Clock Sampling 时钟采样</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rate-change-amortisation-%E9%80%9F%E7%8E%87%E5%8F%98%E5%8A%A8%E6%91%8A%E9%94%80"><span class="toc-number">6.</span> <span class="toc-text">
+           Rate change amortisation 速率变动摊销</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#clock-filtering-%E6%97%B6%E9%92%9F%E6%BB%A4%E6%B3%A2"><span class="toc-number">7.</span> <span class="toc-text">
+           Clock filtering 时钟滤波</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#shared-memory-protection-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E4%BF%9D%E6%8A%A4"><span class="toc-number">8.</span> <span class="toc-text">
+           Shared memory protection 共享内存保护</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#terminology-%E6%9C%AF%E8%AF%AD"><span class="toc-number">9.</span> <span class="toc-text">
+           Terminology  术语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#references-%E5%BC%95%E7%94%A8"><span class="toc-number">10.</span> <span class="toc-text">
+           References  引用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#benchmark"><span class="toc-number">11.</span> <span class="toc-text">
+           benchmark</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%BA%B3%E7%A7%92%E7%9A%84%E6%96%B9%E5%BC%8F%E4%B8%80%E8%A7%88"><span class="toc-number">12.</span> <span class="toc-text">
+           获取纳秒的方式一览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%82%B9%E5%A2%99%E9%92%9F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">12.1.</span> <span class="toc-text">
+           对点墙钟是什么</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%B3%E7%A7%92%E6%97%B6%E9%97%B4%E6%88%B3%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0"><span class="toc-number">13.</span> <span class="toc-text">
+           纳秒时间戳怎么实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%E5%AF%B9%E6%97%B6%E6%80%8E%E4%B9%88%E5%8A%9E%E5%A2%99%E9%92%9F%E4%B8%8E%E8%A1%8C%E6%83%85%E6%97%B6%E9%97%B4%E5%AF%B9%E9%BD%90"><span class="toc-number">13.1.</span> <span class="toc-text">
+           如果需要“对时”怎么办（墙钟&#x2F;与行情时间对齐）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%B8%85%E5%8D%95"><span class="toc-number">13.2.</span> <span class="toc-text">
+           工程化清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%B7%E4%BD%A0%E7%A4%BA%E4%BE%8B%E6%89%B9%E9%87%8F%E6%9F%A5%E4%BD%8D-%E6%89%B9%E9%87%8F%E6%89%93%E6%97%B6%E9%97%B4"><span class="toc-number">13.3.</span> <span class="toc-text">
+           迷你示例：批量查位 + 批量打时间</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">310</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2025</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
