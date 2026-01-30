@@ -65,6 +65,7 @@ InputIterator find_if(InputIterator first, InputIterator last, UnaryPredicate pr
 总之，定义在内部，外界看不到，类似于黑盒，而且各部分的依赖关系不能断，需要穷尽路线，所以叫闭包。
 1. 功能不在全局定义，而是在内部定义。空间不易混乱
 2. fn可以直接使用fn2作为部分功能
+
 ![](../../images/Cpp_20240515_仿函数/image-20240719052258968.png)
 有了lambda表达式，就可以形式上在函数中嵌套定义函数了。
 但有个问题，fn中定义的变量，fn2可以访问吗？

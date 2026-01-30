@@ -739,3 +739,35 @@ No symbol table info available.
         temp_path = {static preferred_separator = 47 '/', _M_pathname = {_M_dataplus = {<std::allocator<char>> = {<std::__new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x5555555d8810 "/tmp/tempfile_1759759482756864030"}, _M_string_length = 33, {_M_local_buf = "!\000\000\000\000\000\000\000\000\364\374\367\377\177\000", _M_allocated_capacity = 33}}, _M_cmpts = {_M_impl = {_M_t = {<std::__uniq_ptr_impl<std::filesystem::__cxx11::path::_List::_Impl, std::filesystem::__cxx11::path::_List::_Impl_deleter>> = {_M_t = {<std::_Tuple_impl<0, std::filesystem::__cxx11::path::_List::_Impl*, std::filesystem::__cxx11::path::_List::_Impl_deleter>> = {<std::_Tuple_impl<1, std::filesystem::__cxx11::path::_List::_Impl_deleter>> = {<std::_Head_base<1, std::filesystem::__cxx11::path::_List::_Impl_deleter, true>> = {_M_head_impl = {<No data fields>}}, <No data fields>}, <std::_Head_base<0, std::filesystem::__cxx11::path::_List::_Impl*, false>> = {_M_head_impl = 0x5555555d8840}, <No data fields>}, <No data fields>}}, <No data fields>}}}}
         tempfile = {_M_dataplus = {<std::allocator<char>> = {<std::__new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x5555555d86b0 "/tmp/tempfile_1759759482756864030"}, _M_string_length = 33, {_M_local_buf = "!\000\000\000\000\000\000\000>)\375\367\377\177\000", _M_allocated_capacity = 33}}
 ```
+
+# 异常路径
+`basic_csv_parser.cpp`
+
+```cpp
+#include <system_error>
+// ...
+        CSV_INLINE void MmapParser::next(size_t bytes = ITERATION_CHUNK_SIZE) {
+            // Reset parser state
+            this->field_start = UNINITIALIZED_FIELD;
+            this->field_length = 0;
+            this->reset_data_ptr();
+
+            // Create memory map
+            const size_t offset = this->mmap_pos;
+            const size_t length = std::min(this->source_size - offset, bytes);
+            std::error_code error;
+            auto mmap = mio::make_mmap_source(this->_filename, offset, length, error);
+            if (error) {
+                std::string msg = "Memory mapping failed during CSV parsing: file='" + this->_filename
+                    + "' offset=" + std::to_string(offset)
+                    + " length=" + std::to_string(length);
+                throw std::system_error(error, msg);  // throw exception
+            }
+            this->data_ptr->_data = std::make_shared<mio::basic_mmap_source<char>>(std::move(mmap));
+            this->mmap_pos += length;
+```
+
+``
+
+这个 next 是在 CSVReader 中，开了个 `std::thread` ，`read_csv` 函数中 run parsing。
+
