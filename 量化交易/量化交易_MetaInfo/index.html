@@ -1,0 +1,577 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="合约交易 MetaInfo 字段解释                      spot 现货                             swap 合约        在金融领域，Swap的中文是“互换”或“掉期”。它是一种重要的金融衍生工具，核心可以概括为：交易双方在预先约定的时间内，相互交换一系列现金流的合约。 下表总结了互换的主要类型和核心特征。    互换类型 交换的标的物">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易_MetaInfo">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_MetaInfo/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="合约交易 MetaInfo 字段解释                      spot 现货                             swap 合约        在金融领域，Swap的中文是“互换”或“掉期”。它是一种重要的金融衍生工具，核心可以概括为：交易双方在预先约定的时间内，相互交换一系列现金流的合约。 下表总结了互换的主要类型和核心特征。    互换类型 交换的标的物">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-06T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>量化交易_MetaInfo | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_MetaInfo/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">量化交易_MetaInfo</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2025-11-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2025-11-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_MetaInfo/" data-flag-title="量化交易_MetaInfo"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>合约交易 MetaInfo 字段解释</p>
+
+        <h1 id="spot-现货"   >
+          <a href="#spot-现货" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#spot-现货"></a> spot 现货</h1>
+      
+
+        <h1 id="swap-合约"   >
+          <a href="#swap-合约" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#swap-合约"></a> swap 合约</h1>
+      
+<p>在金融领域，<strong>Swap</strong>的中文是“<strong>互换</strong>”或“<strong>掉期</strong>”。它是一种重要的金融衍生工具，核心可以概括为：<strong>交易双方在预先约定的时间内，相互交换一系列现金流的合约</strong>。</p>
+<p>下表总结了互换的主要类型和核心特征。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>互换类型</th>
+<th>交换的标的物</th>
+<th>主要目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>利率互换</strong></td>
+<td>同种货币的利息支付（如固定利率利息 vs 浮动利率利息）</td>
+<td>管理利率风险，降低融资成本</td>
+</tr>
+<tr>
+<td><strong>货币互换</strong></td>
+<td>不同货币的本金和利息</td>
+<td>管理汇率风险，转换资产/负债的币种</td>
+</tr>
+<tr>
+<td><strong>商品互换</strong></td>
+<td>与商品价格（如石油、黄金）挂钩的现金流</td>
+<td>对冲商品价格波动的风险</td>
+</tr>
+<tr>
+<td><strong>信用违约互换</strong></td>
+<td>针对特定债务的信用风险（类似保险）</td>
+<td>转移和规避信用风险</td>
+</tr>
+<tr>
+<td>与其他衍生品的区别</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>作为金融衍生品家族的四大支柱之一（另外三者是期货、期权和远期），互换有其独特性：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>与期货/远期相比：期货和远期通常涉及在未來某个时点交割一项资产，而互换则是在一段时间内分期、多次地交换现金流。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>与期权相比：期权赋予持有者“选择执行与否”的权利，而互换则是一种“承诺”，双方都必须按约定履行支付义务。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="概念"   >
+          <a href="#概念" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#概念"></a> 概念</h1>
+      
+
+        <h2 id="volumemultiple-是什么"   >
+          <a href="#volumemultiple-是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#volumemultiple-是什么"></a> VolumeMultiple 是什么？</h2>
+      
+<p>短答：</p>
+<ul>
+<li><strong>VolumeMultiple</strong>（有些文档叫“合约乘数/数量乘数”）=「每<strong>1 手/1 张</strong>合约包含的<strong>标的数量</strong>」。这是交易规则里的一个“乘数”。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.shfe.com.cn/services/technology/technical_download/202007/P020240320687787646086.pdf?utm_source=chatgpt.com" >Shanghai Futures Exchange</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+<li><strong>现货 BTC-USDT</strong>：没有“张/手”的概念，数量直接用 <strong>BTC 数量</strong>计。很多带这个字段的通用 API 对现货会把 <strong>VolumeMultiple 设为 1</strong>（占位），基本用不到。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://dict.thinktrader.net/dictionary/future.html?utm_source=chatgpt.com" >dict.thinktrader.net</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+<li><strong>合约（永续/交割）</strong>：VolumeMultiple 才有意义，常与“<strong>合约面值/contractSize</strong>”一起决定 1 张代表多少标的或多少美元。</li>
+</ul>
+<p><strong>那“VolumeMultiple 就是 contractSize”吗？</strong></p>
+<p><strong>不完全等同</strong>。从定义上看：</p>
+<ul>
+<li>
+<p><strong>VolumeMultiple/合约乘数</strong> = 每张（或每手）里包含的“<strong>单位数</strong>”（用于把“张数”换成“标的数量”）。</p>
+</li>
+<li>
+<p><strong>contractSize/合约面值（或 ctVal）</strong> = 每张对应的“<strong>标的数量（BTC）</strong>”或“<strong>美元面值</strong>”。</p>
+</li>
+<li>
+<p>在很多加密合约里 <strong>ctMult=1</strong>，这时 <strong>“每张有多少标的”</strong> 看起来就和 contractSize 一样，所以有人会把它们当成一个概念；但在<strong>有单独面值字段</strong>（例如 OKX 的 <strong>ctVal</strong> 与 <strong>ctMult</strong>）或<strong>反向合约以 USD 面值计</strong>的场景，两者<strong>不是同一字段</strong>，计算也不同。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.okx.com/docs-v5/zh/?utm_source=chatgpt.com" >OKX</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</p>
+</li>
+</ul>
+
+        <h1 id="现货-vs-合约怎么对应"   >
+          <a href="#现货-vs-合约怎么对应" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#现货-vs-合约怎么对应"></a> 现货 vs. 合约怎么对应？</h1>
+      
+
+        <h2 id="现货-btc-usdt"   >
+          <a href="#现货-btc-usdt" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#现货-btc-usdt"></a> 现货 BTC-USDT</h2>
+      
+<ul>
+<li>下单数量 = 你买/卖的 <strong>BTC 数量</strong>。</li>
+<li>VolumeMultiple 通常 = <strong>1</strong>；实际下单受 <strong>最小下单数量/步进</strong> 约束，而不是乘数。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://dict.thinktrader.net/dictionary/future.html?utm_source=chatgpt.com" >dict.thinktrader.net</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+</ul>
+
+        <h2 id="合约两种常见规格"   >
+          <a href="#合约两种常见规格" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#合约两种常见规格"></a> 合约（两种常见规格）</h2>
+      
+<p><strong>A. USDT 本位（线性）</strong></p>
+<ul>
+<li>平台会给出“<strong>合约面值（contractSize/ctVal）</strong>”，单位通常是 <strong>BTC/张</strong>（比如 1 张 = 0.01 BTC），以及“<strong>合约乘数（ctMult）</strong>”（多数产品为 1）。</li>
+<li>1 张代表的 <strong>BTC 数量 = contractSize × ctMult</strong>。</li>
+<li>成交名义价值（USDT）= 价格 × 张数 × contractSize × ctMult。</li>
+<li>例：OKX 说明里，<strong>BTCUSDT 合约面值 = 0.01 BTC</strong>，<strong>乘数 = 1</strong> ⇒ 1 张 = 0.01 BTC。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.okx.com/zh-hans/help/i-future-contracts?utm_source=chatgpt.com" >OKX</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+</ul>
+<p><strong>B. 币本位/反向（如 BTCUSD）</strong></p>
+<ul>
+<li>面值以 <strong>USD/张</strong>给出（例如 100 USD/张），乘数多为 1。</li>
+<li>1 张对应的 <strong>BTC 数量 =（USD 面值 × 乘数）/ 价格</strong>（随价变动）。</li>
+<li>例：OKX 文档示例，<strong>BTCUSD 面值 = 100 USD</strong>，<strong>乘数 = 1</strong>。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.okx.com/zh-hant/help/i-future-contracts?utm_source=chatgpt.com" >OKX</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+</ul>
+<p>（补充：Binance USDT-M 合约是线性合约，契合上面 A 的计算思路；其规格文档也强调线性计价/结算。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.binance.com/en/support/faq/detail/360033161972?utm_source=chatgpt.com" >Binance</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)）</p>
+<ul>
+<li>
+<p><strong>futures（合约）里的 VolumeMultiple</strong>：在 Gate 就用 <strong>quanto_multiplier</strong>。对「正向/线性」合约（type=“direct”）它等价于“每 1 张合约代表的标的数量”（常见是 0.001 BTC/张，但请以 API 返回为准）。对「反向」合约（type=“inverse”），估值/盈亏会用到 1/price 的关系，quanto_multiplier 用作计价币→结算币的换算系数（详见下面公式解释）。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.hk/docs/developers/apiv4/zh_CN/" >Gate.com.tr</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</li>
+<li>
+<p><strong>futures（合约）的 PriceTick</strong>：用 <strong>order_price_round</strong>。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.hk/docs/developers/apiv4/zh_CN/" >Gate.com.tr</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</li>
+<li>
+<p><strong>futures 的 MinLimitOrderVolume / MaxLimitOrderVolume</strong>：分别用 <strong>order_size_min</strong> / <strong>order_size_max</strong>。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.hk/docs/developers/apiv4/zh_CN/" >Gate.com.tr</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</li>
+<li>
+<p><strong>futures 的 VolumeTick（数量步进）</strong>：用 <strong>1</strong>。Gate 的合约下单数量（以及持仓 size）是整数张，步进为 1 张。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.hk/docs/developers/apiv4/zh_CN/" >Gate.com.tr</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</li>
+<li>
+<p><strong>futures 的 MinNotional（最小名义金额）</strong>：<strong>Gate 合约的合约详情模型里没有单独给出</strong>。一般以最小张数限制为准；如果你需要“估算的”名义金额，可用</p>
+</li>
+<li>
+<p>线性合约：order_size_min × quanto_multiplier × mark_price；</p>
+</li>
+<li>
+<p>反向合约：order_size_min × quanto_multiplier ÷ mark_price（价值与 1/price 成正比）。<br />
+但这些是<strong>派生值</strong>，不是官方字段。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.hk/docs/developers/apiv4/zh_CN/" >Gate.com.tr+1</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</li>
+<li>
+<p><strong>spot（现货）的对应关系</strong>（你前面也问到现货）：</p>
+</li>
+<li>
+<p>现货没有“合约乘数/面值”这个概念，<strong>VolumeMultiple 固定看作 1</strong>（买卖就是以基础币的数量计）。</p>
+</li>
+<li>
+<p>现货的 <strong>VolumeTick</strong>（数量步进）可由 <strong>amount_precision</strong> 推出（步进=10^-amount_precision）。</p>
+</li>
+<li>
+<p>现货的 <strong>MinNotional</strong>（最小名义金额）就是 <strong>min_quote_amount</strong>。</p>
+</li>
+</ul>
+<p><strong>futures 的 <code>VolumeTick</code>（数量步进）</strong>：用 <strong>1</strong>。Gate 的合约下单数量（以及持仓 <code>size</code>）是整数张，步进为 1 张。</p>
+<p>这是从哪得出来来的</p>
+<p><strong>ChatGPT said:</strong></p>
+<p>Thought for 44s</p>
+<p>对的，我说 “<strong>VolumeTick=1（按 1 张为步进）</strong>” 的依据就是 <strong>Gate 官方 API 文档</strong>里对合约“数量”的类型定义：</p>
+<ul>
+<li><strong>下单与订单</strong>：FuturesOrder.size 明确是 <strong>integer(int64)</strong>，并写明“下单数量（size）为正表示买，负表示卖”，说明只能用<strong>整数张</strong>，不存在小数张。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.com/docs/futures/api/index.html" >Gate.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><strong>仓位</strong>：Position.size 也是 <strong>integer(int64)</strong>，仓位规模用整数计。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.com/docs/futures/api/index.html" >Gate.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><strong>合约规格</strong>：Contract.order_size_min / order_size_max 都是 <strong>integer(int64)</strong>（最小/最大下单张数为整数）。文档没有提供任何“数量精度/步进”字段（只有价格精度 order_price_round），因此<strong>默认步进就是 1 张</strong>。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.com/docs/futures/api/index.html" >Gate.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li><strong>中文说明</strong>：在中文 API 说明里也写得很直接：<strong>“下单时指定的是合约张数 size，而非币的数量；每张对应的币数量看 quanto_multiplier。”</strong> 这也侧面印证 size 以<strong>张数</strong>、且为整数计。<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.gate.io/docs/apiv4/zh_CN/index.html?utm_source=chatgpt.com" >Gate.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+<p>综上：Gate 永续合约的下单与持仓数量都是“<strong>张</strong>”，类型是整数 → 数量步进自然就是 <strong>1 张</strong>。</p>
+<p><strong>实操小抄</strong></p>
+<ul>
+<li><strong>现货</strong>：直接用 <strong>数量（BTC）× 价格</strong>；忽略 VolumeMultiple。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://dict.thinktrader.net/dictionary/future.html?utm_source=chatgpt.com" >dict.thinktrader.net</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+<li><strong>USDT 本位合约</strong>：名义价值 = 价格 × 张数 × <strong>contractSize</strong> × <strong>VolumeMultiple</strong>（多为 1）。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.okx.com/docs-v5/zh/?utm_source=chatgpt.com" >OKX</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+<li><strong>币本位/反向合约</strong>：名义价值（USD）= 张数 × <strong>contractSize(USD)</strong> × <strong>VolumeMultiple</strong>；对应 <strong>BTC 数量 = 名义价值 / 价格</strong>。(<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.okx.com/zh-hant/help/i-future-contracts?utm_source=chatgpt.com" >OKX</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li>
+</ul>
+<p>如果你告诉我具体是哪家交易所/哪个 API 字段名（例如 OKX 的 ctVal/ctMult、Binance 的 contractSize 等），我可以把它们一一对上，并给你写好计算示例。</p>
+
+        <h1 id="usdt-usdc-usd"   >
+          <a href="#usdt-usdc-usd" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#usdt-usdc-usd"></a> USDT、USDC、USD</h1>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>术语类别</th>
+<th>术语</th>
+<th>核心含义与区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基础货币</strong>​</td>
+<td><strong>USD</strong>​</td>
+<td>美元，美国的官方法定货币，是USDT和USDC的价值锚定对象。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>USDT</strong>​</td>
+<td>由Tether公司发行的稳定币，与美元1:1挂钩。特点是<strong>流动性极高</strong>，交易对最丰富，但储备金透明度和监管合规性历来存在争议。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>USDC</strong>​</td>
+<td>由Circle和Coinbase联合发行的稳定币，同样与美元1:1挂钩。特点是<strong>监管合规性和透明度高</strong>（每月公开审计报告），更受注重安全和合规的机构青睐。</td>
+</tr>
+<tr>
+<td><strong>交易类型</strong>​</td>
+<td><strong>现货</strong>​</td>
+<td>直接买卖并持有真实的加密货币（如BTC），一手交钱一手交货。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>USDT永续/USDC永续</strong>​</td>
+<td>使用USDT或USDC作为保证金进行结算的<strong>永续合约</strong>。<strong>没有到期日</strong>，可无限期持有。通过“资金费率”机制使合约价格锚定现货价格。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>USDT交割/USDC交割</strong>​</td>
+<td>使用USDT或USDC作为保证金进行结算的<strong>交割合约</strong>。<strong>有明确的到期日</strong>，到期后合约会自动按约定价格平仓结算。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>反向合约</strong>​</td>
+<td>也称“币本位合约”。以交易对象本身（如BTC）作为保证金和结算单位。盈亏以该加密货币数量计算。</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>期权</strong>​</td>
+<td>赋予持有者在未来特定时间以特定价格买入或卖出标的资产的权利，但<strong>不是义务</strong>。买方最大亏损为购买期权时支付的权利金w。</td>
+</tr>
+</tbody>
+</table></div>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_MetaInfo/">https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93_MetaInfo/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E7%BD%91%E7%BB%9C/Qiyan-Tailscale%E5%9B%A2%E9%98%9F%E5%86%85%E9%83%A8%E6%89%8B%E5%86%8C/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Qiyan-Tailscale团队内部手册</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%AE%A1%E6%97%B6_TSC/"><span class="paginator-prev__text">计算机计时_TSC</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#spot-%E7%8E%B0%E8%B4%A7"><span class="toc-number">1.</span> <span class="toc-text">
+           spot 现货</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#swap-%E5%90%88%E7%BA%A6"><span class="toc-number">2.</span> <span class="toc-text">
+           swap 合约</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">
+           概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#volumemultiple-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">3.1.</span> <span class="toc-text">
+           VolumeMultiple 是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E8%B4%A7-vs-%E5%90%88%E7%BA%A6%E6%80%8E%E4%B9%88%E5%AF%B9%E5%BA%94"><span class="toc-number">4.</span> <span class="toc-text">
+           现货 vs. 合约怎么对应？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E8%B4%A7-btc-usdt"><span class="toc-number">4.1.</span> <span class="toc-text">
+           现货 BTC-USDT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E7%BA%A6%E4%B8%A4%E7%A7%8D%E5%B8%B8%E8%A7%81%E8%A7%84%E6%A0%BC"><span class="toc-number">4.2.</span> <span class="toc-text">
+           合约（两种常见规格）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#usdt-usdc-usd"><span class="toc-number">5.</span> <span class="toc-text">
+           USDT、USDC、USD</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">314</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2026</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
