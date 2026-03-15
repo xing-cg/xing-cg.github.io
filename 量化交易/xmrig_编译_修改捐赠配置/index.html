@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="挖矿的来龙去脉        2026 年，狂潮退却了。  核心原因是以太坊合并。  机制改变： 2022年9月，以太坊（ETH）完成了从 PoW（工作量证明） 到 PoS（权益证明） 的升级。在此之前，ETH是显卡挖矿绝对的主力军（因为比特币早已用专业ASIC矿机挖，普通显卡挖不动）。 算力失效： 升级后，以太坊不再需要显卡进行复杂的哈希计算来维护网络，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xmrig_编译_修改捐赠配置">
+<meta property="og:url" content="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/xmrig_%E7%BC%96%E8%AF%91_%E4%BF%AE%E6%94%B9%E6%8D%90%E8%B5%A0%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="挖矿的来龙去脉        2026 年，狂潮退却了。  核心原因是以太坊合并。  机制改变： 2022年9月，以太坊（ETH）完成了从 PoW（工作量证明） 到 PoS（权益证明） 的升级。在此之前，ETH是显卡挖矿绝对的主力军（因为比特币早已用专业ASIC矿机挖，普通显卡挖不动）。 算力失效： 升级后，以太坊不再需要显卡进行复杂的哈希计算来维护网络，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-06T00:00:00.000Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>xmrig_编译_修改捐赠配置 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/xmrig_%E7%BC%96%E8%AF%91_%E4%BF%AE%E6%94%B9%E6%8D%90%E8%B5%A0%E9%85%8D%E7%BD%AE/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">xmrig_编译_修改捐赠配置</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2026-02-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2026-02-06</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/xmrig_%E7%BC%96%E8%AF%91_%E4%BF%AE%E6%94%B9%E6%8D%90%E8%B5%A0%E9%85%8D%E7%BD%AE/" data-flag-title="xmrig_编译_修改捐赠配置"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="挖矿的来龙去脉"   >
+          <a href="#挖矿的来龙去脉" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#挖矿的来龙去脉"></a> 挖矿的来龙去脉</h1>
+      
+<p>2026 年，狂潮退却了。</p>
+<ol>
+<li>核心原因是以太坊合并。
+<ul>
+<li><strong>机制改变：</strong> 2022年9月，以太坊（ETH）完成了从 <strong>PoW（工作量证明）</strong> 到 <strong>PoS（权益证明）</strong> 的升级。在此之前，ETH是显卡挖矿绝对的主力军（因为比特币早已用专业ASIC矿机挖，普通显卡挖不动）。</li>
+<li><strong>算力失效：</strong> 升级后，以太坊不再需要显卡进行复杂的哈希计算来维护网络，显卡瞬间失去了最大的“用武之地”。</li>
+<li><strong>无处可去：</strong> 虽然还有其他小币种（如ETC、RavenCoin等）可以挖，但它们的市值和流动性根本承载不了从ETH溢出的巨大算力，导致挖这些币的收益极低，甚至不够电费。</li>
+</ul>
+</li>
+<li>政策原因：中国政府的全面禁令<br />
+中国曾是全球最大的算力中心，政策转向对矿圈打击巨大。
+<ul>
+<li><strong>断电断网：</strong> 2021年5月起，中国国务院金融委明确提出“打击比特币挖矿和交易行为”。随后，内蒙古、四川、新疆等水电/火电资源丰富的省份开始清理矿场，直接切断电力供应。</li>
+<li><strong>定性非法：</strong> 2021年9月，发改委等部门联合发布通知，将虚拟货币“挖矿”列为淘汰类产业，全面禁止新增项目，清理存量项目。这使得国内的大型矿场被迫关停或向海外（如美国、哈萨克斯坦）转移，中小矿工则因风险剧增而退场。</li>
+</ul>
+</li>
+<li>经济原因：币价崩盘与能源成本
+<ul>
+<li><strong>加密寒冬：</strong> 2022年开始，受美联储加息、Terra (LUNA) 崩盘、FTX交易所暴雷等一系列黑天鹅事件影响，加密货币市场进入深熊。以太坊价格从最高点的4800美元一路狂泻至1000美元以下，挖矿收益直接腰斩再腰斩。</li>
+<li><strong>能源危机：</strong> 俄乌冲突导致全球（特别是欧洲）能源价格飙升。电费是挖矿最大的成本，当“币价下跌”遇上“电费暴涨”，挖矿彻底变成了赔本生意</li>
+</ul>
+</li>
+</ol>
+
+        <h2 id="posproof-of-stake-权益证明是什么"   >
+          <a href="#posproof-of-stake-权益证明是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#posproof-of-stake-权益证明是什么"></a> PoS（Proof of Stake, 权益证明）是什么</h2>
+      
+<p>它是区块链的一种<strong>共识机制</strong>（即决定谁有资格记账并获得奖励的规则）。<br />
+把它和之前的 <strong>PoW（工作量证明）</strong> 做一个生动的对比：</p>
+<ul>
+<li><strong>PoW（挖矿模式）：比谁力气大</strong>
+<ul>
+<li><strong>规则：</strong> 就像是一群人在解一道超难的数学题。谁的电脑（矿机/显卡）算得快，谁就先解出来，谁就能获得记账权和奖励（比特币/以前的以太坊）。</li>
+<li><strong>后果：</strong> 大家为了赢，疯狂买显卡、耗费巨量电力。这就是“矿潮”的根源。</li>
+<li><strong>门槛：</strong> 拼硬件、拼电费。</li>
+</ul>
+</li>
+<li><strong>PoS（质押模式）：比谁钱多</strong>
+<ul>
+<li><strong>规则：</strong> 就像是银行存款吃利息。你想参与记账？不需要买显卡，只需要把你持有的币（比如ETH）“抵押/存”在系统里。系统会根据你存的钱多少、存的时间长短，随机抽签选人来记账。存的越多，被选中的概率越大，获得的奖励也越多。</li>
+<li><strong>后果：</strong> 既然是比谁存的币多，那就完全<strong>不需要显卡</strong>去进行复杂的计算了。</li>
+<li><strong>门槛：</strong> 拼资产（币的数量）。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="pos-机制的核心逻辑"   >
+          <a href="#pos-机制的核心逻辑" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#pos-机制的核心逻辑"></a> PoS 机制的核心逻辑</h3>
+      
+<ol>
+<li><strong>质押（Staking）：</strong> 验证者必须将一定数量的加密货币锁定在网络中作为“保证金”。（例如以太坊要求质押 32 个 ETH 才能成为独立验证者）。</li>
+<li><strong>验证：</strong> 系统不再需要全网算力竞赛，而是随机选择验证者来打包区块。</li>
+<li><strong>奖惩：</strong>
+<ul>
+<li><strong>奖励：</strong> 如果你诚实记账，你会获得系统发的币作为利息。</li>
+<li><strong>惩罚（Slashing）：</strong> 如果你作恶（比如乱记账），你的保证金会被系统没收。</li>
+</ul>
+</li>
+</ol>
+<p>在以太坊从 PoW 切换到 PoS 之后（即 The Merge 升级）：</p>
+<ul>
+<li><strong>显卡彻底下岗：</strong> 以前矿工买显卡是为了提供算力去“解题”。现在规则变了，不需要算力了，只要有币就行。显卡对于以太坊网络变得<strong>毫无用处</strong>。</li>
+<li><strong>能源消耗骤降：</strong> 由于不需要显卡全负荷运转，以太坊网络的能耗瞬间降低了 <strong>99.95%</strong>。</li>
+</ul>
+<p>总结：<strong>PoS 就是一种“用资产说话”的制度。</strong> 对于矿工来说，这不仅是玩法的改变，更是<strong>生产资料的彻底变更</strong>——从通过购买<strong>显卡</strong>（硬件）来赚钱，变成了通过购买<strong>币</strong>（资产）来赚钱。</p>
+
+        <h1 id="2026-年还能挖矿吗"   >
+          <a href="#2026-年还能挖矿吗" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#2026-年还能挖矿吗"></a> 2026 年，还能挖矿吗？</h1>
+      
+<p>总体流程：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/xmrig/xmrig.git</span><br><span class="line"><span class="built_in">mkdir</span> xmrig/build &amp;&amp; <span class="built_in">cd</span> xmrig/build</span><br><span class="line">cmake ..</span><br><span class="line">make -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></div></figure>
+<p>需要修改的文件：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">src/donate.h                     <span class="comment"># 修改默认捐赠等级常量</span></span><br><span class="line">src/core/config/Config_default.h <span class="comment"># 修改嵌入式配置的默认值</span></span><br><span class="line">src/core/config/usage.h          <span class="comment"># 修改帮助信息中的默认值说明</span></span><br></pre></td></tr></table></div></figure>
+<p>donate.h</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constexpr</span> <span class="type">const</span> <span class="type">int</span> kDefaultDonateLevel = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">const</span> <span class="type">int</span> kMinimumDonateLevel = <span class="number">0</span>;</span><br></pre></td></tr></table></div></figure>
+<p>Config_default.h<br />
+改的地方：<code>&quot;donate-level&quot;: 0</code></p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> XMRIG_CONFIG_DEFAULT_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> XMRIG_CONFIG_DEFAULT_H</span></span><br><span class="line"><span class="keyword">namespace</span> xmrig &#123;</span><br><span class="line"><span class="comment">// This feature require CMake option: -DWITH_EMBEDDED_CONFIG=ON</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> XMRIG_FEATURE_EMBEDDED_CONFIG</span></span><br><span class="line"><span class="type">const</span> <span class="type">static</span> <span class="type">char</span> *default_config =</span><br><span class="line"><span class="string">R&quot;===(</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;api&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;id&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;worker-id&quot;: null</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;http&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;enabled&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;host&quot;: &quot;127.0.0.1&quot;,</span></span><br><span class="line"><span class="string">        &quot;port&quot;: 0,</span></span><br><span class="line"><span class="string">        &quot;access-token&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;restricted&quot;: true</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;autosave&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;background&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;colors&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;title&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;randomx&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;init&quot;: -1,</span></span><br><span class="line"><span class="string">        &quot;init-avx2&quot;: -1,</span></span><br><span class="line"><span class="string">        &quot;mode&quot;: &quot;auto&quot;,</span></span><br><span class="line"><span class="string">        &quot;1gb-pages&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;rdmsr&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;wrmsr&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;cache_qos&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;numa&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;scratchpad_prefetch_mode&quot;: 1</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;cpu&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;enabled&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;huge-pages&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;huge-pages-jit&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;hw-aes&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;priority&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;memory-pool&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;yield&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;max-threads-hint&quot;: 100,</span></span><br><span class="line"><span class="string">        &quot;asm&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;argon2-impl&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;cn/0&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;cn-lite/0&quot;: false</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;opencl&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;enabled&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;cache&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;loader&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;platform&quot;: &quot;AMD&quot;,</span></span><br><span class="line"><span class="string">        &quot;adl&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;cn/0&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;cn-lite/0&quot;: false</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;cuda&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;enabled&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;loader&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;nvml&quot;: true,</span></span><br><span class="line"><span class="string">        &quot;cn/0&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;cn-lite/0&quot;: false</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;donate-level&quot;: 0,</span></span><br><span class="line"><span class="string">    &quot;donate-over-proxy&quot;: 1,</span></span><br><span class="line"><span class="string">    &quot;log-file&quot;: null,</span></span><br><span class="line"><span class="string">    &quot;pools&quot;: [</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">            &quot;algo&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;coin&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;url&quot;: &quot;donate.v2.xmrig.com:3333&quot;,</span></span><br><span class="line"><span class="string">            &quot;user&quot;: &quot;YOUR_WALLET_ADDRESS&quot;,</span></span><br><span class="line"><span class="string">            &quot;pass&quot;: &quot;x&quot;,</span></span><br><span class="line"><span class="string">            &quot;rig-id&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;nicehash&quot;: false,</span></span><br><span class="line"><span class="string">            &quot;keepalive&quot;: false,</span></span><br><span class="line"><span class="string">            &quot;enabled&quot;: true,</span></span><br><span class="line"><span class="string">            &quot;tls&quot;: false,</span></span><br><span class="line"><span class="string">            &quot;tls-fingerprint&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;daemon&quot;: false,</span></span><br><span class="line"><span class="string">            &quot;socks5&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;self-select&quot;: null,</span></span><br><span class="line"><span class="string">            &quot;submit-to-origin&quot;: false</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    &quot;print-time&quot;: 60,</span></span><br><span class="line"><span class="string">    &quot;health-print-time&quot;: 60,</span></span><br><span class="line"><span class="string">    &quot;dmi&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;retries&quot;: 5,</span></span><br><span class="line"><span class="string">    &quot;retry-pause&quot;: 5,</span></span><br><span class="line"><span class="string">    &quot;syslog&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;tls&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;enabled&quot;: false,</span></span><br><span class="line"><span class="string">        &quot;protocols&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;cert&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;cert_key&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;ciphers&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;ciphersuites&quot;: null,</span></span><br><span class="line"><span class="string">        &quot;dhparam&quot;: null</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;user-agent&quot;: null,</span></span><br><span class="line"><span class="string">    &quot;verbose&quot;: 0,</span></span><br><span class="line"><span class="string">    &quot;watch&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;pause-on-battery&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;pause-on-active&quot;: false</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">)===&quot;</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125; <span class="comment">// namespace xmrig</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* XMRIG_CONFIG_DEFAULT_H */</span></span></span><br></pre></td></tr></table></div></figure>
+<p>usage.h<br />
+把</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">u += <span class="string">&quot; --donate-level=N donate level, default 1%% (1 minute in 100 minutes)\n&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+<p>改为</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">u += <span class="string">&quot; --donate-level=N donate level, default 0%% (disabled)\n&quot;</span>;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/xmrig_%E7%BC%96%E8%AF%91_%E4%BF%AE%E6%94%B9%E6%8D%90%E8%B5%A0%E9%85%8D%E7%BD%AE/">https://xing-cg.github.io/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/xmrig_%E7%BC%96%E8%AF%91_%E4%BF%AE%E6%94%B9%E6%8D%90%E8%B5%A0%E9%85%8D%E7%BD%AE/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/Linux%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/"><span class="paginator-prev__text">Linux性能调优</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%96%E7%9F%BF%E7%9A%84%E6%9D%A5%E9%BE%99%E5%8E%BB%E8%84%89"><span class="toc-number">1.</span> <span class="toc-text">
+           挖矿的来龙去脉</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#posproof-of-stake-%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">
+           PoS（Proof of Stake, 权益证明）是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pos-%E6%9C%BA%E5%88%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+           PoS 机制的核心逻辑</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2026-%E5%B9%B4%E8%BF%98%E8%83%BD%E6%8C%96%E7%9F%BF%E5%90%97"><span class="toc-number">2.</span> <span class="toc-text">
+           2026 年，还能挖矿吗？</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">315</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2026</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
