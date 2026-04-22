@@ -8,8 +8,11 @@ updated: 2025/7/22
 comments: 
 published:
 ---
+ACK报文不消耗序号，SYN和FIN虽然有可能不携带数据，但会消耗1个序号。流程：三次握手：（1）客户端发SYN到服务端，SYN = 1，seq = x，客户端进入SYN_SENT状态；（2）服务端发SYN+ACK到客户端，SYN = 1，ACK = 1，seq = y，ack = x+1，服务端进入SYN_RCVD状态；（3）客户端发ACK到服务端，ACK = 1，seq = x +1，ack=y+1，客户端进入ESTABLISHED，服务端收到ACK后，也进入ESTABLISHED。四次挥手：（1）客户端发送FIN到服务端，FIN = 1，seq = a，客户端进入FIN_WAIT_1；（2）服务端发ACK到客户端，ACK = 1，ack = a + 1，seq = b，客户端进入FIN_WAIT_2，服务端进入CLOSE_WAIT；（3）服务端发FIN到客户端，FIN = 1，ACK= 1，seq=b，ack=a+1，但是如果之前还发了剩余数据(假设为n字节)，那么需要注意seq=b+n，ack=a+1，此时服务端进入LAST_ACK；（4）客户端发ACK到服务端，ACK=1，seq=a+1，ack=b+1，如果服务端第三次挥手发的FIN序号是b+n，那么ack=b+n+1。客户端进入TIME_WAIT，服务端进入CLOSED，客户端等待2个MSL后，才真正进入CLOSED。
 # 四次挥手
 ![](../../images/网络_TCP/image-20250722092657370.png)
+![为什么要3次握手而不是2次握手](../../images/网络_TCP/image-20260324113727934.png)
+
 
 
 # TCP
