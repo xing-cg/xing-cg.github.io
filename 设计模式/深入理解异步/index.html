@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="异步到底是什么        异步不是让代码天然更快，也不等于多线程。异步真正解决的是：当一个操作暂时无法继续时，不让执行它的线程原地等待，而是把当前逻辑暂停，等条件满足后再恢复。 同步代码中，调用栈、线程和逻辑流程基本重合： 12auto data &#x3D; socket.read();process(data); 线程会阻塞在 read()，直到数据到达。异">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解异步">
+<meta property="og:url" content="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5/index.html">
+<meta property="og:site_name" content="罐头先生的博客">
+<meta property="og:description" content="异步到底是什么        异步不是让代码天然更快，也不等于多线程。异步真正解决的是：当一个操作暂时无法继续时，不让执行它的线程原地等待，而是把当前逻辑暂停，等条件满足后再恢复。 同步代码中，调用栈、线程和逻辑流程基本重合： 12auto data &#x3D; socket.read();process(data); 线程会阻塞在 read()，直到数据到达。异">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-11T08:53:43.808Z">
+<meta property="article:author" content="Mr.Can">
+<meta name="twitter:card" content="summary"><title>深入理解异步 | 罐头先生的博客</title><link ref="canonical" href="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">罐头先生的博客</div><div class="header-banner-info__subtitle">Mr.Can</div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">深入理解异步</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2026-06-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2026-06-11</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5/" data-flag-title="深入理解异步"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h2 id="异步到底是什么"   >
+          <a href="#异步到底是什么" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步到底是什么"></a> 异步到底是什么</h2>
+      
+<p>异步不是让代码天然更快，也不等于多线程。异步真正解决的是：当一个操作暂时无法继续时，不让执行它的线程原地等待，而是把当前逻辑暂停，等条件满足后再恢复。</p>
+<p>同步代码中，调用栈、线程和逻辑流程基本重合：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> data = socket.<span class="built_in">read</span>();</span><br><span class="line"><span class="built_in">process</span>(data);</span><br></pre></td></tr></table></div></figure>
+<p>线程会阻塞在 <code>read()</code>，直到数据到达。异步代码则把“等待”拆出来：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> data = <span class="keyword">co_await</span> socket.<span class="built_in">async_read</span>();</span><br><span class="line"><span class="built_in">process</span>(data);</span><br></pre></td></tr></table></div></figure>
+<p><code>co_await</code> 处协程暂停，线程可以去执行别的任务；数据到达后，调度器再恢复这个协程。逻辑流程没有消失，只是暂时和具体线程分离了。</p>
+
+        <h2 id="并发-并行-异步的区别"   >
+          <a href="#并发-并行-异步的区别" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#并发-并行-异步的区别"></a> 并发、并行、异步的区别</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>并发</td>
+<td>多个任务的生命周期发生重叠</td>
+</tr>
+<tr>
+<td>并行</td>
+<td>多个任务真的在多个 CPU 核上同时执行</td>
+</tr>
+<tr>
+<td>异步</td>
+<td>等待期间是否释放执行线程</td>
+</tr>
+</tbody>
+</table></div>
+<p>一个线程用事件循环管理上万个 socket，是异步、并发，但未必并行。多个线程同时做 CPU 计算，是并发、并行，但可以完全同步。异步最适合处理网络、磁盘、数据库、定时器、GUI 事件这类等待外部事件的工作。</p>
+
+        <h2 id="异步的本质是状态机"   >
+          <a href="#异步的本质是状态机" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步的本质是状态机"></a> 异步的本质是状态机</h2>
+      
+<p>同步函数依靠调用栈保存执行位置和局部变量：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> a = <span class="built_in">step1</span>();</span><br><span class="line"><span class="keyword">auto</span> b = <span class="built_in">step2</span>(a);</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">step3</span>(b);</span><br></pre></td></tr></table></div></figure>
+<p>callback 风格需要手工拆状态机：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">step1_async</span>([](<span class="keyword">auto</span> a) &#123;</span><br><span class="line">    <span class="built_in">step2_async</span>(a, [](<span class="keyword">auto</span> b) &#123;</span><br><span class="line">        <span class="built_in">step3</span>(b);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></div></figure>
+<p>协程让编译器生成状态机：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> a = <span class="keyword">co_await</span> <span class="built_in">step1_async</span>();</span><br><span class="line"><span class="keyword">auto</span> b = <span class="keyword">co_await</span> <span class="built_in">step2_async</span>(a);</span><br><span class="line"><span class="function"><span class="keyword">co_return</span> <span class="title">step3</span><span class="params">(b)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>所以协程不是消灭 callback，而是让编译器替我们管理 continuation、局部变量和恢复点。</p>
+
+        <h2 id="为什么-callback-容易破坏结构"   >
+          <a href="#为什么-callback-容易破坏结构" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#为什么-callback-容易破坏结构"></a> 为什么 callback 容易破坏结构</h2>
+      
+<p>同步代码中，子函数一定在父函数返回前结束：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">handle_request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    State state;</span><br><span class="line">    <span class="keyword">auto</span> data = <span class="built_in">read</span>();</span><br><span class="line">    <span class="built_in">process</span>(state, data);</span><br><span class="line">&#125; <span class="comment">// state 在这里销毁</span></span><br></pre></td></tr></table></div></figure>
+<p><code>state</code> 的生命周期清晰，因为 <code>read()</code> 不返回，<code>handle_request()</code> 就不会结束。</p>
+<p>传统异步 callback 则不同：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">handle_request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    State state;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">read_async</span>([&amp;] &#123;</span><br><span class="line">        <span class="built_in">process</span>(state);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125; <span class="comment">// handle_request() 很快返回，state 已经销毁</span></span><br></pre></td></tr></table></div></figure>
+<p><code>read_async()</code> 通常只是登记一次读取和回调，然后立即返回。真正的 callback 可能很久以后才执行。此时 <code>state</code> 已经被销毁，callback 中的引用就悬空了。</p>
+<p>因此很多异步代码会写成：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Session::handle_request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> self = <span class="built_in">shared_from_this</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">read_async</span>([self] &#123;</span><br><span class="line">        self-&gt;<span class="built_in">process</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>捕获 <code>shared_ptr</code> 可以让 <code>Session</code> 至少活到 callback 执行完，避免访问已销毁对象。但代价是：对象生命周期不再由调用栈和作用域表达，而是由“还有哪些 callback 捕获了 <code>shared_ptr</code>”决定。代码能跑，但难推理。</p>
+
+        <h2 id="shared_ptr-在多线程异步中的问题"   >
+          <a href="#shared_ptr-在多线程异步中的问题" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#shared_ptr-在多线程异步中的问题"></a> shared_ptr 在多线程异步中的问题</h2>
+      
+<p><code>shared_ptr</code> 的引用计数是线程安全的。多个线程各自持有一份 <code>shared_ptr</code> 副本，同时复制和销毁通常没问题。但这只保证对象不会太早析构，不保证对象内容线程安全。</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::thread <span class="title">t1</span><span class="params">([p] &#123; ++p-&gt;value; &#125;)</span></span>;</span><br><span class="line"><span class="function">std::thread <span class="title">t2</span><span class="params">([p] &#123; ++p-&gt;value; &#125;)</span></span>;</span><br></pre></td></tr></table></div></figure>
+<p>如果 <code>value</code> 是普通整数，这仍然是数据竞争。</p>
+<p><code>shared_ptr</code> 还有性能和设计问题：</p>
+<ul>
+<li>每次复制和析构都要修改原子引用计数。</li>
+<li>多核频繁复制同一个控制块会造成 cache line ping-pong。</li>
+<li>最后一份引用在哪个线程释放，析构就在哪个线程发生，尾延迟不可控。</li>
+<li>容易形成引用环，需要 <code>weak_ptr</code> 打断。</li>
+<li>容易掩盖真正的生命周期设计问题。</li>
+</ul>
+<p>如果使用 <code>shared_ptr</code> 只是为了让后台任务“先活着再说”，通常应该检查任务生命周期能否结构化。</p>
+
+        <h2 id="结构化并发的核心思想"   >
+          <a href="#结构化并发的核心思想" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#结构化并发的核心思想"></a> 结构化并发的核心思想</h2>
+      
+<p>结构化并发要求：子任务必须在父任务结束前完成。它把异步生命周期重新约束到清晰的父子结构中。</p>
+<p>同步函数天然满足这个性质：被调用函数一定先于调用者返回。结构化并发希望异步任务也满足类似关系。</p>
+<p>协程写法中：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">task&lt;<span class="type">void</span>&gt; <span class="title">Session::handle_request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> data = <span class="keyword">co_await</span> <span class="built_in">read_async</span>();</span><br><span class="line">    <span class="built_in">process</span>(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果 <code>read_async()</code> 是被立即等待的子操作，那么父协程恢复或退出前，子操作已经完成。局部变量、异常、RAII 和资源析构都重新变得容易推理。</p>
+
+        <h2 id="executor-与协程的关系"   >
+          <a href="#executor-与协程的关系" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#executor-与协程的关系"></a> executor 与协程的关系</h2>
+      
+<p>C++20 协程负责表达“如何暂停和恢复”，但它本身没有标准线程池、事件循环、I/O reactor 或 <code>task&lt;T&gt;</code> 类型。executor 或 scheduler 负责回答：恢复后的工作在哪里执行。</p>
+<p>一个调度 awaitable 可以理解为：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ScheduleAwaitable</span> &#123;</span><br><span class="line">    Executor&amp; ex;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">await_ready</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">await_suspend</span><span class="params">(std::coroutine_handle&lt;&gt; h)</span> </span>&#123;</span><br><span class="line">        ex.<span class="built_in">post</span>([h] &#123; h.<span class="built_in">resume</span>(); &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">await_resume</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></div></figure>
+<p><code>co_await ex.schedule()</code> 时，协程挂起，executor 将 <code>coroutine_handle</code> 放入队列，某个工作线程稍后调用 <code>resume()</code>。</p>
+<p>Eric Niebler 批评的不是 executor 本身，而是直接把 executor 当业务控制流来写。到处 <code>post()</code> callback，会让程序像在时间和线程之间手写 <code>goto</code>：状态分散、错误传递困难、取消规则不清晰、生命周期需要 <code>shared_ptr</code> 兜底。</p>
+
+        <h2 id="stdexecution-与-async-scope"   >
+          <a href="#stdexecution-与-async-scope" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#stdexecution-与-async-scope"></a> std::execution 与 async scope</h2>
+      
+<p>C++26 的 <code>std::execution</code> 提供 sender/receiver 模型，用来描述异步操作、调度、完成状态和取消。</p>
+<p><code>async_scope</code> 或更具体的 <code>counting_scope</code>，则用于管理动态派生的并发任务。它解决的问题是：任务数量事先未知，子任务还可能继续派生孙任务，系统关闭时如何知道所有任务都已经结束。</p>
+<p>它需要计数，因为每个被 scope 接纳的任务都代表一个尚未完成的工作：</p>
+<figure class="highlight text"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spawn(task_a)      count = 1</span><br><span class="line">spawn(task_b)      count = 2</span><br><span class="line">task_a 完成        count = 1</span><br><span class="line">task_b 完成        count = 0</span><br><span class="line">join() 完成</span><br></pre></td></tr></table></div></figure>
+<p><code>close()</code> 表示不再接收新任务，<code>join()</code> 表示等待已经接收的任务全部完成，<code>request_stop()</code> 表示向任务族发出协作式取消请求。</p>
+<p>这不是为了复杂而复杂，而是为了替代旧式 fire-and-forget：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">executor.<span class="built_in">submit</span>([self = <span class="built_in">shared_from_this</span>()] &#123;</span><br><span class="line">    self-&gt;<span class="built_in">do_work</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></div></figure>
+<p>旧写法能避免对象过早销毁，却没有回答后台任务什么时候结束、系统如何关闭、取消如何传播。scope 把这些隐含约定变成显式生命周期边界。</p>
+
+        <h2 id="异步是否更通用-更模块化"   >
+          <a href="#异步是否更通用-更模块化" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#异步是否更通用-更模块化"></a> 异步是否更通用、更模块化</h2>
+      
+<p>异步并不天然更模块化。好的异步抽象会增强模块化，差的异步抽象会让代码更难推理。</p>
+<p>实践中更好的分层是：</p>
+<figure class="highlight text"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">业务纯函数层</span><br><span class="line">    同步、无共享状态、容易测试</span><br><span class="line">        ↓</span><br><span class="line">异步编排层</span><br><span class="line">    管理 I/O、超时、取消、重试</span><br><span class="line">        ↓</span><br><span class="line">调度与系统层</span><br><span class="line">    event loop、scheduler、线程池、操作系统 I/O</span><br></pre></td></tr></table></div></figure>
+<p>计算逻辑尽量保持同步和局部化，等待边界使用异步表达。不要为了“通用”把所有函数都做成异步。</p>
+
+        <h2 id="对-tracing-的启发"   >
+          <a href="#对-tracing-的启发" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#对-tracing-的启发"></a> 对 tracing 的启发</h2>
+      
+<p>同步 tracing 可以依赖 RAII 和线程本地栈：</p>
+<figure class="highlight text"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thread</span><br><span class="line">└── outer</span><br><span class="line">    └── inner</span><br></pre></td></tr></table></div></figure>
+<p>但异步任务会跨线程恢复，不能只依赖 <code>thread_local</code> 推断父子关系。更好的模型是：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Track</td>
+<td>实际在哪个线程或执行队列上运行</td>
+</tr>
+<tr>
+<td>Span</td>
+<td>属于哪个逻辑任务</td>
+</tr>
+<tr>
+<td>Flow</td>
+<td>任务如何从一个线程迁移到另一个线程</td>
+</tr>
+<tr>
+<td>SpanContext</td>
+<td>跨线程、跨协程传播的逻辑上下文</td>
+</tr>
+</tbody>
+</table></div>
+<p>因此，多线程异步 tracing 应该记录两棵结构：一棵是物理执行时间线，一棵是逻辑任务父子关系。</p>
+<p>对于低延迟场景，hot path 中应避免锁、分配、字符串格式化和 <code>shared_ptr</code>。可以使用每线程固定容量 buffer 记录紧凑事件，后台线程再导出为 Perfetto、OpenTelemetry 或自定义二进制格式。</p>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+      
+<p>异步的本质是：等待时释放执行线程，用状态机保存逻辑进度，事件就绪后再恢复。它最适合等待密集型系统，不应滥用于纯计算逻辑。</p>
+<p>传统 callback 的问题在于，它让后续代码脱离当前函数作用域执行，破坏了调用栈原本提供的生命周期保证。<code>shared_ptr</code> 可以补救对象存活问题，但会带来所有权模糊、引用计数开销和关闭困难。</p>
+<p>结构化并发的目标，是让异步任务重新拥有像同步调用一样清楚的父子关系：子任务必须在父任务结束前完成。C<ins>20 协程让异步流程重新像顺序代码一样书写，C</ins>26 <code>std::execution</code> 和 scope 工具则进一步把调度、组合、取消和动态任务族管理标准化。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://xing-cg.github.io">Mr.Can</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5/">https://xing-cg.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5/</a></span></div></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/Linux/Linux_GRUB%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E5%92%8C%E4%BC%98%E5%8C%96%E5%85%B3%E5%8D%A1/"><span class="paginator-prev__text">Linux_GRUB启动参数</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">
+           异步到底是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91-%E5%B9%B6%E8%A1%8C-%E5%BC%82%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">
+           并发、并行、异步的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">
+           异步的本质是状态机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-callback-%E5%AE%B9%E6%98%93%E7%A0%B4%E5%9D%8F%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">
+           为什么 callback 容易破坏结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shared_ptr-%E5%9C%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%82%E6%AD%A5%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">
+           shared_ptr 在多线程异步中的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E5%B9%B6%E5%8F%91%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">6.</span> <span class="toc-text">
+           结构化并发的核心思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#executor-%E4%B8%8E%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">7.</span> <span class="toc-text">
+           executor 与协程的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stdexecution-%E4%B8%8E-async-scope"><span class="toc-number">8.</span> <span class="toc-text">
+           std::execution 与 async scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E6%98%AF%E5%90%A6%E6%9B%B4%E9%80%9A%E7%94%A8-%E6%9B%B4%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-number">9.</span> <span class="toc-text">
+           异步是否更通用、更模块化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9-tracing-%E7%9A%84%E5%90%AF%E5%8F%91"><span class="toc-number">10.</span> <span class="toc-text">
+           对 tracing 的启发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">11.</span> <span class="toc-text">
+           总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">无论哪里，生活继续。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/xing-cg" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://gitee.com/mrcan" target="_blank" rel="noopener" data-popover="social.gitee" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">Gitee</span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/people/mrcan666" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-zhihu"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1933966629" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:xing-cg@qq.com" target="_blank" rel="noopener" data-popover="social.QQmail" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/mrcan666" target="_blank" rel="noopener" data-popover="csdn" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">CSDN</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">318</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2026</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Mr.Can All Rights Reserved</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2025135168号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v7.3.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'QTXELGPwB2iKLovJroJUqbVP-gzGzoHsz',
+    appKey: 'DDfRbL0aLE3KEHXtbNXHrlEQ',
+    notify: true,
+    verify: true,
+    placeholder: '欢迎写下你的评论，同时欢迎留下你的昵称和邮箱！',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
